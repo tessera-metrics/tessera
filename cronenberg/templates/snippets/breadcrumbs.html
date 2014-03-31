@@ -1,0 +1,18 @@
+<!-- Breadcrumbs ------------------------------------------------------------------ -->
+
+{% if breadcrumbs is defined %}
+<ul class="breadcrumb">
+      {% for name, link in breadcrumbs %}
+      <li>
+        {% if link == '' %}
+        {{name}}
+        {% else %}
+        <a href="{{link}}">{{name}}</a>
+        {% endif %}
+        {% if not loop.last %}
+        <span class="divider">/</span>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+{% endif %}

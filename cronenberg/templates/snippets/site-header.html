@@ -1,0 +1,47 @@
+<title>{{config.get('DASHBOARD_APPNAME')}}: {{title}}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<!-- This is all dumped here out of convenience. It should be moved to
+use something like require.js for sanity -->
+
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='js/vendor/jquery-1.7.2.min.js') }}"></script>
+
+<!-- Bootstrap -->
+<link href="{{ url_for('static', filename='css/vendor/bootstrap.min.css') }}" rel="stylesheet"></link>
+<link href="{{ url_for('static', filename='css/vendor/bootstrap-responsive.min.css') }}" rel="stylesheet"></link>
+<link href="{{ url_for('static', filename='css/vendor/font-awesome.css') }}" rel="stylesheet"></link>
+<script src="{{ url_for('static', filename='js/vendor/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/bootstrap-button.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/bootstrap-tab.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/bootstrap-tooltip.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/bootbox.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/bootstrap-notify.js') }}"></script>
+<link href="{{ url_for('static', filename='css/vendor/bootstrap-notify.css') }}" rel="stylesheet"></link>
+
+<!-- flot -->
+<script src="{{ url_for('static', filename='js/vendor/jquery.flot.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.flot.time.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.flot.stack.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.flot.selection.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.flot.axislabels.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.flot.fillbetween.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.flot.multihighlight.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.flot.crosshair.js') }}"></script>
+
+<!-- Codemirror -->
+<script src="/static/codemirror/codemirror.js"></script>
+<script src="/static/codemirror/javascript.js"></script>
+<link rel="stylesheet" href="/static/codemirror/codemirror.css">
+<link rel="stylesheet" href="/static/codemirror/solarized-dark.css">
+
+<!-- Assorted -->
+<link href="{{ url_for('static', filename='css/vendor/select2.css') }}" rel="stylesheet"></link>
+<script src="{{ url_for('static', filename='js/vendor/select2.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/activity-indicator.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/date.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/handlebars-1.0.0.beta.6.js') }}"></script>
+
+<link href="{{ url_for('static', filename='css/vendor/jquery.dataTables.css') }}" rel="stylesheet"></link>
+<script src="{{ url_for('static', filename='js/vendor/jquery.dataTables.min.js') }}"></script>
+<link href="{{ url_for('static', filename='css/vendor/darkstrap.css') }}" rel="stylesheet"></link>

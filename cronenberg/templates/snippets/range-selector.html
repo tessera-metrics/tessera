@@ -1,0 +1,103 @@
+<form class="form-inline" id="rangesel-form">
+  <span id="rangesel-custom" style="display:none">
+    <input type="text" placeholder="From" class="input-medium" name="from" id="rangesel-from"></input>
+    to
+    <input type="text" placeholder="To" class="input-medium" name="to" id="rangesel-to"></input>
+    &nbsp;
+  </span>
+  <span class="dropdown" id="rangesel-menu">
+    <a href="#rangesel-menu" class="dropdown-toggle btn btn-inverse" data-toggle="dropdown"><i class="icon-calendar"></i> <span id="rangesel-current">Last Hour</span> <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu" id="rangesel-values" align="left">
+      <li><a href="#" class="rangesel-value" data-span-begin="-10 minutes" data-span-end="now">Last 10 Minutes</a></li>
+      <li><a href="#" class="rangesel-value" data-span-begin="-30 minutes" data-span-end="now">Last 30 Minutes</a></li>
+      <li class="divider"></li>
+      <li><a href="#" class="rangesel-value" data-span-begin="1 hour ago" data-span-end="now">Last Hour</a></li>
+      <li><a href="#" class="rangesel-value" data-span-begin="3 hours ago" data-span-end="now">Last 3 Hours</a></li>
+      <li><a href="#" class="rangesel-value" data-span-begin="6 hours ago" data-span-end="now">Last 6 Hours</a></li>
+      <li><a href="#" class="rangesel-value" data-span-begin="12 hours ago" data-span-end="now">Last 12 Hours</a></li>
+      <li><a href="#" class="rangesel-value" data-span-begin="24 hours ago" data-span-end="now">Last 24 Hours</a></li>
+      <li class="divider"></li>
+      <li><a href="#" class="rangesel-value" data-span-begin="today" data-span-end="now">Today</a></li>
+      <li><a href="#" class="rangesel-value" data-span-begin="yesterday" data-span-end="today">Yesterday</a></li>
+      <li><a href="#" class="rangesel-value" data-span-begin="48 hours ago" data-span-end="now">Last 2 Days</a></li>
+      <li><a href="#" class="rangesel-value" data-span-begin="72 hours ago" data-span-end="now">Last 3 Days</a></li>
+      <li class="divider"></li>
+      <li><a href="#" class="rangesel-value" data-span-begin="1 week ago" data-span-end="now">Last Week</a></li>
+      <li><a href="#" class="rangesel-value" data-span-begin="2 weeks ago" data-span-end="now">Last 2 Weeks</a></li>
+      <li class="divider"></li>
+      <li><a href="#" class="rangesel-value" id="rangesel-set-custom">Custom</a></li>
+    </ul>
+  </span>
+</form>
+<script>
+
+RangeSelector = function() {
+    var self  = this;
+    var begin ="1 hour ago";
+    var end   = "now";
+    var onUpdate = function(begin, end) {};
+
+    this.begin = function(_) {
+        if ( !arguments.length ) return begin;
+        begin = _;
+        return self;
+    };
+
+    this.end = function(_) {
+        if ( !arguments.length ) return end;
+        end = _;
+        return self;
+    };
+
+    this.notify = function() {
+        if ( onUpdate) {
+            onUpdate(Date.parse(begin),
+                     Date.parse(end));
+        }
+        return self;
+    };
+
+    this.onUpdate = function(_) {
+        if (!arguments.length) return onUpdate;
+        onUpdate = _;
+        return self;
+    };
+};
+var rangesel = new RangeSelector();
+
+$("#rangesel-from").change(function(e) {
+    rangesel.begin(e.target.value);
+    rangesel.notify();
+});
+
+$("#rangesel-to").change(function(e) {
+    rangesel.end(e.target.value);
+    rangesel.notify();
+});
+
+$(document).on("click", ".rangesel-value", function(event) {
+    $("#rangesel-current").text(event.target.text);
+    if ( event.target.id == "rangesel-set-custom" ) {
+        $("#rangesel-custom").fadeIn('slow');
+    } else {
+        $("#rangesel-custom").fadeOut('slow');
+        rangesel.begin(event.target.dataset.spanBegin);
+        rangesel.end(event.target.dataset.spanEnd);
+        rangesel.notify();
+    }
+    $("#rangesel-from").val(rangesel.begin());
+    $("#rangesel-to").val(rangesel.end());
+});
+
+$("#rangesel-from").change(function(event) {
+    rangesel.end(event.target.text);
+    rangesel.notify();
+});
+
+$("#rangesel-to").change(function(event) {
+    rangesel.end(event.target.text);
+    rangesel.notify();
+});
+
+</script>

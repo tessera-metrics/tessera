@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    {% include "snippets/site-header.html" %}
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="notifications top-right"></div>
+      <div class="page-header">
+        <div class="row">
+          <div class="span9">
+            <a href="/"><i class="icon-home icon-large"></i></a>
+            <a href="/settings"><i class="icon-cogs icon-large"></i></a>
+            <h1>
+              {% block pagetitle %}
+              {% endblock %}
+            </h1>
+          </div>
+          <div class="span3 time-container" align="right">
+            <h2 class="time">{{ now.strftime("%I:%M") }}<small> {{ now.strftime("%p") }}</small></h2>
+            <h6 class="date">{{ now.strftime("%A") }} {{ now.strftime("%d %B %Y") }}</h6>
+          </div>
+        </div>
+      </div>
+
+      {% block layout %}
+      {% block content %}
+      {% endblock %}
+      {% endblock %}
+
+      <hr/>
+
+      {% block layoutfooter %}
+      {% block footer %}
+      {% endblock %}
+      {% endblock %}
+
+    </div> <!-- container -->
+
+    <p>&nbsp;</p>
+
+    {% include "snippets/site-footer.html" %}
+
+  </body>
+</html>
+
+

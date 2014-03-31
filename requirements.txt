@@ -1,0 +1,6 @@
+flask
+flask-script
+requests
+simplejson
+toolbox
+gunicorn
