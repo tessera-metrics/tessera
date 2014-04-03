@@ -3,7 +3,7 @@
 
 {% block pagetitle %}
 <!-- {{config.get('DASHBOARD_APPNAME')}} {{config.get('DASHBOARD_VERSION')}} -->
-Automation Status
+Automation Overview
 {% endblock %}
 
 
@@ -15,7 +15,7 @@ Automation Status
     <div class="well">
       <div class="singlestat" align="center">
         <h3>Raw Events Processed</h3>
-        <p>{{ context['events'][0]['sum']+ context['events'][2]['sum'] }}</p>
+        <p>{{'{:,}'.format( context['events'][0]['sum']+ context['events'][2]['sum'] )}}</p>
       </div>
       </div>
   </div>
@@ -24,7 +24,7 @@ Automation Status
     <div class="well">
       <div class="singlestat" align="center">
         <h3>Triggers Processed</h3>
-        <p>{{ context['triggers'][8]['sum'] }}</p>
+        <p>{{ '{:,}'.format(context['triggers'][8]['sum']) }}</p>
       </div>
       </div>
   </div>
@@ -55,6 +55,22 @@ Automation Status
       </div>
   </div>
   -->
+
+</div> <!-- row -->
+<hr/>
+<div class="row">
+  <div class="span2">
+      <div class="singlestat" align="center">
+        <h3>API Requests</h3>
+        <p>{{ context['api-rate'][1]['sum'] }}</p>
+      </div>
+  </div>
+  <div class="span2">
+      <div class="singlestat" align="center">
+        <h3>Mean Response Time</h3>
+        <p>{{ '{:.4}'.format(context['api-latency'][0]['avg']) }}ms</p>
+      </div>
+  </div>
 
 </div> <!-- row -->
 
