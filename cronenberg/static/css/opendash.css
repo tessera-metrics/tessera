@@ -22,6 +22,17 @@
     margin-left: 0;
 }
 
+.singlestat h3 {
+    font-size: 1.2em;
+    font-variant:small-caps;
+    padding-bottom: 12px;
+}
+
+.singlestat p {
+    font-size: 3em;
+    font-weight: bold;
+}
+
 /* DataTables tweaks to work w/Boostrap */
 table.table thead .sorting,
 table.table thead .sorting_asc,

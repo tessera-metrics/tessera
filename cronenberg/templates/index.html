@@ -11,6 +11,43 @@ Automation Status
 
 <div class="row">
 
+  <div class="span3">
+      <div class="singlestat" align="center">
+        <h3>Raw Events<br/>Processed</h3>
+        <p>{{ context['gorram'][0]['sum'] }}</p>
+      </div>
+  </div>
+
+  <div class="span2">
+      <div class="singlestat" align="center">
+        <h3>Immediate Triggers Processed</h3>
+        <p>{{ context['triggers'][1]['sum'] }}</p>
+      </div>
+  </div>
+
+  <div class="span2">
+      <div class="singlestat" align="center">
+        <h3>Historical Triggers Processed</h3>
+        <p>{{ context['triggers'][5]['sum'] }}</p>
+      </div>
+  </div>
+
+  <div class="span2">
+      <div class="singlestat" align="center">
+        <h3>Total<br/>Pushes</h3>
+        <p>{{ context['total'][0]['sum'] }}</p>
+      </div>
+  </div>
+
+  <div class="span2">
+      <div class="singlestat" align="center">
+        <h3>API<br/>Requests</h3>
+        <p>{{ context['api-rate'][1]['sum'] }}</p>
+      </div>
+  </div>
+
+
+
 </div> <!-- row -->
 
 <p>&nbsp;</p>

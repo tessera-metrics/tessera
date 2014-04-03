@@ -39,6 +39,14 @@ class Queries(object):
                            "Immediate Triggers Processed Rate"),
                      alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_processed.Count'))),
                            "Immediate Triggers Processed Count"),
+                     alias(rate(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_satisfied.Count'))),
+                           "Immediate Triggers Satisfied Rate"),
+                     alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_satisfied.Count'))),
+                           "Immediate Triggers Satisfied Count"),
+                     alias(rate(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_processed.Count'))),
+                           "Historical Triggers Processed Rate"),
+                     alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_processed.Count'))),
+                           "Historical Triggers Processed Count"),
                      alias(rate(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_satisfied.Count'))),
                            "Historical Triggers Satisfied Rate"),
                      alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_satisfied.Count'))),
@@ -112,12 +120,19 @@ class Queries(object):
                                           max_series(rash(service, 'pipelineendpointmetrics.listdeletedpipelinetimer.Mean'))),
                            "/api/pipelines, Average Latency"))
 
+    def automation_gorram_events(self):
+        service = self.env.service('triggers-gorram-consumer')
+        return group(alias(sum_series(non_negative_derivative(rash(service, 'argonmutationconsumer_timer.device_open_processed.Count'))),
+                           'Device Open Count'),
+                     alias(sum_series(rate(rash(service, 'argonmutationconsumer_timer.device_open_processed.Count'))),
+                           'Device Open Rate'))
+
 class Datastore(object):
     def __init__(self, env):
         self.env = env
         self.graphite = env.graphite()
 
-    def fetch(self, target, from_time='-1h', until_time=None):
+    def fetch(self, target, from_time='-12h', until_time=None):
         query = GraphiteQuery(target, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
         response = self.graphite.fetch(query)
         return self.process(response.json())
@@ -125,9 +140,9 @@ class Datastore(object):
     def process(self, data):
         for series in data:
             if series['target'].lower().endswith('count'):
-                series['sum'] = sum(filter(None, [d[0] for d in series['datapoints']]))
-        if series['target'].lower().endswith('latency'):
-            datapoints = filter(None, [d[0] for d in series['datapoints']])
-            mean = float(sum(datapoints)) / len(datapoints)
-            series['avg'] = mean
+                series['sum'] = int(sum(filter(None, [d[0] for d in series['datapoints']])))
+            if series['target'].lower().endswith('latency'):
+                datapoints = filter(None, [d[0] for d in series['datapoints']])
+                mean = float(sum(datapoints)) / len(datapoints)
+                series['avg'] = mean
         return data
