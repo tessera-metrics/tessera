@@ -12,41 +12,49 @@ Automation Status
 <div class="row">
 
   <div class="span3">
+    <div class="well">
       <div class="singlestat" align="center">
-        <h3>Raw Events<br/>Processed</h3>
-        <p>{{ context['gorram'][0]['sum'] }}</p>
+        <h3>Raw Events Processed</h3>
+        <p>{{ context['events'][0]['sum']+ context['events'][2]['sum'] }}</p>
+      </div>
       </div>
   </div>
 
-  <div class="span2">
+  <div class="span3">
+    <div class="well">
       <div class="singlestat" align="center">
-        <h3>Immediate Triggers Processed</h3>
-        <p>{{ context['triggers'][1]['sum'] }}</p>
+        <h3>Triggers Processed</h3>
+        <p>{{ context['triggers'][8]['sum'] }}</p>
+      </div>
       </div>
   </div>
 
-  <div class="span2">
+  <div class="span3">
+    <div class="well">
       <div class="singlestat" align="center">
-        <h3>Historical Triggers Processed</h3>
-        <p>{{ context['triggers'][5]['sum'] }}</p>
+        <h3>Triggers Satisfied</h3>
+        <p>{{ context['triggers'][9]['sum'] }}</p>
+      </div>
       </div>
   </div>
 
-  <div class="span2">
+  <div class="span3">
+    <div class="well">
       <div class="singlestat" align="center">
-        <h3>Total<br/>Pushes</h3>
+        <h3>Pushes Sent</h3>
         <p>{{ context['total'][0]['sum'] }}</p>
       </div>
+      </div>
   </div>
 
-  <div class="span2">
+  <!--
+  <div class="span2 well">
       <div class="singlestat" align="center">
         <h3>API<br/>Requests</h3>
         <p>{{ context['api-rate'][1]['sum'] }}</p>
       </div>
   </div>
-
-
+  -->
 
 </div> <!-- row -->
 

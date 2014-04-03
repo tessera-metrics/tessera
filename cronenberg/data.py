@@ -35,22 +35,36 @@ class Queries(object):
 
     def automation_triggers_processed(self):
         service = self.env.service('triggers-state-ingress')
-        return group(alias(rate(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_processed.Count'))),
-                           "Immediate Triggers Processed Rate"),
-                     alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_processed.Count'))),
-                           "Immediate Triggers Processed Count"),
-                     alias(rate(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_satisfied.Count'))),
-                           "Immediate Triggers Satisfied Rate"),
-                     alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_satisfied.Count'))),
-                           "Immediate Triggers Satisfied Count"),
-                     alias(rate(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_processed.Count'))),
-                           "Historical Triggers Processed Rate"),
-                     alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_processed.Count'))),
-                           "Historical Triggers Processed Count"),
-                     alias(rate(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_satisfied.Count'))),
-                           "Historical Triggers Satisfied Rate"),
-                     alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_satisfied.Count'))),
-                           "Historical Triggers Satisfied Count"))
+        return group(
+
+            # Immediate
+            alias(rate(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_processed.Count'))),
+                  "Immediate Triggers Processed Rate"),
+            alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_processed.Count'))),
+                  "Immediate Triggers Processed Count"),
+            alias(rate(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_satisfied.Count'))),
+                  "Immediate Triggers Satisfied Rate"),
+            alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_satisfied.Count'))),
+                  "Immediate Triggers Satisfied Count"),
+
+            # Historial
+            alias(rate(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_processed.Count'))),
+                  "Historical Triggers Processed Rate"),
+            alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_processed.Count'))),
+                  "Historical Triggers Processed Count"),
+            alias(rate(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_satisfied.Count'))),
+                  "Historical Triggers Satisfied Rate"),
+            alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_satisfied.Count'))),
+                  "Historical Triggers Satisfied Count"),
+
+            # Total
+            alias(sum_series(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_processed.Count'))),
+                             non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_processed.Count')))),
+                  "Total Triggers Processed Count"),
+            alias(sum_series(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_satisfied.Count'))),
+                             non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_satisfied.Count')))),
+                  "Total Triggers Satisfied Count")
+        )
 
     def automation_end_to_end_delivery_time(self):
         service = self.env.service('triggers-fulfillment')
@@ -120,12 +134,21 @@ class Queries(object):
                                           max_series(rash(service, 'pipelineendpointmetrics.listdeletedpipelinetimer.Mean'))),
                            "/api/pipelines, Average Latency"))
 
-    def automation_gorram_events(self):
-        service = self.env.service('triggers-gorram-consumer')
-        return group(alias(sum_series(non_negative_derivative(rash(service, 'argonmutationconsumer_timer.device_open_processed.Count'))),
-                           'Device Open Count'),
-                     alias(sum_series(rate(rash(service, 'argonmutationconsumer_timer.device_open_processed.Count'))),
-                           'Device Open Rate'))
+    def automation_events(self):
+        gorram  = self.env.service('triggers-gorram-consumer')
+        ingress = self.env.service('triggers-state-ingress')
+        return group(
+            # Gorram - device events
+            alias(sum_series(non_negative_derivative(rash(gorram, 'argonmutationconsumer_timer.device_open_processed.Count'))),
+                  'Device Open Count'),
+            alias(sum_series(rate(rash(gorram, 'argonmutationconsumer_timer.device_open_processed.Count'))),
+                  'Device Open Rate'),
+            # Ingress - tag events
+            alias(sum_series(non_negative_derivative(rash(ingress, 'immediatetriggerauditlog.observation_latency.Count'))),
+                  'Tag Observation Count'),
+            alias(sum_series(rate(rash(ingress, 'immediatetriggerauditlog.observation_latency.Count'))),
+                  'Tag Observation Rate')
+        )
 
 class Datastore(object):
     def __init__(self, env):

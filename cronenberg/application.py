@@ -45,7 +45,7 @@ def ui_root():
         'platform-count' : datastore.fetch(queries.automation_push_platform_counts()),
         'platform-rate' : datastore.fetch(queries.automation_push_platform_rates()),
         'triggers' : datastore.fetch(queries.automation_triggers_processed()),
-        'gorram' : datastore.fetch(queries.automation_gorram_events())
+        'events' : datastore.fetch(queries.automation_events())
     }
     return _render_template('index.html', title='Home',
                             context=context,
