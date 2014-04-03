@@ -33,7 +33,7 @@ class Queries(object):
                                       rate(rash(service, 'delayedpushfulfillmenthandler.total_delayed_push_count.Count'))),
                            "Push Rate"))
 
-    def automation_immediate_triggers_processed(self):
+    def automation_triggers_processed(self):
         service = self.env.service('triggers-state-ingress')
         return group(alias(rate(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_processed.Count'))),
                            "Immediate Triggers Processed Rate"),
@@ -119,10 +119,10 @@ class Datastore(object):
 
     def fetch(self, target, from_time='-1h', until_time=None):
         query = GraphiteQuery(target, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
-        response = self.graphite().fetch(query)
-        return process(response.json())
+        response = self.graphite.fetch(query)
+        return self.process(response.json())
 
-    def process(data):
+    def process(self, data):
         for series in data:
             if series['target'].lower().endswith('count'):
                 series['sum'] = sum(filter(None, [d[0] for d in series['datapoints']]))
