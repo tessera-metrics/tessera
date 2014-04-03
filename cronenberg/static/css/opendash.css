@@ -33,6 +33,11 @@
     font-weight: bold;
 }
 
+.singlestat .unit {
+    font-size: .5em;
+    text-transform: lowercase;
+}
+
 /* DataTables tweaks to work w/Boostrap */
 table.table thead .sorting,
 table.table thead .sorting_asc,
