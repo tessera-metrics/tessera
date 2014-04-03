@@ -1,0 +1,11 @@
+*.pyc
+*~
+*#
+#*#
+toolbox.egg-info/
+bin/
+lib/
+include/
+man/
+dist/
+.Python

@@ -2,5 +2,5 @@ flask
 flask-script
 requests
 simplejson
-toolbox
+toolbox>=0.2.7
 gunicorn
