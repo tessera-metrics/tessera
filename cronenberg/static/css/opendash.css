@@ -84,7 +84,11 @@ body {
     font-variant:small-caps;
     text-transform:uppercase;
     padding-bottom: 12px;
-    color: #AAAABB;
+    color: #a6a699;
+}
+
+.singlestat.banner h3 {
+  color: #aa8866;
 }
 
 .singlestat p {

@@ -23,7 +23,7 @@
     <div class="span3">
       <div class="well">
         <div
-        <div class="singlestat" align="center">
+        <div class="singlestat banner" align="center">
           <h3>Raw Events Processed</h3>
           <p>{{'{:,}'.format( context['events'][0]['sum']+ context['events'][2]['sum'] )}}</p>
         </div>
@@ -32,7 +32,7 @@
 
     <div class="span3">
       <div class="well">
-        <div class="singlestat" align="center">
+        <div class="singlestat banner" align="center">
           <h3>Triggers Processed</h3>
           <p>{{ '{:,}'.format(context['triggers'][8]['sum']) }}</p>
         </div>
@@ -41,7 +41,7 @@
 
     <div class="span3">
       <div class="well">
-        <div class="singlestat" align="center">
+        <div class="singlestat banner" align="center">
           <h3>Triggers Satisfied</h3>
           <p>{{ context['triggers'][9]['sum'] }}</p>
         </div>
@@ -50,7 +50,7 @@
 
     <div class="span3">
       <div class="well">
-        <div class="singlestat" align="center">
+        <div class="singlestat banner" align="center">
           <h3>Pushes Sent</h3>
           <p>{{ context['total'][0]['sum'] }}</p>
         </div>
