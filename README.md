@@ -3,7 +3,9 @@
 An executive dashboard for Automation. A lot of this is ripped from
 the old [OpenDash](https://github.com/urbanairship/opendash/)
 project. Currently a bit of a mess due to being rushed in time for
-demoing.
+demoing. 
+
+![Screenshot](screenshot.png)
 
 ## Dependencies ##
 
@@ -47,6 +49,3 @@ pip install -r requirements.txt
 ./manage.py run
 ```
 
-### Screenshot
-
-![Screenshot](screenshot.png)
