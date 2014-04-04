@@ -156,16 +156,29 @@ class Datastore(object):
         self.graphite = env.graphite()
 
     def fetch(self, target, from_time='-12h', until_time=None):
+        """Retrieve a set of metrics in JSON format and process them for
+        display."""
         query = GraphiteQuery(target, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
         response = self.graphite.fetch(query)
         return self.process(response.json())
 
-    def process(self, data):
+    def process(self, data, reverse_points=True):
+        """
+        Keyword arguments:
+        reverse_points -- Flip the value and time components of each
+        datapoint tuple if true. Flot, for example, expects
+        [timestamp,value], while graphite outputs [value,timestamp]
+        """
         for series in data:
+            datapoints = series['datapoints']
             if series['target'].lower().endswith('count'):
-                series['sum'] = int(sum(filter(None, [d[0] for d in series['datapoints']])))
-            if series['target'].lower().endswith('latency'):
-                datapoints = filter(None, [d[0] for d in series['datapoints']])
-                mean = float(sum(datapoints)) / len(datapoints)
-                series['avg'] = mean
+                series['sum'] = int(sum(filter(None, [d[0] for d in datapoints])))
+            points = filter(None, [d[0] for d in series['datapoints']])
+            if len(points) > 0:
+                series['avg'] = float(sum(points)) / len(points)
+            for point in datapoints:
+                if point[0] is None:
+                    point[0] = 0
+                if reverse_points:
+                    point[0], point[1] = point[1], point[0]
         return data

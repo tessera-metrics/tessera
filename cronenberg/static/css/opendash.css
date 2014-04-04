@@ -1,17 +1,4 @@
 
-/*  Rickshaw tweaks for conflicts w/Bootstrap */
-.rickshaw_legend .label {
-    background: transparent;
-    color: #444;
-    text-shadow: none;
-}
-
-.rickshaw_legend {
-    background: transparent;
-    margin-left: -1.85em;
-    margin-top: -1em;
-}
-
 /* Bootstrap tweak */
 .label {
     text-decoration: none;
@@ -20,22 +7,6 @@
 
 .select2-container {
     margin-left: 0;
-}
-
-.singlestat h3 {
-    font-size: 1.2em;
-    font-variant:small-caps;
-    padding-bottom: 12px;
-}
-
-.singlestat p {
-    font-size: 3em;
-    font-weight: bold;
-}
-
-.singlestat .unit {
-    font-size: .5em;
-    text-transform: lowercase;
 }
 
 /* DataTables tweaks to work w/Boostrap */
@@ -101,6 +72,41 @@ background-color: #222;
 }
 
 /* App styles */
+
+body {
+    font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;
+}
+
+.singlestat h3 {
+    font-stretch: condensed;
+    font-size: 1.2em;
+    font-weight: normal;
+    font-variant:small-caps;
+    text-transform:uppercase;
+    padding-bottom: 12px;
+    color: #AAAABB;
+}
+
+.singlestat p {
+    font-size: 3em;
+    font-weight: bold;
+    color:white;
+}
+
+.singlestat .unit {
+    font-size: .5em;
+    text-transform: lowercase;
+    color: gray;
+}
+
+h1 .primary-title {
+  color: gray;
+}
+
+h1 .secondary-title {
+  color: white;
+}
+
 .simple-chart {
     position:relative;
     margin-bottom: 22px;
@@ -121,6 +127,15 @@ background-color: #222;
 .value-overlay h3 {
     font-size:30px;
 }
+
+.graphline {
+    padding-bottom: 2em;
+}
+
+.graph-render {
+    height: 90px;
+}
+
 #tooltip {
     opacity: 1.0;
     background-color: #333;

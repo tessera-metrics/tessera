@@ -162,13 +162,13 @@ opendash.time_series_chart = function() {
 
 
         if ( !data ) {
-            $(container).activity({segments:11, width:3, length:3, space:1});
+            // $(container).activity({segments:11, width:3, length:3, space:1});
             $.ajax({url:url,
                     type:"get",
                     accepts:"application/json",
                     dataType:"json",
                     error:function(request, status, error) {
-                        $(container).activity(false);
+                        // $(container).activity(false);
                         $(container).replaceWith("<div><h6>No Data</h6></div>");
                         $('.top-right').notify({
                             message: { text: 'Failed to load ' + url },
@@ -176,7 +176,7 @@ opendash.time_series_chart = function() {
                         }).show();
                     },
                     success:function(data, status, request) {
-                        $(container).activity(false);
+                        // $(container).activity(false);
                         series = data.data;
                         if ( dataHandler != null ) {
                             series = dataHandler(series);
@@ -184,7 +184,7 @@ opendash.time_series_chart = function() {
                         plot = $.plot($(container), series, default_options);
                     }});
         } else {
-            $(container).activity(false);
+            // $(container).activity(false);
             plot = $.plot($(container), data, default_options);
         }
 
@@ -344,17 +344,17 @@ opendash.time_series_chart = function() {
     return chart;
 };
 
-opendash.make_chart = function(container, response) {
-    var entity = response.entity;
+opendash.make_chart = function(element, data) {
     var chart = opendash.time_series_chart()
-        .data(response.data)
-        .url(entity.data_uri)
-        .container(container)
+        .data(data)
+        // .url(entity.data_uri)
+        .container(element)
         .legend(false)
-        .y_label(entity.options.y_label || '')
-        .line_width(entity.options.line_width || 1)
-        .stack(entity.options.stack || false)
-        .type(entity.options.chart_type || 'line');
+        // .y_label(entity.options.y_label || '')
+        // .line_width(entity.options.line_width || 1)
+        // .stack(entity.options.stack || false)
+        // .type(entity.options.chart_type || 'line');
+        .type('line');
     chart.options().grid.borderColor = "#333";
     return chart;
 };
@@ -446,4 +446,3 @@ opendash.colors = {
                     "#bdbdbd", "#d9d9d9"]
 
 };
-

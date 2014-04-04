@@ -45,7 +45,8 @@ def ui_root():
         'platform-count' : datastore.fetch(queries.automation_push_platform_counts()),
         'platform-rate' : datastore.fetch(queries.automation_push_platform_rates()),
         'triggers' : datastore.fetch(queries.automation_triggers_processed()),
-        'events' : datastore.fetch(queries.automation_events())
+        'events' : datastore.fetch(queries.automation_events()),
+        'delivery' : datastore.fetch(queries.automation_end_to_end_delivery_time())
     }
     return _render_template('index.html', title='Home',
                             context=context,
