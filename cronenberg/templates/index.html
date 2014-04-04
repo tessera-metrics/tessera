@@ -75,8 +75,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['total'][1]['datapoints']  }}">
-        </div>
+        <div class="graph-container" datastring="{{ context['total'][1]['datapoints']  }}"></div>
       </div>
     </div>
   </div>
@@ -207,17 +206,26 @@
     window.charts = {}
     $(".graph-container").map(function(i, e) {
         chartid = "chart" + i;
+        overlayid = chartid + "-value";
         console.log(chartid);
         $(e).append('<div class="graph-render" id="' + chartid + '"></div>');
+        $(e).append('<div class="value-overlay" id="' + overlayid + '"></div>');
         c = opendash.time_series_chart()
-            .container($('#'+chartid))
+            .container($('#' + chartid))
             .data([{
                 data: JSON.parse(e.getAttribute('datastring'))
             }])
+            .dataHandler(function(data) {
+                $("#" + overlayid + " h3").text(
+                    opendash.format_kmbt(data[0].data[data[0].data.length-1][1])
+                );
+                return data;
+            })
             .legend(false)
             .y_label('')
             .stack(false)
             .line_width(1)
+            .colors(['#0088cc', '#AA8866'])
             .type('line');
         o = c.options();
         o.grid.show = true;
@@ -226,6 +234,7 @@
         c();
         window.charts[chartid] = c;
     });
+
   </script>
 
 {% endblock %}
