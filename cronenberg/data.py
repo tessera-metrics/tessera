@@ -184,5 +184,11 @@ class Queries(object):
             alias(sum_series(non_negative_derivative(rash(ingress, 'immediatetriggerauditlog.observation_latency.Count'))),
                   'Tag Observation Count'),
             alias(sum_series(rate(rash(ingress, 'immediatetriggerauditlog.observation_latency.Count'))),
-                  'Tag Observation Rate')
+                  'Tag Observation Rate'),
+            # Gorram - all mutations
+            alias(sum_series(non_negative_derivative(rash(gorram, 'argonmutationconsumer_meter.totalmutationsreceived.Count'))),
+                  'Total Argon Mutation Count'),
+            alias(sum_series(rate(rash(gorram, 'argonmutationconsumer_meter.totalmutationsreceived.Count'))),
+                  'Total Argon Mutation Rate')
+
         )
