@@ -1,19 +1,11 @@
-````
-  ____                            _
- / ___|_ __ ___  _ __   ___ _ __ | |__   ___ _ __ __ _
-| |   | '__/ _ \| '_ \ / _ \ '_ \| '_ \ / _ \ '__/ _` |
-| |___| | | (_) | | | |  __/ | | | |_) |  __/ | | (_| |
- \____|_|  \___/|_| |_|\___|_| |_|_.__/ \___|_|  \__, |
-     A dashboard for Automation                  |___/
-
-````
-
-# Cronenberg #
+# Cronenberg
 
 An executive dashboard for Automation. A lot of this is ripped from
 the old [OpenDash](https://github.com/urbanairship/opendash/)
 project. Currently a bit of a mess due to being rushed in time for
-demoing.
+demoing. 
+
+![Screenshot](screenshot.png)
 
 ## Dependencies ##
 
@@ -56,3 +48,4 @@ pip install -r requirements.txt
 # Run it (defaults to http://localhost:5000)
 ./manage.py run
 ```
+
