@@ -42,7 +42,7 @@ class Datastore(object):
             value, timestamp = point
             value = value if value else 0
 
-            point[0] = timestamp
+            point[0] = timestamp * 1000
             point[1] = value
 
             last_value = value
