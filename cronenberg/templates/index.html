@@ -3,8 +3,7 @@
 {% from "charts/flot.js" import render_chart with context %}
 
 {% block pagetitle %}
-<!-- {{config.get('DASHBOARD_APPNAME')}} {{config.get('DASHBOARD_VERSION')}} -->
-<span class="primary-title">Automation</span> <span class="secondary-title">Overview</span>
+  <span class="primary-title">{{app}}</span> <span class="secondary-title">{{title}}</span>
 {% endblock %}
 
 
@@ -109,13 +108,13 @@
     <div class="span2">
       <div class="singlestat">
         <h3>Immediate Triggers Processed</h3>
-        <p>{{ '{:0.2f}'.format(context['triggers'][0]['avg']) }}<span class="unit">/sec</span></p>
+        <p>{{ context['immediate-processed-rate'] }}<span class="unit">/sec</span></p>
       </div>
     </div>
     <div class="span2">
       <div class="singlestat">
         <h3>Immediate Triggers Satisfied</h3>
-        <p>{{ '{:0.2f}'.format(context['triggers'][2]['avg']) }}<span class="unit">/sec</span></p>
+        <p>{{ context['immediate-satisfied-rate'] }}<span class="unit">/sec</span></p>
       </div>
     </div>
     <div class="span8">

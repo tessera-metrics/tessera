@@ -53,14 +53,18 @@ def ui_root():
     context['triggers-processed']        = '{:,}'.format(int(context['triggers'][8]['sum']))
     context['triggers-satisfied']        = '{:,}'.format(int(context['triggers'][9]['sum']))
     context['pushes-sent']               = '{:,}'.format(int(context['total'][0]['sum']))
-    context['average-push-rate']         = '{:.2f}'.format(context['total'][1]['avg'])
+    context['average-push-rate']         = '{:.3f}'.format(context['total'][1]['avg'])
     context['average-end-to-end']        = '{0}'.format(int(context['delivery'][0]['avg']))
-    context['historical-processed-rate'] = '{:0.2f}'.format(context['triggers'][4]['avg'])
-    context['historical-satisfied-rate'] = '{:0.2f}'.format(context['triggers'][6]['avg'])
+    context['immediate-processed-rate'] = '{:0.3f}'.format(context['triggers'][0]['avg'])
+    context['immediate-satisfied-rate'] = '{:0.3f}'.format(context['triggers'][2]['avg'])
+    context['historical-processed-rate'] = '{:0.3f}'.format(context['triggers'][4]['avg'])
+    context['historical-satisfied-rate'] = '{:0.3f}'.format(context['triggers'][6]['avg'])
     context['api-mean-latency']          = '{:0.2f}'.format(context['api-latency'][0]['avg'])
-    context['api-total']                 = '{:0}'.format(int(context['api-rate'][1]['sum']))
+    context['api-total']                 = '{0}'.format(int(context['api-rate'][1]['sum']))
     context['mean-device-opens-rate']    = '{0}'.format(int(context['events'][1]['avg']))
 
-    return _render_template('index.html', title='Home',
+    return _render_template('index.html',
+                            app='Automation',
+                            title='Overview',
                             context=context,
                             breadcrumbs=[('Home','')])
