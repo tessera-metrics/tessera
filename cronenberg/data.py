@@ -1,6 +1,7 @@
 from toolbox.graphite.functions import *
 from toolbox.graphite import Graphite, GraphiteQuery
 import json
+import sys
 
 class Datastore(object):
     def __init__(self, env):
@@ -8,32 +9,56 @@ class Datastore(object):
         self.graphite = env.graphite()
 
     def fetch(self, target, from_time='-12h', until_time=None):
-        """Retrieve a set of metrics in JSON format and process them for
-        display."""
+        """
+        Retrieve a set of metrics in JSON format and process them for
+        display.
+        """
         query = GraphiteQuery(target, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
         response = self.graphite.fetch(query)
         return self.process(response.json())
 
     def process(self, data, reverse_points=True):
         """
-        Keyword arguments:
-        reverse_points -- Flip the value and time components of each
-        datapoint tuple if true. Flot, for example, expects
-        [timestamp,value], while graphite outputs [value,timestamp]
+        Take raw JSON data from Graphite and transform it into something
+        suitable for the presentation layer (i.e. flot).
         """
         for series in data:
-            datapoints = series['datapoints']
-            if series['target'].lower().endswith('count'):
-                series['sum'] = int(sum(filter(None, [d[0] for d in datapoints])))
-            points = filter(None, [d[0] for d in series['datapoints']])
-            if len(points) > 0:
-                series['avg'] = float(sum(points)) / len(points)
-            for point in datapoints:
-                if point[0] is None:
-                    point[0] = 0
-                if reverse_points:
-                    point[0], point[1] = point[1], point[0]
+            self.__process_series(series)
         return data
+
+    def __process_series(self, series):
+        datapoints = series['datapoints']
+
+        series['data'] = datapoints
+        series['label'] = series['target']
+        del series['datapoints']
+        del series['target']
+
+        min_value = sys.maxint
+        max_value = 0
+        sum_value = 0
+        last_value = 0
+        for point in datapoints:
+            value, timestamp = point
+            value = value if value else 0
+
+            point[0] = timestamp
+            point[1] = value
+
+            last_value = value
+            sum_value += value
+            if value > max_value:
+                max_value = value
+            if value < min_value:
+                min_value = value
+
+        series['sum']  = sum_value
+        series['avg']  = sum_value / len(datapoints) if len(datapoints) > 0 else 0
+        series['min']  = min_value
+        series['max']  = max_value
+        series['last'] = last_value
+
+        return series
 
 # =============================================================================
 # Queries
