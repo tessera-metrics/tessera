@@ -25,7 +25,7 @@
         <div
         <div class="singlestat banner" align="center">
           <h3>Raw Events Processed</h3>
-          <p>{{'{:,}'.format( context['events'][4]['sum'] + context['events'][2]['sum'] )}}</p>
+          <p>{{ context['total-events-processed'] }}</p>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
       <div class="well">
         <div class="singlestat banner" align="center">
           <h3>Triggers Processed</h3>
-          <p>{{ '{:,}'.format(context['triggers'][8]['sum']) }}</p>
+          <p>{{ context['triggers-processed'] }}</p>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
       <div class="well">
         <div class="singlestat banner" align="center">
           <h3>Triggers Satisfied</h3>
-          <p>{{ context['triggers'][9]['sum'] }}</p>
+          <p>{{ context['triggers-satisfied'] }}</p>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@
       <div class="well">
         <div class="singlestat banner" align="center">
           <h3>Pushes Sent</h3>
-          <p>{{ context['total'][0]['sum'] }}</p>
+          <p>{{ context['pushes-sent'] }}</p>
         </div>
       </div>
     </div>
@@ -69,13 +69,13 @@
     </div>
     <div class="span2">
       <div class="singlestat">
-        <h3>Total Pushes</h3>
-        <p>{{ '{:.3}'.format(context['total'][1]['avg']) }}<span class="unit">/sec</span></p>
+        <h3>Mean Push Rate</h3>
+        <p>{{ context['average-push-rate'] }}<span class="unit">/sec</span></p>
       </div>
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['total'][1]['datapoints']  }}"></div>
+        <div class="graph-container" datastring="{{ context['total'][1]['data']  }}"></div>
       </div>
     </div>
   </div>
@@ -90,12 +90,12 @@
     <div class="span2">
       <div class="singlestat">
         <h3>Mean End to End<br/>Delivery Time</h3>
-        <p>{{ '{:.4}'.format(context['delivery'][0]['avg']) }}<span class="unit"> ms</span></p>
+        <p>{{ context['average-end-to-end']}}<span class="unit"> ms</span></p>
       </div>
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['delivery'][0]['datapoints']  }}">
+        <div class="graph-container" datastring="{{ context['delivery'][0]['data']  }}">
         </div>
       </div>
     </div>
@@ -120,7 +120,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['triggers'][0]['datapoints']  }}">
+        <div class="graph-container" datastring="{{ context['triggers'][0]['data']  }}">
         </div>
       </div>
     </div>
@@ -134,18 +134,18 @@
     <div class="span2">
       <div class="singlestat">
         <h3>Historical Triggers Processed</h3>
-        <p>{{ '{:0.2f}'.format(context['triggers'][4]['avg']) }}<span class="unit">/sec</span></p>
+        <p>{{ context['historical-processed-rate'] }}<span class="unit">/sec</span></p>
       </div>
     </div>
     <div class="span2">
       <div class="singlestat">
         <h3>Historical Triggers Satisfied</h3>
-        <p>{{ '{:0.2f}'.format(context['triggers'][6]['avg']) }}<span class="unit">/sec</span></p>
+        <p>{{ context['historical-satisfied-rate'] }}<span class="unit">/sec</span></p>
       </div>
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['triggers'][4]['datapoints']  }}">
+        <div class="graph-container" datastring="{{ context['triggers'][4]['data']  }}">
         </div>
       </div>
     </div>
@@ -160,18 +160,18 @@
     <div class="span2">
       <div class="singlestat">
         <h3>Mean API Response Time</h3>
-        <p>{{ '{:.4}'.format(context['api-latency'][0]['avg']) }}<span class="unit"> ms</span></p>
+        <p>{{ context['api-mean-latency'] }}<span class="unit"> ms</span></p>
       </div>
     </div>
     <div class="span2">
       <div class="singlestat">
         <h3>API Requests</h3>
-        <p>{{ context['api-rate'][1]['sum'] }}</p>
+        <p>{{ context['api-total'] }}</p>
       </div>
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['api-rate'][0]['datapoints']  }}">
+        <div class="graph-container" datastring="{{ context['api-rate'][0]['data']  }}">
         </div>
       </div>
     </div>
@@ -187,12 +187,12 @@
     <div class="span2">
       <div class="singlestat">
         <h3>Mean Device Opens Rate</h3>
-        <p>{{ '{:0.0f}'.format(context['events'][1]['avg']) }}<span class="unit">/sec</span></p>
+        <p>{{ context['mean-device-opens-rate'] }}<span class="unit">/sec</span></p>
       </div>
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['events'][1]['datapoints']  }}">
+        <div class="graph-container" datastring="{{ context['events'][1]['data']  }}">
         </div>
       </div>
     </div>
