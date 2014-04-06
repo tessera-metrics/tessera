@@ -33,13 +33,3 @@ class WebManagerAdapter(object):
 
     def exists(self, model_type, name):
         return self.manager.exists(model_type, name)
-
-class WebManager(object):
-    def __init__(self, app, storage_manager):
-        self.entity_class = entity_class
-        self.storage = storage_manager
-        self.app = app
-
-    def register_class(entity_class, operations=None):
-        storage_manager.register_class(entity_class)
-
