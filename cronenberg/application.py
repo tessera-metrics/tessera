@@ -38,16 +38,33 @@ def _render_template(template, **kwargs):
 @app.route('/')
 def ui_root():
     context = {
-        'total' : datastore.fetch(queries.automation_total_pushes()),
-        'api-rate' : datastore.fetch(queries.automation_api_rates()),
-        'api-latency' : datastore.fetch(queries.automation_api_latency()),
-        'payload' : datastore.fetch(queries.automation_push_payloads()),
+        'total'          : datastore.fetch(queries.automation_total_pushes()),
+        'api-rate'       : datastore.fetch(queries.automation_api_rates()),
+        'api-latency'    : datastore.fetch(queries.automation_api_latency()),
+        'payload'        : datastore.fetch(queries.automation_push_payloads()),
         'platform-count' : datastore.fetch(queries.automation_push_platform_counts()),
-        'platform-rate' : datastore.fetch(queries.automation_push_platform_rates()),
-        'triggers' : datastore.fetch(queries.automation_triggers_processed()),
-        'events' : datastore.fetch(queries.automation_events()),
-        'delivery' : datastore.fetch(queries.automation_end_to_end_delivery_time())
+        'platform-rate'  : datastore.fetch(queries.automation_push_platform_rates()),
+        'triggers'       : datastore.fetch(queries.automation_triggers_processed()),
+        'events'         : datastore.fetch(queries.automation_events()),
+        'delivery'       : datastore.fetch(queries.automation_end_to_end_delivery_time())
     }
-    return _render_template('index.html', title='Home',
+
+    context['total-events-processed']    = '{:,}'.format(int(context['events'][4]['sum'] + context['events'][2]['sum']))
+    context['triggers-processed']        = '{:,}'.format(int(context['triggers'][8]['sum']))
+    context['triggers-satisfied']        = '{:,}'.format(int(context['triggers'][9]['sum']))
+    context['pushes-sent']               = '{:,}'.format(int(context['total'][0]['sum']))
+    context['average-push-rate']         = '{:.3f}'.format(context['total'][1]['avg'])
+    context['average-end-to-end']        = '{0}'.format(int(context['delivery'][0]['avg']))
+    context['immediate-processed-rate'] = '{:0.3f}'.format(context['triggers'][0]['avg'])
+    context['immediate-satisfied-rate'] = '{:0.3f}'.format(context['triggers'][2]['avg'])
+    context['historical-processed-rate'] = '{:0.3f}'.format(context['triggers'][4]['avg'])
+    context['historical-satisfied-rate'] = '{:0.3f}'.format(context['triggers'][6]['avg'])
+    context['api-mean-latency']          = '{:0.2f}'.format(context['api-latency'][0]['avg'])
+    context['api-total']                 = '{0}'.format(int(context['api-rate'][1]['sum']))
+    context['mean-device-opens-rate']    = '{0}'.format(int(context['events'][1]['avg']))
+
+    return _render_template('index.html',
+                            app='Automation',
+                            title='Overview',
                             context=context,
                             breadcrumbs=[('Home','')])
