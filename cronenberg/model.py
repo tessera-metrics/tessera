@@ -1,6 +1,8 @@
+import cask
 
-class Query(object):
-    def __init__(self, targets=None, **kwargs):
+class Query(cask.NamedEntity):
+    def __init__(self, name, targets=None, **kwargs):
+        super(Query, self).__init__(name=name)
         self.targets = targets
 
 class Grid(object):
@@ -44,8 +46,8 @@ class ChartPresentation(Presentation):
         super(ChartPresentation, self).__init__(query=query, **kwargs)
         self.chart_type = chart_type
 
-class Dashboard(object):
+class Dashboard(cask.NamedEntity):
     def __init__(self, name, queries, grid, **kwargs):
-        self.name = name
+        super(Dashboard, self).__init__(name=name)
         self.queries = queries
         self.grid = grid

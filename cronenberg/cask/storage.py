@@ -19,7 +19,7 @@ class NamedEntity(Entity):
 
 class EntityEncoder(json.JSONEncoder):
     def default(self, obj):
-        if isinstance(obj, Model):
+        if isinstance(obj, Entity):
             return obj.to_json()
         elif isinstance(obj, list):
             return [ self.default(i) for i in obj ]
@@ -33,10 +33,10 @@ class EntityEncoder(json.JSONEncoder):
         else:
             return obj
 
-class StorageManager(object):
-    """The StorageManager handles managing the on-disk storage for model
-    objects. It uses a simple file per record structure, with objects
-    being separated into directories by type.
+class EntityStorageManager(object):
+    """The EntityStorageManager handles managing the on-disk storage for
+    model objects. It uses a simple file per record structure, with
+    objects being separated into directories by type.
 
     Using simple files allows wildcard matching via path globbing and
     simple deployment and versioning, since records are just text
@@ -88,7 +88,7 @@ class StorageManager(object):
 
     def __entity_path(self, model_type, entity_or_name):
         """Get the full path to the storage file for a specific entity."""
-        if isinstance(entity_or_name, Model):
+        if isinstance(entity_or_name, Entity):
             entity_or_name = entity_or_name.name
         return os.path.join(self.data_directory, StorageManager._entity_type(model_type), entity_or_name) + self.extension
 
