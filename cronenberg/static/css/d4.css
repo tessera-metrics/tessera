@@ -1,0 +1,22 @@
+svg.d4 {
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-size:11px;
+}
+.d4 .tick text {
+    font-size: 9px;
+    fill: #999;
+    shape-rendering: crispEdges;
+}
+
+.d4 .axis .domain, .d4 .axis .tick line {
+  fill: none;
+  stroke: #999;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+
+.d4 .line, .d4 path, .d4 .connectors line {
+    fill: none;
+    stroke: #222;
+    stroke-width: 1px;
+}

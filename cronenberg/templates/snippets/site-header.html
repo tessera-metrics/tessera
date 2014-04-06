@@ -4,20 +4,23 @@
 <!-- This is all dumped here out of convenience. It should be moved to
 use something like require.js for sanity -->
 
-<!-- jQuery -->
+<!-- jQuery, etc... -->
 <script src="{{ url_for('static', filename='js/jquery-1.7.2.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/underscore-min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
 
 <!-- Bootstrap -->
-<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet"></link>
-<link href="{{ url_for('static', filename='css/bootstrap-responsive.min.css') }}" rel="stylesheet"></link>
-<link href="{{ url_for('static', filename='css/font-awesome.css') }}" rel="stylesheet"></link>
+<link  href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet"></link>
+<link  href="{{ url_for('static', filename='css/bootstrap-responsive.min.css') }}" rel="stylesheet"></link>
+<link  href="{{ url_for('static', filename='css/font-awesome.css') }}" rel="stylesheet"></link>
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-button.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-tab.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-tooltip.js') }}"></script>
+<link  href="{{ url_for('static', filename='css/darkstrap.css') }}" rel="stylesheet"></link>
 
 <!-- Slick -->
-<link href="{{ url_for('static', filename='slick/slick.css') }}" rel="stylesheet"></link>
+<link  href="{{ url_for('static', filename='slick/slick.css') }}" rel="stylesheet"></link>
 <script src="{{ url_for('static', filename='slick/slick.min.js') }}"></script>
 
 <!-- flot -->
@@ -30,10 +33,6 @@ use something like require.js for sanity -->
 <script src="{{ url_for('static', filename='js/jquery.flot.multihighlight.js') }}"></script>
 <script src="{{ url_for('static', filename='js/jquery.flot.crosshair.js') }}"></script>
 
-<!-- Assorted -->
-<script src="{{ url_for('static', filename='js/date.js') }}"></script>
-<link href="{{ url_for('static', filename='css/darkstrap.css') }}" rel="stylesheet"></link>
-
 <!-- Application -->
 <script src="{{ url_for('static', filename='cronenberg.js') }}"></script>
-<link href="{{ url_for('static', filename='cronenberg.css') }}" rel="stylesheet"></link>
+<link  href="{{ url_for('static', filename='cronenberg.css') }}" rel="stylesheet"></link>
