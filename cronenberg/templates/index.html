@@ -207,7 +207,7 @@
         var chartid = "chart" + i;
         var selector = '#' + chartid;
         var data = JSON.parse(e.getAttribute('datastring'));
-        $(e).append('<div class="graph-render" id="' + chartid + '"></div>');
+        $(e).append('<div class="graph-render" id="' + chartid + '"><svg></svg></div>');
         var chart_element = $(selector);
 
 
@@ -220,7 +220,7 @@
                 // .margin({ top: 0, right: 0, bottom: 0, left: 0 });
             window.charts[chartid] = chart;
             console.log(selector + ', ' + width + ', ' + height);
-            d3.select(selector)
+            d3.select(selector + ' svg')
                 .attr('width', width)
                 .attr('height', height)
                 .datum(data)
