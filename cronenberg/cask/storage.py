@@ -21,13 +21,16 @@ class EntityEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Entity):
             return obj.to_json()
-        elif isinstance(obj, list):
+            # TODO - handle iterables
+        elif isinstance(obj, list) or isinstance(obj, tuple):
             return [ self.default(i) for i in obj ]
         elif isinstance(obj, dict):
             result = {}
             for key, value in obj.items():
                 result[key] = self.default(value)
             return result
+        elif hasattr(obj, 'to_json') and callable(getattr(obj, 'to_json')):
+            return obj.to_json()
         elif hasattr(obj, '__dict__'):
             return self.default(obj.__dict__)
         else:

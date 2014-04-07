@@ -43,8 +43,9 @@ class SingleStatPresentation(Presentation):
         self.attribute = attribute
 
 class ChartPresentation(Presentation):
-    def __init__(self, query, chart_type='timeseries'):
+    def __init__(self, query, title=None, chart_type='timeseries'):
         super(ChartPresentation, self).__init__(query=query)
+        self.title = title
         self.chart_type = chart_type
 
 class Dashboard(cask.NamedEntity):
