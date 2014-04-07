@@ -227,7 +227,6 @@
             chart.yAxis.tickFormat(d3.format(',.2f'));
             chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow(); });
             window.charts[chartid] = chart;
-            console.log(selector + ', ' + width + ', ' + height);
             d3.select(selector + ' svg')
                 .attr('width', width)
                 .attr('height', height)
