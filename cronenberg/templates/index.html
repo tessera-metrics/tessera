@@ -206,13 +206,13 @@
     $(".graph-container").map(function(i, e) {
         chartid = "chart" + i;
         overlayid = chartid + "-value";
-        console.log(chartid);
+        data = JSON.parse(e.getAttribute('datastring'));
         $(e).append('<div class="graph-render" id="' + chartid + '"></div>');
-        $(e).append('<div class="value-overlay" id="' + overlayid + '"></div>');
+/*        $(e).append('<div class="value-overlay" id="' + overlayid + '"></div>');
         c = opendash.time_series_chart()
             .container($('#' + chartid))
             .data([{
-                data: JSON.parse(e.getAttribute('datastring'))
+                data: data
             }])
             .dataHandler(function(data) {
                 $("#" + overlayid + " h3").text(
@@ -230,7 +230,22 @@
         o.grid.show = true;
         o.grid.borderWidth = 0;
         o.xaxis.show = false;
-        c();
+        c(); */
+
+        chart_element = $('#' + chartid);
+        console.log(chart_element);
+        c = d4.charts.line()
+            .outerWidth(chart_element.width())
+            .outerHeight(chart_element.height())
+            .margin({ top: 0, right: 0, bottom: 0, left: 0 })
+            .x(function(x) {
+                x.scale('time');
+                x.key(0);
+            })
+            .y(function(y) {
+                y.key(1);
+            });
+        d3.select('#' + chartid).datum(data).call(c);
         window.charts[chartid] = c;
     });
 
