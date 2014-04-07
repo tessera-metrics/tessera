@@ -43,7 +43,7 @@ class Datastore(object):
             value, timestamp = point
             value = value if value else 0
 
-            point[0] = timestamp * 1000
+            point[0] = timestamp
             point[1] = value
 
             transformed_datapoints.append({ "x": timestamp, "y": value })

@@ -214,10 +214,16 @@
         nv.addGraph(function() {
             var width = chart_element.width();
             var height = chart_element.height();
-            var chart = nv.models.line()
+            var chart = nv.models.lineChart()
+                .options({
+                    showXAxis: false,
+                    showYAxis: false
+                })
                 .width(width)
-                .height(height);
-                // .margin({ top: 0, right: 0, bottom: 0, left: 0 });
+                .height(height)
+                .margin({ top: 0, right: 0, bottom: 0, left: 0 });
+            chart.yAxis.tickFormat(d3.format(',.2f'));
+            chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow(); });
             window.charts[chartid] = chart;
             console.log(selector + ', ' + width + ', ' + height);
             d3.select(selector + ' svg')
