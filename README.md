@@ -22,11 +22,9 @@ Client Side:
   * [Font Awesome](http://fortawesome.github.com/Font-Awesome/)
   * [darkstrap](https://github.com/danneu/darkstrap)
 * [jQuery](http://jquery.com/)
-* [Underscore](http://underscorejs.org/)
-* [D4](http://visible.io/), which provides a high level API to [D3](http://d3js.org/) for simple charts
-* [Flot](https://github.com/flot/flot)
-  * [flot-multihighlight](https://github.com/eugenijusr/flot.multihighlight)
-  * [flot-axislables](https://github.com/markrcote/flot-axislabels)
+* [d3](http://d3js.org)
+* [nvd3](https://github.com/novus/nvd3)
+* [moment.js](http://momentjs.com/)
 
 ## Developing or Running from Source ##
 
