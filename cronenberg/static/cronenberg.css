@@ -1,3 +1,8 @@
+.nvtooltip {
+  background-color: #555555;
+  color: #EFEFEF;
+  border:none ;
+}
 
 /* Bootstrap tweak */
 .label {
