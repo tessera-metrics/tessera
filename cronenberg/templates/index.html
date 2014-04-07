@@ -74,7 +74,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['total'][1]['data']  }}"></div>
+        <div class="graph-container" datastring="{{ context['total'][1]['json']  }}"></div>
       </div>
     </div>
   </div>
@@ -94,7 +94,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['delivery'][0]['data']  }}">
+        <div class="graph-container" datastring="{{ context['delivery'][0]['json']  }}">
         </div>
       </div>
     </div>
@@ -119,7 +119,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['triggers'][0]['data']  }}">
+        <div class="graph-container" datastring="{{ context['triggers'][0]['json']  }}">
         </div>
       </div>
     </div>
@@ -144,7 +144,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['triggers'][4]['data']  }}">
+        <div class="graph-container" datastring="{{ context['triggers'][4]['json']  }}">
         </div>
       </div>
     </div>
@@ -170,7 +170,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['api-rate'][0]['data']  }}">
+        <div class="graph-container" datastring="{{ context['api-rate'][0]['json']  }}">
         </div>
       </div>
     </div>
@@ -191,7 +191,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['events'][1]['data']  }}">
+        <div class="graph-container" datastring="{{ context['events'][1]['json']  }}">
         </div>
       </div>
     </div>
@@ -203,35 +203,38 @@
 
   <script>
     window.charts = {}
-    $(".graph-container").map(function(i, e) {
-        chartid = "chart" + i;
-        overlayid = chartid + "-value";
-        console.log(chartid);
-        $(e).append('<div class="graph-render" id="' + chartid + '"></div>');
-        $(e).append('<div class="value-overlay" id="' + overlayid + '"></div>');
-        c = opendash.time_series_chart()
-            .container($('#' + chartid))
-            .data([{
-                data: JSON.parse(e.getAttribute('datastring'))
-            }])
-            .dataHandler(function(data) {
-                $("#" + overlayid + " h3").text(
-                    opendash.format_kmbt(data[0].data[data[0].data.length-1][1])
-                );
-                return data;
-            })
-            .legend(false)
-            .y_label('')
-            .stack(false)
-            .line_width(1)
-            .colors(['#0088cc', '#AA8866'])
-            .type('line');
-        o = c.options();
-        o.grid.show = true;
-        o.grid.borderWidth = 0;
-        o.xaxis.show = false;
-        c();
-        window.charts[chartid] = c;
+        $(".graph-container").map(function(i, e) {
+        var chartid = "chart" + i;
+        var selector = '#' + chartid;
+        var data = JSON.parse(e.getAttribute('datastring'));
+        $(e).append('<div class="graph-render" id="' + chartid + '"><svg></svg></div>');
+        var chart_element = $(selector);
+
+
+        nv.addGraph(function() {
+            var width = chart_element.width();
+            var height = chart_element.height();
+            var chart = nv.models.lineChart()
+                .options({
+                    showXAxis: false,
+                    showYAxis: false,
+                    showLegend: false,
+                    useInteractiveGuideline: true
+                })
+                .width(width)
+                .height(height)
+                .margin({ top: 0, right: 0, bottom: 0, left: 0 });
+            chart.yAxis.tickFormat(d3.format(',.2f'));
+            chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow(); });
+            window.charts[chartid] = chart;
+            console.log(selector + ', ' + width + ', ' + height);
+            d3.select(selector + ' svg')
+                .attr('width', width)
+                .attr('height', height)
+                .datum(data)
+                .call(chart);
+            return chart;
+        });
     });
 
   </script>
