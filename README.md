@@ -3,7 +3,7 @@
 An executive dashboard for Automation. A lot of this is ripped from
 the old [OpenDash](https://github.com/urbanairship/opendash/)
 project. Currently a bit of a mess due to being rushed in time for
-demoing. 
+demoing.
 
 ![Screenshot](screenshot.png)
 
@@ -22,6 +22,8 @@ Client Side:
   * [Font Awesome](http://fortawesome.github.com/Font-Awesome/)
   * [darkstrap](https://github.com/danneu/darkstrap)
 * [jQuery](http://jquery.com/)
+* [Underscore](http://underscorejs.org/)
+* [D4](http://visible.io/), which provides a high level API to [D3](http://d3js.org/) for simple charts
 * [Flot](https://github.com/flot/flot)
   * [flot-multihighlight](https://github.com/eugenijusr/flot.multihighlight)
   * [flot-axislables](https://github.com/markrcote/flot-axislabels)
@@ -48,4 +50,3 @@ pip install -r requirements.txt
 # Run it (defaults to http://localhost:5000)
 ./manage.py run
 ```
-

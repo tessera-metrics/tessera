@@ -49,6 +49,11 @@ def ui_root():
         'delivery'       : datastore.fetch(queries.automation_end_to_end_delivery_time())
     }
 
+    # HACK HACK HACK
+    for datalist in context.values():
+        for data in datalist:
+            data['json'] = json.dumps([{ 'key' : 'data', 'values': data['values'] }])
+
     context['total-events-processed']    = '{:,}'.format(int(context['events'][4]['sum'] + context['events'][2]['sum']))
     context['triggers-processed']        = '{:,}'.format(int(context['triggers'][8]['sum']))
     context['triggers-satisfied']        = '{:,}'.format(int(context['triggers'][9]['sum']))
