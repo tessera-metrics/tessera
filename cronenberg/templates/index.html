@@ -217,7 +217,9 @@
             var chart = nv.models.lineChart()
                 .options({
                     showXAxis: false,
-                    showYAxis: false
+                    showYAxis: false,
+                    showLegend: false,
+                    useInteractiveGuideline: true
                 })
                 .width(width)
                 .height(height)
