@@ -29,7 +29,6 @@ class Datastore(object):
     def __process_series(self, series):
         datapoints = series['datapoints']
 
-        series['data'] = datapoints
         series['label'] = series['target']
         del series['datapoints']
         del series['target']
@@ -38,12 +37,16 @@ class Datastore(object):
         max_value = 0
         sum_value = 0
         last_value = 0
+
+        transformed_datapoints = []
         for point in datapoints:
             value, timestamp = point
             value = value if value else 0
 
             point[0] = timestamp * 1000
             point[1] = value
+
+            transformed_datapoints.append({ "x": timestamp, "y": value })
 
             last_value = value
             sum_value += value
@@ -58,6 +61,7 @@ class Datastore(object):
         series['max']  = max_value
         series['last'] = last_value
 
+        series['values'] = transformed_datapoints
         return series
 
 # =============================================================================
