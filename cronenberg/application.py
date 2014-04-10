@@ -66,21 +66,6 @@ def ui_root():
         query = GraphiteQuery(v, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
         queries[k] = str(graphite.render_url(query))
 
-    # context = {}
-    # context['total-events-processed']    = 10 #'{:,}'.format(int(context['events'][4]['sum'] + context['events'][2]['sum']))
-    # context['triggers-processed']        = 10 #'{:,}'.format(int(context['triggers'][8]['sum']))
-    # context['triggers-satisfied']        = 10 #'{:,}'.format(int(context['triggers'][9]['sum']))
-    # context['pushes-sent']               = 10 #'{:,}'.format(int(context['total'][0]['sum']))
-    # context['average-push-rate']         = 10 #'{:.3f}'.format(context['total'][1]['avg'])
-    # context['average-end-to-end']        = 10 #'{0}'.format(int(context['delivery'][0]['avg']))
-    # context['immediate-processed-rate'] = 10 #'{:0.3f}'.format(context['triggers'][0]['avg'])
-    # context['immediate-satisfied-rate'] = 10 #'{:0.3f}'.format(context['triggers'][2]['avg'])
-    # context['historical-processed-rate'] = 10 #'{:0.3f}'.format(context['triggers'][4]['avg'])
-    # context['historical-satisfied-rate'] = 10 #'{:0.3f}'.format(context['triggers'][6]['avg'])
-    # context['api-mean-latency']          = 10 #'{:0.2f}'.format(context['api-latency'][0]['avg'])
-    # context['api-total']                 = 10 #'{0}'.format(int(context['api-rate'][1]['sum']))
-    # context['mean-device-opens-rate']    = 10 #'{0}'.format(int(context['events'][1]['avg']))
-
     return _render_template('index.html',
                             app='Automation',
                             title='Overview',
