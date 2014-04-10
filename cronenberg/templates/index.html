@@ -201,21 +201,31 @@
     <div class="span2">
       <div class="singlestat">
         <h3>Historical Triggers Processed</h3>
-        <p><span class="unit">/sec</span></p>
+        <p><span id="s9"></span><span class="unit">/sec</span></p>
       </div>
     </div>
     <div class="span2">
       <div class="singlestat">
         <h3>Historical Triggers Satisfied</h3>
-        <p><span class="unit">/sec</span></p>
+        <p><span id="s10"></span><span class="unit">/sec</span></p>
       </div>
     </div>
     <div class="span8">
-      <div class="graph">
-        <div class="graph-container"></div>
+      <div class="graph" id="g4">
+        <svg></svg>
       </div>
     </div>
   </div>
+
+    <script>
+      bean.on(cronenberg.queries.historical_triggers, 'data-available', function(query) {
+          summation = cronenberg.reduce_series(query.data[0]);
+          $("#s9").text(summation.mean.toFixed(2));
+          makeChart($("#g4"), query.data[0]);
+          summation = cronenberg.reduce_series(query.data[3]);
+          $("#s10").text(summation.mean.toFixed(2));
+      });
+    </script>
 
 
   <!-- ============================================================================= -->
@@ -226,21 +236,33 @@
     <div class="span2">
       <div class="singlestat">
         <h3>Mean API Response Time</h3>
-        <p><span class="unit"> ms</span></p>
+        <p><span id="s11"></span><span class="unit"> ms</span></p>
       </div>
     </div>
     <div class="span2">
       <div class="singlestat">
         <h3>API Requests</h3>
-        <p></p>
+        <p id="s12"></p>
       </div>
     </div>
     <div class="span8">
-      <div class="graph">
-        <div class="graph-container"></div>
+      <div class="graph" id="g5">
+        <svg></svg>
       </div>
     </div>
   </div>
+
+    <script>
+      bean.on(cronenberg.queries.api_latency, 'data-available', function(query) {
+          summation = cronenberg.reduce_series(query.data[0]);
+          $("#s11").text(summation.mean.toFixed(2));
+      });
+      bean.on(cronenberg.queries.api_rate, 'data-available', function(query) {
+          makeChart($("#g5"), query.data[0]);
+          summation = cronenberg.reduce_series(query.data[1]);
+          $("#s12").text(summation.sum);
+      });
+    </script>
 
   <!-- ============================================================================= -->
   <!-- Device Opens -->

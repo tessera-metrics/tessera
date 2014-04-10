@@ -12,7 +12,7 @@ from flask import Flask, render_template, request, redirect, jsonify, abort
 
 import toolbox
 from toolbox.graphite import Graphite, GraphiteQuery
-from data import Queries, Datastore
+from data import Queries
 
 # =============================================================================
 # Setup
@@ -48,9 +48,10 @@ def ui_root():
         'total_pushes_sent' : q.total_pushes_sent(),
         'total_push_rate'   : q.total_push_rate(),
         'end_to_end'        : q.automation_end_to_end_delivery_time(),
-        'immediate_triggers'        : q.immediate_triggers()
-#        'api_rate'       : q.automation_api_rates(),
-#        'api_latency'    : q.automation_api_latency(),
+        'immediate_triggers'        : q.immediate_triggers(),
+        'historical_triggers'        : q.historical_triggers(),
+        'api_rate'       : q.automation_api_rates(),
+        'api_latency'    : q.automation_api_latency()
 #        'payload'        : q.automation_push_payloads(),
 #        'platform_count' : q.automation_push_platform_counts(),
 #        'platform_rate'  : q.automation_push_platform_rates(),
