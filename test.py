@@ -14,10 +14,10 @@ dash = Dashboard(name='Automation Overview',
                            'api-latency' : str(q.automation_api_latency()) },
                  grid=Grid(rows=[
                      [ GridEntry(span=3, presentation=SingleStatPresentation(title='Raw Events Processed',
-                                                                             query='api-rate',
-                                                                             attribute='sum')),
+                                                                             query_name='api-rate',
+                                                                             transform='sum')),
                        GridEntry(span=9, presentation=ChartPresentation(title="Foos",
-                                                                        query="api-latency",
+                                                                        query_name="api-latency",
                                                                         chart_type='timeseries')) ]
                  ]))
 
