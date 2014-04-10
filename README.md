@@ -22,9 +22,10 @@ Client Side:
   * [Font Awesome](http://fortawesome.github.com/Font-Awesome/)
   * [darkstrap](https://github.com/danneu/darkstrap)
 * [jQuery](http://jquery.com/)
-* [d3](http://d3js.org)
-* [nvd3](https://github.com/novus/nvd3)
-* [moment.js](http://momentjs.com/)
+* [nvd3](https://github.com/novus/nvd3) for interactive charts build
+  on top of [d3](http://d3js.org).
+* [moment.js](http://momentjs.com/) for time parsing & formatting.
+* [bean.js](https://github.com/fat/bean) for events.
 
 ## Developing or Running from Source ##
 
