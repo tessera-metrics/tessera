@@ -1,5 +1,6 @@
 <!-- -*- mode:jinja2 -*- -->
 {% extends "layouts/standard.html" %}
+{% from "presentations.html" import singlestat with context %}
 
 {% block pagetitle %}
   <span class="primary-title">{{app}}</span> <span class="secondary-title">{{title}}</span>
@@ -10,7 +11,7 @@
   <script>
     <!-- Set up the query registry -->
     {% for name,url in queries.iteritems() -%}
-      cronenberg.add_query('{{name}}', '{{url}}');
+      cronenberg.add_query('{{name}}', '{{url|safe}}');
     {%- endfor %}
   </script>
 
@@ -25,66 +26,10 @@
 
   <div class="row-fluid">
 
-    <div class="span3">
-      <div class="well">
-        <div class="singlestat banner" align="center">
-          <h3>Raw Events Processed</h3>
-          <p id="s1"></p>
-        </div>
-      </div>
-    </div>
-    <script>
-    bean.on(cronenberg.queries.total_events_processed, 'data-available', function(query) {
-        $("#s1").text(query.data[0].summation.sum);
-    });
-    </script>
-
-    <div class="span3">
-      <div class="well">
-        <div class="singlestat banner" align="center">
-          <h3>Triggers Processed</h3>
-          <p id="s2"></p>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      bean.on(cronenberg.queries.total_triggers_processed, 'data-available', function(query) {
-        $("#s2").text(query.data[0].summation.sum);
-      });
-    </script>
-
-    <div class="span3">
-      <div class="well">
-        <div class="singlestat banner" align="center">
-          <h3>Triggers Satisfied</h3>
-          <p id="s3"></p>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      bean.on(cronenberg.queries.total_triggers_satisfied, 'data-available', function(query) {
-        $("#s3").text(query.data[0].summation.sum);
-      });
-    </script>
-
-
-    <div class="span3">
-      <div class="well">
-        <div class="singlestat banner" align="center">
-          <h3>Pushes Sent</h3>
-          <p id="s4"></p>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      bean.on(cronenberg.queries.total_pushes_sent, 'data-available', function(query) {
-        $("#s4").text(query.data[0].summation.sum);
-      });
-    </script>
-
+    {{ singlestat(pres_raw_events) }}
+    {{ singlestat(pres_triggers_processed) }}
+    {{ singlestat(pres_triggers_satisfied) }}
+    {{ singlestat(pres_pushes_sent) }}
 
   </div> <!-- row -->
   <hr/>

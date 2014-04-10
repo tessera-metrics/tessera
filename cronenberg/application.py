@@ -12,7 +12,8 @@ from flask import Flask, render_template, request, redirect, jsonify, abort
 
 import toolbox
 from toolbox.graphite import Graphite, GraphiteQuery
-from data import Queries
+from .data import Queries
+from .model import *
 
 # =============================================================================
 # Setup
@@ -25,15 +26,21 @@ env = toolbox.PROD
 q = Queries(env)
 graphite = env.graphite()
 
-
-
 # =============================================================================
 # Template Helpers
 # =============================================================================
 
+class RenderContext:
+    def __init__(self):
+        self.now = datetime.datetime.now()
+        self.element_index = 0
+
+    def nextid(self):
+        self.element_index += 1
+        return 'e' + self.element_index
+
 def _render_template(template, **kwargs):
-    now = datetime.datetime.now()
-    return render_template(template, now=now, **kwargs)
+    return render_template(template, ctx=RenderContext(), **kwargs)
 
 # =============================================================================
 # UI: Basics
@@ -66,8 +73,38 @@ def ui_root():
         query = GraphiteQuery(v, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
         queries[k] = str(graphite.render_url(query))
 
+
+    pres_raw_events = LayoutEntry(span=3, emphasize=True,
+                                  presentation=SingleStatPresentation(title='Raw Events Processed',
+                                                                      query_name='total_events_processed',
+                                                                      align='center',
+                                                                      transform='sum'))
+    pres_triggers_processed = LayoutEntry(span=3, emphasize=True,
+                                          presentation=SingleStatPresentation(title='Triggers Processed',
+                                                                              query_name='total_triggers_processed',
+                                                                              align='center',
+                                                                              transform='sum'))
+
+    pres_triggers_satisfied = LayoutEntry(span=3, emphasize=True,
+                                          presentation=SingleStatPresentation(title='Triggers Satisifed',
+                                                                              query_name='total_triggers_satisfied',
+                                                                              align='center',
+                                                                              transform='sum'))
+    pres_pushes_sent = LayoutEntry(span=3, emphasize=True,
+                                   presentation=SingleStatPresentation(title='Pushes Sent',
+                                                                       query_name='total_pushes_sent',
+                                                                       align='center',
+                                                                       transform='sum'))
+
+
+
+
     return _render_template('index.html',
                             app='Automation',
                             title='Overview',
                             queries=queries,
+                            pres_raw_events=pres_raw_events,
+                            pres_triggers_satisfied=pres_triggers_satisfied,
+                            pres_triggers_processed=pres_triggers_processed,
+                            pres_pushes_sent=pres_pushes_sent,
                             breadcrumbs=[('Home','')])

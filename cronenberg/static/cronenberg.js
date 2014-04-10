@@ -7,7 +7,7 @@ var cronenberg = {
      * register for events, etc...
      */
     add_query: function(name, url) {
-        console.log("cronenberg.add_query(): " + name + ' ' + url);
+        // console.log("cronenberg.add_query(): " + name + ' ' + url);
         this.queries[name] = {
             name: name,
             url: url,
@@ -17,13 +17,13 @@ var cronenberg = {
     },
 
     _makeHandler: function(query) {
-        console.log("cronenberg._makeHandler()");
+        // console.log("cronenberg._makeHandler()");
         return function(data, textStatus) {
             query.data = _.map(data, function(series) {
                 series.summation = cronenberg.reduce_series(series);
                 series.key = series.target;
                 series.values = series.datapoints;
-                console.log(series);
+                // console.log(series);
                 return series;
                 /*
   WHY DOES THIS FAIL?
@@ -40,11 +40,11 @@ var cronenberg = {
 
 
     load_queries: function() {
-        console.log("cronenberg.load_queries()");
+        // console.log("cronenberg.load_queries()");
         for (var query_name in this.queries) {
-            console.log('  load_queries(): ' + query_name);
+            // console.log('  load_queries(): ' + query_name);
             var query = this.queries[query_name]
-            console.log(query);
+            // console.log(query);
 
 
             // Notify any consumers of this query that it's reloading
@@ -58,7 +58,7 @@ var cronenberg = {
     },
 
     activity: function(element) {
-        console.log("cronenberg.activity()");
+        // console.log("cronenberg.activity()");
         /*
         $(element).activity({
             width: 4,
@@ -96,7 +96,7 @@ var cronenberg = {
      * the sum, min, max, mean, first, and last values.
      */
     reduce_series: function(series) {
-        console.log("cronenberg.reduce_series()");
+        // console.log("cronenberg.reduce_series()");
         var sums = {
             sum: 0,
             min: Number.MAX_VALUE,

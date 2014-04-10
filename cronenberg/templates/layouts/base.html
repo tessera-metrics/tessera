@@ -21,8 +21,8 @@
             </h1>
           </div>
           <div class="span3 time-container" align="right">
-            <h2 class="time">{{ now.strftime("%I:%M") }}<small> {{ now.strftime("%p") }}</small></h2>
-            <h6 class="date">{{ now.strftime("%A") }} {{ now.strftime("%d %B %Y") }}</h6>
+            <h2 class="time">{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
+            <h6 class="date">{{ ctx.now.strftime("%A") }} {{ ctx.now.strftime("%d %B %Y") }}</h6>
           </div>
         </div>
       </div>
