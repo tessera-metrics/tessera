@@ -34,12 +34,12 @@ class GridEntry(object):
         self.offset = offset
 
 class Presentation(object):
-    def __init__(self, query, **kwargs):
-        self.query = query
+    def __init__(self, query_name):
+        self.query = query_name
 
 class DataTablePresentation(Presentation):
-    def __init__(self, title, query):
-        super(Presentation, self).__init__(query=query)
+    def __init__(self, title, query_name):
+        super(Presentation, self).__init__(query_name=query_name)
 
 class SingleStatPresentation(Presentation):
     class Transform:
@@ -50,14 +50,14 @@ class SingleStatPresentation(Presentation):
         LAST   = 'last'
         FIRST  = 'first'
 
-    def __init__(self, title, query, transform=Transform.MEAN):
-        super(SingleStatPresentation, self).__init__(query=query)
+    def __init__(self, title, query_name, transform=Transform.MEAN):
+        super(SingleStatPresentation, self).__init__(query_name=query_name)
         self.title = title
-        self.attribute = attribute
+        self.transform = transform
 
 class ChartPresentation(Presentation):
-    def __init__(self, query, title=None, chart_type='timeseries'):
-        super(ChartPresentation, self).__init__(query=query)
+    def __init__(self, query_name, title=None, chart_type='timeseries'):
+        super(ChartPresentation, self).__init__(query_name=query_name)
         self.title = title
         self.chart_type = chart_type
 
