@@ -41,6 +41,9 @@ def _render_template(template, **kwargs):
 
 @app.route('/')
 def ui_root():
+    from_time = request.args.get('from', '-12h')
+    until_time = request.args.get('until', None)
+
     queries = {
         'total_events_processed'   : q.total_events_processed(),
         'total_triggers_processed' : q.total_triggers_processed(),
@@ -58,7 +61,7 @@ def ui_root():
     for k,v in queries.items():
         # TODO - inflection.underscore() the key, to ensure it's JS
         # safe
-        query = GraphiteQuery(v, format=Graphite.Format.JSON, from_time='-12h', until_time=None)
+        query = GraphiteQuery(v, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
         queries[k] = str(graphite.render_url(query))
 
     # context = {}

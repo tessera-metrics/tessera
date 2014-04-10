@@ -286,12 +286,11 @@
     <!-- launch the queries -->
     function makeHandler(query) {
         return function(data, textStatus) {
-            console.log(query.name + ' ' + textStatus);
-            console.log(data);
             cronenberg.queries[query.name].data = _.map(data, function(series) {
                 series.summation = cronenberg.reduce_series(series);
                 series.key = series.target;
                 series.values = series.datapoints;
+                console.log(series);
                 return series;
 /*
   WHY DOES THIS FAIL?
@@ -309,9 +308,8 @@
         console.log(query.url);
         $.ajax({
             dataType: "json",
-            url: query.url,
-            success: makeHandler(query)
-        });
+            url: query.url
+        }).done(makeHandler(query));
     }
 
     function makeChart(e, series) {

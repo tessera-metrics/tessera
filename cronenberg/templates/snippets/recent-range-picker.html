@@ -1,6 +1,20 @@
   <ul class="nav nav-pills">
-    <li><a href="">Past Hour</a></li>
-    <li class="active"><a href="">Past 12 Hours</a></li>
-    <li><a href="">Past Day</a></li>
-    <li><a href="">Past Week</a></li>
+
+    {% for item in [
+      ('Past Hour', '-1h'),
+      ('Past 3 Hours', '-3h'),
+      ('Past 12 Hours', '-12h'),
+      ('Past Day', '-1d'),
+      ('Past Week', '-7d')]
+      %}
+
+      <li id="range{{item[1]}}"
+          {% if request.args.get('from') == item[1] %}
+            class="active"
+          {% endif %}
+          >
+
+          <a href="?from={{item[1]}}">{{item[0]}}</a></li>
+    {% endfor %}
+
   </ul>
