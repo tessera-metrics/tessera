@@ -1,9 +1,14 @@
 import cask
 
-class Query(cask.NamedEntity):
-    def __init__(self, name, targets=None, **kwargs):
-        super(Query, self).__init__(name=name)
-        self.targets = targets
+# class Query(cask.NamedEntity):
+#     """Represents a graphite query with one or more targets."""
+#     def __init__(self, name, targets=None):
+#         super(Query, self).__init__(name=name)
+#         self.targets = [targets if isinstance(targets, list) else [targets]]
+
+#     def to_json(self):
+#         return { 'name' : self.name,
+#                  'targets' : [ str(t) for t in self.targets ] }
 
 class Grid(object):
     def __init__(self, rows=[], **kwargs):
@@ -37,7 +42,15 @@ class DataTablePresentation(Presentation):
         super(Presentation, self).__init__(query=query)
 
 class SingleStatPresentation(Presentation):
-    def __init__(self, title, query, attribute='max'):
+    class Transform:
+        MIN    = 'min'
+        MAX    = 'max'
+        MEDIAN = 'median'
+        MEAN   = 'mean'
+        LAST   = 'last'
+        FIRST  = 'first'
+
+    def __init__(self, title, query, transform=Transform.MEAN):
         super(SingleStatPresentation, self).__init__(query=query)
         self.title = title
         self.attribute = attribute

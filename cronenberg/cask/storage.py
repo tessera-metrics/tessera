@@ -13,6 +13,10 @@ class Entity(object):
     def to_json(self):
         return self.__dict__
 
+    @classmethod
+    def from_json(cls, data):
+        return cls(**data)
+
 class NamedEntity(Entity):
     def __init__(self, name):
         self.name = name
@@ -138,7 +142,7 @@ class EntityStorageManager(object):
             log.debug("%s named %s not found.", entity_type, name)
             return None
         else:
-            return cls(**data)
+            return cls.from_json(data)
 
     def load_all(self, model_type, pattern=None):
         """Load all the entities of a given type matching pattern. If

@@ -10,8 +10,8 @@ from toolbox.graphite.functions import *
 q = Queries(toolbox.PROD)
 
 dash = Dashboard(name='Automation Overview',
-                 queries={ 'api-rate' : Query('events', targets=[q.automation_api_rates()]),
-                           'api-latency' : Query('bars', targets=[q.automation_api_latency()]) },
+                 queries={ 'api-rate' : str(q.automation_api_rates()),
+                           'api-latency' : str(q.automation_api_latency()) },
                  grid=Grid(rows=[
                      [ GridEntry(span=3, presentation=SingleStatPresentation(title='Raw Events Processed',
                                                                              query='api-rate',
@@ -20,6 +20,8 @@ dash = Dashboard(name='Automation Overview',
                                                                         query="api-latency",
                                                                         chart_type='timeseries')) ]
                  ]))
+
+#print dash.queries['api-rate']
 
 
 print json.dumps(dash, cls=EntityEncoder, indent=4)
