@@ -41,7 +41,9 @@ def _render_template(template, **kwargs):
 
 @app.route('/')
 def ui_root():
-    from_time = request.args.get('from', '-12h')
+    # TODO - this -3h default needs to be in a constant; also used in
+    # recent-range-picker template
+    from_time = request.args.get('from', '-3h')
     until_time = request.args.get('until', None)
 
     queries = {
