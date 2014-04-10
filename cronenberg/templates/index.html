@@ -9,15 +9,8 @@
 
   <script>
     <!-- Set up the query registry -->
-    cronenberg = cronenberg || {};
-    cronenberg.queries = {};
-    {% for name,query in queries.iteritems() -%}
-      cronenberg.queries.{{name}} = {
-          name: '{{name}}',
-          data: [],
-          presentations: [],
-          url: '{{ query }}'
-      };
+    {% for name,url in queries.iteritems() -%}
+      cronenberg.add_query('{{name}}', '{{url}}');
     {%- endfor %}
   </script>
 
@@ -284,33 +277,6 @@
 
   <script>
     <!-- launch the queries -->
-    function makeHandler(query) {
-        return function(data, textStatus) {
-            cronenberg.queries[query.name].data = _.map(data, function(series) {
-                series.summation = cronenberg.reduce_series(series);
-                series.key = series.target;
-                series.values = series.datapoints;
-                console.log(series);
-                return series;
-/*
-  WHY DOES THIS FAIL?
-              return {
-                    key: series.target,
-                    values: series.datapoints,
-                    summation: cronenberg.reduce_series(series)
-                }; */
-            });
-            bean.fire(query, 'data-available', cronenberg.queries[query.name]);
-        };
-    }
-    for (var query_name in cronenberg.queries) {
-        var query = cronenberg.queries[query_name]
-        console.log(query.url);
-        $.ajax({
-            dataType: "json",
-            url: query.url
-        }).done(makeHandler(query));
-    }
 
     function makeChart(e, series) {
         // would rather not transform the whole array here, but I
@@ -344,6 +310,8 @@
             return chart;
         });
     }
+
+   cronenberg.load_queries();
 
   </script>
 
