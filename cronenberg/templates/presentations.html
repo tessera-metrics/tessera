@@ -1,0 +1,20 @@
+{% macro presentation_singlestat(query_name, title, span, transform, emphasize=False, index=0) -%}
+
+<div class="span{{span}}">
+  {% if emphasize %}
+    <div class="well">
+      <div class="singlestat banner">
+    {% else %}
+      <div class="singlestat">
+  {% endif %}
+
+  <h3>{{title}}</h3>
+  <p></p>
+
+      </div> <!-- singlestat -->
+  {% if emphasize %}
+    </div> <!-- well -->
+  {% endif %}
+</div>
+
+{%- endmacro %}

@@ -9,6 +9,21 @@
 
 {% block layout %}
 
+  <script>
+    <!-- Set up the query registry -->
+    window.cronenberg = {};
+    window.cronenberg.queries = {};
+    {% for name,query in queries.iteritems() -%}
+      window.cronenberg.queries.{{name}} = {
+          name: '{{name}}',
+          data: [],
+          presentations: [],
+          url: '{{ query }}'
+      };
+    {%- endfor %}
+  </script>
+
+
   <div class="row-fluid text-right">
     {% include "snippets/recent-range-picker.html" %}
   </div>
@@ -21,7 +36,6 @@
 
     <div class="span3">
       <div class="well">
-        <div
         <div class="singlestat banner" align="center">
           <h3>Raw Events Processed</h3>
           <p>{{ context['total-events-processed'] }}</p>
@@ -74,7 +88,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['total'][1]['json']  }}"></div>
+        <div class="graph-container"></div>
       </div>
     </div>
   </div>
@@ -94,7 +108,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['delivery'][0]['json']  }}">
+        <div class="graph-container">
         </div>
       </div>
     </div>
@@ -119,8 +133,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['triggers'][0]['json']  }}">
-        </div>
+        <div class="graph-container"></div>
       </div>
     </div>
   </div>
@@ -144,8 +157,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['triggers'][4]['json']  }}">
-        </div>
+        <div class="graph-container"></div>
       </div>
     </div>
   </div>
@@ -170,8 +182,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['api-rate'][0]['json']  }}">
-        </div>
+        <div class="graph-container"></div>
       </div>
     </div>
   </div>
@@ -191,8 +202,7 @@
     </div>
     <div class="span8">
       <div class="graph">
-        <div class="graph-container" datastring="{{ context['events'][1]['json']  }}">
-        </div>
+        <div class="graph-container"></div>
       </div>
     </div>
   </div>
@@ -202,6 +212,22 @@
   <p>&nbsp;</p>
 
   <script>
+    <!-- launch the queries -->
+    function makeHandler(query) {
+        return function(data) {
+            console.log(query.name);
+            window.cronenberg.queries[query.name].data = data;
+            bean.fire(query, 'data-available');
+        };
+    }
+    for (var query_name in window.cronenberg.queries) {
+        var query = window.cronenberg.queries[query_name]
+        console.log('Fetching ' + query.url);
+        $.getJSON(query.url, makeHandler(query));
+    }
+
+/*
+
     window.charts = {}
         $(".graph-container").map(function(i, e) {
         var chartid = "chart" + i;
@@ -235,7 +261,7 @@
             return chart;
         });
     });
-
+*/
   </script>
 
 {% endblock %}
