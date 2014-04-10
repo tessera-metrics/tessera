@@ -274,15 +274,24 @@
     <div class="span2">
       <div class="singlestat">
         <h3>Mean Device Opens Rate</h3>
-        <p><span class="unit">/sec</span></p>
+        <p><span id="s13"></span><span class="unit">/sec</span></p>
       </div>
     </div>
     <div class="span8">
-      <div class="graph">
-        <div class="graph-container"></div>
+      <div class="graph" id="g6">
+        <svg></svg>
       </div>
     </div>
   </div>
+
+    <script>
+      bean.on(cronenberg.queries.device_event_rate, 'data-available', function(query) {
+      summation = cronenberg.reduce_series(query.data[0]);
+      $("#s13").text(summation.mean.toFixed(0));
+      makeChart($("#g6"), query.data[0]);
+      });
+    </script>
+
 
   <p>&nbsp;</p>
 

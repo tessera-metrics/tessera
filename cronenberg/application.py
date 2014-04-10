@@ -51,13 +51,8 @@ def ui_root():
         'immediate_triggers'        : q.immediate_triggers(),
         'historical_triggers'        : q.historical_triggers(),
         'api_rate'       : q.automation_api_rates(),
-        'api_latency'    : q.automation_api_latency()
-#        'payload'        : q.automation_push_payloads(),
-#        'platform_count' : q.automation_push_platform_counts(),
-#        'platform_rate'  : q.automation_push_platform_rates(),
-#        'triggers'       : q.automation_triggers_processed(),
-#        'events'         : q.automation_events(),
-#        'delivery'       : q.automation_end_to_end_delivery_time()
+        'api_latency'    : q.automation_api_latency(),
+        'device_event_rate' : q.device_event_rate()
     }
 
     for k,v in queries.items():

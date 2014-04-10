@@ -86,15 +86,15 @@ class Queries(object):
     def automation_api_latency(self):
         service = self.env.service('push-api')
         # TODO - the API should have a summary timer metric for /api/pipelines, but doesn't :(
-        alias(average_series(max_series(rash(service, 'pipelineendpointmetrics.postpipelinetimer.Mean')),
-                             max_series(rash(service, 'pipelineendpointmetrics.postvalidatetimer.Mean')),
-                             max_series(rash(service, 'pipelineendpointmetrics.putpipelinetimer.Mean')),
-                             max_series(rash(service, 'pipelineendpointmetrics.deletepipelinetimer.Mean')),
-                             max_series(rash(service, 'pipelineendpointmetrics.getpipelinetimer.Mean')),
-                             max_series(rash(service, 'pipelineendpointmetrics.getlimitstimer.Mean')),
-                             max_series(rash(service, 'pipelineendpointmetrics.listpipelinetimer.Mean')),
-                             max_series(rash(service, 'pipelineendpointmetrics.listdeletedpipelinetimer.Mean'))),
-              "/api/pipelines, Average Latency")
+        return alias(average_series(max_series(rash(service, 'pipelineendpointmetrics.postpipelinetimer.Mean')),
+                                    max_series(rash(service, 'pipelineendpointmetrics.postvalidatetimer.Mean')),
+                                    max_series(rash(service, 'pipelineendpointmetrics.putpipelinetimer.Mean')),
+                                    max_series(rash(service, 'pipelineendpointmetrics.deletepipelinetimer.Mean')),
+                                    max_series(rash(service, 'pipelineendpointmetrics.getpipelinetimer.Mean')),
+                                    max_series(rash(service, 'pipelineendpointmetrics.getlimitstimer.Mean')),
+                                    max_series(rash(service, 'pipelineendpointmetrics.listpipelinetimer.Mean')),
+                                    max_series(rash(service, 'pipelineendpointmetrics.listdeletedpipelinetimer.Mean'))),
+                     "/api/pipelines, Average Latency")
 
     def automation_events(self):
         gorram  = self.env.service('triggers-gorram-consumer')
@@ -182,3 +182,8 @@ class Queries(object):
                   "Historical Triggers Satisfied Rate"),
             alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_satisfied.Count'))),
                   "Historical Triggers Satisfied Count"))
+
+    def device_event_rate(self):
+        gorram  = self.env.service('triggers-gorram-consumer')
+        return alias(sum_series(rate(rash(gorram, 'argonmutationconsumer_timer.device_open_processed.Count'))),
+                     'Device Open Rate')
