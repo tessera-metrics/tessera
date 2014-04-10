@@ -42,11 +42,13 @@ def _render_template(template, **kwargs):
 @app.route('/')
 def ui_root():
     queries = {
-        'total_events_processed' : q.total_events_processed(),
+        'total_events_processed'   : q.total_events_processed(),
         'total_triggers_processed' : q.total_triggers_processed(),
         'total_triggers_satisfied' : q.total_triggers_satisfied(),
-        'total_pushes_sent' : q.total_pushes_sent()
-#        'total'          : q.automation_total_pushes(),
+        'total_pushes_sent' : q.total_pushes_sent(),
+        'total_push_rate'   : q.total_push_rate(),
+        'end_to_end'        : q.automation_end_to_end_delivery_time(),
+        'immediate_triggers'        : q.immediate_triggers()
 #        'api_rate'       : q.automation_api_rates(),
 #        'api_latency'    : q.automation_api_latency(),
 #        'payload'        : q.automation_push_payloads(),

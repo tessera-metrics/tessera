@@ -253,3 +253,23 @@ class Queries(object):
         return alias(sum_series(non_negative_derivative(rash(service, 'pushfulfillmenthandler.total_push_count.Count')),
                                 non_negative_derivative(rash(service, 'delayedpushfulfillmenthandler.total_delayed_push_count.Count'))),
                      "Push Count")
+
+    def total_push_rate(self):
+        service = self.env.service('triggers-fulfillment')
+        return alias(sum_series(rate(rash(service, 'pushfulfillmenthandler.total_push_count.Count')),
+                                rate(rash(service, 'delayedpushfulfillmenthandler.total_delayed_push_count.Count'))),
+                     "Push Rate")
+
+    def immediate_triggers(self):
+        service = self.env.service('triggers-state-ingress')
+        return group(
+            # Immediate
+            alias(rate(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_processed.Count'))),
+                  "Immediate Triggers Processed Rate"),
+            alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_processed.Count'))),
+                  "Immediate Triggers Processed Count"),
+            alias(rate(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_satisfied.Count'))),
+                  "Immediate Triggers Satisfied Rate"),
+            alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_satisfied.Count'))),
+                  "Immediate Triggers Satisfied Count"),
+        )

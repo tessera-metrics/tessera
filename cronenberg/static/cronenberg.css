@@ -141,7 +141,7 @@ h1 .secondary-title {
     padding-bottom: 2em;
 }
 
-.graph-render {
+.graph svg {
     height: 90px;
 }
 

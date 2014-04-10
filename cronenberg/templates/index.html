@@ -110,15 +110,23 @@
     <div class="span2">
       <div class="singlestat">
         <h3>Mean Push Rate</h3>
-        <p><span class="unit">/sec</span></p>
+        <p><span id="s5"></span><span class="unit">/sec</span></p>
       </div>
     </div>
     <div class="span8">
-      <div class="graph">
-        <div class="graph-container"></div>
+      <div class="graph" id="g1">
+        <svg></svg>
       </div>
     </div>
   </div>
+    <script>
+      bean.on(cronenberg.queries.total_push_rate, 'data-available', function(query) {
+          summation = cronenberg.reduce_series(query.data[0]);
+          $("#s5").text(summation.mean.toFixed(3));
+          makeChart($("#g1"), query.data[0]);
+      });
+    </script>
+
 
   <!-- ============================================================================= -->
   <!-- Delivery -->
@@ -130,16 +138,24 @@
     <div class="span2">
       <div class="singlestat">
         <h3>Mean End to End<br/>Delivery Time</h3>
-        <p><span class="unit"> ms</span></p>
+        <p><span id="s6"></span><span class="unit"> ms</span></p>
       </div>
     </div>
     <div class="span8">
-      <div class="graph">
-        <div class="graph-container">
-        </div>
+      <div class="graph" id="g2">
+        <svg></svg>
       </div>
     </div>
   </div>
+
+    <script>
+      bean.on(cronenberg.queries.end_to_end, 'data-available', function(query) {
+          summation = cronenberg.reduce_series(query.data[0]);
+          $("#s6").text(summation.mean.toFixed(2));
+          makeChart($("#g2"), query.data[0]);
+      });
+    </script>
+
 
   <!-- ============================================================================= -->
   <!-- Immediate Triggers -->
@@ -149,21 +165,33 @@
     <div class="span2">
       <div class="singlestat">
         <h3>Immediate Triggers Processed</h3>
-        <p><span class="unit">/sec</span></p>
+        <p><span id="s7"></span><span class="unit">/sec</span></p>
       </div>
     </div>
+
     <div class="span2">
       <div class="singlestat">
         <h3>Immediate Triggers Satisfied</h3>
-        <p><span class="unit">/sec</span></p>
+        <p><span id="s8"></span><span class="unit">/sec</span></p>
       </div>
     </div>
     <div class="span8">
-      <div class="graph">
-        <div class="graph-container"></div>
+      <div class="graph" id="g3">
+        <svg></svg>
       </div>
     </div>
   </div>
+
+    <script>
+      bean.on(cronenberg.queries.immediate_triggers, 'data-available', function(query) {
+          summation = cronenberg.reduce_series(query.data[0]);
+          $("#s7").text(summation.mean.toFixed(2));
+          makeChart($("#g3"), query.data[0]);
+          summation = cronenberg.reduce_series(query.data[3]);
+          $("#s8").text(summation.mean.toFixed(2));
+      });
+    </script>
+
 
   <!-- ============================================================================= -->
   <!-- Historical Triggers -->
@@ -234,8 +262,6 @@
     </div>
   </div>
 
-
-
   <p>&nbsp;</p>
 
   <script>
@@ -248,42 +274,46 @@
     }
     for (var query_name in cronenberg.queries) {
         var query = cronenberg.queries[query_name]
-        console.log('Fetching ' + query.url);
+        console.log(query.url);
         $.getJSON(query.url, makeHandler(query));
     }
-/*
-function makeChart(query, e) {
-        var selector = '#' + chartid;
-        var data = JSON.parse(e.getAttribute('datastring'));
-        $(e).append('<div class="graph-render" id="' + chartid + '"><svg></svg></div>');
-        var chart_element = $(selector);
 
-
+    function makeChart(e, series) {
+        console.log("makeChart()");
+        console.log(series);
+        // would rather not transform the whole array here, but I
+        // can't get the x/y functions working properly
+        var data = [{
+            values: series.datapoints,
+            key: series.target
+        }];
+        console.log(data);
         nv.addGraph(function() {
-            var width = chart_element.width();
-            var height = chart_element.height();
+            var width = e.width();
+            var height = e.height();
             var chart = nv.models.lineChart()
                 .options({
                     showXAxis: false,
                     showYAxis: false,
                     showLegend: false,
-                    useInteractiveGuideline: true
+                    useInteractiveGuideline: true,
+                    x: function(d) { return d[1]; },
+                    y: function(d) { return d[0]; }
                 })
                 .width(width)
                 .height(height)
                 .margin({ top: 0, right: 0, bottom: 0, left: 0 });
             chart.yAxis.tickFormat(d3.format(',.2f'));
             chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow(); });
-            window.charts[chartid] = chart;
-            d3.select(selector + ' svg')
+            d3.select(e.selector + ' svg')
                 .attr('width', width)
                 .attr('height', height)
                 .datum(data)
                 .call(chart);
             return chart;
         });
-    });
-*/
+    }
+
   </script>
 
 {% endblock %}
