@@ -221,3 +221,35 @@ class Queries(object):
                   'Total Argon Mutation Rate')
 
         )
+
+
+    # =============================================================================
+    # New queries for client-side processing
+
+    def total_events_processed(self):
+        gorram  = self.env.service('triggers-gorram-consumer')
+        ingress = self.env.service('triggers-state-ingress')
+        # Gorram - device events
+        return alias(sum_series(non_negative_derivative(rash(gorram, 'argonmutationconsumer_timer.device_open_processed.Count')),
+                                non_negative_derivative(rash(gorram, 'argonmutationconsumer_meter.totalmutationsreceived.Count')),
+                                non_negative_derivative(rash(ingress, 'immediatetriggerauditlog.observation_latency.Count'))),
+                     'Total Event Count')
+
+    def total_triggers_processed(self):
+        service = self.env.service('triggers-state-ingress')
+        return alias(sum_series(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_processed.Count'))),
+                                non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_processed.Count')))),
+                     "Total Triggers Processed Count")
+
+    def total_triggers_satisfied(self):
+        service = self.env.service('triggers-state-ingress')
+        return alias(sum_series(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_satisfied.Count'))),
+                                non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_satisfied.Count')))),
+                     "Total Triggers Satisfied Count")
+
+
+    def total_pushes_sent(self):
+        service = self.env.service('triggers-fulfillment')
+        return alias(sum_series(non_negative_derivative(rash(service, 'pushfulfillmenthandler.total_push_count.Count')),
+                                non_negative_derivative(rash(service, 'delayedpushfulfillmenthandler.total_delayed_push_count.Count'))),
+                     "Push Count")
