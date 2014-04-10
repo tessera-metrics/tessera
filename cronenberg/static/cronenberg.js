@@ -40,7 +40,6 @@ var cronenberg = {
         if (sums.first == null) {
             sums.first = 0;
         }
-        sums.last = series.datapoints[series.datapoints.length - 1][0]
         _.reduce(series.datapoints, function(context, point) {
             var value = point[0] == null ? 0 : point[0];
             context.sum = context.sum + value;
@@ -50,6 +49,7 @@ var cronenberg = {
             if (value < context.min) {
                 context.min = value;
             }
+            context.last = value;
             return context;
         }, sums);
         sums.mean = sums.sum / series.datapoints.length;

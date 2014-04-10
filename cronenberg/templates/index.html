@@ -42,8 +42,7 @@
     </div>
     <script>
     bean.on(cronenberg.queries.total_events_processed, 'data-available', function(query) {
-        summation = cronenberg.reduce_series(query.data[0]);
-        $("#s1").text(summation.sum);
+        $("#s1").text(query.data[0].summation.sum);
     });
     </script>
 
@@ -58,8 +57,7 @@
 
     <script>
       bean.on(cronenberg.queries.total_triggers_processed, 'data-available', function(query) {
-        summation = cronenberg.reduce_series(query.data[0]);
-        $("#s2").text(summation.sum);
+        $("#s2").text(query.data[0].summation.sum);
       });
     </script>
 
@@ -74,8 +72,7 @@
 
     <script>
       bean.on(cronenberg.queries.total_triggers_satisfied, 'data-available', function(query) {
-        summation = cronenberg.reduce_series(query.data[0]);
-        $("#s3").text(summation.sum);
+        $("#s3").text(query.data[0].summation.sum);
       });
     </script>
 
@@ -91,8 +88,7 @@
 
     <script>
       bean.on(cronenberg.queries.total_pushes_sent, 'data-available', function(query) {
-        summation = cronenberg.reduce_series(query.data[0]);
-        $("#s4").text(summation.sum);
+        $("#s4").text(query.data[0].summation.sum);
       });
     </script>
 
@@ -121,8 +117,7 @@
   </div>
     <script>
       bean.on(cronenberg.queries.total_push_rate, 'data-available', function(query) {
-          summation = cronenberg.reduce_series(query.data[0]);
-          $("#s5").text(summation.mean.toFixed(3));
+          $("#s5").text(query.data[0].summation.mean.toFixed(3));
           makeChart($("#g1"), query.data[0]);
       });
     </script>
@@ -150,8 +145,7 @@
 
     <script>
       bean.on(cronenberg.queries.end_to_end, 'data-available', function(query) {
-          summation = cronenberg.reduce_series(query.data[0]);
-          $("#s6").text(summation.mean.toFixed(2));
+          $("#s6").text(query.data[0].summation.mean.toFixed(2));
           makeChart($("#g2"), query.data[0]);
       });
     </script>
@@ -184,11 +178,9 @@
 
     <script>
       bean.on(cronenberg.queries.immediate_triggers, 'data-available', function(query) {
-          summation = cronenberg.reduce_series(query.data[0]);
-          $("#s7").text(summation.mean.toFixed(2));
+          $("#s7").text(query.data[0].summation.mean.toFixed(2));
           makeChart($("#g3"), query.data[0]);
-          summation = cronenberg.reduce_series(query.data[3]);
-          $("#s8").text(summation.mean.toFixed(2));
+          $("#s8").text(query.data[3].summation.mean.toFixed(2));
       });
     </script>
 
@@ -219,11 +211,9 @@
 
     <script>
       bean.on(cronenberg.queries.historical_triggers, 'data-available', function(query) {
-          summation = cronenberg.reduce_series(query.data[0]);
-          $("#s9").text(summation.mean.toFixed(2));
+          $("#s9").text(query.data[0].summation.mean.toFixed(2));
           makeChart($("#g4"), query.data[0]);
-          summation = cronenberg.reduce_series(query.data[3]);
-          $("#s10").text(summation.mean.toFixed(2));
+          $("#s10").text(query.data[3].summation.mean.toFixed(2));
       });
     </script>
 
@@ -254,13 +244,11 @@
 
     <script>
       bean.on(cronenberg.queries.api_latency, 'data-available', function(query) {
-          summation = cronenberg.reduce_series(query.data[0]);
-          $("#s11").text(summation.mean.toFixed(2));
+          $("#s11").text(query.data[0].summation.mean.toFixed(2));
       });
       bean.on(cronenberg.queries.api_rate, 'data-available', function(query) {
           makeChart($("#g5"), query.data[0]);
-          summation = cronenberg.reduce_series(query.data[1]);
-          $("#s12").text(summation.sum);
+          $("#s12").text(query.data[1].summation.sum);
       });
     </script>
 
@@ -286,8 +274,7 @@
 
     <script>
       bean.on(cronenberg.queries.device_event_rate, 'data-available', function(query) {
-      summation = cronenberg.reduce_series(query.data[0]);
-      $("#s13").text(summation.mean.toFixed(0));
+      $("#s13").text(query.data[0].summation.mean.toFixed(0));
       makeChart($("#g6"), query.data[0]);
       });
     </script>
@@ -298,27 +285,42 @@
   <script>
     <!-- launch the queries -->
     function makeHandler(query) {
-        return function(data) {
-            cronenberg.queries[query.name].data = data;
+        return function(data, textStatus) {
+            console.log(query.name + ' ' + textStatus);
+            console.log(data);
+            cronenberg.queries[query.name].data = _.map(data, function(series) {
+                series.summation = cronenberg.reduce_series(series);
+                series.key = series.target;
+                series.values = series.datapoints;
+                return series;
+/*
+  WHY DOES THIS FAIL?
+              return {
+                    key: series.target,
+                    values: series.datapoints,
+                    summation: cronenberg.reduce_series(series)
+                }; */
+            });
             bean.fire(query, 'data-available', cronenberg.queries[query.name]);
         };
     }
     for (var query_name in cronenberg.queries) {
         var query = cronenberg.queries[query_name]
         console.log(query.url);
-        $.getJSON(query.url, makeHandler(query));
+        $.ajax({
+            dataType: "json",
+            url: query.url,
+            success: makeHandler(query)
+        });
     }
 
     function makeChart(e, series) {
-        console.log("makeChart()");
-        console.log(series);
         // would rather not transform the whole array here, but I
         // can't get the x/y functions working properly
         var data = [{
             values: series.datapoints,
             key: series.target
         }];
-        console.log(data);
         nv.addGraph(function() {
             var width = e.width();
             var height = e.height();
