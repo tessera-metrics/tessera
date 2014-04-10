@@ -9,7 +9,7 @@
       %}
 
       <li id="range{{item[1]}}"
-          {% if request.args.get('from') == item[1] %}
+          {% if request.args.get('from','-3h') == item[1] %}
             class="active"
           {% endif %}
           >
