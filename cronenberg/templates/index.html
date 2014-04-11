@@ -1,6 +1,6 @@
 <!-- -*- mode:jinja2 -*- -->
 {% extends "layouts/standard.html" %}
-{% from "presentations.html" import singlestat, simple_time_series with context %}
+{% from "presentations.html" import render with context %}
 
 {% block pagetitle %}
   <span class="primary-title">{{app}}</span> <span class="secondary-title">{{title}}</span>
@@ -24,24 +24,7 @@
   <!-- Funnel summary row -->
   <!-- ============================================================================= -->
 
-  <div class="row-fluid">
-
-    {{ singlestat(pres_raw_events) }}
-    {{ singlestat(pres_triggers_processed) }}
-    {{ singlestat(pres_triggers_satisfied) }}
-    {{ singlestat(pres_pushes_sent) }}
-
-  </div> <!-- row -->
-  <hr/>
-
-  <!-- ============================================================================= -->
-  <!-- Pushes -->
-  <!-- ============================================================================= -->
-
-  <div class="row graphline">
-    {{ singlestat(mean_push_rate) }}
-    {{ simple_time_series(push_rate_graph) }}
-  </div>
+  {{ render(grid) }}
 
   <!-- ============================================================================= -->
   <!-- Delivery -->
