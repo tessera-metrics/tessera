@@ -32,15 +32,17 @@ class Presentation(object):
         Presentation.NEXT += 1
         return 'p{0}'.format(Presentation.NEXT)
 
-    def __init__(self, query_name, presentation_type):
+    def __init__(self, query_name, presentation_type, css_class=None):
         self.query_name = query_name
         self.presentation_type = presentation_type
         self.element_id = Presentation.nextid()
+        self.css_class = css_class
 
 class SingleStat(Presentation):
-    def __init__(self, title, query_name, units='', decimal=3, index=0, transform=Presentation.Transform.MEAN):
+    def __init__(self, title, query_name, units='', decimal=3, index=0, transform=Presentation.Transform.MEAN, **kwargs):
         super(SingleStat, self).__init__(query_name=query_name,
-                                         presentation_type='singlestat')
+                                         presentation_type='singlestat',
+                                         **kwargs)
         self.title = title
         self.transform = transform
         self.index = index
@@ -48,14 +50,16 @@ class SingleStat(Presentation):
         self.decimal = decimal
 
 class SimpleTimeSeries(Presentation):
-    def __init__(self, query_name):
+    def __init__(self, query_name, **kwargs):
         super(SimpleTimeSeries, self).__init__(query_name=query_name,
-                                               presentation_type='simple_time_series')
+                                               presentation_type='simple_time_series',
+                                               **kwargs)
 
 class StackedAreaChart(Presentation):
-    def __init__(self, query_name):
+    def __init__(self, query_name, **kwargs):
         super(StackedAreaChart, self).__init__(query_name=query_name,
-                                               presentation_type='stacked_area_chart')
+                                               presentation_type='stacked_area_chart',
+                                               **kwargs)
 
 # =============================================================================
 # Layout
@@ -90,7 +94,10 @@ class Separator(LayoutElement):
         super(Separator, self).__init__(layout_type='separator', **kwargs)
 
 class Dashboard(cask.NamedEntity):
-    def __init__(self, name, queries, grid):
+    def __init__(self, name, queries, grid, category='', title='', description=''):
         super(Dashboard, self).__init__(name=name)
         self.queries = queries
         self.grid = grid
+        self.category = category
+        self.title = title
+        self.description = description

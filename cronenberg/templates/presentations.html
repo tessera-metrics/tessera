@@ -12,7 +12,9 @@ modularized for now. -->
 <!-- ============================================================================= -->
 
 {% macro render_singlestat(presentation) -%}
-<div class="singlestat" id="{{presentation.element_id}}">
+<div class="singlestat
+            {% if presentation.css_class %}{{presentation.css_class}}{% endif %}
+" id="{{presentation.element_id}}">
   <h3>{{ presentation.title }}</h3>
   <p><span class="value"></span><span class="unit">{{ presentation.units }}</span></p>
   <script>
@@ -27,7 +29,8 @@ modularized for now. -->
 <!-- ============================================================================= -->
 
 {% macro render_simple_time_series(presentation) -%}
-<div class="graph simple-time-series" id="{{presentation.element_id}}">
+<div class="graph simple-time-series
+{% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
   <svg></svg>
   <script>
   bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
@@ -41,7 +44,8 @@ modularized for now. -->
 
 <!-- TODO: cell & presentation rendering can be separated -->
 {% macro render_stacked_area_chart(presentation) -%}
-<div class="graph stacked-area-chart" id="{{presentation.element_id}}">
+<div class="graph stacked-area-chart
+{% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
   <svg></svg>
   <script>
   bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
