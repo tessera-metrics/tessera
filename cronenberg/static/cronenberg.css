@@ -137,12 +137,13 @@ h1 .secondary-title {
     font-size:30px;
 }
 
-.graphline {
-    padding-bottom: 2em;
+.dashboard-row {
+    // padding-bottom: 2em;
 }
 
 .simple-time-series svg {
     height: 90px;
+    margin-bottom: 2em;
 }
 
 #tooltip {
