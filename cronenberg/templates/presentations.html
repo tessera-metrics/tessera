@@ -1,20 +1,32 @@
-{% macro presentation_singlestat(query_name, title, span, transform, emphasize=False, index=0) -%}
+{% macro singlestat(layout) -%}
 
-<div class="span{{span}}">
-  {% if emphasize %}
+<div class="span{{ layout.span }}{% if layout.offset %} offset{{ layout.offset }} {% endif %}"
+{% if layout.presentation.align == 'center' %}
+align="center"
+{% endif %}
+>
+  {% if layout.emphasize %}
     <div class="well">
-      <div class="singlestat banner">
+      <div class="singlestat banner" id="{{layout.presentation.element_id}}">
     {% else %}
-      <div class="singlestat">
+      <div class="singlestat" id="{{layout.presentation.element_id}}">
   {% endif %}
 
-  <h3>{{title}}</h3>
-  <p></p>
+  <h3>{{ layout.presentation.title }}</h3>
+  <p><span class="value"></span><span class="unit">{{ layout.presentation.units }}</span></p>
 
       </div> <!-- singlestat -->
-  {% if emphasize %}
+  {% if layout.emphasize %}
     </div> <!-- well -->
   {% endif %}
 </div>
+
+<script>
+    // TODO - add number format
+    bean.on(cronenberg.queries.{{layout.presentation.query_name}}, 'data-available', function(query) {
+        $("#{{layout.presentation.element_id}} span.value").number(query.data[{{layout.presentation.index}}].summation.{{layout.presentation.transform}},
+                                                                   {{layout.presentation.decimal}});
+    });
+</script>
 
 {%- endmacro %}

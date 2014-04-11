@@ -26,6 +26,8 @@ Client Side:
   on top of [d3](http://d3js.org).
 * [moment.js](http://momentjs.com/) for time parsing & formatting.
 * [bean.js](https://github.com/fat/bean) for events.
+* [activity-indicator](https://github.com/neteye/jquery-plugins/tree/master/activity-indicator) for indication of data loading.
+* [jquery-number](https://github.com/teamdf/jquery-number) for formatting of numeric values.
 
 ## Developing or Running from Source ##
 

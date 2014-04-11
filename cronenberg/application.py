@@ -12,7 +12,8 @@ from flask import Flask, render_template, request, redirect, jsonify, abort
 
 import toolbox
 from toolbox.graphite import Graphite, GraphiteQuery
-from data import Queries
+from .data import Queries
+from .model import *
 
 # =============================================================================
 # Setup
@@ -25,15 +26,21 @@ env = toolbox.PROD
 q = Queries(env)
 graphite = env.graphite()
 
-
-
 # =============================================================================
 # Template Helpers
 # =============================================================================
 
+class RenderContext:
+    def __init__(self):
+        self.now = datetime.datetime.now()
+        self.element_index = 0
+
+    def nextid(self):
+        self.element_index += 1
+        return 'e' + self.element_index
+
 def _render_template(template, **kwargs):
-    now = datetime.datetime.now()
-    return render_template(template, now=now, **kwargs)
+    return render_template(template, ctx=RenderContext(), **kwargs)
 
 # =============================================================================
 # UI: Basics
@@ -41,7 +48,9 @@ def _render_template(template, **kwargs):
 
 @app.route('/')
 def ui_root():
-    from_time = request.args.get('from', '-12h')
+    # TODO - this -3h default needs to be in a constant; also used in
+    # recent-range-picker template
+    from_time = request.args.get('from', '-3h')
     until_time = request.args.get('until', None)
 
     queries = {
@@ -64,23 +73,48 @@ def ui_root():
         query = GraphiteQuery(v, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
         queries[k] = str(graphite.render_url(query))
 
-    # context = {}
-    # context['total-events-processed']    = 10 #'{:,}'.format(int(context['events'][4]['sum'] + context['events'][2]['sum']))
-    # context['triggers-processed']        = 10 #'{:,}'.format(int(context['triggers'][8]['sum']))
-    # context['triggers-satisfied']        = 10 #'{:,}'.format(int(context['triggers'][9]['sum']))
-    # context['pushes-sent']               = 10 #'{:,}'.format(int(context['total'][0]['sum']))
-    # context['average-push-rate']         = 10 #'{:.3f}'.format(context['total'][1]['avg'])
-    # context['average-end-to-end']        = 10 #'{0}'.format(int(context['delivery'][0]['avg']))
-    # context['immediate-processed-rate'] = 10 #'{:0.3f}'.format(context['triggers'][0]['avg'])
-    # context['immediate-satisfied-rate'] = 10 #'{:0.3f}'.format(context['triggers'][2]['avg'])
-    # context['historical-processed-rate'] = 10 #'{:0.3f}'.format(context['triggers'][4]['avg'])
-    # context['historical-satisfied-rate'] = 10 #'{:0.3f}'.format(context['triggers'][6]['avg'])
-    # context['api-mean-latency']          = 10 #'{:0.2f}'.format(context['api-latency'][0]['avg'])
-    # context['api-total']                 = 10 #'{0}'.format(int(context['api-rate'][1]['sum']))
-    # context['mean-device-opens-rate']    = 10 #'{0}'.format(int(context['events'][1]['avg']))
+
+    pres_raw_events = LayoutEntry(span=3, emphasize=True,
+                                  presentation=SingleStatPresentation(title='Raw Events Processed',
+                                                                      query_name='total_events_processed',
+                                                                      align='center',
+                                                                      decimal=0,
+                                                                      transform='sum'))
+    pres_triggers_processed = LayoutEntry(span=3, emphasize=True,
+                                          presentation=SingleStatPresentation(title='Triggers Processed',
+                                                                              query_name='total_triggers_processed',
+                                                                              align='center',
+                                                                              decimal=0,
+                                                                              transform='sum'))
+
+    pres_triggers_satisfied = LayoutEntry(span=3, emphasize=True,
+                                          presentation=SingleStatPresentation(title='Triggers Satisifed',
+                                                                              query_name='total_triggers_satisfied',
+                                                                              align='center',
+                                                                              decimal=0,
+                                                                              transform='sum'))
+    pres_pushes_sent = LayoutEntry(span=3, emphasize=True,
+                                   presentation=SingleStatPresentation(title='Pushes Sent',
+                                                                       query_name='total_pushes_sent',
+                                                                       align='center',
+                                                                       decimal=0,
+                                                                       transform='sum'))
+    mean_push_rate = LayoutEntry(span=2, offset=2,
+                                 presentation=SingleStatPresentation(title='Mean Push Rate',
+                                                                     query_name='total_push_rate',
+                                                                     units='/sec',
+                                                                     decimal=3,
+                                                                     transform='mean'))
+
+
 
     return _render_template('index.html',
                             app='Automation',
                             title='Overview',
                             queries=queries,
+                            pres_raw_events=pres_raw_events,
+                            pres_triggers_satisfied=pres_triggers_satisfied,
+                            pres_triggers_processed=pres_triggers_processed,
+                            pres_pushes_sent=pres_pushes_sent,
+                            mean_push_rate=mean_push_rate,
                             breadcrumbs=[('Home','')])

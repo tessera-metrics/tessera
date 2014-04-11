@@ -1,4 +1,6 @@
 import cask
+import uuid
+import base64
 
 # class Query(cask.NamedEntity):
 #     """Represents a graphite query with one or more targets."""
@@ -27,15 +29,24 @@ class Grid(object):
     def __process_row(row):
         return [ Grid.__process_entry(e) for e in row ]
 
-class GridEntry(object):
-    def __init__(self, presentation, span, offset=None):
+class LayoutEntry(object):
+    def __init__(self, presentation, span, emphasize=False, offset=None):
         self.presentation = presentation
         self.span = span
         self.offset = offset
+        self.emphasize = emphasize
 
 class Presentation(object):
+    NEXT = 1
+
+    @staticmethod
+    def nextid():
+        Presentation.NEXT += 1
+        return 'p{0}'.format(Presentation.NEXT)
+
     def __init__(self, query_name):
-        self.query = query_name
+        self.query_name = query_name
+        self.element_id = Presentation.nextid()
 
 class DataTablePresentation(Presentation):
     def __init__(self, title, query_name):
@@ -50,10 +61,16 @@ class SingleStatPresentation(Presentation):
         LAST   = 'last'
         FIRST  = 'first'
 
-    def __init__(self, title, query_name, transform=Transform.MEAN):
+    # TODO - add number format
+
+    def __init__(self, title, query_name, units='', decimal=3, index=0, align=None, transform=Transform.MEAN):
         super(SingleStatPresentation, self).__init__(query_name=query_name)
         self.title = title
         self.transform = transform
+        self.index = index
+        self.align = align
+        self.units = units
+        self.decimal = decimal
 
 class ChartPresentation(Presentation):
     def __init__(self, query_name, title=None, chart_type='timeseries'):
