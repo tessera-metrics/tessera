@@ -66,7 +66,13 @@ modularized for now. -->
 <!-- ============================================================================= -->
 
 {% macro render_cell(cell) -%}
-<div class="span{{ cell.span }}{% if cell.offset %} offset{{ cell.offset }} {% endif %}" {% if cell.align == 'center' %}align="center"{% endif %}>
+<div class="span{{ cell.span }}
+{% if cell.offset %} offset{{ cell.offset }} {% endif %}
+{% if cell.css_class %} {{ cell.css_class }} {% endif %}
+"
+{% if cell.align == 'center' %} align="center" {% endif %}
+{% if cell.height %} height="{{cell.height}}" {% endif %}
+>
   {% if cell.emphasize %}
     <div class="well">
   {% endif %}
