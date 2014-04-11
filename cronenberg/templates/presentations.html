@@ -6,81 +6,76 @@ modularized for now. -->
 <!-- ============================================================================= -->
 
 {% macro render_separator(separator) -%}
-  <hr {% if separator.css_class != '' %}class="{{separator.css_class}}" {% endif %}>
-  </hr>
+<hr{% if separator.css_class != '' %}class="{{separator.css_class}}"{% endif %}></hr>
 {% endmacro %}
 
 <!-- ============================================================================= -->
 
-{% macro render_singlestat(layout) -%}
-<div class="span{{ layout.span }}{% if layout.offset %} offset{{ layout.offset }} {% endif %}"
-{% if layout.presentation.align == 'center' %}
-align="center"
-{% endif %}
->
-  {% if layout.emphasize %}
-    <div class="well">
-      <div class="singlestat banner" id="{{layout.presentation.element_id}}">
-    {% else %}
-      <div class="singlestat" id="{{layout.presentation.element_id}}">
-  {% endif %}
-  <h3>{{ layout.presentation.title }}</h3>
-  <p><span class="value"></span><span class="unit">{{ layout.presentation.units }}</span></p>
-      </div>
-  {% if layout.emphasize %}
-    </div>
-  {% endif %}
+{% macro render_singlestat(presentation) -%}
+<div class="singlestat" id="{{presentation.element_id}}">
+  <h3>{{ presentation.title }}</h3>
+  <p><span class="value"></span><span class="unit">{{ presentation.units }}</span></p>
+  <script>
+    bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
+          var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
+          $("#{{presentation.element_id}} span.value").number(value, {{presentation.decimal}});
+      });
+  </script>
 </div>
-<script>
-    bean.on(cronenberg.queries.{{layout.presentation.query_name}}, 'data-available', function(query) {
-        $("#{{layout.presentation.element_id}} span.value").number(query.data[{{layout.presentation.index}}].summation.{{layout.presentation.transform}},
-                                                                   {{layout.presentation.decimal}});
-    });
-</script>
 {%- endmacro %}
 
 <!-- ============================================================================= -->
 
-{% macro render_simple_time_series(layout) -%}
-<div class="span{{ layout.span }}{% if layout.offset %} offset{{ layout.offset }} {% endif %}">
-  <div class="graph simple-time-series" id="{{layout.presentation.element_id}}">
-    <svg></svg>
-  </div>
-</div>
-<script>
-  bean.on(cronenberg.queries.{{layout.presentation.query_name}}, 'data-available', function(query) {
-      cronenberg.simple_line_chart($("#{{layout.presentation.element_id}}"), query.data[0]);
+{% macro render_simple_time_series(presentation) -%}
+<div class="graph simple-time-series" id="{{presentation.element_id}}">
+  <svg></svg>
+  <script>
+  bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
+      cronenberg.simple_line_chart($("#{{presentation.element_id}}"), query.data[0]);
   });
-</script>
+  </script>
+</div>
 {%- endmacro %}
 
 <!-- ============================================================================= -->
 
 <!-- TODO: cell & presentation rendering can be separated -->
-{% macro render_stacked_area_chart(layout) -%}
-<div class="span{{ layout.span }}{% if layout.offset %} offset{{ layout.offset }} {% endif %}">
-  <div class="graph stacked-area-chart" id="{{layout.presentation.element_id}}">
-    <svg></svg>
-  </div>
-</div>
-<script>
-  bean.on(cronenberg.queries.{{layout.presentation.query_name}}, 'data-available', function(query) {
-      cronenberg.stacked_area_chart($("#{{layout.presentation.element_id}}"), query.data);
+{% macro render_stacked_area_chart(presentation) -%}
+<div class="graph stacked-area-chart" id="{{presentation.element_id}}">
+  <svg></svg>
+  <script>
+  bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
+      cronenberg.stacked_area_chart($("#{{presentation.element_id}}"), query.data);
   });
-</script>
+  </script>
+</div>
 {%- endmacro %}
 
 <!-- ============================================================================= -->
 
-{% macro render_cell(cell) -%}
-  {% if cell.presentation.presentation_type == 'singlestat' %}
-    {{ render_singlestat(cell) }}
-  {% elif cell.presentation.presentation_type == 'simple_time_series' %}
-    {{ render_simple_time_series(cell) }}
-  {% elif cell.presentation.presentation_type == 'stacked_area_chart' %}
-    {{ render_stacked_area_chart(cell) }}
+{% macro render_presentation(presentation) -%}
+  {% if presentation.presentation_type == 'singlestat' %}
+    {{ render_singlestat(presentation) }}
+  {% elif presentation.presentation_type == 'simple_time_series' %}
+    {{ render_simple_time_series(presentation) }}
+  {% elif presentation.presentation_type == 'stacked_area_chart' %}
+    {{ render_stacked_area_chart(presentation) }}
   {% endif %}
 {% endmacro %}
+
+<!-- ============================================================================= -->
+
+{% macro render_cell(cell) -%}
+<div class="span{{ cell.span }}{% if cell.offset %} offset{{ cell.offset }} {% endif %}" {% if cell.align == 'center' %}align="center"{% endif %}>
+  {% if cell.emphasize %}
+    <div class="well">
+  {% endif %}
+  {{ render_presentation(cell.presentation) }}
+  {% if cell.emphasize %}
+    </div>
+  {% endif %}
+</div>
+{%- endmacro %}
 
 <!-- ============================================================================= -->
 

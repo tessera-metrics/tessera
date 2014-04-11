@@ -38,13 +38,12 @@ class Presentation(object):
         self.element_id = Presentation.nextid()
 
 class SingleStat(Presentation):
-    def __init__(self, title, query_name, units='', decimal=3, index=0, align=None, transform=Presentation.Transform.MEAN):
+    def __init__(self, title, query_name, units='', decimal=3, index=0, transform=Presentation.Transform.MEAN):
         super(SingleStat, self).__init__(query_name=query_name,
                                          presentation_type='singlestat')
         self.title = title
         self.transform = transform
         self.index = index
-        self.align = align
         self.units = units
         self.decimal = decimal
 
@@ -68,12 +67,13 @@ class LayoutElement(object):
         self.css_class = css_class
 
 class Cell(LayoutElement):
-    def __init__(self, presentation, span, emphasize=False, offset=None, **kwargs):
+    def __init__(self, presentation, span, emphasize=False, offset=None, align=None, **kwargs):
         super(Cell, self).__init__(layout_type='cell', **kwargs)
         self.presentation = presentation
         self.span = span
         self.offset = offset
         self.emphasize = emphasize
+        self.align = align
 
 class Row(LayoutElement):
     def __init__(self, *cells, **kwargs):
