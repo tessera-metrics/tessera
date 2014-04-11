@@ -1,7 +1,25 @@
+/* nvd3 tweaks for darkstrap */
+
 .nvtooltip {
   background-color: #555555;
   color: #EFEFEF;
   border:none ;
+}
+
+.nvd3 text {
+    fill: #a6a6a6;
+}
+
+.nv-legend-text {
+    fill: #a6a6a6;
+}
+
+.nvd3 .tick line {
+    stroke: #494951;
+}
+
+.nvd3 .nv-axis path {
+    stroke: #494951;
 }
 
 /* Bootstrap tweak */
@@ -78,7 +96,7 @@ background-color: #222;
 
 /* App styles */
 
-body {
+h1, h2, h3, h4 {
     font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;
 }
 
