@@ -9,7 +9,7 @@
 {% block layout %}
 
   <script>
-    {% for name,url in queries.iteritems() -%}
+    {% for name,url in dashboard.queries.iteritems() -%}
       cronenberg.add_query('{{name}}', '{{url|safe}}');
     {%- endfor %}
   </script>
@@ -18,7 +18,7 @@
     {% include "snippets/recent-range-picker.html" %}
   </div>
 
-  {{ render(grid) }}
+  {{ render(dashboard.grid) }}
 
   <script>
     cronenberg.load_queries();
