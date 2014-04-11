@@ -46,13 +46,7 @@ def _render_template(template, **kwargs):
 # UI: Basics
 # =============================================================================
 
-@app.route('/')
-def ui_root():
-    # TODO - this -3h default needs to be in a constant; also used in
-    # recent-range-picker template
-    from_time = request.args.get('from', '-3h')
-    until_time = request.args.get('until', None)
-
+def demo_dashboard(from_time, until_time):
     queries = {
         'total_events_processed'   : q.total_events_processed(),
         'total_triggers_processed' : q.total_triggers_processed(),
@@ -65,7 +59,8 @@ def ui_root():
         'api_rate'                 : q.automation_api_rates(),
         'api_latency'              : q.automation_api_latency(),
         'device_event_rate'        : q.device_event_rate(),
-        'stacked_test' : q.automation_push_payloads()
+        'stacked_test' : q.automation_push_payloads(),
+        'gatekeeper' : "aliasByNode(scaleToSeconds(nonNegativeDerivative(servers.*.rash.gatekeeper.requestmetrics.http_2xx_responses.endpoint_push.Count),1), 1)"
     }
 
     for k,v in queries.items():
@@ -75,7 +70,9 @@ def ui_root():
         queries[k] = str(graphite.render_url(query))
 
 
-    dash = Dashboard(name='Automation Overview',
+    dash = Dashboard(name='automation_overview',
+                     category='Automation',
+                     title='Overview',
                      queries=queries,
                      grid=Grid(Row(Cell(span=3, emphasize=True, align='center',
                                         presentation=SingleStat(title='Raw Events Processed',
@@ -157,13 +154,24 @@ def ui_root():
                                                                 units='/sec',
                                                                 decimal=0)),
                                    Cell(span=8,
-                                        presentation=SimpleTimeSeries(query_name='device_event_rate'))))
+                                        presentation=SimpleTimeSeries(query_name='device_event_rate'))),
+                               Row(Cell(span=8, offset=4,
+                                        presentation=StackedAreaChart(css_class='height4', query_name='gatekeeper'))))
     )
     #Row(Cell(span=12,
     #        presentation=StackedAreaChart(query_name='stacked_test')))
+    return dash
 
-    return _render_template('index.html',
-                            app='Automation',
-                            title='Overview',
-                            dashboard=dash,
-                            breadcrumbs=[('Home','')])
+@app.route('/')
+def ui_root():
+    # TODO - this -3h default needs to be in a constant; also used in
+    # recent-range-picker template
+    from_time = request.args.get('from', '-3h')
+    until_time = request.args.get('until', None)
+    dashboard = demo_dashboard(from_time, until_time)
+
+    return _render_template('dashboard.html',
+                            dashboard=dashboard,
+                            breadcrumbs=[('Home', '/'),
+                                         ('Dashboards', '/'),
+                                         ('{0} {1}'.format(dashboard.category, dashboard.title), '')])
