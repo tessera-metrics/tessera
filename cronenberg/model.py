@@ -55,6 +55,10 @@ class SimpleTimeSeries(Presentation):
         super(SimpleTimeSeries, self).__init__(query_name=query_name,
                                                presentation_type='simple_time_series')
 
+class StackedAreaChart(Presentation):
+    def __init__(self, query_name):
+        super(StackedAreaChart, self).__init__(query_name=query_name,
+                                               presentation_type='stacked_area_chart')
 
 # =============================================================================
 # Layout

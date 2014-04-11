@@ -64,7 +64,8 @@ def ui_root():
         'historical_triggers'        : q.historical_triggers(),
         'api_rate'       : q.automation_api_rates(),
         'api_latency'    : q.automation_api_latency(),
-        'device_event_rate' : q.device_event_rate()
+        'device_event_rate' : q.device_event_rate(),
+        'stacked_test' : q.automation_push_payloads()
     }
 
     for k,v in queries.items():
@@ -108,6 +109,8 @@ def ui_root():
                                                  transform='mean')),
                     Cell(span=8, presentation=SimpleTimeSeries(query_name='total_push_rate'))
                 )
+                #Row(Cell(span=12,
+                #        presentation=StackedAreaChart(query_name='stacked_test')))
     )
     return _render_template('index.html',
                             app='Automation',

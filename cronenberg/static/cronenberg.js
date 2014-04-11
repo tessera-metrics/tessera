@@ -39,21 +39,24 @@ var cronenberg = {
     },
 
 
+    load_query: function(query_name) {
+        // console.log('  load_queries(): ' + query_name);
+        var query = this.queries[query_name]
+        // console.log(query);
+
+        // Notify any consumers of this query that it's reloading
+        bean.fire(query, 'loading');
+
+        $.ajax({
+            dataType: "json",
+            url: query.url
+        }).done(this._makeHandler(query));
+    },
+
     load_queries: function() {
         // console.log("cronenberg.load_queries()");
         for (var query_name in this.queries) {
-            // console.log('  load_queries(): ' + query_name);
-            var query = this.queries[query_name]
-            // console.log(query);
-
-
-            // Notify any consumers of this query that it's reloading
-            bean.fire(query, 'loading');
-
-            $.ajax({
-                dataType: "json",
-                url: query.url
-            }).done(this._makeHandler(query));
+            this.load_query(query_name);
         }
     },
 
@@ -66,15 +69,6 @@ var cronenberg = {
             length: 6,
             space: 2
         }); */
-    },
-
-    id: function(entity) {
-        var name = '';
-        if ( typeof(entity) == "string" )
-            name = entity;
-        else
-            name = entity.name;
-        return name.replace(/\./g, '_');
     },
 
     // Borrowed from Rickshaw
@@ -154,5 +148,39 @@ var cronenberg = {
                 .call(chart);
             return chart;
         });
+    },
+
+    stacked_area_chart: function(e, list_of_series) {
+        var data = _.map(list_of_series, function(series) {
+            return {
+                key: series.target,
+                values: series.datapoints
+            };
+        });
+        nv.addGraph(function() {
+            var width  = e.width();
+            var height = e.height();
+            var chart  = nv.models.stackedAreaChart()
+                .useInteractiveGuideline(true)
+                .options({
+                    showLegend: false,
+                    useInteractiveGuideline: true,
+                    x: function(d) { return d[1]; },
+                    y: function(d) { return d[0]; }
+                })
+                .width(width)
+                .height(height)
+                .margin({ top: 0, right: 0, bottom: 0, left: 0 });
+            chart.yAxis.tickFormat(d3.format(',.2f'));
+            chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow(); });
+            d3.select(e.selector + ' svg')
+                .attr('width', width)
+                .attr('height', height)
+                .datum(data)
+                .transition()
+                .call(chart);
+            return chart;
+        });
     }
+
 };

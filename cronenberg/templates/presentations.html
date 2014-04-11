@@ -51,11 +51,30 @@ align="center"
 
 <!-- ========================================================================= -->
 
+<!-- TODO: cell & presentation rendering can be separated -->
+{% macro stacked_area_chart(layout) -%}
+<div class="span{{ layout.span }}{% if layout.offset %} offset{{ layout.offset }} {% endif %}">
+  <div class="graph stacked-area-chart" id="{{layout.presentation.element_id}}">
+    <svg></svg>
+  </div>
+</div>
+<script>
+  bean.on(cronenberg.queries.{{layout.presentation.query_name}}, 'data-available', function(query) {
+      cronenberg.stacked_area_chart($("#{{layout.presentation.element_id}}"), query.data);
+  });
+</script>
+{%- endmacro %}
+
+
+<!-- ========================================================================= -->
+
 {% macro render_cell(cell) -%}
   {% if cell.presentation.presentation_type == 'singlestat' %}
     {{ singlestat(cell) }}
   {% elif cell.presentation.presentation_type == 'simple_time_series' %}
     {{ simple_time_series(cell) }}
+  {% elif cell.presentation.presentation_type == 'stacked_area_chart' %}
+    {{ stacked_area_chart(cell) }}
   {% endif %}
 {% endmacro %}
 
