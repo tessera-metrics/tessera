@@ -38,15 +38,8 @@
   <!-- Pushes -->
   <!-- ============================================================================= -->
 
-  <div class="row-fluid graphline">
-    <div class="span2">
-    </div>
-    <div class="span2">
-      <div class="singlestat">
-        <h3>Mean Push Rate</h3>
-        <p><span id="s5"></span><span class="unit">/sec</span></p>
-      </div>
-    </div>
+  <div class="row graphline">
+    {{ singlestat(mean_push_rate) }}
     <div class="span8">
       <div class="graph" id="g1">
         <svg></svg>
@@ -55,7 +48,6 @@
   </div>
     <script>
       bean.on(cronenberg.queries.total_push_rate, 'data-available', function(query) {
-          $("#s5").text(query.data[0].summation.mean.toFixed(3));
           makeChart($("#g1"), query.data[0]);
       });
     </script>
@@ -65,10 +57,8 @@
   <!-- Delivery -->
   <!-- ============================================================================= -->
 
-  <div class="row-fluid graphline">
-    <div class="span2">
-    </div>
-    <div class="span2">
+  <div class="row graphline">
+    <div class="span2 offset2">
       <div class="singlestat">
         <h3>Mean End to End<br/>Delivery Time</h3>
         <p><span id="s6"></span><span class="unit"> ms</span></p>

@@ -78,24 +78,33 @@ def ui_root():
                                   presentation=SingleStatPresentation(title='Raw Events Processed',
                                                                       query_name='total_events_processed',
                                                                       align='center',
+                                                                      decimal=0,
                                                                       transform='sum'))
     pres_triggers_processed = LayoutEntry(span=3, emphasize=True,
                                           presentation=SingleStatPresentation(title='Triggers Processed',
                                                                               query_name='total_triggers_processed',
                                                                               align='center',
+                                                                              decimal=0,
                                                                               transform='sum'))
 
     pres_triggers_satisfied = LayoutEntry(span=3, emphasize=True,
                                           presentation=SingleStatPresentation(title='Triggers Satisifed',
                                                                               query_name='total_triggers_satisfied',
                                                                               align='center',
+                                                                              decimal=0,
                                                                               transform='sum'))
     pres_pushes_sent = LayoutEntry(span=3, emphasize=True,
                                    presentation=SingleStatPresentation(title='Pushes Sent',
                                                                        query_name='total_pushes_sent',
                                                                        align='center',
+                                                                       decimal=0,
                                                                        transform='sum'))
-
+    mean_push_rate = LayoutEntry(span=2, offset=2,
+                                 presentation=SingleStatPresentation(title='Mean Push Rate',
+                                                                     query_name='total_push_rate',
+                                                                     units='/sec',
+                                                                     decimal=3,
+                                                                     transform='mean'))
 
 
 
@@ -107,4 +116,5 @@ def ui_root():
                             pres_triggers_satisfied=pres_triggers_satisfied,
                             pres_triggers_processed=pres_triggers_processed,
                             pres_pushes_sent=pres_pushes_sent,
+                            mean_push_rate=mean_push_rate,
                             breadcrumbs=[('Home','')])

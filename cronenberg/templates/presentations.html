@@ -13,7 +13,7 @@ align="center"
   {% endif %}
 
   <h3>{{ layout.presentation.title }}</h3>
-  <p><span class="value"></span><span class="units">{{ layout.presentation.units }}</span></p>
+  <p><span class="value"></span><span class="unit">{{ layout.presentation.units }}</span></p>
 
       </div> <!-- singlestat -->
   {% if layout.emphasize %}
@@ -24,7 +24,8 @@ align="center"
 <script>
     // TODO - add number format
     bean.on(cronenberg.queries.{{layout.presentation.query_name}}, 'data-available', function(query) {
-        $("#{{layout.presentation.element_id}} span.value").text(query.data[{{layout.presentation.index}}].summation.{{layout.presentation.transform}});
+        $("#{{layout.presentation.element_id}} span.value").number(query.data[{{layout.presentation.index}}].summation.{{layout.presentation.transform}},
+                                                                   {{layout.presentation.decimal}});
     });
 </script>
 

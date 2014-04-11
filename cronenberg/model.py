@@ -63,12 +63,14 @@ class SingleStatPresentation(Presentation):
 
     # TODO - add number format
 
-    def __init__(self, title, query_name, index=0, align=None, transform=Transform.MEAN):
+    def __init__(self, title, query_name, units='', decimal=3, index=0, align=None, transform=Transform.MEAN):
         super(SingleStatPresentation, self).__init__(query_name=query_name)
         self.title = title
         self.transform = transform
         self.index = index
         self.align = align
+        self.units = units
+        self.decimal = decimal
 
 class ChartPresentation(Presentation):
     def __init__(self, query_name, title=None, chart_type='timeseries'):
