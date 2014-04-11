@@ -1,3 +1,5 @@
+<!-- ========================================================================= -->
+
 {% macro singlestat(layout) -%}
 
 <div class="span{{ layout.span }}{% if layout.offset %} offset{{ layout.offset }} {% endif %}"
@@ -28,5 +30,23 @@ align="center"
                                                                    {{layout.presentation.decimal}});
     });
 </script>
+
+{%- endmacro %}
+
+<!-- ========================================================================= -->
+
+{% macro simple_time_series(layout) -%}
+
+<div class="span{{ layout.span }}{% if layout.offset %} offset{{ layout.offset }} {% endif %}">
+  <div class="graph simple-time-series" id="{{layout.presentation.element_id}}">
+    <svg></svg>
+  </div>
+</div>
+<script>
+  bean.on(cronenberg.queries.{{layout.presentation.query_name}}, 'data-available', function(query) {
+      cronenberg.simple_line_chart($("#{{layout.presentation.element_id}}"), query.data[0]);
+  });
+</script>
+
 
 {%- endmacro %}

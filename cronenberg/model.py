@@ -52,7 +52,9 @@ class DataTablePresentation(Presentation):
     def __init__(self, title, query_name):
         super(Presentation, self).__init__(query_name=query_name)
 
-class SingleStatPresentation(Presentation):
+class SingleStat(Presentation):
+    """
+    """
     class Transform:
         MIN    = 'min'
         MAX    = 'max'
@@ -61,16 +63,18 @@ class SingleStatPresentation(Presentation):
         LAST   = 'last'
         FIRST  = 'first'
 
-    # TODO - add number format
-
     def __init__(self, title, query_name, units='', decimal=3, index=0, align=None, transform=Transform.MEAN):
-        super(SingleStatPresentation, self).__init__(query_name=query_name)
+        super(SingleStat, self).__init__(query_name=query_name)
         self.title = title
         self.transform = transform
         self.index = index
         self.align = align
         self.units = units
         self.decimal = decimal
+
+class SimpleTimeSeries(Presentation):
+    def __init__(self, query_name):
+        super(SimpleTimeSeries, self).__init__(query_name=query_name)
 
 class ChartPresentation(Presentation):
     def __init__(self, query_name, title=None, chart_type='timeseries'):

@@ -1,6 +1,6 @@
 <!-- -*- mode:jinja2 -*- -->
 {% extends "layouts/standard.html" %}
-{% from "presentations.html" import singlestat with context %}
+{% from "presentations.html" import singlestat, simple_time_series with context %}
 
 {% block pagetitle %}
   <span class="primary-title">{{app}}</span> <span class="secondary-title">{{title}}</span>
@@ -40,18 +40,8 @@
 
   <div class="row graphline">
     {{ singlestat(mean_push_rate) }}
-    <div class="span8">
-      <div class="graph" id="g1">
-        <svg></svg>
-      </div>
-    </div>
+    {{ simple_time_series(push_rate_graph) }}
   </div>
-    <script>
-      bean.on(cronenberg.queries.total_push_rate, 'data-available', function(query) {
-          cronenberg.simple_line_chart($("#g1"), query.data[0]);
-      });
-    </script>
-
 
   <!-- ============================================================================= -->
   <!-- Delivery -->
@@ -65,7 +55,7 @@
       </div>
     </div>
     <div class="span8">
-      <div class="graph" id="g2">
+      <div class="graph simple-time-series" id="g2">
         <svg></svg>
       </div>
     </div>
@@ -98,7 +88,7 @@
       </div>
     </div>
     <div class="span8">
-      <div class="graph" id="g3">
+      <div class="graph simple-time-series" id="g3">
         <svg></svg>
       </div>
     </div>
@@ -131,7 +121,7 @@
       </div>
     </div>
     <div class="span8">
-      <div class="graph" id="g4">
+      <div class="graph simple-time-series" id="g4">
         <svg></svg>
       </div>
     </div>
@@ -164,7 +154,7 @@
       </div>
     </div>
     <div class="span8">
-      <div class="graph" id="g5">
+      <div class="graph simple-time-series" id="g5">
         <svg></svg>
       </div>
     </div>
@@ -194,7 +184,7 @@
       </div>
     </div>
     <div class="span8">
-      <div class="graph" id="g6">
+      <div class="graph simple-time-series" id="g6">
         <svg></svg>
       </div>
     </div>
