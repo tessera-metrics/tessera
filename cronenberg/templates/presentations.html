@@ -1,13 +1,18 @@
-<!-- ========================================================================= -->
+
+<!-- There's probably a much better, more idiomatic way to do all this
+dispatching. But hey, this was quick and easy and is reasonably well
+modularized for now. -->
+
+<!-- ============================================================================= -->
 
 {% macro render_separator(separator) -%}
   <hr {% if separator.css_class != '' %}class="{{separator.css_class}}" {% endif %}>
   </hr>
 {% endmacro %}
 
-<!-- ========================================================================= -->
+<!-- ============================================================================= -->
 
-{% macro singlestat(layout) -%}
+{% macro render_singlestat(layout) -%}
 <div class="span{{ layout.span }}{% if layout.offset %} offset{{ layout.offset }} {% endif %}"
 {% if layout.presentation.align == 'center' %}
 align="center"
@@ -34,9 +39,9 @@ align="center"
 </script>
 {%- endmacro %}
 
-<!-- ========================================================================= -->
+<!-- ============================================================================= -->
 
-{% macro simple_time_series(layout) -%}
+{% macro render_simple_time_series(layout) -%}
 <div class="span{{ layout.span }}{% if layout.offset %} offset{{ layout.offset }} {% endif %}">
   <div class="graph simple-time-series" id="{{layout.presentation.element_id}}">
     <svg></svg>
@@ -49,10 +54,10 @@ align="center"
 </script>
 {%- endmacro %}
 
-<!-- ========================================================================= -->
+<!-- ============================================================================= -->
 
 <!-- TODO: cell & presentation rendering can be separated -->
-{% macro stacked_area_chart(layout) -%}
+{% macro render_stacked_area_chart(layout) -%}
 <div class="span{{ layout.span }}{% if layout.offset %} offset{{ layout.offset }} {% endif %}">
   <div class="graph stacked-area-chart" id="{{layout.presentation.element_id}}">
     <svg></svg>
@@ -65,30 +70,27 @@ align="center"
 </script>
 {%- endmacro %}
 
-
-<!-- ========================================================================= -->
+<!-- ============================================================================= -->
 
 {% macro render_cell(cell) -%}
   {% if cell.presentation.presentation_type == 'singlestat' %}
-    {{ singlestat(cell) }}
+    {{ render_singlestat(cell) }}
   {% elif cell.presentation.presentation_type == 'simple_time_series' %}
-    {{ simple_time_series(cell) }}
+    {{ render_simple_time_series(cell) }}
   {% elif cell.presentation.presentation_type == 'stacked_area_chart' %}
-    {{ stacked_area_chart(cell) }}
+    {{ render_stacked_area_chart(cell) }}
   {% endif %}
 {% endmacro %}
 
-<!-- ========================================================================= -->
+<!-- ============================================================================= -->
 
-{% macro render_row(row) -%}
-  <div class="row dashboard-row">
+{% macro render_row(row) -%}  <div class="row dashboard-row">
     {% for cell in row.cells %}
       {{ render(cell) }}
-    {% endfor %}
-  </div>
+    {% endfor %}  </div>
 {% endmacro %}
 
-<!-- ========================================================================= -->
+<!-- ============================================================================= -->
 
 {% macro render_grid(grid) -%}
   {% for row in grid.rows %}
@@ -96,7 +98,7 @@ align="center"
   {% endfor %}
 {% endmacro %}
 
-<!-- ========================================================================= -->
+<!-- ============================================================================= -->
 
 {% macro render(layout) -%}
   {% if layout.layout_type == 'grid' %}

@@ -17,6 +17,14 @@ import base64
 # =============================================================================
 
 class Presentation(object):
+    class Transform:
+        MIN    = 'min'
+        MAX    = 'max'
+        MEDIAN = 'median'
+        MEAN   = 'mean'
+        LAST   = 'last'
+        FIRST  = 'first'
+
     NEXT = 1
 
     @staticmethod
@@ -30,17 +38,7 @@ class Presentation(object):
         self.element_id = Presentation.nextid()
 
 class SingleStat(Presentation):
-    """
-    """
-    class Transform:
-        MIN    = 'min'
-        MAX    = 'max'
-        MEDIAN = 'median'
-        MEAN   = 'mean'
-        LAST   = 'last'
-        FIRST  = 'first'
-
-    def __init__(self, title, query_name, units='', decimal=3, index=0, align=None, transform=Transform.MEAN):
+    def __init__(self, title, query_name, units='', decimal=3, index=0, align=None, transform=Presentation.Transform.MEAN):
         super(SingleStat, self).__init__(query_name=query_name,
                                          presentation_type='singlestat')
         self.title = title
