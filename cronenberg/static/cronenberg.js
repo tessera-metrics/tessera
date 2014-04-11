@@ -123,5 +123,36 @@ var cronenberg = {
         }, sums);
         sums.mean = sums.sum / series.datapoints.length;
         return sums;
+    },
+
+    simple_line_chart: function(e, series) {
+        var data = [{
+            values: series.datapoints,
+            key: series.target
+        }];
+        nv.addGraph(function() {
+            var width = e.width();
+            var height = e.height();
+            var chart = nv.models.lineChart()
+                .options({
+                    showXAxis: false,
+                    showYAxis: false,
+                    showLegend: false,
+                    useInteractiveGuideline: true,
+                    x: function(d) { return d[1]; },
+                    y: function(d) { return d[0]; }
+                })
+                .width(width)
+                .height(height)
+                .margin({ top: 0, right: 0, bottom: 0, left: 0 });
+            chart.yAxis.tickFormat(d3.format(',.2f'));
+            chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow(); });
+            d3.select(e.selector + ' svg')
+                .attr('width', width)
+                .attr('height', height)
+                .datum(data)
+                .call(chart);
+            return chart;
+        });
     }
 };

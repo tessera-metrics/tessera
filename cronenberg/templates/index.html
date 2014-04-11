@@ -48,7 +48,7 @@
   </div>
     <script>
       bean.on(cronenberg.queries.total_push_rate, 'data-available', function(query) {
-          makeChart($("#g1"), query.data[0]);
+          cronenberg.simple_line_chart($("#g1"), query.data[0]);
       });
     </script>
 
@@ -74,7 +74,7 @@
     <script>
       bean.on(cronenberg.queries.end_to_end, 'data-available', function(query) {
           $("#s6").text(query.data[0].summation.mean.toFixed(2));
-          makeChart($("#g2"), query.data[0]);
+          cronenberg.simple_line_chart($("#g2"), query.data[0]);
       });
     </script>
 
@@ -107,7 +107,7 @@
     <script>
       bean.on(cronenberg.queries.immediate_triggers, 'data-available', function(query) {
           $("#s7").text(query.data[0].summation.mean.toFixed(2));
-          makeChart($("#g3"), query.data[0]);
+          cronenberg.simple_line_chart($("#g3"), query.data[0]);
           $("#s8").text(query.data[3].summation.mean.toFixed(2));
       });
     </script>
@@ -140,7 +140,7 @@
     <script>
       bean.on(cronenberg.queries.historical_triggers, 'data-available', function(query) {
           $("#s9").text(query.data[0].summation.mean.toFixed(2));
-          makeChart($("#g4"), query.data[0]);
+          cronenberg.simple_line_chart($("#g4"), query.data[0]);
           $("#s10").text(query.data[3].summation.mean.toFixed(2));
       });
     </script>
@@ -175,7 +175,7 @@
           $("#s11").text(query.data[0].summation.mean.toFixed(2));
       });
       bean.on(cronenberg.queries.api_rate, 'data-available', function(query) {
-          makeChart($("#g5"), query.data[0]);
+          cronenberg.simple_line_chart($("#g5"), query.data[0]);
           $("#s12").text(query.data[1].summation.sum);
       });
     </script>
@@ -203,7 +203,7 @@
     <script>
       bean.on(cronenberg.queries.device_event_rate, 'data-available', function(query) {
       $("#s13").text(query.data[0].summation.mean.toFixed(0));
-      makeChart($("#g6"), query.data[0]);
+      cronenberg.simple_line_chart($("#g6"), query.data[0]);
       });
     </script>
 
@@ -212,39 +212,6 @@
 
   <script>
     <!-- launch the queries -->
-
-    function makeChart(e, series) {
-        // would rather not transform the whole array here, but I
-        // can't get the x/y functions working properly
-        var data = [{
-            values: series.datapoints,
-            key: series.target
-        }];
-        nv.addGraph(function() {
-            var width = e.width();
-            var height = e.height();
-            var chart = nv.models.lineChart()
-                .options({
-                    showXAxis: false,
-                    showYAxis: false,
-                    showLegend: false,
-                    useInteractiveGuideline: true,
-                    x: function(d) { return d[1]; },
-                    y: function(d) { return d[0]; }
-                })
-                .width(width)
-                .height(height)
-                .margin({ top: 0, right: 0, bottom: 0, left: 0 });
-            chart.yAxis.tickFormat(d3.format(',.2f'));
-            chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow(); });
-            d3.select(e.selector + ' svg')
-                .attr('width', width)
-                .attr('height', height)
-                .datum(data)
-                .call(chart);
-            return chart;
-        });
-    }
 
    cronenberg.load_queries();
 
