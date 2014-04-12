@@ -152,9 +152,14 @@ class Queries(object):
 
     def total_push_rate(self):
         service = self.env.service('triggers-fulfillment')
-        return alias(sum_series(rate(rash(service, 'pushfulfillmenthandler.total_push_count.Count')),
-                                rate(rash(service, 'delayedpushfulfillmenthandler.total_delayed_push_count.Count'))),
-                     "Push Rate")
+        return group(alias(sum_series(rate(rash(service, 'pushfulfillmenthandler.total_push_count.Count')),
+                                      rate(rash(service, 'delayedpushfulfillmenthandler.total_delayed_push_count.Count'))),
+                           "Total Push Rate"),
+                     alias(sum_series(rate(rash(service, 'pushfulfillmenthandler.total_push_count.Count'))),
+                           "Push Rate"),
+                     alias(sum_series(rate(rash(service, 'delayedpushfulfillmenthandler.total_delayed_push_count.Count'))),
+                           "Delayed Push Rate"))
+
 
     def immediate_triggers(self):
         service = self.env.service('triggers-state-ingress')
