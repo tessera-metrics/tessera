@@ -3,25 +3,13 @@
 {% from "presentations.html" import render with context %}
 
 {% block pagetitle %}
-  <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
+  <span class="primary-title">Cronenberg</span> <span class="secondary-title">Index</span>
 {% endblock %}
 
 {% block layout %}
 
-  <script>
-    {% for name,url in dashboard.queries.iteritems() -%}
-      cronenberg.add_query('{{name}}', '{{url|safe}}');
-    {%- endfor %}
-  </script>
-
-  <div class="row-fluid">
-    {% include "snippets/recent-range-picker.html" %}
-  </div>
-
-  {{ render(dashboard.grid) }}
-
-  <script>
-    cronenberg.load_queries();
-  </script>
+  <ul>
+    <li><a href="/demo">Demo</a></li>
+  </ul>
 
 {% endblock %}
