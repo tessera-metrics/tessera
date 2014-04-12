@@ -100,6 +100,11 @@ h1, h2, h3, h4 {
     font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;
 }
 
+.dashboard-grid h1 {
+    color: #545450;
+    margin-bottom: 0.5em;
+}
+
 .singlestat h3 {
     font-stretch: condensed;
     font-size: 1.2em;
@@ -107,7 +112,8 @@ h1, h2, h3, h4 {
     font-variant:small-caps;
     text-transform:uppercase;
     padding-bottom: 12px;
-    color: #a6a699;
+    // color: #a6a699;
+    color: #959588;
 }
 
 .well .singlestat h3 {

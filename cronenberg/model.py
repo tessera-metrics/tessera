@@ -104,6 +104,12 @@ class Separator(LayoutElement):
     def __init__(self, **kwargs):
         super(Separator, self).__init__(layout_type='separator', **kwargs)
 
+class Heading(LayoutElement):
+    def __init__(self, text, level=1, **kwargs):
+        super(Heading, self).__init__(layout_type='heading', **kwargs)
+        self.text = text
+        self.level = level
+
 class Dashboard(cask.NamedEntity):
     def __init__(self, name, queries, grid, category='', title='', description=''):
         super(Dashboard, self).__init__(name=name)

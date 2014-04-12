@@ -9,6 +9,10 @@ modularized for now. -->
 <hr{% if separator.css_class != '' %}class="{{separator.css_class}}"{% endif %}></hr>
 {% endmacro %}
 
+{% macro render_heading(heading) -%}
+<h{{heading.level}} {% if heading.css_class != '' %}class="{{heading.css_class}}"{% endif %}>{{heading.text}}</h{{heading.level}}>
+{% endmacro %}
+
 <!-- ============================================================================= -->
 
 {% macro render_singlestat(presentation) -%}
@@ -134,9 +138,11 @@ modularized for now. -->
 <!-- ============================================================================= -->
 
 {% macro render_grid(grid) -%}
+  <div class="dashboard-grid">
   {% for row in grid.rows %}
     {{ render(row) }}
   {% endfor %}
+  </div>
 {% endmacro %}
 
 <!-- ============================================================================= -->
@@ -150,5 +156,7 @@ modularized for now. -->
     {{ render_cell(layout) }}
   {% elif layout.layout_type == 'separator' %}
     {{ render_separator(layout) }}
+  {% elif layout.layout_type == 'heading' %}
+    {{ render_heading(layout) }}
   {% endif %}
 {% endmacro %}
