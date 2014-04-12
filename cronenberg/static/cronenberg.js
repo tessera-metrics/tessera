@@ -150,6 +150,41 @@ var cronenberg = {
         });
     },
 
+    standard_line_chart: function(e, list_of_series) {
+        var data = _.map(list_of_series, function(series) {
+            return {
+                key: series.target,
+                values: series.datapoints
+            };
+        });
+        nv.addGraph(function() {
+            var width = e.width();
+            var height = e.height();
+            var chart = nv.models.lineChart()
+                .options({
+                    showXAxis: true,
+                    showYAxis: true,
+                    showLegend: true,
+                    useInteractiveGuideline: true,
+                    x: function(d) { return d[1]; },
+                    y: function(d) { return d[0]; }
+                })
+                .color(cronenberg._color_function('Spectrum6'))
+                .width(width)
+                .height(height)
+                .margin({ top: 0, right: 0, bottom: 0, left: 0 });
+            chart.yAxis.tickFormat(d3.format(',.2f'));
+            chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow(); });
+            d3.select(e.selector + ' svg')
+                .attr('width', width)
+                .attr('height', height)
+                .datum(data)
+                .call(chart);
+            return chart;
+        });
+    },
+
+
     stacked_area_chart: function(e, list_of_series) {
         var data = _.map(list_of_series, function(series) {
             return {
@@ -168,6 +203,7 @@ var cronenberg = {
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
+                .color(cronenberg._color_function('Spectrum6'))
                 .width(width)
                 .height(height)
                 .margin({ top: 0, right: 0, bottom: 0, left: 0 });
@@ -183,15 +219,23 @@ var cronenberg = {
         });
     },
 
+    _color_function: function(palette_name) {
+        var palette = cronenberg.colors[palette_name];
+        return function(d,i) {
+            return palette[i % palette.length];
+        }
+    },
+
+
     colors: {
     // Some color palettes", handily compiled by the Stanford Vis
     // Group for their Color Palette Analyzer project.
     // http://vis.stanford.edu/color-names/analyzer/
     AppleSpectrum:[ "#2d588a", "#58954c", "#e9a044", "#c12f32", "#723e77", "#7d807f" ],
-    AppleBlue:    [ "#4972a8", "#92b9d8", "#002d64", "#599bcf", "#00070f", "#134d8d" ],
-    AppleBrown:   [ "#8b6c4f", "#c8b68e", "#3b291d", "#ae8e5d", "#1b0d00", "#713f24" ],
-    AppleGrey:    [ "#717372", "#c0c2c1", "#2d2f2e", "#8c8e8d", "#000000", "#484a49" ],
-    AppleGreen:   [ "#2d632f", "#90b879", "#0d2d16", "#599a48", "#000b05", "#00431a" ],
+    AppleBlue:    [ "#4972a8", "#92b9d8", "#002d64", "#599bcf", "#134d8d" ],
+    AppleBrown:   [ "#8b6c4f", "#c8b68e", "#3b291d", "#ae8e5d", "#713f24" ],
+    AppleGrey:    [ "#717372", "#c0c2c1", "#2d2f2e", "#8c8e8d", "#484a49" ],
+    AppleGreen:   [ "#2d632f", "#90b879", "#0d2d16", "#599a48", "#00431a" ],
     Tableau10:    [ "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b",
                     "#e377c2", "#7f7f7f", "#bcbd22", "#17becf" ],
     Tableau20:    [ "#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a",
@@ -226,6 +270,8 @@ var cronenberg = {
 
 
     // Some more color palettes from Rickshaw
+    Spectrum6:  ["#e7cbe6", "#d8aad6", "#a888c2", "#9dc2d3",
+                  "#649eb9", "#387aa3"].reverse(),
     Spectrum14:  ["#ecb796", "#dc8f70", "#b2a470", "#92875a", "#716c49", "#d2ed82",
                   "#bbe468", "#a1d05d", "#e7cbe6", "#d8aad6", "#a888c2", "#9dc2d3",
                   "#649eb9", "#387aa3"].reverse(),

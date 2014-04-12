@@ -28,6 +28,24 @@ modularized for now. -->
 
 <!-- ============================================================================= -->
 
+{% macro render_jumbotron_singlestat(presentation) -%}
+<div class="jumbotron-singlestat
+            {% if presentation.css_class %}{{presentation.css_class}}{% endif %}
+" id="{{presentation.element_id}}">
+            <div><p><span class="value"></span><span class="unit">{{ presentation.units }}</span></p></div>
+            <div><h3>{{ presentation.title }}</h3></div>
+  <script>
+    bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
+          var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
+          $("#{{presentation.element_id}} span.value").number(value, {{presentation.decimal}});
+      });
+  </script>
+</div>
+{%- endmacro %}
+
+
+<!-- ============================================================================= -->
+
 {% macro render_simple_time_series(presentation) -%}
 <div class="graph simple-time-series
 {% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
@@ -42,7 +60,21 @@ modularized for now. -->
 
 <!-- ============================================================================= -->
 
-<!-- TODO: cell & presentation rendering can be separated -->
+{% macro render_standard_time_series(presentation) -%}
+<div class="graph standard-time-series
+{% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
+  <svg></svg>
+  <script>
+  bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
+      cronenberg.standard_line_chart($("#{{presentation.element_id}}"), query.data);
+  });
+  </script>
+</div>
+{%- endmacro %}
+
+
+<!-- ============================================================================= -->
+
 {% macro render_stacked_area_chart(presentation) -%}
 <div class="graph stacked-area-chart
 {% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
@@ -60,8 +92,12 @@ modularized for now. -->
 {% macro render_presentation(presentation) -%}
   {% if presentation.presentation_type == 'singlestat' %}
     {{ render_singlestat(presentation) }}
+  {% elif presentation.presentation_type == 'jumbotron_singlestat' %}
+    {{ render_jumbotron_singlestat(presentation) }}
   {% elif presentation.presentation_type == 'simple_time_series' %}
     {{ render_simple_time_series(presentation) }}
+  {% elif presentation.presentation_type == 'standard_time_series' %}
+    {{ render_standard_time_series(presentation) }}
   {% elif presentation.presentation_type == 'stacked_area_chart' %}
     {{ render_stacked_area_chart(presentation) }}
   {% endif %}

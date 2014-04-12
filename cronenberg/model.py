@@ -41,7 +41,7 @@ class Presentation(object):
 class SingleStat(Presentation):
     def __init__(self, title, query_name, units='', decimal=3, index=0, transform=Presentation.Transform.MEAN, **kwargs):
         super(SingleStat, self).__init__(query_name=query_name,
-                                         presentation_type='singlestat',
+                                         presentation_type=kwargs.get('presentation_type', 'singlestat'),
                                          **kwargs)
         self.title = title
         self.transform = transform
@@ -49,11 +49,22 @@ class SingleStat(Presentation):
         self.units = units
         self.decimal = decimal
 
+class JumbotronSingleStat(SingleStat):
+    def __init__(self, **kwargs):
+        super(JumbotronSingleStat, self).__init__(**kwargs)
+        self.presentation_type='jumbotron_singlestat'
+
 class SimpleTimeSeries(Presentation):
     def __init__(self, query_name, **kwargs):
         super(SimpleTimeSeries, self).__init__(query_name=query_name,
                                                presentation_type='simple_time_series',
                                                **kwargs)
+
+class StandardTimeSeries(Presentation):
+    def __init__(self, query_name, **kwargs):
+        super(StandardTimeSeries, self).__init__(query_name=query_name,
+                                                 presentation_type='standard_time_series',
+                                                 **kwargs)
 
 class StackedAreaChart(Presentation):
     def __init__(self, query_name, **kwargs):
