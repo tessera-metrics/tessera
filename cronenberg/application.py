@@ -93,6 +93,7 @@ def demo_dashboard(from_time, until_time):
                                                           query_name='total_pushes_sent',
                                                           decimal=0,
                                                           transform='sum')))
+                         ,Separator()
                          ,Row(Cell(span=4,
                                    presentation=JumbotronSingleStat(css_class='height4',
                                                                     title='Average Push Rate',
@@ -103,7 +104,6 @@ def demo_dashboard(from_time, until_time):
                             Cell(span=8,
                                 presentation=StandardTimeSeries(css_class='height4',
                                                                 query_name='total_push_rate')))
-                         ,Separator()
 #                         ,Row(Cell(span=2, offset=2,
 #                                   presentation=SingleStat(title='Mean Push Rate',
 #                                                           query_name='total_push_rate',

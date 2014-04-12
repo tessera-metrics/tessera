@@ -192,6 +192,10 @@ h1 .secondary-title {
     margin-bottom: 2em;
 }
 
+.standard-time-series {
+    margin-bottom: 2em;
+}
+
 #tooltip {
     opacity: 1.0;
     background-color: #333;
