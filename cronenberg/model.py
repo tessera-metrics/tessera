@@ -12,6 +12,10 @@ import base64
 #         return { 'name' : self.name,
 #                  'targets' : [ str(t) for t in self.targets ] }
 
+def _delattr(dictionary, attr):
+    if attr in dictionary:
+        del dictionary[attr]
+
 # =============================================================================
 # Presentations
 # =============================================================================
@@ -65,7 +69,7 @@ class SingleStat(Presentation):
 
     @classmethod
     def from_json(cls, d):
-        del d['presentation_type']
+        _delattr(d, 'presentation_type')
         return cls(**d)
 
 class JumbotronSingleStat(SingleStat):
@@ -75,7 +79,7 @@ class JumbotronSingleStat(SingleStat):
 
     @classmethod
     def from_json(cls, d):
-        del d['presentation_type']
+        _delattr(d, 'presentation_type')
         return cls(**d)
 
 class ChartPresentation(Presentation):
@@ -93,7 +97,7 @@ class SimpleTimeSeries(ChartPresentation):
 
     @classmethod
     def from_json(cls, d):
-        del d['presentation_type']
+        _delattr(d, 'presentation_type')
         return cls(**d)
 
 class StandardTimeSeries(ChartPresentation):
@@ -104,7 +108,7 @@ class StandardTimeSeries(ChartPresentation):
 
     @classmethod
     def from_json(cls, d):
-        del d['presentation_type']
+        _delattr(d, 'presentation_type')
         return cls(**d)
 
 class StackedAreaChart(ChartPresentation):
@@ -114,7 +118,7 @@ class StackedAreaChart(ChartPresentation):
                                                **kwargs)
     @classmethod
     def from_json(cls, d):
-        del d['presentation_type']
+        _delattr(d, 'presentation_type')
         return cls(**d)
 
 # =============================================================================
@@ -136,7 +140,7 @@ class LayoutElement(object):
         # pythonically. E.g. with a dict, or some decorators, or a
         # metaclass.
         layout_type = d['layout_type']
-        del d['layout_type']
+        _delattr(d, 'layout_type')
         if layout_type == 'separator':
             return Separator.from_json(d)
         elif layout_type == 'heading':
@@ -166,8 +170,7 @@ class Cell(LayoutElement):
     @classmethod
     def from_json(cls, d):
         d['presentation'] = [Presentation.from_json(p) for p in d['presentation']]
-        if 'layout_type' in d:
-            del d['layout_type']
+        _delattr(d, 'layout_type')
         return Cell(**d)
 
 
@@ -183,9 +186,8 @@ class Row(LayoutElement):
     @classmethod
     def from_json(cls, d):
         cells = [LayoutElement.from_json(c) for c in d['cells']]
-        del d['cells']
-        if 'layout_type' in d:
-            del d['layout_type']
+        _delattr(d, 'layout_type')
+        _delattr(d, 'cells')
         return Row(*cells, **d)
 
 
@@ -197,9 +199,8 @@ class Grid(LayoutElement):
     @classmethod
     def from_json(cls, d):
         rows = [LayoutElement.from_json(r) for r in d['rows']]
-        del d['rows']
-        if 'layout_type' in d:
-            del d['layout_type']
+        _delattr(d, 'layout_type')
+        _delattr(d, 'rows')
         return Grid(*rows, **d)
 
 
@@ -245,11 +246,6 @@ class Dashboard(cask.NamedEntity):
 
     @classmethod
     def from_json(cls, name, d):
-        grid = Grid.from_json(d['grid'])
-        del d['grid']
-        return Dashboard(name=name,
-                         queries=d['queries'],
-                         category=d['category'],
-                         title=d['title'],
-                         description=d['description'],
-                         grid=grid)
+        d['grid'] = Grid.from_json(d['grid'])
+        _delattr(d, 'name')
+        return Dashboard(name=name, **d)
