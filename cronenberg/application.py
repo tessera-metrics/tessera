@@ -13,7 +13,7 @@ from flask import Flask, render_template, request, redirect, jsonify, abort
 
 import toolbox
 from toolbox.graphite import Graphite, GraphiteQuery
-from .demo import demo_dashboard
+from .demo import demo_dashboard, gbc_demo_dashboard
 from .model import *
 
 # =============================================================================
@@ -73,7 +73,10 @@ def _render_dashboard(dash):
 def ui_root():
     return _render_template('index.html', breadcrumbs=[('Home', '/')])
 
-@app.route('/demo')
-def ui_demo():
-    dashboard  = demo_dashboard(env)
-    return _render_dashboard(dashboard)
+@app.route('/demo/automation')
+def ui_demo_automation():
+    return _render_dashboard(demo_dashboard(env))
+
+@app.route('/demo/gbc')
+def ui_demo_gbc():
+    return _render_dashboard(gbc_demo_dashboard())
