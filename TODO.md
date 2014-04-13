@@ -32,3 +32,6 @@
       - [Flask-Misaka](https://flask-misaka.readthedocs.org/en/latest/)
         looks even better. Presentation template would just be
         {{item.text|markdown}}
+- integrate some proper JS build-fu to minify and compress all the javascript
+- JumboTronSinglestat is a hack. A properly responsive presentation
+  that scales w/size of parent would rock.
