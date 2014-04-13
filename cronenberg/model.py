@@ -91,7 +91,7 @@ class LayoutElement(object):
 class Cell(LayoutElement):
     def __init__(self, presentation, span, emphasize=False, offset=None, align=None, **kwargs):
         super(Cell, self).__init__(layout_type='cell', **kwargs)
-        self.presentation = presentation
+        self.presentation = presentation if isinstance(presentation, list) else [presentation]
         self.span = span
         self.offset = offset
         self.emphasize = emphasize
