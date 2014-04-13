@@ -1,32 +1,174 @@
-{% macro singlestat(layout) -%}
 
-<div class="span{{ layout.span }}{% if layout.offset %} offset{{ layout.offset }} {% endif %}"
-{% if layout.presentation.align == 'center' %}
-align="center"
-{% endif %}
->
-  {% if layout.emphasize %}
-    <div class="well">
-      <div class="singlestat banner" id="{{layout.presentation.element_id}}">
+<!-- There's probably a much better, more idiomatic way to do all this
+dispatching. But hey, this was quick and easy and is reasonably well
+modularized for now. -->
+
+<!-- ============================================================================= -->
+
+{% macro render_separator(separator) -%}
+<hr{% if separator.css_class != '' %}class="{{separator.css_class}}"{% endif %}></hr>
+{% endmacro %}
+
+{% macro render_heading(heading) -%}
+<h{{heading.level}} {% if heading.css_class != '' %}class="{{heading.css_class}}"{% endif %}>{{heading.text}}</h{{heading.level}}>
+{% endmacro %}
+
+<!-- ============================================================================= -->
+
+{% macro render_singlestat(presentation) -%}
+<div class="singlestat
+            {% if presentation.css_class %}{{presentation.css_class}}{% endif %}
+" id="{{presentation.element_id}}">
+  <h3>{{ presentation.title }}</h3>
+  <p><span class="value"></span><span class="unit">{{ presentation.units }}</span></p>
+  <script>
+    bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
+    {% if presentation.index %}
+      var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
     {% else %}
-      <div class="singlestat" id="{{layout.presentation.element_id}}">
+      var value = query.summation.{{presentation.transform}};
+    {% endif %}
+          $("#{{presentation.element_id}} span.value").number(value, {{presentation.decimal}});
+      });
+  </script>
+</div>
+{%- endmacro %}
+
+<!-- ============================================================================= -->
+
+{% macro render_jumbotron_singlestat(presentation) -%}
+<div class="jumbotron-singlestat
+            {% if presentation.css_class %}{{presentation.css_class}}{% endif %}
+" id="{{presentation.element_id}}">
+            <div><p><span class="value"></span><span class="unit">{{ presentation.units }}</span></p></div>
+            <div><h3>{{ presentation.title }}</h3></div>
+  <script>
+    bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
+    {% if presentation.index %}
+      var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
+    {% else %}
+      var value = query.summation.{{presentation.transform}};
+    {% endif %}
+    $("#{{presentation.element_id}} span.value").number(value, {{presentation.decimal}});
+    });
+  </script>
+</div>
+{%- endmacro %}
+
+
+<!-- ============================================================================= -->
+
+{% macro render_simple_time_series(presentation) -%}
+<div class="graph simple-time-series
+{% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
+  <svg></svg>
+  <script>
+  bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
+      cronenberg.simple_line_chart($("#{{presentation.element_id}}"), query.data[0]);
+  });
+  </script>
+</div>
+{%- endmacro %}
+
+<!-- ============================================================================= -->
+
+{% macro render_standard_time_series(presentation) -%}
+<div class="graph standard-time-series
+{% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
+  <svg></svg>
+  <script>
+  bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
+      cronenberg.standard_line_chart($("#{{presentation.element_id}}"), query.data);
+  });
+  </script>
+</div>
+{%- endmacro %}
+
+
+<!-- ============================================================================= -->
+
+{% macro render_stacked_area_chart(presentation) -%}
+<div class="graph stacked-area-chart
+{% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
+  <svg></svg>
+  <script>
+  bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
+      cronenberg.stacked_area_chart($("#{{presentation.element_id}}"), query.data);
+  });
+  </script>
+</div>
+{%- endmacro %}
+
+<!-- ============================================================================= -->
+
+{% macro render_presentation(presentation) -%}
+  {% if presentation.presentation_type == 'singlestat' %}
+    {{ render_singlestat(presentation) }}
+  {% elif presentation.presentation_type == 'jumbotron_singlestat' %}
+    {{ render_jumbotron_singlestat(presentation) }}
+  {% elif presentation.presentation_type == 'simple_time_series' %}
+    {{ render_simple_time_series(presentation) }}
+  {% elif presentation.presentation_type == 'standard_time_series' %}
+    {{ render_standard_time_series(presentation) }}
+  {% elif presentation.presentation_type == 'stacked_area_chart' %}
+    {{ render_stacked_area_chart(presentation) }}
+  {% endif %}
+{% endmacro %}
+
+<!-- ============================================================================= -->
+
+{% macro render_cell(cell) -%}
+<div class="span{{ cell.span }}
+{% if cell.offset %} offset{{ cell.offset }} {% endif %}
+{% if cell.css_class %} {{ cell.css_class }} {% endif %}
+"
+{% if cell.align == 'center' %} align="center" {% endif %}
+{% if cell.height %} height="{{cell.height}}" {% endif %}
+>
+  {% if cell.emphasize %}
+    <div class="well">
   {% endif %}
 
-  <h3>{{ layout.presentation.title }}</h3>
-  <p><span class="value"></span><span class="unit">{{ layout.presentation.units }}</span></p>
+  {% for presentation in cell.presentation %}
+    {{ render_presentation(presentation) }}
+  {% endfor %}
 
-      </div> <!-- singlestat -->
-  {% if layout.emphasize %}
-    </div> <!-- well -->
+  {% if cell.emphasize %}
+    </div>
   {% endif %}
 </div>
-
-<script>
-    // TODO - add number format
-    bean.on(cronenberg.queries.{{layout.presentation.query_name}}, 'data-available', function(query) {
-        $("#{{layout.presentation.element_id}} span.value").number(query.data[{{layout.presentation.index}}].summation.{{layout.presentation.transform}},
-                                                                   {{layout.presentation.decimal}});
-    });
-</script>
-
 {%- endmacro %}
+
+<!-- ============================================================================= -->
+
+{% macro render_row(row) -%}  <div class="row dashboard-row">
+    {% for cell in row.cells %}
+      {{ render(cell) }}
+    {% endfor %}  </div>
+{% endmacro %}
+
+<!-- ============================================================================= -->
+
+{% macro render_grid(grid) -%}
+  <div class="dashboard-grid">
+  {% for row in grid.rows %}
+    {{ render(row) }}
+  {% endfor %}
+  </div>
+{% endmacro %}
+
+<!-- ============================================================================= -->
+
+{% macro render(layout) -%}
+  {% if layout.layout_type == 'grid' %}
+    {{ render_grid(layout) }}
+  {% elif layout.layout_type == 'row' %}
+    {{ render_row(layout) }}
+  {% elif layout.layout_type == 'cell' %}
+    {{ render_cell(layout) }}
+  {% elif layout.layout_type == 'separator' %}
+    {{ render_separator(layout) }}
+  {% elif layout.layout_type == 'heading' %}
+    {{ render_heading(layout) }}
+  {% endif %}
+{% endmacro %}

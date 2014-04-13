@@ -1,7 +1,25 @@
+/* nvd3 tweaks for darkstrap */
+
 .nvtooltip {
   background-color: #555555;
   color: #EFEFEF;
   border:none ;
+}
+
+.nvd3 text {
+    fill: #a6a6a6;
+}
+
+.nv-legend-text {
+    fill: #a6a6a6;
+}
+
+.nvd3 .tick line {
+    stroke: #494951;
+}
+
+.nvd3 .nv-axis path {
+    stroke: #494951;
 }
 
 /* Bootstrap tweak */
@@ -78,8 +96,13 @@ background-color: #222;
 
 /* App styles */
 
-body {
+h1, h2, h3, h4 {
     font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;
+}
+
+.dashboard-grid h1 {
+    color: #545450;
+    margin-bottom: 0.5em;
 }
 
 .singlestat h3 {
@@ -89,10 +112,11 @@ body {
     font-variant:small-caps;
     text-transform:uppercase;
     padding-bottom: 12px;
-    color: #a6a699;
+    // color: #a6a699;
+    color: #959588;
 }
 
-.singlestat.banner h3 {
+.well .singlestat h3 {
   color: #aa8866;
 }
 
@@ -106,6 +130,34 @@ body {
     font-size: .5em;
     text-transform: lowercase;
     color: gray;
+}
+
+.jumbotron-singlestat div {
+  position:relative;
+  top: 4em;
+  text-align: right;
+}
+.jumbotron-singlestat .unit {
+    text-transform: lowercase;
+    color: gray;
+    font-size: 3em;
+    font-weight: bold;
+    vertical-align: bottom;
+}
+
+.jumbotron-singlestat .value {
+    color: white;
+    font-size: 8em;
+    font-weight: bold;
+    vertical-align: -100%;
+}
+
+.jumbotron-singlestat h3 {
+    text-transform: lowercase;
+    color: #a6a699;
+    font-size: 3em;
+    position: relative;
+    top: 8px;
 }
 
 h1 .primary-title {
@@ -137,12 +189,17 @@ h1 .secondary-title {
     font-size:30px;
 }
 
-.graphline {
-    padding-bottom: 2em;
+.dashboard-row {
+    // padding-bottom: 2em;
 }
 
-.graph svg {
+.simple-time-series svg {
     height: 90px;
+    margin-bottom: 2em;
+}
+
+.standard-time-series {
+    margin-bottom: 2em;
 }
 
 #tooltip {

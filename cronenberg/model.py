@@ -12,47 +12,11 @@ import base64
 #         return { 'name' : self.name,
 #                  'targets' : [ str(t) for t in self.targets ] }
 
-class Grid(object):
-    def __init__(self, rows=[], **kwargs):
-        self.rows = [ Grid.__process_row(r) for r in rows ]
-
-    @staticmethod
-    def __process_entry(e):
-        if isinstance(e, GridEntry):
-            return e
-        elif isinstance(dict, e):
-            return GridEntry(**e)
-        else:
-            return None
-
-    @staticmethod
-    def __process_row(row):
-        return [ Grid.__process_entry(e) for e in row ]
-
-class LayoutEntry(object):
-    def __init__(self, presentation, span, emphasize=False, offset=None):
-        self.presentation = presentation
-        self.span = span
-        self.offset = offset
-        self.emphasize = emphasize
+# =============================================================================
+# Presentations
+# =============================================================================
 
 class Presentation(object):
-    NEXT = 1
-
-    @staticmethod
-    def nextid():
-        Presentation.NEXT += 1
-        return 'p{0}'.format(Presentation.NEXT)
-
-    def __init__(self, query_name):
-        self.query_name = query_name
-        self.element_id = Presentation.nextid()
-
-class DataTablePresentation(Presentation):
-    def __init__(self, title, query_name):
-        super(Presentation, self).__init__(query_name=query_name)
-
-class SingleStatPresentation(Presentation):
     class Transform:
         MIN    = 'min'
         MAX    = 'max'
@@ -61,25 +25,108 @@ class SingleStatPresentation(Presentation):
         LAST   = 'last'
         FIRST  = 'first'
 
-    # TODO - add number format
+    NEXT = 1
 
-    def __init__(self, title, query_name, units='', decimal=3, index=0, align=None, transform=Transform.MEAN):
-        super(SingleStatPresentation, self).__init__(query_name=query_name)
+    @staticmethod
+    def nextid():
+        Presentation.NEXT += 1
+        return 'p{0}'.format(Presentation.NEXT)
+
+    def __init__(self, query_name, presentation_type, css_class=None):
+        self.query_name = query_name
+        self.presentation_type = presentation_type
+        self.element_id = Presentation.nextid()
+        self.css_class = css_class
+
+class SingleStat(Presentation):
+    def __init__(self, title, query_name, units='', decimal=3, index=False, transform=Presentation.Transform.MEAN, **kwargs):
+        super(SingleStat, self).__init__(query_name=query_name,
+                                         presentation_type=kwargs.get('presentation_type', 'singlestat'),
+                                         **kwargs)
         self.title = title
         self.transform = transform
         self.index = index
-        self.align = align
         self.units = units
         self.decimal = decimal
 
+class JumbotronSingleStat(SingleStat):
+    def __init__(self, **kwargs):
+        super(JumbotronSingleStat, self).__init__(**kwargs)
+        self.presentation_type='jumbotron_singlestat'
+
 class ChartPresentation(Presentation):
-    def __init__(self, query_name, title=None, chart_type='timeseries'):
-        super(ChartPresentation, self).__init__(query_name=query_name)
+    def __init__(self, title='', x_axis_label='', y_axis_label='', **kwargs):
+        super(ChartPresentation, self).__init__(**kwargs)
         self.title = title
-        self.chart_type = chart_type
+        self.x_axis_label = x_axis_label
+        self.y_axis_label = y_axis_label
+
+class SimpleTimeSeries(ChartPresentation):
+    def __init__(self, query_name, **kwargs):
+        super(SimpleTimeSeries, self).__init__(query_name=query_name,
+                                               presentation_type='simple_time_series',
+                                               **kwargs)
+
+class StandardTimeSeries(ChartPresentation):
+    def __init__(self, query_name, **kwargs):
+        super(StandardTimeSeries, self).__init__(query_name=query_name,
+                                                 presentation_type='standard_time_series',
+                                                 **kwargs)
+
+class StackedAreaChart(ChartPresentation):
+    def __init__(self, query_name, **kwargs):
+        super(StackedAreaChart, self).__init__(query_name=query_name,
+                                               presentation_type='stacked_area_chart',
+                                               **kwargs)
+
+# =============================================================================
+# Layout
+# =============================================================================
+
+class LayoutElement(object):
+    def __init__(self, layout_type, css_class=''):
+        self.layout_type = layout_type
+        self.css_class = css_class
+
+class Cell(LayoutElement):
+    def __init__(self, presentation, span, emphasize=False, offset=None, align=None, **kwargs):
+        super(Cell, self).__init__(layout_type='cell', **kwargs)
+        self.presentation = presentation if isinstance(presentation, list) else [presentation]
+        self.span = span
+        self.offset = offset
+        self.emphasize = emphasize
+        self.align = align
+
+class Row(LayoutElement):
+    def __init__(self, *cells, **kwargs):
+        super(Row, self).__init__(layout_type='row', **kwargs)
+        self.cells = cells
+
+class Grid(LayoutElement):
+    def __init__(self, *rows, **kwargs):
+        super(Grid, self).__init__(layout_type='grid', **kwargs)
+        self.rows = rows
+
+class Separator(LayoutElement):
+    def __init__(self, **kwargs):
+        super(Separator, self).__init__(layout_type='separator', **kwargs)
+
+class Heading(LayoutElement):
+    def __init__(self, text, level=1, **kwargs):
+        super(Heading, self).__init__(layout_type='heading', **kwargs)
+        self.text = text
+        self.level = level
+
+class Markdown(LayoutElement):
+    def __init__(self, text, **kwargs):
+        super(Markdown, self).__init__(layout_type='markdown', **kwargs)
+        self.text = text
 
 class Dashboard(cask.NamedEntity):
-    def __init__(self, name, queries, grid):
+    def __init__(self, name, queries, grid, category='', title='', description=''):
         super(Dashboard, self).__init__(name=name)
         self.queries = queries
         self.grid = grid
+        self.category = category
+        self.title = title
+        self.description = description

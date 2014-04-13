@@ -74,7 +74,7 @@ class EntityStorageManager(object):
         extension."""
         filename = os.path.basename(path)
         if filename.endswith(self.extension):
-            return filename[:-5]
+            return filename[:-len(self.extension)]
         else:
             return filename
 

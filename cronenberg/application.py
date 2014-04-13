@@ -3,6 +3,7 @@
 import flask
 import json
 import sys
+import copy
 import datetime
 import time
 import os.path
@@ -12,7 +13,7 @@ from flask import Flask, render_template, request, redirect, jsonify, abort
 
 import toolbox
 from toolbox.graphite import Graphite, GraphiteQuery
-from .data import Queries
+from .demo import demo_dashboard, gbc_demo_dashboard
 from .model import *
 
 # =============================================================================
@@ -23,7 +24,6 @@ app = Flask(__name__)
 app.config.from_pyfile('config.py')
 
 env = toolbox.PROD
-q = Queries(env)
 graphite = env.graphite()
 
 # =============================================================================
@@ -42,79 +42,43 @@ class RenderContext:
 def _render_template(template, **kwargs):
     return render_template(template, ctx=RenderContext(), **kwargs)
 
+def _render_dashboard(dash):
+    from_time = request.args.get('from', app.config['DEFAULT_FROM_TIME'])
+    until_time = request.args.get('until', None)
+
+    # Make a copy of the query map with all targets rendered to full
+    # graphite URLs
+    queries = {}
+    for k, v in dash.queries.iteritems():
+        query = GraphiteQuery(v, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
+        queries[k] = str(graphite.render_url(query))
+
+    # Make a shallow copy of the dashboard with the queries member
+    # replaced with the expanded version
+    dashboard = copy.copy(dash)
+    dashboard.queries = queries
+    title = '{0} {1}'.format(dashboard.category, dashboard.title)
+    return _render_template('dashboard.html',
+                            dashboard=dashboard,
+                            title=title,
+                            breadcrumbs=[('Home', '/'),
+                                         ('Dashboards', '/'),
+                                         (title, '')])
+
+
 # =============================================================================
 # UI: Basics
 # =============================================================================
 
+
 @app.route('/')
 def ui_root():
-    # TODO - this -3h default needs to be in a constant; also used in
-    # recent-range-picker template
-    from_time = request.args.get('from', '-3h')
-    until_time = request.args.get('until', None)
+    return _render_template('index.html', breadcrumbs=[('Home', '/')])
 
-    queries = {
-        'total_events_processed'   : q.total_events_processed(),
-        'total_triggers_processed' : q.total_triggers_processed(),
-        'total_triggers_satisfied' : q.total_triggers_satisfied(),
-        'total_pushes_sent' : q.total_pushes_sent(),
-        'total_push_rate'   : q.total_push_rate(),
-        'end_to_end'        : q.automation_end_to_end_delivery_time(),
-        'immediate_triggers'        : q.immediate_triggers(),
-        'historical_triggers'        : q.historical_triggers(),
-        'api_rate'       : q.automation_api_rates(),
-        'api_latency'    : q.automation_api_latency(),
-        'device_event_rate' : q.device_event_rate()
-    }
+@app.route('/demo/automation')
+def ui_demo_automation():
+    return _render_dashboard(demo_dashboard(env))
 
-    for k,v in queries.items():
-        # TODO - inflection.underscore() the key, to ensure it's JS
-        # safe
-        query = GraphiteQuery(v, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
-        queries[k] = str(graphite.render_url(query))
-
-
-    pres_raw_events = LayoutEntry(span=3, emphasize=True,
-                                  presentation=SingleStatPresentation(title='Raw Events Processed',
-                                                                      query_name='total_events_processed',
-                                                                      align='center',
-                                                                      decimal=0,
-                                                                      transform='sum'))
-    pres_triggers_processed = LayoutEntry(span=3, emphasize=True,
-                                          presentation=SingleStatPresentation(title='Triggers Processed',
-                                                                              query_name='total_triggers_processed',
-                                                                              align='center',
-                                                                              decimal=0,
-                                                                              transform='sum'))
-
-    pres_triggers_satisfied = LayoutEntry(span=3, emphasize=True,
-                                          presentation=SingleStatPresentation(title='Triggers Satisifed',
-                                                                              query_name='total_triggers_satisfied',
-                                                                              align='center',
-                                                                              decimal=0,
-                                                                              transform='sum'))
-    pres_pushes_sent = LayoutEntry(span=3, emphasize=True,
-                                   presentation=SingleStatPresentation(title='Pushes Sent',
-                                                                       query_name='total_pushes_sent',
-                                                                       align='center',
-                                                                       decimal=0,
-                                                                       transform='sum'))
-    mean_push_rate = LayoutEntry(span=2, offset=2,
-                                 presentation=SingleStatPresentation(title='Mean Push Rate',
-                                                                     query_name='total_push_rate',
-                                                                     units='/sec',
-                                                                     decimal=3,
-                                                                     transform='mean'))
-
-
-
-    return _render_template('index.html',
-                            app='Automation',
-                            title='Overview',
-                            queries=queries,
-                            pres_raw_events=pres_raw_events,
-                            pres_triggers_satisfied=pres_triggers_satisfied,
-                            pres_triggers_processed=pres_triggers_processed,
-                            pres_pushes_sent=pres_pushes_sent,
-                            mean_push_rate=mean_push_rate,
-                            breadcrumbs=[('Home','')])
+@app.route('/demo/gbc')
+def ui_demo_gbc():
+    return _render_dashboard(gbc_demo_dashboard())
