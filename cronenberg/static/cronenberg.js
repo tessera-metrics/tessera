@@ -19,25 +19,66 @@ var cronenberg = {
     _makeHandler: function(query) {
         // console.log("cronenberg._makeHandler()");
         return function(data, textStatus) {
-            query.data = _.map(data, function(series) {
-                series.summation = cronenberg.reduce_series(series);
-                series.key = series.target;
-                series.values = series.datapoints;
-                // console.log(series);
-                return series;
-                /*
-  WHY DOES THIS FAIL?
-              return {
-                    key: series.target,
-                    values: series.datapoints,
-                    summation: this.reduce_series(series)
-                };
-*/
-            });
+            cronenberg.process_query_data(query, data);
             bean.fire(query, 'data-available', query);
         };
     },
 
+    merge_summations: function(query) {
+        // console.log("cronenberg.merge_summations() " + query.name);
+        var sums = {
+            sum: 0,
+            min: Number.MAX_VALUE,
+            max: Number.MIN_VALUE,
+            mean: 0,
+            first: 0,
+            last: 0
+        };
+        var total_datapoints = 0;
+        _.each(query.data, function(series) {
+            if (series.summation.min < sums.min) {
+                sums.min = series.summation.min;
+            }
+            if (series.summation.max > sums.max) {
+                sums.max = series.summation.max;
+            }
+            sums.sum += series.summation.sum;
+            total_datapoints += series.datapoints.length;
+        });
+        sums.mean = sums.sum / total_datapoints;
+        // console.log("cronenberg.merge_summations() - " + sums);
+        return sums;
+    },
+
+    process_query_data: function(query, data) {
+        // console.log("cronenberg.process_query_data() " + query.name);
+        // TODO - this could be a class
+        var sums = {
+            sum: 0,
+            min: Number.MAX_VALUE,
+            max: Number.MIN_VALUE,
+            mean: 0,
+            first: 0,
+            last: 0
+        };
+        query.data = _.map(data, function(series) {
+            series.summation = cronenberg.reduce_series(series);
+            series.key = series.target;
+            series.values = series.datapoints;
+            // console.log(series);
+            return series;
+            /*
+              WHY DOES THIS FAIL?
+              return {
+              key: series.target,
+              values: series.datapoints,
+              summation: this.reduce_series(series)
+              };
+            */
+        });
+        query.summation = cronenberg.merge_summations(query);
+        return query.data;
+    },
 
     load_query: function(query_name) {
         // console.log('  load_queries(): ' + query_name);

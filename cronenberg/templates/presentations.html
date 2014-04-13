@@ -23,7 +23,11 @@ modularized for now. -->
   <p><span class="value"></span><span class="unit">{{ presentation.units }}</span></p>
   <script>
     bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
-          var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
+    {% if presentation.index %}
+      var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
+    {% else %}
+      var value = query.summation.{{presentation.transform}};
+    {% endif %}
           $("#{{presentation.element_id}} span.value").number(value, {{presentation.decimal}});
       });
   </script>
@@ -40,9 +44,13 @@ modularized for now. -->
             <div><h3>{{ presentation.title }}</h3></div>
   <script>
     bean.on(cronenberg.queries.{{presentation.query_name}}, 'data-available', function(query) {
-          var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
-          $("#{{presentation.element_id}} span.value").number(value, {{presentation.decimal}});
-      });
+    {% if presentation.index %}
+      var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
+    {% else %}
+      var value = query.summation.{{presentation.transform}};
+    {% endif %}
+    $("#{{presentation.element_id}} span.value").number(value, {{presentation.decimal}});
+    });
   </script>
 </div>
 {%- endmacro %}

@@ -39,7 +39,7 @@ class Presentation(object):
         self.css_class = css_class
 
 class SingleStat(Presentation):
-    def __init__(self, title, query_name, units='', decimal=3, index=0, transform=Presentation.Transform.MEAN, **kwargs):
+    def __init__(self, title, query_name, units='', decimal=3, index=False, transform=Presentation.Transform.MEAN, **kwargs):
         super(SingleStat, self).__init__(query_name=query_name,
                                          presentation_type=kwargs.get('presentation_type', 'singlestat'),
                                          **kwargs)
@@ -54,19 +54,26 @@ class JumbotronSingleStat(SingleStat):
         super(JumbotronSingleStat, self).__init__(**kwargs)
         self.presentation_type='jumbotron_singlestat'
 
-class SimpleTimeSeries(Presentation):
+class ChartPresentation(Presentation):
+    def __init__(self, title='', x_axis_label='', y_axis_label='', **kwargs):
+        super(ChartPresentation, self).__init__(**kwargs)
+        self.title = title
+        self.x_axis_label = x_axis_label
+        self.y_axis_label = y_axis_label
+
+class SimpleTimeSeries(ChartPresentation):
     def __init__(self, query_name, **kwargs):
         super(SimpleTimeSeries, self).__init__(query_name=query_name,
                                                presentation_type='simple_time_series',
                                                **kwargs)
 
-class StandardTimeSeries(Presentation):
+class StandardTimeSeries(ChartPresentation):
     def __init__(self, query_name, **kwargs):
         super(StandardTimeSeries, self).__init__(query_name=query_name,
                                                  presentation_type='standard_time_series',
                                                  **kwargs)
 
-class StackedAreaChart(Presentation):
+class StackedAreaChart(ChartPresentation):
     def __init__(self, query_name, **kwargs):
         super(StackedAreaChart, self).__init__(query_name=query_name,
                                                presentation_type='stacked_area_chart',
@@ -109,6 +116,11 @@ class Heading(LayoutElement):
         super(Heading, self).__init__(layout_type='heading', **kwargs)
         self.text = text
         self.level = level
+
+class Markdown(LayoutElement):
+    def __init__(self, text, **kwargs):
+        super(Markdown, self).__init__(layout_type='markdown', **kwargs)
+        self.text = text
 
 class Dashboard(cask.NamedEntity):
     def __init__(self, name, queries, grid, category='', title='', description=''):
