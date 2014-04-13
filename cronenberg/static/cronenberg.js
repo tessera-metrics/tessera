@@ -14,13 +14,16 @@ var cronenberg = {
          * listeners on start and completion.
          */
         this.load = function() {
-            console.log("Query.load() " + this.name);
             bean.fire(this, 'loading');
 
             $.ajax({
                 dataType: "json",
                 url: this.url
             }).done(completionHandler(this));
+        };
+
+        this.available = function(handler) {
+            bean.on(this, 'data-available', handler);
         };
 
         /**
@@ -36,8 +39,7 @@ var cronenberg = {
                 return series;
             });
             this.summation = new cronenberg.Summation();
-            console.log("Query.process_data()");
-            console.log(this.summation);
+            // Oh, scoping
             var sum = this.summation;
             _.each(this.data, function(series) {
                 sum.merge(series.summation);
@@ -47,8 +49,6 @@ var cronenberg = {
 
         var completionHandler = function(query) {
             return function(data, textStatus) {
-                console.log("Query.dataHandler()");
-                console.log(query);
                 query.process_data(data);
                 bean.fire(query, 'data-available', query);
             };
@@ -114,19 +114,18 @@ var cronenberg = {
      * register for events, etc...
      */
     add_query: function(name, url) {
-        // console.log("cronenberg.add_query(): " + name + ' ' + url);
-        this.queries[name] = new cronenberg.Query(name, url);
+        query = new cronenberg.Query(name, url);
+        this.queries[name] = query;
+        return query;
     },
 
     load_queries: function() {
-        console.log("cronenberg.load_queries()");
         for (var query_name in this.queries) {
             this.queries[query_name].load();
         }
     },
 
     activity: function(element) {
-        // console.log("cronenberg.activity()");
         /*
         $(element).activity({
             width: 4,
