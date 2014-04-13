@@ -57,11 +57,13 @@ def _render_dashboard(dash):
     # replaced with the expanded version
     dashboard = copy.copy(dash)
     dashboard.queries = queries
+    title = '{0} {1}'.format(dashboard.category, dashboard.title)
     return _render_template('dashboard.html',
                             dashboard=dashboard,
+                            title=title,
                             breadcrumbs=[('Home', '/'),
                                          ('Dashboards', '/'),
-                                         ('{0} {1}'.format(dashboard.category, dashboard.title), '')])
+                                         (title, '')])
 
 
 # =============================================================================
