@@ -23,6 +23,10 @@ var cronenberg = {
             }).done(completionHandler(this));
         };
 
+        this.available = function(handler) {
+            bean.on(this, 'data-available', handler);
+        };
+
         /**
          * Process the results of executing the query, transforming
          * the returned structure into something consumable by the
@@ -38,6 +42,7 @@ var cronenberg = {
             this.summation = new cronenberg.Summation();
             console.log("Query.process_data()");
             console.log(this.summation);
+            // Oh, scoping
             var sum = this.summation;
             _.each(this.data, function(series) {
                 sum.merge(series.summation);
@@ -115,7 +120,9 @@ var cronenberg = {
      */
     add_query: function(name, url) {
         // console.log("cronenberg.add_query(): " + name + ' ' + url);
-        this.queries[name] = new cronenberg.Query(name, url);
+        query = new cronenberg.Query(name, url);
+        this.queries[name] = query;
+        return query;
     },
 
     load_queries: function() {
