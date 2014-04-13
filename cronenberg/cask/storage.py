@@ -142,7 +142,7 @@ class EntityStorageManager(object):
             log.debug("%s named %s not found.", entity_type, name)
             return None
         else:
-            return cls.from_json(data)
+            return cls.from_json(name, data)
 
     def load_all(self, model_type, pattern=None):
         """Load all the entities of a given type matching pattern. If
