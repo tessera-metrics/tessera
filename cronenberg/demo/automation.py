@@ -2,7 +2,7 @@ import json
 import sys
 from toolbox.graphite.functions import *
 from toolbox.graphite import Graphite, GraphiteQuery
-from .model import *
+from ..model import *
 
 # =============================================================================
 # Queries
