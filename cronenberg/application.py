@@ -23,7 +23,8 @@ from .model import *
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
 
-env = toolbox.PROD
+mgr = cask.web.WebManagerAdapter(DashboardManager(app.config['DASHBOARD_DATADIR']))
+env = toolbox.CLUSTO.environment(app.config['ENVIRONMENT_NAME'])
 graphite = env.graphite()
 
 # =============================================================================
@@ -34,10 +35,6 @@ class RenderContext:
     def __init__(self):
         self.now = datetime.datetime.now()
         self.element_index = 0
-
-    def nextid(self):
-        self.element_index += 1
-        return 'e' + self.element_index
 
 def _render_template(template, **kwargs):
     return render_template(template, ctx=RenderContext(), **kwargs)
