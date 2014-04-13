@@ -3,6 +3,7 @@
 import flask
 import json
 import sys
+import copy
 import datetime
 import time
 import os.path
@@ -41,6 +42,28 @@ class RenderContext:
 def _render_template(template, **kwargs):
     return render_template(template, ctx=RenderContext(), **kwargs)
 
+def _render_dashboard(dash):
+    from_time = request.args.get('from', app.config['DEFAULT_FROM_TIME'])
+    until_time = request.args.get('until', None)
+
+    # Make a copy of the query map with all targets rendered to full
+    # graphite URLs
+    queries = {}
+    for k, v in dash.queries.iteritems():
+        query = GraphiteQuery(v, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
+        queries[k] = str(graphite.render_url(query))
+
+    # Make a shallow copy of the dashboard with the queries member
+    # replaced with the expanded version
+    dashboard = copy.copy(dash)
+    dashboard.queries = queries
+    return _render_template('dashboard.html',
+                            dashboard=dashboard,
+                            breadcrumbs=[('Home', '/'),
+                                         ('Dashboards', '/'),
+                                         ('{0} {1}'.format(dashboard.category, dashboard.title), '')])
+
+
 # =============================================================================
 # UI: Basics
 # =============================================================================
@@ -48,16 +71,9 @@ def _render_template(template, **kwargs):
 
 @app.route('/')
 def ui_root():
-    return _render_template('index.html',
-                            breadcrumbs=[('Home', '/')])
+    return _render_template('index.html', breadcrumbs=[('Home', '/')])
 
 @app.route('/demo')
 def ui_demo():
-    dashboard  = demo_dashboard(env,
-                                request.args.get('from', app.config['DEFAULT_FROM_TIME']),
-                                request.args.get('until', None))
-    return _render_template('dashboard.html',
-                            dashboard=dashboard,
-                            breadcrumbs=[('Home', '/'),
-                                         ('Dashboards', '/'),
-                                         ('{0} {1}'.format(dashboard.category, dashboard.title), '')])
+    dashboard  = demo_dashboard(env)
+    return _render_dashboard(dashboard)
