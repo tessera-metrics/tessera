@@ -79,7 +79,7 @@ class EntityStorageManager(object):
             return filename
 
     @classmethod
-    def __entity_type(cls, type_specifier):
+    def _entity_type(cls, type_specifier):
         """Normalize the type specifier for an entity, which can be a
         string or the entity class itself."""
         if isinstance(type_specifier, str):
@@ -91,13 +91,13 @@ class EntityStorageManager(object):
 
     def __entity_directory(self, model_type):
         """Get the storage directory for an entity type."""
-        return os.path.join(self.data_directory, StorageManager._entity_type(model_type))
+        return os.path.join(self.data_directory, EntityStorageManager._entity_type(model_type))
 
     def __entity_path(self, model_type, entity_or_name):
         """Get the full path to the storage file for a specific entity."""
         if isinstance(entity_or_name, Entity):
             entity_or_name = entity_or_name.name
-        return os.path.join(self.data_directory, StorageManager._entity_type(model_type), entity_or_name) + self.extension
+        return os.path.join(self.data_directory, EntityStorageManager._entity_type(model_type), entity_or_name) + self.extension
 
     def __load(self, model_type, name):
         """Load the raw JSON data for an entity by name, returning the
@@ -113,7 +113,7 @@ class EntityStorageManager(object):
         """Register a new model class, for mapping from JSON data to a
         Python instance. The necessary data directory for storing
         instances of the class will be created. """
-        entity_type = StorageManager._entity_type(entity_class)
+        entity_type = EntityStorageManager._entity_type(entity_class)
         self.model_classes[entity_type] = entity_class
         path = self.__entity_directory(entity_type)
         if not os.path.exists(path):
@@ -123,7 +123,7 @@ class EntityStorageManager(object):
     def load(self, model_type, name, create=False):
         """Load an entity by name, returning an instance of the mapped
         Python class for that entity type."""
-        entity_type = StorageManager._entity_type(model_type)
+        entity_type = EntityStorageManager._entity_type(model_type)
         if not entity_type in self.model_classes:
             log.debug("Unknown entity type %s", entity_type)
             return None
@@ -172,7 +172,7 @@ class EntityStorageManager(object):
             pattern = '*'
         paths = []
         paths.extend(glob.glob(os.path.join(self.data_directory,
-                                            StorageManager._entity_type(model_type),
+                                            EntityStorageManager._entity_type(model_type),
                                             pattern + self.extension)))
         return sorted([self.__entity_name(p) for p in paths if not p.endswith("~")])
 
