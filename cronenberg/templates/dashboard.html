@@ -1,0 +1,32 @@
+<!-- -*- mode:jinja2 -*- -->
+{% extends "layouts/standard.html" %}
+{% from "presentations.html" import render with context %}
+
+{% block pagetitle %}
+  <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
+  <small>{{dashboard.description}}</small>
+{% endblock %}
+
+{% block layout %}
+
+{% include "snippets/breadcrumbs.html" %}
+
+  <script>
+    {% for name,url in dashboard.queries.iteritems() -%}
+      cronenberg.add_query('{{name}}', '{{url|safe}}');
+    {%- endfor %}
+  </script>
+
+  <div class="row">
+    <div class="span12">
+      {% include "snippets/recent-range-picker.html" %}
+    </div>
+  </div>
+
+  {{ render(dashboard.grid) }}
+
+  <script>
+    cronenberg.load_queries();
+  </script>
+
+{% endblock %}

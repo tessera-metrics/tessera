@@ -1,7 +1,8 @@
-from toolbox.graphite.functions import *
-from toolbox.graphite import Graphite, GraphiteQuery
 import json
 import sys
+from toolbox.graphite.functions import *
+from toolbox.graphite import Graphite, GraphiteQuery
+from ..model import *
 
 # =============================================================================
 # Queries
@@ -152,9 +153,14 @@ class Queries(object):
 
     def total_push_rate(self):
         service = self.env.service('triggers-fulfillment')
-        return alias(sum_series(rate(rash(service, 'pushfulfillmenthandler.total_push_count.Count')),
-                                rate(rash(service, 'delayedpushfulfillmenthandler.total_delayed_push_count.Count'))),
-                     "Push Rate")
+        return group(alias(sum_series(rate(rash(service, 'pushfulfillmenthandler.total_push_count.Count')),
+                                      rate(rash(service, 'delayedpushfulfillmenthandler.total_delayed_push_count.Count'))),
+                           "Total Push Rate"),
+                     alias(sum_series(rate(rash(service, 'pushfulfillmenthandler.total_push_count.Count'))),
+                           "Push Rate"),
+                     alias(sum_series(rate(rash(service, 'delayedpushfulfillmenthandler.total_delayed_push_count.Count'))),
+                           "Delayed Push Rate"))
+
 
     def immediate_triggers(self):
         service = self.env.service('triggers-state-ingress')
@@ -187,3 +193,130 @@ class Queries(object):
         gorram  = self.env.service('triggers-gorram-consumer')
         return alias(sum_series(rate(rash(gorram, 'argonmutationconsumer_timer.device_open_processed.Count'))),
                      'Device Open Rate')
+
+# =============================================================================
+
+def demo_dashboard(env):
+    q = Queries(env)
+    graphite = env.graphite()
+
+    dash = Dashboard(name='automation_overview',
+                     category='Automation',
+                     title='Overview',
+                     queries = {
+                         'total_events_processed'   : str(q.total_events_processed()),
+                         'total_triggers_processed' : str(q.total_triggers_processed()),
+                         'total_triggers_satisfied' : str(q.total_triggers_satisfied()),
+                         'total_pushes_sent'        : str(q.total_pushes_sent()),
+                         'total_push_rate'          : str(q.total_push_rate()),
+                         'end_to_end'               : str(q.automation_end_to_end_delivery_time()),
+                         'immediate_triggers'       : str(q.immediate_triggers()),
+                         'historical_triggers'      : str(q.historical_triggers()),
+                         'api_rate'                 : str(q.automation_api_rates()),
+                         'api_latency'              : str(q.automation_api_latency()),
+                         'device_event_rate'        : str(q.device_event_rate()),
+                         'stacked_test' : str(q.automation_push_payloads())
+                     },
+                     grid=Grid(
+                         Row(Cell(span=3, emphasize=True, align='center',
+                                  presentation=SingleStat(title='Raw Events Processed',
+                                                          query_name='total_events_processed',
+                                                          decimal=0,
+                                                          transform='sum')),
+                             Cell(span=3, emphasize=True, align='center',
+                                  presentation=SingleStat(title='Triggers Processed',
+                                                          query_name='total_triggers_processed',
+                                                          decimal=0,
+                                                          transform='sum')),
+                             Cell(span=3, emphasize=True, align='center',
+                                  presentation=SingleStat(title='Triggers Satisifed',
+                                                        query_name='total_triggers_satisfied',
+                                                          decimal=0,
+                                                          transform='sum')),
+                             Cell(span=3, emphasize=True, align='center',
+                                  presentation=SingleStat(title='Pushes Sent',
+                                                          query_name='total_pushes_sent',
+                                                          decimal=0,
+                                                          transform='sum')))
+                         ,Separator()
+                         ,Row(Cell(span=4,
+                                    presentation=JumbotronSingleStat(css_class='height4',
+                                                                    title='Average Push Rate',
+                                                                    query_name='total_push_rate',
+                                                                    transform='mean',
+                                                                    units=' /sec',
+                                                                    decimal=3)),
+                            Cell(span=8,
+                                presentation=StandardTimeSeries(css_class='height4',
+                                                                query_name='total_push_rate')))
+#                         ,Row(Cell(span=2, offset=2,
+#                                   presentation=SingleStat(title='Mean Push Rate',
+#                                                           query_name='total_push_rate',
+#                                                           units='/sec',
+#                                                           decimal=3,
+#                                                           transform='mean')),
+#                              Cell(span=8, presentation=SimpleTimeSeries(query_name='total_push_rate')))
+                         ,Row(Cell(span=2, offset=2,
+                                  presentation=SingleStat(title='Mean End to End Delivery Time',
+                                                          query_name='end_to_end',
+                                                          units=' ms',
+                                                          decimal=2,
+                                                          transform='mean')),
+                              Cell(span=8, presentation=SimpleTimeSeries(query_name='end_to_end')))
+                         ,Separator()
+                         ,Heading('Trigger Details')
+                         ,Row(Cell(span=2,
+                                   presentation=SingleStat(title='Immediate Triggers Processed',
+                                                           query_name='immediate_triggers',
+                                                           units='/sec',
+                                                           decimal=2)),
+                              Cell(span=2,
+                                   presentation=SingleStat(title='Immediate Triggers Satisfied',
+                                                           query_name='immediate_triggers',
+                                                           units='/sec',
+                                                           index=3,
+                                                           decimal=2)),
+                              Cell(span=8,
+                                   presentation=SimpleTimeSeries(query_name='immediate_triggers')))
+                         ,Row(Cell(span=2,
+                                   presentation=SingleStat(title='Historical Triggers Processed',
+                                                           query_name='historical_triggers',
+                                                           units='/sec',
+                                                           decimal=2)),
+                              Cell(span=2,
+                                   presentation=SingleStat(title='Historical Triggers Satisfied',
+                                                           query_name='historical_triggers',
+                                                           units='/sec',
+                                                           index=3,
+                                                           decimal=2)),
+                              Cell(span=8,
+                                   presentation=SimpleTimeSeries(query_name='historical_triggers')))
+                         ,Row(Cell(span=2, offset=2,
+                                   presentation=SingleStat(title='Mean Device Opens Rate',
+                                                           query_name='device_event_rate',
+                                                           units='/sec',
+                                                           decimal=0)),
+                              Cell(span=8,
+                                   presentation=SimpleTimeSeries(query_name='device_event_rate')))
+                         ,Separator()
+                         ,Heading('API')
+                         ,Row(Cell(span=2,
+                                   presentation=SingleStat(title='Mean API Response Time',
+                                                           query_name='api_latency',
+                                                           units=' ms',
+                                                           decimal=2)),
+                              Cell(span=2,
+                                   presentation=SingleStat(title='API Requests',
+                                                           query_name='api_rate',
+                                                           index=1,
+                                                           decimal=0,
+                                                           transform='sum')),
+                              Cell(span=8,
+                                   presentation=SimpleTimeSeries(query_name='api_rate')))
+                         #,Row(Cell(span=8, offset=4,
+                         #          presentation=StackedAreaChart(css_class='height4', query_name='gatekeeper')))
+                     )
+                 )
+    #Row(Cell(span=12,
+    #        presentation=StackedAreaChart(query_name='stacked_test')))
+    return dash
