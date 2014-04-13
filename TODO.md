@@ -19,6 +19,8 @@
 - titles
 - dashboard sections. Section = separator + heading + rows, collapsible (click on heading)
   - alternate rendering as tabs
+- Lists of presentations per cell
+  - and/or nested rows
 - min/max/mean/total datatable - see
   [stathat](http://blog.stathat.com/2014/04/09/web-app-interface-changes-stats.html)
   for a nice example (and a
@@ -35,3 +37,8 @@
 - integrate some proper JS build-fu to minify and compress all the javascript
 - JumboTronSinglestat is a hack. A properly responsive presentation
   that scales w/size of parent would rock.
+- Client-side rendering
+  - passing complex options to javascript code is clumsy using server side templates
+  - needed for dynamic editing
+  - depends on API
+  - API depends on persistence
