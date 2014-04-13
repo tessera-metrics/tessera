@@ -1,5 +1,112 @@
 var cronenberg = {
 
+    /**
+     * Class - Representation of a query and all its current state.
+     */
+    Query: function(name, url) {
+        this.name = name;
+        this.url = url;
+        this.data = [];
+        this.presentations = [];
+
+        /**
+         * Asynchronously execute this query, notifying any registered
+         * listeners on start and completion.
+         */
+        this.load = function() {
+            console.log("Query.load() " + this.name);
+            bean.fire(this, 'loading');
+
+            $.ajax({
+                dataType: "json",
+                url: this.url
+            }).done(completionHandler(this));
+        };
+
+        /**
+         * Process the results of executing the query, transforming
+         * the returned structure into something consumable by the
+         * charting library, and calculating sums.
+         */
+        this.process_data = function(data) {
+            this.data = _.map(data, function(series) {
+                series.summation = new cronenberg.Summation(series);
+                series.key = series.target;
+                series.values = series.datapoints;
+                return series;
+            });
+            this.summation = new cronenberg.Summation();
+            console.log("Query.process_data()");
+            console.log(this.summation);
+            var sum = this.summation;
+            _.each(this.data, function(series) {
+                sum.merge(series.summation);
+            });
+            return this;
+        };
+
+        var completionHandler = function(query) {
+            return function(data, textStatus) {
+                console.log("Query.dataHandler()");
+                console.log(query);
+                query.process_data(data);
+                bean.fire(query, 'data-available', query);
+            };
+        };
+    },
+
+
+    /**
+     * Class - Summarized stats for a data series or set of series.
+     */
+    Summation: function(series) {
+        this.sum = 0;
+        this.min = Number.MAX_VALUE;
+        this.max = Number.MIN_VALUE;
+        this.mean = 0;
+        this.first = 0;
+        this.last = 0;
+        this.datapoint_count = 0;
+
+        /**
+         * Merge another summation into this one. For summarizing
+         * queries with multiple data series.
+         */
+        this.merge = function(other) {
+            this.sum += other.sum;
+            this.datapoint_count += other.datapoint_count;
+            this.mean = this.sum / this.datapoint_count;
+            if (other.min < this.min) {
+                this.min = other.min;
+            }
+            if (other.max > this.max) {
+                this.max = other.max;
+            }
+            return this;
+        };
+
+        if (typeof(series) != "undefined") {
+            this.first = series.datapoints[0][0];
+            this.datapoint_count = series.datapoints.length;
+            if (this.first == null) {
+                this.first = 0;
+            }
+            _.reduce(series.datapoints, function(context, point) {
+                var value = point[0] == null ? 0 : point[0];
+                context.sum = context.sum + value;
+                if (value > context.max) {
+                    context.max = value;
+                }
+                if (value < context.min) {
+                    context.min = value;
+                }
+                context.last = value;
+                return context;
+            }, this);
+            this.mean = this.sum / series.datapoints.length;
+        }
+    },
+
     queries: {},
 
     /**
@@ -8,96 +115,13 @@ var cronenberg = {
      */
     add_query: function(name, url) {
         // console.log("cronenberg.add_query(): " + name + ' ' + url);
-        this.queries[name] = {
-            name: name,
-            url: url,
-            data: [],
-            presentations: []
-        };
-    },
-
-    _makeHandler: function(query) {
-        // console.log("cronenberg._makeHandler()");
-        return function(data, textStatus) {
-            cronenberg.process_query_data(query, data);
-            bean.fire(query, 'data-available', query);
-        };
-    },
-
-    merge_summations: function(query) {
-        // console.log("cronenberg.merge_summations() " + query.name);
-        var sums = {
-            sum: 0,
-            min: Number.MAX_VALUE,
-            max: Number.MIN_VALUE,
-            mean: 0,
-            first: 0,
-            last: 0
-        };
-        var total_datapoints = 0;
-        _.each(query.data, function(series) {
-            if (series.summation.min < sums.min) {
-                sums.min = series.summation.min;
-            }
-            if (series.summation.max > sums.max) {
-                sums.max = series.summation.max;
-            }
-            sums.sum += series.summation.sum;
-            total_datapoints += series.datapoints.length;
-        });
-        sums.mean = sums.sum / total_datapoints;
-        // console.log("cronenberg.merge_summations() - " + sums);
-        return sums;
-    },
-
-    process_query_data: function(query, data) {
-        // console.log("cronenberg.process_query_data() " + query.name);
-        // TODO - this could be a class
-        var sums = {
-            sum: 0,
-            min: Number.MAX_VALUE,
-            max: Number.MIN_VALUE,
-            mean: 0,
-            first: 0,
-            last: 0
-        };
-        query.data = _.map(data, function(series) {
-            series.summation = cronenberg.reduce_series(series);
-            series.key = series.target;
-            series.values = series.datapoints;
-            // console.log(series);
-            return series;
-            /*
-              WHY DOES THIS FAIL?
-              return {
-              key: series.target,
-              values: series.datapoints,
-              summation: this.reduce_series(series)
-              };
-            */
-        });
-        query.summation = cronenberg.merge_summations(query);
-        return query.data;
-    },
-
-    load_query: function(query_name) {
-        // console.log('  load_queries(): ' + query_name);
-        var query = this.queries[query_name]
-        // console.log(query);
-
-        // Notify any consumers of this query that it's reloading
-        bean.fire(query, 'loading');
-
-        $.ajax({
-            dataType: "json",
-            url: query.url
-        }).done(this._makeHandler(query));
+        this.queries[name] = new cronenberg.Query(name, url);
     },
 
     load_queries: function() {
-        // console.log("cronenberg.load_queries()");
+        console.log("cronenberg.load_queries()");
         for (var query_name in this.queries) {
-            this.load_query(query_name);
+            this.queries[query_name].load();
         }
     },
 
@@ -126,39 +150,6 @@ var cronenberg = {
         return value.toPrecision(3) + suffix;
     },
 
-    /**
-     * Process a single Graphite data series, returning an object with
-     * the sum, min, max, mean, first, and last values.
-     */
-    reduce_series: function(series) {
-        // console.log("cronenberg.reduce_series()");
-        var sums = {
-            sum: 0,
-            min: Number.MAX_VALUE,
-            max: Number.MIN_VALUE,
-            mean: 0,
-            first: 0,
-            last: 0
-        };
-        sums.first = series.datapoints[0][0];
-        if (sums.first == null) {
-            sums.first = 0;
-        }
-        _.reduce(series.datapoints, function(context, point) {
-            var value = point[0] == null ? 0 : point[0];
-            context.sum = context.sum + value;
-            if (value > context.max) {
-                context.max = value;
-            }
-            if (value < context.min) {
-                context.min = value;
-            }
-            context.last = value;
-            return context;
-        }, sums);
-        sums.mean = sums.sum / series.datapoints.length;
-        return sums;
-    },
 
     simple_line_chart: function(e, series) {
         var data = [{
