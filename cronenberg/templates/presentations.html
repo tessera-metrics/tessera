@@ -118,7 +118,7 @@ modularized for now. -->
 <!-- ============================================================================= -->
 
 {% macro render_cell(cell) -%}
-<div class="span{{ cell.span }}
+<div class="{% if cell.span %} span{{ cell.span }} {% endif %}
 {% if cell.offset %} offset{{ cell.offset }} {% endif %}
 {% if cell.css_class %} {{ cell.css_class }} {% endif %}
 "
@@ -141,10 +141,12 @@ modularized for now. -->
 
 <!-- ============================================================================= -->
 
-{% macro render_row(row) -%}  <div class="row dashboard-row">
+{% macro render_row(row) -%}
+  <div class="row dashboard-row">
     {% for cell in row.cells %}
       {{ render(cell) }}
-    {% endfor %}  </div>
+    {% endfor %}
+  </div>
 {% endmacro %}
 
 <!-- ============================================================================= -->

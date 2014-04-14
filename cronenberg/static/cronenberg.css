@@ -240,3 +240,14 @@ h2.time {
 .height6 { height: 420px; }
 .height7 { height: 490px; }
 .height8 { height: 560px; }
+
+/* darkstrap tweaks */
+
+.table th, .table td {
+    border-top: 1px solid #404040;
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+  background-color: #666666;
+}

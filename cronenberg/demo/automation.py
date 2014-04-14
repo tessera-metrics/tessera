@@ -241,27 +241,27 @@ def demo_dashboard(env):
                          ,Separator()
                          ,Row(Cell(span=4,
                                     presentation=JumbotronSingleStat(css_class='height4',
-                                                                    title='Average Push Rate',
-                                                                    query_name='total_push_rate',
-                                                                    transform='mean',
-                                                                    units=' /sec',
-                                                                    decimal=3)),
+                                                                     title='Average Push Rate',
+                                                                     query_name='total_push_rate',
+                                                                     transform='mean',
+                                                                     units=' /sec',
+                                                                     decimal=3)),
                             Cell(span=8,
-                                presentation=StandardTimeSeries(css_class='height4',
-                                                                query_name='total_push_rate')))
-#                         ,Row(Cell(span=2, offset=2,
-#                                   presentation=SingleStat(title='Mean Push Rate',
-#                                                           query_name='total_push_rate',
-#                                                           units='/sec',
-#                                                           decimal=3,
-#                                                           transform='mean')),
-#                              Cell(span=8, presentation=SimpleTimeSeries(query_name='total_push_rate')))
+                                 presentation=StandardTimeSeries(css_class='height4',
+                                                                 query_name='total_push_rate')))
+                         #                         ,Row(Cell(span=2, offset=2,
+                         #                                   presentation=SingleStat(title='Mean Push Rate',
+                         #                                                           query_name='total_push_rate',
+                         #                                                           units='/sec',
+                         #                                                           decimal=3,
+                         #                                                           transform='mean')),
+                         #                              Cell(span=8, presentation=SimpleTimeSeries(query_name='total_push_rate')))
                          ,Row(Cell(span=2, offset=2,
-                                  presentation=SingleStat(title='Mean End to End Delivery Time',
-                                                          query_name='end_to_end',
-                                                          units=' ms',
-                                                          decimal=2,
-                                                          transform='mean')),
+                                   presentation=SingleStat(title='Mean End to End Delivery Time',
+                                                           query_name='end_to_end',
+                                                           units=' ms',
+                                                           decimal=2,
+                                                           transform='mean')),
                               Cell(span=8, presentation=SimpleTimeSeries(query_name='end_to_end')))
                          ,Separator()
                          ,Heading('Trigger Details')

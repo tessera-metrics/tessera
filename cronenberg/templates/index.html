@@ -1,12 +1,12 @@
 <!-- -*- mode:jinja2 -*- -->
-{% extends "layouts/standard.html" %}
+{% extends "layouts/base.html" %}
 {% from "presentations.html" import render with context %}
 
 {% block pagetitle %}
-  <span class="primary-title">Cronenberg</span> <span class="secondary-title">Index</span>
+  <span class="primary-title">{{config['DASHBOARD_APPNAME']}}</span> <span class="secondary-title">Index</span>
 {% endblock %}
 
-{% block layout %}
+{% block content %}
 
   <ul>
     <li><a href="/demo/automation">Automation Demo</a></li>
