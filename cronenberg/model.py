@@ -217,17 +217,18 @@ class Separator(LayoutElement):
 
 class Heading(LayoutElement):
     """A large text label."""
-    def __init__(self, text, level=1, **kwargs):
+    def __init__(self, text, level=1, description='', **kwargs):
         super(Heading, self).__init__(layout_type='heading', **kwargs)
         self.text = text
         self.level = level
+        self.description = description
 
     @classmethod
     def from_json(cls, d):
         return Heading(text=d['text'],
                        level=d['level'],
+                       description = d.get('description', ''),
                        css_class=d['css_class'])
-
 
 class Markdown(LayoutElement):
     def __init__(self, text, **kwargs):

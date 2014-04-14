@@ -10,7 +10,9 @@ modularized for now. -->
 {% endmacro %}
 
 {% macro render_heading(heading) -%}
-<h{{heading.level}} {% if heading.css_class != '' %}class="{{heading.css_class}}"{% endif %}>{{heading.text}}</h{{heading.level}}>
+<h{{heading.level}} {% if heading.css_class != '' %}class="{{heading.css_class}}"{% endif %}>{{heading.text}}
+{% if heading.description != '' %} <small>{{heading.description}}</small> {% endif %}
+</h{{heading.level}}>
 {% endmacro %}
 
 <!-- ============================================================================= -->

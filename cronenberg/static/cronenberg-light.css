@@ -6,6 +6,10 @@
     color: #A95353;
 }
 
+.dashboard-grid h1 small {
+    color: #B96363;
+}
+
 .singlestat h3 {
     color: #737380;
 }
