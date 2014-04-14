@@ -24,7 +24,7 @@ modularized for now. -->
   <h3>{{ presentation.title }}</h3>
   <p><span class="value"></span><span class="unit">{{ presentation.units }}</span></p>
   <script>
-    cronenberg.queries.{{presentation.query_name}}.available(function(query) {
+    cronenberg.registry.queries.{{presentation.query_name}}.available(function(query) {
     {% if presentation.index %}
       var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
     {% else %}
@@ -45,7 +45,7 @@ modularized for now. -->
             <div><p><span class="value"></span><span class="unit">{{ presentation.units }}</span></p></div>
             <div><h3>{{ presentation.title }}</h3></div>
   <script>
-    cronenberg.queries.{{presentation.query_name}}.available(function(query) {
+    cronenberg.registry.queries.{{presentation.query_name}}.available(function(query) {
     {% if presentation.index %}
       var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
     {% else %}
@@ -65,7 +65,7 @@ modularized for now. -->
 {% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
   <svg></svg>
   <script>
-  cronenberg.queries.{{presentation.query_name}}.available(function(query) {
+  cronenberg.registry.queries.{{presentation.query_name}}.available(function(query) {
       cronenberg.simple_line_chart($("#{{presentation.element_id}}"), query.data[0]);
   });
   </script>
@@ -79,7 +79,7 @@ modularized for now. -->
 {% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
   <svg></svg>
   <script>
-  cronenberg.queries.{{presentation.query_name}}.available(function(query) {
+  cronenberg.registry.queries.{{presentation.query_name}}.available(function(query) {
       cronenberg.standard_line_chart($("#{{presentation.element_id}}"), query.data);
   });
   </script>
@@ -94,7 +94,7 @@ modularized for now. -->
 {% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
   <svg></svg>
   <script>
-  cronenberg.queries.{{presentation.query_name}}.available(function(query) {
+  cronenberg.registry.queries.{{presentation.query_name}}.available(function(query) {
       cronenberg.stacked_area_chart($("#{{presentation.element_id}}"), query.data);
   });
   </script>
