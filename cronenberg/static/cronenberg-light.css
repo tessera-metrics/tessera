@@ -3,15 +3,15 @@
    ============================================================================= */
 
 .dashboard-grid h1 {
-    // color: #646460;
+    color: #A95353;
 }
 
 .singlestat h3 {
-    // color: #959588;
+    color: #737380;
 }
 
 .well .singlestat h3 {
-    // color: #aa8866;
+    color: #A95353;
 }
 
 .singlestat p {
@@ -19,11 +19,11 @@
 }
 
 .singlestat .unit {
-    // color: gray;
+    color: gray;
 }
 
 .jumbotron-singlestat .unit {
-    // color: gray;
+    color: gray;
 }
 
 .jumbotron-singlestat .value {
@@ -31,11 +31,11 @@
 }
 
 .jumbotron-singlestat h3 {
-    // color: #a6a699;
+    color: #a6a699;
 }
 
 h1 .primary-title {
-    // color: gray;
+    color: gray;
 }
 
 h1 .secondary-title {
