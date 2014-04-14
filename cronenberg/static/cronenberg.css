@@ -3,7 +3,6 @@
     text-decoration: none;
     text-shadow: none;
 }
-
 .select2-container {
     margin-left: 0;
 }
@@ -26,19 +25,6 @@ table.table thead .sorting_desc_disabled { background: url('/static/img/datatabl
 
 .sorting { background: none; }
 
-
-/* Codemirror tweaks for bootstrap/darkstrap */
-.CodeMirror pre {
-    box-shadow: none;
-    -web-kit-box-shadow: none;
-    -moz-box-shadow: none;
-}
-.CodeMirror-scroll {
-    height: auto;
-    overflow-y: hidden;
-    overflow-x: auto;
-}
-
 /* App styles */
 
 h1, h2, h3, h4 {
@@ -46,7 +32,7 @@ h1, h2, h3, h4 {
 }
 
 .dashboard-grid h1 {
-    color: #545450;
+    color: #646460;
     margin-bottom: 0.5em;
 }
 
@@ -54,10 +40,8 @@ h1, h2, h3, h4 {
     font-stretch: condensed;
     font-size: 1.2em;
     font-weight: normal;
-    font-variant:small-caps;
     text-transform:uppercase;
     padding-bottom: 12px;
-    // color: #a6a699;
     color: #959588;
 }
 
