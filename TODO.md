@@ -71,6 +71,8 @@
 ### Integration
 
 - sessions
+  - start with anonymous, non-persistent sessions. Then can build onto
+    LDAP & persistence, below.
 - LDAP integration
   - user preferences
 - integrate some proper JS build-fu to minify and compress all the
