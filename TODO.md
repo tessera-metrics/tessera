@@ -64,6 +64,7 @@
   - needed for dynamic editing
   - depends on API
   - API depends on persistence
+  - tentative candidate is [Handlebars](http://handlebarsjs.com/)
 
 ### UI
 
