@@ -11,16 +11,38 @@
 
   <div class="row">
     <div class="span4">
-      <div class="well height3" align="center">
-        <a href="/dashboards"><h3><i class="icon-dashboard"></i>Dashboards</h3></a>
+      <div class="well" align="center">
+        <a href="/dashboards"><h3><i class="icon-dashboard" style="font-size: 4em"></i>
+            <br/>Dashboards</h3></a>
         </div>
     </div>
   </div>
 
+  <hr/>
 
-  <ul>
-    <li><a href="/demo/automation">Automation Demo</a></li>
-    <li><a href="/demo/gbc">GBC Demo</a></li>
-  </ul>
+  <div class="row">
+    <div class="span6">
+      <h4>Programmatic demos</h4>
+
+      These are identical to the demo dashboards listed
+      on <a href="/dashboards"><code>/dashboards</code></a>, but are generated live
+      from code. The JSON definitions were generated from them.
+
+      <ul>
+        <li><a href="/demo/automation">Automation Demo</a></li>
+        <li><a href="/demo/gbc">GBC Demo</a></li>
+      </ul>
+    </div>
+
+    <div class="span6">
+
+      <h4>API Endpoints</h4>
+      <ul>
+        <li><a href="/api/dashboard"><code>/api/dashboard</code></a></li>
+        <li><a href="/api/dashboard/names"><code>/api/dashboard/names</code></a></li>
+      </ul>
+
+    </div>
+  </div>
 
 {% endblock %}
