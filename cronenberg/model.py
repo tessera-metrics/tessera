@@ -249,3 +249,8 @@ class Dashboard(cask.NamedEntity):
         d['grid'] = Grid.from_json(d['grid'])
         _delattr(d, 'name')
         return Dashboard(name=name, **d)
+
+class DashboardManager(cask.EntityStorageManager):
+    def __init__(self, data_directory, extension=None):
+        super(DashboardManager, self).__init__(data_directory, extension=extension)
+        self.register_class(Dashboard)
