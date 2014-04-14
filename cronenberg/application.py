@@ -29,41 +29,6 @@ env = toolbox.CLUSTO.environment(app.config['ENVIRONMENT_NAME'])
 graphite = env.graphite()
 
 # =============================================================================
-# Template Helpers
-# =============================================================================
-
-class RenderContext:
-    def __init__(self):
-        self.now = datetime.datetime.now()
-        self.element_index = 0
-
-def _render_template(template, **kwargs):
-    return render_template(template, ctx=RenderContext(), **kwargs)
-
-def _render_dashboard(dash):
-    from_time = request.args.get('from', app.config['DEFAULT_FROM_TIME'])
-    until_time = request.args.get('until', None)
-
-    # Make a copy of the query map with all targets rendered to full
-    # graphite URLs
-    queries = {}
-    for k, v in dash.queries.iteritems():
-        query = GraphiteQuery(v, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
-        queries[k] = str(graphite.render_url(query))
-
-    # Make a shallow copy of the dashboard with the queries member
-    # replaced with the expanded version
-    dashboard = copy.copy(dash)
-    dashboard.queries = queries
-    title = '{0} {1}'.format(dashboard.category, dashboard.title)
-    return _render_template('dashboard.html',
-                            dashboard=dashboard,
-                            title=title,
-                            breadcrumbs=[('Home', '/'),
-                                         ('Dashboards', '/'),
-                                         (title, '')])
-
-# =============================================================================
 # API Helpers
 # =============================================================================
 
@@ -83,7 +48,7 @@ def _to_json(entity):
 def _to_json_entities(entities):
     if isinstance(entities, list):
         return { 'entities' : [_to_json(e) for e in entities] }
-    elif isinstance(entities, Model):
+    elif isinstance(entities, Entity):
         return { 'entities' : [_to_json(entities)] }
 
 def _to_json_names(names):
@@ -107,6 +72,12 @@ def api_dashboard_list():
 def api_dashboard_names():
     """Return a JSON array of only the dashboard names, suitable for
     most javascript typeahead components."""
+    return _jsonify(_to_json_names(mgr.list(Dashboard)))
+
+@app.route('/api/dashboard/listing')
+def api_dashboard_listing():
+    """Return a JSON array of partial dashboard objects, for rendering a
+    directory."""
     return _jsonify(_to_json_names(mgr.list(Dashboard)))
 
 @app.route('/api/dashboard/<name>')
@@ -153,12 +124,60 @@ def api_dashboard_instance_post(name):
         return api_dashboard_put(name)
 
 # =============================================================================
+# UI Helpers
+# =============================================================================
+
+class RenderContext:
+    def __init__(self):
+        self.now = datetime.datetime.now()
+        self.element_index = 0
+
+def _render_template(template, **kwargs):
+    return render_template(template, ctx=RenderContext(), **kwargs)
+
+def _render_dashboard(dash):
+    from_time = request.args.get('from', app.config['DEFAULT_FROM_TIME'])
+    until_time = request.args.get('until', None)
+
+    # Make a copy of the query map with all targets rendered to full
+    # graphite URLs
+    queries = {}
+    for k, v in dash.queries.iteritems():
+        query = GraphiteQuery(v, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
+        queries[k] = str(graphite.render_url(query))
+
+    # Make a shallow copy of the dashboard with the queries member
+    # replaced with the expanded version
+    dashboard = copy.copy(dash)
+    dashboard.queries = queries
+    title = '{0} {1}'.format(dashboard.category, dashboard.title)
+    return _render_template('dashboard.html',
+                            dashboard=dashboard,
+                            title=title,
+                            breadcrumbs=[('Home', '/'),
+                                         ('Dashboards', '/dashboards'),
+                                         (title, '')])
+
+# =============================================================================
 # UI: Basics
 # =============================================================================
 
 @app.route('/')
 def ui_root():
     return _render_template('index.html', breadcrumbs=[('Home', '/')])
+
+@app.route('/dashboards')
+def ui_dashboard_list():
+    data = _get_entities(Dashboard)
+    return _render_template('dashboard-list.html',
+                            dashboards=data,
+                            title='Dashboards',
+                            breadcrumbs=[('Home', '/'),
+                                         ('Dashboards', '')])
+
+@app.route('/dashboards/<name>')
+def ui_dashboard(name):
+    return _render_dashboard(mgr.load(Dashboard, name))
 
 @app.route('/demo/automation')
 def ui_demo_automation():

@@ -1,5 +1,5 @@
 <!-- -*- mode:jinja2 -*- -->
-{% extends "layouts/standard.html" %}
+{% extends "layouts/base.html" %}
 {% from "presentations.html" import render with context %}
 
 {% block pagetitle %}
@@ -7,7 +7,7 @@
   <small>{{dashboard.description}}</small>
 {% endblock %}
 
-{% block layout %}
+{% block content %}
 
 {% include "snippets/breadcrumbs.html" %}
 
