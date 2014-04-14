@@ -264,7 +264,7 @@ def demo_dashboard(env):
                                                            transform='mean')),
                               Cell(span=8, presentation=SimpleTimeSeries(query_name='end_to_end')))
                          ,Separator()
-                         ,Heading('Trigger Details')
+                         ,Heading('Trigger Details', description='Breakdown between immediate and historical')
                          ,Row(Cell(span=2,
                                    presentation=SingleStat(title='Immediate Triggers Processed',
                                                            query_name='immediate_triggers',
