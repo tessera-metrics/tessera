@@ -6,13 +6,13 @@
   <body>
 
     <div class="container">
+
       <div class="page-header">
         <div class="row">
           <div class="span9">
-            <!--
             <a href="/"><i class="icon-home icon-large"></i></a>
-            <a href="/settings"><i class="icon-cogs icon-large"></i></a>
-            -->
+            <a href="/dashboards"><i class="icon-dashboard icon-large"></i></a>
+            <!-- <a href="/settings"><i class="icon-cogs icon-large"></i></a> -->
             <br/>
             <h1>
               {% block pagetitle %}
@@ -43,6 +43,17 @@
     <p>&nbsp;</p>
 
     {% include "snippets/site-footer.html" %}
+
+    <script>
+    cronenberg.onEnterFullscreen(function() {
+        $(".breadcrumb").hide();
+        $(".page-header").hide();
+    })
+    .onExitFullscreen(function() {
+        $(".breadcrumb").show();
+        $(".page-header").show();
+    });
+    </script>
 
   </body>
 </html>
