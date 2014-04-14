@@ -14,6 +14,8 @@
 - ~~API for model objects~~
   - refactor to an API flask blueprint to reuse for different model
     classes
+  - Refactor how from_json() works, maybe a metaclass or somesuch, to
+    cut down on the janky dispatching
 - more sophisticated persistence (i.e. SQLAlchemy or somesuch) that
   would allow tagging and searching by tag
 - ~~queries should be dumped to JSON without graphite hostname or
