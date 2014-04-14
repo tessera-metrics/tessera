@@ -1,0 +1,30 @@
+<!-- -*- mode:jinja2 -*- -->
+{% extends "layouts/base.html" %}
+
+{% block pagetitle %}
+  <span class="primary-title">{{config['DASHBOARD_APPNAME']}}</span> <span class="secondary-title">{{title}}</span>
+{% endblock %}
+
+{% block content %}
+  <table class="table datatable">
+    <thead>
+      <tr>
+        <th>Dashboard</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for dashboard in dashboards %}
+        <tr>
+          <td><a href="/dashboards/{{dashboard.name}}"><span class="badge badge-info"><i class="icon-dashboard"></i></span> {{dashboard.name}}</a></td>
+          <td>{{dashboard.category}} {{dashboard.title}}</td>
+          <td>{{dashboard.description}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% include "snippets/datatable.js" %}
+{% endblock %}
