@@ -67,6 +67,7 @@
     ``cronenberg.exitFullScreen()`` APIs with events. UI bits just
     need to register for those events to hide/show.
 - dark/light theme switching
+  - other themes, like [Solarized](http://ethanschoonover.com/solarized).
 
 ### Integration
 
