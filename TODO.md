@@ -1,11 +1,20 @@
 # Tasks
 
+These are not in any kind of order at all.
+
 - refresh button
 - auto-refresh
 - Add a 'full screen' button that removes everything except the
   dashboard grid from the view (and a 'back' button to restore it)
-- Persistence for model objects via cask
-- API for model objects
+  - already have ``cronenberg.enterFullScreen()`` and
+    ``cronenberg.exitFullScreen()`` APIs with events. UI bits just
+    need to register for those events to hide/show.
+- ~~Persistence for model objects via cask~~
+- ~~API for model objects~~
+  - refactor to an API flask blueprint to reuse for different model
+    classes
+- more sophisticated persistence (i.e. SQLAlchemy or somesuch) that
+  would allow tagging and searching by tag
 - dark/light theme switching
 - sessions
 - LDAP integration
@@ -21,7 +30,7 @@
 - titles
 - dashboard sections. Section = separator + heading + rows, collapsible (click on heading)
   - alternate rendering as tabs
-- Lists of presentations per cell
+- ~~Lists of presentations per cell~~
   - and/or nested rows
 - min/max/mean/total datatable - see
   [stathat](http://blog.stathat.com/2014/04/09/web-app-interface-changes-stats.html)
