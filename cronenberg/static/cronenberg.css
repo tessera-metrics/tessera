@@ -251,3 +251,8 @@ h2.time {
 .table-hover tbody tr:hover th {
   background-color: #666666;
 }
+
+/* fix for bootstrap/font-awesome background image problem on icons */
+i[class*='icon-'] {
+    background-image: none;
+}
