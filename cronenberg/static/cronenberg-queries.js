@@ -111,19 +111,19 @@ cronenberg.Query = function(name, url) {
  * Class - a registry of named queries.
  */
 cronenberg.QueryRegistry = function() {
-    this.queries = {};
+    this.registry = {};
 
     this.add = function(name, url) {
         query = new cronenberg.Query(name, url);
-        this.queries[name] = query;
+        this.registry[name] = query;
         return query;
     };
 
     this.loadAll = function() {
-        for (var query_name in this.queries) {
-            this.queries[query_name].load();
+        for (var query_name in this.registry) {
+            this.registry[query_name].load();
         }
     };
 };
 
-cronenberg.registry = new cronenberg.QueryRegistry();
+cronenberg.queries = new cronenberg.QueryRegistry();

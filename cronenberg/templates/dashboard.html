@@ -13,7 +13,7 @@
 
   <script>
     {% for name,url in dashboard.queries.iteritems() -%}
-      cronenberg.registry.add('{{name}}', '{{url|safe}}');
+      cronenberg.queries.add('{{name}}', '{{url|safe}}');
     {%- endfor %}
   </script>
 
@@ -26,7 +26,6 @@
   {{ render(dashboard.grid) }}
 
   <script>
-    cronenberg.registry.loadAll();
+    cronenberg.queries.loadAll();
   </script>
-
 {% endblock %}
