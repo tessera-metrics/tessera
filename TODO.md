@@ -16,8 +16,8 @@
     classes
 - more sophisticated persistence (i.e. SQLAlchemy or somesuch) that
   would allow tagging and searching by tag
-- queries should be dumped to JSON without graphite hostname or
-  format=json in URL. Need a render_url_path w/o format or host
+- ~~queries should be dumped to JSON without graphite hostname or
+  format=json in URL. Need a render_url_path w/o format or host~~
 - dashboard sections. Section = separator + heading + rows, collapsible (click on heading)
   - alternate rendering as tabs
 
