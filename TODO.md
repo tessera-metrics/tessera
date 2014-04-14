@@ -1,5 +1,7 @@
 # Tasks
 
+- refresh button
+- auto-refresh
 - Add a 'full screen' button that removes everything except the
   dashboard grid from the view (and a 'back' button to restore it)
 - Persistence for model objects via cask
