@@ -22,7 +22,6 @@ use something like require.js for sanity -->
 <script src="{{ url_for('static', filename='js/bootstrap-button.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-tab.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap-tooltip.js') }}"></script>
-<link  href="{{ url_for('static', filename='css/darkstrap.css') }}" rel="stylesheet"></link>
 
 <!-- Slick -->
 <!--
@@ -38,4 +37,10 @@ use something like require.js for sanity -->
 <!-- Application -->
 <script src="{{ url_for('static', filename='cronenberg.js') }}"></script>
 <link  href="{{ url_for('static', filename='cronenberg.css') }}" rel="stylesheet"></link>
+
+{% if true %}
+<link  href="{{ url_for('static', filename='css/darkstrap.css') }}" rel="stylesheet"></link>
 <link  href="{{ url_for('static', filename='cronenberg-dark.css') }}" rel="stylesheet"></link>
+{% else %}
+<link  href="{{ url_for('static', filename='cronenberg-light.css') }}" rel="stylesheet"></link>
+{% endif %}

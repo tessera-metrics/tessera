@@ -1,0 +1,47 @@
+/* =============================================================================
+   Application Styles
+   ============================================================================= */
+
+.dashboard-grid h1 {
+    // color: #646460;
+}
+
+.singlestat h3 {
+    // color: #959588;
+}
+
+.well .singlestat h3 {
+    // color: #aa8866;
+}
+
+.singlestat p {
+    // color:white;
+}
+
+.singlestat .unit {
+    // color: gray;
+}
+
+.jumbotron-singlestat .unit {
+    // color: gray;
+}
+
+.jumbotron-singlestat .value {
+    // color: white;
+}
+
+.jumbotron-singlestat h3 {
+    // color: #a6a699;
+}
+
+h1 .primary-title {
+    // color: gray;
+}
+
+h1 .secondary-title {
+    // color: white;
+}
+
+h2.time {
+    // color: #ddd;
+}
