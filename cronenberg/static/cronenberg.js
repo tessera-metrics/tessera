@@ -23,7 +23,7 @@ var cronenberg = {
         };
 
         this.available = function(handler) {
-            bean.on(this, 'data-available', handler);
+            bean.on(this, cronenberg.events.DATA_AVAILABLE, handler);
         };
 
         /**
@@ -50,7 +50,7 @@ var cronenberg = {
         var completionHandler = function(query) {
             return function(data, textStatus) {
                 query.process_data(data);
-                bean.fire(query, 'data-available', query);
+                bean.fire(query, cronenberg.events.DATA_AVAILABLE, query);
             };
         };
     },
@@ -250,12 +250,40 @@ var cronenberg = {
         });
     },
 
+    events: {
+        ENTER_FULL_SCREEN: 'enter-fullscreen',
+        EXIT_FULL_SCREEN: 'exit-fullscreen',
+        DATA_AVAILABLE: 'data-available'
+    },
+
+    onEnterFullscreen: function(handler) {
+        bean.on(this, cronenberg.events.ENTER_FULL_SCREEN, handler);
+        return this;
+    },
+
+    enterFullscreen: function() {
+        bean.fire(this, cronenberg.events.ENTER_FULL_SCREEN);
+        return this;
+    },
+
+    onExitFullscreen: function(handler) {
+        bean.on(this, cronenberg.events.EXIT_FULL_SCREEN, handler);
+        return this;
+    },
+
+    exitFullscreen: function() {
+        bean.fire(this, cronenberg.events.EXIT_FULL_SCREEN);
+        return this;
+    },
+
+
     _color_function: function(palette_name) {
         var palette = cronenberg.colors[palette_name];
         return function(d,i) {
             return palette[i % palette.length];
         }
     },
+
 
 
     colors: {
