@@ -141,10 +141,12 @@ modularized for now. -->
 
 <!-- ============================================================================= -->
 
-{% macro render_row(row) -%}  <div class="row dashboard-row">
-  {% for cell in row.cells %}
-    {{ render(cell) }}
-  {% endfor %}
+{% macro render_row(row) -%}
+  <div class="row dashboard-row">
+    {% for cell in row.cells %}
+      {{ render(cell) }}
+    {% endfor %}
+  </div>
 {% endmacro %}
 
 <!-- ============================================================================= -->
