@@ -1,5 +1,7 @@
 /**
- * Class - Summarized stats for a data series or set of series.
+ * Class - Summarized stats for a data series or set of series. When
+ * constructed with a data series, computes the sum, min, max, and
+ * mean.
  */
 cronenberg.Summation = function(series) {
     this.sum = 0;
@@ -27,6 +29,7 @@ cronenberg.Summation = function(series) {
         return this;
     };
 
+    // If constructed with a series passed in, process it.
     if (typeof(series) != "undefined") {
         this.first = series.datapoints[0][0];
         this.datapoint_count = series.datapoints.length;
