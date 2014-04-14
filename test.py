@@ -2,12 +2,12 @@
 
 import json
 import toolbox
-from cronenberg.demo import demo_dashboard
+from cronenberg.demo import *
 from cronenberg.cask.storage import EntityEncoder
 from cronenberg.model import *
 
 def dump():
-    dash = demo_dashboard(toolbox.PROD)
+    dash = gbc_demo_dashboard()
     print json.dumps(dash, cls=EntityEncoder, indent=4, sort_keys=True)
 
 def load():
@@ -16,4 +16,4 @@ def load():
         dash = Dashboard.from_json('automation_overview', data)
         print json.dumps(dash, cls=EntityEncoder, indent=4, sort_keys=True)
 
-load()
+dump()
