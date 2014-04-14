@@ -53,6 +53,9 @@
 - JumboTronSinglestat is a hack. A properly responsive presentation
   that scales w/size of parent would rock.
 - horizon graphs with [Cubism](http://square.github.io/cubism/)
+- multi-stat version of SingleStat that flips through them using a
+  carousel (i.e. [Slick](http://kenwheeler.github.io/slick) which is
+  the......slickest carousel I've found yet).
 
 ### Editing
 
