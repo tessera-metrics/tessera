@@ -20,6 +20,12 @@
   format=json in URL. Need a render_url_path w/o format or host~~
 - dashboard sections. Section = separator + heading + rows, collapsible (click on heading)
   - alternate rendering as tabs
+- only dashboards are named entities right now. Presentations should
+  *optionally* be named entities, so they can be reused between
+  dashboards w/o duplication.
+  - templatized presentations should also be named entities
+  - that requires queries to be (optionally) named entities too, since
+    they're independent of presentations
 
 ### Presentations
 
