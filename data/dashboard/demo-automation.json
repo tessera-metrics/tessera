@@ -197,6 +197,7 @@
             }, 
             {
                 "css_class": "", 
+                "description": "Breakdown between immediate and historical", 
                 "layout_type": "heading", 
                 "level": 1, 
                 "text": "Trigger Details"
@@ -387,6 +388,7 @@
             }, 
             {
                 "css_class": "", 
+                "description": "", 
                 "layout_type": "heading", 
                 "level": 1, 
                 "text": "API"
