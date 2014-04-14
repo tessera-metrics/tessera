@@ -52,6 +52,7 @@
 - thresholds for alert colors (i.e. turn value in singlestat yellow/orange/red)
 - JumboTronSinglestat is a hack. A properly responsive presentation
   that scales w/size of parent would rock.
+- horizon graphs with [Cubism](http://square.github.io/cubism/)
 
 ### Editing
 
