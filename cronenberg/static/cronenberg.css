@@ -1,3 +1,12 @@
+/* =============================================================================
+   3rd Party fixes
+   ============================================================================= */
+
+/* fix for bootstrap/font-awesome background image problem on icons */
+i[class*='icon-'] {
+    background-image: none;
+}
+
 /* Bootstrap tweak */
 .label {
     text-decoration: none;
@@ -25,14 +34,26 @@ table.table thead .sorting_desc_disabled { background: url('/static/img/datatabl
 
 .sorting { background: none; }
 
-/* App styles */
+/* =============================================================================
+   Application Styles
+   ============================================================================= */
+
+.well-small.dashboard { padding-left: 18px; }
+
+.height1 { height: 70px; }
+.height2 { height: 140px; }
+.height3 { height: 210px; }
+.height4 { height: 280px; }
+.height5 { height: 350px; }
+.height6 { height: 420px; }
+.height7 { height: 490px; }
+.height8 { height: 560px; }
 
 h1, h2, h3, h4 {
     font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;
 }
 
 .dashboard-grid h1 {
-    color: #646460;
     margin-bottom: 0.5em;
 }
 
@@ -42,23 +63,19 @@ h1, h2, h3, h4 {
     font-weight: normal;
     text-transform:uppercase;
     padding-bottom: 12px;
-    color: #959588;
 }
 
 .well .singlestat h3 {
-  color: #aa8866;
 }
 
 .singlestat p {
     font-size: 3em;
     font-weight: bold;
-    color:white;
 }
 
 .singlestat .unit {
     font-size: .5em;
     text-transform: lowercase;
-    color: gray;
 }
 
 .jumbotron-singlestat div {
@@ -68,14 +85,12 @@ h1, h2, h3, h4 {
 }
 .jumbotron-singlestat .unit {
     text-transform: lowercase;
-    color: gray;
     font-size: 3em;
     font-weight: bold;
     vertical-align: bottom;
 }
 
 .jumbotron-singlestat .value {
-    color: white;
     font-size: 8em;
     font-weight: bold;
     vertical-align: -100%;
@@ -83,18 +98,15 @@ h1, h2, h3, h4 {
 
 .jumbotron-singlestat h3 {
     text-transform: lowercase;
-    color: #a6a699;
     font-size: 3em;
     position: relative;
     top: 8px;
 }
 
 h1 .primary-title {
-  color: gray;
 }
 
 h1 .secondary-title {
-  color: white;
 }
 
 .simple-chart {
@@ -131,47 +143,7 @@ h1 .secondary-title {
     margin-bottom: 2em;
 }
 
-#tooltip {
-    opacity: 1.0;
-    background-color: #333;
-    color: #cdF;
-    border: 2px solid #666;
-    border-radius: 6px;
-    -moz-border-radius: 6px;
-    padding: 12px;
-    margin-left: 12px;
-}
-#tooltip hr {
-    margin-bottom: 4px;
-    margin-top: 4px;
-}
-td.tooltip-value {
-    padding-right: 8px;
-    padding-left: 8px;
-    font-weight: bold;
-    text-align: right;
-}
 h2.time {
-    color: #ddd;
     padding-top: 2px;
     margin-bottom: -.45em;
-}
-
-.well-small.dashboard { padding-left: 18px; }
-
-/* solarized bg */
-.well.editor { background-color: #002B36; }
-
-.height1 { height: 70px; }
-.height2 { height: 140px; }
-.height3 { height: 210px; }
-.height4 { height: 280px; }
-.height5 { height: 350px; }
-.height6 { height: 420px; }
-.height7 { height: 490px; }
-.height8 { height: 560px; }
-
-/* fix for bootstrap/font-awesome background image problem on icons */
-i[class*='icon-'] {
-    background-image: none;
 }
