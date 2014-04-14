@@ -2,6 +2,8 @@
 
 These are not in any kind of order at all.
 
+- custom time range picker
+- configuration for the recent time ranges shown in the easy picker
 - refresh button
 - auto-refresh
 - Add a 'full screen' button that removes everything except the
