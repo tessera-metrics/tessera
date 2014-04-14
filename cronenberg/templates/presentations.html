@@ -66,7 +66,7 @@ modularized for now. -->
   <svg></svg>
   <script>
   cronenberg.registry.queries.{{presentation.query_name}}.available(function(query) {
-      cronenberg.simple_line_chart($("#{{presentation.element_id}}"), query.data[0]);
+      cronenberg.charts.simple_line_chart($("#{{presentation.element_id}}"), query.data[0]);
   });
   </script>
 </div>
@@ -80,7 +80,7 @@ modularized for now. -->
   <svg></svg>
   <script>
   cronenberg.registry.queries.{{presentation.query_name}}.available(function(query) {
-      cronenberg.standard_line_chart($("#{{presentation.element_id}}"), query.data);
+      cronenberg.charts.standard_line_chart($("#{{presentation.element_id}}"), query.data);
   });
   </script>
 </div>
@@ -95,7 +95,7 @@ modularized for now. -->
   <svg></svg>
   <script>
   cronenberg.registry.queries.{{presentation.query_name}}.available(function(query) {
-      cronenberg.stacked_area_chart($("#{{presentation.element_id}}"), query.data);
+      cronenberg.charts.stacked_area_chart($("#{{presentation.element_id}}"), query.data);
   });
   </script>
 </div>
