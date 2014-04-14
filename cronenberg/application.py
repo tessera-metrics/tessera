@@ -10,6 +10,7 @@ import os.path
 import inflection
 
 from flask import Flask, render_template, request, redirect, jsonify, abort
+from cask import Entity
 
 import toolbox
 from toolbox.graphite import Graphite, GraphiteQuery
@@ -23,7 +24,8 @@ from .model import *
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
 
-env = toolbox.PROD
+mgr = cask.web.WebManagerAdapter(DashboardManager(app.config['DASHBOARD_DATADIR']))
+env = toolbox.CLUSTO.environment(app.config['ENVIRONMENT_NAME'])
 graphite = env.graphite()
 
 # =============================================================================
@@ -34,10 +36,6 @@ class RenderContext:
     def __init__(self):
         self.now = datetime.datetime.now()
         self.element_index = 0
-
-    def nextid(self):
-        self.element_index += 1
-        return 'e' + self.element_index
 
 def _render_template(template, **kwargs):
     return render_template(template, ctx=RenderContext(), **kwargs)
@@ -65,11 +63,98 @@ def _render_dashboard(dash):
                                          ('Dashboards', '/'),
                                          (title, '')])
 
+# =============================================================================
+# API Helpers
+# =============================================================================
+
+def _get_entities(cls):
+    pattern = request.args.get('filter', '*')
+    return mgr.load_all(cls, pattern=pattern)
+
+def _to_json(entity):
+    if not isinstance(entity, Entity):
+        return entity
+    json = entity.to_json()
+#    json['uri'] = entity_uri(entity, 'api')
+#    json['data_uri'] = entity_uri(entity, 'data')
+#    json['interface_uri'] = entity_uri(entity, 'ui')
+    return json
+
+def _to_json_entities(entities):
+    if isinstance(entities, list):
+        return { 'entities' : [_to_json(e) for e in entities] }
+    elif isinstance(entities, Model):
+        return { 'entities' : [_to_json(entities)] }
+
+def _to_json_names(names):
+    return { 'names' : names }
+
+def _jsonify(data):
+    return flask.Response(status=200,
+                          mimetype="application/json",
+                          response=cask.dumps(data))
+
+# =============================================================================
+# API: Dashboard
+# =============================================================================
+
+@app.route('/api/dashboard')
+def api_dashboard_list():
+    """Fetch all Dashboard entities."""
+    return _jsonify(_to_json_entities(_get_entities(Dashboard)))
+
+@app.route('/api/dashboard/names')
+def api_dashboard_names():
+    """Return a JSON array of only the dashboard names, suitable for
+    most javascript typeahead components."""
+    return _jsonify(_to_json_names(mgr.list(Dashboard)))
+
+@app.route('/api/dashboard/<name>')
+def api_dashboard_get(name):
+    """Fetch a single Dashboard entity, or 404 if it is not found."""
+    return _jsonify(_to_json_entities(mgr.load(Dashboard, name)))
+
+@app.route('/api/dashboard', methods=['POST'])
+def api_dashboard_post():
+    """Create a new Dashboard entity."""
+    data = json.loads(request.data)
+    if mgr.exists(data['name']):
+        abort(409)
+    e = Dashboard.from_json(data, mgr)
+    mgr.store(Dashboard, e)
+    # TODO - return 201 Created here
+    return api_dashboard_get(e.name)
+
+@app.route('/api/dashboard/<name>', methods=['PUT', 'PATCH'])
+def api_dashboard_put(name):
+    """Update an existing Dashboard entity."""
+    e = mgr.load(Dashboard, name)
+    data = json.loads(request.data)
+    for key, value in data.items():
+        if key == u'id':
+            continue
+        setattr(e, str(key), value)
+    mgr.store(Dashboard, e)
+    return api_dashboard_get(e.name)
+
+@app.route('/api/dashboard/<name>', methods=['DELETE'])
+def api_dashboard_delete(name):
+    """Delete an existing Dashboard entity."""
+    mgr.remove(Dashboard, name)
+    return _jsonify({})
+
+@app.route('/api/dashboard/<name>', methods=['POST'])
+def api_dashboard_instance_post(name):
+    """Workaround for the fact that XmlHttpRequest and form posting
+    *still* doesn't support anything other than GET and POST."""
+    if '_method' in request.args and request.args['_method'] == 'delete':
+        return api_dashboard_delete(name)
+    else:
+        return api_dashboard_put(name)
 
 # =============================================================================
 # UI: Basics
 # =============================================================================
-
 
 @app.route('/')
 def ui_root():
