@@ -36,30 +36,30 @@ class Presentation(object):
         Presentation.NEXT += 1
         return 'p{0}'.format(Presentation.NEXT)
 
-    def __init__(self, query_name, presentation_type, element_id=None, css_class=None):
+    def __init__(self, query_name, item_type, element_id=None, css_class=None):
         self.query_name = query_name
-        self.presentation_type = presentation_type
+        self.item_type = item_type
         self.element_id = element_id or Presentation.nextid()
         self.css_class = css_class
 
     @classmethod
     def from_json(cls, d):
-        presentation_type = d['presentation_type']
-        if presentation_type == 'singlestat':
+        item_type = d['item_type']
+        if item_type == 'singlestat':
             return SingleStat.from_json(d)
-        elif presentation_type == 'jumbotron_singlestat':
+        elif item_type == 'jumbotron_singlestat':
             return JumbotronSingleStat.from_json(d)
-        elif presentation_type == 'simple_time_series':
+        elif item_type == 'simple_time_series':
             return SimpleTimeSeries.from_json(d)
-        elif presentation_type =='standard_time_series':
+        elif item_type =='standard_time_series':
             return StandardTimeSeries.from_json(d)
-        elif presentation_type == 'stacked_area_chart':
+        elif item_type == 'stacked_area_chart':
             return StackedAreaChart.from_json(d)
 
 class SingleStat(Presentation):
     def __init__(self, title, query_name, units='', decimal=3, index=False, transform=Presentation.Transform.MEAN, **kwargs):
         super(SingleStat, self).__init__(query_name=query_name,
-                                         presentation_type=kwargs.get('presentation_type', 'singlestat'),
+                                         item_type=kwargs.get('item_type', 'singlestat'),
                                          **kwargs)
         self.title = title
         self.transform = transform
@@ -69,17 +69,17 @@ class SingleStat(Presentation):
 
     @classmethod
     def from_json(cls, d):
-        _delattr(d, 'presentation_type')
+        _delattr(d, 'item_type')
         return cls(**d)
 
 class JumbotronSingleStat(SingleStat):
     def __init__(self, **kwargs):
         super(JumbotronSingleStat, self).__init__(**kwargs)
-        self.presentation_type='jumbotron_singlestat'
+        self.item_type='jumbotron_singlestat'
 
     @classmethod
     def from_json(cls, d):
-        _delattr(d, 'presentation_type')
+        _delattr(d, 'item_type')
         return cls(**d)
 
 class ChartPresentation(Presentation):
@@ -92,33 +92,33 @@ class ChartPresentation(Presentation):
 class SimpleTimeSeries(ChartPresentation):
     def __init__(self, query_name, **kwargs):
         super(SimpleTimeSeries, self).__init__(query_name=query_name,
-                                               presentation_type='simple_time_series',
+                                               item_type='simple_time_series',
                                                **kwargs)
 
     @classmethod
     def from_json(cls, d):
-        _delattr(d, 'presentation_type')
+        _delattr(d, 'item_type')
         return cls(**d)
 
 class StandardTimeSeries(ChartPresentation):
     def __init__(self, query_name, **kwargs):
         super(StandardTimeSeries, self).__init__(query_name=query_name,
-                                                 presentation_type='standard_time_series',
+                                                 item_type='standard_time_series',
                                                  **kwargs)
 
     @classmethod
     def from_json(cls, d):
-        _delattr(d, 'presentation_type')
+        _delattr(d, 'item_type')
         return cls(**d)
 
 class StackedAreaChart(ChartPresentation):
     def __init__(self, query_name, **kwargs):
         super(StackedAreaChart, self).__init__(query_name=query_name,
-                                               presentation_type='stacked_area_chart',
+                                               item_type='stacked_area_chart',
                                                **kwargs)
     @classmethod
     def from_json(cls, d):
-        _delattr(d, 'presentation_type')
+        _delattr(d, 'item_type')
         return cls(**d)
 
 # =============================================================================
@@ -130,8 +130,8 @@ class LayoutElement(object):
     arrange in the dashboard. The base class provides common CSS class
     overriding.
     """
-    def __init__(self, layout_type, css_class=''):
-        self.layout_type = layout_type
+    def __init__(self, item_type, css_class=''):
+        self.item_type = item_type
         self.css_class = css_class
 
     @classmethod
@@ -139,17 +139,17 @@ class LayoutElement(object):
         # TODO - this can be handled more cleanly and more
         # pythonically. E.g. with a dict, or some decorators, or a
         # metaclass.
-        layout_type = d['layout_type']
-        _delattr(d, 'layout_type')
-        if layout_type == 'separator':
+        item_type = d['item_type']
+        _delattr(d, 'item_type')
+        if item_type == 'separator':
             return Separator.from_json(d)
-        elif layout_type == 'heading':
+        elif item_type == 'heading':
             return Heading.from_json(d)
-        elif layout_type == 'markdown':
+        elif item_type == 'markdown':
             return Markdown.from_json(d)
-        elif layout_type == 'row':
+        elif item_type == 'row':
             return Row.from_json(d)
-        elif layout_type == 'grid':
+        elif item_type == 'grid':
             return Grid.from_json(d)
         else:
             return Cell.from_json(d)
@@ -160,7 +160,7 @@ class Cell(LayoutElement):
     grid. Cells should be contained in Rows.
     """
     def __init__(self, presentation, span, emphasize=False, offset=None, align=None, **kwargs):
-        super(Cell, self).__init__(layout_type='cell', **kwargs)
+        super(Cell, self).__init__(item_type='cell', **kwargs)
         self.presentation = presentation if isinstance(presentation, list) else [presentation]
         self.span = span
         self.offset = offset
@@ -170,7 +170,7 @@ class Cell(LayoutElement):
     @classmethod
     def from_json(cls, d):
         d['presentation'] = [Presentation.from_json(p) for p in d['presentation']]
-        _delattr(d, 'layout_type')
+        _delattr(d, 'item_type')
         return Cell(**d)
 
 
@@ -180,26 +180,26 @@ class Row(LayoutElement):
     class="row">...</div>.
     """
     def __init__(self, *cells, **kwargs):
-        super(Row, self).__init__(layout_type='row', **kwargs)
+        super(Row, self).__init__(item_type='row', **kwargs)
         self.cells = cells
 
     @classmethod
     def from_json(cls, d):
         cells = [LayoutElement.from_json(c) for c in d['cells']]
-        _delattr(d, 'layout_type')
+        _delattr(d, 'item_type')
         _delattr(d, 'cells')
         return Row(*cells, **d)
 
 
 class Grid(LayoutElement):
     def __init__(self, *rows, **kwargs):
-        super(Grid, self).__init__(layout_type='grid', **kwargs)
+        super(Grid, self).__init__(item_type='grid', **kwargs)
         self.rows = rows
 
     @classmethod
     def from_json(cls, d):
         rows = [LayoutElement.from_json(r) for r in d['rows']]
-        _delattr(d, 'layout_type')
+        _delattr(d, 'item_type')
         _delattr(d, 'rows')
         return Grid(*rows, **d)
 
@@ -208,7 +208,7 @@ class Separator(LayoutElement):
     """A visual element to separate groups of elements.
     """
     def __init__(self, **kwargs):
-        super(Separator, self).__init__(layout_type='separator', **kwargs)
+        super(Separator, self).__init__(item_type='separator', **kwargs)
 
     @classmethod
     def from_json(cls, d):
@@ -218,7 +218,7 @@ class Separator(LayoutElement):
 class Heading(LayoutElement):
     """A large text label."""
     def __init__(self, text, level=1, description='', **kwargs):
-        super(Heading, self).__init__(layout_type='heading', **kwargs)
+        super(Heading, self).__init__(item_type='heading', **kwargs)
         self.text = text
         self.level = level
         self.description = description
@@ -232,13 +232,14 @@ class Heading(LayoutElement):
 
 class Markdown(LayoutElement):
     def __init__(self, text, **kwargs):
-        super(Markdown, self).__init__(layout_type='markdown', **kwargs)
+        super(Markdown, self).__init__(item_type='markdown', **kwargs)
         self.text = text
 
 
 class Dashboard(cask.NamedEntity):
     def __init__(self, name, queries, grid, category='', title='', description=''):
         super(Dashboard, self).__init__(name=name)
+        self.item_type = 'dashboard'
         self.queries = queries
         self.grid = grid
         self.category = category
