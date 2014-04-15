@@ -57,6 +57,10 @@ h1, h2, h3, h4 {
     margin-bottom: 0.5em;
 }
 
+.dashboard-grid .row {
+    margin-bottom: 1.5em;
+}
+
 .singlestat h3 {
     font-stretch: condensed;
     font-size: 1.2em;
