@@ -9,30 +9,37 @@
 {% block content %}
 
   <div data-fullscreen="hide">
-    {% include "snippets/breadcrumbs.html" %}
+    <div>
+      {% include "snippets/breadcrumbs.html" %}
+    </div>
 
     <div class="row">
-      <div class="span12">
+      <div class="span10">
         {% include "snippets/recent-range-picker.html" %}
       </div>
-    </div>
-  </div>
-
-  <div class="row" data-fullscreen="show" style="display:none">
-    <div class="span9">
-      <h1>
-        <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
-      </h1>
-    </div>
-    <div class="span3 time-container" align="right">
-      <button class="btn" style="float:right; margin-top: .5em; margin-left: .5em"><i onclick="cronenberg.exitFullscreen()" class="icon-resize-small icon-2x"></i></button>
-      <div>
-        <h2 class="time">{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
-        <h6 class="date">{{ ctx.now.strftime("%A") }} {{ ctx.now.strftime("%d %B %Y") }}</h6>
+      <div class="span2" align="right">
+        <button class="btn" style="float:right"><i onclick="cronenberg.enterFullscreen()" class="icon-resize-full icon-large"></i></button>
       </div>
     </div>
-
   </div>
+
+  <div class="fullscreen-titlebar" data-fullscreen="show" style="display:none">
+    <div class="row">
+      <div class="span9">
+        <h1>
+          <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
+        </h1>
+      </div>
+      <div class="span3 time-container" align="right">
+        <button class="btn" style="float:right; margin-top: 1em; margin-left: .5em"><i onclick="cronenberg.exitFullscreen()" class="icon-resize-small icon-large"></i></button>
+        <div>
+          <h2 class="time">{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
+          <h6 class="date">{{ ctx.now.strftime("%A") }} {{ ctx.now.strftime("%d %B %Y") }}</h6>
+        </div>
+      </div>
+    </div>
+    <hr style="margin:0"/>
+  </div> <!-- end fullscreen titlebar -->
 
   <div class="dashboard-grid" id="dashboard"/>
 
