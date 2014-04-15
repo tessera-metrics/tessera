@@ -69,9 +69,18 @@
   </div>
 </script>
 
+<!-- TEMPLATE: Dashboard rows. Expects a context of { item: <row>  } -->
+<script id="tmpl-row" data-item-type="row" type="text/x-handlebars-template">
+ROW!
+</script>
+
 <!-- TEMPLATE: Top-level dashboard. Expects a context of { item: <dashboard>  } -->
 <script id="tmpl-dashboard" data-item-type="dashboard" type="text/x-handlebars-template">
-  DASHBOARD! OMG.
+{{#with item.grid}}
+  {{#each rows}}
+    {{item_type}}
+  {{/each}}
+{{/with}}
 </script>
 
 <script>
@@ -82,7 +91,8 @@
         .register('tmpl-simple-time-series')
         .register('tmpl-standard-time-series')
         .register('tmpl-stacked-area-chart')
-        .register('tmpl-dashboard');
+        .register('tmpl-dashboard')
+        .register('tmpl-row');
 </script>
 
 {% endraw %}
