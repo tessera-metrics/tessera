@@ -67,6 +67,9 @@
   - depends on API
   - API depends on persistence
   - tentative candidate is [Handlebars](http://handlebarsjs.com/)
+    - probably need to define a block helper for render dispatching
+      based on presentation type. Don't think Handlebars has callable
+      macros like jinja2.
 
 ### UI
 

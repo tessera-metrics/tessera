@@ -13,6 +13,7 @@ use something like require.js for sanity -->
 <script src="{{ url_for('static', filename='js/jquery.number.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
 <link href="{{ url_for('static', filename='css/jquery.dataTables.css') }}" rel="stylesheet"></link>
+<script src="{{ url_for('static', filename='js/handlebars-v1.3.0.js') }}"></script>
 
 <!-- Bootstrap -->
 <link  href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet"></link>
@@ -38,11 +39,13 @@ use something like require.js for sanity -->
 <script src="{{ url_for('static', filename='cronenberg.js') }}"></script>
 <script src="{{ url_for('static', filename='cronenberg-queries.js') }}"></script>
 <script src="{{ url_for('static', filename='cronenberg-charts.js') }}"></script>
+<script src="{{ url_for('static', filename='cronenberg-dashboards.js') }}"></script>
+<script src="{{ url_for('static', filename='cronenberg-templates.js') }}"></script>
 <link  href="{{ url_for('static', filename='cronenberg.css') }}" rel="stylesheet"></link>
 
-{% if true %}
+{% if request.args.get('theme', 'dark') == 'light' %}
+<link  href="{{ url_for('static', filename='cronenberg-light.css') }}" rel="stylesheet"></link>
+{% else %}
 <link  href="{{ url_for('static', filename='css/darkstrap.css') }}" rel="stylesheet"></link>
 <link  href="{{ url_for('static', filename='cronenberg-dark.css') }}" rel="stylesheet"></link>
-{% else %}
-<link  href="{{ url_for('static', filename='cronenberg-light.css') }}" rel="stylesheet"></link>
 {% endif %}

@@ -24,7 +24,7 @@ modularized for now. -->
   <h3>{{ presentation.title }}</h3>
   <p><span class="value"></span><span class="unit">{{ presentation.units }}</span></p>
   <script>
-    cronenberg.registry.queries.{{presentation.query_name}}.available(function(query) {
+    cronenberg.queries.registry.{{presentation.query_name}}.available(function(query) {
     {% if presentation.index %}
       var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
     {% else %}
@@ -45,7 +45,7 @@ modularized for now. -->
             <div><p><span class="value"></span><span class="unit">{{ presentation.units }}</span></p></div>
             <div><h3>{{ presentation.title }}</h3></div>
   <script>
-    cronenberg.registry.queries.{{presentation.query_name}}.available(function(query) {
+    cronenberg.queries.registry.{{presentation.query_name}}.available(function(query) {
     {% if presentation.index %}
       var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
     {% else %}
@@ -65,7 +65,7 @@ modularized for now. -->
 {% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
   <svg></svg>
   <script>
-  cronenberg.registry.queries.{{presentation.query_name}}.available(function(query) {
+  cronenberg.queries.registry.{{presentation.query_name}}.available(function(query) {
       cronenberg.charts.simple_line_chart($("#{{presentation.element_id}}"), query.data[0]);
   });
   </script>
@@ -79,7 +79,7 @@ modularized for now. -->
 {% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
   <svg></svg>
   <script>
-  cronenberg.registry.queries.{{presentation.query_name}}.available(function(query) {
+  cronenberg.queries.registry.{{presentation.query_name}}.available(function(query) {
       cronenberg.charts.standard_line_chart($("#{{presentation.element_id}}"), query.data);
   });
   </script>
@@ -94,7 +94,7 @@ modularized for now. -->
 {% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
   <svg></svg>
   <script>
-  cronenberg.registry.queries.{{presentation.query_name}}.available(function(query) {
+  cronenberg.queries.registry.{{presentation.query_name}}.available(function(query) {
       cronenberg.charts.stacked_area_chart($("#{{presentation.element_id}}"), query.data);
   });
   </script>
@@ -104,15 +104,15 @@ modularized for now. -->
 <!-- ============================================================================= -->
 
 {% macro render_presentation(presentation) -%}
-  {% if presentation.presentation_type == 'singlestat' %}
+  {% if presentation.item_type == 'singlestat' %}
     {{ render_singlestat(presentation) }}
-  {% elif presentation.presentation_type == 'jumbotron_singlestat' %}
+  {% elif presentation.item_type == 'jumbotron_singlestat' %}
     {{ render_jumbotron_singlestat(presentation) }}
-  {% elif presentation.presentation_type == 'simple_time_series' %}
+  {% elif presentation.item_type == 'simple_time_series' %}
     {{ render_simple_time_series(presentation) }}
-  {% elif presentation.presentation_type == 'standard_time_series' %}
+  {% elif presentation.item_type == 'standard_time_series' %}
     {{ render_standard_time_series(presentation) }}
-  {% elif presentation.presentation_type == 'stacked_area_chart' %}
+  {% elif presentation.item_type == 'stacked_area_chart' %}
     {{ render_stacked_area_chart(presentation) }}
   {% endif %}
 {% endmacro %}
@@ -164,15 +164,15 @@ modularized for now. -->
 <!-- ============================================================================= -->
 
 {% macro render(layout) -%}
-  {% if layout.layout_type == 'grid' %}
+  {% if layout.item_type == 'grid' %}
     {{ render_grid(layout) }}
-  {% elif layout.layout_type == 'row' %}
+  {% elif layout.item_type == 'row' %}
     {{ render_row(layout) }}
-  {% elif layout.layout_type == 'cell' %}
+  {% elif layout.item_type == 'cell' %}
     {{ render_cell(layout) }}
-  {% elif layout.layout_type == 'separator' %}
+  {% elif layout.item_type == 'separator' %}
     {{ render_separator(layout) }}
-  {% elif layout.layout_type == 'heading' %}
+  {% elif layout.item_type == 'heading' %}
     {{ render_heading(layout) }}
   {% endif %}
 {% endmacro %}

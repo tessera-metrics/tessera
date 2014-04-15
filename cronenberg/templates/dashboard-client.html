@@ -1,0 +1,30 @@
+<!-- -*- mode:jinja2 -*- -->
+{% extends "layouts/base.html" %}
+
+{% block pagetitle %}
+  <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
+  <small>{{dashboard.description}}</small>
+{% endblock %}
+
+{% block content %}
+
+  {% include "snippets/breadcrumbs.html" %}
+
+  <div class="row">
+    <div class="span12">
+      {% include "snippets/recent-range-picker.html" %}
+    </div>
+  </div>
+
+  <div id="dashboard"/>
+
+  <script>
+    var url = '/api/dashboard/{{dashboard.name}}/expanded?from={{from_time}}{% if until_time %}&until={{until_time}}{% endif %}';
+    cronenberg.dashboards.onDashboardLoaded(function(dashboard) {
+        var rendered = cronenberg.templates.render(dashboard);
+        $("#dashboard").after(rendered);
+        cronenberg.queries.loadAll();
+    });
+    cronenberg.dashboards.load(url);
+  </script>
+{% endblock %}
