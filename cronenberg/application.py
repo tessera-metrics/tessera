@@ -85,6 +85,29 @@ def api_dashboard_get(name):
     """Fetch a single Dashboard entity, or 404 if it is not found."""
     return _jsonify(_to_json_entities(mgr.load(Dashboard, name)))
 
+@app.route('/api/dashboard/<name>/expanded')
+def api_dashboard_get_expanded(name):
+    """Fetch a single Dashboard entity, or 404 if it is not found. This
+    version expands graphite queries for client-side rendering.
+    """
+    dash       = mgr.load(Dashboard, name)
+    from_time  = request.args.get('from', app.config['DEFAULT_FROM_TIME'])
+    until_time = request.args.get('until', None)
+
+    # Make a copy of the query map with all targets rendered to full
+    # graphite URLs
+    queries = {}
+    for k, v in dash.queries.iteritems():
+        query = GraphiteQuery(v, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
+        queries[k] = str(graphite.render_url(query))
+
+    # Make a shallow copy of the dashboard with the queries member
+    # replaced with the expanded version
+    dashboard = copy.copy(dash)
+    dashboard.queries = queries
+
+    return _jsonify(_to_json_entities(dashboard))
+
 @app.route('/api/dashboard', methods=['POST'])
 def api_dashboard_post():
     """Create a new Dashboard entity."""
@@ -135,7 +158,7 @@ class RenderContext:
 def _render_template(template, **kwargs):
     return render_template(template, ctx=RenderContext(), **kwargs)
 
-def _render_dashboard(dash):
+def _render_dashboard(dash, template='dashboard.html'):
     from_time = request.args.get('from', app.config['DEFAULT_FROM_TIME'])
     until_time = request.args.get('until', None)
 
@@ -151,12 +174,26 @@ def _render_dashboard(dash):
     dashboard = copy.copy(dash)
     dashboard.queries = queries
     title = '{0} {1}'.format(dashboard.category, dashboard.title)
-    return _render_template('dashboard.html',
+    return _render_template(template,
                             dashboard=dashboard,
                             title=title,
                             breadcrumbs=[('Home', '/'),
                                          ('Dashboards', '/dashboards'),
                                          (title, '')])
+
+def _render_client_side_dashboard(dashboard, template='dashboard-client.html'):
+    from_time = request.args.get('from', app.config['DEFAULT_FROM_TIME'])
+    until_time = request.args.get('until', None)
+    title = '{0} {1}'.format(dashboard.category, dashboard.title)
+    return _render_template(template,
+                            dashboard=dashboard,
+                            from_time=from_time,
+                            until_time=until_time,
+                            title=title,
+                            breadcrumbs=[('Home', '/'),
+                                         ('Dashboards', '/dashboards'),
+                                         (title, '')])
+
 
 # =============================================================================
 # UI: Basics
@@ -178,6 +215,11 @@ def ui_dashboard_list():
 @app.route('/dashboards/<name>')
 def ui_dashboard(name):
     return _render_dashboard(mgr.load(Dashboard, name))
+
+@app.route('/dashboards/<name>/client')
+def ui_dashboard_client(name):
+    """Test page for client-side rendering"""
+    return _render_client_side_dashboard(mgr.load(Dashboard, name))
 
 @app.route('/demo/automation')
 def ui_demo_automation():
