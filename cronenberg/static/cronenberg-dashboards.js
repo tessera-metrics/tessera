@@ -1,7 +1,16 @@
 cronenberg.DashboardManager = function() {
     this.registry = {};
 
-    this.load = function(url, handler) {
+    /**
+     * Register an event handler for processing a dashboard once it's
+     * loaded and ready.
+     */
+    this.onDashboardLoaded = function(handler) {
+        bean.on(this.registry, cronenberg.events.DASHBOARD_LOADED, handler);
+        return this;
+    };
+
+    this.load = function(url) {
         var registry = this.registry;
         $.ajax({
             dataType: "json",
@@ -9,6 +18,7 @@ cronenberg.DashboardManager = function() {
         }).done(function(data) {
             var dashboard = data.entities[0];
             registry[dashboard.name] = dashboard;
+
             // Build a map from the presentation elements to their
             // model objects.
             dashboard.elementToItemMap = {};
@@ -23,7 +33,12 @@ cronenberg.DashboardManager = function() {
                     });
                 }
             });
-            handler(dashboard);
+
+            // Set up the queries
+            for (var query_name in dashboard.queries) {
+                cronenberg.queries.add(query_name, dashboard.queries[query_name]);
+            }
+            bean.fire(registry, cronenberg.events.DASHBOARD_LOADED, dashboard);
         });
     };
 };
