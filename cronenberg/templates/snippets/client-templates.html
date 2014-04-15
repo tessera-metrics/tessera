@@ -7,7 +7,7 @@
 
 <!-- TEMPLATE: Heading layout. Expects a context of { item: <layout-object>  } -->
 <script id="tmpl-heading" data-item-type="heading" type="text/x-handlebars-template">
-  <h{{item.level}} {{#if item.css_class}}}class="{{item.css_class}}"{{/if}}>
+  <h{{item.level}} {{#if item.css_class}}class="{{item.css_class}}"{{/if}}>
     {{item.text}} {{#if item.description}}<small>{{item.description}}</small>{{/if}}
   </h{{item.level}}>
 </script>
@@ -78,7 +78,7 @@ ROW!
 <script id="tmpl-dashboard" data-item-type="dashboard" type="text/x-handlebars-template">
 {{#with item.grid}}
   {{#each rows}}
-    {{item_type}}
+    {{item this}}
   {{/each}}
 {{/with}}
 </script>

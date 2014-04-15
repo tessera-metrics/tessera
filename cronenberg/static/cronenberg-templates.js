@@ -19,9 +19,13 @@ cronenberg.TemplateRegistry = function() {
 
         this.registry[itemType] = compiled;
         Handlebars.registerHelper(itemType, function(item) {
-            return new Handlebars.SafeString(
-                cronenberg.templates.registry[itemType]({ item: item })
-            );
+            return cronenberg.templates.registry[itemType]({ item: item });
+        });
+        // Because we can't dynamically dispatch the block helpers
+        // registered above, register another helper that can do that
+        // for generic rendering.
+        Handlebars.registerHelper('item', function(item) {
+            return cronenberg.templates.render(item);
         });
         return this;
     };
@@ -31,7 +35,7 @@ cronenberg.TemplateRegistry = function() {
      * the API.
      */
     this.render = function(item) {
-        var template = this.registry[item.item_type];
+        var template = cronenberg.templates.registry[item.item_type];
         return template({item: item});
     };
 };
