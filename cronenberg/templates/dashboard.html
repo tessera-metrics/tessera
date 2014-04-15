@@ -1,6 +1,5 @@
 <!-- -*- mode:jinja2 -*- -->
 {% extends "layouts/base.html" %}
-{% from "presentations.html" import render with context %}
 
 {% block pagetitle %}
   <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
@@ -9,13 +8,8 @@
 
 {% block content %}
 
-{% include "snippets/breadcrumbs.html" %}
-
-  <script>
-    {% for name,url in dashboard.queries.iteritems() -%}
-      cronenberg.queries.add('{{name}}', '{{url|safe}}');
-    {%- endfor %}
-  </script>
+  {% include "snippets/breadcrumbs.html" %}
+  {% include "presentations.html" %}
 
   <div class="row">
     <div class="span12">
@@ -23,9 +17,16 @@
     </div>
   </div>
 
-  {{ render(dashboard.grid) }}
+  <div id="dashboard"/>
 
   <script>
-    cronenberg.queries.loadAll();
+    var url = '/api/dashboard/{{dashboard.name}}/expanded?from={{from_time}}{% if until_time %}&until={{until_time}}{% endif %}';
+    cronenberg.dashboards.onDashboardLoaded(function(dashboard) {
+        var rendered = cronenberg.templates.render(dashboard);
+        $("#dashboard").after(rendered);
+        cronenberg.queries.loadAll();
+    });
+    cronenberg.dashboards.load(url);
   </script>
+
 {% endblock %}

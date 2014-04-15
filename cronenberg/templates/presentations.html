@@ -1,178 +1,172 @@
+{% raw %}
 
-<!-- There's probably a much better, more idiomatic way to do all this
-dispatching. But hey, this was quick and easy and is reasonably well
-modularized for now. -->
+<!--
+     TEMPLATE: Separator layout.
+     Expects a context of { item: <layout-object>  }
+  -->
+<script id="tmpl-separator" data-item-type="separator" type="text/x-handlebars-template">
+  <hr{{#if item.css_class}}class="{{item.css_class}}"{{/if}}></hr>
+</script>
 
-<!-- ============================================================================= -->
+<!--
+     TEMPLATE: Heading layout.
+     Expects a context of { item: <layout-object>  }
+  -->
+<script id="tmpl-heading" data-item-type="heading" type="text/x-handlebars-template">
+  <h{{item.level}} {{#if item.css_class}}class="{{item.css_class}}"{{/if}}>
+    {{item.text}} {{#if item.description}}<small>{{item.description}}</small>{{/if}}
+  </h{{item.level}}>
+</script>
 
-{% macro render_separator(separator) -%}
-<hr{% if separator.css_class != '' %}class="{{separator.css_class}}"{% endif %}></hr>
-{% endmacro %}
-
-{% macro render_heading(heading) -%}
-<h{{heading.level}} {% if heading.css_class != '' %}class="{{heading.css_class}}"{% endif %}>{{heading.text}}
-{% if heading.description != '' %} <small>{{heading.description}}</small> {% endif %}
-</h{{heading.level}}>
-{% endmacro %}
-
-<!-- ============================================================================= -->
-
-{% macro render_singlestat(presentation) -%}
-<div class="singlestat
-            {% if presentation.css_class %}{{presentation.css_class}}{% endif %}
-" id="{{presentation.element_id}}">
-  <h3>{{ presentation.title }}</h3>
-  <p><span class="value"></span><span class="unit">{{ presentation.units }}</span></p>
-  <script>
-    cronenberg.queries.registry.{{presentation.query_name}}.available(function(query) {
-    {% if presentation.index %}
-      var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
-    {% else %}
-      var value = query.summation.{{presentation.transform}};
-    {% endif %}
-          $("#{{presentation.element_id}} span.value").number(value, {{presentation.decimal}});
-      });
-  </script>
-</div>
-{%- endmacro %}
-
-<!-- ============================================================================= -->
-
-{% macro render_jumbotron_singlestat(presentation) -%}
-<div class="jumbotron-singlestat
-            {% if presentation.css_class %}{{presentation.css_class}}{% endif %}
-" id="{{presentation.element_id}}">
-            <div><p><span class="value"></span><span class="unit">{{ presentation.units }}</span></p></div>
-            <div><h3>{{ presentation.title }}</h3></div>
-  <script>
-    cronenberg.queries.registry.{{presentation.query_name}}.available(function(query) {
-    {% if presentation.index %}
-      var value = query.data[{{presentation.index}}].summation.{{presentation.transform}};
-    {% else %}
-      var value = query.summation.{{presentation.transform}};
-    {% endif %}
-    $("#{{presentation.element_id}} span.value").number(value, {{presentation.decimal}});
-    });
-  </script>
-</div>
-{%- endmacro %}
+<!--
+     TEMPLATE: Singlestat presentation.
+     Expects a context of { item: <presentation-object>  }
+  -->
+<script id="tmpl-singlestat" data-item-type="singlestat" type="text/x-handlebars-template">
+<div class="singlestat {{item.css_class}}" id="{{item.element_id}}"
+  >
+    <h3>{{item.title}}</h3>
+    <p><span class="value"></span><span class="unit">{{item.units}}</span></p>
+  </div>
+</script>
+<script>
+        cronenberg.templates.register('tmpl-singlestat', function(query, item) {
+            var value = query.summation[item.transform];
+            if (item.index) {
+                value = query.data[item.index].summation[item.transform];
+            }
+            $('#' + item.element_id + ' span.value').number(value, item.decimal);
+        });
+</script>
 
 
-<!-- ============================================================================= -->
+<!--
+     TEMPLATE: Jumbotron Singlestat presentation.
+     Expects a context of { item: <presentation-object>  }
+  -->
+<script id="tmpl-jumbotron-singlestat" data-item-type="jumbotron_singlestat" type="text/x-handlebars-template">
+  <div class="jumbotron-singlestat
+              {{#if item.css_class}}{{item.css_class}}{{/if}}
+              " id="{{item.element_id}}">
+    <div><p><span class="value"></span><span class="unit">{{item.units}}</span></p></div>
+    <div><h3>{{item.title}}</h3></div>
+  </div>
+</script>
+<script>
+        cronenberg.templates.register('tmpl-jumbotron-singlestat', function(query, item) {
+            var value = query.summation[item.transform];
+            if (item.index) {
+                value = query.data[item.index].summation[item.transform];
+            }
+            $('#' + item.element_id + ' span.value').number(value, item.decimal);
+        })
+</script>
 
-{% macro render_simple_time_series(presentation) -%}
-<div class="graph simple-time-series
-{% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
-  <svg></svg>
-  <script>
-  cronenberg.queries.registry.{{presentation.query_name}}.available(function(query) {
-      cronenberg.charts.simple_line_chart($("#{{presentation.element_id}}"), query.data[0]);
+<!--
+     TEMPLATE: Simple time series presentation.
+     Expects a context of { item: <presentation-object>  }
+  -->
+<script id="tmpl-simple-time-series" data-item-type="simple_time_series" type="text/x-handlebars-template">
+  <div class="graph simple-time-series
+              {{#if item.css_class}}{{item.css_class}}{{/if}}" id="{{item.element_id}}">
+    <svg></svg>
+  </div>
+</script>
+<script>
+  cronenberg.templates.register('tmpl-simple-time-series', function(query, item) {
+      cronenberg.charts.simple_line_chart($("#" + item.element_id), query.data[0]);
+  })
+</script>
+
+<!--
+     TEMPLATE: Standard time series presentation.
+     Expects a context of { item: <presentation-object>  }
+  -->
+<script id="tmpl-standard-time-series" data-item-type="standard_time_series" type="text/x-handlebars-template">
+  <div class="graph standard-time-series
+              {{#if item.css_class}}{{item.css_class}}{{/if}}" id="{{item.element_id}}">
+    <svg></svg>
+  </div>
+</script>
+<script>
+  cronenberg.templates.register('tmpl-standard-time-series', function(query, item) {
+      cronenberg.charts.standard_line_chart($("#" + item.element_id), query.data);
+  })
+</script>
+
+<!--
+     TEMPLATE: Stacked area chart presentation.
+     Expects a context of { item: <presentation-object>  }
+  -->
+<script id="tmpl-stacked-area-chart" data-item-type="stacked_area_chart" type="text/x-handlebars-template">
+  <div class="graph stacked-area-chart
+              {{#if item.css_class}}{{item.css_class}}{{/if}}" id="{{item.element_id}}">
+    <svg></svg>
+  </div>
+</script>
+<script>
+  cronenberg.templates.register('tmpl-stacked-area-chart', function (query, item) {
+        cronenberg.charts.stacked_area_chart($("#" + item.element_id), query.data);
   });
-  </script>
-</div>
-{%- endmacro %}
+</script>
 
-<!-- ============================================================================= -->
-
-{% macro render_standard_time_series(presentation) -%}
-<div class="graph standard-time-series
-{% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
-  <svg></svg>
-  <script>
-  cronenberg.queries.registry.{{presentation.query_name}}.available(function(query) {
-      cronenberg.charts.standard_line_chart($("#{{presentation.element_id}}"), query.data);
-  });
-  </script>
-</div>
-{%- endmacro %}
-
-
-<!-- ============================================================================= -->
-
-{% macro render_stacked_area_chart(presentation) -%}
-<div class="graph stacked-area-chart
-{% if presentation.css_class %}{{presentation.css_class}}{% endif %}" id="{{presentation.element_id}}">
-  <svg></svg>
-  <script>
-  cronenberg.queries.registry.{{presentation.query_name}}.available(function(query) {
-      cronenberg.charts.stacked_area_chart($("#{{presentation.element_id}}"), query.data);
-  });
-  </script>
-</div>
-{%- endmacro %}
-
-<!-- ============================================================================= -->
-
-{% macro render_presentation(presentation) -%}
-  {% if presentation.item_type == 'singlestat' %}
-    {{ render_singlestat(presentation) }}
-  {% elif presentation.item_type == 'jumbotron_singlestat' %}
-    {{ render_jumbotron_singlestat(presentation) }}
-  {% elif presentation.item_type == 'simple_time_series' %}
-    {{ render_simple_time_series(presentation) }}
-  {% elif presentation.item_type == 'standard_time_series' %}
-    {{ render_standard_time_series(presentation) }}
-  {% elif presentation.item_type == 'stacked_area_chart' %}
-    {{ render_stacked_area_chart(presentation) }}
-  {% endif %}
-{% endmacro %}
-
-<!-- ============================================================================= -->
-
-{% macro render_cell(cell) -%}
-<div class="{% if cell.span %} span{{ cell.span }} {% endif %}
-{% if cell.offset %} offset{{ cell.offset }} {% endif %}
-{% if cell.css_class %} {{ cell.css_class }} {% endif %}
+<!--
+     TEMPLATE: Dashboard cells.
+     Expects a context of { item: <cell>  }
+  -->
+<script id="tmpl-cell" data-item-type="cell" type="text/x-handlebars-template">
+  <div class="{{#if item.span}} span{{item.span}} {{/if}}
+{{#if item.offset}} offset{{ item.offset}} {{/if}}
+{{#if item.css_class}} {{ item.css_class}} {{/if}}
 "
-{% if cell.align == 'center' %} align="center" {% endif %}
-{% if cell.height %} height="{{cell.height}}" {% endif %}
+{{#if item.align}} align="{{item.align}}" {{/if}}
+{{#if item.height}} height="{{item.height}}" {{/if}}
 >
-  {% if cell.emphasize %}
+  {{#if item.emphasize}}
     <div class="well">
-  {% endif %}
+  {{/if}}
 
-  {% for presentation in cell.presentation %}
-    {{ render_presentation(presentation) }}
-  {% endfor %}
+  {{#each item.presentation}}
+    {{item this}}
+  {{/each}}
 
-  {% if cell.emphasize %}
+  {{#if item.emphasize}}
     </div>
-  {% endif %}
+  {{/if}}
 </div>
-{%- endmacro %}
+</script>
 
-<!-- ============================================================================= -->
-
-{% macro render_row(row) -%}
+<!--
+     TEMPLATE: Dashboard rows.
+     Expects a context of { item: <row>  }
+  -->
+<script id="tmpl-row" data-item-type="row" type="text/x-handlebars-template">
   <div class="row dashboard-row">
-    {% for cell in row.cells %}
-      {{ render(cell) }}
-    {% endfor %}
+    {{#each item.cells}}
+      {{item this}}
+    {{/each}}
   </div>
-{% endmacro %}
+</script>
 
-<!-- ============================================================================= -->
+<!--
+     TEMPLATE: Top-level dashboard.
+     Expects a context of { item: <dashboard>  }
+  -->
+<script id="tmpl-dashboard" data-item-type="dashboard" type="text/x-handlebars-template">
+{{#with item.grid}}
+  {{#each rows}}
+    {{item this}}
+  {{/each}}
+{{/with}}
+</script>
 
-{% macro render_grid(grid) -%}
-  <div class="dashboard-grid">
-  {% for row in grid.rows %}
-    {{ render(row) }}
-  {% endfor %}
-  </div>
-{% endmacro %}
+<script>
+  cronenberg.templates
+        .register('tmpl-separator')
+        .register('tmpl-heading')
+        .register('tmpl-cell')
+        .register('tmpl-row')
+        .register('tmpl-dashboard');
+</script>
 
-<!-- ============================================================================= -->
-
-{% macro render(layout) -%}
-  {% if layout.item_type == 'grid' %}
-    {{ render_grid(layout) }}
-  {% elif layout.item_type == 'row' %}
-    {{ render_row(layout) }}
-  {% elif layout.item_type == 'cell' %}
-    {{ render_cell(layout) }}
-  {% elif layout.item_type == 'separator' %}
-    {{ render_separator(layout) }}
-  {% elif layout.item_type == 'heading' %}
-    {{ render_heading(layout) }}
-  {% endif %}
-{% endmacro %}
+{% endraw %}
