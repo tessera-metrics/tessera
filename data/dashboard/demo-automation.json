@@ -135,8 +135,15 @@
                                 "item_type": "standard_time_series",
                                 "query_name": "total_push_rate",
                                 "title": "",
-                                "x_axis_label": "",
-                                "y_axis_label": ""
+                                "options" : {
+                                    "yAxisLabel" : "Pushes per Second",
+                                    "margin" : {
+                                        "top" : 0,
+                                        "bottom" : 16,
+                                        "left" : 30,
+                                        "right" : 0
+                                    }
+                                }
                             }
                         ],
                         "span": 8
@@ -181,8 +188,16 @@
                                 "item_type": "simple_time_series",
                                 "query_name": "end_to_end",
                                 "title": "",
-                                "x_axis_label": "",
-                                "y_axis_label": ""
+                                "options" :{
+                                    "showXAxis" : false,
+                                    "margin" : {
+                                        "top" : 0,
+                                        "left" : 0,
+                                        "bottom" : 0,
+                                        "right" : 0
+                                    }
+                                }
+
                             }
                         ],
                         "span": 8
@@ -258,9 +273,9 @@
                                 "element_id": "p12",
                                 "item_type": "simple_time_series",
                                 "query_name": "immediate_triggers",
-                                "title": "",
-                                "x_axis_label": "",
-                                "y_axis_label": ""
+                                "title": ""
+
+
                             }
                         ],
                         "span": 8
@@ -325,9 +340,9 @@
                                 "element_id": "p15",
                                 "item_type": "simple_time_series",
                                 "query_name": "historical_triggers",
-                                "title": "",
-                                "x_axis_label": "",
-                                "y_axis_label": ""
+                                "title": ""
+
+
                             }
                         ],
                         "span": 8
@@ -371,9 +386,9 @@
                                 "element_id": "p17",
                                 "item_type": "simple_time_series",
                                 "query_name": "device_event_rate",
-                                "title": "",
-                                "x_axis_label": "",
-                                "y_axis_label": ""
+                                "title": ""
+
+
                             }
                         ],
                         "span": 8
@@ -449,9 +464,9 @@
                                 "element_id": "p20",
                                 "item_type": "simple_time_series",
                                 "query_name": "api_rate",
-                                "title": "",
-                                "x_axis_label": "",
-                                "y_axis_label": ""
+                                "title": ""
+
+
                             }
                         ],
                         "span": 8
