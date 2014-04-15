@@ -8,23 +8,31 @@ cronenberg.TemplateRegistry = function() {
      * Compile a template and register the compiled render function by
      * item type. Each template must specify what kind of API entity
      * it renders using the data-item-type HTML attribute.
+     *
+     * An expression helper will also be registered, so each template
+     * can be called easily from other templates.
      */
     this.register = function(elementId) {
-        element = $('#' + elementId);
-        this.registry[element.attr('data-item-type')] = Handlebars.compile(element.html());
+        var element  = $('#' + elementId);
+        var itemType = element.attr('data-item-type');
+        var compiled = Handlebars.compile(element.html());
+
+        this.registry[itemType] = compiled;
+        Handlebars.registerHelper(itemType, function(item) {
+            return new Handlebars.SafeString(
+                cronenberg.templates.registry[itemType]({ item: item })
+            );
+        });
         return this;
     };
 
     /**
      * Render an item (either presentation or layout) received from
      * the API.
-     *
-     * TODO: should this append to the parent, or leave that to the
-     * caller? Leaning towards the latter.
      */
-    this.render = function(item, parent) {
-        var template = this.registry[item.type];
-        $(parent).append(template({item: item}));
+    this.render = function(item) {
+        var template = this.registry[item.item_type];
+        return template({item: item});
     };
 };
 
