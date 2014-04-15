@@ -1,9 +1,6 @@
 # Cronenberg
 
-An executive dashboard for Automation. A lot of this is ripped from
-the old [OpenDash](https://github.com/urbanairship/opendash/)
-project. Currently a bit of a mess due to being rushed in time for
-demoing.
+A dashboard front end for Graphite. 
 
 ![Screenshot Dark](docs/screenshot-dark.png)
 ![Screenshot Light](docs/screenshot-light.png)
