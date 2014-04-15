@@ -66,15 +66,19 @@ def random_data_dashboard():
                                   level=2)
                          ,Separator()
                          ,Row(
-                             Cell(span=12,
-                                  presentation=StandardTimeSeries(css_class='height4',
-                                                                  query_name='cluster',
-                                                                  options={
-                                                                      'yAxisLabel' : 'frobs per second',
-                                                                      'margin' : {
-                                                                          'top' : 0, 'bottom' : 16, 'right' : 0, 'left' : 80
-                                                                      }
-                                                                  }))
+                             Cell(span=4,
+                                  presentation=Markdown(text="## An Explanatory Box\n\n"
+                                                        +"Containing text in [Markdown](https://daringfireball.net/projects/markdown/) format."
+                                                        +"You can use this to include _explanatory text_ about your **important** metrics.\n\n"))
+                             ,Cell(span=8,
+                                   presentation=StandardTimeSeries(css_class='height4',
+                                                                   query_name='cluster',
+                                                                   options={
+                                                                       'yAxisLabel' : 'frobs per second',
+                                                                       'margin' : {
+                                                                           'top' : 0, 'bottom' : 16, 'right' : 0, 'left' : 80
+                                                                       }
+                                                                   }))
                          )
                          ,Row(
                              Cell(span=2,

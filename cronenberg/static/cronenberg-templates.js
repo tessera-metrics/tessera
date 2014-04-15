@@ -11,13 +11,19 @@ cronenberg.TemplateRegistry = function() {
      *
      * An expression helper will also be registered, so each template
      * can be called easily from other templates.
+     *
+     * The template argument must be an object with the required
+     * attribute 'elementId'.
      */
-    this.register = function(elementId, dataHandler) {
-        var element  = $('#' + elementId);
+    this.register = function(template) {
+        var element  = $('#' + template.elementId);
         var itemType = element.attr('data-item-type');
-        var compiled = Handlebars.compile(element.html());
+        var compiled = template.renderHandler || Handlebars.compile(element.html());
 
-        this.registry[itemType] = { renderer: compiled, handler: dataHandler };
+        this.registry[itemType] = {
+            renderer: compiled,
+            dataHandler: template.dataHandler || null
+        };
 
         // Register a helper for the item time, so it can be
         // explicitly called from another template - i.e {{row
@@ -44,9 +50,9 @@ cronenberg.TemplateRegistry = function() {
         if (typeof(template) == "undefined") {
             return "<p>Unknown item type <code>" + item.item_type + "</code></p>";
         }
-        if (template.handler && (typeof(item.query_name) != undefined)) {
+        if (template.dataHandler && (typeof(item.query_name) != undefined)) {
             cronenberg.queries.registry[item.query_name].available(function(query) {
-                template.handler(query, item);
+                template.dataHandler(query, item);
             });
         }
         return template.renderer({item: item});
