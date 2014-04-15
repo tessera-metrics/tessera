@@ -1,0 +1,495 @@
+{
+    "category": "Random",
+    "description": "",
+    "grid": {
+        "css_class": "",
+        "item_type": "grid",
+        "rows": [
+            {
+                "css_class": "",
+                "description": "Followed by a separator",
+                "item_type": "heading",
+                "level": 1,
+                "text": "A Heading"
+            },
+            {
+                "css_class": "",
+                "item_type": "separator"
+            },
+            {
+                "cells": [
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 3,
+                                "element_id": "p2",
+                                "index": false,
+                                "item_type": "jumbotron_singlestat",
+                                "query_name": "cpu_usage",
+                                "title": "Jumbotron Singlestat",
+                                "transform": "mean",
+                                "units": "frobs"
+                            }
+                        ],
+                        "span": 4
+                    },
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": "height3",
+                                "element_id": "p3",
+                                "item_type": "stacked_area_chart",
+                                "options": {},
+                                "query_name": "cpu_usage",
+                                "title": ""
+                            }
+                        ],
+                        "span": 8
+                    }
+                ],
+                "css_class": "",
+                "item_type": "row"
+            },
+            {
+                "cells": [
+                    {
+                        "align": "center",
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 0,
+                                "element_id": "p4",
+                                "index": false,
+                                "item_type": "singlestat",
+                                "query_name": "cpu_usage",
+                                "title": "Total Frobs",
+                                "transform": "sum",
+                                "units": "frobs"
+                            }
+                        ],
+                        "span": 2
+                    },
+                    {
+                        "align": "center",
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 0,
+                                "element_id": "p5",
+                                "index": false,
+                                "item_type": "singlestat",
+                                "query_name": "cpu_usage",
+                                "title": "Max Frobs",
+                                "transform": "max",
+                                "units": "frobs"
+                            }
+                        ],
+                        "span": 2
+                    },
+                    {
+                        "align": "center",
+                        "css_class": "",
+                        "emphasize": true,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 0,
+                                "element_id": "p6",
+                                "index": false,
+                                "item_type": "singlestat",
+                                "query_name": "cpu_usage",
+                                "title": "Min Frobs",
+                                "transform": "min",
+                                "units": "frobs"
+                            }
+                        ],
+                        "span": 2
+                    },
+                    {
+                        "align": "center",
+                        "css_class": "",
+                        "emphasize": true,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 2,
+                                "element_id": "p7",
+                                "index": false,
+                                "item_type": "singlestat",
+                                "query_name": "cpu_usage",
+                                "title": "Average Rate",
+                                "transform": "mean",
+                                "units": "/sec"
+                            }
+                        ],
+                        "span": 3
+                    },
+                    {
+                        "align": "center",
+                        "css_class": "",
+                        "emphasize": true,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 0,
+                                "element_id": "p8",
+                                "index": false,
+                                "item_type": "singlestat",
+                                "query_name": "cpu_usage",
+                                "title": "Max Frobs",
+                                "transform": "max",
+                                "units": "frobs"
+                            }
+                        ],
+                        "span": 3
+                    }
+                ],
+                "css_class": "",
+                "item_type": "row"
+            },
+            {
+                "css_class": "",
+                "description": "Very Important Metrics for Determining Things and Stuff",
+                "item_type": "heading",
+                "level": 2,
+                "text": "Cluster Health"
+            },
+            {
+                "css_class": "",
+                "item_type": "separator"
+            },
+            {
+                "cells": [
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": "height4",
+                                "element_id": "p9",
+                                "item_type": "standard_time_series",
+                                "options": {
+                                    "margin": {
+                                        "bottom": 16,
+                                        "left": 80,
+                                        "right": 0,
+                                        "top": 0
+                                    },
+                                    "yAxisLabel": "frobs per second"
+                                },
+                                "query_name": "cluster",
+                                "title": ""
+                            }
+                        ],
+                        "span": 12
+                    }
+                ],
+                "css_class": "",
+                "item_type": "row"
+            },
+            {
+                "cells": [
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 1,
+                                "element_id": "p10",
+                                "index": false,
+                                "item_type": "singlestat",
+                                "query_name": "thing1",
+                                "title": "Max",
+                                "transform": "max",
+                                "units": "things"
+                            }
+                        ],
+                        "span": 2
+                    },
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 1,
+                                "element_id": "p11",
+                                "index": false,
+                                "item_type": "singlestat",
+                                "query_name": "thing1",
+                                "title": "Average",
+                                "transform": "mean",
+                                "units": "things"
+                            }
+                        ],
+                        "span": 2
+                    },
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "element_id": "p12",
+                                "item_type": "simple_time_series",
+                                "options": {},
+                                "query_name": "thing1",
+                                "title": ""
+                            }
+                        ],
+                        "span": 8
+                    }
+                ],
+                "css_class": "",
+                "item_type": "row"
+            },
+            {
+                "cells": [
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 1,
+                                "element_id": "p13",
+                                "index": false,
+                                "item_type": "singlestat",
+                                "query_name": "thing2",
+                                "title": "Max",
+                                "transform": "max",
+                                "units": "things"
+                            }
+                        ],
+                        "span": 2
+                    },
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 1,
+                                "element_id": "p14",
+                                "index": false,
+                                "item_type": "singlestat",
+                                "query_name": "thing2",
+                                "title": "Average",
+                                "transform": "mean",
+                                "units": "things"
+                            }
+                        ],
+                        "span": 2
+                    },
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "element_id": "p15",
+                                "item_type": "simple_time_series",
+                                "options": {},
+                                "query_name": "thing2",
+                                "title": ""
+                            }
+                        ],
+                        "span": 8
+                    }
+                ],
+                "css_class": "",
+                "item_type": "row"
+            },
+            {
+                "cells": [
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 1,
+                                "element_id": "p16",
+                                "index": false,
+                                "item_type": "singlestat",
+                                "query_name": "thing3",
+                                "title": "Max",
+                                "transform": "max",
+                                "units": "things"
+                            }
+                        ],
+                        "span": 2
+                    },
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 1,
+                                "element_id": "p17",
+                                "index": false,
+                                "item_type": "singlestat",
+                                "query_name": "thing3",
+                                "title": "Average",
+                                "transform": "mean",
+                                "units": "things"
+                            }
+                        ],
+                        "span": 2
+                    },
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "element_id": "p18",
+                                "item_type": "simple_time_series",
+                                "options": {},
+                                "query_name": "thing3",
+                                "title": ""
+                            }
+                        ],
+                        "span": 8
+                    }
+                ],
+                "css_class": "",
+                "item_type": "row"
+            },
+            {
+                "cells": [
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 1,
+                                "element_id": "p19",
+                                "index": false,
+                                "item_type": "singlestat",
+                                "query_name": "thing4",
+                                "title": "Max",
+                                "transform": "max",
+                                "units": "things"
+                            }
+                        ],
+                        "span": 2
+                    },
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "decimal": 1,
+                                "element_id": "p20",
+                                "index": false,
+                                "item_type": "singlestat",
+                                "query_name": "thing4",
+                                "title": "Average",
+                                "transform": "mean",
+                                "units": "things"
+                            }
+                        ],
+                        "span": 2
+                    },
+                    {
+                        "align": null,
+                        "css_class": "",
+                        "emphasize": false,
+                        "item_type": "cell",
+                        "offset": null,
+                        "presentation": [
+                            {
+                                "css_class": null,
+                                "element_id": "p21",
+                                "item_type": "simple_time_series",
+                                "options": {},
+                                "query_name": "thing4",
+                                "title": ""
+                            }
+                        ],
+                        "span": 8
+                    }
+                ],
+                "css_class": "",
+                "item_type": "row"
+            }
+        ]
+    },
+    "item_type": "dashboard",
+    "name": "data-random",
+    "queries": {
+        "cluster": "absolute(group(randomWalkFunction(\"s001\"),randomWalkFunction(\"s002\"),randomWalkFunction(\"s003\"),randomWalkFunction(\"s004\"),randomWalkFunction(\"s005\"),randomWalkFunction(\"s006\")))",
+        "cpu_usage": "absolute(group(randomWalkFunction(\"system\"),randomWalkFunction(\"user\"),randomWalkFunction(\"wait\")))",
+        "thing1": "randomWalkFunction(thing1)",
+        "thing2": "randomWalkFunction(thing2)",
+        "thing3": "randomWalkFunction(thing3)",
+        "thing4": "randomWalkFunction(thing4)"
+    },
+    "title": "Presentation Demo"
+}
