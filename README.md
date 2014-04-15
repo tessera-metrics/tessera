@@ -28,6 +28,7 @@ Client Side:
 * [bean.js](https://github.com/fat/bean) for events.
 * [activity-indicator](https://github.com/neteye/jquery-plugins/tree/master/activity-indicator) for indication of data loading.
 * [jquery-number](https://github.com/teamdf/jquery-number) for formatting of numeric values.
+* [handlebars.js](http://handlebarsjs.com/) for client side templating.
 
 ## Developing or Running from Source ##
 
