@@ -25,8 +25,11 @@
         url: url
     }).done(function(data) {
         console.log(data);
+    var dashboard = data.entities[0];
+    for (var query_name in dashboard.queries) {
+        cronenberg.queries.add(query_name, dashboard.queries[query_name]);
+    }
     var rendered = cronenberg.templates.render(data.entities[0]);
-    console.log("Rendered!");
     console.log(rendered);
     $("#dashboard-container").append(rendered);
     });
