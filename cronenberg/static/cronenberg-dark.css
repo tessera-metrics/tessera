@@ -2,12 +2,18 @@
    Application Styles
    ============================================================================= */
 
-.dashboard-grid h1 {
+.dashboard-grid h1, .dashboard-grid h2
+{
+    color: #848480;
+}
+
+.dashboard-grid h1 small, .dashboard-grid h2 small
+{
     color: #747470;
 }
 
-.dashboard-grid h1 small {
-    color: #646460;
+.markdown h1, .markdown h2 {
+    color: white;
 }
 
 .singlestat h3 {
