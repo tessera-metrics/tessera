@@ -12,12 +12,12 @@ cronenberg.TemplateRegistry = function() {
      * An expression helper will also be registered, so each template
      * can be called easily from other templates.
      */
-    this.register = function(elementId) {
+    this.register = function(elementId, dataHandler) {
         var element  = $('#' + elementId);
         var itemType = element.attr('data-item-type');
         var compiled = Handlebars.compile(element.html());
 
-        this.registry[itemType] = compiled;
+        this.registry[itemType] = { renderer: compiled, handler: dataHandler };
 
         // Register a helper for the item time, so it can be
         // explicitly called from another template - i.e {{row
@@ -37,14 +37,19 @@ cronenberg.TemplateRegistry = function() {
 
     /**
      * Render an item (either presentation or layout) received from
-     * the API.
+     * the API and register it for data events.
      */
     this.render = function(item) {
         var template = cronenberg.templates.registry[item.item_type];
         if (typeof(template) == "undefined") {
             return "<p>Unknown item type <code>" + item.item_type + "</code></p>";
         }
-        return template({item: item});
+        if (template.handler && (typeof(item.query_name) != undefined)) {
+            cronenberg.queries.registry[item.query_name].available(function(query) {
+                template.handler(query, item);
+            });
+        }
+        return template.renderer({item: item});
     };
 };
 

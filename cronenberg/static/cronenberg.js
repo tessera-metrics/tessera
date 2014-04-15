@@ -7,7 +7,8 @@ var cronenberg = {
     {
         ENTER_FULL_SCREEN: 'enter-fullscreen',
         EXIT_FULL_SCREEN:  'exit-fullscreen',
-        DATA_AVAILABLE:    'data-available'
+        DATA_AVAILABLE:    'data-available',
+        DASHBOARD_LOADED:  'dashboard-loaded'
     },
 
     /**
@@ -40,5 +41,5 @@ var cronenberg = {
     exitFullscreen: function() {
         bean.fire(this, cronenberg.events.EXIT_FULL_SCREEN);
         return this;
-    }
+    },
 };

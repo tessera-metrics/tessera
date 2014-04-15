@@ -67,7 +67,6 @@ cronenberg.Query = function(name, url) {
      */
     this.load = function() {
         bean.fire(this, 'loading');
-
         $.ajax({
             dataType: "json",
             url: this.url
