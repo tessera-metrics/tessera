@@ -2,11 +2,11 @@
    Application Styles
    ============================================================================= */
 
-.dashboard-grid h1 {
+.dashboard-grid h1, .dashboard-grid h2 {
     color: #A95353;
 }
 
-.dashboard-grid h1 small {
+.dashboard-grid h1 small, .dashboard-grid h2 small {
     color: #B96363;
 }
 
@@ -48,4 +48,12 @@ h1 .secondary-title {
 
 h2.time {
     // color: #ddd;
+}
+
+/* =============================================================================
+   3rd Party Tweaks
+   ============================================================================= */
+
+.nvd3 .nv-axis path {
+    stroke: lightgray;
 }
