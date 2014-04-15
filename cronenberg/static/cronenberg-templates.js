@@ -25,7 +25,7 @@ cronenberg.TemplateRegistry = function() {
         // registered above, register another helper that can do that
         // for generic rendering.
         Handlebars.registerHelper('item', function(item) {
-            return cronenberg.templates.render(item);
+            return new Handlebars.SafeString(cronenberg.templates.render(item));
         });
         return this;
     };
