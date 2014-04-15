@@ -235,9 +235,9 @@ class Markdown(LayoutElement):
 
 
 class Dashboard(cask.NamedEntity):
-    def __init__(self, name, queries, grid, category='', title='', description=''):
+    def __init__(self, name, queries, grid, item_type='dashboard', category='', title='', description=''):
         super(Dashboard, self).__init__(name=name)
-        self.item_type = 'dashboard'
+        self.item_type = item_type
         self.queries = queries
         self.grid = grid
         self.category = category
