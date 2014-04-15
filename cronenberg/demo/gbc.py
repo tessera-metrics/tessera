@@ -20,7 +20,6 @@ def gbc_demo_dashboard():
                          Row(Cell(span=10, offset=2,
                                   presentation=StandardTimeSeries(css_class='height4',
                                                                   title='CPU Usage',
-                                                                  y_axis_label='CPU Usage %',
                                                                   query_name='cpu')))
                          ,Row(Cell(span=2,
                                    presentation=[SingleStat(title='Mean Context Switches',
@@ -38,7 +37,6 @@ def gbc_demo_dashboard():
                              ,Cell(span=10,
                                    presentation=StackedAreaChart(css_class='height4',
                                                                  title='CPU Context Switches',
-                                                                 y_axis_label='Context Switches per Second',
                                                                  query_name='cpu_context_switches')))
                          ,Heading(text='Network')
                          ,Row(Cell(span=2,
@@ -54,6 +52,5 @@ def gbc_demo_dashboard():
                              ,Cell(span=10,
                                    presentation=StackedAreaChart(css_class='height4',
                                                                  title='TCP Sockets',
-                                                                 y_axis_label='Open TCP Socket Count',
                                                                  query_name='tcp_sockets')))
                      ))
