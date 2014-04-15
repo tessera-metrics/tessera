@@ -13,7 +13,8 @@ cronenberg.charts = {
         return value.toPrecision(3) + suffix;
     },
 
-    simple_line_chart: function(e, series) {
+    simple_line_chart: function(e, series, options) {
+        options = options || {};
         var data = [{
             values: series.datapoints,
             key: series.target
@@ -23,17 +24,17 @@ cronenberg.charts = {
             var height = e.height();
             var chart = nv.models.lineChart()
                 .options({
-                    showXAxis: false,
-                    showYAxis: false,
-                    showLegend: false,
-                    useInteractiveGuideline: true,
+                    showXAxis: options.showXAxis || false,
+                    showYAxis: options.showYAxis || false,
+                    showLegend: options.showLegend || false,
+                    useInteractiveGuideline: options.useInteractiveGuideline || true,
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
                 .width(width)
                 .height(height)
-                .margin({ top: 0, right: 0, bottom: 0, left: 0 });
-            chart.yAxis.tickFormat(d3.format(',.2f'));
+                .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 });
+            chart.yAxis.tickFormat(d3.format(options.yAxisFormat || ',.2f'));
             chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow(); });
             d3.select(e.selector + ' svg')
                 .attr('width', width)
@@ -44,7 +45,9 @@ cronenberg.charts = {
         });
     },
 
-    standard_line_chart: function(e, list_of_series) {
+    standard_line_chart: function(e, list_of_series, options) {
+        options = options || {};
+        console.log(options);
         var data = _.map(list_of_series, function(series) {
             return {
                 key: series.target,
@@ -56,19 +59,24 @@ cronenberg.charts = {
             var height = e.height();
             var chart = nv.models.lineChart()
                 .options({
-                    showXAxis: true,
-                    showYAxis: true,
-                    showLegend: true,
-                    useInteractiveGuideline: true,
+                    showXAxis: options.showXAxis || true,
+                    showYAxis: options.showYAxis || true,
+                    showLegend: options.showLegend || true,
+                    useInteractiveGuideline: options.useInteractiveGuideline || true,
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
-                .color(cronenberg.charts._color_function('Spectrum6'))
+                .color(cronenberg.charts._color_function(options.palette || 'Spectrum6'))
+                .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 })
                 .width(width)
-                .height(height)
-                .margin({ top: 0, right: 0, bottom: 0, left: 0 });
-            chart.yAxis.tickFormat(d3.format(',.2f'));
-            chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow(); });
+                .height(height);
+            chart.yAxis
+                .tickFormat(d3.format(options.yAxisFormat || ',.2f'))
+                .axisLabel(options.yAxisLabel || null);
+            chart.xAxis
+                .tickFormat(function(d) { return moment.unix(d).format('h:mm:ss A'); })
+                .axisLabel(options.xAxisLabel || null);
+            console.log(chart.yAxis.axisLabel());
             d3.select(e.selector + ' svg')
                 .attr('width', width)
                 .attr('height', height)
@@ -79,7 +87,8 @@ cronenberg.charts = {
     },
 
 
-    stacked_area_chart: function(e, list_of_series) {
+    stacked_area_chart: function(e, list_of_series, options) {
+        options = options || {};
         var data = _.map(list_of_series, function(series) {
             return {
                 key: series.target,
@@ -90,19 +99,22 @@ cronenberg.charts = {
             var width  = e.width();
             var height = e.height();
             var chart  = nv.models.stackedAreaChart()
-                .useInteractiveGuideline(true)
                 .options({
-                    showLegend: true,
-                    useInteractiveGuideline: true,
+                    showLegend: options.showLegend || true,
+                    useInteractiveGuideline: options.useInteractiveGuideline || true,
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
-                .color(cronenberg.charts._color_function('Spectrum6'))
+                .color(cronenberg.charts._color_function(options.palette || 'Spectrum6'))
                 .width(width)
                 .height(height)
-                .margin({ top: 0, right: 0, bottom: 0, left: 0 });
-            chart.yAxis.tickFormat(d3.format(',.2f'));
-            chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow(); });
+                .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 });
+            chart.yAxis
+                .axisLabel(options.yAxisLabel || null)
+                .tickFormat(d3.format(options.yAxisFormat || ',.2f'));
+            chart.xAxis
+                .axisLabel(options.xAxisLabel || null)
+                .tickFormat(function(d) { return moment.unix(d).fromNow(); });
             d3.select(e.selector + ' svg')
                 .attr('width', width)
                 .attr('height', height)

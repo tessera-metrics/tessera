@@ -26,8 +26,15 @@
                                 "item_type": "standard_time_series",
                                 "query_name": "cpu",
                                 "title": "CPU Usage",
-                                "x_axis_label": "",
-                                "y_axis_label": "CPU Usage %"
+                                "options" : {
+                                    "yAxisLabel" : "CPU Usage",
+                                    "margin" : {
+                                        "top" : 0,
+                                        "left" : 80,
+                                        "right": 0,
+                                        "bottom" : 16
+                                    }
+                                }
                             }
                         ],
                         "span": 10
@@ -83,8 +90,17 @@
                                 "item_type": "stacked_area_chart",
                                 "query_name": "cpu_context_switches",
                                 "title": "CPU Context Switches",
-                                "x_axis_label": "",
-                                "y_axis_label": "Context Switches per Second"
+                                "options" : {
+                                    "yAxisLabel" : "Context Switches per Second",
+                                    "yAxisFormat" : ".2s",
+                                    "margin" : {
+                                        "top" : 0,
+                                        "left" : 80,
+                                        "right": 0,
+                                        "bottom" : 16
+                                    }
+                                }
+
                             }
                         ],
                         "span": 10
@@ -146,8 +162,16 @@
                                 "item_type": "stacked_area_chart",
                                 "query_name": "tcp_sockets",
                                 "title": "TCP Sockets",
-                                "x_axis_label": "",
-                                "y_axis_label": "Open TCP Socket Count"
+                                "options" : {
+                                    "yAxisLabel" : "Open TCP Sockets",
+                                    "yAxisFormat" : ".2s",
+                                    "margin" : {
+                                        "top" : 0,
+                                        "left" : 80,
+                                        "right": 0,
+                                        "bottom" : 16
+                                    }
+                                }
                             }
                         ],
                         "span": 10
