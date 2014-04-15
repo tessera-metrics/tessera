@@ -47,7 +47,6 @@ cronenberg.charts = {
 
     standard_line_chart: function(e, list_of_series, options) {
         options = options || {};
-        console.log(options);
         var data = _.map(list_of_series, function(series) {
             return {
                 key: series.target,
@@ -76,7 +75,6 @@ cronenberg.charts = {
             chart.xAxis
                 .tickFormat(function(d) { return moment.unix(d).format('h:mm:ss A'); })
                 .axisLabel(options.xAxisLabel || null);
-            console.log(chart.yAxis.axisLabel());
             d3.select(e.selector + ' svg')
                 .attr('width', width)
                 .attr('height', height)
@@ -85,7 +83,6 @@ cronenberg.charts = {
             return chart;
         });
     },
-
 
     stacked_area_chart: function(e, list_of_series, options) {
         options = options || {};
