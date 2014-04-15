@@ -20,8 +20,6 @@
   would allow tagging and searching by tag
 - ~~queries should be dumped to JSON without graphite hostname or
   format=json in URL. Need a render_url_path w/o format or host~~
-- dashboard sections. Section = separator + heading + rows, collapsible (click on heading)
-  - alternate rendering as tabs
 - only dashboards are named entities right now. Presentations should
   *optionally* be named entities, so they can be reused between
   dashboards w/o duplication (ditto queries).
@@ -58,16 +56,18 @@
 - multi-stat version of SingleStat that flips through them using a
   carousel (i.e. [Slick](http://kenwheeler.github.io/slick) which is
   the......slickest carousel I've found yet).
+- dashboard sections. Section = separator + heading + rows, collapsible (click on heading)
+  - alternate rendering as tabs
 
 ### Editing
 
-- ~~Client-side rendering. Not strictly needed for creating an editor, but preferable.
-  - passing complex options to javascript code is clumsy using server side templates
-  - needed for dynamic editing
-  - depends on API
-  - API depends on persistence
-  - tentative candidate is [Handlebars](http://handlebarsjs.com/)
-    - probably need to define a block helper for render dispatching
+- ~~Client-side rendering. Not strictly needed for creating an editor, but preferable.~~
+  - ~~passing complex options to javascript code is clumsy using server side templates~~
+  - ~~needed for dynamic editing~~
+  - ~~depends on API~~
+  - ~~API depends on persistence~~
+  - ~~tentative candidate is [Handlebars](http://handlebarsjs.com/)~~
+    - ~~probably need to define a block helper for render dispatching
       based on presentation type. Don't think Handlebars has callable
       macros like jinja2.~~
 
