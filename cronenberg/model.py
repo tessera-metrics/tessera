@@ -83,18 +83,16 @@ class JumbotronSingleStat(SingleStat):
         return cls(**d)
 
 class ChartPresentation(Presentation):
-    def __init__(self, title='', x_axis_label='', y_axis_label='', **kwargs):
+    def __init__(self, title='', options={}, **kwargs):
         super(ChartPresentation, self).__init__(**kwargs)
         self.title = title
-        self.x_axis_label = x_axis_label
-        self.y_axis_label = y_axis_label
+        self.options = options
 
 class SimpleTimeSeries(ChartPresentation):
     def __init__(self, query_name, **kwargs):
         super(SimpleTimeSeries, self).__init__(query_name=query_name,
                                                item_type='simple_time_series',
                                                **kwargs)
-
     @classmethod
     def from_json(cls, d):
         _delattr(d, 'item_type')
@@ -105,7 +103,6 @@ class StandardTimeSeries(ChartPresentation):
         super(StandardTimeSeries, self).__init__(query_name=query_name,
                                                  item_type='standard_time_series',
                                                  **kwargs)
-
     @classmethod
     def from_json(cls, d):
         _delattr(d, 'item_type')
@@ -230,6 +227,7 @@ class Heading(LayoutElement):
                        description = d.get('description', ''),
                        css_class=d['css_class'])
 
+
 class Markdown(LayoutElement):
     def __init__(self, text, **kwargs):
         super(Markdown, self).__init__(item_type='markdown', **kwargs)
@@ -251,6 +249,7 @@ class Dashboard(cask.NamedEntity):
         d['grid'] = Grid.from_json(d['grid'])
         _delattr(d, 'name')
         return Dashboard(name=name, **d)
+
 
 class DashboardManager(cask.EntityStorageManager):
     def __init__(self, data_directory, extension=None):
