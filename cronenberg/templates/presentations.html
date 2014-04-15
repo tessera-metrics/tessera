@@ -2,7 +2,6 @@
 
 <!--
      TEMPLATE: Separator layout.
-     Expects a context of { item: <layout-object>  }
   -->
 <script id="tmpl-separator" data-item-type="separator" type="text/x-handlebars-template">
   <hr{{#if item.css_class}}class="{{item.css_class}}"{{/if}}></hr>
@@ -10,7 +9,6 @@
 
 <!--
      TEMPLATE: Heading layout.
-     Expects a context of { item: <layout-object>  }
   -->
 <script id="tmpl-heading" data-item-type="heading" type="text/x-handlebars-template">
   <h{{item.level}} {{#if item.css_class}}class="{{item.css_class}}"{{/if}}>
@@ -20,7 +18,6 @@
 
 <!--
      TEMPLATE: Singlestat presentation.
-     Expects a context of { item: <presentation-object>  }
   -->
 <script id="tmpl-singlestat" data-item-type="singlestat" type="text/x-handlebars-template">
 <div class="singlestat {{item.css_class}}" id="{{item.element_id}}"
@@ -30,19 +27,18 @@
   </div>
 </script>
 <script>
-        cronenberg.templates.register('tmpl-singlestat', function(query, item) {
-            var value = query.summation[item.transform];
-            if (item.index) {
-                value = query.data[item.index].summation[item.transform];
-            }
-            $('#' + item.element_id + ' span.value').number(value, item.decimal);
-        });
+  cronenberg.templates.register('tmpl-singlestat', function(query, item) {
+      var value = query.summation[item.transform];
+      if (item.index) {
+          value = query.data[item.index].summation[item.transform];
+      }
+      $('#' + item.element_id + ' span.value').number(value, item.decimal);
+  });
 </script>
 
 
 <!--
      TEMPLATE: Jumbotron Singlestat presentation.
-     Expects a context of { item: <presentation-object>  }
   -->
 <script id="tmpl-jumbotron-singlestat" data-item-type="jumbotron_singlestat" type="text/x-handlebars-template">
   <div class="jumbotron-singlestat
@@ -53,18 +49,17 @@
   </div>
 </script>
 <script>
-        cronenberg.templates.register('tmpl-jumbotron-singlestat', function(query, item) {
-            var value = query.summation[item.transform];
-            if (item.index) {
-                value = query.data[item.index].summation[item.transform];
-            }
-            $('#' + item.element_id + ' span.value').number(value, item.decimal);
-        })
+  cronenberg.templates.register('tmpl-jumbotron-singlestat', function(query, item) {
+      var value = query.summation[item.transform];
+      if (item.index) {
+          value = query.data[item.index].summation[item.transform];
+      }
+      $('#' + item.element_id + ' span.value').number(value, item.decimal);
+  })
 </script>
 
 <!--
      TEMPLATE: Simple time series presentation.
-     Expects a context of { item: <presentation-object>  }
   -->
 <script id="tmpl-simple-time-series" data-item-type="simple_time_series" type="text/x-handlebars-template">
   <div class="graph simple-time-series
@@ -80,7 +75,6 @@
 
 <!--
      TEMPLATE: Standard time series presentation.
-     Expects a context of { item: <presentation-object>  }
   -->
 <script id="tmpl-standard-time-series" data-item-type="standard_time_series" type="text/x-handlebars-template">
   <div class="graph standard-time-series
@@ -96,7 +90,6 @@
 
 <!--
      TEMPLATE: Stacked area chart presentation.
-     Expects a context of { item: <presentation-object>  }
   -->
 <script id="tmpl-stacked-area-chart" data-item-type="stacked_area_chart" type="text/x-handlebars-template">
   <div class="graph stacked-area-chart
@@ -112,7 +105,6 @@
 
 <!--
      TEMPLATE: Dashboard cells.
-     Expects a context of { item: <cell>  }
   -->
 <script id="tmpl-cell" data-item-type="cell" type="text/x-handlebars-template">
   <div class="{{#if item.span}} span{{item.span}} {{/if}}
@@ -138,7 +130,6 @@
 
 <!--
      TEMPLATE: Dashboard rows.
-     Expects a context of { item: <row>  }
   -->
 <script id="tmpl-row" data-item-type="row" type="text/x-handlebars-template">
   <div class="row dashboard-row">
@@ -150,7 +141,6 @@
 
 <!--
      TEMPLATE: Top-level dashboard.
-     Expects a context of { item: <dashboard>  }
   -->
 <script id="tmpl-dashboard" data-item-type="dashboard" type="text/x-handlebars-template">
 {{#with item.grid}}
