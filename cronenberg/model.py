@@ -20,7 +20,47 @@ def _delattr(dictionary, attr):
 # Presentations
 # =============================================================================
 
-class Presentation(object):
+class DashboardItem(object):
+    """Layout elements are class that define how presentations are
+    arrange in the dashboard. The base class provides common CSS class
+    overriding.
+    """
+    def __init__(self, item_type, css_class=''):
+        self.item_type = item_type
+        self.css_class = css_class
+
+    @classmethod
+    def from_json(cls, d):
+        # TODO - this can be handled more cleanly and more
+        # pythonically. E.g. with a dict, or some decorators, or a
+        # metaclass.
+        item_type = d['item_type']
+        _delattr(d, 'item_type')
+        if item_type == 'separator':
+            return Separator.from_json(d)
+        elif item_type == 'heading':
+            return Heading.from_json(d)
+        elif item_type == 'markdown':
+            return Markdown.from_json(d)
+        elif item_type == 'row':
+            return Row.from_json(d)
+        elif item_type == 'grid':
+            return Grid.from_json(d)
+        elif item_type == 'singlestat':
+            return SingleStat.from_json(d)
+        elif item_type == 'jumbotron_singlestat':
+            return JumbotronSingleStat.from_json(d)
+        elif item_type == 'simple_time_series':
+            return SimpleTimeSeries.from_json(d)
+        elif item_type =='standard_time_series':
+            return StandardTimeSeries.from_json(d)
+        elif item_type == 'stacked_area_chart':
+            return StackedAreaChart.from_json(d)
+        else:
+            return Cell.from_json(d)
+
+
+class Presentation(DashboardItem):
     class Transform:
         MIN    = 'min'
         MAX    = 'max'
@@ -36,25 +76,11 @@ class Presentation(object):
         Presentation.NEXT += 1
         return 'p{0}'.format(Presentation.NEXT)
 
-    def __init__(self, query_name, item_type, element_id=None, css_class=None):
+    def __init__(self, query_name, element_id=None, **kwargs):
+        super(Presentation, self).__init__(**kwargs)
         self.query_name = query_name
-        self.item_type = item_type
         self.element_id = element_id or Presentation.nextid()
-        self.css_class = css_class
 
-    @classmethod
-    def from_json(cls, d):
-        item_type = d['item_type']
-        if item_type == 'singlestat':
-            return SingleStat.from_json(d)
-        elif item_type == 'jumbotron_singlestat':
-            return JumbotronSingleStat.from_json(d)
-        elif item_type == 'simple_time_series':
-            return SimpleTimeSeries.from_json(d)
-        elif item_type =='standard_time_series':
-            return StandardTimeSeries.from_json(d)
-        elif item_type == 'stacked_area_chart':
-            return StackedAreaChart.from_json(d)
 
 class SingleStat(Presentation):
     def __init__(self, title, query_name, units='', decimal=3, index=False, transform=Presentation.Transform.MEAN, **kwargs):
@@ -122,37 +148,7 @@ class StackedAreaChart(ChartPresentation):
 # Layouts
 # =============================================================================
 
-class LayoutElement(object):
-    """Layout elements are class that define how presentations are
-    arrange in the dashboard. The base class provides common CSS class
-    overriding.
-    """
-    def __init__(self, item_type, css_class=''):
-        self.item_type = item_type
-        self.css_class = css_class
-
-    @classmethod
-    def from_json(cls, d):
-        # TODO - this can be handled more cleanly and more
-        # pythonically. E.g. with a dict, or some decorators, or a
-        # metaclass.
-        item_type = d['item_type']
-        _delattr(d, 'item_type')
-        if item_type == 'separator':
-            return Separator.from_json(d)
-        elif item_type == 'heading':
-            return Heading.from_json(d)
-        elif item_type == 'markdown':
-            return Markdown.from_json(d)
-        elif item_type == 'row':
-            return Row.from_json(d)
-        elif item_type == 'grid':
-            return Grid.from_json(d)
-        else:
-            return Cell.from_json(d)
-
-
-class Cell(LayoutElement):
+class Cell(DashboardItem):
     """Cell defines how to position and size a presentation on the
     grid. Cells should be contained in Rows.
     """
@@ -166,12 +162,12 @@ class Cell(LayoutElement):
 
     @classmethod
     def from_json(cls, d):
-        d['presentation'] = [Presentation.from_json(p) for p in d['presentation']]
+        d['presentation'] = [DashboardItem.from_json(p) for p in d['presentation']]
         _delattr(d, 'item_type')
         return Cell(**d)
 
 
-class Row(LayoutElement):
+class Row(DashboardItem):
     """A row holds one or more Cells, which span a single row in the
     rendered layout grid. An instance of Row maps directly to a <div
     class="row">...</div>.
@@ -182,26 +178,26 @@ class Row(LayoutElement):
 
     @classmethod
     def from_json(cls, d):
-        cells = [LayoutElement.from_json(c) for c in d['cells']]
+        cells = [DashboardItem.from_json(c) for c in d['cells']]
         _delattr(d, 'item_type')
         _delattr(d, 'cells')
         return Row(*cells, **d)
 
 
-class Grid(LayoutElement):
+class Grid(DashboardItem):
     def __init__(self, *rows, **kwargs):
         super(Grid, self).__init__(item_type='grid', **kwargs)
         self.rows = rows
 
     @classmethod
     def from_json(cls, d):
-        rows = [LayoutElement.from_json(r) for r in d['rows']]
+        rows = [DashboardItem.from_json(r) for r in d['rows']]
         _delattr(d, 'item_type')
         _delattr(d, 'rows')
         return Grid(*rows, **d)
 
 
-class Separator(LayoutElement):
+class Separator(DashboardItem):
     """A visual element to separate groups of elements.
     """
     def __init__(self, **kwargs):
@@ -212,7 +208,7 @@ class Separator(LayoutElement):
         return Separator(css_class=d['css_class'])
 
 
-class Heading(LayoutElement):
+class Heading(DashboardItem):
     """A large text label."""
     def __init__(self, text, level=1, description='', **kwargs):
         super(Heading, self).__init__(item_type='heading', **kwargs)
@@ -228,10 +224,14 @@ class Heading(LayoutElement):
                        css_class=d['css_class'])
 
 
-class Markdown(LayoutElement):
+class Markdown(DashboardItem):
     def __init__(self, text, **kwargs):
         super(Markdown, self).__init__(item_type='markdown', **kwargs)
         self.text = text
+
+    @classmethod
+    def from_json(cls, d):
+        return Markdown(**d)
 
 
 class Dashboard(cask.NamedEntity):
