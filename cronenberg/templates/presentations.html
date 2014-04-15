@@ -69,7 +69,7 @@
 </script>
 <script>
   cronenberg.templates.register('tmpl-simple-time-series', function(query, item) {
-      cronenberg.charts.simple_line_chart($("#" + item.element_id), query.data[0]);
+      cronenberg.charts.simple_line_chart($("#" + item.element_id), query.data[0], item.options);
   })
 </script>
 
@@ -84,7 +84,7 @@
 </script>
 <script>
   cronenberg.templates.register('tmpl-standard-time-series', function(query, item) {
-      cronenberg.charts.standard_line_chart($("#" + item.element_id), query.data);
+      var chart = cronenberg.charts.standard_line_chart($("#" + item.element_id), query.data, item.options);
   })
 </script>
 
@@ -99,7 +99,7 @@
 </script>
 <script>
   cronenberg.templates.register('tmpl-stacked-area-chart', function (query, item) {
-        cronenberg.charts.stacked_area_chart($("#" + item.element_id), query.data);
+        cronenberg.charts.stacked_area_chart($("#" + item.element_id), query.data, item.options);
   });
 </script>
 
