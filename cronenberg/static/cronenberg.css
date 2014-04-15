@@ -54,11 +54,15 @@ h1, h2, h3, h4 {
 }
 
 .dashboard-grid h1 {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.125em;
 }
 
 .dashboard-grid .row {
-    margin-bottom: 1.5em;
+    margin-bottom: 1.0em;
+}
+
+.dashboard-grid hr {
+  margin-top:0;
 }
 
 .singlestat h3 {

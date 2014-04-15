@@ -204,17 +204,17 @@
                 "css_class": ""
             }, 
             {
-                "item_type": "separator", 
-                "element_id": "d40", 
-                "css_class": ""
-            }, 
-            {
                 "description": "Breakdown between immediate and historical", 
                 "level": 1, 
                 "text": "Trigger Details", 
                 "item_type": "heading", 
                 "css_class": "", 
-                "element_id": "d41"
+                "element_id": "d40"
+            }, 
+            {
+                "item_type": "separator", 
+                "element_id": "d41", 
+                "css_class": ""
             }, 
             {
                 "item_type": "row", 
@@ -405,17 +405,17 @@
                 "css_class": ""
             }, 
             {
-                "item_type": "separator", 
-                "element_id": "d61", 
-                "css_class": ""
-            }, 
-            {
                 "description": "", 
                 "level": 1, 
                 "text": "API", 
                 "item_type": "heading", 
                 "css_class": "", 
-                "element_id": "d62"
+                "element_id": "d61"
+            }, 
+            {
+                "item_type": "separator", 
+                "element_id": "d62", 
+                "css_class": ""
             }, 
             {
                 "item_type": "row", 
