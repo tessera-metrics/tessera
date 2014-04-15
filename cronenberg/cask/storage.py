@@ -156,7 +156,7 @@ class EntityStorageManager(object):
         definition that is currently there. """
         path = self.__entity_path(model_type, entity)
         with open(path, "w") as f:
-            json.dump(data, f, indent=4, cls=EntityEncoder)
+            json.dump(entity, f, indent=4, cls=EntityEncoder)
 
     def remove(self, model_type, entity_or_name):
         """Delete an entity's data file from the backing store."""
