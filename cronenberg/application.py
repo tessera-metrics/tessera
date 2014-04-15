@@ -3,13 +3,14 @@
 import flask
 import json
 import sys
+import logging
 import copy
 import datetime
 import time
 import os.path
 import inflection
 
-from flask import Flask, render_template, request, redirect, jsonify, abort
+from flask import Flask, render_template, request, redirect, jsonify, abort, session
 from cask import Entity
 
 import toolbox
@@ -21,8 +22,11 @@ from .model import *
 # Setup
 # =============================================================================
 
+log = logging.getLogger(__name__)
+
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
+app.secret_key = 'e688f6cb-fc11-65fa-c091-aba197c56c66'
 
 mgr = cask.web.WebManagerAdapter(DashboardManager(app.config['DASHBOARD_DATADIR']))
 env = toolbox.CLUSTO.environment(app.config['ENVIRONMENT_NAME'])
@@ -59,6 +63,12 @@ def _jsonify(data):
                           mimetype="application/json",
                           response=cask.dumps(data))
 
+def _get_param(name, default=None, store_in_session=False):
+    value = request.args.get(name) or session.get(name, default)
+    if store_in_session:
+        session[name] = value
+    return value
+
 # =============================================================================
 # API: Dashboard
 # =============================================================================
@@ -91,8 +101,8 @@ def api_dashboard_get_expanded(name):
     version expands graphite queries for client-side rendering.
     """
     dash       = mgr.load(Dashboard, name)
-    from_time  = request.args.get('from', app.config['DEFAULT_FROM_TIME'])
-    until_time = request.args.get('until', None)
+    from_time  = _get_param('from', app.config['DEFAULT_FROM_TIME'])
+    until_time = _get_param('until', None)
 
     # Make a copy of the query map with all targets rendered to full
     # graphite URLs
@@ -155,12 +165,15 @@ class RenderContext:
         self.now = datetime.datetime.now()
         self.element_index = 0
 
+    def get(self, key, default=None, store_in_session=False):
+        return _get_param(key, default=default, store_in_session=store_in_session)
+
 def _render_template(template, **kwargs):
     return render_template(template, ctx=RenderContext(), **kwargs)
 
 def _render_client_side_dashboard(dashboard, template='dashboard.html'):
-    from_time = request.args.get('from', app.config['DEFAULT_FROM_TIME'])
-    until_time = request.args.get('until', None)
+    from_time = _get_param('from', app.config['DEFAULT_FROM_TIME'])
+    until_time = _get_param('until', None)
     title = '{0} {1}'.format(dashboard.category, dashboard.title)
     return _render_template(template,
                             dashboard=dashboard,
