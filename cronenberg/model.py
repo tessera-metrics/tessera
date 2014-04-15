@@ -25,9 +25,17 @@ class DashboardItem(object):
     arrange in the dashboard. The base class provides common CSS class
     overriding.
     """
-    def __init__(self, item_type, css_class=''):
+    NEXT = 1
+
+    def __init__(self, item_type, element_id=None, css_class=''):
         self.item_type = item_type
         self.css_class = css_class
+        self.element_id = DashboardItem.nextid()
+
+    @staticmethod
+    def nextid():
+        DashboardItem.NEXT += 1
+        return 'd{0}'.format(DashboardItem.NEXT)
 
     @classmethod
     def from_json(cls, d):
@@ -69,17 +77,9 @@ class Presentation(DashboardItem):
         LAST   = 'last'
         FIRST  = 'first'
 
-    NEXT = 1
-
-    @staticmethod
-    def nextid():
-        Presentation.NEXT += 1
-        return 'p{0}'.format(Presentation.NEXT)
-
-    def __init__(self, query_name, element_id=None, **kwargs):
+    def __init__(self, query_name, **kwargs):
         super(Presentation, self).__init__(**kwargs)
         self.query_name = query_name
-        self.element_id = element_id or Presentation.nextid()
 
 
 class SingleStat(Presentation):

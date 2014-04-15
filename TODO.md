@@ -26,6 +26,8 @@
   - templatized presentations should also be named entities
   - that requires queries to be (optionally) named entities too, since
     they're independent of presentations
+- element_id doesn't need to be stored; just generate unique element
+  IDs in expanded API view. Current method has chance for collisions.
 
 ### Presentations
 
@@ -94,3 +96,5 @@
   - user preferences
 - integrate some proper JS build-fu to minify and compress all the
   javascript, etc...
+- import of graphite built-in dashboards
+- import of gdash dashboards
