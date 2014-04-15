@@ -24,7 +24,7 @@
   - alternate rendering as tabs
 - only dashboards are named entities right now. Presentations should
   *optionally* be named entities, so they can be reused between
-  dashboards w/o duplication.
+  dashboards w/o duplication (ditto queries).
   - templatized presentations should also be named entities
   - that requires queries to be (optionally) named entities too, since
     they're independent of presentations
@@ -32,7 +32,7 @@
 ### Presentations
 
 - more options for time formatting
-- axis labels
+- ~~axis labels~~
 - titles
 - ~~Lists of presentations per cell~~
   - and/or nested rows
@@ -61,7 +61,7 @@
 
 ### Editing
 
-- Client-side rendering. Not strictly needed for creating an editor, but preferable.
+- ~~Client-side rendering. Not strictly needed for creating an editor, but preferable.
   - passing complex options to javascript code is clumsy using server side templates
   - needed for dynamic editing
   - depends on API
@@ -69,7 +69,7 @@
   - tentative candidate is [Handlebars](http://handlebarsjs.com/)
     - probably need to define a block helper for render dispatching
       based on presentation type. Don't think Handlebars has callable
-      macros like jinja2.
+      macros like jinja2.~~
 
 ### UI
 
