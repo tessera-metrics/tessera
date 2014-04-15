@@ -18,9 +18,10 @@
         {% include "snippets/recent-range-picker.html" %}
       </div>
       <div class="span2" align="right">
-        <button class="btn {% if ctx.get('theme', 'dark') == 'dark' %}btn-inverse{% endif %}"
+        <button onclick="cronenberg.enterFullscreen()"
+                class="btn {% if ctx.get('theme', 'dark') == 'dark' %}btn-inverse{% endif %}"
                 style="float:right">
-                <i onclick="cronenberg.enterFullscreen()" class="icon-resize-full icon-large"></i>
+                <i class="icon-resize-full icon-large"></i>
         </button>
       </div>
     </div>
@@ -34,9 +35,10 @@
         </h1>
       </div>
       <div class="span3 time-container" align="right">
-        <button class="btn {% if ctx.get('theme', 'dark') == 'dark' %}btn-inverse{% endif %}"
+        <button onclick="cronenberg.exitFullscreen()"
+                class="btn {% if ctx.get('theme', 'dark') == 'dark' %}btn-inverse{% endif %}"
                 style="float:right; margin-top: 1em; margin-left: .5em">
-                <i onclick="cronenberg.exitFullscreen()" class="icon-resize-small icon-large"></i>
+                <i class="icon-resize-small icon-large"></i>
         </button>
         <div>
           <h2 class="time">{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
