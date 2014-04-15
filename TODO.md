@@ -26,6 +26,8 @@
   - templatized presentations should also be named entities
   - that requires queries to be (optionally) named entities too, since
     they're independent of presentations
+- element_id doesn't need to be stored; just generate unique element
+  IDs in expanded API view. Current method has chance for collisions.
 
 ### Presentations
 
@@ -38,7 +40,7 @@
   [stathat](http://blog.stathat.com/2014/04/09/web-app-interface-changes-stats.html)
   for a nice example (and a
   [rundown of the components used](http://blog.stathat.com/2014/04/10/whats-powering-the-new-web-interface.html)).
-- text presentations. Just put some formatted text in a grid Cell for
+- ~~text presentations. Just put some formatted text in a grid Cell for
   explanation. Render markdown with
   [markdown.js](https://github.com/evilstreak/markdown-js) or
   [showdown.js](https://github.com/coreyti/showdown). ~~Alternatively,
@@ -94,3 +96,5 @@
   - user preferences
 - integrate some proper JS build-fu to minify and compress all the
   javascript, etc...
+- import of graphite built-in dashboards
+- import of gdash dashboards
