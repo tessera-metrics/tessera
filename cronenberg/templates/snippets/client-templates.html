@@ -69,6 +69,11 @@
   </div>
 </script>
 
+<!-- TEMPLATE: Top-level dashboard. Expects a context of { item: <dashboard>  } -->
+<script id="tmpl-dashboard" data-item-type="dashboard" type="text/x-handlebars-template">
+  DASHBOARD! OMG.
+</script>
+
 <script>
   cronenberg.templates
         .register('tmpl-separator')
@@ -76,7 +81,8 @@
         .register('tmpl-singlestat')
         .register('tmpl-simple-time-series')
         .register('tmpl-standard-time-series')
-        .register('tmpl-stacked-area-chart');
+        .register('tmpl-stacked-area-chart')
+        .register('tmpl-dashboard');
 </script>
 
 {% endraw %}
