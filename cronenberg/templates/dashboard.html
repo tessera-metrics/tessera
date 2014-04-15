@@ -21,14 +21,17 @@
   <div class="row" data-fullscreen="show" style="display:none">
     <div class="span9">
       <h1>
-        <a href="#"><i onclick="cronenberg.exitFullscreen()" class="icon-resize-small icon-small"></i></a>
         <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
       </h1>
     </div>
     <div class="span3 time-container" align="right">
-      <h2 class="time">{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
-      <h6 class="date">{{ ctx.now.strftime("%A") }} {{ ctx.now.strftime("%d %B %Y") }}</h6>
+      <button class="btn" style="float:right; margin-top: .5em; margin-left: .5em"><i onclick="cronenberg.exitFullscreen()" class="icon-resize-small icon-2x"></i></button>
+      <div>
+        <h2 class="time">{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
+        <h6 class="date">{{ ctx.now.strftime("%A") }} {{ ctx.now.strftime("%d %B %Y") }}</h6>
+      </div>
     </div>
+
   </div>
 
   <div class="dashboard-grid" id="dashboard"/>
