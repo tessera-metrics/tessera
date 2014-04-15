@@ -16,22 +16,16 @@
     </div>
   </div>
 
-  <div id="dashboard-container"></div>
+  <div id="dashboard"/>
 
   <script>
     var url = '/api/dashboard/{{dashboard.name}}/expanded';
-    $.ajax({
-        dataType: "json",
-        url: url
-    }).done(function(data) {
-        console.log(data);
-    var dashboard = data.entities[0];
-    for (var query_name in dashboard.queries) {
-        cronenberg.queries.add(query_name, dashboard.queries[query_name]);
-    }
-    var rendered = cronenberg.templates.render(data.entities[0]);
-    console.log(rendered);
-    $("#dashboard-container").append(rendered);
+    cronenberg.dashboards.load(url, function(dashboard) {
+        for (var query_name in dashboard.queries) {
+            cronenberg.queries.add(query_name, dashboard.queries[query_name]);
+        }
+        var rendered = cronenberg.templates.render(dashboard);
+        $("#dashboard").after(rendered);
     });
     cronenberg.queries.loadAll();
   </script>
