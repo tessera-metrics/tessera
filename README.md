@@ -5,7 +5,8 @@ the old [OpenDash](https://github.com/urbanairship/opendash/)
 project. Currently a bit of a mess due to being rushed in time for
 demoing.
 
-![Screenshot](screenshot.png)
+![Screenshot Dark](docs/screenshot-dark.png)
+![Screenshot Light](docs/screenshot-light.png)
 
 ## Dependencies ##
 
