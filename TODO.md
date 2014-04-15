@@ -61,13 +61,13 @@
 
 ### Editing
 
-- ~~Client-side rendering. Not strictly needed for creating an editor, but preferable.
-  - passing complex options to javascript code is clumsy using server side templates
-  - needed for dynamic editing
-  - depends on API
-  - API depends on persistence
-  - tentative candidate is [Handlebars](http://handlebarsjs.com/)
-    - probably need to define a block helper for render dispatching
+- ~~Client-side rendering. Not strictly needed for creating an editor, but preferable.~~
+  - ~~passing complex options to javascript code is clumsy using server side templates~~
+  - ~~needed for dynamic editing~~
+  - ~~depends on API~~
+  - ~~API depends on persistence~~
+  - ~~tentative candidate is [Handlebars](http://handlebarsjs.com/)~~
+    - ~~probably need to define a block helper for render dispatching
       based on presentation type. Don't think Handlebars has callable
       macros like jinja2.~~
 
