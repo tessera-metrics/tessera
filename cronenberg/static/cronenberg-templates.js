@@ -18,9 +18,14 @@ cronenberg.TemplateRegistry = function() {
         var compiled = Handlebars.compile(element.html());
 
         this.registry[itemType] = compiled;
+
+        // Register a helper for the item time, so it can be
+        // explicitly called from another template - i.e {{row
+        // path.to.a.row}}.
         Handlebars.registerHelper(itemType, function(item) {
             return cronenberg.templates.registry[itemType]({ item: item });
         });
+
         // Because we can't dynamically dispatch the block helpers
         // registered above, register another helper that can do that
         // for generic rendering.
@@ -36,6 +41,9 @@ cronenberg.TemplateRegistry = function() {
      */
     this.render = function(item) {
         var template = cronenberg.templates.registry[item.item_type];
+        if (typeof(template) == "undefined") {
+            return "<p>Unknown item type <code>" + item.item_type + "</code></p>";
+        }
         return template({item: item});
     };
 };
