@@ -263,8 +263,8 @@ def demo_dashboard(env):
                                                            decimal=2,
                                                            transform='mean')),
                               Cell(span=8, presentation=SimpleTimeSeries(query_name='end_to_end')))
-                         ,Separator()
                          ,Heading('Trigger Details', description='Breakdown between immediate and historical')
+                         ,Separator()
                          ,Row(Cell(span=2,
                                    presentation=SingleStat(title='Immediate Triggers Processed',
                                                            query_name='immediate_triggers',
@@ -298,8 +298,8 @@ def demo_dashboard(env):
                                                            decimal=0)),
                               Cell(span=8,
                                    presentation=SimpleTimeSeries(query_name='device_event_rate')))
-                         ,Separator()
                          ,Heading('API')
+                         ,Separator()
                          ,Row(Cell(span=2,
                                    presentation=SingleStat(title='Mean API Response Time',
                                                            query_name='api_latency',
