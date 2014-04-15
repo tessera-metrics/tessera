@@ -1,5 +1,7 @@
 var cronenberg = {
 
+    fullscreen: false,
+
     /**
      * Constants for the various custom events cronenberg uses.
      */
@@ -23,7 +25,13 @@ var cronenberg = {
      * Enter full screen mode.
      */
     enterFullscreen: function() {
-        bean.fire(this, cronenberg.events.ENTER_FULL_SCREEN);
+        if (!this.fullscreen) {
+            console.log("cronenberg.enterFullscreen()");
+            $("[data-fullscreen]=hide").hide(400);
+            $("[data-fullscreen]=show").show()
+            bean.fire(this, cronenberg.events.ENTER_FULL_SCREEN);
+            this.fullscreen = true;
+        }
         return this;
     },
 
@@ -39,7 +47,13 @@ var cronenberg = {
      * Exit full screen mode.
      */
     exitFullscreen: function() {
-        bean.fire(this, cronenberg.events.EXIT_FULL_SCREEN);
+        if (this.fullscreen) {
+            console.log("cronenberg.exitFullscreen()");
+            $("[data-fullscreen]=show").hide(400)
+            $("[data-fullscreen]=hide").show()
+            bean.fire(this, cronenberg.events.EXIT_FULL_SCREEN);
+            this.fullscreen = false;
+        }
         return this;
     },
 };
