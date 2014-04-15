@@ -41,12 +41,12 @@
 - text presentations. Just put some formatted text in a grid Cell for
   explanation. Render markdown with
   [markdown.js](https://github.com/evilstreak/markdown-js) or
-  [showdown.js](https://github.com/coreyti/showdown). Alternatively,
+  [showdown.js](https://github.com/coreyti/showdown). ~~Alternatively,
   here's a [flask snippet](http://flask.pocoo.org/snippets/19/) for
-  rendering markdown server-side.
-      - [Flask-Misaka](https://flask-misaka.readthedocs.org/en/latest/)
+  rendering markdown server-side.~~
+      - ~~[Flask-Misaka](https://flask-misaka.readthedocs.org/en/latest/)
         looks even better. Presentation template would just be
-        {{item.text|markdown}}
+        {{item.text|markdown}}~~
 - threshold to automatically switch to graphite rendering for long
   time windows (SVG rendering in browser gets slow)
 - thresholds for alert colors (i.e. turn value in singlestat yellow/orange/red)
