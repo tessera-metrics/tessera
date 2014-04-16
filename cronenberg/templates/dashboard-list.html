@@ -23,7 +23,15 @@
         <tr>
           <td><a href="/dashboards/{{dashboard.name}}"><span class="badge badge-info"><i class="icon-dashboard"></i></span> {{dashboard.name}}</a></td>
           <td>{{dashboard.category}} {{dashboard.title}}</td>
-          <td>{{dashboard.description}}</td>
+          <td>
+            {% if dashboard.imported_from %}
+              <a href="{{dashboard.imported_from}}">
+            {% endif %}
+            {{dashboard.description}}
+            {% if dashboard.imported_from %}
+              </a>
+            {% endif %}
+          </td>
         </tr>
       {% endfor %}
     </tbody>

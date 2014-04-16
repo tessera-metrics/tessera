@@ -2,8 +2,10 @@ import requests
 import logging
 import json
 import inflection
+import urllib
 from cronenberg.model import *
 from cronenberg.cask.storage import EntityEncoder
+from cronenberg import app
 
 log = logging.getLogger(__name__)
 
@@ -39,10 +41,12 @@ class GraphiteDashboardImporter(object):
         return self.__convert(self.get_dashboard(name))
 
     def __convert(self, graphite_dashboard):
-        dashboard = Dashboard(name=inflection.parameterize(graphite_dashboard['name']),
-                              title=graphite_dashboard['name'],
+        name = graphite_dashboard['name']
+        dashboard = Dashboard(name=inflection.parameterize(name),
+                              title=name,
                               category='Graphite',
-                              description='Imported from graphite-web')
+                              description='Imported from graphite-web',
+                              imported_from = '{0}/dashboard/{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
         row = Row()
         for graph in graphite_dashboard['graphs']:
             # Graphite's dashboard API is so redundant. Each graph is
@@ -68,7 +72,6 @@ class GraphiteDashboardImporter(object):
                 presentation.options['palette'] = options['template']
             if 'vtitle' in options:
                 presentation.options['yAxisLabel'] = options['vtitle']
-                presentation.options['yAxisLabelDistance'] = 40
                 presentation.options['yShowMaxMin'] = True
             presentation.options['margin'] = { 'top' : 16, 'left' : 80, 'right' : 0, 'bottom' : 16}
             row.cells.append(Cell(span=6, presentation=presentation))
