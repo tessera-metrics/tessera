@@ -115,6 +115,48 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
 </script>
 
 <!--
+     TEMPLATE: Summation table presentation.
+  -->
+<script id="tmpl-summation-table" data-item-type="summation_table" type="text/x-handlebars-template">
+  <table class="table table-condensed summation-table
+{{#if item.striped}}table-striped{{/if}}
+{{#if item.css_class}}{{item.css_class}}{{/if}}"
+         id="{{item.element_id}}">
+    <thead>
+      <tr>
+        <th></th>
+        <th>latest</th>
+        <th>min</th>
+        <th>max</th>
+        <th>mean</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</script>
+<!-- Summation table row template, takes a context of { series: series, item: item } -->
+<script id="tmpl-summation-table-row" type="text/x-handlebars-template">
+  <tr>
+    <td>{{series.key}}</td>
+    <td>{{format item.cell_format series.summation.last}}</td>
+    <td>{{format item.cell_format series.summation.min}}</td>
+    <td>{{format item.cell_format series.summation.max}}</td>
+    <td>{{format item.cell_format series.summation.mean}}</td>
+  </tr>
+</script>
+<script>
+  var rowTemplate = Handlebars.compile($("#tmpl-summation-table-row").html());
+  var handler = function(query, item) {
+      var body = $('#' + item.element_id + ' tbody');
+      _.each(query.data, function(series) {
+          body.append(rowTemplate({series:series, item:item}));
+      });
+  };
+  cronenberg.templates.register({ elementId: 'tmpl-summation-table', dataHandler: handler});
+</script>
+
+<!--
      TEMPLATE: Dashboard cells.
   -->
 <script id="tmpl-cell" data-item-type="cell" type="text/x-handlebars-template">
