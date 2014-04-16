@@ -26,12 +26,12 @@ def gbc_demo_dashboard():
                                                            query_name='cpu_context_switches',
                                                            transform='mean',
                                                            units=' /sec',
-                                                           decimal=0)
+                                                           format=',.0f')
                                                  ,SingleStat(title='Max Context Switches',
                                                              query_name='cpu_context_switches',
                                                              transform='max',
                                                              units=' /sec',
-                                                             decimal=0)
+                                                             format=',.0f')
                                              ]
                                )
                              ,Cell(span=10,
@@ -43,11 +43,11 @@ def gbc_demo_dashboard():
                                    presentation=[SingleStat(title='Mean TCP Sockets',
                                                            query_name='tcp_sockets',
                                                            transform='mean',
-                                                           decimal=0)
+                                                           format=',.0f')
                                                  ,SingleStat(title='Max TCP Sockets',
                                                              query_name='tcp_sockets',
                                                              transform='max',
-                                                             decimal=0)
+                                                             format=',.0f')
                                                          ])
                              ,Cell(span=10,
                                    presentation=StackedAreaChart(css_class='height4',

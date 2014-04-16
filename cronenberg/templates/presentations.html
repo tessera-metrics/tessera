@@ -50,7 +50,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
       if (item.index) {
           value = query.data[item.index].summation[item.transform];
       }
-      $('#' + item.element_id + ' span.value').number(value, item.decimal);
+      $('#' + item.element_id + ' span.value').text(d3.format(item.format)(value));
   }});
 </script>
 
@@ -73,7 +73,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
       if (item.index) {
           value = query.data[item.index].summation[item.transform];
       }
-      $('#' + item.element_id + ' span.value').number(value, item.decimal);
+      $('#' + item.element_id + ' span.value').text(d3.format(item.format)(value));
   }});
 </script>
 
@@ -147,10 +147,10 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
 <script id="tmpl-summation-table-row" type="text/x-handlebars-template">
   <tr>
     <td>{{series.key}}</td>
-    <td>{{format item.cell_format series.summation.last}}</td>
-    <td>{{format item.cell_format series.summation.min}}</td>
-    <td>{{format item.cell_format series.summation.max}}</td>
-    <td>{{format item.cell_format series.summation.mean}}</td>
+    <td>{{format item.format series.summation.last}}</td>
+    <td>{{format item.format series.summation.min}}</td>
+    <td>{{format item.format series.summation.max}}</td>
+    <td>{{format item.format series.summation.mean}}</td>
   </tr>
 </script>
 <script>

@@ -86,7 +86,7 @@ class Presentation(DashboardItem):
 
 
 class SingleStat(Presentation):
-    def __init__(self, title, query_name, units='', decimal=3, index=False, transform=Presentation.Transform.MEAN, **kwargs):
+    def __init__(self, title, query_name, units='', format=',.3f', index=False, transform=Presentation.Transform.MEAN, **kwargs):
         super(SingleStat, self).__init__(query_name=query_name,
                                          item_type=kwargs.get('item_type', 'singlestat'),
                                          **kwargs)
@@ -94,7 +94,7 @@ class SingleStat(Presentation):
         self.transform = transform
         self.index = index
         self.units = units
-        self.decimal = decimal
+        self.format = format
 
     @classmethod
     def from_json(cls, d):
@@ -153,11 +153,11 @@ class TablePresentation(Presentation):
 
 class SummationTable(TablePresentation):
     # TODO - control which columns are shown
-    def __init__(self, query_name, cell_format=',.3f', striped=False, **kwargs):
+    def __init__(self, query_name, format=',.3f', striped=False, **kwargs):
         super(SummationTable, self).__init__(query_name=query_name,
                                              item_type='summation_table',
                                              **kwargs)
-        self.cell_format = cell_format
+        self.format = format
         self.striped = striped
 
     @classmethod

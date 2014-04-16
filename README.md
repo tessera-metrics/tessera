@@ -21,10 +21,10 @@ Client Side:
   * [darkstrap](https://github.com/danneu/darkstrap)
 * [jQuery](http://jquery.com/)
 * [nvd3](https://github.com/novus/nvd3) for interactive charts build
-  on top of [d3](http://d3js.org).
+  on top of [d3](http://d3js.org). d3 is also used for value
+  formatting in text.
 * [moment.js](http://momentjs.com/) for time parsing & formatting.
 * [bean.js](https://github.com/fat/bean) for events.
-* [jquery-number](https://github.com/teamdf/jquery-number) for formatting of numeric values.
 * [handlebars.js](http://handlebarsjs.com/) for client side templating.
 * [markdown-js](https://github.com/evilstreak/markdown-js) for rendering of Markdown to HTML.
 
