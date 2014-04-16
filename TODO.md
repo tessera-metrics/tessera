@@ -81,15 +81,16 @@
 - configuration for the recent time ranges shown in the easy picker
 - refresh button
 - auto-refresh
-- Add a 'full screen' button that removes everything except the
-  dashboard grid from the view (and a 'back' button to restore it)
+- settings page
+- ~~Add a 'full screen' button that removes everything except the
+  dashboard grid from the view (and a 'back' button to restore it)~~
   - ~~already have ``cronenberg.enterFullScreen()`` and
     ``cronenberg.exitFullScreen()`` APIs with events. UI bits just
     need to register for those events to hide/show.~~
   - ~~alternatively, just use data-attributes for fullscreen hide/show~~
   - drop-down version of the range picker menu, to save space
-  - In full-screen, put the title, range picker, current time, and
-    exit fullscreen button all on one line
+  - ~~In full-screen, put the title, range picker, current time, and
+    exit fullscreen button all on one line~~
 - ~~dark/light theme switching~~
   - ~~session persistence~~
   - other themes, like [Solarized](http://ethanschoonover.com/solarized).
@@ -97,8 +98,8 @@
 ### Integration
 
 - sessions
-  - start with anonymous, non-persistent sessions. Then can build onto
-    LDAP & persistence, below.
+  - ~~start with anonymous, non-persistent sessions. ~~
+  - Then can build onto LDAP & persistence, below.
 - LDAP integration
   - user preferences
 - integrate some proper JS build-fu to minify and compress all the
