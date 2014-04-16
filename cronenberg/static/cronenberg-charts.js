@@ -55,13 +55,13 @@ cronenberg.charts = {
                 values: series.datapoints
             };
         });
+        var showLegend = options.showLegend || true;
+        if (list_of_series.length > this.autoHideLegendThreshold) {
+            showLegend = false;
+        }
         nv.addGraph(function() {
             var width = e.width();
             var height = e.height();
-            var showLegend = options.showLegend || true;
-            if (list_of_series.length > this.autoHideLegendThreshold) {
-                showLegend = false;
-            }
             var chart = nv.models.lineChart()
                 .options({
                     showXAxis: options.showXAxis || true,
@@ -76,7 +76,7 @@ cronenberg.charts = {
                 .width(width)
                 .height(height);
             chart.yAxis
-                .axisLabelDistance(options.yAxisLabelDistance || null)
+                .axisLabelDistance(options.yAxisLabelDistance || 30)
                 .axisLabel(options.yAxisLabel || null)
                 .tickFormat(d3.format(options.yAxisFormat || ',.2f'));
             chart.xAxis
@@ -119,7 +119,7 @@ cronenberg.charts = {
                 .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 });
             chart.yAxis
                 .axisLabel(options.yAxisLabel || null)
-                .axisLabelDistance(options.yAxisLabelDistance || null)
+                .axisLabelDistance(options.yAxisLabelDistance || 30)
                 .tickFormat(d3.format(options.yAxisFormat || ',.2f'));
             chart.xAxis
                 .axisLabel(options.xAxisLabel || null)

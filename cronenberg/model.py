@@ -258,11 +258,11 @@ class Markdown(DashboardItem):
 
 
 class Dashboard(cask.NamedEntity):
-    def __init__(self, name, queries, grid, item_type='dashboard', category='', title='', description='', imported_from=None):
+    def __init__(self, name, queries=None, grid=None, item_type='dashboard', category='', title='', description='', imported_from=None):
         super(Dashboard, self).__init__(name=name)
         self.item_type = item_type
-        self.queries = queries
-        self.grid = grid
+        self.queries = queries or {}
+        self.grid = grid or Grid()
         self.category = category
         self.title = title
         self.description = description
