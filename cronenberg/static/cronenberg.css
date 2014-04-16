@@ -40,14 +40,14 @@ table.table thead .sorting_desc_disabled { background: url('/static/img/datatabl
 
 .well-small.dashboard { padding-left: 18px; }
 
-.height1 { height: 70px; }
-.height2 { height: 140px; }
-.height3 { height: 210px; }
-.height4 { height: 280px; }
-.height5 { height: 350px; }
-.height6 { height: 420px; }
-.height7 { height: 490px; }
-.height8 { height: 560px; }
+.dashboard-height1 { height: 70px; }
+.dashboard-height2 { height: 140px; }
+.dashboard-height3 { height: 210px; }
+.dashboard-height4 { height: 280px; }
+.dashboard-height5 { height: 350px; }
+.dashboard-height6 { height: 420px; }
+.dashboard-height7 { height: 490px; }
+.dashboard-height8 { height: 560px; }
 
 h1, h2, h3, h4 {
     font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;

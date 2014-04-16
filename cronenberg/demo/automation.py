@@ -240,14 +240,14 @@ def demo_dashboard(env):
                                                           transform='sum')))
                          ,Separator()
                          ,Row(Cell(span=4,
-                                    presentation=JumbotronSingleStat(css_class='height4',
+                                    presentation=JumbotronSingleStat(height=4,
                                                                      title='Average Push Rate',
                                                                      query_name='total_push_rate',
                                                                      transform='mean',
                                                                      units=' /sec',
                                                                      decimal=3)),
                             Cell(span=8,
-                                 presentation=StandardTimeSeries(css_class='height4',
+                                 presentation=StandardTimeSeries(height=4,
                                                                  query_name='total_push_rate')))
                          #                         ,Row(Cell(span=2, offset=2,
                          #                                   presentation=SingleStat(title='Mean Push Rate',
@@ -314,7 +314,7 @@ def demo_dashboard(env):
                               Cell(span=8,
                                    presentation=SimpleTimeSeries(query_name='api_rate')))
                          #,Row(Cell(span=8, offset=4,
-                         #          presentation=StackedAreaChart(css_class='height4', query_name='gatekeeper')))
+                         #          presentation=StackedAreaChart(height=4, query_name='gatekeeper')))
                      )
                  )
     #Row(Cell(span=12,

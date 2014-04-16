@@ -43,6 +43,20 @@ cronenberg.TemplateRegistry = function() {
         Handlebars.registerHelper('format', function(format, value) {
             return d3.format(format)(value);
         });
+
+        Handlebars.registerHelper('height', function(item) {
+            return item.height ? 'dashboard-height' + item.height : '';
+        });
+        Handlebars.registerHelper('span', function(item) {
+            return item.span ? 'span' + item.span : '';
+        });
+        Handlebars.registerHelper('offset', function(item) {
+            return item.offset ? 'offset' + item.offset : '';
+        });
+        Handlebars.registerHelper('css_class', function(item) {
+            return item.css_class ? 'css_class' + item.css_class : '';
+        });
+
         return this;
     };
 

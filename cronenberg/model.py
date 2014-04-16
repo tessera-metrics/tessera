@@ -27,10 +27,11 @@ class DashboardItem(object):
     """
     NEXT = 1
 
-    def __init__(self, item_type, element_id=None, css_class=''):
+    def __init__(self, item_type, element_id=None, css_class='', height=None):
         self.item_type = item_type
         self.css_class = css_class
         self.element_id = DashboardItem.nextid()
+        self.height = height
 
     @staticmethod
     def nextid():
