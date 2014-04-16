@@ -34,32 +34,32 @@ def random_data_dashboard():
                                                           query_name='cpu_usage',
                                                           transform='sum',
                                                           units='frobs',
-                                                          decimal=0))
+                                                          format=',.0f'))
 
                              ,Cell(span=2, emphasize=False, align='center',
                                   presentation=SingleStat(title='Max Frobs',
                                                           query_name='cpu_usage',
                                                           transform='max',
                                                           units='frobs',
-                                                          decimal=0))
+                                                          format=',.0f'))
                              ,Cell(span=2, emphasize=True,align='center',
                                   presentation=SingleStat(title='Min Frobs',
                                                           query_name='cpu_usage',
                                                           transform='min',
                                                           units='frobs',
-                                                          decimal=0))
+                                                          format=',.0f'))
                              ,Cell(span=3,emphasize=True, align='center',
                                   presentation=SingleStat(title='Average Rate',
                                                           query_name='cpu_usage',
                                                           transform='mean',
                                                           units='/sec',
-                                                          decimal=2))
+                                                          format=',.2f'))
                              ,Cell(span=3, emphasize=True, align='center',
                                   presentation=SingleStat(title='Max Frobs',
                                                           query_name='cpu_usage',
                                                           transform='max',
                                                           units='frobs',
-                                                          decimal=0))
+                                                          format=',.0f'))
                          )
                          ,Heading(text="Cluster Health",
                                   description="Very Important Metrics for Determining Things and Stuff",
@@ -85,39 +85,39 @@ def random_data_dashboard():
                              ,Cell(span=6,
                                    presentation=[
                                        SummationTable(query_name='cluster',
-                                                       cell_format=',.4f')
+                                                       format=',.4f')
                                    ])
                          )
                          ,Separator()
                          ,Row(
                              Cell(span=2,
-                                  presentation=SingleStat(title='Max', transform='max', decimal=1, units='things', query_name='thing1'))
+                                  presentation=SingleStat(title='Max', transform='max', format=',.1f', units='things', query_name='thing1'))
                              ,Cell(span=2,
-                                   presentation=SingleStat(title='Average', transform='mean', decimal=1, units='things', query_name='thing1'))
+                                   presentation=SingleStat(title='Average', transform='mean', format=',.1f', units='things', query_name='thing1'))
                              ,Cell(span=8,
                                    presentation=SimpleTimeSeries(query_name='thing1'))
                          )
                          ,Row(
                              Cell(span=2,
-                                  presentation=SingleStat(title='Max', transform='max', decimal=1, units='things', query_name='thing2'))
+                                  presentation=SingleStat(title='Max', transform='max', format=',.1f', units='things', query_name='thing2'))
                              ,Cell(span=2,
-                                   presentation=SingleStat(title='Average', transform='mean', decimal=1, units='things', query_name='thing2'))
+                                   presentation=SingleStat(title='Average', transform='mean', format=',.1f', units='things', query_name='thing2'))
                              ,Cell(span=8,
                                    presentation=SimpleTimeSeries(query_name='thing2'))
                          )
                          ,Row(
                              Cell(span=2,
-                                  presentation=SingleStat(title='Max', transform='max', decimal=1, units='things', query_name='thing3'))
+                                  presentation=SingleStat(title='Max', transform='max', format=',.1f', units='things', query_name='thing3'))
                              ,Cell(span=2,
-                                   presentation=SingleStat(title='Average', transform='mean', decimal=1, units='things', query_name='thing3'))
+                                   presentation=SingleStat(title='Average', transform='mean', format=',.1f', units='things', query_name='thing3'))
                              ,Cell(span=8,
                                    presentation=SimpleTimeSeries(query_name='thing3'))
                          )
                          ,Row(
                              Cell(span=2,
-                                  presentation=SingleStat(title='Max', transform='max', decimal=1, units='things', query_name='thing4'))
+                                  presentation=SingleStat(title='Max', transform='max', format=',.1f', units='things', query_name='thing4'))
                              ,Cell(span=2,
-                                   presentation=SingleStat(title='Average', transform='mean', decimal=1, units='things', query_name='thing4'))
+                                   presentation=SingleStat(title='Average', transform='mean', format=',.1f', units='things', query_name='thing4'))
                              ,Cell(span=8,
                                    presentation=SimpleTimeSeries(query_name='thing4'))
                          )
