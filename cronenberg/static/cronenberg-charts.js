@@ -55,13 +55,13 @@ cronenberg.charts = {
                 values: series.datapoints
             };
         });
+        var showLegend = options.showLegend || true;
+        if (list_of_series.length > this.autoHideLegendThreshold) {
+            showLegend = false;
+        }
         nv.addGraph(function() {
             var width = e.width();
             var height = e.height();
-            var showLegend = options.showLegend || true;
-            if (list_of_series.length > this.autoHideLegendThreshold) {
-                showLegend = false;
-            }
             var chart = nv.models.lineChart()
                 .options({
                     showXAxis: options.showXAxis || true,
