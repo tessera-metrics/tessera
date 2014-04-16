@@ -102,6 +102,10 @@
   - ~~session persistence~~
   - other themes, like [Solarized](http://ethanschoonover.com/solarized).
 
+### Navigation
+
+- Add "Featured" dashboards to front page (see [test screenshot](https://urbanairship.box.com/s/nzy4pq558dnednb9k4r9))
+
 ### Integration
 
 - LDAP integration
