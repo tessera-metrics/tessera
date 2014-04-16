@@ -113,3 +113,14 @@
 - import of gdash dashboards
 - ~~import of graphite built-in dashboards~~
 - ~~start with anonymous, non-persistent sessions. ~~
+
+
+### Bugs
+
+- hover! Why do the tables all have hover backgrounds when I haven't
+  specified class="table-hover", and why is the background in dark
+  mode excessively light?
+- bottom margin on graphs has disappeared. wtf?
+  - it's the dashboard-height classes. NVD3 renders the svg taller
+    than them, so they get clipped. Remove the height classes after
+    rendering? patch nvd3?

@@ -2,8 +2,10 @@ import requests
 import logging
 import json
 import inflection
+import urllib
 from cronenberg.model import *
 from cronenberg.cask.storage import EntityEncoder
+from cronenberg import app
 
 log = logging.getLogger(__name__)
 
@@ -36,45 +38,45 @@ class GraphiteDashboardImporter(object):
             self.manager.store(Dashboard, dash)
 
     def import_dashboard(self, name):
-        gd = self.get_dashboard(name)
-        try:
-            return self.__convert(gd)
-        except Exception as e:
-            print json.dumps(gd, cls=EntityEncoder, indent=4)
-            raise e
+        return self.__convert(self.get_dashboard(name))
 
-    def __convert(self, gd):
-        d = Dashboard(name=inflection.parameterize(gd['name']),
-                      category='Graphite',
-                      title=gd['name'],
-                      description='Imported from graphite-web',
-                      queries={},
-                      grid=Grid())
-        d.grid.rows = []
+    def __convert(self, graphite_dashboard):
+        name = graphite_dashboard['name']
+        dashboard = Dashboard(name=inflection.parameterize(name),
+                              title=name,
+                              category='Graphite',
+                              description='Imported from graphite-web',
+                              imported_from = '{0}/dashboard/{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
         row = Row()
-        row.cells = []
-        for g in gd['graphs']:
+        for graph in graphite_dashboard['graphs']:
+            # Graphite's dashboard API is so redundant. Each graph is
+            # a 3-element array:
+            # [
+            #    targets array,
+            #    options dict (which contains the targets array too),
+            #    render URL string
+            #  ]
+            targets, options, render_url = graph
             presentation = None
-            stacked_p = (g[2].find('stacked') != -1) or (g[1].get('areaMode', None) == 'stacked')
-            query_name = 'q' + str(len(d.queries))
-            targets = g[1]['target']
-            d.queries[query_name] = targets[0] if len(targets) == 1 else targets
+            stacked_p = render_url.find('stacked') != -1 or options.get('areaMode', None) == 'stacked'
+            query_name = 'q' + str(len(dashboard.queries))
+            targets = options.get('target', [])
+            dashboard.queries[query_name] = targets[0] if len(targets) == 1 else targets
             if stacked_p:
-                presentation = StackedAreaChart(query_name=query_name, title=g[1].get('title', ''))
+                presentation = StackedAreaChart(query_name=query_name, title=options.get('title', ''))
             else:
-                presentation = StandardTimeSeries(query_name=query_name, title=g[1].get('title', ''))
+                presentation = StandardTimeSeries(query_name=query_name, title=options.get('title', ''))
             presentation.options['yAxisFormat'] = ',.2s'
             presentation.height = 4
-            if 'template' in g[1]:
-                presentation.options['palette'] = g[1]['template']
-            if 'vtitle' in g[1]:
-                presentation.options['yAxisLabel'] = g[1]['vtitle']
-                presentation.options['yAxisLabelDistance'] = 80
+            if 'template' in options:
+                presentation.options['palette'] = options['template']
+            if 'vtitle' in options:
+                presentation.options['yAxisLabel'] = options['vtitle']
                 presentation.options['yShowMaxMin'] = True
-                presentation.options['margin'] = { 'top' : 0, 'left' : 80, 'right' : 0, 'bottom' : 16}
+            presentation.options['margin'] = { 'top' : 16, 'left' : 80, 'right' : 0, 'bottom' : 16}
             row.cells.append(Cell(span=6, presentation=presentation))
             if len(row.cells) == 2:
-                d.grid.rows.append(row)
+                dashboard.grid.rows.append(row)
                 row = Row()
                 row.cells = []
-        return d
+        return dashboard
