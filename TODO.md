@@ -31,14 +31,11 @@
 
 ### Presentations
 
+- SummationComparisonTable, compare 2 series w/% change indicator
 - [tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a singlestat and simple_time_series with fill)
 - multi-stat version of SingleStat that flips through them using a
   carousel (i.e. [Slick](http://kenwheeler.github.io/slick) which is
   the......slickest carousel I've found yet).
-- min/max/mean/total datatable - see
-  [stathat](http://blog.stathat.com/2014/04/09/web-app-interface-changes-stats.html)
-  for a nice example (and a
-  [rundown of the components used](http://blog.stathat.com/2014/04/10/whats-powering-the-new-web-interface.html)).
 - JumboTronSinglestat is a hack. A properly responsive presentation
   that scales w/size of parent would rock.
 - horizon graphs with [Cubism](http://square.github.io/cubism/)
@@ -50,6 +47,10 @@
   time windows (SVG rendering in browser gets slow)
 - more options for time formatting
 - titles
+- ~~min/max/mean/total datatable - see
+  [stathat](http://blog.stathat.com/2014/04/09/web-app-interface-changes-stats.html)
+  for a nice example (and a
+  [rundown of the components used](http://blog.stathat.com/2014/04/10/whats-powering-the-new-web-interface.html)).~~
 - ~~axis labels~~
 - ~~Lists of presentations per cell~~
   - and/or nested rows
