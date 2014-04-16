@@ -10,16 +10,16 @@
 
 ### Model & Persistence
 
-- ~~Persistence for model objects via cask~~
-- ~~API for model objects~~
-  - refactor to an API flask blueprint to reuse for different model
-    classes
-  - Refactor how from_json() works, maybe a metaclass or somesuch, to
-    cut down on the janky dispatching
+
+- add support for multi-valued queries (graphite URL api supports
+  multiple values for target). Will help with graphite dashboard
+  importing
+- refactor API to a flask blueprint to reuse for different model
+  classes
+- Refactor how from_json() works, maybe a metaclass or somesuch, to
+  cut down on the janky dispatching
 - more sophisticated persistence (i.e. SQLAlchemy or somesuch) that
   would allow tagging and searching by tag
-- ~~queries should be dumped to JSON without graphite hostname or
-  format=json in URL. Need a render_url_path w/o format or host~~
 - only dashboards are named entities right now. Presentations should
   *optionally* be named entities, so they can be reused between
   dashboards w/o duplication (ditto queries).
@@ -28,6 +28,10 @@
     they're independent of presentations
 - element_id doesn't need to be stored; just generate unique element
   IDs in expanded API view. Current method has chance for collisions.
+- ~~Persistence for model objects via cask~~
+- ~~queries should be dumped to JSON without graphite hostname or
+  format=json in URL. Need a render_url_path w/o format or host~~
+- ~~basic API for dashboards~~
 
 ### Presentations
 
@@ -100,12 +104,11 @@
 
 ### Integration
 
-- sessions
-  - ~~start with anonymous, non-persistent sessions. ~~
-  - Then can build onto LDAP & persistence, below.
 - LDAP integration
+  - persistent sessions based on login
   - user preferences
 - integrate some proper JS build-fu to minify and compress all the
   javascript, etc...
-- import of graphite built-in dashboards
 - import of gdash dashboards
+- ~~import of graphite built-in dashboards~~
+- ~~start with anonymous, non-persistent sessions. ~~
