@@ -27,8 +27,8 @@ var cronenberg = {
     enterFullscreen: function() {
         if (!this.fullscreen) {
             console.log("cronenberg.enterFullscreen()");
-            $("[data-fullscreen]=hide").hide(400);
-            $("[data-fullscreen]=show").show()
+            $("[data-fullscreen=hide]").hide(400);
+            $("[data-fullscreen=show]").show(400)
             bean.fire(this, cronenberg.events.ENTER_FULL_SCREEN);
             this.fullscreen = true;
         }
@@ -49,8 +49,8 @@ var cronenberg = {
     exitFullscreen: function() {
         if (this.fullscreen) {
             console.log("cronenberg.exitFullscreen()");
-            $("[data-fullscreen]=show").hide(400)
-            $("[data-fullscreen]=hide").show()
+            $("[data-fullscreen=show]").hide(400)
+            $("[data-fullscreen=hide]").show(400)
             bean.fire(this, cronenberg.events.EXIT_FULL_SCREEN);
             this.fullscreen = false;
         }
