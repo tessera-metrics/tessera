@@ -64,6 +64,8 @@ class DashboardItem(object):
             return StandardTimeSeries.from_json(d)
         elif item_type == 'stacked_area_chart':
             return StackedAreaChart.from_json(d)
+        elif item_type == 'summation_table':
+            return SummationTable.from_json(d)
         else:
             return Cell.from_json(d)
 
@@ -143,6 +145,26 @@ class StackedAreaChart(ChartPresentation):
     def from_json(cls, d):
         _delattr(d, 'item_type')
         return cls(**d)
+
+class TablePresentation(Presentation):
+    def __init__(self, **kwargs):
+        super(TablePresentation, self).__init__(**kwargs)
+
+class SummationTable(TablePresentation):
+    # TODO - control which columns are shown
+    def __init__(self, query_name, cell_format=',.3f', striped=False, **kwargs):
+        super(SummationTable, self).__init__(query_name=query_name,
+                                             item_type='summation_table',
+                                             **kwargs)
+        self.cell_format = cell_format
+        self.striped = striped
+
+    @classmethod
+    def from_json(cls, d):
+        _delattr(d, 'item_type')
+        return cls(**d)
+
+# TODO -
 
 # =============================================================================
 # Layouts
