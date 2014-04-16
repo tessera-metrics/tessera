@@ -11,9 +11,6 @@
 ### Model & Persistence
 
 
-- add support for multi-valued queries (graphite URL api supports
-  multiple values for target). Will help with graphite dashboard
-  importing
 - refactor API to a flask blueprint to reuse for different model
   classes
 - Refactor how from_json() works, maybe a metaclass or somesuch, to
@@ -28,6 +25,9 @@
     they're independent of presentations
 - element_id doesn't need to be stored; just generate unique element
   IDs in expanded API view. Current method has chance for collisions.
+- ~~add support for multi-valued queries (graphite URL api supports
+  multiple values for target). Will help with graphite dashboard
+  importing~~
 - ~~Persistence for model objects via cask~~
 - ~~queries should be dumped to JSON without graphite hostname or
   format=json in URL. Need a render_url_path w/o format or host~~
@@ -35,7 +35,6 @@
 
 ### Presentations
 
-- height needs to be a first-class attribute, not just smashed into css_class
 - replace use of jquery.number with d3.format. No need to carry around
   two number formatters.
 - SummationComparisonTable, compare 2 series w/% change indicator (see stathat)
@@ -54,6 +53,7 @@
   time windows (SVG rendering in browser gets slow)
 - more options for time formatting
 - titles
+- ~~height needs to be a first-class attribute, not just smashed into css_class~~
 - ~~min/max/mean/total datatable - see
   [stathat](http://blog.stathat.com/2014/04/09/web-app-interface-changes-stats.html)
   for a nice example (and a

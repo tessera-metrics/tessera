@@ -26,7 +26,7 @@ def random_data_dashboard():
                                                                    query_name='cpu_usage',
                                                                    units='frobs'))
                              ,Cell(span=8, emphasize=True,
-                                   presentation=StackedAreaChart(query_name='cpu_usage', css_class='height3', title="stacked_area_chart"))
+                                   presentation=StackedAreaChart(query_name='cpu_usage', height=3, title="stacked_area_chart"))
                          )
                          ,Row(
                              Cell(span=2, emphasize=False, align='center',
@@ -66,7 +66,7 @@ def random_data_dashboard():
                                   level=2)
                          ,Separator()
                          ,Row(Cell(span=12,
-                                   presentation=StandardTimeSeries(css_class='height4',
+                                   presentation=StandardTimeSeries(height=4,
                                                                    query_name='cluster',
                                                                    options={
                                                                        'yAxisLabel' : 'frobs per second',
