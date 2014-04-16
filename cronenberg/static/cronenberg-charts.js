@@ -14,7 +14,7 @@ cronenberg.charts = {
     },
 
     simple_line_chart: function(e, series, options) {
-        options = options || {};
+        var options = options || {};
         var data = [{
             values: series.datapoints,
             key: series.target
@@ -48,7 +48,7 @@ cronenberg.charts = {
     autoHideLegendThreshold: 6,
 
     standard_line_chart: function(e, list_of_series, options) {
-        options = options || {};
+        var options = options || {};
         var data = _.map(list_of_series, function(series) {
             return {
                 key: series.target,
@@ -92,7 +92,7 @@ cronenberg.charts = {
     },
 
     stacked_area_chart: function(e, list_of_series, options) {
-        options = options || {};
+        var options = options || {};
         var data = _.map(list_of_series, function(series) {
             return {
                 key: series.target,
