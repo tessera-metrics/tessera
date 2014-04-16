@@ -76,9 +76,9 @@ cronenberg.charts = {
                 .width(width)
                 .height(height);
             chart.yAxis
-                .showMaxMin(options.yShowMaxMin || false)
-                .tickFormat(d3.format(options.yAxisFormat || ',.2f'))
-                .axisLabel(options.yAxisLabel || null);
+                .axisLabelDistance(options.yAxisLabelDistance || null)
+                .axisLabel(options.yAxisLabel || null)
+                .tickFormat(d3.format(options.yAxisFormat || ',.2f'));
             chart.xAxis
                 .tickFormat(function(d) { return moment.unix(d).format('h:mm:ss A'); })
                 .axisLabel(options.xAxisLabel || null);
@@ -119,6 +119,7 @@ cronenberg.charts = {
                 .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 });
             chart.yAxis
                 .axisLabel(options.yAxisLabel || null)
+                .axisLabelDistance(options.yAxisLabelDistance || null)
                 .tickFormat(d3.format(options.yAxisFormat || ',.2f'));
             chart.xAxis
                 .axisLabel(options.xAxisLabel || null)
