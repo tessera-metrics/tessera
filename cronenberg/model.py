@@ -257,7 +257,7 @@ class Markdown(DashboardItem):
 
 
 class Dashboard(cask.NamedEntity):
-    def __init__(self, name, queries, grid, item_type='dashboard', category='', title='', description=''):
+    def __init__(self, name, queries, grid, item_type='dashboard', category='', title='', description='', imported_from=None):
         super(Dashboard, self).__init__(name=name)
         self.item_type = item_type
         self.queries = queries
@@ -265,6 +265,7 @@ class Dashboard(cask.NamedEntity):
         self.category = category
         self.title = title
         self.description = description
+        self.imported_from = imported_from
 
     @classmethod
     def from_json(cls, name, d):
