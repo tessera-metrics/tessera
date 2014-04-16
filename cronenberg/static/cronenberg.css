@@ -52,6 +52,9 @@ table.table thead .sorting_desc_disabled { background: url('/static/img/datatabl
 h1, h2, h3, h4 {
     font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;
 }
+h1.page-title {
+    font-size: 3em;
+}
 
 .dashboard-grid h1 {
     margin-bottom: 0.125em;
