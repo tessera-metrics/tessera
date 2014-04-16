@@ -64,7 +64,7 @@ class GraphiteDashboardImporter(object):
             else:
                 presentation = StandardTimeSeries(query_name=query_name, title=g[1].get('title', ''))
             presentation.options['yAxisFormat'] = ',.2s'
-            presentation.css_class = 'height4'
+            presentation.height = 4
             if 'template' in g[1]:
                 presentation.options['palette'] = g[1]['template']
             if 'vtitle' in g[1]:
