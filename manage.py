@@ -41,5 +41,12 @@ def import_dashboards(query=''):
     importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'], models)
     importer.import_dashboards(query)
 
+@manager.command
+def dump_graphite_dashboards(query=''):
+    log.info('Importing dashboards from graphite')
+    importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'], models)
+    importer.dump_dashboards(query)
+
+
 if __name__ == '__main__':
     manager.run()

@@ -21,6 +21,10 @@ class GraphiteDashboardImporter(object):
         response = requests.get('{0}/dashboard/load/{1}'.format(self.url, name))
         return response.json()['state']
 
+    def dump_dashboards(self, query):
+        names = self.get_dashboard_names(query)
+        print json.dumps([ self.get_dashboard(n) for n in names ], cls=EntityEncoder, indent=4)
+
     def import_dashboards(self, query):
         names = self.get_dashboard_names(query)
         log.info('Found {0} dashboards to import'.format(len(names)))
@@ -50,7 +54,8 @@ class GraphiteDashboardImporter(object):
         row = Row()
         row.cells = []
         for g in gd['graphs']:
-            stacked_p = g[2].find('stacked') != -1
+            presentation = None
+            stacked_p = (g[2].find('stacked') != -1) or (g[1].get('areaMode', None) == 'stacked')
             query_name = 'q' + str(len(d.queries))
             targets = g[1]['target']
             d.queries[query_name] = targets[0] if len(targets) == 1 else targets
@@ -60,6 +65,8 @@ class GraphiteDashboardImporter(object):
                 presentation = StandardTimeSeries(query_name=query_name, title=g[1].get('title', ''))
             presentation.options['yAxisFormat'] = ',.2s'
             presentation.css_class = 'height4'
+            if 'template' in g[1]:
+                presentation.options['palette'] = g[1]['template']
             if 'vtitle' in g[1]:
                 presentation.options['yAxisLabel'] = g[1]['vtitle']
                 presentation.options['yAxisLabelDistance'] = 80
