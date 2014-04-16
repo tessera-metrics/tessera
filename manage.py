@@ -36,7 +36,7 @@ def generate():
     log.info('Done')
 
 @manager.command
-def import_dashboards(query=''):
+def import_graphite_dashboards(query=''):
     log.info('Importing dashboards from graphite')
     importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'], models)
     importer.import_dashboards(query)
