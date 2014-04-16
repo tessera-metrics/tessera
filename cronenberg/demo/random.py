@@ -25,7 +25,7 @@ def random_data_dashboard():
                                   presentation=JumbotronSingleStat(title='Jumbotron Singlestat',
                                                                    query_name='cpu_usage',
                                                                    units='frobs'))
-                             ,Cell(span=8,
+                             ,Cell(span=8, emphasize=True,
                                    presentation=StackedAreaChart(query_name='cpu_usage', css_class='height3'))
                          )
                          ,Row(
