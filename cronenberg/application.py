@@ -2,19 +2,16 @@
 
 import flask
 import json
-import sys
 import logging
 import copy
 import datetime
-import time
-import os.path
 import inflection
+import urllib
 
 from flask import Flask, render_template, request, redirect, jsonify, abort, session
 from cask import Entity
 
 import toolbox
-from toolbox.graphite import Graphite, GraphiteQuery
 from .demo import demo_dashboard, gbc_demo_dashboard
 from .model import *
 
@@ -30,7 +27,6 @@ app.secret_key = 'e688f6cb-fc11-65fa-c091-aba197c56c66'
 
 mgr = cask.web.WebManagerAdapter(DashboardManager(app.config['DASHBOARD_DATADIR']))
 env = toolbox.CLUSTO.environment(app.config['ENVIRONMENT_NAME'])
-graphite = env.graphite()
 
 # =============================================================================
 # API Helpers
@@ -108,8 +104,16 @@ def api_dashboard_get_expanded(name):
     # graphite URLs
     queries = {}
     for k, v in dash.queries.iteritems():
-        query = GraphiteQuery(v, format=Graphite.Format.JSON, from_time=from_time, until_time=until_time)
-        queries[k] = str(graphite.render_url(query))
+        params = [('format', 'json'), ('from', from_time)]
+        if until_time:
+            params.append(('until', until_time))
+        if isinstance(v, list):
+            for target in v:
+                params.append(('target', target))
+        else:
+            params.append(('target', v))
+        query = '{0}/render?{1}'.format(app.config['GRAPHITE_URL'], urllib.urlencode(params))
+        queries[k] = query
 
     # Make a shallow copy of the dashboard with the queries member
     # replaced with the expanded version
