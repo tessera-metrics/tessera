@@ -31,7 +31,9 @@
 
 ### Presentations
 
-- SummationComparisonTable, compare 2 series w/% change indicator
+- replace use of jquery.number with d3.format. No need to carry around
+  two number formatters.
+- SummationComparisonTable, compare 2 series w/% change indicator (see stathat)
 - [tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a singlestat and simple_time_series with fill)
 - multi-stat version of SingleStat that flips through them using a
   carousel (i.e. [Slick](http://kenwheeler.github.io/slick) which is
