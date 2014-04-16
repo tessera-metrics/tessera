@@ -104,12 +104,11 @@
 
 ### Integration
 
-- sessions
-  - ~~start with anonymous, non-persistent sessions. ~~
-  - Then can build onto LDAP & persistence, below.
 - LDAP integration
+  - persistent sessions based on login
   - user preferences
 - integrate some proper JS build-fu to minify and compress all the
   javascript, etc...
-- import of graphite built-in dashboards
 - import of gdash dashboards
+- ~~import of graphite built-in dashboards~~
+- ~~start with anonymous, non-persistent sessions. ~~
