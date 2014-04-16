@@ -35,6 +35,7 @@
 
 ### Presentations
 
+- height needs to be a first-class attribute, not just smashed into css_class
 - replace use of jquery.number with d3.format. No need to carry around
   two number formatters.
 - SummationComparisonTable, compare 2 series w/% change indicator (see stathat)
