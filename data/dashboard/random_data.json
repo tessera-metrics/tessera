@@ -56,7 +56,7 @@
                         "element_id": "d76", 
                         "presentation": [
                             {
-                                "title": "", 
+                                "title": "stacked_area_chart", 
                                 "css_class": "height3", 
                                 "item_type": "stacked_area_chart", 
                                 "query_name": "cpu_usage", 
@@ -571,5 +571,6 @@
         "thing4": "randomWalkFunction(thing4)", 
         "cluster": "aliasByNode(absolute(group(randomWalkFunction(\"s001\"),randomWalkFunction(\"s002\"),randomWalkFunction(\"s003\"),randomWalkFunction(\"s004\"),randomWalkFunction(\"s005\"))), 0)"
     }, 
+    "imported_from": null, 
     "description": ""
 }

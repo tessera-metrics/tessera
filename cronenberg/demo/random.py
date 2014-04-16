@@ -26,7 +26,7 @@ def random_data_dashboard():
                                                                    query_name='cpu_usage',
                                                                    units='frobs'))
                              ,Cell(span=8, emphasize=True,
-                                   presentation=StackedAreaChart(query_name='cpu_usage', css_class='height3'))
+                                   presentation=StackedAreaChart(query_name='cpu_usage', css_class='height3', title="stacked_area_chart"))
                          )
                          ,Row(
                              Cell(span=2, emphasize=False, align='center',
