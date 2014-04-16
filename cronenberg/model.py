@@ -196,7 +196,7 @@ class Row(DashboardItem):
     """
     def __init__(self, *cells, **kwargs):
         super(Row, self).__init__(item_type='row', **kwargs)
-        self.cells = cells
+        self.cells = [] if len(cells) == 0 else cells
 
     @classmethod
     def from_json(cls, d):
@@ -209,7 +209,7 @@ class Row(DashboardItem):
 class Grid(DashboardItem):
     def __init__(self, *rows, **kwargs):
         super(Grid, self).__init__(item_type='grid', **kwargs)
-        self.rows = rows
+        self.rows = [] if len(rows) == 0 else rows
 
     @classmethod
     def from_json(cls, d):
@@ -257,7 +257,7 @@ class Markdown(DashboardItem):
 
 
 class Dashboard(cask.NamedEntity):
-    def __init__(self, name, queries, grid, item_type='dashboard', category='', title='', description=''):
+    def __init__(self, name, queries, grid, item_type='dashboard', category='', title='', description='', imported_from=None):
         super(Dashboard, self).__init__(name=name)
         self.item_type = item_type
         self.queries = queries
@@ -265,6 +265,7 @@ class Dashboard(cask.NamedEntity):
         self.category = category
         self.title = title
         self.description = description
+        self.imported_from = imported_from
 
     @classmethod
     def from_json(cls, name, d):

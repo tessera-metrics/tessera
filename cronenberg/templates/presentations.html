@@ -90,6 +90,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
 <script id="tmpl-standard-time-series" data-item-type="standard_time_series" type="text/x-handlebars-template">
   <div class="graph standard-time-series
               {{#if item.css_class}}{{item.css_class}}{{/if}}" id="{{item.element_id}}">
+    {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
     <svg></svg>
   </div>
 </script>
@@ -105,6 +106,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
 <script id="tmpl-stacked-area-chart" data-item-type="stacked_area_chart" type="text/x-handlebars-template">
   <div class="graph stacked-area-chart
               {{#if item.css_class}}{{item.css_class}}{{/if}}" id="{{item.element_id}}">
+    {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
     <svg></svg>
   </div>
 </script>
