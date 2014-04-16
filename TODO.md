@@ -2,14 +2,13 @@
 
 ### Third Party Components
 
-- upgrade to jQuery 1.11
 - upgrade to DataTables 1.10
 - upgrade to bootstrap3 (darkstrap support is only unofficial and
   incomplete so far - see
   [here](https://github.com/danneu/darkstrap/issues/17))
+- ~~~upgrade to jQuery 1.11~~~
 
 ### Model & Persistence
-
 
 - refactor API to a flask blueprint to reuse for different model
   classes
@@ -35,8 +34,6 @@
 
 ### Presentations
 
-- replace use of jquery.number with d3.format. No need to carry around
-  two number formatters.
 - SummationComparisonTable, compare 2 series w/% change indicator (see stathat)
 - [tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a singlestat and simple_time_series with fill)
 - multi-stat version of SingleStat that flips through them using a
@@ -53,6 +50,8 @@
   time windows (SVG rendering in browser gets slow)
 - more options for time formatting
 - titles
+- ~~replace use of jquery.number with d3.format. No need to carry around
+  two number formatters.~~
 - ~~height needs to be a first-class attribute, not just smashed into css_class~~
 - ~~min/max/mean/total datatable - see
   [stathat](http://blog.stathat.com/2014/04/09/web-app-interface-changes-stats.html)
@@ -113,7 +112,7 @@
 - import of gdash dashboards
 - ~~import of graphite built-in dashboards~~
 - ~~start with anonymous, non-persistent sessions. ~~
-
+- ~~excise dependence on toolbox's graphite classes entirely (partway there already) ~~
 
 ### Bugs
 
