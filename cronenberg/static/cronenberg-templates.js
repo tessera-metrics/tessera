@@ -38,6 +38,11 @@ cronenberg.TemplateRegistry = function() {
         Handlebars.registerHelper('item', function(item) {
             return new Handlebars.SafeString(cronenberg.templates.render(item));
         });
+
+        // A helper for formatting numeric values
+        Handlebars.registerHelper('format', function(format, value) {
+            return d3.format(format)(value);
+        });
         return this;
     };
 
