@@ -196,7 +196,7 @@ class Row(DashboardItem):
     """
     def __init__(self, *cells, **kwargs):
         super(Row, self).__init__(item_type='row', **kwargs)
-        self.cells = cells
+        self.cells = [] if len(cells) == 0 else cells
 
     @classmethod
     def from_json(cls, d):
@@ -209,7 +209,7 @@ class Row(DashboardItem):
 class Grid(DashboardItem):
     def __init__(self, *rows, **kwargs):
         super(Grid, self).__init__(item_type='grid', **kwargs)
-        self.rows = rows
+        self.rows = [] if len(rows) == 0 else rows
 
     @classmethod
     def from_json(cls, d):

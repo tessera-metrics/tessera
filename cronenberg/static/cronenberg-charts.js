@@ -70,6 +70,7 @@ cronenberg.charts = {
                 .width(width)
                 .height(height);
             chart.yAxis
+                .showMaxMin(options.yShowMaxMin || false)
                 .tickFormat(d3.format(options.yAxisFormat || ',.2f'))
                 .axisLabel(options.yAxisLabel || null);
             chart.xAxis
