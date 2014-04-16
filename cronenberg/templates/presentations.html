@@ -81,10 +81,8 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
      TEMPLATE: Simple time series presentation.
   -->
 <script id="tmpl-simple-time-series" data-item-type="simple_time_series" type="text/x-handlebars-template">
-  <div class="graph simple-time-series
-              {{height item}}
-              {{css_class item}}" id="{{item.element_id}}">
-    <svg></svg>
+  <div class="graph simple-time-series {{css_class item}}" id="{{item.element_id}}">
+    <svg class="{{height item}}"></svg>
   </div>
 </script>
 <script>
@@ -97,10 +95,10 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
      TEMPLATE: Standard time series presentation.
   -->
 <script id="tmpl-standard-time-series" data-item-type="standard_time_series" type="text/x-handlebars-template">
-  <div class="graph standard-time-series {{height item}} {{css_class item}}"
+  <div class="graph standard-time-series {{css_class item}}"
        id="{{item.element_id}}">
     {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
-    <svg></svg>
+    <svg class="{{height item}}"></svg>
   </div>
 </script>
 <script>
@@ -113,10 +111,10 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
      TEMPLATE: Stacked area chart presentation.
   -->
 <script id="tmpl-stacked-area-chart" data-item-type="stacked_area_chart" type="text/x-handlebars-template">
-  <div class="graph stacked-area-chart {{height item}} {{css_class item}}"
+  <div class="graph stacked-area-chart {{css_class item}}"
        id="{{item.element_id}}">
     {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
-    <svg></svg>
+    <svg class="{{height item}}"></svg>
   </div>
 </script>
 <script>
