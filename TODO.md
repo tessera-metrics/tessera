@@ -34,22 +34,23 @@
 
 ### Presentations
 
-- SummationComparisonTable, compare 2 series w/% change indicator (see stathat)
+- ``SummationComparisonTable``, compare 2 series w/% change indicator (see stathat)
+- allow selection of which columns are display in ``SummationTable``
 - [tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a singlestat and simple_time_series with fill)
-- multi-stat version of SingleStat that flips through them using a
+- multi-stat version of ``SingleStat`` that flips through them using a
   carousel (i.e. [Slick](http://kenwheeler.github.io/slick) which is
   the......slickest carousel I've found yet).
-- JumboTronSinglestat is a hack. A properly responsive presentation
+- ``JumboTronSinglestat`` is a hack. A properly responsive presentation
   that scales w/size of parent would rock.
 - horizon graphs with [Cubism](http://square.github.io/cubism/)
 - dashboard sections. Section = separator + heading + rows, collapsible (click on heading)
   - alternate rendering as tabs
-
 - thresholds for alert colors (i.e. turn value in singlestat yellow/orange/red)
 - threshold to automatically switch to graphite rendering for long
   time windows (SVG rendering in browser gets slow)
 - more options for time formatting
 - titles
+- ~~donut/pie charts~~
 - ~~replace use of jquery.number with d3.format. No need to carry around
   two number formatters.~~
 - ~~height needs to be a first-class attribute, not just smashed into css_class~~

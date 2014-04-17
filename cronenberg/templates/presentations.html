@@ -128,6 +128,25 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
 </script>
 
 <!--
+     TEMPLATE: Dont chart presentation.
+  -->
+<script id="tmpl-donut-chart" data-item-type="donut_chart" type="text/x-handlebars-template">
+  <div class="graph donut-chart {{css_class item}}"
+       id="{{item.element_id}}">
+    {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
+    <div class="graph-holder">
+      <svg class="{{height item}}"></svg>
+    </div>
+  </div>
+</script>
+<script>
+  cronenberg.templates.register({ elementId: 'tmpl-donut-chart', dataHandler: function(query, item) {
+      var chart = cronenberg.charts.donut_chart($("#" + item.element_id + ' .graph-holder'), query.data, item.options);
+  }});
+</script>
+
+
+<!--
      TEMPLATE: Summation table presentation.
   -->
 <script id="tmpl-summation-table" data-item-type="summation_table" type="text/x-handlebars-template">
@@ -141,6 +160,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
         <th>min</th>
         <th>max</th>
         <th>mean</th>
+        <th>sum</th>
       </tr>
     </thead>
     <tbody>
@@ -155,6 +175,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
     <td>{{format item.format series.summation.min}}</td>
     <td>{{format item.format series.summation.max}}</td>
     <td>{{format item.format series.summation.mean}}</td>
+    <td>{{format item.format series.summation.sum}}</td>
   </tr>
 </script>
 <script>
