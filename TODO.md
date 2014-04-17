@@ -102,6 +102,7 @@
   - [Nested](http://suprb.com/apps/nested/)
   - [uberVU grid](https://github.com/uberVU/grid)
   - [gridster.js](https://github.com/ducksboard/gridster.js)
+  - [jquery.shapeshift](https://github.com/McPants/jquery.shapeshift)
 - integrate [messenger](http://github.hubspot.com/messenger/docs/welcome/) for error and general notifications
 - custom time range picker
 - configuration for the recent time ranges shown in the easy picker
