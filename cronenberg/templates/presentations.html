@@ -84,6 +84,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
   -->
 <script id="tmpl-simple-time-series" data-item-type="simple_time_series" type="text/x-handlebars-template">
   <div class="graph simple-time-series {{css_class item}}" id="{{item.element_id}}">
+    {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
     <div class="graph-holder">
       <svg class="{{height item}}"></svg>
     </div>
@@ -218,11 +219,17 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
      TEMPLATE: Dashboard rows.
   -->
 <script id="tmpl-row" data-item-type="row" type="text/x-handlebars-template">
+  {{#if item.emphasize}}
+    <div class="well">
+  {{/if}}
   <div class="row dashboard-row">
     {{#each item.cells}}
       {{item this}}
     {{/each}}
   </div>
+  {{#if item.emphasize}}
+  </div>
+  {{/if}}
 </script>
 
 <!--
