@@ -14,11 +14,19 @@ def demo_node_dashboard():
                          'context' : 'aliasByNode(servers.s0306.sysstat.context_switches.context_switches, 1)',
                          'processes' : 'aliasByNode(servers.s0306.sysstat.loadavg.process_list_size, 1)',
                          'bytes_received' : 'aliasByNode(servers.s0306.sysstat.network.*.bytes_rx,1,4)',
-                         'tcp_establised' : 'aliasByNode(servers.s0306.tcp.CurrEstab,1)'
+                         'tcp_establised' : 'aliasByNode(servers.s0306.tcp.CurrEstab,1)',
+                         'memory_usage' : 'aliasByNode(asPercent(servers.s0306.memory.Active,servers.s0306.memory.MemTotal),1)'
                      },
                      grid=Grid(
-
-                         Heading('CPU')
+                         Row(
+                             Cell(span=4, emphasize=True,
+                                  presentation=StandardTimeSeries(height=2, title='Load Average', query_name='loadavg'))
+                             ,Cell(span=4, emphasize=True,
+                                   presentation=StandardTimeSeries(height=2, title='TCP Connections', query_name='tcp_establised'))
+                             ,Cell(span=4, emphasize=True,
+                                   presentation=StandardTimeSeries(height=2, title='% Memory In Use', query_name='memory_usage'))
+                         )
+                         ,Heading('CPU')
                          ,Separator()
                          ,Row(Cell(span=2, align='center', presentation=SingleStat(query_name='cpu_usage', title='Max Usage', transform='max'))
                               ,Cell(span=2, align='center', presentation=SingleStat(query_name='cpu_usage', title='Mean Usage', transform='mean'))
@@ -26,7 +34,8 @@ def demo_node_dashboard():
                                     presentation=StackedAreaChart(title='CPU Usage',query_name='cpu_usage', options={
                                         'yAxisFormat': ',.0f',
                                         'palette' : 'd3category10'
-                                    })))
+                                    }))
+                              )
                          ,Row(Cell(span=2, align='center', presentation=SingleStat(query_name='loadavg', title='Max Load Average', transform='max'))
                               ,Cell(span=2, align='center', presentation=SingleStat(query_name='loadavg', title='Mean Load Average', transform='mean'))
                               ,Cell(span=8,
