@@ -6,8 +6,8 @@ from ..model import *
 
 def random_data_dashboard():
     return Dashboard(name='demo-random-data',
-                     category='Random',
-                     title='Presentation Demo',
+                     category='Demo',
+                     title='Random Data',
                      queries = {
                          'cpu_usage' : 'absolute(group(randomWalkFunction("system"),randomWalkFunction("user"),randomWalkFunction("wait")))',
                          'cluster' : 'aliasByNode(absolute(group(randomWalkFunction("s001"),randomWalkFunction("s002"),randomWalkFunction("s003"),randomWalkFunction("s004"),randomWalkFunction("s005"))), 0)',
@@ -22,43 +22,34 @@ def random_data_dashboard():
                          ,Separator()
                          ,Row(
                              Cell(span=4,
-                                  presentation=JumbotronSingleStat(title='Jumbotron Singlestat',
-                                                                   query_name='cpu_usage',
-                                                                   units='frobs'))
+                                  presentation=[
+                                      JumbotronSingleStat(title='Jumbotron Singlestat',
+                                                        query_name='cpu_usage',
+                                                          units='frobs')
+                                  ])
                              ,Cell(span=8, emphasize=True,
                                    presentation=StackedAreaChart(query_name='cpu_usage', height=3, title="stacked_area_chart"))
                          )
                          ,Row(
-                             Cell(span=2, emphasize=False, align='center',
-                                  presentation=SingleStat(title='Total Frobs',
-                                                          query_name='cpu_usage',
-                                                          transform='sum',
-                                                          units='frobs',
-                                                          format=',.0f'))
-
-                             ,Cell(span=2, emphasize=False, align='center',
-                                  presentation=SingleStat(title='Max Frobs',
-                                                          query_name='cpu_usage',
-                                                          transform='max',
-                                                          units='frobs',
-                                                          format=',.0f'))
-                             ,Cell(span=3, emphasize=True,align='center',
-                                  presentation=[
-                                      SingleStat(title='Min Frobs',
+                             Cell(span=2,offset=4,align='right', emphasize=True,
+                                  presentation=SingleStat(title='Max. Frob Density',
                                                  query_name='cpu_usage',
-                                                 transform='min',
-                                                 units='frobs',
-                                                 format=',.0f')
-                                      ,Separator()
-                                      ,SingleStat(title='Average Rate',
-                                                  query_name='cpu_usage',
-                                                  transform='mean',
-                                                  units='/sec',
-                                                  format=',.2f')
-                                  ])
-                             ,Cell(span=5,
-                                   presentation=DonutChart(title='Distribution of Frobs',
-                                                           query_name='cluster'))
+                                                 transform='max',
+                                                 units='frobs/kg',
+                                                 format=',.0f'))
+                             ,Cell(span=2,align='center',emphasize=True,
+                                   presentation=SingleStat(title='Average Rate',
+                                                           query_name='cpu_usage',
+                                                           transform='mean',
+                                                        units='/sec',
+                                                           format=',.2f'))
+
+                             ,Cell(span=4, emphasize=True,align='center',
+                                   presentation=SingleStat(title='Total Frobs',
+                                                           query_name='cpu_usage',
+                                                           transform='sum',
+                                                           units='frobs',
+                                                        format=',.0f'))
                          )
                          ,Heading(text="Cluster Health",
                                   description="Very Important Metrics for Determining Things and Stuff",
@@ -75,18 +66,20 @@ def random_data_dashboard():
                                                                    })))
 
                          ,Row(
-                             Cell(span=6,
+                             Cell(span=4,
                                   presentation=Markdown(text="### An Explanatory Box\n\n"
                                                         + "Containing text in [Markdown](https://daringfireball.net/projects/markdown/) format. "
                                                         + "You can use this to include explanatory text about your metrics. The table to the right "
                                                         + "is a ``summation_table`` presentation linked to the same query as the "
                                                         + "``standard_time_series`` presentation displayed above."))
-                             ,Cell(span=6,
-                                   presentation=[
-                                       SummationTable(query_name='cluster',
-                                                       format=',.4f')
-                                   ])
+                             ,Cell(span=4,
+                                   presentation=SummationTable(query_name='cluster',
+                                                               format=',.4f'))
+                             ,Cell(span=4,
+                                   presentation=DonutChart(title='Distribution of Frobs',
+                                                           query_name='cluster'))
                          )
+                         ,Heading(text="Summaries")
                          ,Separator()
                          ,Row(
                              Cell(span=2,

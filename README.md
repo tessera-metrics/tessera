@@ -2,9 +2,6 @@
 
 A dashboard front-end for Graphite.
 
-![Screenshot Dark](docs/screenshot-dark.png)
-![Screenshot Light](docs/screenshot-light.png)
-
 ## Dependencies ##
 
 Server Side:

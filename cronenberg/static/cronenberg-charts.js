@@ -27,7 +27,7 @@ cronenberg.charts = {
                     showXAxis: options.showXAxis || false,
                     showYAxis: options.showYAxis || false,
                     showLegend: options.showLegend || false,
-                    useInteractiveGuideline: options.useInteractiveGuideline || true,
+                    useInteractiveGuideline: options.useInteractiveGuideline !== true,
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
@@ -55,7 +55,7 @@ cronenberg.charts = {
                 values: series.datapoints
             };
         });
-        var showLegend = options.showLegend || true;
+        var showLegend = options.showLegend !== false;
         if (list_of_series.length > this.autoHideLegendThreshold) {
             showLegend = false;
         }
@@ -64,10 +64,10 @@ cronenberg.charts = {
             var height = e.height();
             var chart = nv.models.lineChart()
                 .options({
-                    showXAxis: options.showXAxis || true,
-                    showYAxis: options.showYAxis || true,
+                    showXAxis: options.showXAxis !== false,
+                    showYAxis: options.showYAxis !== false,
                     showLegend: showLegend,
-                    useInteractiveGuideline: options.useInteractiveGuideline || true,
+                    useInteractiveGuideline: options.useInteractiveGuideline !== false,
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
@@ -80,7 +80,7 @@ cronenberg.charts = {
                 .axisLabel(options.yAxisLabel || null)
                 .tickFormat(d3.format(options.yAxisFormat || ',.2f'));
             chart.xAxis
-                .tickFormat(function(d) { return moment.unix(d).format('h:mm:ss A'); })
+                .tickFormat(function(d) { return moment.unix(d).format('h:mm A'); })
                 .axisLabel(options.xAxisLabel || null);
             d3.select(e.selector + ' svg')
                 .attr('width', width)
@@ -99,7 +99,7 @@ cronenberg.charts = {
                 values: series.datapoints
             };
         });
-        var showLegend = options.showLegend || true;
+        var showLegend = options.showLegend !== false;
         if (list_of_series.length > this.autoHideLegendThreshold) {
             showLegend = false;
         }
@@ -109,11 +109,12 @@ cronenberg.charts = {
             var chart  = nv.models.stackedAreaChart()
                 .options({
                     showLegend: showLegend,
-                    useInteractiveGuideline: options.useInteractiveGuideline || true,
+                    useInteractiveGuideline: options.useInteractiveGuideline !== false,
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
                 .color(cronenberg.charts._color_function(options.palette || 'spectrum6'))
+                .style(options.style || 'stack')
                 .width(width)
                 .height(height)
                 .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 });
@@ -123,7 +124,8 @@ cronenberg.charts = {
                 .tickFormat(d3.format(options.yAxisFormat || ',.2f'));
             chart.xAxis
                 .axisLabel(options.xAxisLabel || null)
-                .tickFormat(function(d) { return moment.unix(d).fromNow(); });
+                .tickFormat(function(d) { return moment.unix(d).format('h:mm A'); });
+                // .tickFormat(function(d) { return moment.unix(d).fromNow(); });
             d3.select(e.selector + ' svg')
                 .attr('width', width)
                 .attr('height', height)
@@ -144,7 +146,7 @@ cronenberg.charts = {
             };
         });
         console.log(data);
-        /* var showLegend = options.showLegend || true;
+        /* var showLegend = options.showLegend !== false;
         if (list_of_series.length > this.autoHideLegendThreshold) {
             showLegend = false;
         } */
@@ -154,16 +156,16 @@ cronenberg.charts = {
             var chart  = nv.models.pieChart()
                 /* .options({
                     showLegend: showLegend,
-                    useInteractiveGuideline: options.useInteractiveGuideline || true,
+                    useInteractiveGuideline: options.useInteractiveGuideline !== false,
                     x: function(d) { return d.key; },
                     y: function(d) { return d.y; }
                 }) */
                 .color(cronenberg.charts._color_function(options.palette || 'spectrum6'))
-                .donut(options.donut || true)
-                .donutRatio(options.donutRatio || 0.3)
                 .labelType(options.labelType || "percent")
-                .showLabels(options.showLabels || true)
-                .donutLabelsOutside(options.donutLabelsOutside || true)
+                .donut(options.donut !== false)
+                .donutRatio(options.donutRatio || 0.3)
+                .showLabels(options.showLabels !== false)
+                .donutLabelsOutside(options.donutLabelsOutside !== false)
                 .width(width)
                 .height(height)
                 .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 });
