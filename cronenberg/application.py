@@ -12,7 +12,6 @@ from flask import Flask, render_template, request, redirect, jsonify, abort, ses
 from cask import Entity
 
 import toolbox
-from .demo import demo_dashboard, gbc_demo_dashboard
 from .model import *
 
 # =============================================================================
