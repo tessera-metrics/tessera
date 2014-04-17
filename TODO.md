@@ -126,8 +126,9 @@
 
 ### Navigation
 
-- Add "Featured" dashboards to front page (see [test screenshot](https://urbanairship.box.com/s/nzy4pq558dnednb9k4r9))
-
+- Featured dashboards on front page are currently hard-coded. They should be driven from metadata 
+  (need to add metadata to back-end first; probably by adding in a SQL datastore)
+ 
 ### Integration
 
 - LDAP integration
