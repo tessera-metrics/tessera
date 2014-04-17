@@ -217,7 +217,7 @@ class Queries(object):
 
 # =============================================================================
 
-def demo_dashboard(env):
+def demo_automation_overview(env):
     q = Queries(env)
     graphite = env.graphite()
 
