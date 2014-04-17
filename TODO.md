@@ -94,9 +94,9 @@
 
 - custom time range picker
 - configuration for the recent time ranges shown in the easy picker
-- refresh button
 - auto-refresh
 - settings page
+- ~~refresh button~~
 - ~~Add a 'full screen' button that removes everything except the
   dashboard grid from the view (and a 'back' button to restore it)~~
   - ~~already have ``cronenberg.enterFullScreen()`` and
@@ -109,6 +109,7 @@
 - ~~dark/light theme switching~~
   - ~~session persistence~~
   - other themes, like [Solarized](http://ethanschoonover.com/solarized).
+  - generate CSS with [sass](http://sass-lang.com/)
 
 ### Navigation
 

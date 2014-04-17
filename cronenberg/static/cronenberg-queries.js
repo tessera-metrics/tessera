@@ -112,6 +112,12 @@ cronenberg.Query = function(name, url) {
 cronenberg.QueryRegistry = function() {
     this.registry = {};
 
+    this.clear = function() {
+        for (var query_name in this.registry) {
+            delete this.registry[query_name];
+        }
+    },
+
     this.add = function(name, url) {
         query = new cronenberg.Query(name, url);
         this.registry[name] = query;
