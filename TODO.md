@@ -34,6 +34,12 @@
 
 ### Presentations
 
+- nvd3: [multi-bar](http://nvd3.org/examples/multiBar.html) option for time series
+- nvd3: has an
+  [excellent implementation](http://nvd3.org/examples/bullet.html) of
+  Stephen Few's
+  [bullet graph](http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf).
+- pie/donut chart needs some CSS tweaking for dark mode
 - ``SummationComparisonTable``, compare 2 series w/% change indicator (see stathat)
 - allow selection of which columns are display in ``SummationTable``
 - [tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a singlestat and simple_time_series with fill)
@@ -49,7 +55,7 @@
 - threshold to automatically switch to graphite rendering for long
   time windows (SVG rendering in browser gets slow)
 - more options for time formatting
-- titles
+- ~~titles~~
 - ~~donut/pie charts~~
 - ~~replace use of jquery.number with d3.format. No need to carry around
   two number formatters.~~
@@ -124,7 +130,8 @@
 - hover! Why do the tables all have hover backgrounds when I haven't
   specified class="table-hover", and why is the background in dark
   mode excessively light?
-- bottom margin on graphs has disappeared. wtf?
-  - it's the dashboard-height classes. NVD3 renders the svg taller
+- yAxis labels. probably a JS scoping issue.
+- ~~bottom margin on graphs has disappeared. wtf? ~~
+  - ~~it's the dashboard-height classes. NVD3 renders the svg taller
     than them, so they get clipped. Remove the height classes after
-    rendering? patch nvd3?
+    rendering? patch nvd3?~~
