@@ -6,7 +6,7 @@ from ..model import *
 
 margin = { 'top' : 12, 'bottom' : 20, 'left' : 40, 'right' : 20 }
 
-def gallery_dashboard():
+def demo_gallery_dashboard():
     return Dashboard(name='demo-gallery',
                      category='Demo',
                      title='Gallery',

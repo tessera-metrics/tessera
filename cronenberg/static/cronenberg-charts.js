@@ -72,7 +72,7 @@ cronenberg.charts = {
                     y: function(d) { return d[0]; }
                 })
                 .color(cronenberg.charts._color_function(options.palette || 'spectrum6'))
-                .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 })
+                .margin(options.margin || { top: 12, right: 16, bottom: 16, left: 40 })
                 .width(width)
                 .height(height);
             chart.yAxis
@@ -117,7 +117,7 @@ cronenberg.charts = {
                 .style(options.style || 'stack')
                 .width(width)
                 .height(height)
-                .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 });
+                .margin(options.margin || { top: 12, right: 16, bottom: 16, left: 40 });
             chart.yAxis
                 .axisLabel(options.yAxisLabel || null)
                 .axisLabelDistance(options.yAxisLabelDistance || 30)
