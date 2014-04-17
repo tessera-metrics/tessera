@@ -1,5 +1,6 @@
 <!-- -*- mode:jinja2 -*- -->
 {% extends "layouts/base.html" %}
+{% from 'snippets/macros.html' import btnclass %}
 
 {% block pagetitle %}
   <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
@@ -8,25 +9,16 @@
 
 {% block content %}
 
+  <!-- Navigation and toolbar -->
   <div data-fullscreen="hide">
     <div>
       {% include "snippets/breadcrumbs.html" %}
     </div>
+    {% include "snippets/dashboard-toolbar.html" %}
+    {% include "snippets/dashboard-info-edit-panel.html" %}
+  </div> <!-- end nav and toolbar -->
 
-    <div class="row">
-      <div class="span10">
-        {% include "snippets/recent-range-picker.html" %}
-      </div>
-      <div class="span2" align="right">
-        <button onclick="cronenberg.enterFullscreen()"
-                class="btn {% if ctx.get('theme', 'dark') == 'dark' %}btn-inverse{% endif %}"
-                style="float:right">
-                <i class="icon-resize-full icon-large"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-
+  <!-- Fullscreen top bar -->
   <div class="fullscreen-titlebar" data-fullscreen="show" style="display:none">
     <div class="row">
       <div class="span9">
@@ -35,18 +27,25 @@
         </h1>
       </div>
       <div class="span3 time-container" align="right">
+        <div class="btn-group pull-right">
+        <button onclick="cronenberg.dashboards.refresh()"
+                class="{{ btnclass() }}"
+                style="margin-top: 1em; margin-left: .5em">
+                <i class="icon-refresh icon-large"></i>
+        </button>
         <button onclick="cronenberg.exitFullscreen()"
-                class="btn {% if ctx.get('theme', 'dark') == 'dark' %}btn-inverse{% endif %}"
-                style="float:right; margin-top: 1em; margin-left: .5em">
+                class="{{ btnclass() }}"
+                style="margin-top: 1em; margin-left: .5em">
                 <i class="icon-resize-small icon-large"></i>
         </button>
+        </div>
         <div>
           <h2 class="time">{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
           <h6 class="date">{{ ctx.now.strftime("%A") }} {{ ctx.now.strftime("%d %B %Y") }}</h6>
         </div>
       </div>
     </div>
-    <hr style="margin:0"/>
+    <hr style="margin:.25em"/>
   </div> <!-- end fullscreen titlebar -->
 
   <div class="dashboard-grid" id="dashboard"/>
@@ -56,7 +55,7 @@
     var url = '/api/dashboard/{{dashboard.name}}/expanded?from={{from_time}}{% if until_time %}&until={{until_time}}{% endif %}';
     cronenberg.dashboards.onDashboardLoaded(function(dashboard) {
         var rendered = cronenberg.templates.render(dashboard);
-        $("#dashboard").append(rendered);
+        $("#dashboard").html(rendered);
         cronenberg.queries.loadAll();
     });
     cronenberg.dashboards.load(url);
