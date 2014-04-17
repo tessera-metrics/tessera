@@ -10,6 +10,13 @@
 
 ### Model & Persistence
 
+- Drilldowns
+  - They should be entities in the model
+  - each drilldown defines how to generate the drilldown 
+    - from a single graph to the same graph on multiple time scales
+    - or breaking out a multi-host chart into one chart per host
+    - or simple link to another dashboard
+    - Presentations can have more than one drilldown
 - add standard deviation to summation model
 - refactor API to a flask blueprint to reuse for different model
   classes
