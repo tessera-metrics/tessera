@@ -50,6 +50,8 @@
     the......slickest carousel I've found yet).
   - horizon graphs with [Cubism](http://square.github.io/cubism/)
 - Updates to existing presentations
+  - 2nd Y axis support
+    - existing options should change from yAxisLabel, yAxisThis, yAxisThat to an array of axis options
   - pie/donut chart needs some CSS tweaking for dark mode
   - allow selection of which columns are display in ``SummationTable``
   - ``JumboTronSinglestat`` is a hack. A properly responsive presentation
