@@ -32,6 +32,16 @@ env = toolbox.CLUSTO.environment(app.config['ENVIRONMENT_NAME'])
 # API Helpers
 # =============================================================================
 
+def _get_server_names(query_params):
+    servers = {}
+
+    for query_param in query_params:
+        key, value = query_param
+        if key == 'p[node]':
+            servers['node'] = value
+
+    return servers
+
 def _get_entities(cls):
     pattern = request.args.get('filter', '*')
     return mgr.load_all(cls, pattern=pattern)
@@ -101,12 +111,8 @@ def api_dashboard_get_expanded(name):
     until_time = _get_param('until', None)
 
     query_params = request.args.items()
-    servers = {}
 
-    for query_param in query_params:
-        key, value = query_param
-        if key == 'p[node]':
-            servers['node'] = value
+    servers = _get_server_names(query_params)
 
     # Make a copy of the query map with all targets rendered to full
     # graphite URLs
@@ -117,13 +123,11 @@ def api_dashboard_get_expanded(name):
             params.append(('until', until_time))
         if isinstance(v, list):
             for target in v:
-                import ipdb; ipdb.set_trace()
-                # target is a string that needs to be expanded
                 target = pystache.render(target, servers)
                 params.append(('target', target))
         else:
+            v = pystache.render(v, servers)
             params.append(('target', v))
-            import ipdb; ipdb.set_trace()
         query = '{0}/render?{1}'.format(app.config['GRAPHITE_URL'], urllib.urlencode(params))
         queries[k] = query
 
@@ -190,6 +194,12 @@ def _render_template(template, **kwargs):
 def _render_client_side_dashboard(dashboard, template='dashboard.html'):
     from_time = _get_param('from', app.config['DEFAULT_FROM_TIME'])
     until_time = _get_param('until', None)
+
+    query_params = request.args.items()
+
+    servers = _get_server_names(query_params)
+
+    dashboard.title = pystache.render(dashboard.title, servers)
 
     extra_params = request.args.to_dict()
 
