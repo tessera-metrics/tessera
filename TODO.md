@@ -34,6 +34,7 @@
 
 ### Presentations
 
+- [dc.js](http://nickqizhu.github.io/dc.js/) with [crossfilter](http://square.github.io/crossfilter/).
 - nvd3: [multi-bar](http://nvd3.org/examples/multiBar.html) option for time series
 - nvd3: has an
   [excellent implementation](http://nvd3.org/examples/bullet.html) of
