@@ -4,6 +4,8 @@ from toolbox.graphite.functions import *
 from toolbox.graphite import Graphite, GraphiteQuery
 from ..model import *
 
+margin = { 'top' : 12, 'bottom' : 20, 'left' : 40, 'right' : 20 }
+
 def gallery_dashboard():
     return Dashboard(name='demo-gallery',
                      category='Demo',
@@ -17,47 +19,65 @@ def gallery_dashboard():
                      },
                      grid=Grid(
                          Heading(text='Time Series Charts', description='A variety of time series charts rendered by nvd3')
+                         ,Markdown(text="The [nvd3](http://nvd3.org/) javascript library provides an good set of standard, reusable charts "
+                                   + "built on top of [d3](http://d3js.org/).")
                          ,Separator()
                          ,Row(Cell(span=3,
-                                   presentation=Markdown(text="### Simple Time Series"))
+                                   presentation=Markdown(text="### Simple Time Series\n"
+                                                         + "Use like a [sparkline](http://en.wikipedia.org/wiki/Sparkline), "
+                                                         + "for displaying overall trends in a high level view."))
                               ,Cell(span=9,
                                     presentation=SimpleTimeSeries(query_name='single1')))
                          ,Row(Cell(span=3,
-                                   presentation=Markdown(text="### Standard Time Series"))
+                                   presentation=Markdown(text="### Standard Time Series\n"
+                                                         + "Your basic multi-series line chart, with some nice interactive features."))
                               ,Cell(span=9,
-                                    presentation=StandardTimeSeries(query_name='positive')))
+                                    presentation=StandardTimeSeries(query_name='positive', options={
+                                        'margin' : margin,
+                                        'yAxisFormat' : ',.1s'
+                                    })))
                          ,Row(Cell(span=3,
-                                   presentation=Markdown(text="### Stacked Area"))
+                                   presentation=Markdown(text="### Stacked Area\n"
+                                                         + "Stacked graphs can be displayed in one of three modes, which can be switched interactively. "
+                                                         + "Standard stacked series, [stream graphs](http://www.leebyron.com/else/streamgraph/), and "
+                                                         + "a percentage view."))
                               ,Cell(span=9,
                                     presentation=[
-                                        StackedAreaChart(query_name='positive')
+                                        StackedAreaChart(query_name='positive', options={
+                                            'margin' : margin,
+                                            'yAxisFormat' : ',.1s'
+                                        })
                                         ,Separator()
                                         ,StackedAreaChart(query_name='multiple', height=3, options={
-                                            'style' : 'stream'
+                                            'style' : 'stream',
+                                            'margin' : margin,
+                                            'yAxisFormat' : ',.1s'
                                         })
                                     ]))
                          ,Heading(text='Other Charts', description='Non-time series charts, also rendered by nvd3')
                          ,Separator()
                          ,Row(Cell(span=3,
-                                   presentation=Markdown(text="### Donuts & Pies"))
-                              ,Cell(span=9,
-                                    presentation=[
-                                        DonutChart(query_name='positive', height=3, title='Donut Chart', options={
-                                            'margin' : {
-                                                'top' : 0, 'left' : 0, 'bottom' : 12, 'right' : 0
-                                            }
-                                        })
-                                        ,Separator()
-                                        ,DonutChart(query_name='positive', title='Pie Chart', height=3, options={
-                                            'donut': False,
-                                            'labelType' : 'key',
-                                            'palette': 'applegreen'
-                                        })
-                                    ]))
+                                   presentation=Markdown(text="### Donuts & Pies\n"
+                                                         + "Often abused, occasionally useful, always tasty!"))
+                              ,Cell(span=4,
+                                    presentation=DonutChart(query_name='positive', height=3, title='Donut Chart', options={
+                                        'margin' : {
+                                            'top' : 0, 'left' : 0, 'bottom' : 12, 'right' : 0
+                                        }
+                                    }))
+                              ,Cell(span=5,
+                                    presentation=DonutChart(query_name='positive', title='Pie Chart', height=3, options={
+                                        'donut': False,
+                                        'labelType' : 'key',
+                                        'palette': 'applegreen'
+                                })))
                          ,Heading(text='Text Presentations', description='Various ways of calling out data')
                          ,Separator()
                          ,Row(Cell(span=3,
-                                   presentation=Markdown(text="### Single Stats"))
+                                   presentation=Markdown(text="### Single Stats\n"
+                                                         + "A single stat presentation shows one of the summation values that are "
+                                                         + "calculated for each data series, along with a title and optionally units. "
+                                                         + "Key metrics can be **emphasized** for attentions."))
                               ,Cell(span=2,
                                     presentation=SingleStat(query_name='single1',
                                                             title='Sum, Left Justified',
@@ -94,8 +114,8 @@ def gallery_dashboard():
                               ,Cell(span=9,
                                     presentation=SummationTable(query_name='positive')))
                          ,Row(Cell(span=3,
-                                   presentation=Markdown(text="### Markdown Text"))
-                              ,Cell(span=9,
+                                   presentation=Markdown(text="### Markdown Text\nFor the inclusion of explanatory text and links. "))
+                              ,Cell(span=4,
                                     presentation=Markdown(text='# Heading 1\n'
                                                           + '[Markdown](https://daringfireball.net/projects/markdown/) is a simple plain text format '
                                                           + 'for generating markup. It is rendered in a dashboard element by '
@@ -105,5 +125,18 @@ def gallery_dashboard():
                                                           + '* items \n'
                                                           + '* are supported \n'
                                                           + '## Heading 3\n'
-                                                          + '``/* As is code */``, etc...')))
+                                                          + '``/* As is code */``, etc...'))
+                              ,Cell(span=5,
+                                    presentation=Markdown(raw=True,
+                                                          text='# Heading 1\n'
+                                                          + '[Markdown](https://daringfireball.net/projects/markdown/) is a simple plain text format '
+                                                          + 'for generating markup. It is rendered in a dashboard element by '
+                                                          + '[markdown-js](https://github.com/evilstreak/markdown-js). \n'
+                                                          + '## Heading 2\n'
+                                                          + '* List \n'
+                                                          + '* items \n'
+                                                          + '* are supported \n'
+                                                          + '## Heading 3\n'
+                                                          + '``/* As is code */``, etc...'))
+                          )
                      ))
