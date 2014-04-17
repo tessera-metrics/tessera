@@ -200,7 +200,7 @@ def demo_dashboard(env):
     q = Queries(env)
     graphite = env.graphite()
 
-    dash = Dashboard(name='automation_overview',
+    dash = Dashboard(name='demo-automation',
                      category='Automation',
                      title='Overview',
                      queries = {
