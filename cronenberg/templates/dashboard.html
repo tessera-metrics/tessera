@@ -8,25 +8,16 @@
 
 {% block content %}
 
+  <!-- Navigation and toolbar -->
   <div data-fullscreen="hide">
     <div>
       {% include "snippets/breadcrumbs.html" %}
     </div>
+    {% include "snippets/dashboard-toolbar.html" %}
+    {% include "snippets/dashboard-info-edit-panel.html" %}
+  </div> <!-- end nav and toolbar -->
 
-    <div class="row">
-      <div class="span10">
-        {% include "snippets/recent-range-picker.html" %}
-      </div>
-      <div class="span2" align="right">
-        <button onclick="cronenberg.enterFullscreen()"
-                class="btn {% if ctx.get('theme', 'dark') == 'dark' %}btn-inverse{% endif %}"
-                style="float:right">
-                <i class="icon-resize-full icon-large"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-
+  <!-- Fullscreen top bar -->
   <div class="fullscreen-titlebar" data-fullscreen="show" style="display:none">
     <div class="row">
       <div class="span9">
@@ -46,7 +37,7 @@
         </div>
       </div>
     </div>
-    <hr style="margin:0"/>
+    <hr style="margin:.25em"/>
   </div> <!-- end fullscreen titlebar -->
 
   <div class="dashboard-grid" id="dashboard"/>

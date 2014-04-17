@@ -1,0 +1,28 @@
+    {% macro btnclass() -%}
+      btn {% if ctx.get('theme', 'dark') == 'dark' %}btn-inverse{% endif %}
+    {%- endmacro %}
+
+    <div class="row">
+      <div class="span10">
+        {% include "snippets/recent-range-picker.html" %}
+      </div>
+
+      <div class="span2">
+        <div class="btn-toolbar pull-right">
+          <div class="btn-group" data-edit-mode="show" style="display:none">
+            <button class="{{ btnclass() }}">
+              <i class="icon-trash icon-large"></i>
+            </button>
+          </div>
+          <div class="btn-group">
+            <button class="{{ btnclass() }}" onclick="cronenberg.toggleEditMode()">
+              <i class="icon-edit icon-large"></i>
+            </button>
+            <button onclick="cronenberg.enterFullscreen()"
+                    class="{{ btnclass() }}">
+                    <i class="icon-resize-full icon-large"></i>
+            </button>
+          </div> <!-- button group -->
+        </div>
+      </div>
+    </div> <!-- row -->
