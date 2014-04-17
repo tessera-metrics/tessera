@@ -26,7 +26,6 @@ def run():
 def generate():
     log.info('Generating demo dashboards')
     dashboards = [
-        gbc_demo_dashboard(),
         demo_dashboard(toolbox.PROD),
         random_data_dashboard(),
         gallery_dashboard()
