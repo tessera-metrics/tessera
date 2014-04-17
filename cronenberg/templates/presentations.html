@@ -31,7 +31,11 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
         html += ' ' + data.item.css_class;
     }
     html += '">';
-    return html + markdown.toHTML(data.item.text) + '</div>';
+    if (data.item.raw) {
+        return html + '<pre>' + data.item.text + '</pre></div>';
+    } else {
+        return html + markdown.toHTML(data.item.text) + '</div>';
+    }
 }});
 </script>
 
