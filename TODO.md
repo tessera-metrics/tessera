@@ -85,6 +85,7 @@
 
 ### Editing
 
+- Grafana's [javascript parser for graphite queries](https://github.com/torkelo/grafana/tree/master/src/app/services/graphite)
 - ~~Client-side rendering. Not strictly needed for creating an editor, but preferable.~~
   - ~~passing complex options to javascript code is clumsy using server side templates~~
   - ~~needed for dynamic editing~~
