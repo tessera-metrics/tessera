@@ -28,7 +28,8 @@ def generate():
     dashboards = [
         gbc_demo_dashboard(),
         demo_dashboard(toolbox.PROD),
-        random_data_dashboard()
+        random_data_dashboard(),
+        gallery_dashboard()
     ]
     for d in dashboards:
         log.info('Storing dashboard {0}'.format(d.name))

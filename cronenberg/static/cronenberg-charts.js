@@ -114,6 +114,7 @@ cronenberg.charts = {
                     y: function(d) { return d[0]; }
                 })
                 .color(cronenberg.charts._color_function(options.palette || 'spectrum6'))
+                .style(options.style || 'stack')
                 .width(width)
                 .height(height)
                 .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 });
