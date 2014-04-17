@@ -218,11 +218,17 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
      TEMPLATE: Dashboard rows.
   -->
 <script id="tmpl-row" data-item-type="row" type="text/x-handlebars-template">
+  {{#if item.emphasize}}
+    <div class="well">
+  {{/if}}
   <div class="row dashboard-row">
     {{#each item.cells}}
       {{item this}}
     {{/each}}
   </div>
+  {{#if item.emphasize}}
+  </div>
+  {{/if}}
 </script>
 
 <!--

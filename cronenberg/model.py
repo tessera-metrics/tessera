@@ -27,7 +27,7 @@ class DashboardItem(object):
     """
     NEXT = 1
 
-    def __init__(self, item_type, element_id=None, css_class='', height=None):
+    def __init__(self, item_type, element_id=None, css_class='', height=None, **kwargs):
         self.item_type = item_type
         self.css_class = css_class
         self.element_id = DashboardItem.nextid()
@@ -209,6 +209,7 @@ class Row(DashboardItem):
     def __init__(self, *cells, **kwargs):
         super(Row, self).__init__(item_type='row', **kwargs)
         self.cells = [] if len(cells) == 0 else cells
+        self.emphasize = kwargs.get('emphasize', False)
 
     @classmethod
     def from_json(cls, d):
