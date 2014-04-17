@@ -31,38 +31,25 @@ def random_data_dashboard():
                                    presentation=StackedAreaChart(query_name='cpu_usage', height=3, title="stacked_area_chart"))
                          )
                          ,Row(
-                             Cell(span=4,align='right',
-                                  presentation=[
-                                      SingleStat(title='Maximum Frob Density',
+                             Cell(span=2,offset=4,align='right', emphasize=True,
+                                  presentation=SingleStat(title='Max. Frob Density',
                                                  query_name='cpu_usage',
                                                  transform='max',
                                                  units='frobs/kg',
-                                                 format=',.0f')
-                                      ,SingleStat(title='Frobulation Factor',
-                                                 query_name='cpu_usage',
-                                                 transform='sum',
-                                                 units='',
-                                                 format=',.2f')
+                                                 format=',.0f'))
+                             ,Cell(span=2,align='center',emphasize=True,
+                                   presentation=SingleStat(title='Average Rate',
+                                                           query_name='cpu_usage',
+                                                           transform='mean',
+                                                        units='/sec',
+                                                           format=',.2f'))
 
-                                      ])
-                             ,Cell(span=5,
-                                   presentation=DonutChart(title='Distribution of Frobs',
-                                                           query_name='cluster'))
-
-                             ,Cell(span=3, emphasize=True,align='center',
-                                  presentation=[
-                                      SingleStat(title='Total Frobs',
-                                                  query_name='cpu_usage',
-                                                transform='sum',
-                                                          units='frobs',
-                                                format=',.0f')
-                                      ,Separator()
-                                      ,SingleStat(title='Average Rate',
-                                                  query_name='cpu_usage',
-                                                  transform='mean',
-                                                  units='/sec',
-                                                  format=',.2f')
-                                  ])
+                             ,Cell(span=4, emphasize=True,align='center',
+                                   presentation=SingleStat(title='Total Frobs',
+                                                           query_name='cpu_usage',
+                                                           transform='sum',
+                                                           units='frobs',
+                                                        format=',.0f'))
                          )
                          ,Heading(text="Cluster Health",
                                   description="Very Important Metrics for Determining Things and Stuff",
@@ -79,18 +66,20 @@ def random_data_dashboard():
                                                                    })))
 
                          ,Row(
-                             Cell(span=6,
+                             Cell(span=4,
                                   presentation=Markdown(text="### An Explanatory Box\n\n"
                                                         + "Containing text in [Markdown](https://daringfireball.net/projects/markdown/) format. "
                                                         + "You can use this to include explanatory text about your metrics. The table to the right "
                                                         + "is a ``summation_table`` presentation linked to the same query as the "
                                                         + "``standard_time_series`` presentation displayed above."))
-                             ,Cell(span=6,
-                                   presentation=[
-                                       SummationTable(query_name='cluster',
-                                                       format=',.4f')
-                                   ])
+                             ,Cell(span=4,
+                                   presentation=SummationTable(query_name='cluster',
+                                                               format=',.4f'))
+                             ,Cell(span=4,
+                                   presentation=DonutChart(title='Distribution of Frobs',
+                                                           query_name='cluster'))
                          )
+                         ,Heading(text="Summaries")
                          ,Separator()
                          ,Row(
                              Cell(span=2,
