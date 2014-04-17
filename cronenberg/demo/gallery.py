@@ -77,7 +77,7 @@ def gallery_dashboard():
                                    presentation=Markdown(text="### Single Stats\n"
                                                          + "A single stat presentation shows one of the summation values that are "
                                                          + "calculated for each data series, along with a title and optionally units. "
-                                                         + "Key metrics can be **emphasized** for attentions."))
+                                                         + "Key metrics can be **emphasized** for attention."))
                               ,Cell(span=2,
                                     presentation=SingleStat(query_name='single1',
                                                             title='Sum, Left Justified',
