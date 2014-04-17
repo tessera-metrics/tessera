@@ -259,9 +259,10 @@ class Heading(DashboardItem):
 
 
 class Markdown(DashboardItem):
-    def __init__(self, text, **kwargs):
+    def __init__(self, text, raw=False, **kwargs):
         super(Markdown, self).__init__(item_type='markdown', **kwargs)
         self.text = text
+        self.raw = raw
 
     @classmethod
     def from_json(cls, d):
