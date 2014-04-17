@@ -101,6 +101,7 @@
 - ~~dark/light theme switching~~
   - ~~session persistence~~
   - other themes, like [Solarized](http://ethanschoonover.com/solarized).
+  - generate CSS with [sass](http://sass-lang.com/)
 
 ### Navigation
 

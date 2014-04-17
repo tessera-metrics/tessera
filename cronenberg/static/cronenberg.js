@@ -1,6 +1,9 @@
 var cronenberg = {
 
     fullscreen: false,
+    editing: false,
+
+    ANIMATION_DELAY: 300,
 
     /**
      * Constants for the various custom events cronenberg uses.
@@ -9,6 +12,8 @@ var cronenberg = {
     {
         ENTER_FULL_SCREEN: 'enter-fullscreen',
         EXIT_FULL_SCREEN:  'exit-fullscreen',
+        ENTER_EDIT_MODE: 'enter-edit-mode',
+        EXIT_EDIT_MODE:  'exit-edit-mode',
         DATA_AVAILABLE:    'data-available',
         DASHBOARD_LOADED:  'dashboard-loaded'
     },
@@ -25,13 +30,18 @@ var cronenberg = {
      * Enter full screen mode.
      */
     enterFullscreen: function() {
-        if (!this.fullscreen) {
-            console.log("cronenberg.enterFullscreen()");
-            $("[data-fullscreen=hide]").hide(400);
-            $("[data-fullscreen=show]").show(400)
-            bean.fire(this, cronenberg.events.ENTER_FULL_SCREEN);
-            this.fullscreen = true;
-        }
+        $("[data-fullscreen=hide]").hide(this.ANIMATION_DELAY);
+        $("[data-fullscreen=show]").show(this.ANIMATION_DELAY)
+        bean.fire(this, cronenberg.events.ENTER_FULL_SCREEN);
+        this.fullscreen = true;
+        return this;
+    },
+
+    enterEditMode: function() {
+        $("[data-edit-mode=hide]").hide(this.ANIMATION_DELAY);
+        $("[data-edit-mode=show]").show(this.ANIMATION_DELAY)
+        bean.fire(this, cronenberg.events.ENTER_EDIT_MODE);
+        this.editing = true;
         return this;
     },
 
@@ -47,13 +57,26 @@ var cronenberg = {
      * Exit full screen mode.
      */
     exitFullscreen: function() {
-        if (this.fullscreen) {
-            console.log("cronenberg.exitFullscreen()");
-            $("[data-fullscreen=show]").hide(400)
-            $("[data-fullscreen=hide]").show(400)
-            bean.fire(this, cronenberg.events.EXIT_FULL_SCREEN);
-            this.fullscreen = false;
-        }
+        $("[data-fullscreen=show]").hide(this.ANIMATION_DELAY)
+        $("[data-fullscreen=hide]").show(this.ANIMATION_DELAY)
+        bean.fire(this, cronenberg.events.EXIT_FULL_SCREEN);
+        this.fullscreen = false;
         return this;
     },
+
+    exitEditMode: function() {
+        $("[data-edit-mode=show]").hide(this.ANIMATION_DELAY)
+        $("[data-edit-mode=hide]").show(this.ANIMATION_DELAY)
+        bean.fire(this, cronenberg.events.EXIT_EDIT_MODE);
+        this.editing = false;
+        return this;
+    },
+
+    toggleEditMode: function() {
+        if (this.editing) {
+            this.exitEditMode();
+        } else {
+            this.enterEditMode();
+        }
+    }
 };
