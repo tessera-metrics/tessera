@@ -10,6 +10,7 @@
 
 ### Model & Persistence
 
+- add standard deviation to summation model
 - refactor API to a flask blueprint to reuse for different model
   classes
 - Refactor how from_json() works, maybe a metaclass or somesuch, to
