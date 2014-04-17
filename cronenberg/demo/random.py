@@ -5,7 +5,7 @@ from toolbox.graphite import Graphite, GraphiteQuery
 from ..model import *
 
 def random_data_dashboard():
-    return Dashboard(name='random_data',
+    return Dashboard(name='demo-random-data',
                      category='Random',
                      title='Presentation Demo',
                      queries = {

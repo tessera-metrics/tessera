@@ -5,7 +5,7 @@ from toolbox.graphite import Graphite, GraphiteQuery
 from ..model import *
 
 def gbc_demo_dashboard():
-    return Dashboard(name='gbc_demo',
+    return Dashboard(name='demo-gbc',
                      category='Gooeybuttercake',
                      title='System Overview',
                      queries = {
