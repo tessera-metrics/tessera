@@ -6,6 +6,7 @@ import logging
 import copy
 import datetime
 import inflection
+import pystache
 import urllib
 
 from flask import Flask, render_template, request, redirect, jsonify, abort, session
@@ -99,6 +100,14 @@ def api_dashboard_get_expanded(name):
     from_time  = _get_param('from', app.config['DEFAULT_FROM_TIME'])
     until_time = _get_param('until', None)
 
+    query_params = request.args.items()
+    servers = {}
+
+    for query_param in query_params:
+        key, value = query_param
+        if key == 'p[node]':
+            servers['node'] = value
+
     # Make a copy of the query map with all targets rendered to full
     # graphite URLs
     queries = {}
@@ -108,9 +117,13 @@ def api_dashboard_get_expanded(name):
             params.append(('until', until_time))
         if isinstance(v, list):
             for target in v:
+                import ipdb; ipdb.set_trace()
+                # target is a string that needs to be expanded
+                target = pystache.render(target, servers)
                 params.append(('target', target))
         else:
             params.append(('target', v))
+            import ipdb; ipdb.set_trace()
         query = '{0}/render?{1}'.format(app.config['GRAPHITE_URL'], urllib.urlencode(params))
         queries[k] = query
 
@@ -177,10 +190,14 @@ def _render_template(template, **kwargs):
 def _render_client_side_dashboard(dashboard, template='dashboard.html'):
     from_time = _get_param('from', app.config['DEFAULT_FROM_TIME'])
     until_time = _get_param('until', None)
+
+    extra_params = request.args.to_dict()
+
     title = '{0} {1}'.format(dashboard.category, dashboard.title)
     return _render_template(template,
                             dashboard=dashboard,
                             from_time=from_time,
+                            extra_params=urllib.urlencode(extra_params),
                             until_time=until_time,
                             title=title,
                             breadcrumbs=[('Home', '/'),

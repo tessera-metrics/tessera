@@ -1,8 +1,29 @@
 import json
+import pystache
 import sys
 from toolbox.graphite.functions import *
 from toolbox.graphite import Graphite, GraphiteQuery
 from ..model import *
+
+# =============================================================================
+
+def create_graphite_max_series_query(
+    place_to_look, service_name, graph_name, series, metric_name
+):
+    """Returns a max_series query for Graphite containing service details."""
+    service_details = 'call to clusto here'
+    hosts = service_details.hosts()
+
+    query_start = 'group(alias(max_series(servers.{{0}}.rash.service_name.'.format(hosts)
+    queries = []
+
+    for name in metric_name:
+        queries.append(
+            '{0}{1})){3})'.format(group_series_query, metric_name, graph_name)
+        )
+        
+    return ','.join(query for query in queries)
+
 
 # =============================================================================
 # Queries
@@ -33,7 +54,7 @@ class Queries(object):
     def automation_end_to_end_delivery_time(self):
         service = self.env.service('triggers-fulfillment')
         return group(alias(max_series(rash(service, 'controller.pipeline_end_to_end_delivery_time.Mean')),
-                           "End to End Delivery, Mean Latency"),
+                           "End to End Delivery, Mtency"),
                      alias(max_series(rash(service, 'controller.pipeline_end_to_end_delivery_time.99thPercentile')),
                            "End to End Delivery, 99th% Latency"))
 
