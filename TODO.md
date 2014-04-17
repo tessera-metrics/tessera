@@ -35,6 +35,9 @@
 ### Presentations
 
 - New presentations
+  - [reD3](http://bugzu.github.io/reD3/) has an interesting [day/hour heatmap](http://bugzu.github.io/reD3/#/heatmap)
+  - [punchcard](https://github.com/fogleman/Punchcard) is similar, implementing a github-style punchcard view. In python, so server-side. 
+  - [isometric pixel graphics](https://github.com/nosir/obelisk.js) are probably _completely irrelevant_ for this application, but damn are they cool.
   - [dc.js](http://nickqizhu.github.io/dc.js/) with [crossfilter](http://square.github.io/crossfilter/).
   - nvd3: [multi-bar](http://nvd3.org/examples/multiBar.html) option for time series
   - nvd3: has an [excellent implementation](http://nvd3.org/examples/bullet.html) of 
@@ -94,6 +97,12 @@
 
 ### UI
 
+- Grid alternatives. Other ways of laying out the dashboard grid, as an alternative to the 
+  bootstrap CSS grid. Some of these are interactive, with possibilities for editing. 
+  - [Nested](http://suprb.com/apps/nested/)
+  - [uberVU grid](https://github.com/uberVU/grid)
+  - [gridster.js](https://github.com/ducksboard/gridster.js)
+- integrate [messenger](http://github.hubspot.com/messenger/docs/welcome/) for error and general notifications
 - custom time range picker
 - configuration for the recent time ranges shown in the easy picker
 - auto-refresh
