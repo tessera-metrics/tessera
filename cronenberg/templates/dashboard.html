@@ -55,7 +55,7 @@
     var url = '/api/dashboard/{{dashboard.name}}/expanded?from={{from_time}}{% if until_time %}&until={{until_time}}{% endif %}';
     cronenberg.dashboards.onDashboardLoaded(function(dashboard) {
         var rendered = cronenberg.templates.render(dashboard);
-        $("#dashboard").append(rendered);
+        $("#dashboard").html(rendered);
         cronenberg.queries.loadAll();
     });
     cronenberg.dashboards.load(url);
