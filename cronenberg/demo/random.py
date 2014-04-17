@@ -5,7 +5,7 @@ from toolbox.graphite import Graphite, GraphiteQuery
 from ..model import *
 
 def random_data_dashboard():
-    return Dashboard(name='random_data',
+    return Dashboard(name='demo-random-data',
                      category='Random',
                      title='Presentation Demo',
                      queries = {
@@ -42,24 +42,23 @@ def random_data_dashboard():
                                                           transform='max',
                                                           units='frobs',
                                                           format=',.0f'))
-                             ,Cell(span=2, emphasize=True,align='center',
-                                  presentation=SingleStat(title='Min Frobs',
-                                                          query_name='cpu_usage',
-                                                          transform='min',
-                                                          units='frobs',
-                                                          format=',.0f'))
-                             ,Cell(span=3,emphasize=True, align='center',
-                                  presentation=SingleStat(title='Average Rate',
-                                                          query_name='cpu_usage',
-                                                          transform='mean',
-                                                          units='/sec',
-                                                          format=',.2f'))
-                             ,Cell(span=3, emphasize=True, align='center',
-                                  presentation=SingleStat(title='Max Frobs',
-                                                          query_name='cpu_usage',
-                                                          transform='max',
-                                                          units='frobs',
-                                                          format=',.0f'))
+                             ,Cell(span=3, emphasize=True,align='center',
+                                  presentation=[
+                                      SingleStat(title='Min Frobs',
+                                                 query_name='cpu_usage',
+                                                 transform='min',
+                                                 units='frobs',
+                                                 format=',.0f')
+                                      ,Separator()
+                                      ,SingleStat(title='Average Rate',
+                                                  query_name='cpu_usage',
+                                                  transform='mean',
+                                                  units='/sec',
+                                                  format=',.2f')
+                                  ])
+                             ,Cell(span=5,
+                                   presentation=DonutChart(title='Distribution of Frobs',
+                                                           query_name='cluster'))
                          )
                          ,Heading(text="Cluster Health",
                                   description="Very Important Metrics for Determining Things and Stuff",

@@ -9,25 +9,32 @@
 {% block content %}
 
 
+  {%- macro featured(name, path, class, span=3) %}
+    <div class="span{{span}} well alert-block {{class}}" align="center">
+      <h3><a href="{{path}}">{{name}}</a></h3>
+    </div>
+  {% endmacro -%}
+
   <div class="row">
+
     <div class="span4">
       <div class="well" align="center">
         <a href="/dashboards"><h3><i class="icon-dashboard" style="font-size: 4em"></i>
             <br/>Dashboards</h3></a>
-        </div>
+      </div>
     </div>
+
+    <div class="span8">
+      <div class="row-fluid">
+        {{ featured("Showcase", "/dashboards/demo-random-data", "alert-info") }}
+        {{ featured("Automation", "/dashboards/demo-automation", "alert-success") }}
+        {{ featured("Venkman System", "/dashboards/nils-venkman-system", "") }}
+        {{ featured("Meganome", "/dashboards/meganome-kevin", "") }}
+      </div>
+    </div>
+
   </div>
 
   <hr/>
-
-  <div class="row">
-    <div class="span6">
-      <h4>API Endpoints</h4>
-      <ul>
-        <li><a href="/api/dashboard"><code>/api/dashboard</code></a></li>
-        <li><a href="/api/dashboard/names"><code>/api/dashboard/names</code></a></li>
-      </ul>
-    </div>
-  </div>
 
 {% endblock %}

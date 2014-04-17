@@ -13,8 +13,8 @@ cronenberg.charts = {
         return value.toPrecision(3) + suffix;
     },
 
-    simple_line_chart: function(e, series, options) {
-        var options = options || {};
+    simple_line_chart: function(e, series, options_) {
+        var options = options_ || {};
         var data = [{
             values: series.datapoints,
             key: series.target
@@ -47,8 +47,8 @@ cronenberg.charts = {
 
     autoHideLegendThreshold: 6,
 
-    standard_line_chart: function(e, list_of_series, options) {
-        var options = options || {};
+    standard_line_chart: function(e, list_of_series, options_) {
+        var options = options_ || {};
         var data = _.map(list_of_series, function(series) {
             return {
                 key: series.target,
@@ -91,8 +91,8 @@ cronenberg.charts = {
         });
     },
 
-    stacked_area_chart: function(e, list_of_series, options) {
-        var options = options || {};
+    stacked_area_chart: function(e, list_of_series, options_) {
+        var options = options_ || {};
         var data = _.map(list_of_series, function(series) {
             return {
                 key: series.target,
@@ -133,6 +133,50 @@ cronenberg.charts = {
             return chart;
         });
     },
+
+    donut_chart: function(e, list_of_series, options_, transform_) {
+        var options = options_ || {};
+        var transform = transform_ || 'sum';
+        var data = _.map(list_of_series, function(series) {
+            return {
+                label: series.target,
+                y: series.summation[transform]
+            };
+        });
+        console.log(data);
+        /* var showLegend = options.showLegend || true;
+        if (list_of_series.length > this.autoHideLegendThreshold) {
+            showLegend = false;
+        } */
+        nv.addGraph(function() {
+            var width  = e.width();
+            var height = e.height();
+            var chart  = nv.models.pieChart()
+                /* .options({
+                    showLegend: showLegend,
+                    useInteractiveGuideline: options.useInteractiveGuideline || true,
+                    x: function(d) { return d.key; },
+                    y: function(d) { return d.y; }
+                }) */
+                .color(cronenberg.charts._color_function(options.palette || 'spectrum6'))
+                .donut(options.donut || true)
+                .donutRatio(options.donutRatio || 0.3)
+                .labelType(options.labelType || "percent")
+                .showLabels(options.showLabels || true)
+                .donutLabelsOutside(options.donutLabelsOutside || true)
+                .width(width)
+                .height(height)
+                .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 });
+            d3.select(e.selector + ' svg')
+                .attr('width', width)
+                .attr('height', height)
+                .datum(data)
+                .transition()
+                .call(chart);
+            return chart;
+        });
+    },
+
 
     _color_function: function(palette_name) {
         var palette = this.colors[palette_name];
