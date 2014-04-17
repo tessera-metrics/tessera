@@ -7,15 +7,15 @@ from ..model import *
 def demo_node_dashboard():
     return Dashboard(name='demo-node',
                      category='Demo',
-                     title='System Overview for s0306',
+                     title='System Overview for {{ node }}',
                      queries = {
-                         'cpu_usage' : 'aliasByNode(group(servers.s0306.sysstat.cpu.all.system,servers.s0306.sysstat.cpu.all.user,servers.s0306.sysstat.cpu.all.io_wait), 1, 5)',
-                         'loadavg' : 'aliasByNode(servers.s0306.sysstat.loadavg.01, 1)',
-                         'context' : 'aliasByNode(servers.s0306.sysstat.context_switches.context_switches, 1)',
-                         'processes' : 'aliasByNode(servers.s0306.sysstat.loadavg.process_list_size, 1)',
-                         'bytes_received' : 'aliasByNode(servers.s0306.sysstat.network.*.bytes_rx,1,4)',
-                         'tcp_establised' : 'aliasByNode(servers.s0306.tcp.CurrEstab,1)',
-                         'memory_usage' : 'aliasByNode(asPercent(servers.s0306.memory.Active,servers.s0306.memory.MemTotal),1)'
+                         'cpu_usage' : 'aliasByNode(group(servers.{{ node }}.sysstat.cpu.all.system,servers.{{ node }}.sysstat.cpu.all.user,servers.{{ node }}.sysstat.cpu.all.io_wait), 1, 5)',
+                         'loadavg' : 'aliasByNode(servers.{{ node }}.sysstat.loadavg.01, 1)',
+                         'context' : 'aliasByNode(servers.{{ node }}.sysstat.context_switches.context_switches, 1)',
+                         'processes' : 'aliasByNode(servers.{{ node }}.sysstat.loadavg.process_list_size, 1)',
+                         'bytes_received' : 'aliasByNode(servers.{{ node }}.sysstat.network.*.bytes_rx,1,4)',
+                         'tcp_establised' : 'aliasByNode(servers.{{ node }}.tcp.CurrEstab,1)',
+                         'memory_usage' : 'aliasByNode(asPercent(servers.{{ node }}.memory.Active,servers.{{ node }}.memory.MemTotal),1)'
                      },
                      grid=Grid(
                          Row(
