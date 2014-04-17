@@ -67,6 +67,8 @@ class DashboardItem(object):
             return StackedAreaChart.from_json(d)
         elif item_type == 'summation_table':
             return SummationTable.from_json(d)
+        elif item_type == 'donut_chart':
+            return DonutChart.from_json(d)
         else:
             return Cell.from_json(d)
 
@@ -116,6 +118,15 @@ class ChartPresentation(Presentation):
         super(ChartPresentation, self).__init__(**kwargs)
         self.title = title
         self.options = options
+
+class DonutChart(ChartPresentation):
+    def __init__(self, **kwargs):
+        super(DonutChart, self).__init__(item_type='donut_chart', **kwargs)
+
+    @classmethod
+    def from_json(cls, d):
+        _delattr(d, 'item_type')
+        return cls(**d)
 
 class SimpleTimeSeries(ChartPresentation):
     def __init__(self, query_name, **kwargs):
