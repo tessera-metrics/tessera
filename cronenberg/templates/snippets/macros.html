@@ -1,0 +1,4 @@
+<!-- -*- mode:jinja2 -*- -->
+{% macro btnclass() -%}
+   btn {% if session.get('theme', 'dark') == 'dark' %}btn-inverse{% endif %}
+{%- endmacro %}

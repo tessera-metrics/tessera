@@ -41,6 +41,10 @@ cronenberg.DashboardManager = function() {
             bean.fire(registry, cronenberg.events.DASHBOARD_LOADED, dashboard);
         });
     };
+
+    this.refresh = function() {
+        // TODO
+    };
 };
 
 cronenberg.dashboards = new cronenberg.DashboardManager();
