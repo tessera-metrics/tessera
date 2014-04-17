@@ -80,7 +80,7 @@ cronenberg.charts = {
                 .axisLabel(options.yAxisLabel || null)
                 .tickFormat(d3.format(options.yAxisFormat || ',.2f'));
             chart.xAxis
-                .tickFormat(function(d) { return moment.unix(d).format('h:mm:ss A'); })
+                .tickFormat(function(d) { return moment.unix(d).format('h:mm A'); })
                 .axisLabel(options.xAxisLabel || null);
             d3.select(e.selector + ' svg')
                 .attr('width', width)
@@ -124,7 +124,8 @@ cronenberg.charts = {
                 .tickFormat(d3.format(options.yAxisFormat || ',.2f'));
             chart.xAxis
                 .axisLabel(options.xAxisLabel || null)
-                .tickFormat(function(d) { return moment.unix(d).fromNow(); });
+                .tickFormat(function(d) { return moment.unix(d).format('h:mm A'); });
+                // .tickFormat(function(d) { return moment.unix(d).fromNow(); });
             d3.select(e.selector + ' svg')
                 .attr('width', width)
                 .attr('height', height)
