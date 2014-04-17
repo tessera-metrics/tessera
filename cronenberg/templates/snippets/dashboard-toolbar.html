@@ -1,6 +1,4 @@
-    {% macro btnclass() -%}
-      btn {% if ctx.get('theme', 'dark') == 'dark' %}btn-inverse{% endif %}
-    {%- endmacro %}
+{% from 'snippets/macros.html' import btnclass %}
 
     <div class="row">
       <div class="span10">
@@ -15,12 +13,14 @@
             </button>
           </div>
           <div class="btn-group">
-            <button class="{{ btnclass() }}" onclick="cronenberg.toggleEditMode()">
+            <button onclick="cronenberg.toggleEditMode()" class="{{ btnclass() }}" >
               <i class="icon-edit icon-large"></i>
             </button>
-            <button onclick="cronenberg.enterFullscreen()"
-                    class="{{ btnclass() }}">
-                    <i class="icon-resize-full icon-large"></i>
+            <button onclick="cronenberg.dashboards.refresh()" class="{{ btnclass() }}">
+              <i class="icon-refresh icon-large"></i>
+            </button>
+            <button onclick="cronenberg.enterFullscreen()" class="{{ btnclass() }}">
+              <i class="icon-resize-full icon-large"></i>
             </button>
           </div> <!-- button group -->
         </div>
