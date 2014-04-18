@@ -9,7 +9,7 @@
 {% block content %}
 
 
-  {%- macro featured(name, path, class, col-md-=3) %}
+  {%- macro featured(name, path, class, span=3) %}
     <div class="col-md-{{span}} well alert-block {{class}}" align="center">
       <h3><a href="{{path}}">{{name}}</a></h3>
     </div>
@@ -19,8 +19,8 @@
 
     <div class="col-md-4">
       <div class="well" align="center">
-        <a href="/dashboards"><h3><i class="icon-dashboard" style="font-size: 4em"></i>
-            <br/>Dashboards</h3></a>
+        <a href="/dashboards"><h3><i class="fa fa-lg fa-dashboard" style="font-size: 4em"></i>
+            <br/><br/>Dashboards</h3></a>
       </div>
     </div>
 
