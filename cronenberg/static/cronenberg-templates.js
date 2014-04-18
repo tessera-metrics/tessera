@@ -51,10 +51,10 @@ cronenberg.TemplateRegistry = function() {
             return item.span ? 'col-md-' + item.span : '';
         });
         Handlebars.registerHelper('offset', function(item) {
-            return item.offset ? 'offset' + item.offset : '';
+            return item.offset ? 'col-md-offset-' + item.offset : '';
         });
         Handlebars.registerHelper('css_class', function(item) {
-            return item.css_class ? 'css_class' + item.css_class : '';
+            return item.css_class ? item.css_class : '';
         });
 
         return this;
