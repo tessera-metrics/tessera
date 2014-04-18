@@ -7,7 +7,7 @@ from ..model import *
 def demo_node_dashboard():
     return Dashboard(name='demo-node',
                      category='Demo',
-                     title='System Overview for {{ node }}',
+                     title='System Overview for {{#if title}}{{title}}{{else}}{{ node }}{{/if}}',
                      queries = {
                          'cpu_usage' : 'aliasByNode(group(servers.{{ node }}.sysstat.cpu.all.system,servers.{{ node }}.sysstat.cpu.all.user,servers.{{ node }}.sysstat.cpu.all.io_wait), 1, 5)',
                          'loadavg' : 'aliasByNode(servers.{{ node }}.sysstat.loadavg.01, 1)',
@@ -15,7 +15,7 @@ def demo_node_dashboard():
                          'processes' : 'aliasByNode(servers.{{ node }}.sysstat.loadavg.process_list_size, 1)',
                          'bytes_received' : 'aliasByNode(servers.{{ node }}.sysstat.network.*.bytes_rx,1,4)',
                          'tcp_establised' : 'aliasByNode(servers.{{ node }}.tcp.CurrEstab,1)',
-                         'memory_usage' : 'aliasByNode(asPercent(servers.{{ node }}.memory.Active,servers.{{ node }}.memory.MemTotal),1)'
+                         'memory_usage' : 'aliasByNode(asPercent(sumSeries(servers.{{ node }}.memory.Active),sumSeries(servers.{{ node }}.memory.MemTotal)),1)'
                      },
                      grid=Grid(
                          Row(
