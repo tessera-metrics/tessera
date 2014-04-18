@@ -166,3 +166,17 @@ h2.time {
 .fullscreen-titlebar h1 {
     margin-top: 0.25em;
 }
+
+.dashboard-alert,
+.dashboard-alert h3,
+.dashboard-alert .value,
+.dashboard-alert .unit {
+    color: #d60000;
+}
+
+.dashboard-warning,
+.dashboard-warning h3,
+.dashboard-warning .value,
+.dashboard-warning .unit {
+    color: #d66a00;
+}
