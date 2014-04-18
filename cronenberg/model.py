@@ -20,6 +20,12 @@ def _delattr(dictionary, attr):
 # Presentations
 # =============================================================================
 
+class Thresholds(object):
+    def __init__(self, summation_type='max', warning=None, alert=None):
+        self.summation_type = summation_type
+        self.warning = warning
+        self.alert = alert
+
 class DashboardItem(object):
     """Layout elements are class that define how presentations are
     arrange in the dashboard. The base class provides common CSS class
@@ -82,9 +88,10 @@ class Presentation(DashboardItem):
         LAST   = 'last'
         FIRST  = 'first'
 
-    def __init__(self, query_name, **kwargs):
+    def __init__(self, query_name, thresholds=None, **kwargs):
         super(Presentation, self).__init__(**kwargs)
         self.query_name = query_name
+        self.thresholds = thresholds
 
 
 class SingleStat(Presentation):
