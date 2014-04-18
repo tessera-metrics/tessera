@@ -21,7 +21,7 @@
     <tbody>
       {% for dashboard in dashboards %}
         <tr>
-          <td><a href="/dashboards/{{dashboard.name}}"><span class="badge badge-info"><i class="icon-dashboard"></i></span> {{dashboard.name}}</a></td>
+          <td><a href="/dashboards/{{dashboard.name}}"><span class="badge badge-info"><i class="fa fa-dashboard"></i></span> {{dashboard.name}}</a></td>
           <td>{{dashboard.category}} {{dashboard.title}}</td>
           <td>
             {% if dashboard.imported_from %}
