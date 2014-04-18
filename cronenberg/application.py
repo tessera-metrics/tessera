@@ -43,9 +43,7 @@ def _get_template_variables(query_params):
 
 def _render_pybars_template(template, variables):
     compiled = compiler.compile(unicode(template))
-    output = compiled(variables, helpers= {
-        'service' : _clusto_service
-    })
+    output = compiled(variables)
     return ''.join(output)
 
 def _get_entities(cls):
