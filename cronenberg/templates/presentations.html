@@ -50,11 +50,13 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
 </script>
 <script>
   cronenberg.templates.register({ elementId: 'tmpl-singlestat', dataHandler: function(query, item) {
+      var element = $('#' + item.element_id + ' span.value');
       var value = query.summation[item.transform];
       if (item.index) {
           value = query.data[item.index].summation[item.transform];
       }
-      $('#' + item.element_id + ' span.value').text(d3.format(item.format)(value));
+      cronenberg.check_thresholds(item, value, '#' + item.element_id);
+      element.text(d3.format(item.format)(value));
   }});
 </script>
 
@@ -71,11 +73,13 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
 </script>
 <script>
   cronenberg.templates.register({ elementId: 'tmpl-jumbotron-singlestat', dataHandler: function(query, item) {
+      var element = $('#' + item.element_id + ' span.value');
       var value = query.summation[item.transform];
       if (item.index) {
           value = query.data[item.index].summation[item.transform];
       }
-      $('#' + item.element_id + ' span.value').text(d3.format(item.format)(value));
+      cronenberg.check_thresholds(item, value, '#' + item.element_id);
+      $(element).text(d3.format(item.format)(value));
   }});
 </script>
 
