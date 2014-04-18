@@ -1,5 +1,4 @@
 import json
-import pystache
 import sys
 from toolbox.graphite.functions import *
 from toolbox.graphite import Graphite, GraphiteQuery
@@ -34,7 +33,7 @@ class Queries(object):
     def automation_end_to_end_delivery_time(self):
         service = self.env.service('triggers-fulfillment')
         return group(alias(max_series(rash(service, 'controller.pipeline_end_to_end_delivery_time.Mean')),
-                           "End to End Delivery, Mtency"),
+                           "End to End Delivery, Mean Latency"),
                      alias(max_series(rash(service, 'controller.pipeline_end_to_end_delivery_time.99thPercentile')),
                            "End to End Delivery, 99th% Latency"))
 
