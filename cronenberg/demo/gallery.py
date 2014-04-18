@@ -14,7 +14,7 @@ def demo_gallery_dashboard():
                          'comparison' : 'aliasByNode(group(randomWalkFunction("today"), randomWalkFunction("yesterday")), 0)',
                          'positive' : 'aliasByNode(absolute(group(randomWalkFunction("system"),randomWalkFunction("user"),randomWalkFunction("wait"), randomWalkFunction("io"))), 0)',
                          'multiple' : 'absolute(group(randomWalkFunction("a"),randomWalkFunction("b"),randomWalkFunction("c")))',
-                         'single1' : 'randomWalkFunction("thing1")',
+                         'single1' : 'absolute(randomWalkFunction("thing1"))',
                          'single2' : 'randomWalkFunction("thing2")'
                      },
                      grid=Grid(
@@ -95,6 +95,7 @@ def demo_gallery_dashboard():
                               ,Cell(span=3, emphasize=True, align='center',
                                     presentation=SingleStat(query_name='single1',
                                                             title='Mean, Emphasized',
+                                                            thresholds=Thresholds(warning=2, alert=3),
                                                             transform='mean'))
                           )
                          ,Row(Cell(span=3,
