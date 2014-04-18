@@ -67,6 +67,7 @@ def demo_node_dashboard():
                          ,Separator()
                          ,Row(Cell(span=2, align='center', presentation=SingleStat(query_name='tcp_establised', title='Max Connections',
                                                                                    transform='max',
+                                                                                   thresholds=Thresholds(warning=28000, alert=30000),
                                                                                    format=',.2s'))
                               ,Cell(span=2, align='center', presentation=SingleStat(query_name='tcp_establised', title='Mean Connections',
                                                                                     transform='mean',
