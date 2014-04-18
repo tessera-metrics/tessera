@@ -5,3 +5,4 @@ simplejson
 inflection
 toolbox>=0.3.2
 gunicorn
+pystache
