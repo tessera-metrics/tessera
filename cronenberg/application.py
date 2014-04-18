@@ -6,7 +6,7 @@ import logging
 import copy
 import datetime
 import inflection
-import pystache
+import pybars
 import urllib
 
 from flask import Flask, render_template, request, redirect, jsonify, abort, session
@@ -27,20 +27,26 @@ app.secret_key = 'e688f6cb-fc11-65fa-c091-aba197c56c66'
 
 mgr = cask.web.WebManagerAdapter(DashboardManager(app.config['DASHBOARD_DATADIR']))
 env = toolbox.CLUSTO.environment(app.config['ENVIRONMENT_NAME'])
+compiler = pybars.Compiler()
 
 # =============================================================================
 # API Helpers
 # =============================================================================
 
-def _get_server_names(query_params):
-    servers = {}
+def _get_template_variables(query_params):
+    variables = {}
+    for key, value in query_params.items():
+        if key.startswith('p[') and key.endswith(']'):
+            variable_name = key[2:-1]
+            variables[key[2:-1]] = value
+    return variables
 
-    for query_param in query_params:
-        key, value = query_param
-        if key == 'p[node]':
-            servers['node'] = value
-
-    return servers
+def _render_pybars_template(template, variables):
+    compiled = compiler.compile(unicode(template))
+    output = compiled(variables, helpers= {
+        'service' : _clusto_service
+    })
+    return ''.join(output)
 
 def _get_entities(cls):
     pattern = request.args.get('filter', '*')
@@ -110,9 +116,7 @@ def api_dashboard_get_expanded(name):
     from_time  = _get_param('from', app.config['DEFAULT_FROM_TIME'])
     until_time = _get_param('until', None)
 
-    query_params = request.args.items()
-
-    servers = _get_server_names(query_params)
+    template_variables = _get_template_variables(request.args)
 
     # Make a copy of the query map with all targets rendered to full
     # graphite URLs
@@ -121,13 +125,11 @@ def api_dashboard_get_expanded(name):
         params = [('format', 'json'), ('from', from_time)]
         if until_time:
             params.append(('until', until_time))
-        if isinstance(v, list):
-            for target in v:
-                target = pystache.render(target, servers)
-                params.append(('target', target))
-        else:
-            v = pystache.render(v, servers)
-            params.append(('target', v))
+        if isinstance(v, basestring):
+            v = [v]
+        for target in v:
+            target = _render_pybars_template(target, template_variables)
+            params.append(('target', target))
         query = '{0}/render?{1}'.format(app.config['GRAPHITE_URL'], urllib.urlencode(params))
         queries[k] = query
 
@@ -135,6 +137,8 @@ def api_dashboard_get_expanded(name):
     # replaced with the expanded version
     dashboard = copy.copy(dash)
     dashboard.queries = queries
+    dashboard.title = _render_pybars_template(dash.title, template_variables)
+    dashboard.description = _render_pybars_template(dash.description, template_variables)
 
     return _jsonify(_to_json_entities(dashboard))
 
@@ -195,11 +199,10 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html'):
     from_time = _get_param('from', app.config['DEFAULT_FROM_TIME'])
     until_time = _get_param('until', None)
 
-    query_params = request.args.items()
+    template_variables = _get_template_variables(request.args)
 
-    servers = _get_server_names(query_params)
-
-    dashboard.title = pystache.render(dashboard.title, servers)
+    dashboard.title = _render_pybars_template(dashboard.title, template_variables)
+    dashboard.description = _render_pybars_template(dashboard.description, template_variables)
 
     extra_params = request.args.to_dict()
 
