@@ -48,7 +48,7 @@ cronenberg.TemplateRegistry = function() {
             return item.height ? 'dashboard-height' + item.height : '';
         });
         Handlebars.registerHelper('span', function(item) {
-            return item.span ? 'span' + item.span : '';
+            return item.span ? 'col-md-' + item.span : '';
         });
         Handlebars.registerHelper('offset', function(item) {
             return item.offset ? 'offset' + item.offset : '';

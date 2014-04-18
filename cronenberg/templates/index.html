@@ -9,22 +9,22 @@
 {% block content %}
 
 
-  {%- macro featured(name, path, class, span=3) %}
-    <div class="span{{span}} well alert-block {{class}}" align="center">
+  {%- macro featured(name, path, class, col-md-=3) %}
+    <div class="col-md-{{span}} well alert-block {{class}}" align="center">
       <h3><a href="{{path}}">{{name}}</a></h3>
     </div>
   {% endmacro -%}
 
   <div class="row">
 
-    <div class="span4">
+    <div class="col-md-4">
       <div class="well" align="center">
         <a href="/dashboards"><h3><i class="icon-dashboard" style="font-size: 4em"></i>
             <br/>Dashboards</h3></a>
       </div>
     </div>
 
-    <div class="span8">
+    <div class="col-md-8">
       <div class="row-fluid">
         {{ featured("Random", "/dashboards/demo-random-data", "alert-info") }}
         {{ featured("Gallery", "/dashboards/demo-gallery", "alert-info") }}
