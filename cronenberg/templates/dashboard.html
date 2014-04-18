@@ -21,12 +21,12 @@
   <!-- Fullscreen top bar -->
   <div class="fullscreen-titlebar" data-fullscreen="show" style="display:none">
     <div class="row">
-      <div class="span9">
+      <div class="col-md-9">
         <h1 class="page-title">
           <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
         </h1>
       </div>
-      <div class="span3 time-container" align="right">
+      <div class="col-md-3 time-container" align="right">
         <div class="btn-group pull-right">
         <button onclick="cronenberg.dashboards.refresh()"
                 class="{{ btnclass() }}"
