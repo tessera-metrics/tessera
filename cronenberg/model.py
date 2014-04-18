@@ -20,6 +20,12 @@ def _delattr(dictionary, attr):
 # Presentations
 # =============================================================================
 
+class Thresholds(object):
+    def __init__(self, summation_type='max', warning=None, alert=None):
+        self.summation_type = summation_type
+        self.warning = warning
+        self.alert = alert
+
 class DashboardItem(object):
     """Layout elements are class that define how presentations are
     arrange in the dashboard. The base class provides common CSS class
@@ -27,7 +33,7 @@ class DashboardItem(object):
     """
     NEXT = 1
 
-    def __init__(self, item_type, element_id=None, css_class='', height=None):
+    def __init__(self, item_type, element_id=None, css_class='', height=None, **kwargs):
         self.item_type = item_type
         self.css_class = css_class
         self.element_id = DashboardItem.nextid()
@@ -82,9 +88,10 @@ class Presentation(DashboardItem):
         LAST   = 'last'
         FIRST  = 'first'
 
-    def __init__(self, query_name, **kwargs):
+    def __init__(self, query_name, thresholds=None, **kwargs):
         super(Presentation, self).__init__(**kwargs)
         self.query_name = query_name
+        self.thresholds = thresholds
 
 
 class SingleStat(Presentation):
@@ -209,6 +216,7 @@ class Row(DashboardItem):
     def __init__(self, *cells, **kwargs):
         super(Row, self).__init__(item_type='row', **kwargs)
         self.cells = [] if len(cells) == 0 else cells
+        self.emphasize = kwargs.get('emphasize', False)
 
     @classmethod
     def from_json(cls, d):

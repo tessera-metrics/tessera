@@ -10,6 +10,14 @@
 
 ### Model & Persistence
 
+- Drilldowns
+  - They should be entities in the model
+  - each drilldown defines how to generate the drilldown 
+    - from a single graph to the same graph on multiple time scales
+    - or breaking out a multi-host chart into one chart per host
+    - or simple link to another dashboard
+    - Presentations can have more than one drilldown
+- add standard deviation to summation model
 - refactor API to a flask blueprint to reuse for different model
   classes
 - Refactor how from_json() works, maybe a metaclass or somesuch, to
@@ -35,6 +43,9 @@
 ### Presentations
 
 - New presentations
+  - [reD3](http://bugzu.github.io/reD3/) has an interesting [day/hour heatmap](http://bugzu.github.io/reD3/#/heatmap)
+  - [punchcard](https://github.com/fogleman/Punchcard) is similar, implementing a github-style punchcard view. In python, so server-side. 
+  - [isometric pixel graphics](https://github.com/nosir/obelisk.js) are probably _completely irrelevant_ for this application, but damn are they cool.
   - [dc.js](http://nickqizhu.github.io/dc.js/) with [crossfilter](http://square.github.io/crossfilter/).
   - nvd3: [multi-bar](http://nvd3.org/examples/multiBar.html) option for time series
   - nvd3: has an [excellent implementation](http://nvd3.org/examples/bullet.html) of 
@@ -47,6 +58,8 @@
     the......slickest carousel I've found yet).
   - horizon graphs with [Cubism](http://square.github.io/cubism/)
 - Updates to existing presentations
+  - 2nd Y axis support
+    - existing options should change from yAxisLabel, yAxisThis, yAxisThat to an array of axis options
   - pie/donut chart needs some CSS tweaking for dark mode
   - allow selection of which columns are display in ``SummationTable``
   - ``JumboTronSinglestat`` is a hack. A properly responsive presentation
@@ -82,6 +95,7 @@
 
 ### Editing
 
+- Grafana's [javascript parser for graphite queries](https://github.com/torkelo/grafana/tree/master/src/app/services/graphite)
 - ~~Client-side rendering. Not strictly needed for creating an editor, but preferable.~~
   - ~~passing complex options to javascript code is clumsy using server side templates~~
   - ~~needed for dynamic editing~~
@@ -94,6 +108,13 @@
 
 ### UI
 
+- Grid alternatives. Other ways of laying out the dashboard grid, as an alternative to the 
+  bootstrap CSS grid. Some of these are interactive, with possibilities for editing. 
+  - [Nested](http://suprb.com/apps/nested/)
+  - [uberVU grid](https://github.com/uberVU/grid)
+  - [gridster.js](https://github.com/ducksboard/gridster.js)
+  - [jquery.shapeshift](https://github.com/McPants/jquery.shapeshift)
+- integrate [messenger](http://github.hubspot.com/messenger/docs/welcome/) for error and general notifications
 - custom time range picker
 - configuration for the recent time ranges shown in the easy picker
 - auto-refresh
@@ -115,8 +136,11 @@
 
 ### Navigation
 
-- Add "Featured" dashboards to front page (see [test screenshot](https://urbanairship.box.com/s/nzy4pq558dnednb9k4r9))
-
+- Featured dashboards on front page are currently hard-coded. They should be driven from metadata 
+  (need to add metadata to back-end first; probably by adding in a SQL datastore)
+- Tags. Produce a related dashboards list based on common tags (also requires metadata store)
+- Drilldowns - define links from individual presentations to other dashboards, or to larger presentations (i.e. a generic dashboard page that shows a single presentation from the parent scaled up)
+ 
 ### Integration
 
 - LDAP integration

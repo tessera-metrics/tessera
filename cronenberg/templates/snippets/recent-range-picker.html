@@ -1,4 +1,4 @@
-  <ul class="nav nav-pills">
+  <ul class="nav nav-pills dashboard-recent-range-picker">
 
     {% for item in [
       ('Past Hour', '-1h'),
@@ -8,13 +8,27 @@
       ('Past Week', '-7d')]
       %}
 
-      <li id="range{{item[1]}}"
-          {% if request.args.get('from','-3h') == item[1] %}
-            class="active"
-          {% endif %}
-          >
-
-          <a href="?from={{item[1]}}">{{item[0]}}</a></li>
+    <li data-range="{{item[1]}}">
+      <a name="{{item[1]}}">
+        {{item[0]}}
+      </a>
+    </li>
     {% endfor %}
 
   </ul>
+
+<script>
+$(document).ready(function() {
+    var from = URI(window.location).search(true).from || '-3h';
+    $('[data-range=' + from + ']').addClass('active');
+});
+$(".dashboard-recent-range-picker").click(function(e) {
+    // TODO - this is a quick hack. Better would be to set the URL of
+    // the current dashboard, reload it (without reloading the page),
+    // and update the location with the browser history API
+    console.log(e.target);
+    window.location = URI(window.location)
+        .setQuery('from', $(e.target).attr('name'))
+        .href();
+});
+</script>

@@ -6,6 +6,7 @@ import logging
 import copy
 import datetime
 import inflection
+import pystache
 import urllib
 
 from flask import Flask, render_template, request, redirect, jsonify, abort, session
@@ -30,6 +31,16 @@ env = toolbox.CLUSTO.environment(app.config['ENVIRONMENT_NAME'])
 # =============================================================================
 # API Helpers
 # =============================================================================
+
+def _get_server_names(query_params):
+    servers = {}
+
+    for query_param in query_params:
+        key, value = query_param
+        if key == 'p[node]':
+            servers['node'] = value
+
+    return servers
 
 def _get_entities(cls):
     pattern = request.args.get('filter', '*')
@@ -99,6 +110,10 @@ def api_dashboard_get_expanded(name):
     from_time  = _get_param('from', app.config['DEFAULT_FROM_TIME'])
     until_time = _get_param('until', None)
 
+    query_params = request.args.items()
+
+    servers = _get_server_names(query_params)
+
     # Make a copy of the query map with all targets rendered to full
     # graphite URLs
     queries = {}
@@ -108,8 +123,10 @@ def api_dashboard_get_expanded(name):
             params.append(('until', until_time))
         if isinstance(v, list):
             for target in v:
+                target = pystache.render(target, servers)
                 params.append(('target', target))
         else:
+            v = pystache.render(v, servers)
             params.append(('target', v))
         query = '{0}/render?{1}'.format(app.config['GRAPHITE_URL'], urllib.urlencode(params))
         queries[k] = query
@@ -177,10 +194,20 @@ def _render_template(template, **kwargs):
 def _render_client_side_dashboard(dashboard, template='dashboard.html'):
     from_time = _get_param('from', app.config['DEFAULT_FROM_TIME'])
     until_time = _get_param('until', None)
+
+    query_params = request.args.items()
+
+    servers = _get_server_names(query_params)
+
+    dashboard.title = pystache.render(dashboard.title, servers)
+
+    extra_params = request.args.to_dict()
+
     title = '{0} {1}'.format(dashboard.category, dashboard.title)
     return _render_template(template,
                             dashboard=dashboard,
                             from_time=from_time,
+                            extra_params=urllib.urlencode(extra_params),
                             until_time=until_time,
                             title=title,
                             breadcrumbs=[('Home', '/'),

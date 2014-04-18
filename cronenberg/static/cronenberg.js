@@ -78,5 +78,15 @@ var cronenberg = {
         } else {
             this.enterEditMode();
         }
+    },
+
+    check_thresholds: function(item, value, element) {
+        if (item.thresholds) {
+            if (value > item.thresholds.alert) {
+                $(element).addClass("dashboard-alert");
+            } else if (value > item.thresholds.warning) {
+                $(element).addClass("dashboard-warning");
+            }
+        }
     }
 };

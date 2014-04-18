@@ -7,18 +7,26 @@ from ..model import *
 def demo_node_dashboard():
     return Dashboard(name='demo-node',
                      category='Demo',
-                     title='System Overview for s0306',
+                     title='System Overview for {{ node }}',
                      queries = {
-                         'cpu_usage' : 'aliasByNode(group(servers.s0306.sysstat.cpu.all.system,servers.s0306.sysstat.cpu.all.user,servers.s0306.sysstat.cpu.all.io_wait), 1, 5)',
-                         'loadavg' : 'aliasByNode(servers.s0306.sysstat.loadavg.01, 1)',
-                         'context' : 'aliasByNode(servers.s0306.sysstat.context_switches.context_switches, 1)',
-                         'processes' : 'aliasByNode(servers.s0306.sysstat.loadavg.process_list_size, 1)',
-                         'bytes_received' : 'aliasByNode(servers.s0306.sysstat.network.*.bytes_rx,1,4)',
-                         'tcp_establised' : 'aliasByNode(servers.s0306.tcp.CurrEstab,1)'
+                         'cpu_usage' : 'aliasByNode(group(servers.{{ node }}.sysstat.cpu.all.system,servers.{{ node }}.sysstat.cpu.all.user,servers.{{ node }}.sysstat.cpu.all.io_wait), 1, 5)',
+                         'loadavg' : 'aliasByNode(servers.{{ node }}.sysstat.loadavg.01, 1)',
+                         'context' : 'aliasByNode(servers.{{ node }}.sysstat.context_switches.context_switches, 1)',
+                         'processes' : 'aliasByNode(servers.{{ node }}.sysstat.loadavg.process_list_size, 1)',
+                         'bytes_received' : 'aliasByNode(servers.{{ node }}.sysstat.network.*.bytes_rx,1,4)',
+                         'tcp_establised' : 'aliasByNode(servers.{{ node }}.tcp.CurrEstab,1)',
+                         'memory_usage' : 'aliasByNode(asPercent(servers.{{ node }}.memory.Active,servers.{{ node }}.memory.MemTotal),1)'
                      },
                      grid=Grid(
-
-                         Heading('CPU')
+                         Row(
+                             Cell(span=4, emphasize=True,
+                                  presentation=StandardTimeSeries(height=2, title='Load Average', query_name='loadavg'))
+                             ,Cell(span=4, emphasize=True,
+                                   presentation=StandardTimeSeries(height=2, title='TCP Connections', query_name='tcp_establised'))
+                             ,Cell(span=4, emphasize=True,
+                                   presentation=StandardTimeSeries(height=2, title='% Memory In Use', query_name='memory_usage'))
+                         )
+                         ,Heading('CPU')
                          ,Separator()
                          ,Row(Cell(span=2, align='center', presentation=SingleStat(query_name='cpu_usage', title='Max Usage', transform='max'))
                               ,Cell(span=2, align='center', presentation=SingleStat(query_name='cpu_usage', title='Mean Usage', transform='mean'))
@@ -26,7 +34,8 @@ def demo_node_dashboard():
                                     presentation=StackedAreaChart(title='CPU Usage',query_name='cpu_usage', options={
                                         'yAxisFormat': ',.0f',
                                         'palette' : 'd3category10'
-                                    })))
+                                    }))
+                              )
                          ,Row(Cell(span=2, align='center', presentation=SingleStat(query_name='loadavg', title='Max Load Average', transform='max'))
                               ,Cell(span=2, align='center', presentation=SingleStat(query_name='loadavg', title='Mean Load Average', transform='mean'))
                               ,Cell(span=8,
