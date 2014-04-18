@@ -54,23 +54,7 @@ def demo_gallery_dashboard():
                                             'yAxisFormat' : ',.1s'
                                         })
                                     ]))
-                         ,Heading(text='Other Charts', description='Non-time series charts, also rendered by nvd3')
                          ,Separator()
-                         ,Row(Cell(span=3,
-                                   presentation=Markdown(text="### Donuts & Pies\n"
-                                                         + "Often abused, occasionally useful, always tasty!"))
-                              ,Cell(span=4,
-                                    presentation=DonutChart(query_name='positive', height=3, title='Donut Chart', options={
-                                        'margin' : {
-                                            'top' : 0, 'left' : 0, 'bottom' : 12, 'right' : 0
-                                        }
-                                    }))
-                              ,Cell(span=5,
-                                    presentation=DonutChart(query_name='positive', title='Pie Chart', height=3, options={
-                                        'donut': False,
-                                        'labelType' : 'key',
-                                        'palette': 'applegreen'
-                                })))
                          ,Heading(text='Text Presentations', description='Various ways of calling out data')
                          ,Separator()
                          ,Row(Cell(span=3,
@@ -98,6 +82,20 @@ def demo_gallery_dashboard():
                                                             thresholds=Thresholds(warning=2, alert=3),
                                                             transform='mean'))
                           )
+                         ,Row(
+                             Cell(span=2, offset=3, align='center',
+                                  presentation=SingleStat(query_name='single2',
+                                                        title='Warning Threshold',
+                                                          transform='mean',
+                                                          units='/sec',
+                                                          css_class="dashboard-warning"))
+                             ,Cell(span=2, align='center',
+                                   presentation=SingleStat(query_name='single2',
+                                                           title='Alert Threshold',
+                                                           transform='max',
+                                                           units='/sec',
+                                                           css_class="dashboard-alert"))
+                         )
                          ,Row(Cell(span=3,
                                    presentation=Markdown(text="### Jumbotron Single Stat\n"
                                                          + "A larger single stat suitable for big displays"))
@@ -140,4 +138,22 @@ def demo_gallery_dashboard():
                                                           + '## Heading 3\n'
                                                           + '``/* As is code */``, etc...'))
                           )
+                         ,Separator()
+                         ,Heading(text='Other Charts', description='Non-time series charts, also rendered by nvd3')
+                         ,Separator()
+                         ,Row(Cell(span=3,
+                                   presentation=Markdown(text="### Donuts & Pies\n"
+                                                         + "Often abused, occasionally useful, always tasty!"))
+                              ,Cell(span=4,
+                                    presentation=DonutChart(query_name='positive', height=3, title='Donut Chart', options={
+                                        'margin' : {
+                                            'top' : 0, 'left' : 0, 'bottom' : 12, 'right' : 0
+                                        }
+                                    }))
+                              ,Cell(span=5,
+                                    presentation=DonutChart(query_name='positive', title='Pie Chart', height=3, options={
+                                        'donut': False,
+                                        'labelType' : 'key',
+                                        'palette': 'applegreen'
+                                })))
                      ))
