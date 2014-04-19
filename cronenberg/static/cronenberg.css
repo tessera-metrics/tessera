@@ -90,28 +90,28 @@ h1.page-title {
 }
 
 .jumbotron-singlestat div {
-  position:relative;
-  top: 4em;
-  text-align: right;
+    position:relative;
+    top: -1em;
+    text-align: right;
 }
+
 .jumbotron-singlestat .unit {
     text-transform: lowercase;
-    font-size: 3em;
+    font-size: 2em;
     font-weight: bold;
-    vertical-align: bottom;
+    margin-left: .25em;
 }
 
 .jumbotron-singlestat .value {
     font-size: 8em;
     font-weight: bold;
-    vertical-align: -100%;
 }
 
 .jumbotron-singlestat h3 {
     text-transform: lowercase;
     font-size: 3em;
     position: relative;
-    top: 8px;
+    top: -1.3em;
 }
 
 h1 .primary-title {
