@@ -181,10 +181,10 @@ h1 .secondary-title {
     margin-top: 0.25em;
 }
 
-.dashboard-alert,
-.dashboard-alert h3,
-.dashboard-alert .value,
-.dashboard-alert .unit {
+.dashboard-danger,
+.dashboard-danger h3,
+.dashboard-danger .value,
+.dashboard-danger .unit {
     color: #d60000;
 }
 
