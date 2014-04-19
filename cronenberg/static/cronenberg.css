@@ -190,3 +190,13 @@ h1 .secondary-title {
 .dashboard-warning .unit {
     color: #d66a00;
 }
+
+.presentation h1,
+.presentation h2,
+.presentation h3,
+.presentation h4,
+.presentation h5,
+.presentation h6 {
+    line-height:1;
+    margin-top: 0;
+}
