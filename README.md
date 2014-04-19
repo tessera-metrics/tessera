@@ -2,6 +2,8 @@
 
 A dashboard front-end for Graphite.
 
+![screenshot](docs/screenshot-gallery-light.png "Example gallery in Light theme")
+
 ## Dependencies ##
 
 Server Side:
@@ -10,6 +12,8 @@ Server Side:
 * [Flask](http://flask.pocoo.org/)
 * [Flask-Script](http://packages.python.org/Flask-Script/)
 * [requests](https://github.com/kennethreitz/requests)
+* inflection
+* pybars
 
 Client Side:
 
