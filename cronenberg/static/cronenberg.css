@@ -101,7 +101,7 @@ h1.page-title {
 
 .jumbotron-singlestat div {
     position:relative;
-    top: -1em;
+    top: -2em;
     text-align: right;
 }
 
@@ -119,9 +119,9 @@ h1.page-title {
 
 .jumbotron-singlestat h3 {
     text-transform: lowercase;
-    font-size: 3em;
+    font-size: 2.5em;
     position: relative;
-    top: -1.3em;
+    top: -1em;
 }
 
 h1 .primary-title {
