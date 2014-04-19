@@ -2,6 +2,8 @@
 
 A dashboard front-end for Graphite.
 
+![screenshot](docs/screenshot-single-node-light.png)
+
 ## Dependencies ##
 
 Server Side:
@@ -10,12 +12,17 @@ Server Side:
 * [Flask](http://flask.pocoo.org/)
 * [Flask-Script](http://packages.python.org/Flask-Script/)
 * [requests](https://github.com/kennethreitz/requests)
+* inflection
+* pybars
 
 Client Side:
 
 * [Twitter Bootstrap](http://twitter.github.com/bootstrap)
   * [Font Awesome](http://fortawesome.github.com/Font-Awesome/)
   * [darkstrap](https://github.com/danneu/darkstrap)
+  * The extracted
+    [callouts](https://gist.github.com/matthiasg/6153853) from
+    bootstrap's documentation site.
 * [jQuery](http://jquery.com/)
 * [nvd3](https://github.com/novus/nvd3) for interactive charts build
   on top of [d3](http://d3js.org). d3 is also used for value

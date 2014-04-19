@@ -52,7 +52,7 @@ h1 .secondary-title {
   color: white;
 }
 
-h2.time {
+.time-container h2 {
     color: #ddd;
 }
 
@@ -82,6 +82,10 @@ h2.time {
 
 .nvd3 .nv-axis path {
     stroke: #494951;
+}
+
+.nv-label text {
+    stroke: #a6a6a6;
 }
 
 /* Select 2 tweaks for darkstrap */

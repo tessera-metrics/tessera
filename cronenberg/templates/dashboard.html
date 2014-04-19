@@ -1,6 +1,5 @@
 <!-- -*- mode:jinja2 -*- -->
 {% extends "layouts/base.html" %}
-{% from 'snippets/macros.html' import btnclass %}
 
 {% block pagetitle %}
   <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
@@ -21,23 +20,29 @@
   <!-- Fullscreen top bar -->
   <div class="fullscreen-titlebar" data-fullscreen="show" style="display:none">
     <div class="row">
-      <div class="span9">
+      <div class="col-md-9">
         <h1 class="page-title">
           <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
         </h1>
       </div>
-      <div class="span3 time-container" align="right">
+      <div class="col-md-3 time-container" align="right">
         <div class="btn-group pull-right">
-        <button onclick="cronenberg.dashboards.refresh()"
-                class="{{ btnclass() }}"
-                style="margin-top: 1em; margin-left: .5em">
-                <i class="icon-refresh icon-large"></i>
-        </button>
-        <button onclick="cronenberg.exitFullscreen()"
-                class="{{ btnclass() }}"
-                style="margin-top: 1em; margin-left: .5em">
-                <i class="icon-resize-small icon-large"></i>
-        </button>
+          <button type="button"
+                  data-toggle="tooltip" title="Refresh"
+                  data-placement="bottom"
+                  onclick="cronenberg.dashboards.refresh()"
+                  class="btn btn-default"
+                  style="margin-top: 1em; margin-left: .5em">
+                  <i class="fa fa-lg fa-refresh"></i>
+          </button>
+          <button type="button"
+                  data-toggle="tooltip" title="Exit Display Mode"
+                  data-placement="bottom"
+                  onclick="cronenberg.exitFullscreen()"
+                  class="btn btn-default"
+                  style="margin-top: 1em; margin-left: .5em">
+                  <i class="fa fa-lg fa-compress"></i>
+          </button>
         </div>
         <div>
           <h2 class="time">{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
@@ -59,6 +64,7 @@
         cronenberg.queries.loadAll();
     });
     cronenberg.dashboards.load(url);
+    $("[data-toggle=tooltip]").tooltip({animation:false, delay: { show:300, hide:100}});
   </script>
 
 {% endblock %}

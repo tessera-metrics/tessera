@@ -4,7 +4,7 @@
 
 {% if breadcrumbs is defined %}
 <div class="row">
-  <div class="span12">
+  <div class="col-md-12">
     <ul class="breadcrumb">
       {% for bc in breadcrumbs %}
       <li>
@@ -14,7 +14,7 @@
         <a href="{{bc[1]}}">{{bc[0]}}</a>
         {% endif %}
         {% if not loop.last %}
-        <span class="divider">/</span>
+        <col-md- class="divider">/</col-md->
         {% endif %}
       </li>
       {% endfor %}
@@ -24,11 +24,11 @@
 {% endif %}
 
 <div class="row">
-  <div class="span10">
+  <div class="col-md-10">
     {% block content %}
     {% endblock %}
   </div>
-  <div class="span2">
+  <div class="col-md-2">
     {% include "snippets/navbar.html" %}
     {% block sidebar %}
     {% endblock %}
@@ -39,12 +39,12 @@
 
 {% block layoutfooter %}
 <div class="row">
-  <div class="span10">
+  <div class="col-md-10">
     {% block footer %}
     &nbsp;
     {% endblock %}
   </div>
-  <div class="span2">
+  <div class="col-md-2">
     <p align="center"><small><!-- {{config.get('DASHBOARD_APPNAME')}} {{config.get('DASHBOARD_VERSION')}} --></small></p>
   </div>
 </div>
