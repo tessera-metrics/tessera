@@ -10,7 +10,7 @@
 
 
   {%- macro featured(name, path, class, span=3) %}
-    <div class="col-md-{{span}} well alert-block {{class}}" align="center">
+    <div class="col-md-{{span}} well well-sm  {{class}}" align="center">
       <h3><a href="{{path}}">{{name}}</a></h3>
     </div>
   {% endmacro -%}
@@ -25,13 +25,13 @@
     </div>
 
     <div class="col-md-8">
-      <div class="row-fluid">
+      <div class="row">
         {{ featured("Random", "/dashboards/demo-random-data", "alert-info") }}
         {{ featured("Gallery", "/dashboards/demo-gallery", "alert-info") }}
         {{ featured("Single Node", "/dashboards/demo-node", "alert-info") }}
         {{ featured("Automation", "/dashboards/demo-automation", "") }}
       </div>
-      <div class="row-fluid">
+      <div class="row">
         {{ featured("Venkman System", "/dashboards/nils-venkman-system", "") }}
         {{ featured("Meganome", "/dashboards/meganome-kevin", "") }}
       </div>
