@@ -84,6 +84,10 @@ h2.time {
     stroke: #494951;
 }
 
+.nv-label text {
+    stroke: #a6a6a6;
+}
+
 /* Select 2 tweaks for darkstrap */
 .select2-container .select2-drop {
     background: #222;
