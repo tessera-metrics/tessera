@@ -21,10 +21,10 @@ def _delattr(dictionary, attr):
 # =============================================================================
 
 class Thresholds(object):
-    def __init__(self, summation_type='max', warning=None, alert=None):
+    def __init__(self, summation_type='max', warning=None, danger=None):
         self.summation_type = summation_type
         self.warning = warning
-        self.alert = alert
+        self.danger = danger
 
 class DashboardItem(object):
     """Layout elements are class that define how presentations are

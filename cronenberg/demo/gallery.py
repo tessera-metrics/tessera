@@ -82,18 +82,20 @@ def demo_gallery_dashboard():
                                                             transform='mean'))
                           )
                          ,Row(
-                             Cell(span=2, offset=3, align='center',
+                             Cell(span=2, offset=3,
                                   presentation=SingleStat(query_name='single2',
                                                         title='Warning Threshold',
                                                           transform='mean',
                                                           units='/sec',
-                                                          css_class="dashboard-warning"))
-                             ,Cell(span=2, align='center',
+                                                          format=',.2f',
+                                                          css_class="dashboard-warning bs-callout bs-callout-warning"))
+                             ,Cell(span=2,
                                    presentation=SingleStat(query_name='single2',
-                                                           title='Alert Threshold',
+                                                           title='Danger Threshold',
                                                            transform='max',
-                                                           units='/sec',
-                                                           css_class="dashboard-alert"))
+                                                           units='ms',
+                                                           format=',.2f',
+                                                           css_class="dashboard-danger bs-callout bs-callout-danger"))
                          )
                          ,Row(Cell(span=3,
                                    presentation=Markdown(text="### Jumbotron Single Stat\n"
