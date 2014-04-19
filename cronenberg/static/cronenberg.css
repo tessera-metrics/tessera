@@ -16,6 +16,10 @@ i[class*='icon-'] {
     margin-left: 0;
 }
 
+.page-header {
+    margin-top: 0px;
+}
+
 /* DataTables tweaks to work w/Boostrap */
 table.table thead .sorting,
 table.table thead .sorting_asc,
@@ -56,6 +60,10 @@ h1.page-title {
     font-size: 3em;
 }
 
+.dashboard-grid {
+   margin-top: 1em;
+}
+
 .dashboard-grid h1 {
     margin-bottom: 0.125em;
 }
@@ -73,7 +81,7 @@ h1.page-title {
     font-size: 1.2em;
     font-weight: normal;
     text-transform:uppercase;
-    padding-bottom: 12px;
+    margin: 0px;
 }
 
 .well .singlestat h3 {
@@ -82,36 +90,38 @@ h1.page-title {
 .singlestat p {
     font-size: 3em;
     font-weight: bold;
+    margin-bottom: 0px;
 }
 
 .singlestat .unit {
     font-size: .5em;
     text-transform: lowercase;
+    margin-left: .25em;
 }
 
 .jumbotron-singlestat div {
-  position:relative;
-  top: 4em;
-  text-align: right;
+    position:relative;
+    top: -2em;
+    text-align: right;
 }
+
 .jumbotron-singlestat .unit {
     text-transform: lowercase;
-    font-size: 3em;
+    font-size: 2em;
     font-weight: bold;
-    vertical-align: bottom;
+    margin-left: .25em;
 }
 
 .jumbotron-singlestat .value {
     font-size: 8em;
     font-weight: bold;
-    vertical-align: -100%;
 }
 
 .jumbotron-singlestat h3 {
     text-transform: lowercase;
-    font-size: 3em;
+    font-size: 2.5em;
     position: relative;
-    top: 8px;
+    top: -1em;
 }
 
 h1 .primary-title {
@@ -154,9 +164,13 @@ h1 .secondary-title {
     margin-bottom: 2em;
 }
 
-h2.time {
+.time-container h2 {
     padding-top: 2px;
     margin-bottom: -.45em;
+}
+
+.time-container h6 {
+    text-transform: uppercase;
 }
 
 .fullscreen-titlebar {
@@ -167,10 +181,10 @@ h2.time {
     margin-top: 0.25em;
 }
 
-.dashboard-alert,
-.dashboard-alert h3,
-.dashboard-alert .value,
-.dashboard-alert .unit {
+.dashboard-danger,
+.dashboard-danger h3,
+.dashboard-danger .value,
+.dashboard-danger .unit {
     color: #d60000;
 }
 
@@ -179,4 +193,14 @@ h2.time {
 .dashboard-warning .value,
 .dashboard-warning .unit {
     color: #d66a00;
+}
+
+.presentation h1,
+.presentation h2,
+.presentation h3,
+.presentation h4,
+.presentation h5,
+.presentation h6 {
+    line-height:1;
+    margin-top: 0;
 }

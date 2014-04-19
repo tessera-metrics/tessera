@@ -1,239 +1,44 @@
 import json
 import sys
-from toolbox.graphite.functions import *
-from toolbox.graphite import Graphite, GraphiteQuery
 from ..model import *
 
-# =============================================================================
-# Queries
-# =============================================================================
-
-# pushes sent
-#  - total
-#  - by type (regular vs. rich push)
-#  - by platform
-#  - TODO - actions (needs new fulfillment build)
-#
-# Total # of triggers processed & satisfied
-#  - immediate
-#  - historical
-#
-# End to End Delivery Time
-#  - Mean
-#  - 99th Percentile
-#
-# Pipelines API
-#  - Mean latency
-#  - 99th percentile latency
-
-class Queries(object):
-    def __init__(self, env):
-        self.env = env
-
-    def automation_end_to_end_delivery_time(self):
-        service = self.env.service('triggers-fulfillment')
-        return group(alias(max_series(rash(service, 'controller.pipeline_end_to_end_delivery_time.Mean')),
-                           "End to End Delivery, Mean Latency"),
-                     alias(max_series(rash(service, 'controller.pipeline_end_to_end_delivery_time.99thPercentile')),
-                           "End to End Delivery, 99th% Latency"))
-
-    def automation_push_payloads(self):
-        service = self.env.service('triggers-fulfillment')
-        return group(alias(sum_series(rash(service, 'pushpayloadmetrics.pushcount.all.Count')),
-                           "All Push Count"),
-                     alias(diff_series(sum_series(rash(service, 'pushpayloadmetrics.pushcount.all.Count')),
-                                       sum_series(rash(service, 'pushpayloadmetrics.pushfeaturetype_richpush.payload.Count'))),
-                           "Regular Push Count"),
-                     alias(sum_series(rash(service, 'pushpayloadmetrics.pushfeaturetype_richpush.payload.Count')),
-                           "Rich Push Count"))
-
-    def automation_push_platform_rates(self):
-        service = self.env.service('triggers-fulfillment')
-        return group(alias(sum_series(rate(rash(service, 'pushpayloadmetrics.audienceplatform_adm.platform.Count'))),
-                           "ADM Rate"),
-                     alias(sum_series(rate(rash(service, 'pushpayloadmetrics.audienceplatform_android.platform.Count'))),
-                           "Android Rate"),
-                     alias(sum_series(rate(rash(service, 'pushpayloadmetrics.audienceplatform_blackberry.platform.Count'))),
-                           "Blackberry Rate"),
-                     alias(sum_series(rate(rash(service, 'pushpayloadmetrics.audienceplatform_ios.platform.Count'))),
-                           "IOS Rate"),
-                     alias(sum_series(rate(rash(service, 'pushpayloadmetrics.audienceplatform_mpns.platform.Count'))),
-                           "MPNS Rate"),
-                     alias(sum_series(rate(rash(service, 'pushpayloadmetrics.audienceplatform_wns.platform.Count'))),
-                           "WNS Rate"))
-
-    def automation_push_platform_counts(self):
-        service = self.env.service('triggers-fulfillment')
-        return group(alias(sum_series(rash(service, 'pushpayloadmetrics.audienceplatform_adm.platform.Count')),
-                           "ADM Count"),
-                     alias(sum_series(rash(service, 'pushpayloadmetrics.audienceplatform_android.platform.Count')),
-                           "Android Count"),
-                     alias(sum_series(rash(service, 'pushpayloadmetrics.audienceplatform_blackberry.platform.Count')),
-                           "Blackberry Count"),
-                     alias(sum_series(rash(service, 'pushpayloadmetrics.audienceplatform_ios.platform.Count')),
-                           "IOS Count"),
-                     alias(sum_series(rash(service, 'pushpayloadmetrics.audienceplatform_mpns.platform.Count')),
-                           "MPNS Count"),
-                     alias(sum_series(rash(service, 'pushpayloadmetrics.audienceplatform_wns.platform.Count')),
-                           "WNS Count"))
-
-    def automation_api_rates(self):
-        service = self.env.service('push-api')
-        return group(alias(sum_series(rate(rash(service, 'pipelineendpointmetrics.total_request_count.Count'))),
-                           "API Total Request Rate"),
-                     alias(sum_series(non_negative_derivative(rash(service, 'pipelineendpointmetrics.total_request_count.Count'))),
-                           "API Total Request Count"))
-
-    def automation_api_latency(self):
-        service = self.env.service('push-api')
-        # TODO - the API should have a summary timer metric for /api/pipelines, but doesn't :(
-        return alias(average_series(max_series(rash(service, 'pipelineendpointmetrics.postpipelinetimer.Mean')),
-                                    max_series(rash(service, 'pipelineendpointmetrics.postvalidatetimer.Mean')),
-                                    max_series(rash(service, 'pipelineendpointmetrics.putpipelinetimer.Mean')),
-                                    max_series(rash(service, 'pipelineendpointmetrics.deletepipelinetimer.Mean')),
-                                    max_series(rash(service, 'pipelineendpointmetrics.getpipelinetimer.Mean')),
-                                    max_series(rash(service, 'pipelineendpointmetrics.getlimitstimer.Mean')),
-                                    max_series(rash(service, 'pipelineendpointmetrics.listpipelinetimer.Mean')),
-                                    max_series(rash(service, 'pipelineendpointmetrics.listdeletedpipelinetimer.Mean'))),
-                     "/api/pipelines, Average Latency")
-
-    def automation_events(self):
-        gorram  = self.env.service('triggers-gorram-consumer')
-        ingress = self.env.service('triggers-state-ingress')
-        return group(
-            # Gorram - device events
-            alias(sum_series(non_negative_derivative(rash(gorram, 'argonmutationconsumer_timer.device_open_processed.Count'))),
-                  'Device Open Count'),
-            alias(sum_series(rate(rash(gorram, 'argonmutationconsumer_timer.device_open_processed.Count'))),
-                  'Device Open Rate'),
-            # Ingress - tag events
-            alias(sum_series(non_negative_derivative(rash(ingress, 'immediatetriggerauditlog.observation_latency.Count'))),
-                  'Tag Observation Count'),
-            alias(sum_series(rate(rash(ingress, 'immediatetriggerauditlog.observation_latency.Count'))),
-                  'Tag Observation Rate'),
-            # Gorram - all mutations
-            alias(sum_series(non_negative_derivative(rash(gorram, 'argonmutationconsumer_meter.totalmutationsreceived.Count'))),
-                  'Total Argon Mutation Count'),
-            alias(sum_series(rate(rash(gorram, 'argonmutationconsumer_meter.totalmutationsreceived.Count'))),
-                  'Total Argon Mutation Rate')
-
-        )
-
-
-    # =============================================================================
-    # New queries for client-side processing
-
-    def total_events_processed(self):
-        gorram  = self.env.service('triggers-gorram-consumer')
-        ingress = self.env.service('triggers-state-ingress')
-        # Gorram - device events
-        return alias(sum_series(non_negative_derivative(rash(gorram, 'argonmutationconsumer_timer.device_open_processed.Count')),
-                                non_negative_derivative(rash(gorram, 'argonmutationconsumer_meter.totalmutationsreceived.Count')),
-                                non_negative_derivative(rash(ingress, 'immediatetriggerauditlog.observation_latency.Count'))),
-                     'Total Event Count')
-
-    def total_triggers_processed(self):
-        service = self.env.service('triggers-state-ingress')
-        return alias(sum_series(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_processed.Count'))),
-                                non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_processed.Count')))),
-                     "Total Triggers Processed Count")
-
-    def total_triggers_satisfied(self):
-        service = self.env.service('triggers-state-ingress')
-        return alias(sum_series(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_satisfied.Count'))),
-                                non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_satisfied.Count')))),
-                     "Total Triggers Satisfied Count")
-
-
-    def total_pushes_sent(self):
-        service = self.env.service('triggers-fulfillment')
-        return alias(sum_series(non_negative_derivative(rash(service, 'pushfulfillmenthandler.total_push_count.Count')),
-                                non_negative_derivative(rash(service, 'delayedpushfulfillmenthandler.total_delayed_push_count.Count'))),
-                     "Push Count")
-
-    def total_push_rate(self):
-        service = self.env.service('triggers-fulfillment')
-        return group(alias(sum_series(rate(rash(service, 'pushfulfillmenthandler.total_push_count.Count')),
-                                      rate(rash(service, 'delayedpushfulfillmenthandler.total_delayed_push_count.Count'))),
-                           "Total Push Rate"),
-                     alias(sum_series(rate(rash(service, 'pushfulfillmenthandler.total_push_count.Count'))),
-                           "Push Rate"),
-                     alias(sum_series(rate(rash(service, 'delayedpushfulfillmenthandler.total_delayed_push_count.Count'))),
-                           "Delayed Push Rate"))
-
-
-    def immediate_triggers(self):
-        service = self.env.service('triggers-state-ingress')
-        return group(
-            # Immediate
-            alias(rate(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_processed.Count'))),
-                  "Immediate Triggers Processed Rate"),
-            alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_processed.Count'))),
-                  "Immediate Triggers Processed Count"),
-            alias(rate(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_satisfied.Count'))),
-                  "Immediate Triggers Satisfied Rate"),
-            alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.immediate_triggers_satisfied.Count'))),
-                  "Immediate Triggers Satisfied Count"))
-
-
-    def historical_triggers(self):
-        service = self.env.service('triggers-state-ingress')
-        return group(
-            # Historial
-            alias(rate(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_processed.Count'))),
-                  "Historical Triggers Processed Rate"),
-            alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_processed.Count'))),
-                  "Historical Triggers Processed Count"),
-            alias(rate(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_satisfied.Count'))),
-                  "Historical Triggers Satisfied Rate"),
-            alias(non_negative_derivative(sum_series(rash(service, 'observationstreamconsumer.historical_triggers_satisfied.Count'))),
-                  "Historical Triggers Satisfied Count"))
-
-    def device_event_rate(self):
-        gorram  = self.env.service('triggers-gorram-consumer')
-        return alias(sum_series(rate(rash(gorram, 'argonmutationconsumer_timer.device_open_processed.Count'))),
-                     'Device Open Rate')
-
-# =============================================================================
-
 def demo_automation_overview(env):
-    q = Queries(env)
-    graphite = env.graphite()
-
     dash = Dashboard(name='demo-automation',
                      category='Automation',
                      title='Overview',
                      queries = {
-                         'total_events_processed'   : str(q.total_events_processed()),
-                         'total_triggers_processed' : str(q.total_triggers_processed()),
-                         'total_triggers_satisfied' : str(q.total_triggers_satisfied()),
-                         'total_pushes_sent'        : str(q.total_pushes_sent()),
-                         'total_push_rate'          : str(q.total_push_rate()),
-                         'end_to_end'               : str(q.automation_end_to_end_delivery_time()),
-                         'immediate_triggers'       : str(q.immediate_triggers()),
-                         'historical_triggers'      : str(q.historical_triggers()),
-                         'api_rate'                 : str(q.automation_api_rates()),
-                         'api_latency'              : str(q.automation_api_latency()),
-                         'device_event_rate'        : str(q.device_event_rate()),
-                         'stacked_test' : str(q.automation_push_payloads())
+                         'total_events_processed': 'alias(sumSeries(nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-gorram-consumer.argonmutationconsumer_timer.device_open_processed.Count),nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-gorram-consumer.argonmutationconsumer_meter.totalmutationsreceived.Count),nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-state-ingress.immediatetriggerauditlog.observation_latency.Count)),"Total Event Count")',
+
+        'total_triggers_satisfied': 'alias(sumSeries(nonNegativeDerivative(sumSeries(servers.{s0306,s0307}.rash.triggers-state-ingress.observationstreamconsumer.historical_triggers_satisfied.Count)),nonNegativeDerivative(sumSeries(servers.{s0306,s0307}.rash.triggers-state-ingress.observationstreamconsumer.immediate_triggers_satisfied.Count))),"Total Triggers Satisfied Count")',
+
+        'api_rate': 'group(alias(sumSeries(scaleToSeconds(nonNegativeDerivative(servers.{s0189,s0188}.rash.push-api.pipelineendpointmetrics.total_request_count.Count), 1)),"API Total Request Rate"),alias(sumSeries(nonNegativeDerivative(servers.{s0189,s0188}.rash.push-api.pipelineendpointmetrics.total_request_count.Count)),"API Total Request Count"))',
+                         'historical_triggers': 'group(alias(scaleToSeconds(nonNegativeDerivative(sumSeries(servers.{s0306,s0307}.rash.triggers-state-ingress.observationstreamconsumer.historical_triggers_processed.Count)), 1),"Historical Triggers Processed Rate"),alias(nonNegativeDerivative(sumSeries(servers.{s0306,s0307}.rash.triggers-state-ingress.observationstreamconsumer.historical_triggers_processed.Count)),"Historical Triggers Processed Count"),alias(scaleToSeconds(nonNegativeDerivative(sumSeries(servers.{s0306,s0307}.rash.triggers-state-ingress.observationstreamconsumer.historical_triggers_satisfied.Count)), 1),"Historical Triggers Satisfied Rate"),alias(nonNegativeDerivative(sumSeries(servers.{s0306,s0307}.rash.triggers-state-ingress.observationstreamconsumer.historical_triggers_satisfied.Count)),"Historical Triggers Satisfied Count"))',
+                         'device_event_rate': 'alias(sumSeries(scaleToSeconds(nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-gorram-consumer.argonmutationconsumer_timer.device_open_processed.Count), 1)),"Device Open Rate")',
+                         'api_latency': 'alias(averageSeries(maxSeries(servers.{s0189,s0188}.rash.push-api.pipelineendpointmetrics.postpipelinetimer.Mean),maxSeries(servers.{s0189,s0188}.rash.push-api.pipelineendpointmetrics.postvalidatetimer.Mean),maxSeries(servers.{s0189,s0188}.rash.push-api.pipelineendpointmetrics.putpipelinetimer.Mean),maxSeries(servers.{s0189,s0188}.rash.push-api.pipelineendpointmetrics.deletepipelinetimer.Mean),maxSeries(servers.{s0189,s0188}.rash.push-api.pipelineendpointmetrics.getpipelinetimer.Mean),maxSeries(servers.{s0189,s0188}.rash.push-api.pipelineendpointmetrics.getlimitstimer.Mean),maxSeries(servers.{s0189,s0188}.rash.push-api.pipelineendpointmetrics.listpipelinetimer.Mean),maxSeries(servers.{s0189,s0188}.rash.push-api.pipelineendpointmetrics.listdeletedpipelinetimer.Mean)),"/api/pipelines, Average Latency")',
+                         'total_triggers_processed': 'alias(sumSeries(nonNegativeDerivative(sumSeries(servers.{s0306,s0307}.rash.triggers-state-ingress.observationstreamconsumer.historical_triggers_processed.Count)),nonNegativeDerivative(sumSeries(servers.{s0306,s0307}.rash.triggers-state-ingress.observationstreamconsumer.immediate_triggers_processed.Count))),"Total Triggers Processed Count")',
+                         'total_push_rate': 'group(alias(sumSeries(scaleToSeconds(nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-fulfillment.pushfulfillmenthandler.total_push_count.Count), 1),scaleToSeconds(nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-fulfillment.delayedpushfulfillmenthandler.total_delayed_push_count.Count), 1)),"Total Push Rate"),alias(sumSeries(scaleToSeconds(nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-fulfillment.pushfulfillmenthandler.total_push_count.Count), 1)),"Push Rate"),alias(sumSeries(scaleToSeconds(nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-fulfillment.delayedpushfulfillmenthandler.total_delayed_push_count.Count), 1)),"Delayed Push Rate"))',
+                         'immediate_triggers': 'group(alias(scaleToSeconds(nonNegativeDerivative(sumSeries(servers.{s0306,s0307}.rash.triggers-state-ingress.observationstreamconsumer.immediate_triggers_processed.Count)), 1),"Immediate Triggers Processed Rate"),alias(nonNegativeDerivative(sumSeries(servers.{s0306,s0307}.rash.triggers-state-ingress.observationstreamconsumer.immediate_triggers_processed.Count)),"Immediate Triggers Processed Count"),alias(scaleToSeconds(nonNegativeDerivative(sumSeries(servers.{s0306,s0307}.rash.triggers-state-ingress.observationstreamconsumer.immediate_triggers_satisfied.Count)), 1),"Immediate Triggers Satisfied Rate"),alias(nonNegativeDerivative(sumSeries(servers.{s0306,s0307}.rash.triggers-state-ingress.observationstreamconsumer.immediate_triggers_satisfied.Count)),"Immediate Triggers Satisfied Count"))',
+                         'end_to_end': 'group(alias(maxSeries(servers.{s0306,s0307}.rash.triggers-fulfillment.controller.pipeline_end_to_end_delivery_time.Mean),"End to End Delivery, Mean Latency"),alias(maxSeries(servers.{s0306,s0307}.rash.triggers-fulfillment.controller.pipeline_end_to_end_delivery_time.99thPercentile),"End to End Delivery, 99th% Latency"))',
+                         'stacked_test': 'group(alias(sumSeries(servers.{s0306,s0307}.rash.triggers-fulfillment.pushpayloadmetrics.pushcount.all.Count),"All Push Count"),alias(diffSeries(sumSeries(servers.{s0306,s0307}.rash.triggers-fulfillment.pushpayloadmetrics.pushcount.all.Count),sumSeries(servers.{s0306,s0307}.rash.triggers-fulfillment.pushpayloadmetrics.pushfeaturetype_richpush.payload.Count)),"Regular Push Count"),alias(sumSeries(servers.{s0306,s0307}.rash.triggers-fulfillment.pushpayloadmetrics.pushfeaturetype_richpush.payload.Count),"Rich Push Count"))',
+                         'total_pushes_sent': 'alias(sumSeries(nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-fulfillment.pushfulfillmenthandler.total_push_count.Count),nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-fulfillment.delayedpushfulfillmenthandler.total_delayed_push_count.Count)),"Push Count")'
                      },
                      grid=Grid(
-                         Row(Cell(span=3, emphasize=True, align='center',
+                         Row(Cell(span=3, style=DashboardItem.Style.WELL, align='center',
                                   presentation=SingleStat(title='Raw Events Processed',
                                                           query_name='total_events_processed',
                                                           format=',.0f',
                                                           transform='sum')),
-                             Cell(span=3, emphasize=True, align='center',
+                             Cell(span=3, style=DashboardItem.Style.WELL, align='center',
                                   presentation=SingleStat(title='Triggers Processed',
                                                           query_name='total_triggers_processed',
                                                           format=',.0f',
                                                           transform='sum')),
-                             Cell(span=3, emphasize=True, align='center',
+                             Cell(span=3, style=DashboardItem.Style.WELL, align='center',
                                   presentation=SingleStat(title='Triggers Satisifed',
                                                         query_name='total_triggers_satisfied',
                                                           format=',.0f',
                                                           transform='sum')),
-                             Cell(span=3, emphasize=True, align='center',
+                             Cell(span=3, style=DashboardItem.Style.WELL, align='center',
                                   presentation=SingleStat(title='Pushes Sent',
                                                           query_name='total_pushes_sent',
                                                           format=',.0f',

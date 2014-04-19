@@ -10,9 +10,12 @@
 
 ### Model & Persistence
 
+- Thresholds
+  - Attach them to queries, not presentations
+  - if a threshold is triggered, update ALL presentations linked to it
 - Drilldowns
   - They should be entities in the model
-  - each drilldown defines how to generate the drilldown 
+  - each drilldown defines how to generate the drilldown
     - from a single graph to the same graph on multiple time scales
     - or breaking out a multi-host chart into one chart per host
     - or simple link to another dashboard
@@ -40,18 +43,19 @@
   format=json in URL. Need a render_url_path w/o format or host~~
 - ~~basic API for dashboards~~
 
+
 ### Presentations
 
 - New presentations
   - [reD3](http://bugzu.github.io/reD3/) has an interesting [day/hour heatmap](http://bugzu.github.io/reD3/#/heatmap)
-  - [punchcard](https://github.com/fogleman/Punchcard) is similar, implementing a github-style punchcard view. In python, so server-side. 
+  - [punchcard](https://github.com/fogleman/Punchcard) is similar, implementing a github-style punchcard view. In python, so server-side.
   - [isometric pixel graphics](https://github.com/nosir/obelisk.js) are probably _completely irrelevant_ for this application, but damn are they cool.
   - [dc.js](http://nickqizhu.github.io/dc.js/) with [crossfilter](http://square.github.io/crossfilter/).
   - nvd3: [multi-bar](http://nvd3.org/examples/multiBar.html) option for time series
-  - nvd3: has an [excellent implementation](http://nvd3.org/examples/bullet.html) of 
+  - nvd3: has an [excellent implementation](http://nvd3.org/examples/bullet.html) of
     Stephen Few's [bullet graph](http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf).
   - ``SummationComparisonTable``, compare 2 series w/% change indicator (see stathat)
-  - [tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a 
+  - [tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a
     singlestat and simple_time_series with fill)
   - multi-stat version of ``SingleStat`` that flips through them using a
     carousel (i.e. [Slick](http://kenwheeler.github.io/slick) which is
@@ -108,8 +112,8 @@
 
 ### UI
 
-- Grid alternatives. Other ways of laying out the dashboard grid, as an alternative to the 
-  bootstrap CSS grid. Some of these are interactive, with possibilities for editing. 
+- Grid alternatives. Other ways of laying out the dashboard grid, as an alternative to the
+  bootstrap CSS grid. Some of these are interactive, with possibilities for editing.
   - [Nested](http://suprb.com/apps/nested/)
   - [uberVU grid](https://github.com/uberVU/grid)
   - [gridster.js](https://github.com/ducksboard/gridster.js)
@@ -136,11 +140,15 @@
 
 ### Navigation
 
-- Featured dashboards on front page are currently hard-coded. They should be driven from metadata 
+- Featured dashboards on front page are currently hard-coded. They should be driven from metadata
   (need to add metadata to back-end first; probably by adding in a SQL datastore)
 - Tags. Produce a related dashboards list based on common tags (also requires metadata store)
 - Drilldowns - define links from individual presentations to other dashboards, or to larger presentations (i.e. a generic dashboard page that shows a single presentation from the parent scaled up)
- 
+
+### Demos
+
+- Add chef runs to single node overview
+
 ### Integration
 
 - LDAP integration

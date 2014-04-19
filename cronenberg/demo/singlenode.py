@@ -7,7 +7,7 @@ from ..model import *
 def demo_node_dashboard():
     return Dashboard(name='demo-node',
                      category='Demo',
-                     title='System Overview for {{ node }}',
+                     title='System Overview for {{#if title}}{{title}}{{else}}{{ node }}{{/if}}',
                      queries = {
                          'cpu_usage' : 'aliasByNode(group(servers.{{ node }}.sysstat.cpu.all.system,servers.{{ node }}.sysstat.cpu.all.user,servers.{{ node }}.sysstat.cpu.all.io_wait), 1, 5)',
                          'loadavg' : 'aliasByNode(servers.{{ node }}.sysstat.loadavg.01, 1)',
@@ -15,17 +15,20 @@ def demo_node_dashboard():
                          'processes' : 'aliasByNode(servers.{{ node }}.sysstat.loadavg.process_list_size, 1)',
                          'bytes_received' : 'aliasByNode(servers.{{ node }}.sysstat.network.*.bytes_rx,1,4)',
                          'tcp_establised' : 'aliasByNode(servers.{{ node }}.tcp.CurrEstab,1)',
-                         'memory_usage' : 'aliasByNode(asPercent(servers.{{ node }}.memory.Active,servers.{{ node }}.memory.MemTotal),1)'
+                         'memory_usage' : 'aliasByNode(asPercent(sumSeries(servers.{{ node }}.memory.Active),sumSeries(servers.{{ node }}.memory.MemTotal)),1)',
+                         'chef' : 'drawAsInfinite(servers.{{node}}.chef.elapsed)'
                      },
                      grid=Grid(
                          Row(
-                             Cell(span=4, emphasize=True,
+                             Cell(span=4, style=DashboardItem.Style.WELL,
                                   presentation=StandardTimeSeries(height=2, title='Load Average', query_name='loadavg'))
-                             ,Cell(span=4, emphasize=True,
+                             ,Cell(span=4, style=DashboardItem.Style.WELL,
                                    presentation=StandardTimeSeries(height=2, title='TCP Connections', query_name='tcp_establised'))
-                             ,Cell(span=4, emphasize=True,
+                             ,Cell(span=4, style=DashboardItem.Style.WELL,
                                    presentation=StandardTimeSeries(height=2, title='% Memory In Use', query_name='memory_usage'))
                          )
+ #                        ,Row(Cell(span=2, offset=2, align='right', presentation=SingleStat(title='Cheffed', query_name='chef', transform='sum', units='times', format=',.0f'))
+ #                             ,Cell(span=8, presentation=SimpleTimeSeries(query_name='chef')))
                          ,Heading('CPU')
                          ,Separator()
                          ,Row(Cell(span=2, align='center', presentation=SingleStat(query_name='cpu_usage', title='Max Usage', transform='max'))
@@ -67,6 +70,7 @@ def demo_node_dashboard():
                          ,Separator()
                          ,Row(Cell(span=2, align='center', presentation=SingleStat(query_name='tcp_establised', title='Max Connections',
                                                                                    transform='max',
+                                                                                   thresholds=Thresholds(warning=28000, danger=30000),
                                                                                    format=',.2s'))
                               ,Cell(span=2, align='center', presentation=SingleStat(query_name='tcp_establised', title='Mean Connections',
                                                                                     transform='mean',
