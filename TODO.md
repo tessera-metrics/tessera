@@ -145,6 +145,10 @@
 - Tags. Produce a related dashboards list based on common tags (also requires metadata store)
 - Drilldowns - define links from individual presentations to other dashboards, or to larger presentations (i.e. a generic dashboard page that shows a single presentation from the parent scaled up)
 
+### Demos
+
+- Add chef runs to single node overview
+
 ### Integration
 
 - LDAP integration
