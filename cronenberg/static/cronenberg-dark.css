@@ -135,3 +135,9 @@ background-color: #222;
     text-shadow: none;
     box-shadow: none;
 }
+
+.btn-default {
+    color: #DDD;
+    background-color: #555;
+    border-color: #777;
+}
