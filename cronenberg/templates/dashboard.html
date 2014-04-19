@@ -27,20 +27,14 @@
       </div>
       <div class="col-md-3 time-container" align="right">
         <div class="btn-group pull-right">
-          <button type="button"
-                  data-toggle="tooltip" title="Refresh"
-                  data-placement="bottom"
-                  onclick="cronenberg.dashboards.refresh()"
-                  class="btn btn-default"
-                  style="margin-top: 1em; margin-left: .5em">
-                  <i class="fa fa-lg fa-refresh"></i>
-          </button>
+
+          {% include "snippets/refresh-button.html" %}
           <button type="button"
                   data-toggle="tooltip" title="Exit Display Mode"
                   data-placement="bottom"
                   onclick="cronenberg.exitFullscreen()"
                   class="btn btn-default"
-                  style="margin-top: 1em; margin-left: .5em">
+                  style="margin-top: 1em; ">
                   <i class="fa fa-lg fa-compress"></i>
           </button>
         </div>
