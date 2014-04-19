@@ -205,17 +205,13 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
   <div class="{{span item}} {{offset item}} {{css_class item}} {{height item}}"
        {{#if item.align}} align="{{item.align}}" {{/if}}
        >
-  {{#if item.emphasize}}
-    <div class="well">
-  {{/if}}
+  {{#if item.style}}<div class="{{style_class item}}">{{/if}}
 
   {{#each item.presentation}}
     {{item this}}
   {{/each}}
 
-  {{#if item.emphasize}}
-    </div>
-  {{/if}}
+  {{#if item.style}}</div>{{/if}}
 </div>
 </script>
 
@@ -223,17 +219,13 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
      TEMPLATE: Dashboard rows.
   -->
 <script id="tmpl-row" data-item-type="row" type="text/x-handlebars-template">
-  {{#if item.emphasize}}
-    <div class="well">
-  {{/if}}
+  {{#if item.style}}<div class="{{style_class item}}">{{/if}}
   <div class="row dashboard-row">
     {{#each item.cells}}
       {{item this}}
     {{/each}}
   </div>
-  {{#if item.emphasize}}
-  </div>
-  {{/if}}
+  {{#if item.style}}</div>{{/if}}
 </script>
 
 <!--

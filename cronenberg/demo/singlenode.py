@@ -19,11 +19,11 @@ def demo_node_dashboard():
                      },
                      grid=Grid(
                          Row(
-                             Cell(span=4, emphasize=True,
+                             Cell(span=4, style=DashboardItem.Style.CALLOUT_NEUTRAL,
                                   presentation=StandardTimeSeries(height=2, title='Load Average', query_name='loadavg'))
-                             ,Cell(span=4, emphasize=True,
+                             ,Cell(span=4, style=DashboardItem.Style.CALLOUT_NEUTRAL,
                                    presentation=StandardTimeSeries(height=2, title='TCP Connections', query_name='tcp_establised'))
-                             ,Cell(span=4, emphasize=True,
+                             ,Cell(span=4, style=DashboardItem.Style.CALLOUT_NEUTRAL,
                                    presentation=StandardTimeSeries(height=2, title='% Memory In Use', query_name='memory_usage'))
                          )
                          ,Heading('CPU')

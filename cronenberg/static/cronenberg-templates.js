@@ -39,11 +39,9 @@ cronenberg.TemplateRegistry = function() {
             return new Handlebars.SafeString(cronenberg.templates.render(item));
         });
 
-        // A helper for formatting numeric values
         Handlebars.registerHelper('format', function(format, value) {
             return d3.format(format)(value);
         });
-
         Handlebars.registerHelper('height', function(item) {
             return item.height ? 'dashboard-height' + item.height : '';
         });
@@ -55,6 +53,26 @@ cronenberg.TemplateRegistry = function() {
         });
         Handlebars.registerHelper('css_class', function(item) {
             return item.css_class ? item.css_class : '';
+        });
+        Handlebars.registerHelper('style_class', function(item) {
+            if (item.style) {
+                switch (item.style) {
+                case 'well':
+                    return 'well';
+                case 'callout_neutral':
+                    return 'bs-callout bs-callout-neutral';
+                case 'callout_info':
+                    return 'bs-callout bs-callout-info';
+                case 'callout_success':
+                    return 'bs-callout bs-callout-success';
+                case 'callout_warning':
+                    return 'bs-callout bs-callout-warning';
+                case 'callout_danger':
+                    return 'bs-callout bs-callout-danger';
+                }
+            }  else {
+                return '';
+            }
         });
 
         return this;

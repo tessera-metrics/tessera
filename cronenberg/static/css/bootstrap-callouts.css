@@ -3,7 +3,7 @@
 
 /* Base styles (regardless of theme) */
 .bs-callout {
-margin: 20px 0;
+margin: 0;
 padding: 15px 30px 15px 15px;
 border-left: 5px solid #eee;
 }
@@ -77,4 +77,8 @@ border-color: #d0e3f0;
 .bs-callout-success {
 background-color: #dff0d8;
 border-color: #d6e9c6;
+}
+.bs-callout-neutral {
+background-color: #f0f0f0;
+border-color: #d0d0d0;
 }

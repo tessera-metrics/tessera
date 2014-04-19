@@ -20,6 +20,9 @@ Client Side:
 * [Twitter Bootstrap](http://twitter.github.com/bootstrap)
   * [Font Awesome](http://fortawesome.github.com/Font-Awesome/)
   * [darkstrap](https://github.com/danneu/darkstrap)
+  * The extracted
+    [callouts](https://gist.github.com/matthiasg/6153853) from
+    bootstrap's documentation site.
 * [jQuery](http://jquery.com/)
 * [nvd3](https://github.com/novus/nvd3) for interactive charts build
   on top of [d3](http://d3js.org). d3 is also used for value
