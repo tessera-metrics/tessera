@@ -65,9 +65,6 @@ def _to_json_entities(entities):
     elif isinstance(entities, Entity):
         return { 'entities' : [_to_json(entities)] }
 
-def _to_json_names(names):
-    return { 'names' : names }
-
 def _jsonify(data):
     return flask.Response(status=200,
                           mimetype="application/json",
@@ -87,18 +84,6 @@ def _get_param(name, default=None, store_in_session=False):
 def api_dashboard_list():
     """Fetch all Dashboard entities."""
     return _jsonify(_to_json_entities(_get_entities(Dashboard)))
-
-@app.route('/api/dashboard/names')
-def api_dashboard_names():
-    """Return a JSON array of only the dashboard names, suitable for
-    most javascript typeahead components."""
-    return _jsonify(_to_json_names(mgr.list(Dashboard)))
-
-@app.route('/api/dashboard/listing')
-def api_dashboard_listing():
-    """Return a JSON array of partial dashboard objects, for rendering a
-    directory."""
-    return _jsonify(_to_json_names(mgr.list(Dashboard)))
 
 @app.route('/api/dashboard/<name>')
 def api_dashboard_get(name):
@@ -130,6 +115,9 @@ def api_dashboard_get(name):
 #
 #   Manage the tags sub-set of the dashboard's metadata.
 #
+# ``/api/tags`` (GET)
+#
+#  Get a list of all tags, for populating auto-complete widgets.
 
 @app.route('/api/dashboard/<id>/tags')
 def api_dashboard_get_tags(id):
@@ -151,6 +139,9 @@ def api_dashboard_get_definition_expanded(id):
 def api_dashboard_set_definition(id):
     pass
 
+@app.route('/api/tags')
+def api_get_tags(id):
+    pass
 
 
 
