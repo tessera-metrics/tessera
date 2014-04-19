@@ -21,10 +21,10 @@ def _delattr(dictionary, attr):
 # =============================================================================
 
 class Thresholds(object):
-    def __init__(self, summation_type='max', warning=None, alert=None):
+    def __init__(self, summation_type='max', warning=None, danger=None):
         self.summation_type = summation_type
         self.warning = warning
-        self.alert = alert
+        self.danger = danger
 
 class DashboardItem(object):
     """Layout elements are class that define how presentations are
@@ -33,11 +33,21 @@ class DashboardItem(object):
     """
     NEXT = 1
 
-    def __init__(self, item_type, element_id=None, css_class='', height=None, **kwargs):
+    class Style:
+        PLAIN           = None
+        WELL            = 'well'
+        CALLOUT_NEUTRAL = 'callout_neutral'
+        CALLOUT_INFO    = 'callout_info'
+        CALLOUT_SUCCESS = 'callout_success'
+        CALLOUT_WARNING = 'callout_warning'
+        CALLOUT_DANGER  = 'callout_danger'
+
+    def __init__(self, item_type, element_id=None, css_class='', style=Style.PLAIN, height=None, **kwargs):
         self.item_type = item_type
         self.css_class = css_class
         self.element_id = DashboardItem.nextid()
         self.height = height
+        self.style = style
 
     @staticmethod
     def nextid():
@@ -193,12 +203,11 @@ class Cell(DashboardItem):
     """Cell defines how to position and size a presentation on the
     grid. Cells should be contained in Rows.
     """
-    def __init__(self, presentation, span, emphasize=False, offset=None, align=None, **kwargs):
+    def __init__(self, presentation, span, offset=None, align=None, **kwargs):
         super(Cell, self).__init__(item_type='cell', **kwargs)
         self.presentation = presentation if isinstance(presentation, list) else [presentation]
         self.span = span
         self.offset = offset
-        self.emphasize = emphasize
         self.align = align
 
     @classmethod
@@ -216,7 +225,6 @@ class Row(DashboardItem):
     def __init__(self, *cells, **kwargs):
         super(Row, self).__init__(item_type='row', **kwargs)
         self.cells = [] if len(cells) == 0 else cells
-        self.emphasize = kwargs.get('emphasize', False)
 
     @classmethod
     def from_json(cls, d):

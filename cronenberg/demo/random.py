@@ -27,24 +27,24 @@ def demo_random_data_dashboard():
                                                         query_name='cpu_usage',
                                                           units='frobs')
                                   ])
-                             ,Cell(span=8, emphasize=True,
+                             ,Cell(span=8, style=DashboardItem.Style.WELL,
                                    presentation=StackedAreaChart(query_name='cpu_usage', height=3, title="stacked_area_chart"))
                          )
                          ,Row(
-                             Cell(span=2,offset=4,align='right', emphasize=True,
+                             Cell(span=3,offset=4,align='center', style=DashboardItem.Style.WELL,
                                   presentation=SingleStat(title='Max. Frob Density',
                                                  query_name='cpu_usage',
                                                  transform='max',
                                                  units='frobs/kg',
                                                  format=',.0f'))
-                             ,Cell(span=2,align='center',emphasize=True,
+                             ,Cell(span=2,align='center',style=DashboardItem.Style.WELL,
                                    presentation=SingleStat(title='Average Rate',
                                                            query_name='cpu_usage',
                                                            transform='mean',
                                                         units='/sec',
                                                            format=',.2f'))
 
-                             ,Cell(span=4, emphasize=True,align='center',
+                             ,Cell(span=3, style=DashboardItem.Style.WELL,align='center',
                                    presentation=SingleStat(title='Total Frobs',
                                                            query_name='cpu_usage',
                                                            transform='sum',
