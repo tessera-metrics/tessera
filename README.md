@@ -2,7 +2,7 @@
 
 A dashboard front-end for Graphite.
 
-![screenshot](docs/screenshot-gallery-light.png "Example gallery in Light theme")
+![screenshot](docs/screenshot-single-node-light.png)
 
 ## Dependencies ##
 
