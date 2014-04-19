@@ -79,7 +79,6 @@ def demo_gallery_dashboard():
                               ,Cell(span=3, emphasize=True, align='center',
                                     presentation=SingleStat(query_name='single1',
                                                             title='Mean, Emphasized',
-                                                            thresholds=Thresholds(warning=2, alert=3),
                                                             transform='mean'))
                           )
                          ,Row(
