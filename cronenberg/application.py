@@ -108,39 +108,47 @@ def api_dashboard_get(name):
 
 # ## API Endpoints
 #
-# ``/api/dashboard``
+# ``/api/dashboard`` (GET, POST)
 #
 #   List all dashboards, returning their basic metadata (replaces the
 #   /names and /listing endpoints)
 #
-# ``/api/dashboard/<id>/definition``
+# ``/api/dashboard/<id>`` (GET, POST, PUT, DELETE)
+#
+#  Manage the metadata for a single dashboard.
+#
+# ``/api/dashboard/<id>/definition`` (GET, PUT)
 #
 #   Manage the complete definition of a single dashboard
 #
-# ``/api/dashboard/<id>/definition/expanded``
+# ``/api/dashboard/<id>/definition/expanded`` (GET)
 #
 #   Get the complete definition of a single dashboard with all URLs
 #   and template variables expanded, ready for rendering.
 #
-# ``/api/dashboard/<id>/tags``
+# ``/api/dashboard/<id>/tags`` (GET, PUT)
 #
 #   Manage the tags sub-set of the dashboard's metadata.
 #
 
-@app.route('/api/dashboard/<name>/tags')
-def api_dashboard_get_tags(name):
+@app.route('/api/dashboard/<id>/tags')
+def api_dashboard_get_tags(id):
     pass
 
-@app.route('/api/dashboard/<name>/tags', methods=['PUT'])
-def api_dashboard_set_tags(name):
+@app.route('/api/dashboard/<id>/tags', methods=['PUT'])
+def api_dashboard_set_tags(id):
     pass
 
-@app.route('/api/dashboard/<name>/definition')
-def api_dashboard_get_definition(name):
+@app.route('/api/dashboard/<id>/definition')
+def api_dashboard_get_definition(id):
     pass
 
-@app.route('/api/dashboard/<name>/definition', methods=['PUT'])
-def api_dashboard_set_definition(name):
+@app.route('/api/dashboard/<id>/definition/expanded')
+def api_dashboard_get_definition_expanded(id):
+    pass
+
+@app.route('/api/dashboard/<id>/definition', methods=['PUT'])
+def api_dashboard_set_definition(id):
     pass
 
 
