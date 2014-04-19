@@ -96,7 +96,7 @@ h1.page-title {
 .singlestat .unit {
     font-size: .5em;
     text-transform: lowercase;
-    margin-left: 0px;
+    margin-left: .25em;
 }
 
 .jumbotron-singlestat div {
