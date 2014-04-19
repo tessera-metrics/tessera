@@ -1,26 +1,26 @@
 {% from 'snippets/macros.html' import btnclass %}
 
     <div class="row">
-      <div class="span10">
+      <div class="col-md-9">
         {% include "snippets/recent-range-picker.html" %}
       </div>
 
-      <div class="span2">
+      <div class="col-md-3">
         <div class="btn-toolbar pull-right">
           <div class="btn-group" data-edit-mode="show" style="display:none">
-            <button class="{{ btnclass() }}">
-              <i class="icon-trash icon-large"></i>
+            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Delete this dashboard">
+              <i class="fa fa-lg fa-trash-o"></i>
             </button>
           </div>
           <div class="btn-group">
-            <button onclick="cronenberg.toggleEditMode()" class="{{ btnclass() }}" >
-              <i class="icon-edit icon-large"></i>
+            <button type="button" onclick="cronenberg.toggleEditMode()" class="btn btn-default" data-toggle="tooltip" title="Edit">
+              <i class="fa fa-lg fa-edit"></i>
             </button>
-            <button onclick="cronenberg.dashboards.refresh()" class="{{ btnclass() }}">
-              <i class="icon-refresh icon-large"></i>
+            <button type="button" onclick="cronenberg.dashboards.refresh()" class="btn btn-default" data-toggle="tooltip" title="Refresh">
+              <i class="fa fa-lg fa-refresh"></i>
             </button>
-            <button onclick="cronenberg.enterFullscreen()" class="{{ btnclass() }}">
-              <i class="icon-resize-full icon-large"></i>
+            <button type="button" onclick="cronenberg.enterFullscreen()" class="btn btn-default" data-toggle="tooltip" title="Enter Display Mode">
+              <i class="fa fa-lg fa-expand"></i>
             </button>
           </div> <!-- button group -->
         </div>

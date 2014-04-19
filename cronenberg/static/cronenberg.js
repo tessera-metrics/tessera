@@ -82,10 +82,10 @@ var cronenberg = {
 
     check_thresholds: function(item, value, element) {
         if (item.thresholds) {
-            if (value > item.thresholds.alert) {
-                $(element).addClass("dashboard-alert");
+            if (value > item.thresholds.danger) {
+                $(element).addClass("dashboard-danger bs-callout bs-callout-danger");
             } else if (value > item.thresholds.warning) {
-                $(element).addClass("dashboard-warning");
+                $(element).addClass("dashboard-warning bs-callout bs-callout-warning");
             }
         }
     }

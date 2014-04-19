@@ -52,7 +52,7 @@ h1 .secondary-title {
   color: white;
 }
 
-h2.time {
+.time-container h2 {
     color: #ddd;
 }
 

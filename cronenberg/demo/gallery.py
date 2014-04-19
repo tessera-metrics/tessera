@@ -60,8 +60,7 @@ def demo_gallery_dashboard():
                          ,Row(Cell(span=3,
                                    presentation=Markdown(text="### Single Stats\n"
                                                          + "A single stat presentation shows one of the summation values that are "
-                                                         + "calculated for each data series, along with a title and optionally units. "
-                                                         + "Key metrics can be **emphasized** for attention."))
+                                                         + "calculated for each data series, along with a title and optionally units. "))
                               ,Cell(span=2,
                                     presentation=SingleStat(query_name='single1',
                                                             title='Sum, Left Justified',
@@ -75,35 +74,65 @@ def demo_gallery_dashboard():
                                     presentation=SingleStat(query_name='single1',
                                                             title='Max, Centered',
                                                             format=',.0f',
-                                                            transform='max'))
-                              ,Cell(span=3, emphasize=True, align='center',
+                                                            units='/min',
+                                                            transform='max')))
+                         ,Row(Cell(span=3,
+                                   presentation=Markdown(text="Key metrics can be **emphasized** for attention in a variety of styles."))
+                              ,Cell(span=2, style=DashboardItem.Style.WELL, align='center',
                                     presentation=SingleStat(query_name='single1',
-                                                            title='Mean, Emphasized',
+                                                            title='Emphasized, Well',
+                                                            transform='mean'))
+                              ,Cell(span=2, style=DashboardItem.Style.CALLOUT_NEUTRAL, align='center',
+                                    presentation=SingleStat(query_name='single1',
+                                                            title='Neutral Callout',
+                                                            transform='mean'))
+                              ,Cell(span=2, style=DashboardItem.Style.CALLOUT_INFO, align='center',
+                                    presentation=SingleStat(query_name='single1',
+                                                            title='Information Callout',
+                                                            transform='mean'))
+                              ,Cell(span=2, style=DashboardItem.Style.CALLOUT_SUCCESS, align='center',
+                                    presentation=SingleStat(query_name='single1',
+                                                            title='Success Callout',
                                                             transform='mean'))
                           )
                          ,Row(
-                             Cell(span=2, offset=3, align='center',
+                             Cell(span=2, offset=3,
                                   presentation=SingleStat(query_name='single2',
                                                         title='Warning Threshold',
                                                           transform='mean',
                                                           units='/sec',
-                                                          css_class="dashboard-warning"))
-                             ,Cell(span=2, align='center',
+                                                          format=',.2f',
+                                                          css_class="dashboard-warning bs-callout bs-callout-warning"))
+                             ,Cell(span=2,
                                    presentation=SingleStat(query_name='single2',
-                                                           title='Alert Threshold',
+                                                           title='Danger Threshold',
                                                            transform='max',
-                                                           units='/sec',
-                                                           css_class="dashboard-alert"))
+                                                           units='ms',
+                                                           format=',.2f',
+                                                           css_class="dashboard-danger bs-callout bs-callout-danger"))
                          )
                          ,Row(Cell(span=3,
                                    presentation=Markdown(text="### Jumbotron Single Stat\n"
                                                          + "A larger single stat suitable for big displays"))
-                              ,Cell(span=6,
+                              ,Cell(span=5,
                                     presentation=JumbotronSingleStat(query_name='single1',
                                                                      height=3,
+                                                                     format=',.2f',
                                                                      units='/sec',
                                                                      title='Hey this number is important',
                                                                      transform='sum')))
+                         ,Row(Cell(span=3,
+                                   presentation=Markdown(text="Naturally, they can be emphasized too"))
+                              ,Cell(span=5,style=DashboardItem.Style.CALLOUT_DANGER,
+                                    presentation=JumbotronSingleStat(query_name='single1',
+                                                                     height=2,
+                                                                     format=',.2f',
+                                                                     units='/sec',
+                                                                     title='Hey, this looks really bad...',
+                                                                     css_class='dashboard-danger',
+                                                                     transform='sum')))
+
+                         ,Separator()
                          ,Row(Cell(span=3,
                                    presentation=Markdown(text="### Summation Tables\n"
                                                          + "Every data series returned from graphite has its min, max, sum, and mean "
