@@ -16,6 +16,10 @@ i[class*='icon-'] {
     margin-left: 0;
 }
 
+.page-header {
+    margin-top: 0px;
+}
+
 /* DataTables tweaks to work w/Boostrap */
 table.table thead .sorting,
 table.table thead .sorting_asc,
@@ -154,9 +158,13 @@ h1 .secondary-title {
     margin-bottom: 2em;
 }
 
-h2.time {
+.time-container h2 {
     padding-top: 2px;
     margin-bottom: -.45em;
+}
+
+.time-container h6 {
+    text-transform: uppercase;
 }
 
 .fullscreen-titlebar {
