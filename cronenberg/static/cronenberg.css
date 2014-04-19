@@ -60,6 +60,10 @@ h1.page-title {
     font-size: 3em;
 }
 
+.dashboard-grid {
+   margin-top: 1em;
+}
+
 .dashboard-grid h1 {
     margin-bottom: 0.125em;
 }
