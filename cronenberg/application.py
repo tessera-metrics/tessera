@@ -105,6 +105,47 @@ def api_dashboard_get(name):
     """Fetch a single Dashboard entity, or 404 if it is not found."""
     return _jsonify(_to_json_entities(mgr.load(Dashboard, name)))
 
+
+# ## API Endpoints
+#
+# ``/api/dashboard``
+#
+#   List all dashboards, returning their basic metadata (replaces the
+#   /names and /listing endpoints)
+#
+# ``/api/dashboard/<id>/definition``
+#
+#   Manage the complete definition of a single dashboard
+#
+# ``/api/dashboard/<id>/definition/expanded``
+#
+#   Get the complete definition of a single dashboard with all URLs
+#   and template variables expanded, ready for rendering.
+#
+# ``/api/dashboard/<id>/tags``
+#
+#   Manage the tags sub-set of the dashboard's metadata.
+#
+
+@app.route('/api/dashboard/<name>/tags')
+def api_dashboard_get_tags(name):
+    pass
+
+@app.route('/api/dashboard/<name>/tags', methods=['PUT'])
+def api_dashboard_set_tags(name):
+    pass
+
+@app.route('/api/dashboard/<name>/definition')
+def api_dashboard_get_definition(name):
+    pass
+
+@app.route('/api/dashboard/<name>/definition', methods=['PUT'])
+def api_dashboard_set_definition(name):
+    pass
+
+
+
+
 @app.route('/api/dashboard/<name>/expanded')
 def api_dashboard_get_expanded(name):
     """Fetch a single Dashboard entity, or 404 if it is not found. This
