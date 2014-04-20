@@ -10,23 +10,28 @@
   </button>
 
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
+    <span class="caret"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Set Refresh Options"
+          ></span>
     <span class="sr-only">Toggle Dropdown</span>
   </button>
 
-  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+  <ul class="dropdown-menu dropdown-menu-right ds-refresh-menu" role="menu">
     <li style="display:none" data-fullscreen="show" role="presentation" class="dropdown-header"><i class="fa fa-clock-o"></i> Recent Time Range</li>
     <li style="display:none" data-fullscreen="show" class="divider"></li>
-    <li style="display:none" data-fullscreen="show"><a href="#" name="-1h">Past Hour</a></li>
-    <li style="display:none" data-fullscreen="show"><a href="#" name="-3h">Past 3 Hours</a></li>
-    <li style="display:none" data-fullscreen="show"><a href="#" name="-6h">Past 6 Hours</a></li>
-    <li style="display:none" data-fullscreen="show"><a href="#" name="-12h">Past 12 Hours</a></li>
-    <li style="display:none" data-fullscreen="show"><a href="#" name="-1d">Past Day</a></li>
-    <li style="display:none" data-fullscreen="show"><a href="#" name="-7d">Past Week</a></li>
+    <li style="display:none" data-fullscreen="show"><a href="#" data-range="-1h">Past Hour</a></li>
+    <li style="display:none" data-fullscreen="show"><a href="#" data-range="-3h">Past 3 Hours</a></li>
+    <li style="display:none" data-fullscreen="show"><a href="#" data-range="-6h">Past 6 Hours</a></li>
+    <li style="display:none" data-fullscreen="show"><a href="#" data-range="-12h">Past 12 Hours</a></li>
+    <li style="display:none" data-fullscreen="show"><a href="#" data-range="-1d">Past Day</a></li>
+    <li style="display:none" data-fullscreen="show"><a href="#" data-range="-7d">Past Week</a></li>
     <br style="display:none" data-fullscreen="show"/>
     <li role="presentation" class="dropdown-header"><i class="fa fa-clock-o"></i> Auto Refresh</li>
     <li class="divider"></li>
     <li><a href="#" data-interval="0" >None</a></li>
+    <li><a href="#" data-interval="2" >2 seconds</a></li>
     <li><a href="#" data-interval="30" >30 seconds</a></li>
     <li><a href="#" data-interval="60" >1 minute</a></li>
     <li><a href="#" data-interval="120">2 minutes</a></li>
@@ -37,6 +42,14 @@
   </ul>
 
   <script>
+    $("ul.ds-refresh-menu a").click(function(e) {
+        var target = $(e.target);
+        if (target.attr('data-range')) {
+            cronenberg.dashboards.set_time_range(target.attr('data-range'));
+        } else if (target.attr('data-interval')) {
+            cronenberg.dashboards.set_refresh_interval(target.attr('data-interval'));
+        }
+    });
   </script>
 
 </div>
