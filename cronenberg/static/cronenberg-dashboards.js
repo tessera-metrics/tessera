@@ -50,20 +50,32 @@ cronenberg.DashboardManager = function() {
     };
 
     this.refresh = function() {
-        if (this.current) {
-            this.load(this.current.url);
+        var self = cronenberg.dashboards;
+        if (self.current) {
+            self.load(self.current.url);
         }
+    };
+
+    this.set_time_range = function(range) {
+        // TODO - this is a quick hack. Better would be to set the URL of
+        // the current dashboard, reload it (without reloading the page),
+        // and update the location with the browser history API
+        window.location = URI(window.location)
+            .setQuery('from', range)
+            .href();
     };
 
     this.autoRefreshInterval = null;
     this.intervalId = null;
 
-    this.autoRefresh = function(intervalSeconds) {
+    this.set_refresh_interval = function(value) {
         var self = this;
+        var intervalSeconds = parseInt(value);
         self.autoRefreshInterval = intervalSeconds;
-        if ((!intervalSeconds || intervalSeconds == 0) && self.intervalId) {
+        if (self.intervalId) {
             window.clearInterval(self.intervalId);
-        } else if (intervalSeconds > 0 && !self.timeoutId) {
+        }
+        if (intervalSeconds > 0) {
             self.intervalSeconds = intervalSeconds;
             self.intervalId = window.setInterval(self.refresh, intervalSeconds * 1000);
         }
