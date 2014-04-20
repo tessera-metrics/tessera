@@ -1,7 +1,18 @@
 cronenberg.DashboardHolder = function(url_, element_) {
     this.url = url_;
     this.dashboard = null;
-    this.element = $(element_);
+    this.element = element_;
+
+    this.setRange = function(from, until) {
+        var url = URI(this.url);
+        if (from) {
+            url.setQuery('from', from);
+        }
+        if (until) {
+            url.setQuery('until', until);
+        }
+        this.url = url.href();
+    };
 };
 
 cronenberg.DashboardManager = function() {
@@ -17,8 +28,8 @@ cronenberg.DashboardManager = function() {
     };
 
     this.load = function(url, element) {
-        this.current = new cronenberg.DashboardHolder(url, element);
-        var current = this.current;
+        cronenberg.current = new cronenberg.DashboardHolder(url, element);
+        var current = cronenberg.current;
         $.ajax({
             dataType: "json",
             url: url
@@ -49,7 +60,7 @@ cronenberg.DashboardManager = function() {
 
             // Render the dashboard
             var rendered = cronenberg.templates.render(dashboard);
-            current.element.html(rendered);
+            $(current.element).html(rendered);
 
             // Load the queries
             cronenberg.queries.loadAll();
@@ -65,13 +76,13 @@ cronenberg.DashboardManager = function() {
         }
     };
 
-    this.set_time_range = function(range) {
-        // TODO - this is a quick hack. Better would be to set the URL of
-        // the current dashboard, reload it (without reloading the page),
-        // and update the location with the browser history API
-        window.location = URI(window.location)
-            .setQuery('from', range)
-            .href();
+    this.set_time_range = function(from, until) {
+        var current = cronenberg.current;
+        var location = URI(window.location).setQuery('from', from).href();
+        window.history.pushState({url: current.url, element:current.element}, '', location);
+
+        current.setRange(from, until);
+        cronenberg.dashboards.load(current.url, current.element);
     };
 
     this.autoRefreshInterval = null;
