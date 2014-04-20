@@ -18,16 +18,17 @@
   </div> <!-- end nav and toolbar -->
 
   <!-- Fullscreen top bar -->
-  <div class="fullscreen-titlebar" data-fullscreen="show" style="display:none">
+  <div class="ds-fullscreen-titlebar" data-fullscreen="show" style="display:none">
     <div class="row">
-      <div class="col-md-8">
+
+      <div class="col-md-6">
         <h1 class="page-title">
           <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
         </h1>
       </div>
-      <div class="col-md-4 time-container" align="right">
-        <div class="btn-group pull-right" style="height:4em; padding-top:1em">
 
+      <div class="col-md-6" align="right">
+        <div class="btn-group pull-right" style="height:4em; padding-top:1em">
           {% include "snippets/refresh-button.html" %}
           <button type="button"
                   data-toggle="tooltip" title="Exit Display Mode"
@@ -38,10 +39,25 @@
                   <i class="fa fa-lg fa-compress"></i>
           </button>
         </div>
-        <div>
-          <h2 class="time">{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
-          <h6 class="date">{{ ctx.now.strftime("%A") }} {{ ctx.now.strftime("%d %B %Y") }}</h6>
+
+        <div class="pull-right" style="margin-left:1em;margin-right:.5em;margin-top:1.8em;">
+          <ul class="nav nav-pills">
+            <li class="active">
+              <a class="ds-fullscreen-range-indicator">Past Hour</a>
+            </li>
+          </ul>
+        <script>
+          cronenberg.dashboards.onRangeChanged(function(from,until) {
+          $("a.ds-fullscreen-range-indicator").text(cronenberg.dashboards.ranges[from]);
+          });
+        </script>
         </div>
+
+        <div class="ds-time-container pull-right">
+          <h2>{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
+          <h6>{{ ctx.now.strftime("%A") }} {{ ctx.now.strftime("%d %B %Y") }}</h6>
+        </div>
+
       </div>
     </div>
     <hr style="margin:.25em"/>

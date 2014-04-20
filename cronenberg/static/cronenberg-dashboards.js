@@ -62,6 +62,10 @@ cronenberg.DashboardManager = function() {
             var rendered = cronenberg.templates.render(dashboard);
             $(current.element).html(rendered);
 
+            var currentURL = URI(current.url);
+
+            bean.fire(this, 'ds-range-changed', currentURL.query('from'), currentURL.query('until'));
+
             // Load the queries
             cronenberg.queries.loadAll();
 
@@ -82,7 +86,24 @@ cronenberg.DashboardManager = function() {
         window.history.pushState({url: current.url, element:current.element}, '', location);
 
         current.setRange(from, until);
+        bean.fire(this, 'ds-range-changed', from, until);
         cronenberg.dashboards.load(current.url, current.element);
+    };
+
+    this.ranges = {
+        // TODO - quick hack. Parse the range and generate on the fly
+        // for maximum flexibiliy
+        '-1h' : 'Past Hour',
+        '-2h' : 'Past Two Hours',
+        '-3h' : 'Past Three Hours',
+        '-4h' : 'Past Four Hours',
+        '-6h' : 'Past Six Hours',
+        '-1d' : 'Past Day',
+        '-7d' : 'Past Week'
+    };
+
+    this.onRangeChanged = function(handler) {
+        bean.on(this, 'ds-range-changed', handler);
     };
 
     this.autoRefreshInterval = null;
