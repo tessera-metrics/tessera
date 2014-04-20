@@ -43,7 +43,6 @@
   <script>
     $("ul.ds-refresh-menu li").on('click', 'a', function(e) {
         var target = $(e.target).parent();
-        console.log(target);
         if (target.attr('data-range')) {
             var range = target.attr('data-range');
             cronenberg.dashboards.set_time_range(range);

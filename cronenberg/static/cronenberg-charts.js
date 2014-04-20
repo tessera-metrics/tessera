@@ -145,7 +145,6 @@ cronenberg.charts = {
                 y: series.summation[transform]
             };
         });
-        console.log(data);
         /* var showLegend = options.showLegend !== false;
         if (list_of_series.length > this.autoHideLegendThreshold) {
             showLegend = false;
