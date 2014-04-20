@@ -54,6 +54,20 @@ cronenberg.DashboardManager = function() {
             this.load(this.current.url);
         }
     };
+
+    this.autoRefreshInterval = null;
+    this.intervalId = null;
+
+    this.autoRefresh = function(intervalSeconds) {
+        var self = this;
+        self.autoRefreshInterval = intervalSeconds;
+        if ((!intervalSeconds || intervalSeconds == 0) && self.intervalId) {
+            window.clearInterval(self.intervalId);
+        } else if (intervalSeconds > 0 && !self.timeoutId) {
+            self.intervalSeconds = intervalSeconds;
+            self.intervalId = window.setInterval(self.refresh, intervalSeconds * 1000);
+        }
+    };
 };
 
 cronenberg.dashboards = new cronenberg.DashboardManager();
