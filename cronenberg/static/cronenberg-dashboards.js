@@ -28,14 +28,14 @@ cronenberg.DashboardManager = function() {
     };
 
     this.load = function(url, element) {
-        cronenberg.current = new cronenberg.DashboardHolder(url, element);
-        var current = cronenberg.current;
+        var self = this;
+        self.current = new cronenberg.DashboardHolder(url, element);
         $.ajax({
             dataType: "json",
             url: url
         }).done(function(data) {
             var dashboard = data.entities[0];
-            current.dashboard = dashboard;
+            self.current.dashboard = dashboard;
 
             // Build a map from the presentation elements to their
             // model objects.
@@ -60,9 +60,9 @@ cronenberg.DashboardManager = function() {
 
             // Render the dashboard
             var rendered = cronenberg.templates.render(dashboard);
-            $(current.element).html(rendered);
+            $(self.current.element).html(rendered);
 
-            var currentURL = URI(current.url);
+            var currentURL = URI(self.current.url);
 
             bean.fire(this, 'ds-range-changed', currentURL.query('from'), currentURL.query('until'));
 
@@ -74,20 +74,20 @@ cronenberg.DashboardManager = function() {
     };
 
     this.refresh = function() {
-        var self = cronenberg.dashboards;
+        var self = this;
         if (self.current) {
             self.load(self.current.url);
         }
     };
 
     this.set_time_range = function(from, until) {
-        var current = cronenberg.current;
+        var self = this;
         var location = URI(window.location).setQuery('from', from).href();
-        window.history.pushState({url: current.url, element:current.element}, '', location);
+        window.history.pushState({url: self.current.url, element:self.current.element}, '', location);
 
-        current.setRange(from, until);
+        self.current.setRange(from, until);
         bean.fire(this, 'ds-range-changed', from, until);
-        cronenberg.dashboards.load(current.url, current.element);
+        cronenberg.dashboards.load(self.current.url, self.current.element);
     };
 
     this.ranges = {
@@ -103,7 +103,8 @@ cronenberg.DashboardManager = function() {
     };
 
     this.onRangeChanged = function(handler) {
-        bean.on(this, 'ds-range-changed', handler);
+        var self = this;
+        bean.on(self, 'ds-range-changed', handler);
     };
 
     this.autoRefreshInterval = null;
