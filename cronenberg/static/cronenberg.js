@@ -12,8 +12,8 @@ var cronenberg = {
     {
         ENTER_FULL_SCREEN: 'enter-fullscreen',
         EXIT_FULL_SCREEN:  'exit-fullscreen',
-        ENTER_EDIT_MODE: 'enter-edit-mode',
-        EXIT_EDIT_MODE:  'exit-edit-mode',
+        ENTER_EDIT_MODE:   'enter-edit-mode',
+        EXIT_EDIT_MODE:    'exit-edit-mode',
         DATA_AVAILABLE:    'data-available',
         DASHBOARD_LOADED:  'dashboard-loaded'
     },
