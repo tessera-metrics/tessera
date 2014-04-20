@@ -20,13 +20,13 @@
   <!-- Fullscreen top bar -->
   <div class="fullscreen-titlebar" data-fullscreen="show" style="display:none">
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-8">
         <h1 class="page-title">
           <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
         </h1>
       </div>
-      <div class="col-md-3 time-container" align="right">
-        <div class="btn-group pull-right">
+      <div class="col-md-4 time-container" align="right">
+        <div class="btn-group pull-right" style="height:4em; padding-top:1em">
 
           {% include "snippets/refresh-button.html" %}
           <button type="button"
