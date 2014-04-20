@@ -52,12 +52,7 @@
   {% include "presentations.html" %}
   <script>
     var url = '/api/dashboard/{{dashboard.name}}/expanded?from={{from_time}}{% if until_time %}&until={{until_time}}{% endif %}{% if extra_params %}&{{extra_params}}{% endif %}';
-    cronenberg.dashboards.onDashboardLoaded(function(dashboard) {
-        var rendered = cronenberg.templates.render(dashboard);
-        $("#dashboard").html(rendered);
-        cronenberg.queries.loadAll();
-    });
-    cronenberg.dashboards.load(url);
+    cronenberg.dashboards.load(url, "#dashboard");
     $("[data-toggle=tooltip]").tooltip({animation:false, delay: { show:300, hide:100}});
   </script>
 
