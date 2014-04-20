@@ -116,18 +116,20 @@ cronenberg.QueryRegistry = function() {
         for (var query_name in this.registry) {
             delete this.registry[query_name];
         }
+        return this;
     },
 
     this.add = function(name, url) {
         query = new cronenberg.Query(name, url);
         this.registry[name] = query;
-        return query;
+        return this;
     };
 
     this.loadAll = function() {
         for (var query_name in this.registry) {
             this.registry[query_name].load();
         }
+        return this;
     };
 };
 

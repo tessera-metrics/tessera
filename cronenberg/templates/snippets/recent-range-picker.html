@@ -18,8 +18,9 @@
   </ul>
 
 <script>
-$(document).ready(function() {
+cronenberg.dashboards.onDashboardLoaded(function() {
     var from = URI(window.location).search(true).from || '-3h';
+    $('[data-range]').removeClass('active');
     $('[data-range=' + from + ']').addClass('active');
 });
 $(".dashboard-recent-range-picker").click(function(e) {
