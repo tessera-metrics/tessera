@@ -1,6 +1,7 @@
-cronenberg.DashboardHolder = function(url) {
-    this.url = url,
-    this.dashboard = null
+cronenberg.DashboardHolder = function(url_, element_) {
+    this.url = url_;
+    this.dashboard = null;
+    this.element = $(element_);
 };
 
 cronenberg.DashboardManager = function() {
@@ -15,8 +16,8 @@ cronenberg.DashboardManager = function() {
         return this;
     };
 
-    this.load = function(url) {
-        this.current = new cronenberg.DashboardHolder(url);
+    this.load = function(url, element) {
+        this.current = new cronenberg.DashboardHolder(url, element);
         var current = this.current;
         $.ajax({
             dataType: "json",
@@ -45,6 +46,14 @@ cronenberg.DashboardManager = function() {
             for (var query_name in dashboard.queries) {
                 cronenberg.queries.add(query_name, dashboard.queries[query_name]);
             }
+
+            // Render the dashboard
+            var rendered = cronenberg.templates.render(dashboard);
+            current.element.html(rendered);
+
+            // Load the queries
+            cronenberg.queries.loadAll();
+
             bean.fire(cronenberg.dashboards, cronenberg.events.DASHBOARD_LOADED, dashboard);
         });
     };
