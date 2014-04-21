@@ -34,8 +34,8 @@ class Dashboard(db.Model):
             'title' : self.title,
             'category' : self.category,
             'description' : self.description,
-            'creation_date' : self.creation_date.isoformat(),
-            'last_modified_date' : self.last_modified_date.isoformat(),
+            'creation_date' : self.creation_date.isoformat() + 'Z',
+            'last_modified_date' : self.last_modified_date.isoformat() + 'Z',
             'imported_from' : self.imported_from
         }
 
