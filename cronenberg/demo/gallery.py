@@ -9,6 +9,7 @@ def demo_gallery_dashboard():
     return database.Dashboard(
         title='Gallery',
         category='Demo',
+        description='A gallery of all the supported presentations',
         definition = DashboardDef(
             definition=dumps(
                 DashboardDefinition(
