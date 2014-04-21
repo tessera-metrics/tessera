@@ -10,12 +10,13 @@ var cronenberg = {
      */
     events:
     {
-        ENTER_FULL_SCREEN: 'enter-fullscreen',
-        EXIT_FULL_SCREEN:  'exit-fullscreen',
-        ENTER_EDIT_MODE: 'enter-edit-mode',
-        EXIT_EDIT_MODE:  'exit-edit-mode',
-        DATA_AVAILABLE:    'data-available',
-        DASHBOARD_LOADED:  'dashboard-loaded'
+        ENTER_FULL_SCREEN: 'ds-enter-fullscreen',
+        EXIT_FULL_SCREEN:  'ds-exit-fullscreen',
+        ENTER_EDIT_MODE:   'ds-enter-edit-mode',
+        EXIT_EDIT_MODE:    'ds-exit-edit-mode',
+        DATA_AVAILABLE:    'ds-data-available',
+        DASHBOARD_LOADED:  'ds-dashboard-loaded',
+        RANGE_CHANGED:     'ds-range-changed'
     },
 
     /**

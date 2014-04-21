@@ -9,7 +9,7 @@
       %}
 
     <li data-range="{{item[1]}}">
-      <a name="{{item[1]}}">
+      <a data-range="{{item[1]}}">
         {{item[0]}}
       </a>
     </li>
@@ -18,17 +18,12 @@
   </ul>
 
 <script>
-$(document).ready(function() {
+cronenberg.dashboards.onDashboardLoaded(function() {
     var from = URI(window.location).search(true).from || '-3h';
+    $('[data-range]').removeClass('active');
     $('[data-range=' + from + ']').addClass('active');
 });
 $(".dashboard-recent-range-picker").click(function(e) {
-    // TODO - this is a quick hack. Better would be to set the URL of
-    // the current dashboard, reload it (without reloading the page),
-    // and update the location with the browser history API
-    console.log(e.target);
-    window.location = URI(window.location)
-        .setQuery('from', $(e.target).attr('name'))
-        .href();
+    cronenberg.dashboards.set_time_range($(e.target).attr('data-range'), null);
 });
 </script>
