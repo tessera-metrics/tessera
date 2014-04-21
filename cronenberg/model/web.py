@@ -20,7 +20,7 @@ class EntityEncoder(json.JSONEncoder):
             return obj
 
 def dumps(obj):
-    return json.dumps(obj, cls=EntityEncoder, indent=4)
+    return json.dumps(obj, cls=EntityEncoder, indent=0)
 
 # =============================================================================
 # Presentations
