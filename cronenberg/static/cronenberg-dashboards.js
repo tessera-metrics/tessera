@@ -82,7 +82,7 @@ cronenberg.DashboardManager = function() {
     this.refresh = function() {
         var self = this;
         if (self.current) {
-            self.load(self.current.url);
+            self.load(self.current.url, self.current.element);
         }
     };
 
@@ -95,7 +95,7 @@ cronenberg.DashboardManager = function() {
         bean.fire(self, cronenberg.events.RANGE_CHANGED, {
             from: from, until: until
         });
-        cronenberg.dashboards.load(self.current.url, self.current.element);
+        self.refresh();
     };
 
     this.ranges = {
