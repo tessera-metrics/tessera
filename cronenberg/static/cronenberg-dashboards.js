@@ -4,14 +4,15 @@ cronenberg.DashboardHolder = function(url_, element_) {
     this.element = element_;
 
     this.setRange = function(from, until) {
-        var url = URI(this.url);
+        var self = this;
+        var url = URI(self.url);
         if (from) {
             url.setQuery('from', from);
         }
         if (until) {
             url.setQuery('until', until);
         }
-        this.url = url.href();
+        self.url = url.href();
     };
 };
 
