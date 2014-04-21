@@ -21,6 +21,8 @@ from .application import db
 #mgr = cask.web.WebManagerAdapter(DashboardManager(app.config['DASHBOARD_DATADIR']))
 compiler = pybars.Compiler()
 
+log = logging.getLogger(__name__)
+
 # =============================================================================
 # API Helpers
 # =============================================================================
@@ -102,6 +104,7 @@ def api_dashboard_get(id):
 def api_dashboard_create():
     body = json.loads(request.data)
     dashboard = database.Dashboard.from_json(body)
+    dashboard.definition = database.DashboardDef(dumps(DashboardDefinition()))
     db.session.add(dashboard)
     db.session.commit()
     return _jsonify({ 'ok' : True })

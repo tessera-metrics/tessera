@@ -17,7 +17,7 @@ class Dashboard(db.Model):
     last_modified_date = db.Column(db.DateTime)
     definition = db.relationship('DashboardDef', uselist=False, backref='dashboard')
 
-    def __init__(self, title, category,
+    def __init__(self, title, category=None,
                  description=None, creation_date=None, last_modified_date=None, imported_from=None,
                  definition=None):
         now = datetime.utcnow()
@@ -26,6 +26,7 @@ class Dashboard(db.Model):
         self.creation_date = creation_date or now
         self.last_modified_date = last_modified_date or now
         self.definition = definition
+        self.description = description
 
     def to_json(self):
         return {
@@ -48,8 +49,6 @@ class Dashboard(db.Model):
         return Dashboard(title=d.get('title'),
                          category=d.get('category', None),
                          description=d.get('description', None),
-                         creation_date=d.get('creation_date', None),
-                         last_modified_date=d.get('last_modified_date', None),
                          imported_from=d.get('imported_from', None))
 
 class DashboardDef(db.Model):
