@@ -29,6 +29,36 @@ cronenberg.DashboardManager = function() {
         return self;
     };
 
+    this.onDashboardListLoaded = function(handler) {
+        console.log("cronenberg.dashboards.onDashboardListLoaded()");
+        var self = this;
+        bean.on(self, cronenberg.events.DASHBOARD_LIST_LOADED, handler);
+        return self;
+    }
+
+    /**
+     * List all dashboards.
+     */
+    this.list = function() {
+        console.log("cronenberg.dashboards.list()");
+        var self = this;
+        $.ajax({
+            dataType: 'json',
+            url: '/api/dashboard'
+        }).done(function(data) {
+            console.log("cronenberg.dashboards.list() - done");
+            _.each(data.dashboards, function(dashboard) {
+                dashboard.last_modified = moment(dashboard.last_modified_date).fromNow();
+                dashboard.created = moment(dashboard.creation_date).format('MMMM Do YYYY');
+                console.log(dashboard);
+            });
+            bean.fire(self, cronenberg.events.DASHBOARD_LIST_LOADED, data);
+        });
+    };
+
+    /**
+     * Load and render a dashboard.
+     */
     this.load = function(url, element) {
         var self = this;
         self.current = new cronenberg.DashboardHolder(url, element);
@@ -61,7 +91,7 @@ cronenberg.DashboardManager = function() {
             }
 
             // Render the dashboard
-            var rendered = cronenberg.templates.render(dashboard.definition);
+            var rendered = cronenberg.templates.render_presentation(dashboard.definition);
             $(self.current.element).html(rendered);
 
             var currentURL = URI(self.current.url);

@@ -27,6 +27,7 @@ class Dashboard(db.Model):
         self.last_modified_date = last_modified_date or now
         self.definition = definition
         self.description = description
+        self.imported_from = imported_from
 
     def to_json(self):
         return {
