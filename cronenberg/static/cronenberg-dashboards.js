@@ -140,6 +140,19 @@ cronenberg.DashboardManager = function() {
             self.intervalId = window.setInterval(self.refresh, intervalSeconds * 1000);
         }
     };
+
+    this.delete_current = function() {
+        var self = this;
+        var uri = '/api/dashboard/' + self.current.dashboard.dashboard.id;
+        console.log("Deleting " + uri);
+        $.ajax({
+            url: uri,
+            type: 'DELETE'
+        }).done(function() {
+            console.log("Deleted ");
+            window.location = '/dashboards';
+        });
+    };
 };
 
 cronenberg.dashboards = new cronenberg.DashboardManager();

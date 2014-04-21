@@ -34,11 +34,10 @@
         <h4 class="modal-title" id="ds-delete-modal-label">Really delete dashboard?</h4>
       </div>
       <div class="modal-body">
-        yo.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id="ds-really-delete-button">Delete</button>
       </div>
     </div>
   </div>
@@ -47,5 +46,8 @@
 <script>
 $("#ds-delete-button").click(function() {
     $("#ds-delete-modal").modal({});
+});
+$("#ds-really-delete-button").click(function() {
+cronenberg.dashboards.delete_current();
 });
 </script>
