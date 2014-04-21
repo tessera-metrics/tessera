@@ -102,11 +102,11 @@ cronenberg.DashboardManager = function() {
         // TODO - quick hack. Parse the range and generate on the fly
         // for maximum flexibiliy
         '-1h'  : 'Past Hour',
-        '-2h'  : 'Past Two Hours',
-        '-3h'  : 'Past Three Hours',
-        '-4h'  : 'Past Four Hours',
-        '-6h'  : 'Past Six Hours',
-        '-12h' : 'Past Twelve Hours',
+        '-2h'  : 'Past 2 Hours',
+        '-3h'  : 'Past 3 Hours',
+        '-4h'  : 'Past 4 Hours',
+        '-6h'  : 'Past 6 Hours',
+        '-12h' : 'Past 12 Hours',
         '-1d'  : 'Past Day',
         '-7d'  : 'Past Week'
     };
