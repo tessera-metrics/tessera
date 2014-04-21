@@ -1,0 +1,60 @@
+<div class="btn-group refresh-button">
+
+  <button type="button"
+          onclick="cronenberg.dashboards.refresh()"
+          class="btn btn-default"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Refresh">
+    <i class="fa fa-lg fa-refresh"></i>
+  </button>
+
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Set Refresh Options"
+          ></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+
+  <ul class="dropdown-menu dropdown-menu-right ds-refresh-menu" role="menu">
+    <li style="display:none" data-fullscreen="show" role="presentation" class="dropdown-header"><i class="fa fa-clock-o"></i> Recent Time Range</li>
+    <li style="display:none" data-fullscreen="show" class="divider"></li>
+    <li style="display:none" data-fullscreen="show" data-range="-1h"><a href="#">Past Hour</a></li>
+    <li style="display:none" data-fullscreen="show" data-range="-3h"><a href="#">Past 3 Hours</a></li>
+    <li style="display:none" data-fullscreen="show" data-range="-6h"><a href="#">Past 6 Hours</a></li>
+    <li style="display:none" data-fullscreen="show" data-range="-12h"><a href="#">Past 12 Hours</a></li>
+    <li style="display:none" data-fullscreen="show" data-range="-1d"><a href="#">Past Day</a></li>
+    <li style="display:none" data-fullscreen="show" data-range="-7d"><a href="#">Past Week</a></li>
+    <br style="display:none" data-fullscreen="show"/>
+    <li role="presentation" class="dropdown-header"><i class="fa fa-clock-o"></i> Auto Refresh</li>
+    <li class="divider"></li>
+    <li data-interval="0"><a href="#">None</a></li>
+    <li data-interval="30"><a href="#">30 seconds</a></li>
+    <li data-interval="60"><a href="#">1 minute</a></li>
+    <li data-interval="120"><a href="#">2 minutes</a></li>
+    <li data-interval="300"><a href="#">5 minutes</a></li>
+    <li data-interval="600"><a href="#">10 minutes</a></li>
+    <li data-interval="1800"><a href="#">30 minutes</a></li>
+    <li data-interval="3600"><a href="#">1 hour</a></li>
+  </ul>
+
+  <script>
+    $("ul.ds-refresh-menu li").on('click', 'a', function(e) {
+        var target = $(e.target).parent();
+        if (target.attr('data-range')) {
+            var range = target.attr('data-range');
+            cronenberg.dashboards.set_time_range(range, null);
+            $("ul.ds-refresh-menu li[data-range]").removeClass('active');
+            $("ul.ds-refresh-menu li[data-range=" + range + "]").addClass('active');
+        } else if (target.attr('data-interval')) {
+            var interval = target.attr('data-interval');
+            cronenberg.dashboards.set_refresh_interval(interval);
+            $("ul.ds-refresh-menu li[data-interval]").removeClass('active');
+            $("ul.ds-refresh-menu li[data-interval=" + interval + "]").addClass('active');
+        }
+    });
+  </script>
+
+</div>
