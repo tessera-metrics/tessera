@@ -1,5 +1,3 @@
-{% from 'snippets/macros.html' import btnclass %}
-
     <div class="row">
       <div class="col-md-9">
         {% include "snippets/recent-range-picker.html" %}
@@ -7,22 +5,24 @@
 
       <div class="col-md-3">
         <div class="btn-toolbar pull-right">
+
           <div class="btn-group" data-edit-mode="show" style="display:none">
             <button type="button" class="btn btn-default" data-toggle="tooltip" title="Delete this dashboard">
               <i class="fa fa-lg fa-trash-o"></i>
             </button>
           </div>
+
+
           <div class="btn-group">
             <button type="button" onclick="cronenberg.toggleEditMode()" class="btn btn-default" data-toggle="tooltip" title="Edit">
               <i class="fa fa-lg fa-edit"></i>
             </button>
-            <button type="button" onclick="cronenberg.dashboards.refresh()" class="btn btn-default" data-toggle="tooltip" title="Refresh">
-              <i class="fa fa-lg fa-refresh"></i>
-            </button>
+          {% include "snippets/refresh-button.html" %}
             <button type="button" onclick="cronenberg.enterFullscreen()" class="btn btn-default" data-toggle="tooltip" title="Enter Display Mode">
               <i class="fa fa-lg fa-expand"></i>
             </button>
           </div> <!-- button group -->
+
         </div>
       </div>
     </div> <!-- row -->

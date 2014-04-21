@@ -1,13 +1,15 @@
 import json
 import sys
-from toolbox.graphite.functions import *
-from toolbox.graphite import Graphite, GraphiteQuery
 from ..model import *
+from ..model.database import *
 
 def demo_random_data_dashboard():
-    return Dashboard(name='demo-random-data',
-                     category='Demo',
-                     title='Random Data',
+    return database.Dashboard(
+        title='Random Data',
+        category='Demo',
+        definition = DashboardDef(
+            definition=dumps(
+                DashboardDefinition(
                      queries = {
                          'cpu_usage' : 'absolute(group(randomWalkFunction("system"),randomWalkFunction("user"),randomWalkFunction("wait")))',
                          'cluster' : 'aliasByNode(absolute(group(randomWalkFunction("s001"),randomWalkFunction("s002"),randomWalkFunction("s003"),randomWalkFunction("s004"),randomWalkFunction("s005"))), 0)',
@@ -114,4 +116,4 @@ def demo_random_data_dashboard():
                                    presentation=SimpleTimeSeries(query_name='thing4'))
                          )
                      )
-                 )
+                 ))))

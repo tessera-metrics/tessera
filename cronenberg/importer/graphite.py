@@ -4,15 +4,13 @@ import json
 import inflection
 import urllib
 from cronenberg.model import *
-from cronenberg.cask.storage import EntityEncoder
-from cronenberg import app
+from cronenberg import app, db
 
 log = logging.getLogger(__name__)
 
 class GraphiteDashboardImporter(object):
-    def __init__(self, url, manager):
+    def __init__(self, url):
         self.url = url
-        self.manager = manager
 
     def get_dashboard_names(self, query=''):
         response = requests.post('{0}/dashboard/find/'.format(self.url),
@@ -35,18 +33,19 @@ class GraphiteDashboardImporter(object):
         for name in names:
             log.info('Importing {0}'.format(name))
             dash = self.import_dashboard(name)
-            self.manager.store(Dashboard, dash)
+            db.session.add(dash)
+            db.session.commit()
 
     def import_dashboard(self, name):
         return self.__convert(self.get_dashboard(name))
 
     def __convert(self, graphite_dashboard):
         name = graphite_dashboard['name']
-        dashboard = Dashboard(name=inflection.parameterize(name),
-                              title=name,
-                              category='Graphite',
-                              description='Imported from graphite-web',
-                              imported_from = '{0}/dashboard/{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
+        dashboard = database.Dashboard(title=inflection.parameterize(name),
+                                       category='Graphite',
+                                       description='Imported from graphite-web',
+                                       imported_from = '{0}/dashboard/{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
+        definition = DashboardDefinition()
         row = Row()
         for graph in graphite_dashboard['graphs']:
             # Graphite's dashboard API is so redundant. Each graph is
@@ -59,9 +58,9 @@ class GraphiteDashboardImporter(object):
             targets, options, render_url = graph
             presentation = None
             stacked_p = render_url.find('stacked') != -1 or options.get('areaMode', None) == 'stacked'
-            query_name = 'q' + str(len(dashboard.queries))
+            query_name = 'q' + str(len(definition.queries))
             targets = options.get('target', [])
-            dashboard.queries[query_name] = targets[0] if len(targets) == 1 else targets
+            definition.queries[query_name] = targets[0] if len(targets) == 1 else targets
             if stacked_p:
                 presentation = StackedAreaChart(query_name=query_name, title=options.get('title', ''))
             else:
@@ -76,7 +75,8 @@ class GraphiteDashboardImporter(object):
             presentation.options['margin'] = { 'top' : 16, 'left' : 80, 'right' : 0, 'bottom' : 16}
             row.cells.append(Cell(span=6, presentation=presentation))
             if len(row.cells) == 2:
-                dashboard.grid.rows.append(row)
+                definition.grid.rows.append(row)
                 row = Row()
                 row.cells = []
+        dashboard.definition = database.DashboardDef(definition=dumps(definition))
         return dashboard

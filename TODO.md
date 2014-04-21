@@ -2,10 +2,9 @@
 
 ### Third Party Components
 
-- upgrade to DataTables 1.10
-- upgrade to bootstrap3 (darkstrap support is only unofficial and
+- ~~upgrade to bootstrap3 (darkstrap support is only unofficial and
   incomplete so far - see
-  [here](https://github.com/danneu/darkstrap/issues/17))
+  [here](https://github.com/danneu/darkstrap/issues/17))~~
 - ~~upgrade to jQuery 1.11~~
 
 ### Model & Persistence
