@@ -73,12 +73,12 @@ def _get_param(name, default=None, store_in_session=False):
 @app.route('/api/dashboard')
 def api_dashboard_list():
     """Fetch all Dashboard entities."""
-    return _jsonify(_to_json_entities(_get_entities(Dashboard)))
+    return _jsonify(_to_json_entities(_get_entities(DashboardDefinition)))
 
 @app.route('/api/dashboard/<name>')
 def api_dashboard_get(name):
     """Fetch a single Dashboard entity, or 404 if it is not found."""
-    return _jsonify(_to_json_entities(mgr.load(Dashboard, name)))
+    return _jsonify(_to_json_entities(mgr.load(DashboardDefinition, name)))
 
 
 # ## API Endpoints
@@ -140,7 +140,7 @@ def api_dashboard_get_expanded(name):
     """Fetch a single Dashboard entity, or 404 if it is not found. This
     version expands graphite queries for client-side rendering.
     """
-    dash       = mgr.load(Dashboard, name)
+    dash       = mgr.load(DashboardDefinition, name)
     from_time  = _get_param('from', app.config['DEFAULT_FROM_TIME'])
     until_time = _get_param('until', None)
 
@@ -176,27 +176,27 @@ def api_dashboard_post():
     data = json.loads(request.data)
     if mgr.exists(data['name']):
         abort(409)
-    e = Dashboard.from_json(data, mgr)
-    mgr.store(Dashboard, e)
+    e = DashboardDefinition.from_json(data, mgr)
+    mgr.store(DashboardDefinition, e)
     # TODO - return 201 Created here
     return api_dashboard_get(e.name)
 
 @app.route('/api/dashboard/<name>', methods=['PUT', 'PATCH'])
 def api_dashboard_put(name):
     """Update an existing Dashboard entity."""
-    e = mgr.load(Dashboard, name)
+    e = mgr.load(DashboardDefinition, name)
     data = json.loads(request.data)
     for key, value in data.items():
         if key == u'id':
             continue
         setattr(e, str(key), value)
-    mgr.store(Dashboard, e)
+    mgr.store(DashboardDefinition, e)
     return api_dashboard_get(e.name)
 
 @app.route('/api/dashboard/<name>', methods=['DELETE'])
 def api_dashboard_delete(name):
     """Delete an existing Dashboard entity."""
-    mgr.remove(Dashboard, name)
+    mgr.remove(DashboardDefinition, name)
     return _jsonify({})
 
 @app.route('/api/dashboard/<name>', methods=['POST'])
@@ -256,7 +256,7 @@ def ui_root():
 
 @app.route('/dashboards')
 def ui_dashboard_list():
-    data = _get_entities(Dashboard)
+    data = _get_entities(DashboardDefinition)
     return _render_template('dashboard-list.html',
                             dashboards=data,
                             title='Dashboards',
@@ -265,4 +265,4 @@ def ui_dashboard_list():
 
 @app.route('/dashboards/<name>')
 def ui_dashboard(name):
-    return _render_client_side_dashboard(mgr.load(Dashboard, name))
+    return _render_client_side_dashboard(mgr.load(DashboardDefinition, name))

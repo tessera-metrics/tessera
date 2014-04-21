@@ -6,7 +6,7 @@ import toolbox
 import logging
 from cronenberg import app
 from cronenberg.demo import *
-from cronenberg.model import Dashboard, DashboardManager
+from cronenberg.model import DashboardDefinition, DashboardManager
 from cronenberg.cask.storage import EntityEncoder
 from cronenberg.importer.graphite import GraphiteDashboardImporter
 
@@ -33,7 +33,7 @@ def generate():
     ]
     for d in dashboards:
         log.info('Storing dashboard {0}'.format(d.name))
-        models.store(Dashboard, d)
+        models.store(DashboardDefinition, d)
     log.info('Done')
 
 @manager.command
