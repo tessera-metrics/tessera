@@ -17,7 +17,7 @@ from .model import *
 from .model import database
 from .application import app
 
-mgr = cask.web.WebManagerAdapter(DashboardManager(app.config['DASHBOARD_DATADIR']))
+#mgr = cask.web.WebManagerAdapter(DashboardManager(app.config['DASHBOARD_DATADIR']))
 compiler = pybars.Compiler()
 
 # =============================================================================
@@ -37,29 +37,15 @@ def _render_pybars_template(template, variables):
     output = compiled(variables)
     return ''.join(output)
 
-def _get_entities(cls):
-    pattern = request.args.get('filter', '*')
-    return mgr.load_all(cls, pattern=pattern)
+#def _get_entities(cls):
+#    pattern = request.args.get('filter', '*')
+#    return mgr.load_all(cls, pattern=pattern)
 
-def _to_json(entity):
-    if not isinstance(entity, Entity):
-        return entity
-    json = entity.to_json()
-#    json['uri'] = entity_uri(entity, 'api')
-#    json['data_uri'] = entity_uri(entity, 'data')
-#    json['interface_uri'] = entity_uri(entity, 'ui')
-    return json
-
-def _to_json_entities(entities):
-    if isinstance(entities, list):
-        return { 'entities' : [_to_json(e) for e in entities] }
-    elif isinstance(entities, Entity):
-        return { 'entities' : [_to_json(entities)] }
 
 def _jsonify(data):
     return flask.Response(status=200,
                           mimetype="application/json",
-                          response=cask.dumps(data))
+                          response=json.dumps(data, cls=EntityEncoder, indent=4))
 
 def _get_param(name, default=None, store_in_session=False):
     value = request.args.get(name) or session.get(name, default)
@@ -71,15 +57,57 @@ def _get_param(name, default=None, store_in_session=False):
 # API: Dashboard
 # =============================================================================
 
-@app.route('/api/dashboard')
+@app.route('/api/dashboard/')
 def api_dashboard_list():
-    """Fetch all Dashboard entities."""
-    return _jsonify(_to_json_entities(_get_entities(DashboardDefinition)))
+    return _jsonify({
+        'dashboards' : [d.to_json() for d in database.Dashboard.query.all()]
+    })
 
-@app.route('/api/dashboard/<name>')
-def api_dashboard_get(name):
-    """Fetch a single Dashboard entity, or 404 if it is not found."""
-    return _jsonify(_to_json_entities(mgr.load(DashboardDefinition, name)))
+@app.route('/api/dashboard/<id>')
+def api_dashboard_get(id):
+    return _jsonify({
+        'dashboards' : [d.to_json() for d in database.Dashboard.query.filter_by(id=id)]
+    })
+
+@app.route('/api/dashboard/<id>/definition')
+def api_dashboard_get_definition(id):
+    dashboard = database.Dashboard.query.filter_by(id=id)[0]
+    return _jsonify({
+        'definition' : [d.definition.to_json() for d in database.Dashboard.query.filter_by(id=id)]
+    })
+
+@app.route('/api/dashboard/<id>/definition/expanded')
+def api_dashboard_get_expanded(id):
+    """Fetch a single Dashboard entity, or 404 if it is not found. This
+    version expands graphite queries for client-side rendering.
+    """
+    dash       = database.Dashboard.query.filter_by(id=id)[0]
+    definition = dash.definition.to_json()
+    from_time  = _get_param('from', app.config['DEFAULT_FROM_TIME'])
+    until_time = _get_param('until', None)
+    variables  = _get_template_variables(request.args)
+
+    # Make a copy of the query map with all targets rendered to full
+    # graphite URLs
+    for k, v in definition['queries'].iteritems():
+        params = [('format', 'json'), ('from', from_time)]
+        if until_time:
+            params.append(('until', until_time))
+        if isinstance(v, basestring):
+            v = [v]
+        for target in v:
+            target = _render_pybars_template(target, variables)
+            params.append(('target', target))
+        query = '{0}/render?{1}'.format(app.config['GRAPHITE_URL'], urllib.urlencode(params))
+        definition['queries'][k] = query
+
+    dash.title = _render_pybars_template(dash.title, variables)
+    dash.description = _render_pybars_template(dash.description, variables)
+
+    return _jsonify({
+        'dashboard' : dash,
+        'definition' : definition
+    })
 
 
 # ## API Endpoints
@@ -110,104 +138,70 @@ def api_dashboard_get(name):
 #
 #  Get a list of all tags, for populating auto-complete widgets.
 
-@app.route('/api/dashboard/<id>/tags')
-def api_dashboard_get_tags(id):
-    pass
+#@app.route('/api/dashboard/<id>/tags')
+#def api_dashboard_get_tags(id):
+#    pass
 
-@app.route('/api/dashboard/<id>/tags', methods=['PUT'])
-def api_dashboard_set_tags(id):
-    pass
+#@app.route('/api/dashboard/<id>/tags', methods=['PUT'])
+#def api_dashboard_set_tags(id):
+#    pass
 
-@app.route('/api/dashboard/<id>/definition')
-def api_dashboard_get_definition(id):
-    pass
+#@app.route('/api/dashboard/<id>/definition')
+#def api_dashboard_get_definition(id):
+#    pass
 
-@app.route('/api/dashboard/<id>/definition/expanded')
-def api_dashboard_get_definition_expanded(id):
-    pass
+#@app.route('/api/dashboard/<id>/definition/expanded')
+#def api_dashboard_get_definition_expanded(id):
+#    pass
 
-@app.route('/api/dashboard/<id>/definition', methods=['PUT'])
-def api_dashboard_set_definition(id):
-    pass
+#@app.route('/api/dashboard/<id>/definition', methods=['PUT'])
+#def api_dashboard_set_definition(id):
+#    pass
 
-@app.route('/api/tags')
-def api_get_tags(id):
-    pass
+#@app.route('/api/tags')
+#def api_get_tags(id):
+ #   pass
 
 
 
-@app.route('/api/dashboard/<name>/expanded')
-def api_dashboard_get_expanded(name):
-    """Fetch a single Dashboard entity, or 404 if it is not found. This
-    version expands graphite queries for client-side rendering.
-    """
-    dash       = mgr.load(DashboardDefinition, name)
-    from_time  = _get_param('from', app.config['DEFAULT_FROM_TIME'])
-    until_time = _get_param('until', None)
 
-    template_variables = _get_template_variables(request.args)
+# @app.route('/api/dashboard', methods=['POST'])
+# def api_dashboard_post():
+#     """Create a new Dashboard entity."""
+#     data = json.loads(request.data)
+#     if mgr.exists(data['name']):
+#         abort(409)
+#     e = DashboardDefinition.from_json(data, mgr)
+#     mgr.store(DashboardDefinition, e)
+#     # TODO - return 201 Created here
+#     return api_dashboard_get(e.name)
 
-    # Make a copy of the query map with all targets rendered to full
-    # graphite URLs
-    queries = {}
-    for k, v in dash.queries.iteritems():
-        params = [('format', 'json'), ('from', from_time)]
-        if until_time:
-            params.append(('until', until_time))
-        if isinstance(v, basestring):
-            v = [v]
-        for target in v:
-            target = _render_pybars_template(target, template_variables)
-            params.append(('target', target))
-        query = '{0}/render?{1}'.format(app.config['GRAPHITE_URL'], urllib.urlencode(params))
-        queries[k] = query
+# @app.route('/api/dashboard/<name>', methods=['PUT', 'PATCH'])
+# def api_dashboard_put(name):
+#     """Update an existing Dashboard entity."""
+#     e = mgr.load(DashboardDefinition, name)
+#     data = json.loads(request.data)
+#     for key, value in data.items():
+#         if key == u'id':
+#             continue
+#         setattr(e, str(key), value)
+#     mgr.store(DashboardDefinition, e)
+#     return api_dashboard_get(e.name)
 
-    # Make a shallow copy of the dashboard with the queries member
-    # replaced with the expanded version
-    dashboard = copy.copy(dash)
-    dashboard.queries = queries
-    dashboard.title = _render_pybars_template(dash.title, template_variables)
-    dashboard.description = _render_pybars_template(dash.description, template_variables)
+# @app.route('/api/dashboard/<name>', methods=['DELETE'])
+# def api_dashboard_delete(name):
+#     """Delete an existing Dashboard entity."""
+#     mgr.remove(DashboardDefinition, name)
+#     return _jsonify({})
 
-    return _jsonify(_to_json_entities(dashboard))
-
-@app.route('/api/dashboard', methods=['POST'])
-def api_dashboard_post():
-    """Create a new Dashboard entity."""
-    data = json.loads(request.data)
-    if mgr.exists(data['name']):
-        abort(409)
-    e = DashboardDefinition.from_json(data, mgr)
-    mgr.store(DashboardDefinition, e)
-    # TODO - return 201 Created here
-    return api_dashboard_get(e.name)
-
-@app.route('/api/dashboard/<name>', methods=['PUT', 'PATCH'])
-def api_dashboard_put(name):
-    """Update an existing Dashboard entity."""
-    e = mgr.load(DashboardDefinition, name)
-    data = json.loads(request.data)
-    for key, value in data.items():
-        if key == u'id':
-            continue
-        setattr(e, str(key), value)
-    mgr.store(DashboardDefinition, e)
-    return api_dashboard_get(e.name)
-
-@app.route('/api/dashboard/<name>', methods=['DELETE'])
-def api_dashboard_delete(name):
-    """Delete an existing Dashboard entity."""
-    mgr.remove(DashboardDefinition, name)
-    return _jsonify({})
-
-@app.route('/api/dashboard/<name>', methods=['POST'])
-def api_dashboard_instance_post(name):
-    """Workaround for the fact that XmlHttpRequest and form posting
-    *still* doesn't support anything other than GET and POST."""
-    if '_method' in request.args and request.args['_method'] == 'delete':
-        return api_dashboard_delete(name)
-    else:
-        return api_dashboard_put(name)
+# @app.route('/api/dashboard/<name>', methods=['POST'])
+# def api_dashboard_instance_post(name):
+#     """Workaround for the fact that XmlHttpRequest and form posting
+#     *still* doesn't support anything other than GET and POST."""
+#     if '_method' in request.args and request.args['_method'] == 'delete':
+#         return api_dashboard_delete(name)
+#     else:
+#         return api_dashboard_put(name)
 
 # =============================================================================
 # UI Helpers
@@ -238,6 +232,7 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html'):
     title = '{0} {1}'.format(dashboard.category, dashboard.title)
     return _render_template(template,
                             dashboard=dashboard,
+                            definition=dashboard.definition,
                             from_time=from_time,
                             extra_params=urllib.urlencode(extra_params),
                             until_time=until_time,
@@ -257,13 +252,14 @@ def ui_root():
 
 @app.route('/dashboards')
 def ui_dashboard_list():
-    data = _get_entities(DashboardDefinition)
+    data = [d for d in database.Dashboard.query.all()]
     return _render_template('dashboard-list.html',
                             dashboards=data,
                             title='Dashboards',
                             breadcrumbs=[('Home', '/'),
                                          ('Dashboards', '')])
 
-@app.route('/dashboards/<name>')
-def ui_dashboard(name):
-    return _render_client_side_dashboard(mgr.load(DashboardDefinition, name))
+@app.route('/dashboards/<id>')
+def ui_dashboard(id):
+    dashboard = database.Dashboard.query.filter_by(id=id)[0]
+    return _render_client_side_dashboard(dashboard)

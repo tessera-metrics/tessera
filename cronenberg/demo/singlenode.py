@@ -1,13 +1,15 @@
 import json
 import sys
-from toolbox.graphite.functions import *
-from toolbox.graphite import Graphite, GraphiteQuery
 from ..model import *
+from ..model.database import *
 
 def demo_node_dashboard():
-    return Dashboard(name='demo-node',
-                     category='Demo',
-                     title='System Overview for {{#if title}}{{title}}{{else}}{{ node }}{{/if}}',
+    return database.Dashboard(
+        title='System Overview for {{#if title}}{{title}}{{else}}{{ node }}{{/if}}',
+        category='Demo',
+        definition = DashboardDef(
+            definition=dumps(
+                DashboardDefinition(
                      queries = {
                          'cpu_usage' : 'aliasByNode(group(servers.{{ node }}.sysstat.cpu.all.system,servers.{{ node }}.sysstat.cpu.all.user,servers.{{ node }}.sysstat.cpu.all.io_wait), 1, 5)',
                          'loadavg' : 'aliasByNode(servers.{{ node }}.sysstat.loadavg.01, 1)',
@@ -97,3 +99,4 @@ def demo_node_dashboard():
                                                                   })))
 
                      ))
+                )))
