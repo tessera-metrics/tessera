@@ -18,52 +18,63 @@
   </div> <!-- end nav and toolbar -->
 
   <!-- Fullscreen top bar -->
-  <div class="fullscreen-titlebar" data-fullscreen="show" style="display:none">
+  <div class="ds-fullscreen-titlebar" data-fullscreen="show" style="display:none">
     <div class="row">
-      <div class="col-md-9">
+
+      <div class="col-md-7">
         <h1 class="page-title">
           <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
         </h1>
       </div>
-      <div class="col-md-3 time-container" align="right">
-        <div class="btn-group pull-right">
-          <button type="button"
-                  data-toggle="tooltip" title="Refresh"
-                  data-placement="bottom"
-                  onclick="cronenberg.dashboards.refresh()"
-                  class="btn btn-default"
-                  style="margin-top: 1em; margin-left: .5em">
-                  <i class="fa fa-lg fa-refresh"></i>
-          </button>
+
+      <div class="col-md-5" align="right">
+        <div class="btn-group pull-right" style="height:4em; padding-top:1em">
+          {% include "snippets/refresh-button.html" %}
           <button type="button"
                   data-toggle="tooltip" title="Exit Display Mode"
                   data-placement="bottom"
                   onclick="cronenberg.exitFullscreen()"
                   class="btn btn-default"
-                  style="margin-top: 1em; margin-left: .5em">
+                  style="margin-top: 1em; ">
                   <i class="fa fa-lg fa-compress"></i>
           </button>
         </div>
-        <div>
-          <h2 class="time">{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
-          <h6 class="date">{{ ctx.now.strftime("%A") }} {{ ctx.now.strftime("%d %B %Y") }}</h6>
+
+        <div class="pull-right" style="margin-left:1em;margin-right:.5em;margin-top:1.8em;">
+          <ul class="nav nav-pills">
+            <li class="active">
+              <a class="ds-fullscreen-range-indicator">Past Hour</a>
+            </li>
+          </ul>
+        <script>
+          cronenberg.dashboards.onRangeChanged(function(data) {
+              var description = cronenberg.dashboards.getRangeDescription(data.from);
+              console.log("full screen indicator - range changed: " + data.from + ", d: " + description);
+              if ( description ) {
+                  $("a.ds-fullscreen-range-indicator").text(description);
+              }
+          });
+        </script>
         </div>
+
+        <div class="ds-time-container pull-right">
+          <h2>{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
+          <h6>{{ ctx.now.strftime("%A") }} {{ ctx.now.strftime("%d %B %Y") }}</h6>
+        </div>
+
       </div>
     </div>
     <hr style="margin:.25em"/>
   </div> <!-- end fullscreen titlebar -->
 
+  <hr data-fullscreen="hide"/>
+
   <div class="dashboard-grid" id="dashboard"/>
 
   {% include "presentations.html" %}
   <script>
-    var url = '/api/dashboard/{{dashboard.name}}/expanded?from={{from_time}}{% if until_time %}&until={{until_time}}{% endif %}{% if extra_params %}&{{extra_params}}{% endif %}';
-    cronenberg.dashboards.onDashboardLoaded(function(dashboard) {
-        var rendered = cronenberg.templates.render(dashboard);
-        $("#dashboard").html(rendered);
-        cronenberg.queries.loadAll();
-    });
-    cronenberg.dashboards.load(url);
+    var url = '/api/dashboard/{{dashboard.id}}/definition/expanded?from={{from_time}}{% if until_time %}&until={{until_time}}{% endif %}{% if extra_params %}&{{extra_params}}{% endif %}';
+    cronenberg.dashboards.load(url, "#dashboard");
     $("[data-toggle=tooltip]").tooltip({animation:false, delay: { show:300, hide:100}});
   </script>
 

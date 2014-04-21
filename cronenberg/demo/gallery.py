@@ -1,15 +1,18 @@
 import json
 import sys
-from toolbox.graphite.functions import *
-from toolbox.graphite import Graphite, GraphiteQuery
 from ..model import *
+from ..model.database import *
 
 margin = { 'top' : 12, 'bottom' : 20, 'left' : 40, 'right' : 20 }
 
 def demo_gallery_dashboard():
-    return Dashboard(name='demo-gallery',
-                     category='Demo',
-                     title='Gallery',
+    return database.Dashboard(
+        title='Gallery',
+        category='Demo',
+        description='A gallery of all the supported presentations',
+        definition = DashboardDef(
+            definition=dumps(
+                DashboardDefinition(
                      queries = {
                          'comparison' : 'aliasByNode(group(randomWalkFunction("today"), randomWalkFunction("yesterday")), 0)',
                          'positive' : 'aliasByNode(absolute(group(randomWalkFunction("system"),randomWalkFunction("user"),randomWalkFunction("wait"), randomWalkFunction("io"))), 0)',
@@ -184,4 +187,4 @@ def demo_gallery_dashboard():
                                         'labelType' : 'key',
                                         'palette': 'applegreen'
                                 })))
-                     ))
+                     )))))

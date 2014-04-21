@@ -1,17 +1,6 @@
 cronenberg.charts = {
-    // Borrowed from Rickshaw
-    format_kmbt: function(y) {
-        value = y;
-        suffix = '';
-        if (y >= 1000000000000)   { value = y / 1000000000000; suffix = "T" }
-        else if (y >= 1000000000) { value = y / 1000000000; suffix = "B" }
-        else if (y >= 1000000)    { value = y / 1000000; suffix = "M" }
-        else if (y >= 1000)       { value = y / 1000; suffix = "K" }
-        else if (y < 1 && y > 0)  { value = y; }
-        else if (y == 0)          { value = 0; }
-        else                      { value = y }
-        return value.toPrecision(3) + suffix;
-    },
+
+    autoHideLegendThreshold: 6,
 
     simple_line_chart: function(e, series, options_) {
         var options = options_ || {};
@@ -44,8 +33,6 @@ cronenberg.charts = {
             return chart;
         });
     },
-
-    autoHideLegendThreshold: 6,
 
     standard_line_chart: function(e, list_of_series, options_) {
         var options = options_ || {};
@@ -145,7 +132,6 @@ cronenberg.charts = {
                 y: series.summation[transform]
             };
         });
-        console.log(data);
         /* var showLegend = options.showLegend !== false;
         if (list_of_series.length > this.autoHideLegendThreshold) {
             showLegend = false;

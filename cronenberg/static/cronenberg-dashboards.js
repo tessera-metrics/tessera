@@ -1,6 +1,19 @@
-cronenberg.DashboardHolder = function(url) {
-    this.url = url,
-    this.dashboard = null
+cronenberg.DashboardHolder = function(url_, element_) {
+    this.url = url_;
+    this.dashboard = null;
+    this.element = element_;
+
+    this.setRange = function(from, until) {
+        var self = this;
+        var url = URI(self.url);
+        if (from) {
+            url.setQuery('from', from);
+        }
+        if (until) {
+            url.setQuery('until', until);
+        }
+        self.url = url.href();
+    };
 };
 
 cronenberg.DashboardManager = function() {
@@ -11,24 +24,25 @@ cronenberg.DashboardManager = function() {
      * loaded and ready.
      */
     this.onDashboardLoaded = function(handler) {
-        bean.on(cronenberg.dashboards, cronenberg.events.DASHBOARD_LOADED, handler);
-        return this;
+        var self = this;
+        bean.on(self, cronenberg.events.DASHBOARD_LOADED, handler);
+        return self;
     };
 
-    this.load = function(url) {
-        this.current = new cronenberg.DashboardHolder(url);
-        var current = this.current;
+    this.load = function(url, element) {
+        var self = this;
+        self.current = new cronenberg.DashboardHolder(url, element);
         $.ajax({
             dataType: "json",
             url: url
         }).done(function(data) {
-            var dashboard = data.entities[0];
-            current.dashboard = dashboard;
+            var dashboard = data
+            self.current.dashboard = dashboard;
 
             // Build a map from the presentation elements to their
             // model objects.
             dashboard.elementToItemMap = {};
-            _.each(dashboard.grid.rows, function(row) {
+            _.each(dashboard.definition.grid.rows, function(row) {
                 if (row.item_type == 'row') {
                     _.each(row.cells, function(cell) {
                         _.each(cell.presentation, function(presentation) {
@@ -42,16 +56,88 @@ cronenberg.DashboardManager = function() {
 
             // Set up the queries
             cronenberg.queries.clear();
-            for (var query_name in dashboard.queries) {
-                cronenberg.queries.add(query_name, dashboard.queries[query_name]);
+            for (var query_name in dashboard.definition.queries) {
+                cronenberg.queries.add(query_name, dashboard.definition.queries[query_name]);
             }
-            bean.fire(cronenberg.dashboards, cronenberg.events.DASHBOARD_LOADED, dashboard);
+
+            // Render the dashboard
+            var rendered = cronenberg.templates.render(dashboard.definition);
+            $(self.current.element).html(rendered);
+
+            var currentURL = URI(self.current.url);
+
+            bean.fire(self, cronenberg.events.RANGE_CHANGED, {
+                from: currentURL.query('from'),
+                until: currentURL.query('until')
+            });
+
+            // Load the queries
+            cronenberg.queries.loadAll();
+
+            bean.fire(self, cronenberg.events.DASHBOARD_LOADED, dashboard);
         });
+        return self;
     };
 
     this.refresh = function() {
-        if (this.current) {
-            this.load(this.current.url);
+        var self = this;
+        if (self.current) {
+            self.load(self.current.url, self.current.element);
+        }
+    };
+
+    this.set_time_range = function(from, until) {
+        var self = this;
+        var location = URI(window.location).setQuery('from', from).href();
+        window.history.pushState({url: self.current.url, element:self.current.element}, '', location);
+
+        self.current.setRange(from, until);
+        bean.fire(self, cronenberg.events.RANGE_CHANGED, {
+            from: from, until: until
+        });
+        self.refresh();
+    };
+
+    this.ranges = {
+        // TODO - quick hack. Parse the range and generate on the fly
+        // for maximum flexibiliy
+        '-1h'  : 'Past Hour',
+        '-2h'  : 'Past 2 Hours',
+        '-3h'  : 'Past 3 Hours',
+        '-4h'  : 'Past 4 Hours',
+        '-6h'  : 'Past 6 Hours',
+        '-12h' : 'Past 12 Hours',
+        '-1d'  : 'Past Day',
+        '-7d'  : 'Past Week'
+    };
+
+    this.getRangeDescription = function(range) {
+        var self = this;
+        if (range in self.ranges) {
+            return self.ranges[range];
+        } else {
+            return null;
+        }
+    };
+
+    this.onRangeChanged = function(handler) {
+        var self = this;
+        bean.on(self, cronenberg.events.RANGE_CHANGED, handler);
+    };
+
+    this.autoRefreshInterval = null;
+    this.intervalId = null;
+
+    this.set_refresh_interval = function(value) {
+        var self = this;
+        var intervalSeconds = parseInt(value);
+        self.autoRefreshInterval = intervalSeconds;
+        if (self.intervalId) {
+            window.clearInterval(self.intervalId);
+        }
+        if (intervalSeconds > 0) {
+            self.intervalSeconds = intervalSeconds;
+            self.intervalId = window.setInterval(self.refresh, intervalSeconds * 1000);
         }
     };
 };
