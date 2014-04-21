@@ -40,15 +40,10 @@ def _render_pybars_template(template, variables):
     output = compiled(variables)
     return ''.join(output)
 
-#def _get_entities(cls):
-#    pattern = request.args.get('filter', '*')
-#    return mgr.load_all(cls, pattern=pattern)
-
-
 def _jsonify(data):
     return flask.Response(status=200,
                           mimetype="application/json",
-                          response=json.dumps(data, cls=EntityEncoder, indent=4))
+                          response=json.dumps(data, cls=EntityEncoder))
 
 def _get_param(name, default=None, store_in_session=False):
     value = request.args.get(name) or session.get(name, default)
@@ -90,18 +85,28 @@ def _get_param(name, default=None, store_in_session=False):
 
 @app.route('/api/dashboard/')
 def api_dashboard_list():
+    """Listing for all dashboards. Returns just the metadata, not the
+    definitions.
+
+    """
     return _jsonify({
         'dashboards' : [d.to_json() for d in database.Dashboard.query.all()]
     })
 
 @app.route('/api/dashboard/<id>')
 def api_dashboard_get(id):
+    """Get the metadata for a single dashboard.
+
+    """
     return _jsonify({
         'dashboards' : [database.Dashboard.query.get_or_404(id).to_json()]
     })
 
 @app.route('/api/dashboard/', methods=['POST'])
 def api_dashboard_create():
+    """Create a new dashboard with an empty definition.
+
+    """
     body = json.loads(request.data)
     dashboard = database.Dashboard.from_json(body)
     dashboard.definition = database.DashboardDef(dumps(DashboardDefinition()))
@@ -111,6 +116,9 @@ def api_dashboard_create():
 
 @app.route('/api/dashboard/<id>', methods=['PUT'])
 def api_dashboard_update(id):
+    """Update the metadata for an existing dashboard.
+
+    """
     body = json.loads(request.data)
     dashboard = database.Dashboard.query.get_or_404(id)
     dashboard.merge_from_json(body)
@@ -121,6 +129,9 @@ def api_dashboard_update(id):
 
 @app.route('/api/dashboard/<id>', methods=['DELETE'])
 def api_dashboard_delete(id):
+    """Delete a dashboard. Use with caution.
+
+    """
     dashboard = database.Dashboard.query.get_or_404(id)
     db.session.delete(dashboard)
     db.session.commit()
@@ -129,6 +140,10 @@ def api_dashboard_delete(id):
 
 @app.route('/api/dashboard/<id>/definition')
 def api_dashboard_get_definition(id):
+    """Fetch the definition for a dashboard. This returns the
+    representation to use when modifiying a dashboard.
+
+    """
     dashboard = database.Dashboard.query.filter_by(id=id)[0]
     return _jsonify({
         'definition' : database.Dashboard.query.get_or_404(id).definition.to_json()
@@ -136,6 +151,12 @@ def api_dashboard_get_definition(id):
 
 @app.route('/api/dashboard/<id>/definition', methods=['PUT'])
 def api_dashboard_update_definition(id):
+    """Update the definition of the dashboard. This should use the
+    representation returned by /api/dashboard/<id>/definition, and
+    should NOT have any embedded variables expanded, nor should it
+    have complete graphite URLs in the queries.
+
+    """
     dashboard = database.Dashboard.query.get_or_404(id)
 
     # Validate the payload
@@ -154,8 +175,12 @@ def api_dashboard_update_definition(id):
 
 @app.route('/api/dashboard/<id>/definition/expanded')
 def api_dashboard_get_expanded(id):
-    """Fetch a single Dashboard entity, or 404 if it is not found. This
-    version expands graphite queries for client-side rendering.
+    """Fetch the complete definition of a dashboard and its metadata in a
+    single object, with all graphite URLs expanded and any template
+    variables filled in from the request parameters.
+
+    The result of this API is suitable for rendering by the front-end
+    library.
     """
     dash       = database.Dashboard.query.get_or_404(id)
     definition = dash.definition.to_json()
