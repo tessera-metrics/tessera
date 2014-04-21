@@ -186,20 +186,6 @@ h1 .secondary-title {
     margin-left: .5em;
 }
 
-.dashboard-danger,
-.dashboard-danger h3,
-.dashboard-danger .value,
-.dashboard-danger .unit {
-    color: #d60000;
-}
-
-.dashboard-warning,
-.dashboard-warning h3,
-.dashboard-warning .value,
-.dashboard-warning .unit {
-    color: #d66a00;
-}
-
 .presentation h1,
 .presentation h2,
 .presentation h3,
