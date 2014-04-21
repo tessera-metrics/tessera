@@ -12,6 +12,7 @@ log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)-8s [%(name)s] %(message)s')
 logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(logging.WARN)
+logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
 manager = Manager(app)
 

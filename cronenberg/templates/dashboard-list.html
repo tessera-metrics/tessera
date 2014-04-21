@@ -13,16 +13,14 @@
     <thead>
       <tr>
         <th>Dashboard</th>
-        <th>Name</th>
         <th>Description</th>
-        <th></th>
+        <th>Created</th>
       </tr>
     </thead>
     <tbody>
       {% for dashboard in dashboards %}
         <tr>
-          <td><a href="/dashboards/{{dashboard.id}}"><span class="badge badge-info"><i class="fa fa-dashboard"></i></span> {{dashboard.id}}</a></td>
-          <td>{{dashboard.category}} {{dashboard.title}}</td>
+          <td><a href="/dashboards/{{dashboard.id}}"><span class="badge badge-info"><i class="fa fa-dashboard"></i></span> {{dashboard.category}} {{dashboard.title}} </a></td>
           <td>
             {% if dashboard.imported_from %}
               <a href="{{dashboard.imported_from}}">
@@ -32,6 +30,7 @@
               </a>
             {% endif %}
           </td>
+          <td>{{dashboard.creation_date}}</td>
         </tr>
       {% endfor %}
     </tbody>
