@@ -1,5 +1,6 @@
 flask
 flask-script
+flask-sqlalchemy
 requests
 simplejson
 inflection
