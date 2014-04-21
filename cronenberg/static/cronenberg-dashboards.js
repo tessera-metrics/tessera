@@ -36,13 +36,13 @@ cronenberg.DashboardManager = function() {
             dataType: "json",
             url: url
         }).done(function(data) {
-            var dashboard = data.entities[0];
+            var dashboard = data
             self.current.dashboard = dashboard;
 
             // Build a map from the presentation elements to their
             // model objects.
             dashboard.elementToItemMap = {};
-            _.each(dashboard.grid.rows, function(row) {
+            _.each(dashboard.definition.grid.rows, function(row) {
                 if (row.item_type == 'row') {
                     _.each(row.cells, function(cell) {
                         _.each(cell.presentation, function(presentation) {
@@ -56,12 +56,12 @@ cronenberg.DashboardManager = function() {
 
             // Set up the queries
             cronenberg.queries.clear();
-            for (var query_name in dashboard.queries) {
-                cronenberg.queries.add(query_name, dashboard.queries[query_name]);
+            for (var query_name in dashboard.definition.queries) {
+                cronenberg.queries.add(query_name, dashboard.definition.queries[query_name]);
             }
 
             // Render the dashboard
-            var rendered = cronenberg.templates.render(dashboard);
+            var rendered = cronenberg.templates.render(dashboard.definition);
             $(self.current.element).html(rendered);
 
             var currentURL = URI(self.current.url);

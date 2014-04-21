@@ -33,6 +33,13 @@ Client Side:
 * [markdown-js](https://github.com/evilstreak/markdown-js) for rendering of Markdown to HTML.
 * [URI.js](https://github.com/medialize/URI.js) for URL manipulation.
 
+## Creating the Database
+
+Cronenberg runs off of a sqlite backing store, which has to be
+initialized, and can be populated with a bunch of demo dashboards. To
+initialize the database, run ``manage.py createdb``, and run
+``manage.py generate`` to generate the demo dashboard definitions.
+
 ## Developing or Running from Source ##
 
 ```shell

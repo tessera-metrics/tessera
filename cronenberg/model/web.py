@@ -1,24 +1,34 @@
-import cask
+import json
 import uuid
 import base64
 
-# class Query(cask.NamedEntity):
-#     """Represents a graphite query with one or more targets."""
-#     def __init__(self, name, targets=None):
-#         super(Query, self).__init__(name=name)
-#         self.targets = [targets if isinstance(targets, list) else [targets]]
+class EntityEncoder(json.JSONEncoder):
+    def default(self, obj):
+            # TODO - handle iterables
+        if isinstance(obj, list) or isinstance(obj, tuple):
+            return [ self.default(i) for i in obj ]
+        elif isinstance(obj, dict):
+            result = {}
+            for key, value in obj.items():
+                result[key] = self.default(value)
+            return result
+        elif hasattr(obj, 'to_json') and callable(getattr(obj, 'to_json')):
+            return obj.to_json()
+        elif hasattr(obj, '__dict__'):
+            return self.default(obj.__dict__)
+        else:
+            return obj
 
-#     def to_json(self):
-#         return { 'name' : self.name,
-#                  'targets' : [ str(t) for t in self.targets ] }
-
-def _delattr(dictionary, attr):
-    if attr in dictionary:
-        del dictionary[attr]
+def dumps(obj):
+    return json.dumps(obj, cls=EntityEncoder, indent=0)
 
 # =============================================================================
 # Presentations
 # =============================================================================
+
+def _delattr(dictionary, attr):
+    if attr in dictionary:
+        del dictionary[attr]
 
 class Thresholds(object):
     def __init__(self, summation_type='max', warning=None, danger=None):
@@ -193,11 +203,8 @@ class SummationTable(TablePresentation):
         _delattr(d, 'item_type')
         return cls(**d)
 
-# TODO -
-
 # =============================================================================
 # Layouts
-# =============================================================================
 
 class Cell(DashboardItem):
     """Cell defines how to position and size a presentation on the
@@ -241,6 +248,8 @@ class Grid(DashboardItem):
 
     @classmethod
     def from_json(cls, d):
+        if not d:
+            return Grid()
         rows = [DashboardItem.from_json(r) for r in d['rows']]
         _delattr(d, 'item_type')
         _delattr(d, 'rows')
@@ -285,24 +294,13 @@ class Markdown(DashboardItem):
         return Markdown(**d)
 
 
-class Dashboard(cask.NamedEntity):
-    def __init__(self, name, queries=None, grid=None, item_type='dashboard', category='', title='', description='', imported_from=None):
-        super(Dashboard, self).__init__(name=name)
+class DashboardDefinition(object):
+    def __init__(self, queries=None, grid=None, item_type='dashboard'):
         self.item_type = item_type
         self.queries = queries or {}
         self.grid = grid or Grid()
-        self.category = category
-        self.title = title
-        self.description = description
-        self.imported_from = imported_from
 
     @classmethod
-    def from_json(cls, name, d):
-        d['grid'] = Grid.from_json(d['grid'])
-        _delattr(d, 'name')
-        return Dashboard(name=name, **d)
-
-class DashboardManager(cask.EntityStorageManager):
-    def __init__(self, data_directory, extension=None):
-        super(DashboardManager, self).__init__(data_directory, extension=extension)
-        self.register_class(Dashboard)
+    def from_json(cls, data):
+        data['grid'] = Grid.from_json(data.get('grid', None))
+        return DashboardDefinition(**data)
