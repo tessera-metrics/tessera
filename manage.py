@@ -4,7 +4,7 @@ import json
 from flask.ext.script import Manager
 import toolbox
 import logging
-from cronenberg import app
+from cronenberg import app, db
 from cronenberg.demo import *
 from cronenberg.model import DashboardDefinition, DashboardManager
 from cronenberg.cask.storage import EntityEncoder
@@ -37,6 +37,10 @@ def generate():
     log.info('Done')
 
 @manager.command
+def create_db():
+    db.create_all()
+
+@manager.command
 def import_graphite_dashboards(query=''):
     log.info('Importing dashboards from graphite')
     importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'], models)
@@ -47,7 +51,6 @@ def dump_graphite_dashboards(query=''):
     log.info('Importing dashboards from graphite')
     importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'], models)
     importer.dump_dashboards(query)
-
 
 if __name__ == '__main__':
     manager.run()
