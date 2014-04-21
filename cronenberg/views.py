@@ -222,14 +222,6 @@ def api_dashboard_get_expanded(id):
 #def api_dashboard_get_definition(id):
 #    pass
 
-#@app.route('/api/dashboard/<id>/definition/expanded')
-#def api_dashboard_get_definition_expanded(id):
-#    pass
-
-#@app.route('/api/dashboard/<id>/definition', methods=['PUT'])
-#def api_dashboard_set_definition(id):
-#    pass
-
 #@app.route('/api/tags')
 #def api_get_tags(id):
  #   pass
