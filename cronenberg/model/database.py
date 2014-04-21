@@ -38,15 +38,19 @@ class Dashboard(db.Model):
             'imported_from' : self.imported_from
         }
 
+    def merge_from_json(self, d):
+        for attr in ['title', 'category', 'description', 'imported_from']:
+            if hasattr(self, attr):
+                setattr(self, attr, d[attr])
+
     @classmethod
     def from_json(cls, d):
-        return Dashboard(id=d.get('id'),
-                         title=d.get('title'),
+        return Dashboard(title=d.get('title'),
                          category=d.get('category', None),
                          description=d.get('description', None),
                          creation_date=d.get('creation_date', None),
-                         last_modified_datecategory=d.get('last_modified_date', None),
-                         imported_fromcategory=d.get('imported_from', None))
+                         last_modified_date=d.get('last_modified_date', None),
+                         imported_from=d.get('imported_from', None))
 
 class DashboardDef(db.Model):
     id = db.Column(db.Integer, primary_key=True)
