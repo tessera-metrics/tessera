@@ -45,7 +45,7 @@
         var target = $(e.target).parent();
         if (target.attr('data-range')) {
             var range = target.attr('data-range');
-            cronenberg.dashboards.set_time_range(range);
+            cronenberg.dashboards.set_time_range(range, null);
             $("ul.ds-refresh-menu li[data-range]").removeClass('active');
             $("ul.ds-refresh-menu li[data-range=" + range + "]").addClass('active');
         } else if (target.attr('data-interval')) {

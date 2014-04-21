@@ -17,14 +17,15 @@ cronenberg.Summation = function(series) {
      * queries with multiple data series.
      */
     this.merge = function(other) {
-        this.sum += other.sum;
-        this.datapoint_count += other.datapoint_count;
-        this.mean = this.sum / this.datapoint_count;
-        if (other.min < this.min) {
-            this.min = other.min;
+        var self = this;
+        self.sum += other.sum;
+        self.datapoint_count += other.datapoint_count;
+        self.mean = self.sum / self.datapoint_count;
+        if (other.min < self.min) {
+            self.min = other.min;
         }
-        if (other.max > this.max) {
-            this.max = other.max;
+        if (other.max > self.max) {
+            self.max = other.max;
         }
         return this;
     };
@@ -66,11 +67,12 @@ cronenberg.Query = function(name, url) {
      * listeners on start and completion.
      */
     this.load = function() {
-        bean.fire(this, 'loading');
+        var self = this;
+        bean.fire(self, 'loading');
         $.ajax({
             dataType: "json",
-            url: this.url
-        }).done(completionHandler(this));
+            url: self.url
+        }).done(completionHandler(self));
     };
 
     this.available = function(handler) {
@@ -83,19 +85,20 @@ cronenberg.Query = function(name, url) {
      * charting library, and calculating sums.
      */
     this.process_data = function(data) {
-        this.data = _.map(data, function(series) {
+        var self = this;
+        self.data = _.map(data, function(series) {
             series.summation = new cronenberg.Summation(series);
             series.key = series.target;
             series.values = series.datapoints;
             return series;
         });
-        this.summation = new cronenberg.Summation();
+        self.summation = new cronenberg.Summation();
         // Oh, scoping
-        var sum = this.summation;
-        _.each(this.data, function(series) {
+        var sum = self.summation;
+        _.each(self.data, function(series) {
             sum.merge(series.summation);
         });
-        return this;
+        return self;
     };
 
     var completionHandler = function(query) {
@@ -113,23 +116,26 @@ cronenberg.QueryRegistry = function() {
     this.registry = {};
 
     this.clear = function() {
-        for (var query_name in this.registry) {
-            delete this.registry[query_name];
+        var self = this;
+        for (var query_name in self.registry) {
+            delete self.registry[query_name];
         }
-        return this;
+        return self;
     },
 
     this.add = function(name, url) {
+        var self = this;
         query = new cronenberg.Query(name, url);
-        this.registry[name] = query;
-        return this;
+        self.registry[name] = query;
+        return self;
     };
 
     this.loadAll = function() {
-        for (var query_name in this.registry) {
-            this.registry[query_name].load();
+        var self = this;
+        for (var query_name in self.registry) {
+            self.registry[query_name].load();
         }
-        return this;
+        return self;
     };
 };
 
