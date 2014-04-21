@@ -14,6 +14,7 @@ from cask import Entity
 import cask
 
 from .model import *
+from .model import database
 from .application import app
 
 mgr = cask.web.WebManagerAdapter(DashboardManager(app.config['DASHBOARD_DATADIR']))
