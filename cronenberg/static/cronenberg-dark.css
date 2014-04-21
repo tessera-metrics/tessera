@@ -141,3 +141,37 @@ background-color: #222;
     background-color: #555;
     border-color: #777;
 }
+
+.bs-callout-neutral {
+    background-color: #494949;
+    border-color: #686868;
+}
+.bs-callout-info {
+    background-color: #2A3B49;
+    border-color: #36576E;
+}
+.bs-callout-success {
+    background-color: #35492C;
+    border-color: #436824;
+}
+.bs-callout-warning {
+    background-color: #6F3701;
+    border-color: #A25103;
+}
+.bs-callout-danger {
+    background-color: #690d0d;
+    border-color: #a80e0B;
+}
+.dashboard-warning,
+.dashboard-warning h3,
+.dashboard-warning .value,
+.dashboard-warning .unit {
+    color: #FF9E3F;
+}
+
+.dashboard-danger,
+.dashboard-danger h3,
+.dashboard-danger .value,
+.dashboard-danger .unit {
+    color: #FF0000;
+}

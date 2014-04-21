@@ -56,6 +56,21 @@ h2.time {
     // color: #ddd;
 }
 
+.dashboard-danger,
+.dashboard-danger h3,
+.dashboard-danger .value,
+.dashboard-danger .unit {
+    color: #d60000;
+}
+
+.dashboard-warning,
+.dashboard-warning h3,
+.dashboard-warning .value,
+.dashboard-warning .unit {
+    color: #d66a00;
+}
+
+
 /* =============================================================================
    3rd Party Tweaks
    ============================================================================= */
