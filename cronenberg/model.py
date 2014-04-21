@@ -8,13 +8,13 @@ from .application import db
 # =============================================================================
 
 
-def _delattr(dictionary, attr):
-    if attr in dictionary:
-        del dictionary[attr]
-
 # =============================================================================
 # Presentations
 # =============================================================================
+
+def _delattr(dictionary, attr):
+    if attr in dictionary:
+        del dictionary[attr]
 
 class Thresholds(object):
     def __init__(self, summation_type='max', warning=None, danger=None):
@@ -191,7 +191,6 @@ class SummationTable(TablePresentation):
 
 # =============================================================================
 # Layouts
-# =============================================================================
 
 class Cell(DashboardItem):
     """Cell defines how to position and size a presentation on the
@@ -279,9 +278,9 @@ class Markdown(DashboardItem):
         return Markdown(**d)
 
 
-class Dashboard(cask.NamedEntity):
+class DashboardDefinition(cask.NamedEntity):
     def __init__(self, name, queries=None, grid=None, item_type='dashboard', category='', title='', description='', imported_from=None):
-        super(Dashboard, self).__init__(name=name)
+        super(DashboardDefinition, self).__init__(name=name)
         self.item_type = item_type
         self.queries = queries or {}
         self.grid = grid or Grid()
@@ -294,9 +293,9 @@ class Dashboard(cask.NamedEntity):
     def from_json(cls, name, d):
         d['grid'] = Grid.from_json(d['grid'])
         _delattr(d, 'name')
-        return Dashboard(name=name, **d)
+        return DashboardDefinition(name=name, **d)
 
 class DashboardManager(cask.EntityStorageManager):
     def __init__(self, data_directory, extension=None):
         super(DashboardManager, self).__init__(data_directory, extension=extension)
-        self.register_class(Dashboard)
+        self.register_class(DashboardDefinition)
