@@ -1,16 +1,12 @@
 import cask
 import uuid
 import base64
+from .application import db
 
-# class Query(cask.NamedEntity):
-#     """Represents a graphite query with one or more targets."""
-#     def __init__(self, name, targets=None):
-#         super(Query, self).__init__(name=name)
-#         self.targets = [targets if isinstance(targets, list) else [targets]]
+# =============================================================================
+# Database model
+# =============================================================================
 
-#     def to_json(self):
-#         return { 'name' : self.name,
-#                  'targets' : [ str(t) for t in self.targets ] }
 
 def _delattr(dictionary, attr):
     if attr in dictionary:
@@ -192,8 +188,6 @@ class SummationTable(TablePresentation):
     def from_json(cls, d):
         _delattr(d, 'item_type')
         return cls(**d)
-
-# TODO -
 
 # =============================================================================
 # Layouts
