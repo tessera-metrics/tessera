@@ -41,6 +41,13 @@ cd cronenberg
 virtualenv .
 . bin/activate
 
+## Creating the Database
+
+Cronenberg runs off of a sqlite backing store, which has to be
+initialized, and can be populated with a bunch of demo dashboards. To
+initialize the database, run ``manage.py createdb``, and run
+``manage.py generate`` to generate the demo dashboard definitions.
+
 # Export pip environment variables if you didn't globally
 export PIP_NO_INDEX=1
 export PIP_FIND_LINKS=http://pulp.prod.urbanairship.com/repos/python-packages/

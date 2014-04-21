@@ -36,7 +36,7 @@ def generate():
     log.info('Done')
 
 @manager.command
-def create_db():
+def createdb():
     db.create_all()
 
 @manager.command
