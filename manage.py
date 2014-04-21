@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)-8s [%(name)s] %(message)s')
 logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(logging.WARN)
-logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+logging.getLogger('sqlalchemy.engine').setLevel(logging.WARN)
 
 manager = Manager(app)
 
@@ -42,13 +42,13 @@ def createdb():
 @manager.command
 def import_graphite_dashboards(query=''):
     log.info('Importing dashboards from graphite')
-    importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'], models)
+    importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'])
     importer.import_dashboards(query)
 
 @manager.command
 def dump_graphite_dashboards(query=''):
     log.info('Importing dashboards from graphite')
-    importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'], models)
+    importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'])
     importer.dump_dashboards(query)
 
 if __name__ == '__main__':
