@@ -21,6 +21,11 @@ def demo_gallery_dashboard():
                          'single2' : 'randomWalkFunction("thing2")'
                      },
                      grid=Grid(
+
+                         #
+                         # Time Series Charts
+                         #
+
                          Heading(text='Time Series Charts', description='A variety of time series charts rendered by nvd3')
                          ,Markdown(text="The [nvd3](http://nvd3.org/) javascript library provides an good set of standard, reusable charts "
                                    + "built on top of [d3](http://d3js.org/).")
@@ -57,6 +62,11 @@ def demo_gallery_dashboard():
                                             'yAxisFormat' : ',.1s'
                                         })
                                     ]))
+
+                         #
+                         # Text Presentations
+                         #
+
                          ,Separator()
                          ,Heading(text='Text Presentations', description='Various ways of calling out data')
                          ,Separator()
@@ -80,41 +90,6 @@ def demo_gallery_dashboard():
                                                             units='/min',
                                                             transform='max')))
                          ,Row(Cell(span=3,
-                                   presentation=Markdown(text="Key metrics can be **emphasized** for attention in a variety of styles."))
-                              ,Cell(span=2, style=DashboardItem.Style.WELL, align='center',
-                                    presentation=SingleStat(query_name='single1',
-                                                            title='Emphasized, Well',
-                                                            transform='mean'))
-                              ,Cell(span=2, style=DashboardItem.Style.CALLOUT_NEUTRAL, align='center',
-                                    presentation=SingleStat(query_name='single1',
-                                                            title='Neutral Callout',
-                                                            transform='mean'))
-                              ,Cell(span=2, style=DashboardItem.Style.CALLOUT_INFO, align='center',
-                                    presentation=SingleStat(query_name='single1',
-                                                            title='Information Callout',
-                                                            transform='mean'))
-                              ,Cell(span=2, style=DashboardItem.Style.CALLOUT_SUCCESS, align='center',
-                                    presentation=SingleStat(query_name='single1',
-                                                            title='Success Callout',
-                                                            transform='mean'))
-                          )
-                         ,Row(
-                             Cell(span=2, offset=3,
-                                  presentation=SingleStat(query_name='single2',
-                                                        title='Warning Threshold',
-                                                          transform='mean',
-                                                          units='/sec',
-                                                          format=',.2f',
-                                                          css_class="dashboard-warning bs-callout bs-callout-warning"))
-                             ,Cell(span=2,
-                                   presentation=SingleStat(query_name='single2',
-                                                           title='Danger Threshold',
-                                                           transform='max',
-                                                           units='ms',
-                                                           format=',.2f',
-                                                           css_class="dashboard-danger bs-callout bs-callout-danger"))
-                         )
-                         ,Row(Cell(span=3,
                                    presentation=Markdown(text="### Jumbotron Single Stat\n"
                                                          + "A larger single stat suitable for big displays"))
                               ,Cell(span=5,
@@ -124,18 +99,6 @@ def demo_gallery_dashboard():
                                                                      units='/sec',
                                                                      title='Hey this number is important',
                                                                      transform='sum')))
-                         ,Row(Cell(span=3,
-                                   presentation=Markdown(text="Naturally, they can be emphasized too"))
-                              ,Cell(span=5,style=DashboardItem.Style.CALLOUT_DANGER,
-                                    presentation=JumbotronSingleStat(query_name='single1',
-                                                                     height=2,
-                                                                     format=',.2f',
-                                                                     units='/sec',
-                                                                     title='Hey, this looks really bad...',
-                                                                     css_class='dashboard-danger',
-                                                                     transform='sum')))
-
-                         ,Separator()
                          ,Row(Cell(span=3,
                                    presentation=Markdown(text="### Summation Tables\n"
                                                          + "Every data series returned from graphite has its min, max, sum, and mean "
@@ -169,6 +132,63 @@ def demo_gallery_dashboard():
                                                           + '## Heading 3\n'
                                                           + '``/* As is code */``, etc...'))
                           )
+
+                         ,Separator()
+                         ,Heading(text='Presentation Options', description='Some visual variations that can be applied to all presentations')
+                         ,Separator()
+
+                         ,Row(Cell(span=3,
+                                   presentation=Markdown(text="Key metrics can be **emphasized** for attention in a variety of styles."))
+                              ,Cell(span=3, style=DashboardItem.Style.WELL, align='center',
+                                    presentation=SingleStat(query_name='single1',
+                                                            title='Emphasized, Well',
+                                                            transform='mean'))
+                              ,Cell(span=3, style=DashboardItem.Style.CALLOUT_NEUTRAL, align='center',
+                                    presentation=SingleStat(query_name='single1',
+                                                            title='Neutral Callout',
+                                                            transform='mean'))
+                              ,Cell(span=3, style=DashboardItem.Style.CALLOUT_INFO, align='center',
+                                    presentation=SingleStat(query_name='single1',
+                                                            title='Information Callout',
+                                                            transform='mean'))
+                          )
+                         ,Row(
+                             Cell(span=3, offset=3, style=DashboardItem.Style.CALLOUT_SUCCESS, align='center',
+                                  presentation=SingleStat(query_name='single1',
+                                                          title='Success Callout',
+                                                          transform='mean'))
+
+                             ,Cell(span=3,
+                                   presentation=SingleStat(query_name='single2',
+                                                           title='Warning Threshold',
+                                                           transform='mean',
+                                                           units='/sec',
+                                                           format=',.2f',
+                                                           css_class="dashboard-warning bs-callout bs-callout-warning"))
+                             ,Cell(span=3,
+                                   presentation=SingleStat(query_name='single2',
+                                                           title='Danger Threshold',
+                                                           transform='max',
+                                                           units='ms',
+                                                           format=',.2f',
+                                                           css_class="dashboard-danger bs-callout bs-callout-danger"))
+                         )
+                         ,Row(Cell(span=3,
+                                   presentation=Markdown(text="Jumbotron singlestats with emphasis can get a lot of attention."))
+                              ,Cell(span=5,style=DashboardItem.Style.CALLOUT_DANGER,
+                                    presentation=JumbotronSingleStat(query_name='single1',
+                                                                     height=2,
+                                                                     format=',.2f',
+                                                                     units='/sec',
+                                                                     title='Hey, this looks really bad...',
+                                                                     css_class='dashboard-danger',
+                                                                     transform='sum'))
+                          )
+
+                         #
+                         # Other Charts
+                         #
+
                          ,Separator()
                          ,Heading(text='Other Charts', description='Non-time series charts, also rendered by nvd3')
                          ,Separator()
