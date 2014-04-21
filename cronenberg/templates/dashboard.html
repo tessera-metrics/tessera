@@ -49,7 +49,6 @@
         <script>
           cronenberg.dashboards.onRangeChanged(function(data) {
               var description = cronenberg.dashboards.getRangeDescription(data.from);
-              console.log("full screen indicator - range changed: " + data.from + ", d: " + description);
               if ( description ) {
                   $("a.ds-fullscreen-range-indicator").text(description);
               }
