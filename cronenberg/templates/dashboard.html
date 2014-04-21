@@ -71,7 +71,7 @@
 
   {% include "presentations.html" %}
   <script>
-    var url = '/api/dashboard/{{dashboard.name}}/expanded?from={{from_time}}{% if until_time %}&until={{until_time}}{% endif %}{% if extra_params %}&{{extra_params}}{% endif %}';
+    var url = '/api/dashboard/{{dashboard.id}}/definition/expanded?from={{from_time}}{% if until_time %}&until={{until_time}}{% endif %}{% if extra_params %}&{{extra_params}}{% endif %}';
     cronenberg.dashboards.load(url, "#dashboard");
     $("[data-toggle=tooltip]").tooltip({animation:false, delay: { show:300, hide:100}});
   </script>

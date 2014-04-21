@@ -1,6 +1,26 @@
-from .. import cask
+import json
 import uuid
 import base64
+
+class EntityEncoder(json.JSONEncoder):
+    def default(self, obj):
+            # TODO - handle iterables
+        if isinstance(obj, list) or isinstance(obj, tuple):
+            return [ self.default(i) for i in obj ]
+        elif isinstance(obj, dict):
+            result = {}
+            for key, value in obj.items():
+                result[key] = self.default(value)
+            return result
+        elif hasattr(obj, 'to_json') and callable(getattr(obj, 'to_json')):
+            return obj.to_json()
+        elif hasattr(obj, '__dict__'):
+            return self.default(obj.__dict__)
+        else:
+            return obj
+
+def dumps(obj):
+    return json.dumps(obj, cls=EntityEncoder, indent=4)
 
 # =============================================================================
 # Presentations
@@ -272,24 +292,14 @@ class Markdown(DashboardItem):
         return Markdown(**d)
 
 
-class DashboardDefinition(cask.NamedEntity):
-    def __init__(self, name, queries=None, grid=None, item_type='dashboard', category='', title='', description='', imported_from=None):
-        super(DashboardDefinition, self).__init__(name=name)
+class DashboardDefinition(object):
+    def __init__(self, queries=None, grid=None, item_type='dashboard'):
         self.item_type = item_type
         self.queries = queries or {}
         self.grid = grid or Grid()
-        self.category = category
-        self.title = title
-        self.description = description
-        self.imported_from = imported_from
 
     @classmethod
     def from_json(cls, name, d):
         d['grid'] = Grid.from_json(d['grid'])
         _delattr(d, 'name')
         return DashboardDefinition(name=name, **d)
-
-class DashboardManager(cask.EntityStorageManager):
-    def __init__(self, data_directory, extension=None):
-        super(DashboardManager, self).__init__(data_directory, extension=extension)
-        self.register_class(DashboardDefinition)

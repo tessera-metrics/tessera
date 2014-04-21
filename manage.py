@@ -2,12 +2,10 @@
 
 import json
 from flask.ext.script import Manager
-import toolbox
 import logging
 from cronenberg import app, db
 from cronenberg.demo import *
-from cronenberg.model import DashboardDefinition, DashboardManager
-from cronenberg.cask.storage import EntityEncoder
+from cronenberg.model import DashboardDefinition
 from cronenberg.importer.graphite import GraphiteDashboardImporter
 
 log = logging.getLogger(__name__)
@@ -16,7 +14,6 @@ logging.basicConfig(level=logging.INFO,
 logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(logging.WARN)
 
 manager = Manager(app)
-models = DashboardManager(app.config['DASHBOARD_DATADIR'])
 
 @manager.command
 def run():
@@ -26,14 +23,15 @@ def run():
 def generate():
     log.info('Generating demo dashboards')
     dashboards = [
-        demo_automation_overview(toolbox.PROD),
-        demo_random_data_dashboard(),
-        demo_gallery_dashboard(),
-        demo_node_dashboard()
+         demo_automation_overview(),
+         demo_random_data_dashboard(),
+         demo_gallery_dashboard(),
+         demo_node_dashboard()
     ]
     for d in dashboards:
-        log.info('Storing dashboard {0}'.format(d.name))
-        models.store(DashboardDefinition, d)
+        log.info('Storing dashboard {0} {1}'.format(d.category, d.title))
+        db.session.add(d)
+        db.session.commit()
     log.info('Done')
 
 @manager.command
