@@ -1,28 +1,51 @@
-    <div class="row">
-      <div class="col-md-9">
-        {% include "snippets/recent-range-picker.html" %}
+<div class="row">
+  <div class="col-md-9">
+    {% include "snippets/recent-range-picker.html" %}
+  </div>
+
+  <div class="col-md-3">
+    <div class="btn-toolbar pull-right">
+
+      <div class="btn-group" data-edit-mode="show" style="display:none">
+        <button type="button" id="ds-delete-button" class="btn btn-default" data-toggle="tooltip" title="Delete this dashboard">
+          <i class="fa fa-lg fa-trash-o"></i>
+        </button>
       </div>
 
-      <div class="col-md-3">
-        <div class="btn-toolbar pull-right">
+      <div class="btn-group">
+        <button type="button" onclick="cronenberg.toggleEditMode()" class="btn btn-default" data-toggle="tooltip" title="Edit">
+          <i class="fa fa-lg fa-edit"></i>
+        </button>
+        {% include "snippets/refresh-button.html" %}
+        <button type="button" onclick="cronenberg.enterFullscreen()" class="btn btn-default" data-toggle="tooltip" title="Enter Display Mode">
+          <i class="fa fa-lg fa-expand"></i>
+        </button>
+      </div> <!-- button group -->
 
-          <div class="btn-group" data-edit-mode="show" style="display:none">
-            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Delete this dashboard">
-              <i class="fa fa-lg fa-trash-o"></i>
-            </button>
-          </div>
+    </div>
+  </div>
+</div> <!-- row -->
 
-
-          <div class="btn-group">
-            <button type="button" onclick="cronenberg.toggleEditMode()" class="btn btn-default" data-toggle="tooltip" title="Edit">
-              <i class="fa fa-lg fa-edit"></i>
-            </button>
-          {% include "snippets/refresh-button.html" %}
-            <button type="button" onclick="cronenberg.enterFullscreen()" class="btn btn-default" data-toggle="tooltip" title="Enter Display Mode">
-              <i class="fa fa-lg fa-expand"></i>
-            </button>
-          </div> <!-- button group -->
-
-        </div>
+<div class="modal fade" id="ds-delete-modal" tabindex="-1" role="dialog" aria-labelledby="ds-delete-modal-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="ds-delete-modal-label">Really delete dashboard?</h4>
       </div>
-    </div> <!-- row -->
+      <div class="modal-body">
+        yo.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$("#ds-delete-button").click(function() {
+    $("#ds-delete-modal").modal({});
+});
+</script>
