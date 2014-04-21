@@ -248,6 +248,8 @@ class Grid(DashboardItem):
 
     @classmethod
     def from_json(cls, d):
+        if not d:
+            return Grid()
         rows = [DashboardItem.from_json(r) for r in d['rows']]
         _delattr(d, 'item_type')
         _delattr(d, 'rows')
@@ -299,7 +301,6 @@ class DashboardDefinition(object):
         self.grid = grid or Grid()
 
     @classmethod
-    def from_json(cls, name, d):
-        d['grid'] = Grid.from_json(d['grid'])
-        _delattr(d, 'name')
-        return DashboardDefinition(name=name, **d)
+    def from_json(cls, data):
+        data['grid'] = Grid.from_json(data.get('grid', None))
+        return DashboardDefinition(**data)
