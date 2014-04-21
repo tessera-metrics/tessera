@@ -24,8 +24,9 @@ cronenberg.DashboardManager = function() {
      * loaded and ready.
      */
     this.onDashboardLoaded = function(handler) {
-        bean.on(cronenberg.dashboards, cronenberg.events.DASHBOARD_LOADED, handler);
-        return this;
+        var self = this;
+        bean.on(self, cronenberg.events.DASHBOARD_LOADED, handler);
+        return self;
     };
 
     this.load = function(url, element) {
@@ -65,13 +66,17 @@ cronenberg.DashboardManager = function() {
 
             var currentURL = URI(self.current.url);
 
-            bean.fire(this, 'ds-range-changed', currentURL.query('from'), currentURL.query('until'));
+            bean.fire(self, cronenberg.events.RANGE_CHANGED, {
+                from: currentURL.query('from'),
+                until: currentURL.query('until')
+            });
 
             // Load the queries
             cronenberg.queries.loadAll();
 
-            bean.fire(cronenberg.dashboards, cronenberg.events.DASHBOARD_LOADED, dashboard);
+            bean.fire(self, cronenberg.events.DASHBOARD_LOADED, dashboard);
         });
+        return self;
     };
 
     this.refresh = function() {
@@ -87,25 +92,37 @@ cronenberg.DashboardManager = function() {
         window.history.pushState({url: self.current.url, element:self.current.element}, '', location);
 
         self.current.setRange(from, until);
-        bean.fire(this, 'ds-range-changed', from, until);
+        bean.fire(self, cronenberg.events.RANGE_CHANGED, {
+            from: from, until: until
+        });
         cronenberg.dashboards.load(self.current.url, self.current.element);
     };
 
     this.ranges = {
         // TODO - quick hack. Parse the range and generate on the fly
         // for maximum flexibiliy
-        '-1h' : 'Past Hour',
-        '-2h' : 'Past Two Hours',
-        '-3h' : 'Past Three Hours',
-        '-4h' : 'Past Four Hours',
-        '-6h' : 'Past Six Hours',
-        '-1d' : 'Past Day',
-        '-7d' : 'Past Week'
+        '-1h'  : 'Past Hour',
+        '-2h'  : 'Past Two Hours',
+        '-3h'  : 'Past Three Hours',
+        '-4h'  : 'Past Four Hours',
+        '-6h'  : 'Past Six Hours',
+        '-12h' : 'Past Twelve Hours',
+        '-1d'  : 'Past Day',
+        '-7d'  : 'Past Week'
+    };
+
+    this.getRangeDescription = function(range) {
+        var self = this;
+        if (range in self.ranges) {
+            return self.ranges[range];
+        } else {
+            return null;
+        }
     };
 
     this.onRangeChanged = function(handler) {
         var self = this;
-        bean.on(self, 'ds-range-changed', handler);
+        bean.on(self, cronenberg.events.RANGE_CHANGED, handler);
     };
 
     this.autoRefreshInterval = null;
