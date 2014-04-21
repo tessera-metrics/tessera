@@ -124,13 +124,30 @@ def api_dashboard_delete(id):
     # TODO - return 204 status
     return _jsonify({ 'ok' : True })
 
-
 @app.route('/api/dashboard/<id>/definition')
 def api_dashboard_get_definition(id):
     dashboard = database.Dashboard.query.filter_by(id=id)[0]
     return _jsonify({
         'definition' : database.Dashboard.query.get_or_404(id).definition.to_json()
     })
+
+@app.route('/api/dashboard/<id>/definition', methods=['PUT'])
+def api_dashboard_update_definition(id):
+    dashboard = database.Dashboard.query.get_or_404(id)
+
+    # Validate the payload
+    definition = DashboardDefinition.from_json(json.loads(request.data))
+
+    if dashboard.definition:
+        dashboard.definition.definition = dumps(definition)
+    else:
+        dashboard.definition = database.DashboardDef(request.data)
+
+    dashboard.last_modified_date = datetime.utcnow()
+    db.session.add(dashboard)
+    db.session.commit()
+
+    return _jsonify({ 'ok' : True })
 
 @app.route('/api/dashboard/<id>/definition/expanded')
 def api_dashboard_get_expanded(id):
