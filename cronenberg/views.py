@@ -18,9 +18,8 @@ from .model import database
 from .application import app
 from .application import db
 
-#mgr = cask.web.WebManagerAdapter(DashboardManager(app.config['DASHBOARD_DATADIR']))
+mgr = database.DatabaseManager(db)
 compiler = pybars.Compiler()
-
 log = logging.getLogger(__name__)
 
 # =============================================================================
@@ -110,8 +109,7 @@ def api_dashboard_create():
     body = json.loads(request.data)
     dashboard = database.Dashboard.from_json(body)
     dashboard.definition = database.DashboardDef(dumps(DashboardDefinition()))
-    db.session.add(dashboard)
-    db.session.commit()
+    mgr.store_dashboard(dashboard)
     return _jsonify({ 'ok' : True })
 
 @app.route('/api/dashboard/<id>', methods=['PUT'])
@@ -122,9 +120,7 @@ def api_dashboard_update(id):
     body = json.loads(request.data)
     dashboard = database.Dashboard.query.get_or_404(id)
     dashboard.merge_from_json(body)
-    dashboard.last_modified_date = datetime.utcnow()
-    db.session.add(dashboard)
-    db.session.commit()
+    mgr.store_dashboard(dashboard)
     return _jsonify({ 'ok' : True })
 
 @app.route('/api/dashboard/<id>', methods=['DELETE'])
@@ -167,9 +163,7 @@ def api_dashboard_update_definition(id):
     else:
         dashboard.definition = database.DashboardDef(request.data)
 
-    dashboard.last_modified_date = datetime.utcnow()
-    db.session.add(dashboard)
-    db.session.commit()
+    mgr.store_dashboard(dashboard)
 
     return _jsonify({ 'ok' : True })
 
@@ -209,6 +203,35 @@ def api_dashboard_get_expanded(id):
         'dashboard' : dash,
         'definition' : definition
     })
+
+# =============================================================================
+# Tags API
+# =============================================================================
+
+@app.route('/api/tag/')
+def api_tag_list():
+    """Listing for all tags.
+
+    """
+    return _jsonify({
+        'tags' : [t.to_json() for t in database.Tag.query.all()]
+    })
+
+@app.route('/api/dashboard/<id>/tags', methods=['PUT'])
+def api_dashboard_update_tags(id):
+    """Update the tags for a dashboard.
+
+    """
+    dashboard = database.Dashboard.query.get_or_404(id)
+
+    data = json.loads(request.data)
+    tags = [Tag.from_json(t) for t in data['tags']]
+
+    dashboard.tags = tags
+    mgr.store_dashboard(dashboard)
+
+    return _jsonify({ 'ok' : True })
+
 
 #@app.route('/api/dashboard/<id>/tags')
 #def api_dashboard_get_tags(id):

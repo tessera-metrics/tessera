@@ -8,6 +8,7 @@ def demo_automation_overview():
         title='Overview',
         category='Automation',
         description='A high level summary of automation',
+        tags=[ Tag('automation'), Tag('summary'), Tag('executive') ],
         definition = DashboardDef(
             definition=dumps(
                 DashboardDefinition(

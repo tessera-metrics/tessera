@@ -7,6 +7,7 @@ def demo_random_data_dashboard():
     return database.Dashboard(
         title='Random Data',
         category='Demo',
+        tags=[ Tag('demo'), Tag('random')],
         definition = DashboardDef(
             definition=dumps(
                 DashboardDefinition(
