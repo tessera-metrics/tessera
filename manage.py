@@ -15,6 +15,7 @@ logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(logging.W
 logging.getLogger('sqlalchemy.engine').setLevel(logging.WARN)
 
 manager = Manager(app)
+dbmgr = database.DatabaseManager(db)
 
 @manager.command
 def run():
@@ -31,8 +32,7 @@ def generate():
     ]
     for d in dashboards:
         log.info('Storing dashboard {0} {1}'.format(d.category, d.title))
-        db.session.add(d)
-        db.session.commit()
+        dbmgr.store_dashboard(d)
     log.info('Done')
 
 @manager.command

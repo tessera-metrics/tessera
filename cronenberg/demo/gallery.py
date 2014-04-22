@@ -10,6 +10,7 @@ def demo_gallery_dashboard():
         title='Gallery',
         category='Demo',
         description='A gallery of all the supported presentations',
+        tags=[ Tag('demo'), Tag('random'), Tag('featured')],
         definition = DashboardDef(
             definition=dumps(
                 DashboardDefinition(
