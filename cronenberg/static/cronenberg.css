@@ -38,6 +38,23 @@ table.table thead .sorting_desc_disabled { background: url('/static/img/datatabl
 
 .sorting { background: none; }
 
+/** Add the range of semantic colors to badges too, for compact presentations */
+.badge-primary {
+  background-color: #428bca;
+}
+.badge-success {
+  background-color: #5cb85c;
+}
+.badge-info {
+  background-color: #5bc0de;
+}
+.badge-warning {
+  background-color: #f0ad4e;
+}
+.badge-danger {
+  background-color: #d9534f;
+}
+
 /* =============================================================================
    Application Styles
    ============================================================================= */
