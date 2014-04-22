@@ -36,7 +36,7 @@ cronenberg.charts = {
 
     standard_line_chart: function(e, list_of_series, options_) {
         var options = options_ || {};
-        var data = _.map(list_of_series, function(series) {
+        var data = list_of_series.map(function(series) {
             return {
                 key: series.target,
                 values: series.datapoints
@@ -80,7 +80,7 @@ cronenberg.charts = {
 
     stacked_area_chart: function(e, list_of_series, options_) {
         var options = options_ || {};
-        var data = _.map(list_of_series, function(series) {
+        var data = list_of_series.map(function(series) {
             return {
                 key: series.target,
                 values: series.datapoints
@@ -126,7 +126,7 @@ cronenberg.charts = {
     donut_chart: function(e, list_of_series, options_, transform_) {
         var options = options_ || {};
         var transform = transform_ || 'sum';
-        var data = _.map(list_of_series, function(series) {
+        var data = list_of_series.map(function(series) {
             return {
                 label: series.target,
                 y: series.summation[transform]

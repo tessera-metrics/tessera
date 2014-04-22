@@ -191,7 +191,7 @@ cronenberg.templates.register_presentation({ elementId: 'tmpl-markdown', renderH
   var rowTemplate = Handlebars.compile($("#tmpl-summation-table-row").html());
   var handler = function(query, item) {
       var body = $('#' + item.element_id + ' tbody');
-      _.each(query.data, function(series) {
+      query.data.forEach(function(series) {
           body.append(rowTemplate({series:series, item:item}));
       });
   };
