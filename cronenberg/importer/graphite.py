@@ -7,6 +7,7 @@ from cronenberg.model import *
 from cronenberg import app, db
 
 log = logging.getLogger(__name__)
+mgr = database.DatabaseManager(db)
 
 class GraphiteDashboardImporter(object):
     def __init__(self, url):
@@ -33,8 +34,7 @@ class GraphiteDashboardImporter(object):
         for name in names:
             log.info('Importing {0}'.format(name))
             dash = self.import_dashboard(name)
-            db.session.add(dash)
-            db.session.commit()
+            mgr.store_dashboard(dash)
 
     def import_dashboard(self, name):
         return self.__convert(self.get_dashboard(name))
@@ -44,6 +44,7 @@ class GraphiteDashboardImporter(object):
         dashboard = database.Dashboard(title=inflection.parameterize(name),
                                        category='Graphite',
                                        description='Imported from graphite-web',
+                                       tags=[database.Tag('imported'), database.Tag('from:graphite-web')],
                                        imported_from = '{0}/dashboard/{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
         definition = DashboardDefinition()
         row = Row()
