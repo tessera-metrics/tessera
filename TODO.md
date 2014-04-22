@@ -46,6 +46,9 @@
 ### Presentations
 
 - New presentations
+  - For very compact dashboards summarizing lots of metrics, could use simple [bootstrap badges](http://getbootstrap.com/components/#badges) for a 
+    singlestat value, plus actual mini sparklines 
+    (such as [jquery.sparkline](http://omnipotent.net/jquery.sparkline/#s-about)).
   - [reD3](http://bugzu.github.io/reD3/) has an interesting [day/hour heatmap](http://bugzu.github.io/reD3/#/heatmap)
   - [punchcard](https://github.com/fogleman/Punchcard) is similar, implementing a github-style punchcard view. In python, so server-side.
   - [isometric pixel graphics](https://github.com/nosir/obelisk.js) are probably _completely irrelevant_ for this application, but damn are they cool.
