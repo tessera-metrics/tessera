@@ -92,6 +92,17 @@ def api_dashboard_list():
         'dashboards' : [d.to_json() for d in database.Dashboard.query.all()]
     })
 
+@app.route('/api/dashboard/tagged/<tag>')
+def api_dashboard_list_tagged(tag):
+    """Listing for a set of dashboards with a tag applied. Returns just
+    the metadata, not the definitions.
+
+    """
+    return _jsonify({
+        'dashboards' : [d.to_json() for d in database.Tag.query.filter_by(name=tag).first().dashboards]
+    })
+
+
 @app.route('/api/dashboard/<id>')
 def api_dashboard_get(id):
     """Get the metadata for a single dashboard.
@@ -233,23 +244,6 @@ def api_dashboard_update_tags(id):
     return _jsonify({ 'ok' : True })
 
 
-#@app.route('/api/dashboard/<id>/tags')
-#def api_dashboard_get_tags(id):
-#    pass
-
-#@app.route('/api/dashboard/<id>/tags', methods=['PUT'])
-#def api_dashboard_set_tags(id):
-#    pass
-
-#@app.route('/api/dashboard/<id>/definition')
-#def api_dashboard_get_definition(id):
-#    pass
-
-#@app.route('/api/tags')
-#def api_get_tags(id):
- #   pass
-
-
 # @app.route('/api/dashboard/<name>', methods=['POST'])
 # def api_dashboard_instance_post(name):
 #     """Workaround for the fact that XmlHttpRequest and form posting
@@ -306,14 +300,21 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html'):
 def ui_root():
     return _render_template('index.html', breadcrumbs=[('Home', '/')])
 
-@app.route('/dashboards')
+@app.route('/dashboards/')
 def ui_dashboard_list():
-    data = [d for d in database.Dashboard.query.all()]
     return _render_template('dashboard-list.html',
-                            dashboards=data,
                             title='Dashboards',
                             breadcrumbs=[('Home', '/'),
                                          ('Dashboards', '')])
+
+@app.route('/dashboards/tagged/<tag>')
+def ui_dashboard_list_tagged(tag):
+    return _render_template('dashboard-list.html',
+                            tag=tag,
+                            title='Dashboards',
+                            breadcrumbs=[('Home', '/'),
+                                         ('Dashboards', '')])
+
 
 @app.route('/dashboards/<id>')
 def ui_dashboard(id):

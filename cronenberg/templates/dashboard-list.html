@@ -10,15 +10,29 @@
   {% include "snippets/breadcrumbs.html" %}
   {% include "client/listing.html" %}
 
-  <div id="ds-dashboard-main-listing"></div>
+  <div class="row">
+    <div class="col-md-8">
+      {% if tag %}
+        <h3>Dashboards tagged <span class="label label-primary">{{tag}}</span></h3>
+      {% else %}
+      <h3>All Dashboards</h3>
+    {% endif %}
+      <div id="ds-dashboard-main-listing"></div>
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
 
   <script>
-    cronenberg.dashboards.onDashboardListLoaded(function(data) {
-        console.log("dashboard-list.html - rendering");
+    {% if tag %}
+    var path = '/api/dashboard/tagged/{{tag}}';
+  {% else %}
+    var path = '/api/dashboard';
+  {% endif %}
+    cronenberg.dashboards.list(path, function(data) {
         var rendered = cronenberg.templates.other.listing(data);
         $("#ds-dashboard-main-listing").html(rendered);
     });
-    cronenberg.dashboards.list();
   </script>
 
 {% endblock %}
