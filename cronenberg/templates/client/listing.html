@@ -8,23 +8,27 @@
         <td>
 
           <div class="pull-left">
-          <a href="/dashboards/{{id}}">
-            <strong>
-              {{category}} {{title}}
-            </strong>
-            {{#if description}}
-            <br/>
-            <small>{{description}}</small>
-            {{/if}}
-          </a><br/>
+            <a href="/dashboards/{{id}}">
+              <strong>
+                {{category}} {{title}}
+              </strong>
+              {{#if description}}
+              <br/>
+              <small>{{description}}</small>
+              {{/if}}
+            </a><br/>
+            Last modified {{last_modified}}.
+          </div>
 
-          Last modified {{last_modified}}.
-          </div>
           <div class="pull-right">
-          {{#if imported_from}}
-          <a href="{{imported_from}}" target="_blank">Source: <i class="fa fa-cloud"></i></a>
-          {{/if}}
+            {{#if imported_from}}
+            <a href="{{imported_from}}" target="_blank">Source: <i class="fa fa-cloud"></i></a><br/>
+            {{/if}}
+            {{#each tags}}
+            <a href="/dashboards/tagged/{{this}}"><span class="label label-primary">{{this}}</span></a>
+            {{/each}}
           </div>
+
         </td>
       </tr>
       {{else}}

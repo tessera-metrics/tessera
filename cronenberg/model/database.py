@@ -44,7 +44,7 @@ class Dashboard(db.Model):
             'creation_date' : self.creation_date.isoformat() + 'Z',
             'last_modified_date' : self.last_modified_date.isoformat() + 'Z',
             'imported_from' : self.imported_from,
-            'tags' : self.tags
+            'tags' : [t.name for t in self.tags]
         }
 
     def merge_from_json(self, d):
