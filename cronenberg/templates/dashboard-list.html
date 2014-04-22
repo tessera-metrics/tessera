@@ -8,32 +8,31 @@
 {% block content %}
 
   {% include "snippets/breadcrumbs.html" %}
+  {% include "client/listing.html" %}
 
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>Dashboard</th>
-        <th>Description</th>
-        <th>Created</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for dashboard in dashboards %}
-        <tr>
-          <td><a href="/dashboards/{{dashboard.id}}"><span class="badge badge-info"><i class="fa fa-dashboard"></i></span> {{dashboard.category}} {{dashboard.title}} </a></td>
-          <td>
-            {% if dashboard.imported_from %}
-              <a href="{{dashboard.imported_from}}">
-            {% endif %}
-            {{dashboard.description}}
-            {% if dashboard.imported_from %}
-              </a>
-            {% endif %}
-          </td>
-          <td>{{dashboard.creation_date}}</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col-md-8">
+      {% if tag %}
+        <h3>Dashboards tagged <span class="label label-primary">{{tag}}</span></h3>
+      {% else %}
+      <h3>All Dashboards</h3>
+    {% endif %}
+      <div id="ds-dashboard-main-listing"></div>
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+
+  <script>
+    {% if tag %}
+    var path = '/api/dashboard/tagged/{{tag}}';
+  {% else %}
+    var path = '/api/dashboard';
+  {% endif %}
+    cronenberg.dashboards.list(path, function(data) {
+        var rendered = cronenberg.templates.other.listing(data);
+        $("#ds-dashboard-main-listing").html(rendered);
+    });
+  </script>
 
 {% endblock %}

@@ -2,7 +2,7 @@
  * Class - a registry of templates. Duh.
  */
 cronenberg.TemplateRegistry = function() {
-    this.registry = {};
+    this.presentation_registry = {};
 
     /**
      * Compile a template and register the compiled render function by
@@ -15,12 +15,13 @@ cronenberg.TemplateRegistry = function() {
      * The template argument must be an object with the required
      * attribute 'elementId'.
      */
-    this.register = function(template) {
+    this.register_presentation = function(template) {
+        var self = this;
         var element  = $('#' + template.elementId);
         var itemType = element.attr('data-item-type');
         var compiled = template.renderHandler || Handlebars.compile(element.html());
 
-        this.registry[itemType] = {
+        self.presentation_registry[itemType] = {
             renderer: compiled,
             dataHandler: template.dataHandler || null
         };
@@ -29,14 +30,14 @@ cronenberg.TemplateRegistry = function() {
         // explicitly called from another template - i.e {{row
         // path.to.a.row}}.
         Handlebars.registerHelper(itemType, function(item) {
-            return cronenberg.templates.registry[itemType]({ item: item });
+            return cronenberg.templates.presentation_registry[itemType]({ item: item });
         });
 
         // Because we can't dynamically dispatch the block helpers
         // registered above, register another helper that can do that
         // for generic rendering.
         Handlebars.registerHelper('item', function(item) {
-            return new Handlebars.SafeString(cronenberg.templates.render(item));
+            return new Handlebars.SafeString(cronenberg.templates.render_presentation(item));
         });
 
         Handlebars.registerHelper('format', function(format, value) {
@@ -82,8 +83,9 @@ cronenberg.TemplateRegistry = function() {
      * Render an item (either presentation or layout) received from
      * the API and register it for data events.
      */
-    this.render = function(item) {
-        var template = cronenberg.templates.registry[item.item_type];
+    this.render_presentation = function(item) {
+        var self = this;
+        var template = cronenberg.templates.presentation_registry[item.item_type];
         if (typeof(template) == "undefined") {
             return "<p>Unknown item type <code>" + item.item_type + "</code></p>";
         }
