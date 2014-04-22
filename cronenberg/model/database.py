@@ -106,10 +106,11 @@ class DatabaseManager(object):
     def canonicalize_tag(self, tag):
         return Tag.query.filter_by(name=tag.name).first() or tag
 
-    def store_dashboard(self, d):
+    def store_dashboard(self, d, commit=True):
         # There's undoubtedly a better way to do this
         if d.tags:
             d.tags = [self.canonicalize_tag(t) for t in d.tags]
         d.last_modified_date = datetime.utcnow()
         db.session.add(d)
-        db.session.commit()
+        if commit:
+            db.session.commit()

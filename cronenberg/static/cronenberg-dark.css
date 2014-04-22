@@ -128,7 +128,17 @@ background-color: #222;
 
 .table-hover tbody tr:hover td,
 .table-hover tbody tr:hover th {
-  background-color: red;
+    background-color: #454545;
+}
+
+.table thead tr th,
+.table thead tr td {
+    border-bottom: 1px solid #454545;
+}
+
+.table tbody tr td,
+.table tbody tr th {
+    border-top: 1px solid #454545;
 }
 
 .label, .badge {
