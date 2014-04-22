@@ -19,7 +19,7 @@
           </a><br/>
 
           Last modified {{last_modified}}.
-</div>
+          </div>
           <div class="pull-right">
           {{#if imported_from}}
           <a href="{{imported_from}}" target="_blank">Source: <i class="fa fa-cloud"></i></a>
@@ -27,6 +27,8 @@
           </div>
         </td>
       </tr>
+      {{else}}
+      <tr><td><h3>No dashboards defined</h3></td></tr>
       {{/each}}
     </tbody>
   </table>
