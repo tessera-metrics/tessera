@@ -165,14 +165,14 @@ def demo_gallery_dashboard():
                                                            transform='mean',
                                                            units='/sec',
                                                            format=',.2f',
-                                                           css_class="dashboard-warning bs-callout bs-callout-warning"))
+                                                           css_class="ds-warning bs-callout bs-callout-warning"))
                              ,Cell(span=3,
                                    presentation=SingleStat(query_name='single2',
                                                            title='Danger Threshold',
                                                            transform='max',
                                                            units='ms',
                                                            format=',.2f',
-                                                           css_class="dashboard-danger bs-callout bs-callout-danger"))
+                                                           css_class="ds-danger bs-callout bs-callout-danger"))
                          )
                          ,Row(Cell(span=3,
                                    presentation=Markdown(text="Jumbotron singlestats with emphasis can get a lot of attention."))
@@ -182,7 +182,7 @@ def demo_gallery_dashboard():
                                                                      format=',.2f',
                                                                      units='/sec',
                                                                      title='Hey, this looks really bad...',
-                                                                     css_class='dashboard-danger',
+                                                                     css_class='ds-danger',
                                                                      transform='sum'))
                           )
 
