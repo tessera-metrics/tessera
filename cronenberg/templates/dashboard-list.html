@@ -13,13 +13,15 @@
   <div class="row">
     <div class="col-md-8">
       {% if tag %}
-        <h3>Dashboards tagged <span class="label label-primary">{{tag}}</span></h3>
+        <h3>Dashboards</h3>
       {% else %}
       <h3>All Dashboards</h3>
     {% endif %}
       <div id="ds-dashboard-main-listing"></div>
     </div>
     <div class="col-md-4">
+      <h3>Tags</h3>
+      <div id="ds-dashboard-tag-listing"></div>
     </div>
   </div>
 
@@ -27,12 +29,25 @@
     {% if tag %}
     var path = '/api/dashboard/tagged/{{tag}}';
   {% else %}
-    var path = '/api/dashboard';
+    var path = '/api/dashboard/';
   {% endif %}
     cronenberg.dashboards.list(path, function(data) {
         var rendered = cronenberg.templates.other.listing(data);
         $("#ds-dashboard-main-listing").html(rendered);
     });
-  </script>
+
+$.ajax({
+    dataType: 'json',
+    url: '/api/tag/'
+}).done(function(data) {
+    var context = { tags: data.tags };
+    {% if tag %}
+    context.tag = '{{ tag }}';
+    {% endif %}
+    var rendered = cronenberg.templates.other.taglisting(context);
+    $("#ds-dashboard-tag-listing").html(rendered);
+    $("[data-tag={{tag}}]").addClass("active");
+});
+    </script>
 
 {% endblock %}

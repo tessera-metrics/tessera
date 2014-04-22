@@ -38,9 +38,21 @@
   </table>
 </script>
 
+<script id="tmpl-dashboard-tag-listing" type="text/x-handlebars-template">
+  <div class="list-group">
+    <a class="list-group-item {{#unless tag}}active{{/unless}}" href="/dashboards">All <span class="badge badge-primary pull-right"></span></a>
+    {{#each tags}}
+    <a class="list-group-item " data-tag="{{name}}" href="/dashboards/tagged/{{name}}">
+      {{name}}
+      <span class="badge badge-primary pull-right">{{count}}</span></a>
+    {{/each}}
+  </div>
+</script>
+
 <script>
         cronenberg.templates.other = cronenberg.templates.other || {};
         cronenberg.templates.other.listing = Handlebars.compile($("#tmpl-dashboard-main-listing").html());
+        cronenberg.templates.other.taglisting = Handlebars.compile($("#tmpl-dashboard-tag-listing").html());
 </script>
 
 {% endraw %}
