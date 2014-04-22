@@ -1,7 +1,7 @@
 {% include "client/edit.html" %}
 
 <div class="alert alert-warning" data-ds-edit-mode="show" style="display:none; margin-top:1em;">
-  <div id="ds-dashboard-info-edit-panel">
+  <div class="ds-dashboard-info-edit-panel">
     <div class="row">
       <div class="col-md-12">
         <p>
@@ -13,6 +13,6 @@
 </div>
 <script>
 cronenberg.onEnterEditMode(function() {
-    $("#ds-dashboard-info-edit-panel").html(cronenberg.templates.edit.infopanel(cronenberg.dashboards.current.dashboard));
+    $(".ds-dashboard-info-edit-panel").html(cronenberg.templates.edit.infopanel(cronenberg.dashboards.current.dashboard));
 });
 </script>
