@@ -31,16 +31,16 @@ var cronenberg = {
      * Enter full screen mode.
      */
     enterFullscreen: function() {
-        $("[data-fullscreen=hide]").hide(this.ANIMATION_DELAY);
-        $("[data-fullscreen=show]").show(this.ANIMATION_DELAY)
+        $("[data-ds-fullscreen=hide]").hide(this.ANIMATION_DELAY);
+        $("[data-ds-fullscreen=show]").show(this.ANIMATION_DELAY)
         bean.fire(this, cronenberg.events.ENTER_FULL_SCREEN);
         this.fullscreen = true;
         return this;
     },
 
     enterEditMode: function() {
-        $("[data-edit-mode=hide]").hide(this.ANIMATION_DELAY);
-        $("[data-edit-mode=show]").show(this.ANIMATION_DELAY)
+        $("[data-ds-edit-mode=hide]").hide(this.ANIMATION_DELAY);
+        $("[data-ds-edit-mode=show]").show(this.ANIMATION_DELAY)
         bean.fire(this, cronenberg.events.ENTER_EDIT_MODE);
         this.editing = true;
         return this;
@@ -58,16 +58,16 @@ var cronenberg = {
      * Exit full screen mode.
      */
     exitFullscreen: function() {
-        $("[data-fullscreen=show]").hide(this.ANIMATION_DELAY)
-        $("[data-fullscreen=hide]").show(this.ANIMATION_DELAY)
+        $("[data-ds-fullscreen=show]").hide(this.ANIMATION_DELAY)
+        $("[data-ds-fullscreen=hide]").show(this.ANIMATION_DELAY)
         bean.fire(this, cronenberg.events.EXIT_FULL_SCREEN);
         this.fullscreen = false;
         return this;
     },
 
     exitEditMode: function() {
-        $("[data-edit-mode=show]").hide(this.ANIMATION_DELAY)
-        $("[data-edit-mode=hide]").show(this.ANIMATION_DELAY)
+        $("[data-ds-edit-mode=show]").hide(this.ANIMATION_DELAY)
+        $("[data-ds-edit-mode=hide]").show(this.ANIMATION_DELAY)
         bean.fire(this, cronenberg.events.EXIT_EDIT_MODE);
         this.editing = false;
         return this;

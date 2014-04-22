@@ -2,14 +2,14 @@
 {% extends "layouts/base.html" %}
 
 {% block pagetitle %}
-  <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
+  <span class="ds-primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
   <small>{{dashboard.description}}</small>
 {% endblock %}
 
 {% block content %}
 
   <!-- Navigation and toolbar -->
-  <div data-fullscreen="hide">
+  <div data-ds-fullscreen="hide">
     <div>
       {% include "snippets/breadcrumbs.html" %}
     </div>
@@ -18,12 +18,12 @@
   </div> <!-- end nav and toolbar -->
 
   <!-- Fullscreen top bar -->
-  <div class="ds-fullscreen-titlebar" data-fullscreen="show" style="display:none">
+  <div class="ds-fullscreen-titlebar" data-ds-fullscreen="show" style="display:none">
     <div class="row">
 
       <div class="col-md-7">
         <h1 class="page-title">
-          <span class="primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
+          <span class="ds-primary-title">{{dashboard.category}}</span> <span class="secondary-title">{{dashboard.title}}</span>
         </h1>
       </div>
 
@@ -66,9 +66,9 @@
     <hr style="margin:.25em"/>
   </div> <!-- end fullscreen titlebar -->
 
-  <hr data-fullscreen="hide"/>
+  <hr data-ds-fullscreen="hide"/>
 
-  <div class="dashboard-grid" id="dashboard"/>
+  <div class="ds-grid" id="dashboard"/>
 
   {% include "client/presentations.html" %}
   <script>
