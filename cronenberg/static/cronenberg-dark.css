@@ -131,6 +131,11 @@ background-color: #222;
     background-color: #454545;
 }
 
+.table thead tr th,
+.table thead tr td {
+    border-bottom: 1px solid #454545;
+}
+
 .table tbody tr td,
 .table tbody tr th {
     border-top: 1px solid #454545;
