@@ -59,16 +59,16 @@ table.table thead .sorting_desc_disabled { background: url('/static/img/datatabl
    Application Styles
    ============================================================================= */
 
-.well-small.dashboard { padding-left: 18px; }
+.well-small .dashboard { padding-left: 18px; }
 
-.dashboard-height1 { height: 70px; }
-.dashboard-height2 { height: 140px; }
-.dashboard-height3 { height: 210px; }
-.dashboard-height4 { height: 280px; }
-.dashboard-height5 { height: 350px; }
-.dashboard-height6 { height: 420px; }
-.dashboard-height7 { height: 490px; }
-.dashboard-height8 { height: 560px; }
+.ds-height1 { height: 70px; }
+.ds-height2 { height: 140px; }
+.ds-height3 { height: 210px; }
+.ds-height4 { height: 280px; }
+.ds-height5 { height: 350px; }
+.ds-height6 { height: 420px; }
+.ds-height7 { height: 490px; }
+.ds-height8 { height: 560px; }
 
 h1, h2, h3, h4 {
     font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;
@@ -77,23 +77,23 @@ h1.page-title {
     font-size: 3em;
 }
 
-.dashboard-grid {
+.ds-grid {
    margin-top: 1em;
 }
 
-.dashboard-grid h1 {
+.ds-grid h1 {
     margin-bottom: 0.125em;
 }
 
-.dashboard-grid .row {
+.ds-grid .row {
     margin-bottom: 1.0em;
 }
 
-.dashboard-grid hr {
+.ds-grid hr {
   margin-top:0;
 }
 
-.singlestat h3 {
+.ds-singlestat h3 {
     font-stretch: condensed;
     font-size: 1.2em;
     font-weight: normal;
@@ -101,53 +101,53 @@ h1.page-title {
     margin: 0px;
 }
 
-.well .singlestat h3 {
+.well .ds-singlestat h3 {
 }
 
-.singlestat p {
+.ds-singlestat p {
     font-size: 3em;
     font-weight: bold;
     margin-bottom: 0px;
 }
 
-.singlestat .unit {
+.ds-singlestat .unit {
     font-size: .5em;
     text-transform: lowercase;
     margin-left: .25em;
 }
 
-.jumbotron-singlestat div {
+.ds-jumbotron-singlestat div {
     position:relative;
     top: -2em;
     text-align: right;
 }
 
-.jumbotron-singlestat .unit {
+.ds-jumbotron-singlestat .unit {
     text-transform: lowercase;
     font-size: 2em;
     font-weight: bold;
     margin-left: .25em;
 }
 
-.jumbotron-singlestat .value {
+.ds-jumbotron-singlestat .value {
     font-size: 8em;
     font-weight: bold;
 }
 
-.jumbotron-singlestat h3 {
+.ds-jumbotron-singlestat h3 {
     text-transform: lowercase;
     font-size: 2.5em;
     position: relative;
     top: -1em;
 }
 
-h1 .primary-title {
+h1 .ds-primary-title {
 }
 
-h1 .secondary-title {
+h1 .ds-secondary-title {
 }
 
-.simple-chart {
+.ds-simple-chart {
     position:relative;
     margin-bottom: 22px;
 }
@@ -168,16 +168,16 @@ h1 .secondary-title {
     font-size:30px;
 }
 
-.dashboard-row {
+.ds-row {
     // padding-bottom: 2em;
 }
 
-.simple-time-series svg {
+.ds-simple-time-series svg {
     height: 90px;
     margin-bottom: 2em;
 }
 
-.standard-time-series {
+.ds-standard-time-series {
     margin-bottom: 2em;
 }
 
@@ -203,12 +203,12 @@ h1 .secondary-title {
     margin-left: .5em;
 }
 
-.presentation h1,
-.presentation h2,
-.presentation h3,
-.presentation h4,
-.presentation h5,
-.presentation h6 {
+.ds-presentation h1,
+.ds-presentation h2,
+.ds-presentation h3,
+.ds-presentation h4,
+.ds-presentation h5,
+.ds-presentation h6 {
     line-height:1;
     margin-top: 0;
 }
