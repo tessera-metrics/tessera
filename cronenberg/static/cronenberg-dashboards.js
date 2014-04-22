@@ -39,7 +39,7 @@ cronenberg.DashboardManager = function() {
             dataType: 'json',
             url: path
         }).done(function(data) {
-            _.each(data.dashboards, function(dashboard) {
+            data.dashboards.forEach(function(dashboard) {
                 dashboard.last_modified = moment(dashboard.last_modified_date).fromNow();
                 dashboard.created = moment(dashboard.creation_date).format('MMMM Do YYYY');
             });
@@ -63,10 +63,10 @@ cronenberg.DashboardManager = function() {
             // Build a map from the presentation elements to their
             // model objects.
             dashboard.elementToItemMap = {};
-            _.each(dashboard.definition.grid.rows, function(row) {
+            dashboard.definition.grid.rows.map(function(row) {
                 if (row.item_type == 'row') {
-                    _.each(row.cells, function(cell) {
-                        _.each(cell.presentation, function(presentation) {
+                    row.cells.forEach(function(cell) {
+                        cell.presentation.forEach(function(presentation) {
                             if (typeof(presentation.element_id) != "undefined") {
                                 dashboard.elementToItemMap[presentation.element_id] = presentation;
                             }
