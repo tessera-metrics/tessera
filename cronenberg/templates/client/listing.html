@@ -1,7 +1,7 @@
 {% raw %}
 
 <script id="tmpl-dashboard-main-listing" type="text/x-handlebars-template">
-  <table class="table table-condensed">
+  <table class="table table-hover table-condensed">
     <tbody>
       {{#each dashboards}}
       <tr>
@@ -25,7 +25,7 @@
             <a href="{{imported_from}}" target="_blank">Source: <i class="fa fa-cloud"></i></a><br/>
             {{/if}}
             {{#each tags}}
-            <a href="/dashboards/tagged/{{this}}"><span class="label label-primary">{{this}}</span></a>
+            <a href="/dashboards/tagged/{{this}}"><span class="badge badge-primary">{{this}}</span></a>
             {{/each}}
           </div>
 
