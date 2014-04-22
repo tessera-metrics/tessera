@@ -29,30 +29,21 @@ cronenberg.DashboardManager = function() {
         return self;
     };
 
-    this.onDashboardListLoaded = function(handler) {
-        console.log("cronenberg.dashboards.onDashboardListLoaded()");
-        var self = this;
-        bean.on(self, cronenberg.events.DASHBOARD_LIST_LOADED, handler);
-        return self;
-    }
-
     /**
      * List all dashboards.
      */
-    this.list = function() {
-        console.log("cronenberg.dashboards.list()");
+    this.list = function(path, handler) {
+        var path = path || '/api/dashboard';
         var self = this;
         $.ajax({
             dataType: 'json',
-            url: '/api/dashboard'
+            url: path
         }).done(function(data) {
-            console.log("cronenberg.dashboards.list() - done");
             _.each(data.dashboards, function(dashboard) {
                 dashboard.last_modified = moment(dashboard.last_modified_date).fromNow();
                 dashboard.created = moment(dashboard.creation_date).format('MMMM Do YYYY');
-                console.log(dashboard);
             });
-            bean.fire(self, cronenberg.events.DASHBOARD_LIST_LOADED, data);
+            handler(data);
         });
     };
 
@@ -174,12 +165,10 @@ cronenberg.DashboardManager = function() {
     this.delete_current = function() {
         var self = this;
         var uri = '/api/dashboard/' + self.current.dashboard.dashboard.id;
-        console.log("Deleting " + uri);
         $.ajax({
             url: uri,
             type: 'DELETE'
         }).done(function() {
-            console.log("Deleted ");
             window.location = '/dashboards';
         });
     };
