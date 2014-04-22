@@ -38,6 +38,23 @@ table.table thead .sorting_desc_disabled { background: url('/static/img/datatabl
 
 .sorting { background: none; }
 
+/** Add the range of semantic colors to badges too, for compact presentations */
+.badge-primary {
+  background-color: #428bca;
+}
+.badge-success {
+  background-color: #5cb85c;
+}
+.badge-info {
+  background-color: #5bc0de;
+}
+.badge-warning {
+  background-color: #f0ad4e;
+}
+.badge-danger {
+  background-color: #d9534f;
+}
+
 /* =============================================================================
    Application Styles
    ============================================================================= */
@@ -184,20 +201,6 @@ h1 .secondary-title {
 .ds-fullscreen-titlebar .refresh-button {
     margin-top: 1em;
     margin-left: .5em;
-}
-
-.dashboard-danger,
-.dashboard-danger h3,
-.dashboard-danger .value,
-.dashboard-danger .unit {
-    color: #d60000;
-}
-
-.dashboard-warning,
-.dashboard-warning h3,
-.dashboard-warning .value,
-.dashboard-warning .unit {
-    color: #d66a00;
 }
 
 .presentation h1,

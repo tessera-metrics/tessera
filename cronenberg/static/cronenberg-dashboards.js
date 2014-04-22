@@ -29,6 +29,27 @@ cronenberg.DashboardManager = function() {
         return self;
     };
 
+    /**
+     * List all dashboards.
+     */
+    this.list = function(path, handler) {
+        var path = path || '/api/dashboard';
+        var self = this;
+        $.ajax({
+            dataType: 'json',
+            url: path
+        }).done(function(data) {
+            _.each(data.dashboards, function(dashboard) {
+                dashboard.last_modified = moment(dashboard.last_modified_date).fromNow();
+                dashboard.created = moment(dashboard.creation_date).format('MMMM Do YYYY');
+            });
+            handler(data);
+        });
+    };
+
+    /**
+     * Load and render a dashboard.
+     */
     this.load = function(url, element) {
         var self = this;
         self.current = new cronenberg.DashboardHolder(url, element);
@@ -61,7 +82,7 @@ cronenberg.DashboardManager = function() {
             }
 
             // Render the dashboard
-            var rendered = cronenberg.templates.render(dashboard.definition);
+            var rendered = cronenberg.templates.render_presentation(dashboard.definition);
             $(self.current.element).html(rendered);
 
             var currentURL = URI(self.current.url);
@@ -144,12 +165,10 @@ cronenberg.DashboardManager = function() {
     this.delete_current = function() {
         var self = this;
         var uri = '/api/dashboard/' + self.current.dashboard.dashboard.id;
-        console.log("Deleting " + uri);
         $.ajax({
             url: uri,
             type: 'DELETE'
         }).done(function() {
-            console.log("Deleted ");
             window.location = '/dashboards';
         });
     };

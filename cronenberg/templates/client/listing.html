@@ -1,0 +1,46 @@
+{% raw %}
+
+<script id="tmpl-dashboard-main-listing" type="text/x-handlebars-template">
+  <table class="table table-hover table-condensed">
+    <tbody>
+      {{#each dashboards}}
+      <tr>
+        <td>
+
+          <div class="pull-left">
+            <a href="/dashboards/{{id}}">
+              <strong>
+                {{category}} {{title}}
+              </strong>
+              {{#if description}}
+              <br/>
+              <small>{{description}}</small>
+              {{/if}}
+            </a><br/>
+            Last modified {{last_modified}}.
+          </div>
+
+          <div class="pull-right">
+            {{#if imported_from}}
+            <a href="{{imported_from}}" target="_blank">Source: <i class="fa fa-cloud"></i></a><br/>
+            {{/if}}
+            {{#each tags}}
+            <a href="/dashboards/tagged/{{this}}"><span class="badge badge-primary">{{this}}</span></a>
+            {{/each}}
+          </div>
+
+        </td>
+      </tr>
+      {{else}}
+      <tr><td><h3>No dashboards defined</h3></td></tr>
+      {{/each}}
+    </tbody>
+  </table>
+</script>
+
+<script>
+        cronenberg.templates.other = cronenberg.templates.other || {};
+        cronenberg.templates.other.listing = Handlebars.compile($("#tmpl-dashboard-main-listing").html());
+</script>
+
+{% endraw %}

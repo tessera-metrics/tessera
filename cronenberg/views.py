@@ -18,9 +18,8 @@ from .model import database
 from .application import app
 from .application import db
 
-#mgr = cask.web.WebManagerAdapter(DashboardManager(app.config['DASHBOARD_DATADIR']))
+mgr = database.DatabaseManager(db)
 compiler = pybars.Compiler()
-
 log = logging.getLogger(__name__)
 
 # =============================================================================
@@ -93,6 +92,17 @@ def api_dashboard_list():
         'dashboards' : [d.to_json() for d in database.Dashboard.query.all()]
     })
 
+@app.route('/api/dashboard/tagged/<tag>')
+def api_dashboard_list_tagged(tag):
+    """Listing for a set of dashboards with a tag applied. Returns just
+    the metadata, not the definitions.
+
+    """
+    return _jsonify({
+        'dashboards' : [d.to_json() for d in database.Tag.query.filter_by(name=tag).first().dashboards]
+    })
+
+
 @app.route('/api/dashboard/<id>')
 def api_dashboard_get(id):
     """Get the metadata for a single dashboard.
@@ -110,8 +120,7 @@ def api_dashboard_create():
     body = json.loads(request.data)
     dashboard = database.Dashboard.from_json(body)
     dashboard.definition = database.DashboardDef(dumps(DashboardDefinition()))
-    db.session.add(dashboard)
-    db.session.commit()
+    mgr.store_dashboard(dashboard)
     return _jsonify({ 'ok' : True })
 
 @app.route('/api/dashboard/<id>', methods=['PUT'])
@@ -122,9 +131,7 @@ def api_dashboard_update(id):
     body = json.loads(request.data)
     dashboard = database.Dashboard.query.get_or_404(id)
     dashboard.merge_from_json(body)
-    dashboard.last_modified_date = datetime.utcnow()
-    db.session.add(dashboard)
-    db.session.commit()
+    mgr.store_dashboard(dashboard)
     return _jsonify({ 'ok' : True })
 
 @app.route('/api/dashboard/<id>', methods=['DELETE'])
@@ -167,9 +174,7 @@ def api_dashboard_update_definition(id):
     else:
         dashboard.definition = database.DashboardDef(request.data)
 
-    dashboard.last_modified_date = datetime.utcnow()
-    db.session.add(dashboard)
-    db.session.commit()
+    mgr.store_dashboard(dashboard)
 
     return _jsonify({ 'ok' : True })
 
@@ -210,21 +215,33 @@ def api_dashboard_get_expanded(id):
         'definition' : definition
     })
 
-#@app.route('/api/dashboard/<id>/tags')
-#def api_dashboard_get_tags(id):
-#    pass
+# =============================================================================
+# Tags API
+# =============================================================================
 
-#@app.route('/api/dashboard/<id>/tags', methods=['PUT'])
-#def api_dashboard_set_tags(id):
-#    pass
+@app.route('/api/tag/')
+def api_tag_list():
+    """Listing for all tags.
 
-#@app.route('/api/dashboard/<id>/definition')
-#def api_dashboard_get_definition(id):
-#    pass
+    """
+    return _jsonify({
+        'tags' : [t.to_json() for t in database.Tag.query.all()]
+    })
 
-#@app.route('/api/tags')
-#def api_get_tags(id):
- #   pass
+@app.route('/api/dashboard/<id>/tags', methods=['PUT'])
+def api_dashboard_update_tags(id):
+    """Update the tags for a dashboard.
+
+    """
+    dashboard = database.Dashboard.query.get_or_404(id)
+
+    data = json.loads(request.data)
+    tags = [Tag.from_json(t) for t in data['tags']]
+
+    dashboard.tags = tags
+    mgr.store_dashboard(dashboard)
+
+    return _jsonify({ 'ok' : True })
 
 
 # @app.route('/api/dashboard/<name>', methods=['POST'])
@@ -283,14 +300,21 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html'):
 def ui_root():
     return _render_template('index.html', breadcrumbs=[('Home', '/')])
 
-@app.route('/dashboards')
+@app.route('/dashboards/')
 def ui_dashboard_list():
-    data = [d for d in database.Dashboard.query.all()]
     return _render_template('dashboard-list.html',
-                            dashboards=data,
                             title='Dashboards',
                             breadcrumbs=[('Home', '/'),
                                          ('Dashboards', '')])
+
+@app.route('/dashboards/tagged/<tag>')
+def ui_dashboard_list_tagged(tag):
+    return _render_template('dashboard-list.html',
+                            tag=tag,
+                            title='Dashboards',
+                            breadcrumbs=[('Home', '/'),
+                                         ('Dashboards', '')])
+
 
 @app.route('/dashboards/<id>')
 def ui_dashboard(id):

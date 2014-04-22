@@ -70,7 +70,7 @@
 
   <div class="dashboard-grid" id="dashboard"/>
 
-  {% include "presentations.html" %}
+  {% include "client/presentations.html" %}
   <script>
     var url = '/api/dashboard/{{dashboard.id}}/definition/expanded?from={{from_time}}{% if until_time %}&until={{until_time}}{% endif %}{% if extra_params %}&{{extra_params}}{% endif %}';
     cronenberg.dashboards.load(url, "#dashboard");

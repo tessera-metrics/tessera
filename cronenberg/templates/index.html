@@ -1,6 +1,5 @@
 <!-- -*- mode:jinja2 -*- -->
 {% extends "layouts/base.html" %}
-{% from "presentations.html" import render with context %}
 
 {% block pagetitle %}
   <span class="primary-title">{{config['DASHBOARD_APPNAME']}}</span> <span class="secondary-title">Index</span>
@@ -8,12 +7,7 @@
 
 {% block content %}
 
-
-  {%- macro featured(name, path, class, span=3) %}
-    <div class="col-md-{{span}}  {{class}}" align="center">
-      <h3><a href="{{path}}">{{name}}</a></h3>
-    </div>
-  {% endmacro -%}
+  {% include "client/listing.html" %}
 
   <div class="row">
 
@@ -25,16 +19,19 @@
     </div>
 
     <div class="col-md-8">
-      <div class="row">
-        {{ featured("Random", "/dashboards/2", "") }}
-        {{ featured("Gallery", "/dashboards/3", "") }}
-        {{ featured("Single Node", "/dashboards/4?p[node]={s0306,s0307}", "") }}
-        {{ featured("Automation", "/dashboards/1", "") }}
-      </div>
+      <h3>Featured Dashboards</h3>
+      <div id="ds-dashboard-featured-listing"></div>
     </div>
 
   </div>
 
   <hr/>
+
+  <script>
+    cronenberg.dashboards.list('/api/dashboard/tagged/featured', function(data) {
+        var rendered = cronenberg.templates.other.listing(data);
+        $("#ds-dashboard-featured-listing").html(rendered);
+    });
+  </script>
 
 {% endblock %}

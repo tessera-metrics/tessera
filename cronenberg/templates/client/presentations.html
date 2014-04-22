@@ -22,7 +22,7 @@
 <script id="tmpl-markdown" data-item-type="markdown" type="text/x-handlebars-template">
 </script>
 <script>
-cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: function(data) {
+cronenberg.templates.register_presentation({ elementId: 'tmpl-markdown', renderHandler: function(data) {
     var html = '<div class="presentation markdown';
     if (data.item.height) {
         html += ' dashboard-height' + data.item.height;
@@ -49,7 +49,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
   </div>
 </script>
 <script>
-  cronenberg.templates.register({ elementId: 'tmpl-singlestat', dataHandler: function(query, item) {
+  cronenberg.templates.register_presentation({ elementId: 'tmpl-singlestat', dataHandler: function(query, item) {
       var element = $('#' + item.element_id + ' span.value');
       var value = query.summation[item.transform];
       if (item.index) {
@@ -72,7 +72,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
   </div>
 </script>
 <script>
-  cronenberg.templates.register({ elementId: 'tmpl-jumbotron-singlestat', dataHandler: function(query, item) {
+  cronenberg.templates.register_presentation({ elementId: 'tmpl-jumbotron-singlestat', dataHandler: function(query, item) {
       var element = $('#' + item.element_id + ' span.value');
       var value = query.summation[item.transform];
       if (item.index) {
@@ -95,7 +95,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
   </div>
 </script>
 <script>
-  cronenberg.templates.register({ elementId: 'tmpl-simple-time-series', dataHandler: function(query, item) {
+  cronenberg.templates.register_presentation({ elementId: 'tmpl-simple-time-series', dataHandler: function(query, item) {
       cronenberg.charts.simple_line_chart($("#" + item.element_id + ' .graph-holder'), query.data[0], item.options);
   }});
 </script>
@@ -113,7 +113,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
   </div>
 </script>
 <script>
-  cronenberg.templates.register({ elementId: 'tmpl-standard-time-series', dataHandler: function(query, item) {
+  cronenberg.templates.register_presentation({ elementId: 'tmpl-standard-time-series', dataHandler: function(query, item) {
       var chart = cronenberg.charts.standard_line_chart($("#" + item.element_id + ' .graph-holder'), query.data, item.options);
   }});
 </script>
@@ -131,7 +131,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
   </div>
 </script>
 <script>
-  cronenberg.templates.register({ elementId: 'tmpl-stacked-area-chart', dataHandler: function (query, item) {
+  cronenberg.templates.register_presentation({ elementId: 'tmpl-stacked-area-chart', dataHandler: function (query, item) {
         cronenberg.charts.stacked_area_chart($("#" + item.element_id + ' .graph-holder'), query.data, item.options);
   }});
 </script>
@@ -149,7 +149,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
   </div>
 </script>
 <script>
-  cronenberg.templates.register({ elementId: 'tmpl-donut-chart', dataHandler: function(query, item) {
+  cronenberg.templates.register_presentation({ elementId: 'tmpl-donut-chart', dataHandler: function(query, item) {
       var chart = cronenberg.charts.donut_chart($("#" + item.element_id + ' .graph-holder'), query.data, item.options);
   }});
 </script>
@@ -195,7 +195,7 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
           body.append(rowTemplate({series:series, item:item}));
       });
   };
-  cronenberg.templates.register({ elementId: 'tmpl-summation-table', dataHandler: handler});
+  cronenberg.templates.register_presentation({ elementId: 'tmpl-summation-table', dataHandler: handler});
 </script>
 
 <!--
@@ -241,11 +241,11 @@ cronenberg.templates.register({ elementId: 'tmpl-markdown', renderHandler: funct
 
 <script>
   cronenberg.templates
-        .register({ elementId: 'tmpl-separator'})
-        .register({ elementId: 'tmpl-heading' })
-        .register({ elementId: 'tmpl-cell' })
-        .register({ elementId: 'tmpl-row' })
-        .register({ elementId: 'tmpl-dashboard' });
+        .register_presentation({ elementId: 'tmpl-separator'})
+        .register_presentation({ elementId: 'tmpl-heading' })
+        .register_presentation({ elementId: 'tmpl-cell' })
+        .register_presentation({ elementId: 'tmpl-row' })
+        .register_presentation({ elementId: 'tmpl-dashboard' });
 </script>
 
 {% endraw %}
