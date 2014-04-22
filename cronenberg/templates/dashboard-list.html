@@ -46,7 +46,7 @@
     {% endif %}
       var rendered = cronenberg.templates.other.taglisting(context);
       $("#ds-dashboard-tag-listing").html(rendered);
-      $("[data-tag={{tag}}]").addClass("active");
+      $("[data-ds-tag={{tag}}]").addClass("active");
     });
   </script>
 

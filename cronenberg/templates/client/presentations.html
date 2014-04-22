@@ -3,14 +3,14 @@
 <!--
      TEMPLATE: Separator layout.
   -->
-<script id="tmpl-separator" data-item-type="separator" type="text/x-handlebars-template">
+<script id="tmpl-separator" data-ds-item-type="separator" type="text/x-handlebars-template">
   <hr{{#if item.css_class}}class="{{item.css_class}}"{{/if}}></hr>
 </script>
 
 <!--
      TEMPLATE: Heading layout.
   -->
-<script id="tmpl-heading" data-item-type="heading" type="text/x-handlebars-template">
+<script id="tmpl-heading" data-ds-item-type="heading" type="text/x-handlebars-template">
   <h{{item.level}} {{#if item.css_class}}class="{{item.css_class}}"{{/if}}>
     {{item.text}} {{#if item.description}}<small>{{item.description}}</small>{{/if}}
   </h{{item.level}}>
@@ -19,13 +19,13 @@
 <!--
      TEMPLATE: Markdown.
   -->
-<script id="tmpl-markdown" data-item-type="markdown" type="text/x-handlebars-template">
+<script id="tmpl-markdown" data-ds-item-type="markdown" type="text/x-handlebars-template">
 </script>
 <script>
 cronenberg.templates.register_presentation({ elementId: 'tmpl-markdown', renderHandler: function(data) {
-    var html = '<div class="presentation markdown';
+    var html = '<div class="ds-presentation ds-markdown';
     if (data.item.height) {
-        html += ' dashboard-height' + data.item.height;
+        html += ' ds-height' + data.item.height;
     }
     if (data.item.css_class) {
         html += ' ' + data.item.css_class;
@@ -42,8 +42,8 @@ cronenberg.templates.register_presentation({ elementId: 'tmpl-markdown', renderH
 <!--
      TEMPLATE: Singlestat presentation.
   -->
-<script id="tmpl-singlestat" data-item-type="singlestat" type="text/x-handlebars-template">
-<div class="presentation singlestat {{item.css_class}} {{height item}}" id="{{item.element_id}}">
+<script id="tmpl-singlestat" data-ds-item-type="singlestat" type="text/x-handlebars-template">
+<div class="ds-presentation ds-singlestat {{item.css_class}} {{height item}}" id="{{item.element_id}}">
     <h3>{{item.title}}</h3>
     <p><span class="value"></span><span class="unit">{{item.units}}</span></p>
   </div>
@@ -64,8 +64,8 @@ cronenberg.templates.register_presentation({ elementId: 'tmpl-markdown', renderH
 <!--
      TEMPLATE: Jumbotron Singlestat presentation.
   -->
-<script id="tmpl-jumbotron-singlestat" data-item-type="jumbotron_singlestat" type="text/x-handlebars-template">
-  <div class="presentation jumbotron-singlestat {{height item}} {{css_class item}}"
+<script id="tmpl-jumbotron-singlestat" data-ds-item-type="jumbotron_singlestat" type="text/x-handlebars-template">
+  <div class="ds-presentation ds-jumbotron-singlestat {{height item}} {{css_class item}}"
        id="{{item.element_id}}">
     <div><p><span class="value"></span><span class="unit">{{item.units}}</span></p></div>
     <div><h3>{{item.title}}</h3></div>
@@ -86,71 +86,71 @@ cronenberg.templates.register_presentation({ elementId: 'tmpl-markdown', renderH
 <!--
      TEMPLATE: Simple time series presentation.
   -->
-<script id="tmpl-simple-time-series" data-item-type="simple_time_series" type="text/x-handlebars-template">
-  <div class="presentation graph simple-time-series {{css_class item}}" id="{{item.element_id}}">
+<script id="tmpl-simple-time-series" data-ds-item-type="simple_time_series" type="text/x-handlebars-template">
+  <div class="ds-presentation ds-graph ds-simple-time-series {{css_class item}}" id="{{item.element_id}}">
     {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
-    <div class="graph-holder">
+    <div class="ds-graph-holder">
       <svg class="{{height item}}"></svg>
     </div>
   </div>
 </script>
 <script>
   cronenberg.templates.register_presentation({ elementId: 'tmpl-simple-time-series', dataHandler: function(query, item) {
-      cronenberg.charts.simple_line_chart($("#" + item.element_id + ' .graph-holder'), query.data[0], item.options);
+      cronenberg.charts.simple_line_chart($("#" + item.element_id + ' .ds-graph-holder'), query.data[0], item.options);
   }});
 </script>
 
 <!--
      TEMPLATE: Standard time series presentation.
   -->
-<script id="tmpl-standard-time-series" data-item-type="standard_time_series" type="text/x-handlebars-template">
-  <div class="presentation graph standard-time-series {{css_class item}}"
+<script id="tmpl-standard-time-series" data-ds-item-type="standard_time_series" type="text/x-handlebars-template">
+  <div class="ds-presentation ds-graph ds-standard-time-series {{css_class item}}"
        id="{{item.element_id}}">
     {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
-    <div class="graph-holder">
+    <div class="ds-graph-holder">
       <svg class="{{height item}}"></svg>
     </div>
   </div>
 </script>
 <script>
   cronenberg.templates.register_presentation({ elementId: 'tmpl-standard-time-series', dataHandler: function(query, item) {
-      var chart = cronenberg.charts.standard_line_chart($("#" + item.element_id + ' .graph-holder'), query.data, item.options);
+      var chart = cronenberg.charts.standard_line_chart($("#" + item.element_id + ' .ds-graph-holder'), query.data, item.options);
   }});
 </script>
 
 <!--
      TEMPLATE: Stacked area chart presentation.
   -->
-<script id="tmpl-stacked-area-chart" data-item-type="stacked_area_chart" type="text/x-handlebars-template">
-  <div class="presentation graph stacked-area-chart {{css_class item}}"
+<script id="tmpl-stacked-area-chart" data-ds-item-type="stacked_area_chart" type="text/x-handlebars-template">
+  <div class="ds-presentation ds-graph ds-stacked-area-chart {{css_class item}}"
        id="{{item.element_id}}">
     {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
-    <div class="graph-holder">
+    <div class="ds-graph-holder">
       <svg class="{{height item}}"></svg>
     </div>
   </div>
 </script>
 <script>
   cronenberg.templates.register_presentation({ elementId: 'tmpl-stacked-area-chart', dataHandler: function (query, item) {
-        cronenberg.charts.stacked_area_chart($("#" + item.element_id + ' .graph-holder'), query.data, item.options);
+        cronenberg.charts.stacked_area_chart($("#" + item.element_id + ' .ds-graph-holder'), query.data, item.options);
   }});
 </script>
 
 <!--
      TEMPLATE: Dont chart presentation.
   -->
-<script id="tmpl-donut-chart" data-item-type="donut_chart" type="text/x-handlebars-template">
-  <div class="presentation graph donut-chart {{css_class item}}"
+<script id="tmpl-donut-chart" data-ds-item-type="donut_chart" type="text/x-handlebars-template">
+  <div class="ds-presentation ds-graph ds-donut-chart {{css_class item}}"
        id="{{item.element_id}}">
     {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
-    <div class="graph-holder">
+    <div class="ds-graph-holder">
       <svg class="{{height item}}"></svg>
     </div>
   </div>
 </script>
 <script>
   cronenberg.templates.register_presentation({ elementId: 'tmpl-donut-chart', dataHandler: function(query, item) {
-      var chart = cronenberg.charts.donut_chart($("#" + item.element_id + ' .graph-holder'), query.data, item.options);
+      var chart = cronenberg.charts.donut_chart($("#" + item.element_id + ' .ds-graph-holder'), query.data, item.options);
   }});
 </script>
 
@@ -158,8 +158,8 @@ cronenberg.templates.register_presentation({ elementId: 'tmpl-markdown', renderH
 <!--
      TEMPLATE: Summation table presentation.
   -->
-<script id="tmpl-summation-table" data-item-type="summation_table" type="text/x-handlebars-template">
-  <table class="presentation table table-condensed summation-table {{height item}} {{css_class item}}
+<script id="tmpl-summation-table" data-ds-item-type="summation_table" type="text/x-handlebars-template">
+  <table class="ds-presentation table table-condensed ds-summation-table {{height item}} {{css_class item}}
                 {{#if item.striped}}table-striped{{/if}}"
          id="{{item.element_id}}">
     <thead>
@@ -201,7 +201,7 @@ cronenberg.templates.register_presentation({ elementId: 'tmpl-markdown', renderH
 <!--
      TEMPLATE: Dashboard cells.
   -->
-<script id="tmpl-cell" data-item-type="cell" type="text/x-handlebars-template">
+<script id="tmpl-cell" data-ds-item-type="cell" type="text/x-handlebars-template">
   <div class="{{span item}} {{offset item}} {{css_class item}} {{height item}}"
        {{#if item.align}} align="{{item.align}}" {{/if}}
        >
@@ -218,9 +218,9 @@ cronenberg.templates.register_presentation({ elementId: 'tmpl-markdown', renderH
 <!--
      TEMPLATE: Dashboard rows.
   -->
-<script id="tmpl-row" data-item-type="row" type="text/x-handlebars-template">
+<script id="tmpl-row" data-ds-item-type="row" type="text/x-handlebars-template">
   {{#if item.style}}<div class="{{style_class item}}">{{/if}}
-  <div class="row dashboard-row">
+  <div class="row ds-row">
     {{#each item.cells}}
       {{item this}}
     {{/each}}
@@ -231,7 +231,7 @@ cronenberg.templates.register_presentation({ elementId: 'tmpl-markdown', renderH
 <!--
      TEMPLATE: Top-level dashboard.
   -->
-<script id="tmpl-dashboard" data-item-type="dashboard" type="text/x-handlebars-template">
+<script id="tmpl-dashboard" data-ds-item-type="dashboard" type="text/x-handlebars-template">
 {{#with item.grid}}
   {{#each rows}}
     {{item this}}

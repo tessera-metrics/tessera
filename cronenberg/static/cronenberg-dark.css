@@ -2,58 +2,76 @@
    Application Styles
    ============================================================================= */
 
-.dashboard-grid h1, .dashboard-grid h2
+.ds-grid h1,
+.ds-grid h2
 {
     color: #848480;
 }
 
-.dashboard-grid h1 small, .dashboard-grid h2 small
+.ds-grid h1 small,
+.ds-grid h2 small
 {
     color: #747470;
 }
 
-.markdown h1, .markdown h2 {
+.ds-markdown h1,
+.ds-markdown h2,
+.ds-markdown h3,
+.ds-markdown h4,
+.ds-markdown h5,
+.ds-markdown h6 {
     color: white;
 }
 
-.singlestat h3 {
+.ds-singlestat h3 {
     color: #959588;
 }
 
-.well .singlestat h3 {
+.well .ds-singlestat h3 {
   color: #aa8866;
 }
 
-.singlestat p {
+.ds-singlestat p {
     color:white;
 }
 
-.singlestat .unit {
+.ds-singlestat .unit,
+.ds-jumbotron-singlestat .unit {
     color: gray;
 }
 
-.jumbotron-singlestat .unit {
-    color: gray;
-}
-
-.jumbotron-singlestat .value {
+.ds-jumbotron-singlestat .value {
     color: white;
 }
 
-.jumbotron-singlestat h3 {
+.ds-jumbotron-singlestat h3 {
     color: #a6a699;
 }
 
-h1 .primary-title {
+h1 .ds-primary-title {
   color: gray;
 }
 
-h1 .secondary-title {
+h1 .ds-secondary-title {
   color: white;
 }
 
-.time-container h2 {
+.ds-time-container h2 {
     color: #ddd;
+}
+
+.ds-warning,
+.ds-warning h3,
+.ds-warning .value,
+.ds-warning .unit {
+    color: #FF9E3F;
+}
+
+.ds-danger,
+.ds-danger h3,
+.ds-danger .value,
+.ds-danger .unit {
+    color: #FF0000;
 }
 
 /* =============================================================================
@@ -171,17 +189,4 @@ background-color: #222;
 .bs-callout-danger {
     background-color: #690d0d;
     border-color: #a80e0B;
-}
-.dashboard-warning,
-.dashboard-warning h3,
-.dashboard-warning .value,
-.dashboard-warning .unit {
-    color: #FF9E3F;
-}
-
-.dashboard-danger,
-.dashboard-danger h3,
-.dashboard-danger .value,
-.dashboard-danger .unit {
-    color: #FF0000;
 }

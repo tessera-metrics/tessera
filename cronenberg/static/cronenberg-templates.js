@@ -7,7 +7,7 @@ cronenberg.TemplateRegistry = function() {
     /**
      * Compile a template and register the compiled render function by
      * item type. Each template must specify what kind of API entity
-     * it renders using the data-item-type HTML attribute.
+     * it renders using the data-ds-item-type HTML attribute.
      *
      * An expression helper will also be registered, so each template
      * can be called easily from other templates.
@@ -18,7 +18,7 @@ cronenberg.TemplateRegistry = function() {
     this.register_presentation = function(template) {
         var self = this;
         var element  = $('#' + template.elementId);
-        var itemType = element.attr('data-item-type');
+        var itemType = element.attr('data-ds-item-type');
         var compiled = template.renderHandler || Handlebars.compile(element.html());
 
         self.presentation_registry[itemType] = {
@@ -44,7 +44,7 @@ cronenberg.TemplateRegistry = function() {
             return d3.format(format)(value);
         });
         Handlebars.registerHelper('height', function(item) {
-            return item.height ? 'dashboard-height' + item.height : '';
+            return item.height ? 'ds-height' + item.height : '';
         });
         Handlebars.registerHelper('span', function(item) {
             return item.span ? 'col-md-' + item.span : '';
