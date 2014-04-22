@@ -1,6 +1,49 @@
 {% raw %}
 
 <!--
+    PARTIAL: action menu
+
+    For now this is shown in edit menu. It could easily have its own
+    dedicated visibility toggle if desired.
+-->
+<script id="ds-tmpl-action-menu" type="text/x-handlebars-template">
+  <div class="btn-group">
+    <button data-ds-edit-mode="show"
+            style="display:none"
+            type="button"
+            class="btn btn-default btn-xs dropdown-toggle"
+            data-toggle="dropdown">
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+      <li><a href="#"><i class="fa fa-bar-chart-o"></i> Open in Graphite&hellip;</a></li>
+      <li><a href="#"><i class="fa fa-picture-o"></i> Snapshot&hellip;</a></li>
+    </ul>
+  </div>
+</script>
+
+<!--
+    PARTIAL: title bar
+-->
+<script id="ds-tmpl-title-bar" type="text/x-handlebars-template">
+  <div>
+    <div class="pull-right">
+      {{> ds-action-menu}}
+    </div>
+    <div>
+      {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
+    </div>
+  </div>
+</script>
+
+<script>
+  Handlebars.registerPartial('ds-action-menu', $('#ds-tmpl-action-menu').html());
+  Handlebars.registerPartial('ds-title-bar', $('#ds-tmpl-title-bar').html());
+</script>
+
+<!-- ============================================================================= -->
+
+<!--
      TEMPLATE: Separator layout.
   -->
 <script id="ds-tmpl-separator" data-ds-item-type="separator" type="text/x-handlebars-template">
@@ -88,7 +131,6 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
   -->
 <script id="ds-tmpl-simple-time-series" data-ds-item-type="simple_time_series" type="text/x-handlebars-template">
   <div class="ds-presentation ds-graph ds-simple-time-series {{css_class item}}" id="{{item.element_id}}">
-    {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
     <div class="ds-graph-holder">
       <svg class="{{height item}}"></svg>
     </div>
@@ -106,7 +148,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 <script id="ds-tmpl-standard-time-series" data-ds-item-type="standard_time_series" type="text/x-handlebars-template">
   <div class="ds-presentation ds-graph ds-standard-time-series {{css_class item}}"
        id="{{item.element_id}}">
-    {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
+    {{> ds-title-bar}}
     <div class="ds-graph-holder">
       <svg class="{{height item}}"></svg>
     </div>
@@ -124,7 +166,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 <script id="ds-tmpl-stacked-area-chart" data-ds-item-type="stacked_area_chart" type="text/x-handlebars-template">
   <div class="ds-presentation ds-graph ds-stacked-area-chart {{css_class item}}"
        id="{{item.element_id}}">
-    {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
+    {{> ds-title-bar}}
     <div class="ds-graph-holder">
       <svg class="{{height item}}"></svg>
     </div>
@@ -142,7 +184,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 <script id="ds-tmpl-donut-chart" data-ds-item-type="donut_chart" type="text/x-handlebars-template">
   <div class="ds-presentation ds-graph ds-donut-chart {{css_class item}}"
        id="{{item.element_id}}">
-    {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
+    {{> ds-title-bar}}
     <div class="ds-graph-holder">
       <svg class="{{height item}}"></svg>
     </div>
@@ -197,6 +239,8 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
   };
   cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-summation-table', dataHandler: handler});
 </script>
+
+<!-- ============================================================================= -->
 
 <!--
      TEMPLATE: Dashboard cells.
