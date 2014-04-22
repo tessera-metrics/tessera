@@ -37,7 +37,7 @@ cronenberg.Summation = function(series) {
         if (this.first == null) {
             this.first = 0;
         }
-        _.reduce(series.datapoints, function(context, point) {
+        series.datapoints.reduce(function(context, point) {
             var value = point[0] == null ? 0 : point[0];
             context.sum = context.sum + value;
             if (value > context.max) {
@@ -86,7 +86,7 @@ cronenberg.Query = function(name, url) {
      */
     this.process_data = function(data) {
         var self = this;
-        self.data = _.map(data, function(series) {
+        self.data = data.map(function(series) {
             series.summation = new cronenberg.Summation(series);
             series.key = series.target;
             series.values = series.datapoints;
@@ -95,7 +95,7 @@ cronenberg.Query = function(name, url) {
         self.summation = new cronenberg.Summation();
         // Oh, scoping
         var sum = self.summation;
-        _.each(self.data, function(series) {
+        self.data.forEach(function(series) {
             sum.merge(series.summation);
         });
         return self;
