@@ -46,8 +46,8 @@
 ### Presentations
 
 - New presentations
-  - For very compact dashboards summarizing lots of metrics, could use simple [bootstrap badges](http://getbootstrap.com/components/#badges) for a 
-    singlestat value, plus actual mini sparklines 
+  - For very compact dashboards summarizing lots of metrics, could use simple [bootstrap badges](http://getbootstrap.com/components/#badges) for a
+    singlestat value, plus actual mini sparklines
     (such as [jquery.sparkline](http://omnipotent.net/jquery.sparkline/#s-about)).
   - [reD3](http://bugzu.github.io/reD3/) has an interesting [day/hour heatmap](http://bugzu.github.io/reD3/#/heatmap)
   - [punchcard](https://github.com/fogleman/Punchcard) is similar, implementing a github-style punchcard view. In python, so server-side.
@@ -98,6 +98,17 @@
       - ~~[Flask-Misaka](https://flask-misaka.readthedocs.org/en/latest/)
         looks even better. Presentation template would just be
         {{item.text|markdown}}~~
+
+### Actions/Drilldowns
+
+- Add action menu to some presentations
+  - Hide in fullscreen
+  - Open in Graphite Composer
+    - take the render URL and replace ``/render`` with ``/composer`` and remove ``format=json``
+
+```
+    <div class="row"><button type="button" data-ds-fullscreen="hide" class="btn btn-default pull-right "><i class="fa fa-caret-down"></i></button></div>
+    ```
 
 ### Editing
 
