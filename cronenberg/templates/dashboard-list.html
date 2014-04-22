@@ -27,27 +27,27 @@
 
   <script>
     {% if tag %}
-    var path = '/api/dashboard/tagged/{{tag}}';
-  {% else %}
-    var path = '/api/dashboard/';
-  {% endif %}
+      var path = '/api/dashboard/tagged/{{tag}}';
+    {% else %}
+      var path = '/api/dashboard/';
+    {% endif %}
     cronenberg.dashboards.list(path, function(data) {
-        var rendered = cronenberg.templates.other.listing(data);
-        $("#ds-dashboard-main-listing").html(rendered);
+      var rendered = cronenberg.templates.other.listing(data);
+      $("#ds-dashboard-main-listing").html(rendered);
     });
 
-$.ajax({
-    dataType: 'json',
-    url: '/api/tag/'
-}).done(function(data) {
-    var context = { tags: data.tags };
+    $.ajax({
+      dataType: 'json',
+      url: '/api/tag/'
+    }).done(function(data) {
+      var context = { tags: data.tags };
     {% if tag %}
-    context.tag = '{{ tag }}';
+      context.tag = '{{ tag }}';
     {% endif %}
-    var rendered = cronenberg.templates.other.taglisting(context);
-    $("#ds-dashboard-tag-listing").html(rendered);
-    $("[data-tag={{tag}}]").addClass("active");
-});
-    </script>
+      var rendered = cronenberg.templates.other.taglisting(context);
+      $("#ds-dashboard-tag-listing").html(rendered);
+      $("[data-tag={{tag}}]").addClass("active");
+    });
+  </script>
 
 {% endblock %}
