@@ -9,6 +9,7 @@
 <script id="ds-tmpl-action-menu" type="text/x-handlebars-template">
   <div class="btn-group">
     <button data-ds-edit-mode="show"
+            style="display:none"
             type="button"
             class="btn btn-default btn-xs dropdown-toggle"
             data-toggle="dropdown">
@@ -167,7 +168,16 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 </script>
 <script>
   cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-simple-time-series', dataHandler: function(query, item) {
-      cronenberg.charts.simple_line_chart($("#" + item.element_id + ' .ds-graph-holder'), query.data[0], item.options);
+      if (!item.interactive) {
+          var element = $('#' + item.element_id + ' svg');
+          var png_url = cronenberg.charts.simple_line_chart_url(item, {
+              height: element.height(),
+              width: element.width()
+          });
+          element.parent().html($('<img/>').attr('src', png_url));
+      } else {
+          cronenberg.charts.simple_line_chart($("#" + item.element_id + ' .ds-graph-holder'), query.data[0], item.options);
+      }
   }});
 </script>
 
@@ -185,7 +195,18 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 </script>
 <script>
   cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-standard-time-series', dataHandler: function(query, item) {
-      var chart = cronenberg.charts.standard_line_chart($("#" + item.element_id + ' .ds-graph-holder'), query.data, item.options);
+
+      if (!item.interactive) {
+          var element = $('#' + item.element_id + ' svg');
+          var png_url = cronenberg.charts.standard_line_chart_url(item, {
+              height: element.height(),
+              width: element.width()
+          });
+          element.parent().html($('<img/>').attr('src', png_url).height(element.height()).width(element.width()));
+      } else {
+          var chart = cronenberg.charts.standard_line_chart($("#" + item.element_id + ' .ds-graph-holder'), query.data, item.options);
+      }
+
   }});
 </script>
 
@@ -203,7 +224,17 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 </script>
 <script>
   cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-stacked-area-chart', dataHandler: function (query, item) {
-        cronenberg.charts.stacked_area_chart($("#" + item.element_id + ' .ds-graph-holder'), query.data, item.options);
+
+      if (!item.interactive) {
+          var element = $('#' + item.element_id + ' svg');
+          var png_url = cronenberg.charts.stacked_area_chart_url(item, {
+              height: element.height(),
+              width: element.width()
+          });
+          element.parent().html($('<img/>').attr('src', png_url));
+      } else {
+         cronenberg.charts.stacked_area_chart($("#" + item.element_id + ' .ds-graph-holder'), query.data, item.options);
+      }
   }});
 </script>
 
