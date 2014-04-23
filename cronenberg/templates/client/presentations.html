@@ -9,6 +9,7 @@
 <script id="ds-tmpl-action-menu" type="text/x-handlebars-template">
   <div class="btn-group">
     <button data-ds-edit-mode="show"
+            style="display:none"
             type="button"
             class="btn btn-default btn-xs dropdown-toggle"
             data-toggle="dropdown">
@@ -167,7 +168,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 </script>
 <script>
   cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-simple-time-series', dataHandler: function(query, item) {
-      if (false) {  /* todo - check item format override */
+      if (!item.interactive) {  /* todo - check item format override */
           /* TODO - also consolidate graphite URL manipulation in a utility class */
           var element = $('#' + item.element_id + ' svg');
           var query = cronenberg.dashboards.current.dashboard.definition.queries[item.query_name];
@@ -202,7 +203,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 <script>
   cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-standard-time-series', dataHandler: function(query, item) {
 
-      if (false) {  /* todo - check item format override */
+      if (!item.interactive) {  /* todo - check item format override */
           /* TODO - also consolidate graphite URL manipulation in a utility class */
           var element = $('#' + item.element_id + ' svg');
           var query = cronenberg.dashboards.current.dashboard.definition.queries[item.query_name];
@@ -238,7 +239,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 <script>
   cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-stacked-area-chart', dataHandler: function (query, item) {
 
-      if (false) {  /* todo - check item format override */
+      if (!item.interactive) {  /* todo - check item format override */
           /* TODO - also consolidate graphite URL manipulation in a utility class */
           var element = $('#' + item.element_id + ' svg');
           var query = cronenberg.dashboards.current.dashboard.definition.queries[item.query_name];

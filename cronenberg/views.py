@@ -187,11 +187,18 @@ def api_dashboard_get_expanded(id):
     The result of this API is suitable for rendering by the front-end
     library.
     """
-    dash       = database.Dashboard.query.get_or_404(id)
-    definition = dash.definition.to_json()
-    from_time  = _get_param('from', app.config['DEFAULT_FROM_TIME'])
-    until_time = _get_param('until', None)
-    variables  = _get_template_variables(request.args)
+    dash        = database.Dashboard.query.get_or_404(id)
+    definition  = dash.definition.to_json()
+    from_time   = _get_param('from', app.config['DEFAULT_FROM_TIME'])
+    until_time  = _get_param('until', None)
+    variables   = _get_template_variables(request.args)
+    interactive = not(_get_param('interactive', 'true').lower() == 'false')
+
+    # HACK
+    for row in definition['grid']['rows']:
+        for cell in row['cells']:
+            for presentation in cell['presentation']:
+                presentation['interactive'] = interactive
 
     # Make a copy of the query map with all targets rendered to full
     # graphite URLs
