@@ -106,10 +106,6 @@
   - Open in Graphite Composer
     - take the render URL and replace ``/render`` with ``/composer`` and remove ``format=json``
 
-```
-    <div class="row"><button type="button" data-ds-fullscreen="hide" class="btn btn-default pull-right "><i class="fa fa-caret-down"></i></button></div>
-    ```
-
 ### Editing
 
 - Update dashboard list
@@ -130,17 +126,21 @@
 
 ### UI
 
+- [bootbox](http://bootboxjs.com/) could potentially remove a lot of markup for modals
 - Grid alternatives. Other ways of laying out the dashboard grid, as an alternative to the
   bootstrap CSS grid. Some of these are interactive, with possibilities for editing.
   - [Nested](http://suprb.com/apps/nested/)
   - [uberVU grid](https://github.com/uberVU/grid)
   - [gridster.js](https://github.com/ducksboard/gridster.js)
   - [jquery.shapeshift](https://github.com/McPants/jquery.shapeshift)
-- integrate [messenger](http://github.hubspot.com/messenger/docs/welcome/) for error and general notifications
+- integrate a notification/alert lib for error messages & general notifications. 
+    - [messenger](http://github.hubspot.com/messenger/docs/welcome/) 
+    - [bootstrap-growl](http://bootstrap-growl.remabledesigns.com/)
+    - [pnotify](http://sciactive.com/pnotify/)
 - custom time range picker
 - configuration for the recent time ranges shown in the easy picker
-- auto-refresh
 - settings page
+- ~~auto-refresh~~
 - ~~refresh button~~
 - ~~Add a 'full screen' button that removes everything except the
   dashboard grid from the view (and a 'back' button to restore it)~~
@@ -148,7 +148,7 @@
     ``cronenberg.exitFullScreen()`` APIs with events. UI bits just
     need to register for those events to hide/show.~~
   - ~~alternatively, just use data-attributes for fullscreen hide/show~~
-  - drop-down version of the range picker menu, to save space
+  - ~~drop-down version of the range picker menu, to save space~~
   - ~~In full-screen, put the title, range picker, current time, and
     exit fullscreen button all on one line~~
 - ~~dark/light theme switching~~
@@ -158,10 +158,10 @@
 
 ### Navigation
 
-- Featured dashboards on front page are currently hard-coded. They should be driven from metadata
-  (need to add metadata to back-end first; probably by adding in a SQL datastore)
-- Tags. Produce a related dashboards list based on common tags (also requires metadata store)
 - Drilldowns - define links from individual presentations to other dashboards, or to larger presentations (i.e. a generic dashboard page that shows a single presentation from the parent scaled up)
+- ~~Featured dashboards on front page are currently hard-coded. They should be driven from metadata
+  (need to add metadata to back-end first; probably by adding in a SQL datastore)~~
+- ~~Tags. Produce a related dashboards list based on common tags (also requires metadata store)~~
 
 ### Demos
 
@@ -174,17 +174,17 @@
   - user preferences
 - integrate some proper JS build-fu to minify and compress all the
   javascript, etc...
-- import of gdash dashboards
+- import of gdash dashboards. Hmm - gdash has no API. So, not likely. 
 - ~~import of graphite built-in dashboards~~
 - ~~start with anonymous, non-persistent sessions. ~~
 - ~~excise dependence on toolbox's graphite classes entirely (partway there already) ~~
 
 ### Bugs
 
-- hover! Why do the tables all have hover backgrounds when I haven't
-  specified class="table-hover", and why is the background in dark
-  mode excessively light?
 - yAxis labels. probably a JS scoping issue.
+- ~~hover! Why do the tables all have hover backgrounds when I haven't
+  specified class="table-hover", and why is the background in dark
+  mode excessively light?~~
 - ~~bottom margin on graphs has disappeared. wtf?~~
   - ~~it's the dashboard-height classes. NVD3 renders the svg taller
     than them, so they get clipped. Remove the height classes after
