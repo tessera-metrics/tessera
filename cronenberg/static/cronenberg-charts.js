@@ -20,7 +20,7 @@ cronenberg.charts = {
             .setQuery('hideLegend', 'true')
             .setQuery('hideAxes', 'true')
             .setQuery('margin', '0')
-            .setQuery('colorList', cronenberg.charts.getPalette(options.palette).join())
+            .setQuery('colorList', cronenberg.charts.getPalette(item.options.palette).join())
             .href();
         console.log(options.palette);
         return png_url;
@@ -39,7 +39,8 @@ cronenberg.charts = {
             .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
             .setQuery('hideLegend', options.hideLegend || 'false')
             .setQuery('hideAxes', options.hideAxes || 'false')
-            .setQuery('colorList', cronenberg.charts.getPalette(options.palette).join())
+            .setQuery('colorList', cronenberg.charts.getPalette(item.options.palette).join())
+            .setQuery('vtitle', item.options.yAxisLabel)
             .href();
         console.log(options.palette);
         return png_url;
@@ -59,7 +60,8 @@ cronenberg.charts = {
             .setQuery('hideLegend', options.hideLegend || 'false')
             .setQuery('hideAxes', options.hideAxes || 'false')
             .setQuery('areaMode', 'stacked')
-            .setQuery('colorList', cronenberg.charts.getPalette(options.palette).join())
+            .setQuery('colorList', cronenberg.charts.getPalette(item.options.palette).join())
+            .setQuery('vtitle', item.options.yAxisLabel)
             .href();
         console.log(options.palette);
         return png_url;

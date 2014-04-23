@@ -172,8 +172,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
           var element = $('#' + item.element_id + ' svg');
           var png_url = cronenberg.charts.simple_line_chart_url(item, {
               height: element.height(),
-              width: element.width(),
-              palette: item.options.palette
+              width: element.width()
           });
           element.parent().html($('<img/>').attr('src', png_url));
       } else {
@@ -201,8 +200,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
           var element = $('#' + item.element_id + ' svg');
           var png_url = cronenberg.charts.standard_line_chart_url(item, {
               height: element.height(),
-              width: element.width(),
-              palette: item.options.palette
+              width: element.width()
           });
           element.parent().html($('<img/>').attr('src', png_url).height(element.height()).width(element.width()));
       } else {
@@ -231,8 +229,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
           var element = $('#' + item.element_id + ' svg');
           var png_url = cronenberg.charts.stacked_area_chart_url(item, {
               height: element.height(),
-              width: element.width(),
-              palette: item.options.palette
+              width: element.width()
           });
           element.parent().html($('<img/>').attr('src', png_url));
       } else {
