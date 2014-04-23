@@ -168,16 +168,11 @@ h1 .ds-secondary-title {
     font-size:30px;
 }
 
-.ds-row {
-    // padding-bottom: 2em;
-}
-
 .ds-simple-time-series svg {
     height: 90px;
-    margin-bottom: 2em;
 }
 
-.ds-standard-time-series {
+.ds-graph-holder {
     margin-bottom: 2em;
 }
 

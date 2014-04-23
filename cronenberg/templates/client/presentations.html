@@ -168,20 +168,14 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 </script>
 <script>
   cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-simple-time-series', dataHandler: function(query, item) {
-      if (!item.interactive) {  /* todo - check item format override */
-          /* TODO - also consolidate graphite URL manipulation in a utility class */
+      if (!item.interactive) {
           var element = $('#' + item.element_id + ' svg');
-          var query = cronenberg.dashboards.current.dashboard.definition.queries[item.query_name];
-          var png_url = URI(query)
-                  .setQuery('format', 'png')
-                  .setQuery('height', element.height())
-                  .setQuery('width', element.width())
-                  .setQuery('bgcolor', 'white')
-                  .setQuery('fgcolor', 'gray')
-                  .setQuery('majorGridLineColor', '#dddddd')
-                  .setQuery('minorGridLineColor', '#eeeeee')
-                  .href();
-          element.parent().html('<img src="' + png_url + '"></img>');
+          var png_url = cronenberg.charts.simple_line_chart_url(item, {
+              height: element.height(),
+              width: element.width(),
+              palette: item.options.palette
+          });
+          element.parent().html($('<img/>').attr('src', png_url));
       } else {
           cronenberg.charts.simple_line_chart($("#" + item.element_id + ' .ds-graph-holder'), query.data[0], item.options);
       }
@@ -203,20 +197,14 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 <script>
   cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-standard-time-series', dataHandler: function(query, item) {
 
-      if (!item.interactive) {  /* todo - check item format override */
-          /* TODO - also consolidate graphite URL manipulation in a utility class */
+      if (!item.interactive) {
           var element = $('#' + item.element_id + ' svg');
-          var query = cronenberg.dashboards.current.dashboard.definition.queries[item.query_name];
-          var png_url = URI(query)
-                  .setQuery('format', 'png')
-                  .setQuery('height', element.height())
-                  .setQuery('width', element.width())
-                  .setQuery('bgcolor', 'white')
-                  .setQuery('fgcolor', 'gray')
-                  .setQuery('majorGridLineColor', '#dddddd')
-                  .setQuery('minorGridLineColor', '#eeeeee')
-                  .href();
-          element.parent().html('<img src="' + png_url + '"></img>');
+          var png_url = cronenberg.charts.standard_line_chart_url(item, {
+              height: element.height(),
+              width: element.width(),
+              palette: item.options.palette
+          });
+          element.parent().html($('<img/>').attr('src', png_url).height(element.height()).width(element.width()));
       } else {
           var chart = cronenberg.charts.standard_line_chart($("#" + item.element_id + ' .ds-graph-holder'), query.data, item.options);
       }
@@ -239,21 +227,14 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 <script>
   cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-stacked-area-chart', dataHandler: function (query, item) {
 
-      if (!item.interactive) {  /* todo - check item format override */
-          /* TODO - also consolidate graphite URL manipulation in a utility class */
+      if (!item.interactive) {
           var element = $('#' + item.element_id + ' svg');
-          var query = cronenberg.dashboards.current.dashboard.definition.queries[item.query_name];
-          var png_url = URI(query)
-                  .setQuery('format', 'png')
-                  .setQuery('height', element.height())
-                  .setQuery('width', element.width())
-                  .setQuery('bgcolor', 'white')
-                  .setQuery('fgcolor', 'gray')
-                  .setQuery('areaMode', 'stacked')
-                  .setQuery('majorGridLineColor', '#dddddd')
-                  .setQuery('minorGridLineColor', '#eeeeee')
-                  .href();
-          element.parent().html('<img src="' + png_url + '"></img>');
+          var png_url = cronenberg.charts.stacked_area_chart_url(item, {
+              height: element.height(),
+              width: element.width(),
+              palette: item.options.palette
+          });
+          element.parent().html($('<img/>').attr('src', png_url));
       } else {
          cronenberg.charts.stacked_area_chart($("#" + item.element_id + ' .ds-graph-holder'), query.data, item.options);
       }
