@@ -106,10 +106,6 @@
   - Open in Graphite Composer
     - take the render URL and replace ``/render`` with ``/composer`` and remove ``format=json``
 
-```
-    <div class="row"><button type="button" data-ds-fullscreen="hide" class="btn btn-default pull-right "><i class="fa fa-caret-down"></i></button></div>
-    ```
-
 ### Editing
 
 - Update dashboard list
@@ -162,10 +158,10 @@
 
 ### Navigation
 
-- Featured dashboards on front page are currently hard-coded. They should be driven from metadata
-  (need to add metadata to back-end first; probably by adding in a SQL datastore)
-- Tags. Produce a related dashboards list based on common tags (also requires metadata store)
 - Drilldowns - define links from individual presentations to other dashboards, or to larger presentations (i.e. a generic dashboard page that shows a single presentation from the parent scaled up)
+- ~~Featured dashboards on front page are currently hard-coded. They should be driven from metadata
+  (need to add metadata to back-end first; probably by adding in a SQL datastore)~~
+- ~~Tags. Produce a related dashboards list based on common tags (also requires metadata store)~~
 
 ### Demos
 
