@@ -131,6 +131,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
   -->
 <script id="ds-tmpl-simple-time-series" data-ds-item-type="simple_time_series" type="text/x-handlebars-template">
   <div class="ds-presentation ds-graph ds-simple-time-series {{css_class item}}" id="{{item.element_id}}">
+    {{> ds-title-bar}}
     <div class="ds-graph-holder">
       <svg class="{{height item}}"></svg>
     </div>

@@ -13,16 +13,17 @@ cronenberg.charts = {
             var height = e.height();
             var chart = nv.models.lineChart()
                 .options({
-                    showXAxis: options.showXAxis || false,
-                    showYAxis: options.showYAxis || false,
-                    showLegend: options.showLegend || false,
-                    useInteractiveGuideline: options.useInteractiveGuideline !== true,
+                    showXAxis: false,
+                    showYAxis: false,
+                    showLegend: false,
+                    useInteractiveGuideline: true,
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
+                .color(cronenberg.charts._color_function(options.palette || 'spectrum6'))
+                .margin(options.margin || { top: 0, right: 16, bottom: 0, left: 40 })
                 .width(width)
-                .height(height)
-                .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 });
+                .height(height);
             chart.yAxis.tickFormat(d3.format(options.yAxisFormat || ',.2f'));
             chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow(); });
             d3.select(e.selector + ' svg')
