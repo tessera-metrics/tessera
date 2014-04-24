@@ -108,9 +108,13 @@
 
 ### Editing
 
+
+- display count of queries
+- display count of presentations
+- basic info updates (title, category, tags)
 - Update dashboard list
-  - render client side
-  - better presentation (2 lines per entry, title, last modified time)
+  - ~~render client side~~
+  - ~~better presentation (2 lines per entry, title, last modified time)~~
   - action menu on each row, to delete or duplicate (or others)
 - add notifications confirming delete (or update, etc...)
 - Grafana's [javascript parser for graphite queries](https://github.com/torkelo/grafana/tree/master/src/app/services/graphite)
