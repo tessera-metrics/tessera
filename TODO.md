@@ -1,11 +1,9 @@
 # Tasks
 
-### Third Party Components
+### Optimization
 
-- ~~upgrade to bootstrap3 (darkstrap support is only unofficial and
-  incomplete so far - see
-  [here](https://github.com/danneu/darkstrap/issues/17))~~
-- ~~upgrade to jQuery 1.11~~
+- In non-interactive graph mode, don't evaluate the raw data queries if there are no textual presentations
+- consider moving to graphite's raw text protocol
 
 ### Model & Persistence
 
@@ -102,8 +100,8 @@
 ### Actions/Drilldowns
 
 - Add action menu to some presentations
-  - have a single function for graphite render URL that dispatches on item type
   - replace graphite SVG export w/D3 SVG
+  - ~~have a single function for graphite render URL that dispatches on item type~~
   - ~~Hide in fullscreen~~
   - ~~Open in Graphite Composer~~
     - ~~take the render URL and replace ``/render`` with ``/composer`` and remove ``format=json``~~
@@ -188,7 +186,7 @@
 
 ### Bugs
 
-- yAxis labels. probably a JS scoping issue.
+- ~~yAxis labels. probably a JS scoping issue. Nope, it was Python.~~
 - ~~hover! Why do the tables all have hover backgrounds when I haven't
   specified class="table-hover", and why is the background in dark
   mode excessively light?~~
@@ -196,3 +194,11 @@
   - ~~it's the dashboard-height classes. NVD3 renders the svg taller
     than them, so they get clipped. Remove the height classes after
     rendering? patch nvd3?~~
+
+### Third Party Components
+
+- ~~upgrade to bootstrap3 (darkstrap support is only unofficial and
+  incomplete so far - see
+  [here](https://github.com/danneu/darkstrap/issues/17))~~
+- ~~upgrade to jQuery 1.11~~
+
