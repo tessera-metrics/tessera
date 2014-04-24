@@ -44,9 +44,13 @@
 ### Presentations
 
 - New presentations
-  - nvd3 can do combination area/line graphs
+  - ``SummationComparisonTable``, compare 2 series w/% change indicator (see stathat)
   - For very compact dashboards summarizing lots of metrics, could use simple [bootstrap badges](http://getbootstrap.com/components/#badges) for a
     singlestat value, plus actual mini sparklines
+  - multi-stat version of ``SingleStat`` that flips through them using a
+    carousel (i.e. [Slick](http://kenwheeler.github.io/slick) which is
+    the......slickest carousel I've found yet).
+  - nvd3 can do combination area/line graphs
     (such as [jquery.sparkline](http://omnipotent.net/jquery.sparkline/#s-about)).
   - [reD3](http://bugzu.github.io/reD3/) has an interesting [day/hour heatmap](http://bugzu.github.io/reD3/#/heatmap)
   - [punchcard](https://github.com/fogleman/Punchcard) is similar, implementing a github-style punchcard view. In python, so server-side.
@@ -55,12 +59,8 @@
   - nvd3: [multi-bar](http://nvd3.org/examples/multiBar.html) option for time series
   - nvd3: has an [excellent implementation](http://nvd3.org/examples/bullet.html) of
     Stephen Few's [bullet graph](http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf).
-  - ``SummationComparisonTable``, compare 2 series w/% change indicator (see stathat)
   - ~~[tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a
     singlestat and simple_time_series with fill)~~
-  - multi-stat version of ``SingleStat`` that flips through them using a
-    carousel (i.e. [Slick](http://kenwheeler.github.io/slick) which is
-    the......slickest carousel I've found yet).
   - horizon graphs with [Cubism](http://square.github.io/cubism/)
 - Updates to existing presentations
   - 2nd Y axis support
@@ -69,7 +69,7 @@
   - allow selection of which columns are display in ``SummationTable``
   - ``JumboTronSinglestat`` is a hack. A properly responsive presentation
     that scales w/size of parent would rock.
-  - thresholds for alert colors (i.e. turn value in singlestat yellow/orange/red)
+  - ~~thresholds for alert colors (i.e. turn value in singlestat yellow/orange/red)~~
   - threshold to automatically switch to graphite rendering for long
   time windows (SVG rendering in browser gets slow)
   - more options for time formatting
