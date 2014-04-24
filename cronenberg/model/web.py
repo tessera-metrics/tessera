@@ -141,10 +141,11 @@ class JumbotronSingleStat(SingleStat):
         return cls(**d)
 
 class ChartPresentation(Presentation):
-    def __init__(self, title='', options={}, **kwargs):
+    def __init__(self, title='', options={}, interactive=True, **kwargs):
         super(ChartPresentation, self).__init__(**kwargs)
         self.title = title
         self.options = options
+        self.interactive = interactive
 
 class DonutChart(ChartPresentation):
     def __init__(self, **kwargs):

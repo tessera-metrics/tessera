@@ -1,0 +1,36 @@
+{% raw %}
+
+<script id="tmpl-dashboard-info-edit-panel" type="text/x-handlebars-template">
+  <div class="row">
+    <div class="col-md-6">
+      <dl class="dl-horizontal">
+
+        <dt>Title</dt><dd>{{dashboard.title}}</dd>
+
+        <dt>Category</dt><dd>{{dashboard.category}}</dd>
+
+        <!-- <dt>Created</dt><dd>{{dashboard.creation_date}}</dd>
+
+        <dt>Last Modified</dt><dd>{{dashboard.last_modified_date}}</dd> -->
+
+        <dt>Description</dt><dd>{{dashboard.description}}</dd>
+
+        <dt>Tags</dt>
+        <dd>
+          {{#each dashboard.tags}}
+          <span class="badge badge-primary">{{this}}</span>
+          {{/each}}
+        </dd>
+
+      </dl>
+    </div>
+  </div>
+</script>
+
+
+<script>
+        cronenberg.templates.edit = cronenberg.templates.edit || {};
+        cronenberg.templates.edit.infopanel = Handlebars.compile($("#tmpl-dashboard-info-edit-panel").html());
+</script>
+
+{% endraw %}
