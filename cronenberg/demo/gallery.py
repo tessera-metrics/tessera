@@ -57,7 +57,7 @@ def demo_gallery_dashboard():
                                             'yAxisFormat' : ',.1s'
                                         })
                                         ,Separator()
-                                        ,StackedAreaChart(query_name='multiple', height=3, options={
+                                        ,StackedAreaChart(query_name='multiple', height=3, title='Stream Graph', options={
                                             'style' : 'stream',
                                             'margin' : margin,
                                             'yAxisFormat' : ',.1s'

@@ -8,6 +8,7 @@ def demo_node_dashboard():
         title='System Overview',
         description='Summary of {{#if title}}{{title}}{{else}}{{ node }}{{/if}}',
         category='Demo',
+        tags=[ Tag('template') ],
         definition = DashboardDef(
             definition=dumps(
                 DashboardDefinition(
