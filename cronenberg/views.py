@@ -232,8 +232,8 @@ def api_tag_list():
 
     """
     sql = 'SELECT tag.id, tag.name, tag.description, count(*)' \
-    + ' FROM dashboard_tags' \
-    + ' INNER JOIN tag' \
+    + ' FROM tag' \
+    + ' INNER JOIN dashboard_tags' \
     + ' ON dashboard_tags.tag_id = tag.id' \
     + ' GROUP BY tag.id'
 
