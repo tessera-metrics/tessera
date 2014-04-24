@@ -165,10 +165,12 @@ class SimpleTimeSeries(ChartPresentation):
     visualizations.
 
     """
-    def __init__(self, query_name, **kwargs):
+    def __init__(self, query_name, filled=False, **kwargs):
         super(SimpleTimeSeries, self).__init__(query_name=query_name,
                                                item_type='simple_time_series',
                                                **kwargs)
+        self.filled = filled
+
     @classmethod
     def from_json(cls, d):
         _delattr(d, 'item_type')

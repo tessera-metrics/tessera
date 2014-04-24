@@ -88,7 +88,9 @@ cronenberg.charts = {
     chart_url: function(item, options) {
         switch (item.item_type) {
         case 'simple_time_series':
-            return cronenberg.charts.simple_line_chart_url(item, options);
+            return item.filled
+                ? cronenberg.charts.simple_area_chart_url(item, options)
+                : cronenberg.charts.simple_line_chart_url(item, options);
         case 'standard_time_series':
             return cronenberg.charts.standard_line_chart_url(item, options);
         case 'stacked_area_chart':
@@ -118,7 +120,6 @@ cronenberg.charts = {
     /* -----------------------------------------------------------------------------
        Charts
        ----------------------------------------------------------------------------- */
-
 
     DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD: 6,
     DEFAULT_PALETTE: 'spectrum6',
@@ -230,7 +231,6 @@ cronenberg.charts = {
                 .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 });
             chart.yAxis
                 .tickFormat(d3.format(options.yAxisFormat || ',.2f'));
-            console.log('stacked_area_chart:yAxisLabel:' + options.yAxisLabel);
             chart.xAxis
             // .tickFormat(function(d) { return moment.unix(d).format('h:mm A'); });
             .tickFormat(function(d) { return moment.unix(d).fromNow(); });

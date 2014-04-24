@@ -36,7 +36,7 @@ def demo_gallery_dashboard():
                                                          + "Use like a [sparkline](http://en.wikipedia.org/wiki/Sparkline), "
                                                          + "for displaying overall trends in a high level view."))
                               ,Cell(span=9,
-                                    presentation=SimpleTimeSeries(query_name='single1')))
+                                    presentation=[ SimpleTimeSeries(query_name='single1'), SimpleTimeSeries(query_name='single1', title='Filled', filled=True) ]))
                          ,Row(Cell(span=3,
                                    presentation=Markdown(text="### Standard Time Series\n"
                                                          + "Your basic multi-series line chart, with some nice interactive features."))
