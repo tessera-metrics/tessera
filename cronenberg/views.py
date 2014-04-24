@@ -219,7 +219,8 @@ def api_dashboard_get_expanded(id):
 
     return _jsonify({
         'dashboard' : dash,
-        'definition' : definition
+        'definition' : definition,
+        'theme' : _get_param('theme', 'light')
     })
 
 # =============================================================================
