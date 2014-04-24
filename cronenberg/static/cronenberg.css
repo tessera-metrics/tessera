@@ -207,3 +207,20 @@ h1 .ds-secondary-title {
     line-height:1;
     margin-top: 0;
 }
+
+.ds-singlegraph p {
+    font-weight: bold;
+    margin-top: -3.75em;
+    //font-size: 1.2em;
+}
+
+.ds-singlegraph p span.ds-label {
+  font-size: 1.2em;
+}
+
+.ds-singlegraph p span.value {
+  font-size: 5em;
+  float: right;
+  margin-top: -0.85em;
+  margin-right: 10px;
+}
