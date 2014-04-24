@@ -18,8 +18,8 @@
     - or simple link to another dashboard
     - Presentations can have more than one drilldown
 - add standard deviation to summation model
-- refactor API to a flask blueprint to reuse for different model
-  classes
+- ~~refactor API to a flask blueprint to reuse for different model
+  classes~~ Update: nah, maybe not. API surface area is small, and hand-tuning is good. 
 - Refactor how from_json() works, maybe a metaclass or somesuch, to
   cut down on the janky dispatching
 - ~~more sophisticated persistence (i.e. SQLAlchemy or somesuch) that
@@ -30,6 +30,7 @@
   - templatized presentations should also be named entities
   - that requires queries to be (optionally) named entities too, since
     they're independent of presentations
+  - groups (such as sections, see below) are probably the most useful form of shared building-block.
 - element_id doesn't need to be stored; just generate unique element
   IDs in expanded API view. Current method has chance for collisions.
 - ~~add support for multi-valued queries (graphite URL api supports
