@@ -1,31 +1,38 @@
 <div class="row">
+
+  <!-- Range picker -->
   <div class="col-md-9">
     {% include "snippets/recent-range-picker.html" %}
   </div>
 
+  <!-- toolbar -->
   <div class="col-md-3">
     <div class="btn-toolbar pull-right">
 
       <div class="btn-group" data-ds-edit-mode="show" style="display:none">
-        <button type="button" id="ds-delete-button" class="btn btn-default" data-toggle="tooltip" title="Delete this dashboard">
+        <button type="button" id="ds-delete-button" class="btn btn-danger" data-toggle="tooltip" title="Delete this dashboard">
           <i class="fa fa-lg fa-trash-o"></i>
         </button>
       </div>
 
       <div class="btn-group">
-        <button type="button" onclick="cronenberg.toggleEditMode()" class="btn btn-default" data-toggle="tooltip" title="Edit">
+        <button type="button" id="ds-edit-button" onclick="cronenberg.toggleEditMode()" class="btn btn-default" data-toggle="tooltip" title="Edit">
           <i class="fa fa-lg fa-edit"></i>
+        </button>
+        <button type="button" id="ds-toggle-interactive-button" onclick="toggle_interactive_charts()" class="btn btn-default" data-toggle="tooltip" title="Toggle Interactive Graphs">
+          <i class="fa fa-lock"></i>
         </button>
         {% include "snippets/refresh-button.html" %}
         <button type="button" onclick="cronenberg.enterFullscreen()" class="btn btn-default" data-toggle="tooltip" title="Enter Display Mode">
           <i class="fa fa-lg fa-expand"></i>
         </button>
-      </div> <!-- button group -->
+      </div> <!-- btn-group -->
 
-    </div>
+    </div> <!-- btn-toolbar -->
   </div>
 </div> <!-- row -->
 
+<!-- Delete confirmation dialog -->
 <div class="modal fade" id="ds-delete-modal" tabindex="-1" role="dialog" aria-labelledby="ds-delete-modal-label" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -42,13 +49,25 @@
       </div>
     </div>
   </div>
-</div>
+</div> <!-- dialog -->
 
 <script>
+    window.toggle_interactive_charts = function() {
+        if (cronenberg.dashboards.toggle_interactive_charts()) {
+            $('#ds-toggle-interactive-button').removeClass('btn-inverse').addClass('btn-default');
+        } else {
+            $('#ds-toggle-interactive-button').removeClass('btn-default').addClass('btn-inverse');
+        }
+    };
 $("#ds-delete-button").click(function() {
     $("#ds-delete-modal").modal({});
 });
 $("#ds-really-delete-button").click(function() {
-cronenberg.dashboards.delete_current();
+    cronenberg.dashboards.delete_current();
+});
+cronenberg.onEnterEditMode(function() {
+    $('#ds-edit-button').removeClass('btn-default').addClass('btn-inverse');
+}).onExitEditMode(function() {
+    $('#ds-edit-button').removeClass('btn-inverse').addClass('btn-default');
 });
 </script>
