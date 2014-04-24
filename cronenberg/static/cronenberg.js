@@ -38,6 +38,11 @@ var cronenberg = {
         return this;
     },
 
+    onEnterEditMode: function(handler) {
+        bean.on(this, cronenberg.events.ENTER_EDIT_MODE, handler);
+        return this;
+    },
+
     enterEditMode: function() {
         $("[data-ds-edit-mode=hide]").hide(this.ANIMATION_DELAY);
         $("[data-ds-edit-mode=show]").show(this.ANIMATION_DELAY)
