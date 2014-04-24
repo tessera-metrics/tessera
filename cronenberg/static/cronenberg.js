@@ -70,6 +70,11 @@ var cronenberg = {
         return this;
     },
 
+    onExitEditMode: function(handler) {
+        bean.on(this, cronenberg.events.EXIT_EDIT_MODE, handler);
+        return this;
+    },
+
     exitEditMode: function() {
         $("[data-ds-edit-mode=show]").hide(this.ANIMATION_DELAY)
         $("[data-ds-edit-mode=hide]").show(this.ANIMATION_DELAY)

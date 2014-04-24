@@ -124,6 +124,26 @@ cronenberg.DashboardManager = function() {
         }
     };
 
+    this.toggle_interactive_charts = function() {
+        var self = this;
+        var dashboard_url = URI(self.current.url);
+        var window_url = URI(window.location);
+        var setting = 'false';
+        if (dashboard_url.hasQuery('interactive', 'false')) {
+            setting = 'true';
+        }
+        dashboard_url.setQuery('interactive', setting);
+        window_url.setQuery('interactive', setting);
+        self.current.url = dashboard_url.href();
+        window.history.pushState({url: self.current.url, element:self.current.element}, '', window_url.href());
+        self.refresh();
+        return setting == 'true';
+    };
+
+    /* -----------------------------------------------------------------------------
+       Time range and auto-refresh
+       ----------------------------------------------------------------------------- */
+
     this.set_time_range = function(from, until) {
         var self = this;
         var location = URI(window.location).setQuery('from', from).href();

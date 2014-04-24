@@ -22,7 +22,6 @@ cronenberg.charts = {
             .setQuery('margin', '0')
             .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
             .href();
-        console.log(options.palette);
         return png_url;
     },
 
@@ -43,7 +42,6 @@ cronenberg.charts = {
             .setQuery('vtitle', item.options.yAxisLabel)
             .setQuery('title', item.options.showTitle ? item.title : '')
             .href();
-        console.log(options.palette);
         return png_url;
     },
 
@@ -65,7 +63,6 @@ cronenberg.charts = {
             .setQuery('vtitle', item.options.yAxisLabel)
             .setQuery('title', item.options.showTitle ? item.title : '')
             .href();
-        console.log(options.palette);
         return png_url;
     },
 
@@ -79,7 +76,6 @@ cronenberg.charts = {
             .setQuery('vtitle', item.options.yAxisLabel)
             .setQuery('title', item.title)
             .href();
-        console.log(options.palette);
         return composer_url;
     },
 
