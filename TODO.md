@@ -102,6 +102,7 @@
 
 - create some demo dashboards with drilldown explorations
   - time shifting
+    - ``SummationComparisonTable`` will be a good one to add for that
   - percentile expansion
   - moving averages/medians
   - mostDeviant
