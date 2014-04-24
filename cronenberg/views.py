@@ -10,8 +10,6 @@ import pybars
 import urllib
 
 from flask import render_template, request, redirect, jsonify, abort, session
-from cask import Entity
-import cask
 
 from .model import *
 from .model import database
