@@ -64,7 +64,8 @@ def demo_gallery_dashboard():
                                         })
                                     ]))
                          ,Row(Cell(span=3,
-                                   presentation=Markdown(text='### Single Graph'))
+                                   presentation=Markdown(text='### Single Graph\n'
+                                                         + 'Shamelessly stolen from [Tasseo](https://github.com/obfuscurity/tasseo).'))
                               ,Cell(span=3,
                                     presentation=SingleGraph(height=1, query_name='single1'))
                               ,Cell(span=3,
