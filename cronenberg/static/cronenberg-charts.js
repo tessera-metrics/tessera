@@ -61,9 +61,21 @@ cronenberg.charts = {
             .setQuery('areaMode', 'stacked')
             .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
             .setQuery('vtitle', item.options.yAxisLabel)
-            .setQuery('title', item.options.showTitle ? item.title : '')
+            .setQuery('title', options.showTitle ? item.title : '')
             .href();
         return png_url;
+    },
+
+    chart_url: function(item, options) {
+        switch (item.item_type) {
+        case 'simple_time_series':
+            return cronenberg.charts.simple_line_chart_url(item, options);
+        case 'standard_time_series':
+            return cronenberg.charts.standard_line_chart_url(item, options);
+        case 'stacked_area_chart':
+            return cronenberg.charts.stacked_area_chart_url(item, options);
+        }
+        return undefined;
     },
 
     composer_url: function(item, options) {
@@ -74,9 +86,11 @@ cronenberg.charts = {
             .removeQuery('format')
             .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
             .setQuery('vtitle', item.options.yAxisLabel)
-            .setQuery('title', item.title)
-            .href();
-        return composer_url;
+            .setQuery('title', options.showTitle ? item.title : '');
+        if (item.item_type == 'stacked_area_chart') {
+            composer_url.setQuery('areaMode', 'stacked');
+        }
+        return composer_url.href();
     },
 
 
