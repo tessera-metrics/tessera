@@ -4,8 +4,8 @@ cronenberg.charts = {
        Graphite Helpers
        ----------------------------------------------------------------------------- */
 
-    getPalette: function(name) {
-        return cronenberg.charts.colors[name || cronenberg.charts.defaultPalette];
+    get_palette: function(name) {
+        return cronenberg.charts.colors[name || cronenberg.charts.DEFAULT_PALETTE];
     },
 
     simple_line_chart_url: function(item, options) {
@@ -20,7 +20,7 @@ cronenberg.charts = {
             .setQuery('hideLegend', 'true')
             .setQuery('hideAxes', 'true')
             .setQuery('margin', '0')
-            .setQuery('colorList', cronenberg.charts.getPalette(item.options.palette).join())
+            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
             .href();
         console.log(options.palette);
         return png_url;
@@ -39,8 +39,9 @@ cronenberg.charts = {
             .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
             .setQuery('hideLegend', options.hideLegend || 'false')
             .setQuery('hideAxes', options.hideAxes || 'false')
-            .setQuery('colorList', cronenberg.charts.getPalette(item.options.palette).join())
+            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
             .setQuery('vtitle', item.options.yAxisLabel)
+            .setQuery('title', item.options.showTitle ? item.title : '')
             .href();
         console.log(options.palette);
         return png_url;
@@ -60,19 +61,36 @@ cronenberg.charts = {
             .setQuery('hideLegend', options.hideLegend || 'false')
             .setQuery('hideAxes', options.hideAxes || 'false')
             .setQuery('areaMode', 'stacked')
-            .setQuery('colorList', cronenberg.charts.getPalette(item.options.palette).join())
+            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
             .setQuery('vtitle', item.options.yAxisLabel)
+            .setQuery('title', item.options.showTitle ? item.title : '')
             .href();
         console.log(options.palette);
         return png_url;
     },
 
+    composer_url: function(item, options) {
+        var options = options || {};
+        var data_url = cronenberg.dashboards.current.findQueryForPresentation(item);
+        var composer_url = URI(data_url)
+            .filename('composer')
+            .removeQuery('format')
+            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
+            .setQuery('vtitle', item.options.yAxisLabel)
+            .setQuery('title', item.title)
+            .href();
+        console.log(options.palette);
+        return composer_url;
+    },
+
+
     /* -----------------------------------------------------------------------------
        Charts
        ----------------------------------------------------------------------------- */
 
-    autoHideLegendThreshold: 6,
-    defaultPalette: 'spectrum6',
+
+    DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD: 6,
+    DEFAULT_PALETTE: 'spectrum6',
 
     simple_line_chart: function(e, series, options_) {
         var self = this;
@@ -93,7 +111,7 @@ cronenberg.charts = {
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
-                .color(cronenberg.charts._color_function(options.palette || self.defaultPalette))
+                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
                 .margin(options.margin || { top: 0, right: 16, bottom: 0, left: 40 })
                 .width(width)
                 .height(height);
@@ -118,7 +136,7 @@ cronenberg.charts = {
             };
         });
         var showLegend = options.showLegend !== false;
-        if (list_of_series.length > self.autoHideLegendThreshold) {
+        if (list_of_series.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
             showLegend = false;
         }
         nv.addGraph(function() {
@@ -133,7 +151,7 @@ cronenberg.charts = {
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
-                .color(cronenberg.charts._color_function(options.palette || self.defaultPalette))
+                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
                 .margin(options.margin || { top: 12, right: 16, bottom: 16, left: 40 })
                 .width(width)
                 .height(height);
@@ -163,7 +181,7 @@ cronenberg.charts = {
             };
         });
         var showLegend = options.showLegend !== false;
-        if (list_of_series.length > self.autoHideLegendThreshold) {
+        if (list_of_series.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
             showLegend = false;
         }
         nv.addGraph(function() {
@@ -176,7 +194,7 @@ cronenberg.charts = {
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
-                .color(cronenberg.charts._color_function(options.palette || self.defaultPalette))
+                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
                 .style(options.style || 'stack')
                 .width(width)
                 .height(height)
@@ -210,7 +228,7 @@ cronenberg.charts = {
             };
         });
         /* var showLegend = options.showLegend !== false;
-        if (list_of_series.length > self.autoHideLegendThreshold) {
+        if (list_of_series.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
             showLegend = false;
         } */
         nv.addGraph(function() {

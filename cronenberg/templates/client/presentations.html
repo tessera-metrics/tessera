@@ -28,23 +28,23 @@
   cronenberg.dashboards.onDashboardLoaded(function(d) {
       $('ul.ds-action-menu li').click(function(event) {
           var presentation_id = $(this).parent().parent().parent().parent().parent()[0].id;
-          var item = cronenberg.dashboards.current.dashboard.elementToItemMap[presentation_id];
+          var item = cronenberg.dashboards.current.findPresentationForElement(presentation_id);
           // console.log(item);
           console.log(this);
           switch (this.getAttribute('data-ds-action')) {
           case 'open-in-graphite':
-              var query = cronenberg.dashboards.current.dashboard.definition.queries[item.query_name];
-              var compose_url = URI(query).filename('compose').removeQuery('format').href();
-              var png_url = URI(query)
-                  .setQuery('format', 'png')
-                  .setQuery('height', 600)
-                  .setQuery('width', 1200)
-                  .setQuery('bgcolor', 'white')
-                  .setQuery('fgcolor', 'gray')
-                  .setQuery('majorGridLineColor', '#dddddd')
-                  .setQuery('minorGridLineColor', '#eeeeee')
-                  .href();
-              console.log(png_url);
+              var composer_url = cronenberg.charts.composer_url(item);
+              window.open(composer_url);
+              break;
+          case 'export-png':
+              // TODO -- need a single function to return the right chart URL for any item
+              var image_url = cronenberg.charts.standard_line_chart_url(item, { showTitle: true });
+              window.open(image_url);
+              break;
+          case 'export-svg':
+              // TODO -- need a single function to return the right chart URL for any item
+              var image_url = cronenberg.charts.standard_line_chart_url(item, { showTitle: true, format: 'svg' });
+              window.open(image_url);
               break;
           }
       });
