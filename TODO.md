@@ -102,9 +102,11 @@
 ### Actions/Drilldowns
 
 - Add action menu to some presentations
-  - Hide in fullscreen
-  - Open in Graphite Composer
-    - take the render URL and replace ``/render`` with ``/composer`` and remove ``format=json``
+  - have a single function for graphite render URL that dispatches on item type
+  - replace graphite SVG export w/D3 SVG
+  - ~~Hide in fullscreen~~
+  - ~~Open in Graphite Composer~~
+    - ~~take the render URL and replace ``/render`` with ``/composer`` and remove ``format=json``~~
 
 ### Editing
 
