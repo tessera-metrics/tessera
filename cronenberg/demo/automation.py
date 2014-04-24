@@ -64,7 +64,7 @@ def demo_automation_overview():
                                   presentation=SingleStat(title='Mean End to End Delivery Time',
                                                           query_name='end_to_end',
                                                           units=' ms',
-                                                          format=',.2f',
+                                                          format=',.0f',
                                                           transform='mean')),
                              Cell(span=8, presentation=SimpleTimeSeries(query_name='end_to_end')))
                         ,Heading('Trigger Details', description='Breakdown between immediate and historical')
