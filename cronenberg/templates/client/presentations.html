@@ -349,7 +349,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
        >
   {{#if item.style}}<div class="{{style_class item}}">{{/if}}
 
-  {{#each item.presentation}}
+  {{#each item.items}}
     {{item this}}
   {{/each}}
 
@@ -363,7 +363,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 <script id="ds-tmpl-row" data-ds-item-type="row" type="text/x-handlebars-template">
   {{#if item.style}}<div class="{{style_class item}}">{{/if}}
   <div class="row ds-row">
-    {{#each item.cells}}
+    {{#each item.items}}
       {{item this}}
     {{/each}}
   </div>
@@ -375,11 +375,9 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
   -->
 <script id="ds-tmpl-dashboard" data-ds-item-type="dashboard" type="text/x-handlebars-template">
   <div class="container">
-    {{#with item.grid}}
-      {{#each rows}}
-        {{item this}}
-      {{/each}}
-    {{/with}}
+    {{#each item.grid.items}}
+      {{item this}}
+    {{/each}}
   </div>
 </script>
 
