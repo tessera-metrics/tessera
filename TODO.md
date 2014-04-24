@@ -115,7 +115,7 @@
 - display count of presentations
 - basic info updates (title, category, tags)
 - Update dashboard list
-  - display dashboard counts in tag selector
+  - ~~display dashboard counts in tag selector~~
   - ~~render client side~~
   - ~~better presentation (2 lines per entry, title, last modified time)~~
   - action menu on each row, to delete or duplicate (or others)
@@ -140,8 +140,8 @@
   - [uberVU grid](https://github.com/uberVU/grid)
   - [gridster.js](https://github.com/ducksboard/gridster.js)
   - [jquery.shapeshift](https://github.com/McPants/jquery.shapeshift)
-- integrate a notification/alert lib for error messages & general notifications. 
-    - [messenger](http://github.hubspot.com/messenger/docs/welcome/) 
+- integrate a notification/alert lib for error messages & general notifications.
+    - [messenger](http://github.hubspot.com/messenger/docs/welcome/)
     - [bootstrap-growl](http://bootstrap-growl.remabledesigns.com/)
     - [pnotify](http://sciactive.com/pnotify/)
 - custom time range picker
@@ -181,7 +181,7 @@
   - user preferences
 - integrate some proper JS build-fu to minify and compress all the
   javascript, etc...
-- import of gdash dashboards. Hmm - gdash has no API. So, not likely. 
+- import of gdash dashboards. Hmm - gdash has no API. So, not likely.
 - ~~import of graphite built-in dashboards~~
 - ~~start with anonymous, non-persistent sessions. ~~
 - ~~excise dependence on toolbox's graphite classes entirely (partway there already) ~~
