@@ -208,19 +208,27 @@ h1 .ds-secondary-title {
     margin-top: 0;
 }
 
-.ds-singlegraph p {
+.ds-singlegraph {
     font-weight: bold;
-    margin-top: -3.75em;
-    //font-size: 1.2em;
+    // margin-top: -3.75em;
 }
 
-.ds-singlegraph p span.ds-label {
-  font-size: 1.2em;
+.ds-singlegraph span.ds-label {
+    display: block;
+    position: absolute;
+    z-index: 10000;
+    font-size: 1.2em;
+    left: 20px;
+    bottom: 1.5em;
+    width: 75%;
+    text-shadow: 1px 1px #dfdfff;
 }
 
-.ds-singlegraph p span.value {
-  font-size: 5em;
-  float: right;
-  margin-top: -0.85em;
-  margin-right: 10px;
+.ds-singlegraph span.value {
+    display: block;
+    position: absolute;
+    z-index: 10000;
+    font-size: 4.5em;
+    top: -20px;
+    right: 20px;
 }
