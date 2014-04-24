@@ -59,6 +59,7 @@ cronenberg.charts = {
             .setQuery('hideLegend', 'true')
             .setQuery('hideAxes', 'true')
             .setQuery('areaMode', 'stacked')
+            .setQuery('margin', '0')
             .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
             .href();
         return png_url;
