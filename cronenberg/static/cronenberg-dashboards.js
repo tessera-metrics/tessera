@@ -2,6 +2,23 @@ cronenberg.DashboardHolder = function(url_, element_) {
     this.url = url_;
     this.dashboard = null;
     this.element = element_;
+    this.elementToItemMap = {};
+
+    this.findPresentationForElement = function(element_id) {
+        var self = this;
+        return self.elementToItemMap[element_id];
+    };
+
+    this.findQueryForElement = function(element_id) {
+        var self = this;
+        var presentation = self.findPresentationForElement(element_id);
+        return self.findQueryForPresentation(presentation);
+    };
+
+    this.findQueryForPresentation = function(presentation) {
+        var self = this;
+        return self.dashboard.definition.queries[presentation.query_name];
+    };
 
     this.setRange = function(from, until) {
         var self = this;
@@ -52,23 +69,23 @@ cronenberg.DashboardManager = function() {
      */
     this.load = function(url, element) {
         var self = this;
-        self.current = new cronenberg.DashboardHolder(url, element);
+        var holder = new cronenberg.DashboardHolder(url, element);
+        self.current = holder;
         $.ajax({
             dataType: "json",
             url: url
         }).done(function(data) {
             var dashboard = data
-            self.current.dashboard = dashboard;
+            holder.dashboard = dashboard;
 
             // Build a map from the presentation elements to their
             // model objects.
-            dashboard.elementToItemMap = {};
             dashboard.definition.grid.rows.map(function(row) {
                 if (row.item_type == 'row') {
                     row.cells.forEach(function(cell) {
                         cell.presentation.forEach(function(presentation) {
                             if (typeof(presentation.element_id) != "undefined") {
-                                dashboard.elementToItemMap[presentation.element_id] = presentation;
+                                holder.elementToItemMap[presentation.element_id] = presentation;
                             }
                         });
                     });
@@ -83,9 +100,9 @@ cronenberg.DashboardManager = function() {
 
             // Render the dashboard
             var rendered = cronenberg.templates.render_presentation(dashboard.definition);
-            $(self.current.element).html(rendered);
+            $(holder.element).html(rendered);
 
-            var currentURL = URI(self.current.url);
+            var currentURL = URI(holder.url);
 
             bean.fire(self, cronenberg.events.RANGE_CHANGED, {
                 from: currentURL.query('from'),

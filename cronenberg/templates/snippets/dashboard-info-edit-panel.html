@@ -1,9 +1,18 @@
-<div class="alert alert-info" data-ds-edit-mode="show" style="display:none; margin-top:1em;">
-  <div class="row">
-    <div class="col-md-12">
-      <p>
-        <h2><i class="fa fa-lg fa-wrench"></i> Coming soon to a dashboard near you</h2>
-      </p>
+{% include "client/edit.html" %}
+
+<div class="alert alert-warning" data-ds-edit-mode="show" style="display:none; margin-top:1em;">
+  <div class="ds-dashboard-info-edit-panel">
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          <h2><i class="fa fa-lg fa-wrench"></i> Coming soon to a dashboard near you</h2>
+        </p>
+      </div>
     </div>
   </div>
 </div>
+<script>
+cronenberg.onEnterEditMode(function() {
+    $(".ds-dashboard-info-edit-panel").html(cronenberg.templates.edit.infopanel(cronenberg.dashboards.current.dashboard));
+});
+</script>
