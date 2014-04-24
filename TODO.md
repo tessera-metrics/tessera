@@ -1,5 +1,12 @@
 # Tasks
 
+### Build/Organization
+
+- integrate some proper JS build-fu to minify and compress all the
+  javascript, etc...
+- presentations.html is getting out of hand; having each template in a separate file would be good; can also incorporate handlebars pre-compilation for better runtime efficiency
+  - how to handle switching between that and a dev mode w/o the compile step?
+
 ### Optimization
 
 - In non-interactive graph mode, don't evaluate the raw data queries if there are no textual presentations
@@ -186,8 +193,6 @@
 - LDAP integration
   - persistent sessions based on login
   - user preferences
-- integrate some proper JS build-fu to minify and compress all the
-  javascript, etc...
 - import of gdash dashboards. Hmm - gdash has no API. So, not likely.
 - ~~import of graphite built-in dashboards~~
 - ~~start with anonymous, non-persistent sessions. ~~
