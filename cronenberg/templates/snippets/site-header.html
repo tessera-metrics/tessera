@@ -31,7 +31,7 @@ use something like require.js for sanity -->
 <script src="{{ url_for('static', filename='cronenberg-dashboards.js') }}"></script>
 <script src="{{ url_for('static', filename='cronenberg-templates.js') }}"></script>
 
-{% if ctx.get('theme', 'dark', store_in_session=true) == 'light' %}
+{% if ctx.get('theme', 'light', store_in_session=true) == 'light' %}
 <link  href="{{ url_for('static', filename='cronenberg-light.css') }}" rel="stylesheet"></link>
 {% else %}
 <link  href="{{ url_for('static', filename='css/darkstrap.css') }}" rel="stylesheet"></link>
