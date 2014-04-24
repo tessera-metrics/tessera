@@ -56,8 +56,8 @@
   - nvd3: has an [excellent implementation](http://nvd3.org/examples/bullet.html) of
     Stephen Few's [bullet graph](http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf).
   - ``SummationComparisonTable``, compare 2 series w/% change indicator (see stathat)
-  - [tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a
-    singlestat and simple_time_series with fill)
+  - ~~[tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a
+    singlestat and simple_time_series with fill)~~
   - multi-stat version of ``SingleStat`` that flips through them using a
     carousel (i.e. [Slick](http://kenwheeler.github.io/slick) which is
     the......slickest carousel I've found yet).
@@ -209,4 +209,3 @@
   incomplete so far - see
   [here](https://github.com/danneu/darkstrap/issues/17))~~
 - ~~upgrade to jQuery 1.11~~
-
