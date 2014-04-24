@@ -87,6 +87,8 @@ class DashboardItem(object):
             return JumbotronSingleStat.from_json(d)
         elif item_type == 'simple_time_series':
             return SimpleTimeSeries.from_json(d)
+        elif item_type == 'singlegraph':
+            return SingleGraph.from_json(d)
         elif item_type =='standard_time_series':
             return StandardTimeSeries.from_json(d)
         elif item_type == 'stacked_area_chart':
@@ -167,6 +169,24 @@ class SimpleTimeSeries(ChartPresentation):
         super(SimpleTimeSeries, self).__init__(query_name=query_name,
                                                item_type='simple_time_series',
                                                **kwargs)
+    @classmethod
+    def from_json(cls, d):
+        _delattr(d, 'item_type')
+        return cls(**d)
+
+class SingleGraph(ChartPresentation):
+    """A combination of SingleStat and SimpleTimeSeries - displays a
+    single metric as a line graph, with a summation value overlayed
+    (ala Tasseo).
+
+    """
+    def __init__(self, query_name, format=',.1s', transform=Presentation.Transform.MEAN, **kwargs):
+        super(SingleGraph, self).__init__(query_name=query_name,
+                                          item_type=kwargs.get('item_type', 'singlegraph'),
+                                          **kwargs)
+        self.format = format
+        self.transform = transform
+
     @classmethod
     def from_json(cls, d):
         _delattr(d, 'item_type')

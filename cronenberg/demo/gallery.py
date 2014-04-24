@@ -63,6 +63,15 @@ def demo_gallery_dashboard():
                                             'yAxisFormat' : ',.1s'
                                         })
                                     ]))
+                         ,Row(Cell(span=3,
+                                   presentation=Markdown(text='### Single Graph'))
+                              ,Cell(span=3,
+                                    presentation=SingleGraph(height=1, query_name='single1'))
+                              ,Cell(span=3,
+                                    presentation=SingleGraph(height=1, query_name='single2'))
+                              ,Cell(span=3,
+                                    presentation=SingleGraph(height=1, query_name='multiple', index=2))
+                          )
 
                          #
                          # Text Presentations
