@@ -141,6 +141,7 @@ class JumbotronSingleStat(SingleStat):
         return cls(**d)
 
 class ChartPresentation(Presentation):
+    """Base class for all chart presentations."""
     def __init__(self, title='', options=None, interactive=True, **kwargs):
         super(ChartPresentation, self).__init__(**kwargs)
         self.title = title
@@ -157,6 +158,11 @@ class DonutChart(ChartPresentation):
         return cls(**d)
 
 class SimpleTimeSeries(ChartPresentation):
+    """A simple, somewhat abstracted view of a single time series,
+    presented without a lot of chart extras, for high level
+    visualizations.
+
+    """
     def __init__(self, query_name, **kwargs):
         super(SimpleTimeSeries, self).__init__(query_name=query_name,
                                                item_type='simple_time_series',
@@ -167,6 +173,10 @@ class SimpleTimeSeries(ChartPresentation):
         return cls(**d)
 
 class StandardTimeSeries(ChartPresentation):
+    """A multi-series time series line chart, with all the bells and
+    whistles.
+
+    """
     def __init__(self, query_name, **kwargs):
         super(StandardTimeSeries, self).__init__(query_name=query_name,
                                                  item_type='standard_time_series',
@@ -177,6 +187,10 @@ class StandardTimeSeries(ChartPresentation):
         return cls(**d)
 
 class StackedAreaChart(ChartPresentation):
+    """A multi-series stacked time series area chart, with all the bells
+    and whistles and a few extras to boot.
+
+    """
     def __init__(self, query_name, **kwargs):
         super(StackedAreaChart, self).__init__(query_name=query_name,
                                                item_type='stacked_area_chart',
@@ -187,6 +201,7 @@ class StackedAreaChart(ChartPresentation):
         return cls(**d)
 
 class TablePresentation(Presentation):
+    """Base class for all text-table-based presentations."""
     def __init__(self, **kwargs):
         super(TablePresentation, self).__init__(**kwargs)
 
