@@ -87,7 +87,7 @@ cronenberg.charts = {
             .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
             .setQuery('vtitle', item.options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '');
-        if (item.item_type == 'stacked_area_chart') {
+        if (item.item_type === 'stacked_area_chart') {
             composer_url.setQuery('areaMode', 'stacked');
         }
         return composer_url.href();
@@ -274,15 +274,17 @@ cronenberg.charts = {
     _color_function: function(palette_name) {
         var self = this;
         var palette = self.colors[palette_name];
-        return function(d,i) {
+        return function(d, i) {
             return palette[i % palette.length];
         }
     },
 
+    /**
+     * Some color palettes", handily compiled by the Stanford Vis
+     * Group for their Color Palette Analyzer project.
+     * http://vis.stanford.edu/color-names/analyzer/
+     */
     colors: {
-        // Some color palettes", handily compiled by the Stanford Vis
-        // Group for their Color Palette Analyzer project.
-        // http://vis.stanford.edu/color-names/analyzer/
         applespectrum:[ "#2d588a", "#58954c", "#e9a044", "#c12f32", "#723e77", "#7d807f" ],
         appleblue:    [ "#4972a8", "#92b9d8", "#002d64", "#599bcf", "#134d8d" ],
         applebrown:   [ "#8b6c4f", "#c8b68e", "#3b291d", "#ae8e5d", "#713f24" ],

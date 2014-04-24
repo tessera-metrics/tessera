@@ -81,7 +81,7 @@ cronenberg.DashboardManager = function() {
             // Build a map from the presentation elements to their
             // model objects.
             dashboard.definition.grid.rows.map(function(row) {
-                if (row.item_type == 'row') {
+                if (row.item_type === 'row') {
                     row.cells.forEach(function(cell) {
                         cell.presentation.forEach(function(presentation) {
                             if (typeof(presentation.element_id) != "undefined") {

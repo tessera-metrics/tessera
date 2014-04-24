@@ -191,7 +191,6 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 </script>
 <script>
   cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-standard-time-series', dataHandler: function(query, item) {
-
       if (!item.interactive) {
           var element = $('#' + item.element_id + ' svg');
           var png_url = cronenberg.charts.standard_line_chart_url(item, {
@@ -219,8 +218,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
   </div>
 </script>
 <script>
-  cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-stacked-area-chart', dataHandler: function (query, item) {
-
+  cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-stacked-area-chart', dataHandler: function(query, item) {
       if (!item.interactive) {
           var element = $('#' + item.element_id + ' svg');
           var png_url = cronenberg.charts.stacked_area_chart_url(item, {
