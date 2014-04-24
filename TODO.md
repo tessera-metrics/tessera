@@ -44,6 +44,7 @@
 ### Presentations
 
 - New presentations
+  - nvd3 can do combination area/line graphs
   - For very compact dashboards summarizing lots of metrics, could use simple [bootstrap badges](http://getbootstrap.com/components/#badges) for a
     singlestat value, plus actual mini sparklines
     (such as [jquery.sparkline](http://omnipotent.net/jquery.sparkline/#s-about)).
@@ -99,6 +100,13 @@
 
 ### Actions/Drilldowns
 
+- create some demo dashboards with drilldown explorations
+  - time shifting
+    - ``SummationComparisonTable`` will be a good one to add for that
+  - percentile expansion
+  - moving averages/medians
+  - mostDeviant
+  - scan obfuscurity's blog and teh int3rwebz for interesting graphite tricks that could be automated
 - Add action menu to some presentations
   - replace graphite SVG export w/D3 SVG
   - ~~have a single function for graphite render URL that dispatches on item type~~
