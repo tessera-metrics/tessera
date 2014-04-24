@@ -224,9 +224,22 @@ def api_tag_list():
     """Listing for all tags.
 
     """
+    sql = 'SELECT tag.id, tag.name, tag.description, count(*)' \
+    + ' FROM dashboard_tags' \
+    + ' INNER JOIN tag' \
+    + ' ON dashboard_tags.tag_id = tag.id' \
+    + ' GROUP BY tag.id'
+
+    tags = []
+    for row in db.engine.execute(sql):
+        tag = database.Tag(name=row[1], description=row[2], count=row[3])
+        tag.id = row[0]
+        tags.append(tag)
+
     return _jsonify({
-        'tags' : [t.to_json() for t in database.Tag.query.all()]
+        'tags' : tags
     })
+
 
 @app.route('/api/dashboard/<id>/tags', methods=['PUT'])
 def api_dashboard_update_tags(id):
