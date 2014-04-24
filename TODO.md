@@ -115,6 +115,7 @@
 - display count of presentations
 - basic info updates (title, category, tags)
 - Update dashboard list
+  - display dashboard counts in tag selector
   - ~~render client side~~
   - ~~better presentation (2 lines per entry, title, last modified time)~~
   - action menu on each row, to delete or duplicate (or others)
