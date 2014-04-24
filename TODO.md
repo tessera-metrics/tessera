@@ -22,8 +22,8 @@
   classes
 - Refactor how from_json() works, maybe a metaclass or somesuch, to
   cut down on the janky dispatching
-- more sophisticated persistence (i.e. SQLAlchemy or somesuch) that
-  would allow tagging and searching by tag
+- ~~more sophisticated persistence (i.e. SQLAlchemy or somesuch) that
+  would allow tagging and searching by tag~~
 - only dashboards are named entities right now. Presentations should
   *optionally* be named entities, so they can be reused between
   dashboards w/o duplication (ditto queries).
