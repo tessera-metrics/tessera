@@ -125,7 +125,7 @@ cronenberg.QueryRegistry = function() {
 
     this.add = function(name, url) {
         var self = this;
-        query = new cronenberg.Query(name, url);
+        var query = new cronenberg.Query(name, url);
         self.registry[name] = query;
         return self;
     };
