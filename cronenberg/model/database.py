@@ -74,16 +74,19 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
     description = db.Column(db.String(200))
+    count = None
 
-    def __init__(self, name, description=None):
+    def __init__(self, name, description=None, count=None, **kwargs):
         self.name = name
         self.description = description
+        self.count = count
 
     def to_json(self):
         return {
             'id' : self.id,
             'name' : self.name,
-            'description' : self.description
+            'description' : self.description,
+            'count' : self.count
         }
 
     @classmethod
