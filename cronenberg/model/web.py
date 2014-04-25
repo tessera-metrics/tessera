@@ -307,9 +307,14 @@ class Row(DashboardContainer):
 
 
 class Section(DashboardContainer):
-    def __init__(self, is_container=False, items=None, **kwargs):
+    class Layout:
+        FIXED = 'fixed'
+        FLUID = 'fluid'
+        NONE = 'none'
+
+    def __init__(self, layout=Layout.FIXED, items=None, **kwargs):
         super(Section, self).__init__(items=items, item_type='section', **kwargs)
-        self.is_container = is_container
+        self.layout = layout
 
     @classmethod
     def from_json(cls, d):
