@@ -3,29 +3,36 @@
 <script id="ds-tmpl-dashboard-listing-entry" type="text/x-handlebars-template">
   <tr>
     <td>
-      <div class="pull-left">
-        <a href="/dashboards/{{id}}">
-          {{category}} /
-          <strong>
-            {{title}}
-          </strong>
-          {{#if description}}
-          <br/>
-          <small>{{description}}</small>
-          {{/if}}
-        </a><br/>
-        Last modified {{last_modified}}.
-      </div>
+      <div class="row">
+        <div class=""> <!-- col-md-1 -->
+          <!-- <a href="/dashboards/{{id}}"><i class="fa fa-2x fa-dashboard"></i></a> -->
+        </div>
+        <div class="col-md-12">
+          <div class="pull-left">
+            <a href="/dashboards/{{id}}">
+              {{category}} /
+              <strong>
+                {{title}}
+              </strong>
+              {{#if description}}
+              <br/>
+              <small>{{description}}</small>
+              {{/if}}
+            </a><br/>
+            Last modified {{last_modified}}.
+          </div>
 
-      <div class="pull-right" style="text-align:right">
-        {{#each tags}}
-        <a href="/dashboards/tagged/{{this}}"><span class="badge badge-primary">{{this}}</span></a>
-        {{/each}}
-        <br/>
-        {{#if imported_from}}
-        <a href="{{imported_from}}" target="_blank"><i class="fa fa-cloud"></i></a><br/>
-        {{/if}}
-      </div>
+          <div class="pull-right" style="text-align:right">
+            {{#each tags}}
+            <a href="/dashboards/tagged/{{this}}"><span class="badge badge-primary">{{this}}</span></a>
+            {{/each}}
+            <br/>
+            {{#if imported_from}}
+            <a href="{{imported_from}}" target="_blank"><i class="fa fa-cloud"></i></a><br/>
+            {{/if}}
+          </div>
+        </div>
+      </div> <!-- row -->
     </td>
   </tr>
 </script>
