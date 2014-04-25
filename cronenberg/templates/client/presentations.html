@@ -390,13 +390,11 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
      TEMPLATE: Top-level dashboard.
   -->
 <script id="ds-tmpl-dashboard" data-ds-item-type="dashboard" type="text/x-handlebars-template">
-<div class="container">
   <div class="{{css_class item}}">
     {{#each item.items}}
       {{item this}}
     {{/each}}
   </div>
-</div>
 </script>
 
 <script>

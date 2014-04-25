@@ -79,13 +79,27 @@ def demo_gallery_dashboard():
                                               items=SingleGraph(height=1, query_name='single2')),
                                          Cell(span=3,
                                               items=SingleGraph(height=1, query_name='multiple', index=2))
-                                     ]),
+                                     ])
+                                 ]),
+                        Section(is_container=False,
+                                css_class='bs-callout bs-callout-neutral',
+                                items=[
+                                    Heading(text='Breakout!', description="Items don't have to be confined to the fixed width grid"),
+                                    Separator(),
+                                    StackedAreaChart(query_name='multiple', height=3, options={
+                                        'style' : 'stream',
+                                        'margin' : margin,
+                                        'yAxisFormat' : ',.1s'
+                                    })
+                                ]),
+                        Section(is_container=True,
+                                items=[
 
                                      #
                                      # Text Presentations
                                      #
 
-                                     Separator(),
+                                    Separator(),
                                      Heading(text='Text Presentations', description='Various ways of calling out data'),
                                      Separator(),
                                      Row(items=[
