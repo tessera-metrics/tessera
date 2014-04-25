@@ -46,6 +46,8 @@ class GraphiteDashboardImporter(object):
                                        tags=[database.Tag('imported'), database.Tag('from:graphite-web')],
                                        imported_from = '{0}/dashboard/{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
         definition = DashboardDefinition()
+        section = Section(is_container=True)
+        definition.items.append(section)
         row = Row()
         for graph in graphite_dashboard['graphs']:
             # Graphite's dashboard API is so redundant. Each graph is
@@ -73,10 +75,9 @@ class GraphiteDashboardImporter(object):
                 presentation.options['yAxisLabel'] = options['vtitle']
                 presentation.options['yShowMaxMin'] = True
             presentation.options['margin'] = { 'top' : 16, 'left' : 80, 'right' : 0, 'bottom' : 16}
-            row.cells.append(Cell(span=6, presentation=presentation))
-            if len(row.cells) == 2:
-                definition.grid.rows.append(row)
+            row.items.append(Cell(span=6, items=presentation))
+            if len(row.items) == 2:
+                section.items.append(row)
                 row = Row()
-                row.cells = []
         dashboard.definition = database.DashboardDef(definition=dumps(definition))
         return dashboard
