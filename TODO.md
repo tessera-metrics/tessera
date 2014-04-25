@@ -150,7 +150,7 @@
 
 ### UI
 
-- [bootbox](http://bootboxjs.com/) could potentially remove a lot of markup for modals
+- ~~[bootbox](http://bootboxjs.com/) could potentially remove a lot of markup for modals~~
 - Grid alternatives. Other ways of laying out the dashboard grid, as an alternative to the
   bootstrap CSS grid. Some of these are interactive, with possibilities for editing.
   - [Nested](http://suprb.com/apps/nested/)
