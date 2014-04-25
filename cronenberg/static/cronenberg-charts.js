@@ -266,6 +266,8 @@ cronenberg.charts = {
                 .options({
                     showLegend: showLegend,
                     useInteractiveGuideline: options.useInteractiveGuideline !== false,
+                    showXAxis: options.showXAxis !== false,
+                    showYAxis: options.showYAxis !== false,
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
