@@ -28,7 +28,8 @@ def demo_automation_overview():
                         'stacked_test': 'group(alias(sumSeries(servers.{s0306,s0307}.rash.triggers-fulfillment.pushpayloadmetrics.pushcount.all.Count),"All Push Count"),alias(diffSeries(sumSeries(servers.{s0306,s0307}.rash.triggers-fulfillment.pushpayloadmetrics.pushcount.all.Count),sumSeries(servers.{s0306,s0307}.rash.triggers-fulfillment.pushpayloadmetrics.pushfeaturetype_richpush.payload.Count)),"Regular Push Count"),alias(sumSeries(servers.{s0306,s0307}.rash.triggers-fulfillment.pushpayloadmetrics.pushfeaturetype_richpush.payload.Count),"Rich Push Count"))',
                         'total_pushes_sent': 'alias(sumSeries(nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-fulfillment.pushfulfillmenthandler.total_push_count.Count),nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-fulfillment.delayedpushfulfillmenthandler.total_delayed_push_count.Count)),"Push Count")'
                     },
-                    items=Section(is_container=True,
+                    items=[
+                        Section(is_container=True,
                                   items=[
                                       Row(items=[
                                           Cell(span=3, style=DashboardItem.Style.WELL, align='center',
@@ -52,7 +53,15 @@ def demo_automation_overview():
                                                                 format=',.0f',
                                                                 transform='sum'))
                                       ])
-                                      ,Separator()
+                                  ]),
+                        Section(is_container=False,
+                                items=[
+                                    StackedAreaChart(height=4,
+                                                     query_name='total_push_rate')
+                                ]),
+                        Section(is_container=True,
+                                items=[
+                                      Separator()
                                       ,Row(items=[
                                           Cell(span=4,
                                                items=JumbotronSingleStat(height=4,
@@ -132,4 +141,5 @@ def demo_automation_overview():
                                           Cell(span=8,
                                                items=SimpleTimeSeries(query_name='api_rate'))
                                       ])
-                                  ])))))
+                                ])
+                    ]))))
