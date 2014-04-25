@@ -4,6 +4,7 @@
 
 - integrate some proper JS build-fu to minify and compress all the
   javascript, etc...
+  - [browserify](http://browserify.org/) sounds like a leading candidate
 - presentations.html is getting out of hand; having each template in a separate file would be good; can also incorporate handlebars pre-compilation for better runtime efficiency
   - how to handle switching between that and a dev mode w/o the compile step?
 
