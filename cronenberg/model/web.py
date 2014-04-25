@@ -71,6 +71,8 @@ class DashboardItem(object):
         # metaclass.
         item_type = d['item_type']
         _delattr(d, 'item_type')
+
+        # Layouts
         if item_type == 'separator':
             return Separator.from_json(d)
         elif item_type == 'heading':
@@ -79,8 +81,12 @@ class DashboardItem(object):
             return Markdown.from_json(d)
         elif item_type == 'row':
             return Row.from_json(d)
-        elif item_type == 'grid':
-            return Grid.from_json(d)
+        elif item_type == 'section':
+            return Section.from_json(d)
+        elif item_type == 'dashboard':
+            return DashboardDefinition.from_json(d)
+
+            # Presentations
         elif item_type == 'singlestat':
             return SingleStat.from_json(d)
         elif item_type == 'jumbotron_singlestat':
