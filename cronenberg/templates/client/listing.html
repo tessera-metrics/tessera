@@ -32,10 +32,14 @@
               break;
           case 'duplicate':
               // TODO - should have dynamic refresh instead of setting window.location
-              cronenberg.dashboards.duplicate(href, function() { window.location = '/dashboards'; });
+              cronenberg.dashboards.duplicate(href, function() {
+                  window.location.reload();
+              });
               break;
           case 'delete':
-              cronenberg.dashboards.delete_with_confirmation(href);
+              cronenberg.dashboards.delete_with_confirmation(href, function() {
+                  window.location.reload();
+              });
               break;
           }
       });

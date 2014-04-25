@@ -212,7 +212,7 @@ cronenberg.DashboardManager = function() {
         }
     };
 
-    this.delete_with_confirmation = function(href) {
+    this.delete_with_confirmation = function(href, handler) {
         var self = this;
         bootbox.dialog({
             message: "Are you really sure you want to delete this dashboard? Deletion is irrevocable.",
@@ -229,8 +229,7 @@ cronenberg.DashboardManager = function() {
                     label: "Delete",
                     className: "btn-danger",
                     callback: function() {
-                        console.log("Deleting..." + href);
-                        self.delete_dashboard(href);
+                        self.delete_dashboard(href, handler);
                     }
                 }
             }
