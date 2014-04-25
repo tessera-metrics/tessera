@@ -40,6 +40,11 @@ def createdb():
     db.create_all()
 
 @manager.command
+def initdb():
+    createdb()
+    generate()
+
+@manager.command
 def import_graphite_dashboards(query=''):
     log.info('Importing dashboards from graphite')
     importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'])
