@@ -17,6 +17,7 @@ def demo_gallery_dashboard():
                     queries = {
                         'comparison' : 'aliasByNode(group(randomWalkFunction("today"), randomWalkFunction("yesterday")), 0)',
                         'positive' : 'aliasByNode(absolute(group(randomWalkFunction("system"),randomWalkFunction("user"),randomWalkFunction("wait"), randomWalkFunction("io"))), 0)',
+                        'positive2' : 'aliasByNode(absolute(group(randomWalkFunction("cpu1"),randomWalkFunction("cpu2"),randomWalkFunction("cpu3"), randomWalkFunction("cpu4"), randomWalkFunction("cpu5"), randomWalkFunction("cpu6"), randomWalkFunction("cpu7"), randomWalkFunction("cpu8"))), 0)',
                         'multiple' : 'absolute(group(randomWalkFunction("a"),randomWalkFunction("b"),randomWalkFunction("c")))',
                         'single1' : 'absolute(randomWalkFunction("thing1"))',
                         'single2' : 'randomWalkFunction("thing2")'
@@ -86,7 +87,7 @@ def demo_gallery_dashboard():
                                 items=[
                                     Heading(text='Breakout!', description="Items don't have to be confined to the fixed width grid"),
                                     Separator(),
-                                    StackedAreaChart(query_name='multiple', height=3, options={
+                                    StackedAreaChart(query_name='positive2', height=5, options={
                                         'style' : 'stream',
                                         'margin' : margin,
                                         'yAxisFormat' : ',.1s'
