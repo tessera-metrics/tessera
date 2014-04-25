@@ -339,6 +339,9 @@ cronenberg.charts = {
     _color_function: function(palette_name) {
         var self = this;
         var palette = self.colors[palette_name];
+        if (!palette) {
+            palette = self.colors[self.DEFAULT_PALETTE];
+        }
         return function(d, i) {
             return palette[i % palette.length];
         }

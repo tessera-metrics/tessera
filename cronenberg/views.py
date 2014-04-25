@@ -176,6 +176,13 @@ def api_dashboard_update_definition(id):
 
     return _jsonify({ 'ok' : True })
 
+def _set_interactive(item, value):
+    if 'interactive' in item:
+        item['interactive'] = value
+    if 'items' in item:
+        for child in item['items']:
+            _set_interactive(child, value)
+
 @app.route('/api/dashboard/<id>/definition/expanded')
 def api_dashboard_get_expanded(id):
     """Fetch the complete definition of a dashboard and its metadata in a
@@ -193,10 +200,7 @@ def api_dashboard_get_expanded(id):
     interactive = not(_get_param('interactive', 'true').lower() == 'false')
 
     # HACK
-    for row in definition['grid'].get('rows', []):
-        for cell in row.get('cells', []):
-            for presentation in cell.get('presentation', []):
-                presentation['interactive'] = interactive
+    _set_interactive(definition, interactive)
 
     # Make a copy of the query map with all targets rendered to full
     # graphite URLs
