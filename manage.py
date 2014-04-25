@@ -6,6 +6,7 @@ import logging
 from cronenberg import app, db
 from cronenberg.demo import *
 from cronenberg.model import DashboardDefinition
+from cronenberg.model.web import Section
 from cronenberg.importer.graphite import GraphiteDashboardImporter
 
 log = logging.getLogger(__name__)
@@ -45,10 +46,10 @@ def initdb():
     generate()
 
 @manager.command
-def import_graphite_dashboards(query=''):
+def import_graphite_dashboards(query='', layout=Section.Layout.FLUID, columns=4):
     log.info('Importing dashboards from graphite')
     importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'])
-    importer.import_dashboards(query, fluid=True, columns=4)
+    importer.import_dashboards(query, layout=layout, columns=int(columns))
 
 @manager.command
 def dump_graphite_dashboards(query=''):
