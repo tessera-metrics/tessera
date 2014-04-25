@@ -22,7 +22,7 @@ def demo_node_dashboard():
                          'memory_usage' : 'aliasByNode(asPercent(sumSeries(servers.{{ node }}.memory.Active),sumSeries(servers.{{ node }}.memory.MemTotal)),1)',
                          'chef' : 'drawAsInfinite(servers.{{node}}.chef.elapsed)'
                      },
-                     items=Section(is_container=True,
+                     items=Section(layout=Section.Layout.FIXED,
                                    items=[
                                        Row(items=[
                                            Cell(span=4, style=DashboardItem.Style.WELL,

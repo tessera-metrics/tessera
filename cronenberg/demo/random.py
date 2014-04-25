@@ -19,7 +19,7 @@ def demo_random_data_dashboard():
                          'thing3' : 'randomWalkFunction(thing3)',
                          'thing4' : 'randomWalkFunction(thing4)'
                      },
-                     items=Section(is_container=True,
+                     items=Section(layout=Section.Layout.FIXED,
                                    items=[
                                        Heading(text='A Heading',
                                                description='Followed by a separator')
