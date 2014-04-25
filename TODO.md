@@ -74,7 +74,7 @@
 - Updates to existing presentations
   - 2nd Y axis support
     - existing options should change from yAxisLabel, yAxisThis, yAxisThat to an array of axis options
-  - pie/donut chart needs some CSS tweaking for dark mode
+  - ~~pie/donut chart needs some CSS tweaking for dark mode~~
   - allow selection of which columns are display in ``SummationTable``
   - ``JumboTronSinglestat`` is a hack. A properly responsive presentation
     that scales w/size of parent would rock.
@@ -82,9 +82,8 @@
   - threshold to automatically switch to graphite rendering for long
   time windows (SVG rendering in browser gets slow)
   - more options for time formatting
-- New layout options
-  - dashboard sections. Section = separator + heading + rows, collapsible (click on heading)
-    - alternate rendering as tabs
+  - ~~dashboard sections. Section = separator + heading + rows, collapsible (click on heading)~~
+  - tabbed dashboard sections (not as useful as auto-flipping carousel for bigboard displays)
 - ~~titles~~
 - ~~donut/pie charts~~
 - ~~replace use of jquery.number with d3.format. No need to carry around
