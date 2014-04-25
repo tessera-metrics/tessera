@@ -53,11 +53,15 @@ class Dashboard(db.Model):
                 setattr(self, attr, d[attr])
 
     @classmethod
-    def from_json(cls, d):
-        return Dashboard(title=d.get('title'),
-                         category=d.get('category', None),
-                         description=d.get('description', None),
-                         imported_from=d.get('imported_from', None))
+    def from_json(cls, data):
+        tags = []
+        if 'tags' in data:
+            tags = [Tag.canonicalize(t) for t in data['tags']]
+        return Dashboard(title=data.get('title'),
+                         category=data.get('category', None),
+                         description=data.get('description', None),
+                         tags=tags,
+                         imported_from=data.get('imported_from', None))
 
 class DashboardDef(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -90,6 +94,12 @@ class Tag(db.Model):
         }
 
     @classmethod
+    def canonicalize(cls, tag):
+        if isinstance(tag, basestring):
+            tag = Tag(tag)
+        return cls.query.filter_by(name=tag.name).first() or tag
+
+    @classmethod
     def from_json(cls, data):
         return Tag(**data)
 
@@ -106,13 +116,10 @@ class DatabaseManager(object):
     def __init__(self, db):
         self.db = db
 
-    def canonicalize_tag(self, tag):
-        return Tag.query.filter_by(name=tag.name).first() or tag
-
     def store_dashboard(self, d, commit=True):
         # There's undoubtedly a better way to do this
         if d.tags:
-            d.tags = [self.canonicalize_tag(t) for t in d.tags]
+            d.tags = [Tag.canonicalize(t) for t in d.tags]
         d.last_modified_date = datetime.utcnow()
         db.session.add(d)
         if commit:
