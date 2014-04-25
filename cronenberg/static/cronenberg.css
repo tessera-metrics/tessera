@@ -55,6 +55,13 @@ table.table thead .sorting_desc_disabled { background: url('/static/img/datatabl
   background-color: #d9534f;
 }
 
+.bg-neutral {
+    background-color: #f0f0f0;
+}
+.alert-neutral {
+    background-color: #f0f0f0;
+}
+
 /* =============================================================================
    Application Styles
    ============================================================================= */
