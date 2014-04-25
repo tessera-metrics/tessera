@@ -47,6 +47,16 @@ cronenberg.DashboardManager = function() {
     };
 
     /**
+     * Register an event handler for processing the list of dashboards
+     * once they're loaded.
+     */
+    this.onDashboardListLoaded = function(handler) {
+        var self = this;
+        bean.on(self, cronenberg.events.DASHBOARD_LIST_LOADED, handler);
+        return self;
+    };
+
+    /**
      * List all dashboards.
      */
     this.list = function(path, handler) {
@@ -61,6 +71,7 @@ cronenberg.DashboardManager = function() {
                 dashboard.created = moment(dashboard.creation_date).format('MMMM Do YYYY');
             });
             handler(data);
+            bean.fire(self, cronenberg.events.DASHBOARD_LIST_LOADED, data);
         });
     };
 
@@ -201,15 +212,45 @@ cronenberg.DashboardManager = function() {
         }
     };
 
+    this.delete_with_confirmation = function(dashboard_href) {
+        var self = this;
+        bootbox.dialog({
+            message: "Are you really sure you want to delete this dashboard? Deletion is irrevocable.",
+            title: "Confirm dashboard delete",
+            buttons: {
+                cancel: {
+                    label: "Cancel",
+                    className: "btn-default",
+                    callback: function() {
+                        // TODO - notification
+                    }
+                },
+                confirm: {
+                    label: "Delete",
+                    className: "btn-danger",
+                    callback: function() {
+                        console.log("Deleting..." + dashboard_href);
+                        self.delete_dashboard(dashboard_href);
+                    }
+                }
+            }
+        });
+    };
+
+    this.delete_dashboard = function(dashboard_href, done_) {
+        var self = this;
+        var done = done_ || function() {
+            window.location = '/dashboards';
+        };
+        $.ajax({
+            url: dashboard_href,
+            type: 'DELETE'
+        }).done(done);
+    };
+
     this.delete_current = function() {
         var self = this;
-        var uri = '/api/dashboard/' + self.current.dashboard.dashboard.id;
-        $.ajax({
-            url: uri,
-            type: 'DELETE'
-        }).done(function() {
-            window.location = '/dashboards';
-        });
+        self.delete_with_confirmation(self.current.dashboard.dashboard.href);
     };
 };
 
