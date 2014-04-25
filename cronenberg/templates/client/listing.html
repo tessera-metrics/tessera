@@ -21,15 +21,15 @@
             Last modified {{last_modified}}.
           </div>
 
-          <div class="pull-right">
-            {{#if imported_from}}
-            <a href="{{imported_from}}" target="_blank">Source: <i class="fa fa-cloud"></i></a><br/>
-            {{/if}}
+          <div class="pull-right" style="text-align:right">
             {{#each tags}}
             <a href="/dashboards/tagged/{{this}}"><span class="badge badge-primary">{{this}}</span></a>
             {{/each}}
+            <br/>
+            {{#if imported_from}}
+            <a href="{{imported_from}}" target="_blank"><i class="fa fa-cloud"></i></a><br/>
+            {{/if}}
           </div>
-
         </td>
       </tr>
       {{else}}
