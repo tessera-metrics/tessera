@@ -60,6 +60,12 @@ export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
 # Install dependencies
 pip install -r requirements.txt
 
+# Create the database
+./manage.py createdb
+
+# Generate the demo dashboards
+./manage.gy generate
+
 # Run it (defaults to http://localhost:5000)
 ./manage.py run
 ```
