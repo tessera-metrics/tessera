@@ -212,7 +212,7 @@ cronenberg.DashboardManager = function() {
         }
     };
 
-    this.delete_with_confirmation = function(dashboard_href) {
+    this.delete_with_confirmation = function(href) {
         var self = this;
         bootbox.dialog({
             message: "Are you really sure you want to delete this dashboard? Deletion is irrevocable.",
@@ -229,21 +229,21 @@ cronenberg.DashboardManager = function() {
                     label: "Delete",
                     className: "btn-danger",
                     callback: function() {
-                        console.log("Deleting..." + dashboard_href);
-                        self.delete_dashboard(dashboard_href);
+                        console.log("Deleting..." + href);
+                        self.delete_dashboard(href);
                     }
                 }
             }
         });
     };
 
-    this.delete_dashboard = function(dashboard_href, done_) {
+    this.delete_dashboard = function(href, done_) {
         var self = this;
         var done = done_ || function() {
             window.location = '/dashboards';
         };
         $.ajax({
-            url: dashboard_href,
+            url: href,
             type: 'DELETE'
         }).done(done);
     };
@@ -251,6 +251,46 @@ cronenberg.DashboardManager = function() {
     this.delete_current = function() {
         var self = this;
         self.delete_with_confirmation(self.current.dashboard.dashboard.href);
+    };
+
+    // Oh this is ugly
+    this.duplicate = function(href, handler) {
+        console.log("Duplicating " + href);
+        // Get dashboard
+        $.get(href, function(data) {
+            var dashboard = data.dashboards[0];
+            dashboard.title = 'Copy of ' + dashboard.title;
+
+            // Get definition
+            $.get(href + '/definition', function(data) {
+                var definition = data.definition;
+                console.log(JSON.stringify(dashboard));
+
+                // Duplicate dashboard
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/dashboard/',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify(dashboard)
+                }).done(function(data) {
+                    var new_href = data.dashboard_href;
+                    // Upload definition to duplicate
+                    $.ajax({
+                        type: 'PUT',
+                        url: new_href + '/definition',
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        data: JSON.stringify(definition)
+                    }).done(function(data) {
+                        // Yay!
+                        if (handler) {
+                            handler();
+                        }
+                    });
+                });
+            });
+        });
     };
 };
 

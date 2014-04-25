@@ -14,7 +14,7 @@
     <ul class="dropdown-menu dropdown-menu-right ds-action-menu" role="menu" data-ds-href="{{href}}">
       <li data-ds-action="open"><a href="#"><i class="fa fa-external-link"></i> Open</a></li>
       <li class="disabled" data-ds-action="edit"><a href="#"><i class="fa fa-edit"></i> Edit&hellip;</a></li>
-      <li class="disabled" data-ds-action="duplicate"><a href="#"><i class="fa fa-copy"></i> Duplicate&hellip;</a></li>
+      <li data-ds-action="duplicate"><a href="#"><i class="fa fa-copy"></i> Duplicate&hellip;</a></li>
       <li class="divider"/>
       <li  data-ds-action="delete"><a href="#"><i class="fa fa-trash-o"></i> Delete&hellip;</a></li>
     </ul>
@@ -29,6 +29,10 @@
           switch (action) {
           case 'open':
               window.location = URI(href).directory('/dashboards').href();
+              break;
+          case 'duplicate':
+              // TODO - should have dynamic refresh instead of setting window.location
+              cronenberg.dashboards.duplicate(href, function() { window.location = '/dashboards'; });
               break;
           case 'delete':
               cronenberg.dashboards.delete_with_confirmation(href);

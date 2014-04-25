@@ -125,8 +125,7 @@ def api_dashboard_create():
     """Create a new dashboard with an empty definition.
 
     """
-    body = json.loads(request.data)
-    dashboard = database.Dashboard.from_json(body)
+    dashboard = database.Dashboard.from_json(request.json)
     dashboard.definition = database.DashboardDef(dumps(DashboardDefinition()))
     mgr.store_dashboard(dashboard)
     # TODO - return 201 with URL of created dashboard
