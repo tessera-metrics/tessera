@@ -92,7 +92,7 @@ cronenberg.DashboardManager = function() {
 
             // Build a map from the presentation elements to their
             // model objects.
-            self._process_item_ids(dashboard.definition.items, holder.elementToItemMap);
+            self._process_item_ids(dashboard.definition, holder.elementToItemMap);
 
             // Set up the queries
             cronenberg.queries.clear();
