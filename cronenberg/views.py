@@ -80,15 +80,23 @@ def _get_param(name, default=None, store_in_session=False):
 #
 # =============================================================================
 
+def _dashboards_response(dashboards):
+    for dash in dashboards:
+        id = dash['id']
+        dash['href'] = '/api/dashboard/{0}'.format(id)
+        dash['view_href'] = '/dashboards/{0}'.format(id)
+    return _jsonify({
+        'dashboards' : dashboards
+    })
+
 @app.route('/api/dashboard/')
 def api_dashboard_list():
     """Listing for all dashboards. Returns just the metadata, not the
     definitions.
 
     """
-    return _jsonify({
-        'dashboards' : [d.to_json() for d in database.Dashboard.query.all()]
-    })
+    dashboards = [d.to_json() for d in database.Dashboard.query.all()]
+    return _dashboards_response(dashboards)
 
 @app.route('/api/dashboard/tagged/<tag>')
 def api_dashboard_list_tagged(tag):
@@ -97,19 +105,16 @@ def api_dashboard_list_tagged(tag):
 
     """
     tag = database.Tag.query.filter_by(name=tag).first()
-    return _jsonify({
-        'dashboards' : [d.to_json() for d in tag.dashboards if tag]
-    })
-
+    dashboards = [d.to_json() for d in tag.dashboards if tag]
+    return _dashboards_response(dashboards)
 
 @app.route('/api/dashboard/<id>')
 def api_dashboard_get(id):
     """Get the metadata for a single dashboard.
 
     """
-    return _jsonify({
-        'dashboards' : [database.Dashboard.query.get_or_404(id).to_json()]
-    })
+    dashboards = [database.Dashboard.query.get_or_404(id).to_json()]
+    return _dashboards_response(dashboards)
 
 @app.route('/api/dashboard/', methods=['POST'])
 def api_dashboard_create():
@@ -120,6 +125,7 @@ def api_dashboard_create():
     dashboard = database.Dashboard.from_json(body)
     dashboard.definition = database.DashboardDef(dumps(DashboardDefinition()))
     mgr.store_dashboard(dashboard)
+    # TODO - return 201 with URL of created dashboard
     return _jsonify({ 'ok' : True })
 
 @app.route('/api/dashboard/<id>', methods=['PUT'])
@@ -151,8 +157,11 @@ def api_dashboard_get_definition(id):
 
     """
     dashboard = database.Dashboard.query.filter_by(id=id)[0]
+    definition = database.Dashboard.query.get_or_404(id).definition.to_json()
+    definition['href'] = '/api/dashboard/{0}/definition'.format(id)
+    definition['dashboard_href'] = '/api/dashboard/{0}'.format(id)
     return _jsonify({
-        'definition' : database.Dashboard.query.get_or_404(id).definition.to_json()
+        'definition' : definition
     })
 
 @app.route('/api/dashboard/<id>/definition', methods=['PUT'])
@@ -195,6 +204,12 @@ def api_dashboard_get_expanded(id):
     """
     dash        = database.Dashboard.query.get_or_404(id)
     definition  = dash.definition.to_json()
+    id          = dash.id
+
+    # TODO - consolidate all this in one location
+    definition['href'] = '/api/dashboard/{0}/definition'.format(id)
+    definition['dashboard_href'] = '/api/dashboard/{0}'.format(id)
+
     from_time   = _get_param('from', app.config['DEFAULT_FROM_TIME'])
     until_time  = _get_param('until', None)
     variables   = _get_template_variables(request.args)
@@ -203,8 +218,6 @@ def api_dashboard_get_expanded(id):
     # HACK
     _set_interactive(definition, interactive)
 
-    # Make a copy of the query map with all targets rendered to full
-    # graphite URLs
     for k, v in definition['queries'].iteritems():
         params = [('format', 'json'), ('from', from_time)]
         if until_time:
@@ -219,6 +232,11 @@ def api_dashboard_get_expanded(id):
 
     dash.title = _render_pybars_template(dash.title, variables)
     dash.description = _render_pybars_template(dash.description, variables)
+
+    dash = dash.to_json()
+    dash['href'] = '/api/dashboard/{0}'.format(id)
+    dash['view_href'] = '/dashboards/{0}'.format(id)
+    dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
 
     return _jsonify({
         'dashboard' : dash,
