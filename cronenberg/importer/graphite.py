@@ -39,7 +39,7 @@ class GraphiteDashboardImporter(object):
     def import_dashboard(self, name, **kwargs):
         return self.__convert(self.get_dashboard(name), **kwargs)
 
-    def __convert(self, graphite_dashboard, fluid=False, columns=2):
+    def __convert(self, graphite_dashboard, layout=Section.Layout.FIXED, columns=2):
         span = 12 / columns
         name = graphite_dashboard['name']
         dashboard = database.Dashboard(title=inflection.parameterize(name),
@@ -47,7 +47,7 @@ class GraphiteDashboardImporter(object):
                                        tags=[database.Tag('imported'), database.Tag('from:graphite-web')],
                                        imported_from = '{0}/dashboard/{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
         definition = DashboardDefinition()
-        section = Section(is_container=not fluid)
+        section = Section(layout=layout)
         definition.items.append(section)
 
         # if 'defaultGraphParams' in graphite_dashboard:
