@@ -1,11 +1,17 @@
 # Tasks
 
-### Third Party Components
+### Build/Organization
 
-- ~~upgrade to bootstrap3 (darkstrap support is only unofficial and
-  incomplete so far - see
-  [here](https://github.com/danneu/darkstrap/issues/17))~~
-- ~~upgrade to jQuery 1.11~~
+- integrate some proper JS build-fu to minify and compress all the
+  javascript, etc...
+  - [browserify](http://browserify.org/) sounds like a leading candidate
+- presentations.html is getting out of hand; having each template in a separate file would be good; can also incorporate handlebars pre-compilation for better runtime efficiency
+  - how to handle switching between that and a dev mode w/o the compile step?
+
+### Optimization
+
+- In non-interactive graph mode, don't evaluate the raw data queries if there are no textual presentations
+- consider moving to graphite's raw text protocol
 
 ### Model & Persistence
 
@@ -20,18 +26,19 @@
     - or simple link to another dashboard
     - Presentations can have more than one drilldown
 - add standard deviation to summation model
-- refactor API to a flask blueprint to reuse for different model
-  classes
+- ~~refactor API to a flask blueprint to reuse for different model
+  classes~~ Update: nah, maybe not. API surface area is small, and hand-tuning is good. 
 - Refactor how from_json() works, maybe a metaclass or somesuch, to
   cut down on the janky dispatching
-- more sophisticated persistence (i.e. SQLAlchemy or somesuch) that
-  would allow tagging and searching by tag
+- ~~more sophisticated persistence (i.e. SQLAlchemy or somesuch) that
+  would allow tagging and searching by tag~~
 - only dashboards are named entities right now. Presentations should
   *optionally* be named entities, so they can be reused between
   dashboards w/o duplication (ditto queries).
   - templatized presentations should also be named entities
   - that requires queries to be (optionally) named entities too, since
     they're independent of presentations
+  - groups (such as sections, see below) are probably the most useful form of shared building-block.
 - element_id doesn't need to be stored; just generate unique element
   IDs in expanded API view. Current method has chance for collisions.
 - ~~add support for multi-valued queries (graphite URL api supports
@@ -46,8 +53,13 @@
 ### Presentations
 
 - New presentations
+  - ``SummationComparisonTable``, compare 2 series w/% change indicator (see stathat)
   - For very compact dashboards summarizing lots of metrics, could use simple [bootstrap badges](http://getbootstrap.com/components/#badges) for a
     singlestat value, plus actual mini sparklines
+  - multi-stat version of ``SingleStat`` that flips through them using a
+    carousel (i.e. [Slick](http://kenwheeler.github.io/slick) which is
+    the......slickest carousel I've found yet).
+  - nvd3 can do combination area/line graphs
     (such as [jquery.sparkline](http://omnipotent.net/jquery.sparkline/#s-about)).
   - [reD3](http://bugzu.github.io/reD3/) has an interesting [day/hour heatmap](http://bugzu.github.io/reD3/#/heatmap)
   - [punchcard](https://github.com/fogleman/Punchcard) is similar, implementing a github-style punchcard view. In python, so server-side.
@@ -56,12 +68,8 @@
   - nvd3: [multi-bar](http://nvd3.org/examples/multiBar.html) option for time series
   - nvd3: has an [excellent implementation](http://nvd3.org/examples/bullet.html) of
     Stephen Few's [bullet graph](http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf).
-  - ``SummationComparisonTable``, compare 2 series w/% change indicator (see stathat)
-  - [tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a
-    singlestat and simple_time_series with fill)
-  - multi-stat version of ``SingleStat`` that flips through them using a
-    carousel (i.e. [Slick](http://kenwheeler.github.io/slick) which is
-    the......slickest carousel I've found yet).
+  - ~~[tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a
+    singlestat and simple_time_series with fill)~~
   - horizon graphs with [Cubism](http://square.github.io/cubism/)
 - Updates to existing presentations
   - 2nd Y axis support
@@ -70,7 +78,7 @@
   - allow selection of which columns are display in ``SummationTable``
   - ``JumboTronSinglestat`` is a hack. A properly responsive presentation
     that scales w/size of parent would rock.
-  - thresholds for alert colors (i.e. turn value in singlestat yellow/orange/red)
+  - ~~thresholds for alert colors (i.e. turn value in singlestat yellow/orange/red)~~
   - threshold to automatically switch to graphite rendering for long
   time windows (SVG rendering in browser gets slow)
   - more options for time formatting
@@ -101,9 +109,16 @@
 
 ### Actions/Drilldowns
 
+- create some demo dashboards with drilldown explorations
+  - time shifting
+    - ``SummationComparisonTable`` will be a good one to add for that
+  - percentile expansion
+  - moving averages/medians
+  - mostDeviant
+  - scan obfuscurity's blog and teh int3rwebz for interesting graphite tricks that could be automated
 - Add action menu to some presentations
-  - have a single function for graphite render URL that dispatches on item type
   - replace graphite SVG export w/D3 SVG
+  - ~~have a single function for graphite render URL that dispatches on item type~~
   - ~~Hide in fullscreen~~
   - ~~Open in Graphite Composer~~
     - ~~take the render URL and replace ``/render`` with ``/composer`` and remove ``format=json``~~
@@ -179,8 +194,6 @@
 - LDAP integration
   - persistent sessions based on login
   - user preferences
-- integrate some proper JS build-fu to minify and compress all the
-  javascript, etc...
 - import of gdash dashboards. Hmm - gdash has no API. So, not likely.
 - ~~import of graphite built-in dashboards~~
 - ~~start with anonymous, non-persistent sessions. ~~
@@ -188,7 +201,7 @@
 
 ### Bugs
 
-- yAxis labels. probably a JS scoping issue.
+- ~~yAxis labels. probably a JS scoping issue. Nope, it was Python.~~
 - ~~hover! Why do the tables all have hover backgrounds when I haven't
   specified class="table-hover", and why is the background in dark
   mode excessively light?~~
@@ -196,3 +209,10 @@
   - ~~it's the dashboard-height classes. NVD3 renders the svg taller
     than them, so they get clipped. Remove the height classes after
     rendering? patch nvd3?~~
+
+### Third Party Components
+
+- ~~upgrade to bootstrap3 (darkstrap support is only unofficial and
+  incomplete so far - see
+  [here](https://github.com/danneu/darkstrap/issues/17))~~
+- ~~upgrade to jQuery 1.11~~

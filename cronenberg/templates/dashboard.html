@@ -8,65 +8,67 @@
 
 {% block content %}
 
-  <!-- Navigation and toolbar -->
-  <div data-ds-fullscreen="hide">
-    <div>
-      {% include "snippets/breadcrumbs.html" %}
-    </div>
-    {% include "snippets/dashboard-toolbar.html" %}
-    {% include "snippets/dashboard-info-edit-panel.html" %}
-  </div> <!-- end nav and toolbar -->
-
-  <!-- Fullscreen top bar -->
-  <div class="ds-fullscreen-titlebar" data-ds-fullscreen="show" style="display:none">
-    <div class="row">
-
-      <div class="col-md-7">
-        <h1 class="page-title">
-          <span class="ds-primary-title">{{dashboard.category}}</span> <span class="ds-secondary-title">{{dashboard.title}}</span>
-        </h1>
+  <div class="container">
+    <!-- Navigation and toolbar -->
+    <div data-ds-fullscreen="hide">
+      <div>
+        {% include "snippets/breadcrumbs.html" %}
       </div>
+      {% include "snippets/dashboard-toolbar.html" %}
+      {% include "snippets/dashboard-info-edit-panel.html" %}
+    </div> <!-- end nav and toolbar -->
 
-      <div class="col-md-5" align="right">
-        <div class="btn-group pull-right" style="height:4em; padding-top:1em">
-          {% include "snippets/refresh-button.html" %}
-          <button type="button"
-                  data-toggle="tooltip" title="Exit Display Mode"
-                  data-placement="bottom"
-                  onclick="cronenberg.exitFullscreen()"
-                  class="btn btn-default"
-                  style="margin-top: 1em; ">
-                  <i class="fa fa-lg fa-compress"></i>
-          </button>
+    <!-- Fullscreen top bar -->
+    <div class="ds-fullscreen-titlebar" data-ds-fullscreen="show" style="display:none">
+      <div class="row">
+
+        <div class="col-md-7">
+          <h1 class="page-title">
+            <span class="ds-primary-title">{{dashboard.category}}</span> <span class="ds-secondary-title">{{dashboard.title}}</span>
+          </h1>
         </div>
 
-        <div class="pull-right" style="margin-left:1em;margin-right:.5em;margin-top:1.8em;">
-          <ul class="nav nav-pills">
-            <li class="active">
-              <a class="ds-fullscreen-range-indicator">Past Hour</a>
-            </li>
-          </ul>
-        <script>
-          cronenberg.dashboards.onRangeChanged(function(data) {
+        <div class="col-md-5" align="right">
+          <div class="btn-group pull-right" style="height:4em; padding-top:1em">
+            {% include "snippets/refresh-button.html" %}
+            <button type="button"
+                    data-toggle="tooltip" title="Exit Display Mode"
+                    data-placement="bottom"
+                    onclick="cronenberg.exitFullscreen()"
+                    class="btn btn-default"
+                    style="margin-top: 1em; ">
+                    <i class="fa fa-lg fa-compress"></i>
+            </button>
+          </div>
+
+          <div class="pull-right" style="margin-left:1em;margin-right:.5em;margin-top:1.8em;">
+            <ul class="nav nav-pills">
+              <li class="active">
+                <a class="ds-fullscreen-range-indicator">Past Hour</a>
+              </li>
+            </ul>
+            <script>
+              cronenberg.dashboards.onRangeChanged(function(data) {
               var description = cronenberg.dashboards.getRangeDescription(data.from);
               if ( description ) {
-                  $("a.ds-fullscreen-range-indicator").text(description);
+              $("a.ds-fullscreen-range-indicator").text(description);
               }
-          });
-        </script>
-        </div>
+              });
+            </script>
+          </div>
 
-        <div class="ds-time-container pull-right">
-          <h2>{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
-          <h6>{{ ctx.now.strftime("%A") }} {{ ctx.now.strftime("%d %B %Y") }}</h6>
-        </div>
+          <div class="ds-time-container pull-right">
+            <h2>{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
+            <h6>{{ ctx.now.strftime("%A") }} {{ ctx.now.strftime("%d %B %Y") }}</h6>
+          </div>
 
+        </div>
       </div>
-    </div>
-    <hr style="margin:.25em"/>
-  </div> <!-- end fullscreen titlebar -->
+      <hr style="margin:.25em"/>
+    </div> <!-- end fullscreen titlebar -->
 
-  <hr data-ds-fullscreen="hide"/>
+    <hr data-ds-fullscreen="hide"/>
+  </div> <!-- container -->
 
   <div class="ds-grid" id="dashboard"/>
 

@@ -2,28 +2,31 @@
 {% extends "layouts/base.html" %}
 
 {% block pagetitle %}
-  <span class="primary-title">{{config['DASHBOARD_APPNAME']}}</span> <span class="secondary-title">{{title}}</span>
+  <span class="ds-primary-title">{{config['DASHBOARD_APPNAME']}}</span> <span class="ds-secondary-title">{{title}}</span>
 {% endblock %}
 
 {% block content %}
 
-  {% include "snippets/breadcrumbs.html" %}
-  {% include "client/listing.html" %}
+  <div class="container">
 
-  <div class="row">
-    <div class="col-md-8">
-      {% if tag %}
-        <h3>Dashboards</h3>
-      {% else %}
-      <h3>All Dashboards</h3>
-    {% endif %}
-      <div id="ds-dashboard-main-listing"></div>
+    {% include "snippets/breadcrumbs.html" %}
+    {% include "client/listing.html" %}
+
+    <div class="row">
+      <div class="col-md-8">
+        {% if tag %}
+          <h3>Dashboards</h3>
+        {% else %}
+          <h3>All Dashboards</h3>
+        {% endif %}
+        <div id="ds-dashboard-main-listing"></div>
+      </div>
+      <div class="col-md-4">
+        <h3>Tags</h3>
+        <div id="ds-dashboard-tag-listing"></div>
+      </div>
     </div>
-    <div class="col-md-4">
-      <h3>Tags</h3>
-      <div id="ds-dashboard-tag-listing"></div>
-    </div>
-  </div>
+  </div> <!-- container -->
 
   <script>
     {% if tag %}

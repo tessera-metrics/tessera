@@ -22,9 +22,9 @@ class EntityEncoder(json.JSONEncoder):
 def dumps(obj):
     return json.dumps(obj, cls=EntityEncoder, indent=0)
 
-# =============================================================================
-# Presentations
-# =============================================================================
+# -----------------------------------------------------------------------------
+# Dashboard Items
+# -----------------------------------------------------------------------------
 
 def _delattr(dictionary, attr):
     if attr in dictionary:
@@ -87,6 +87,8 @@ class DashboardItem(object):
             return JumbotronSingleStat.from_json(d)
         elif item_type == 'simple_time_series':
             return SimpleTimeSeries.from_json(d)
+        elif item_type == 'singlegraph':
+            return SingleGraph.from_json(d)
         elif item_type =='standard_time_series':
             return StandardTimeSeries.from_json(d)
         elif item_type == 'stacked_area_chart':
@@ -98,6 +100,9 @@ class DashboardItem(object):
         else:
             return Cell.from_json(d)
 
+# -----------------------------------------------------------------------------
+# Presentations
+# -----------------------------------------------------------------------------
 
 class Presentation(DashboardItem):
     class Transform:
@@ -113,6 +118,10 @@ class Presentation(DashboardItem):
         self.query_name = query_name
         self.thresholds = thresholds
 
+
+# -----------------------------------------------------------------------------
+# Text Presentations
+# -----------------------------------------------------------------------------
 
 class SingleStat(Presentation):
     def __init__(self, title, query_name, units='', format=',.3f', index=False, transform=Presentation.Transform.MEAN, **kwargs):
@@ -140,53 +149,8 @@ class JumbotronSingleStat(SingleStat):
         _delattr(d, 'item_type')
         return cls(**d)
 
-class ChartPresentation(Presentation):
-    def __init__(self, title='', options={}, interactive=True, **kwargs):
-        super(ChartPresentation, self).__init__(**kwargs)
-        self.title = title
-        self.options = options
-        self.interactive = interactive
-
-class DonutChart(ChartPresentation):
-    def __init__(self, **kwargs):
-        super(DonutChart, self).__init__(item_type='donut_chart', **kwargs)
-
-    @classmethod
-    def from_json(cls, d):
-        _delattr(d, 'item_type')
-        return cls(**d)
-
-class SimpleTimeSeries(ChartPresentation):
-    def __init__(self, query_name, **kwargs):
-        super(SimpleTimeSeries, self).__init__(query_name=query_name,
-                                               item_type='simple_time_series',
-                                               **kwargs)
-    @classmethod
-    def from_json(cls, d):
-        _delattr(d, 'item_type')
-        return cls(**d)
-
-class StandardTimeSeries(ChartPresentation):
-    def __init__(self, query_name, **kwargs):
-        super(StandardTimeSeries, self).__init__(query_name=query_name,
-                                                 item_type='standard_time_series',
-                                                 **kwargs)
-    @classmethod
-    def from_json(cls, d):
-        _delattr(d, 'item_type')
-        return cls(**d)
-
-class StackedAreaChart(ChartPresentation):
-    def __init__(self, query_name, **kwargs):
-        super(StackedAreaChart, self).__init__(query_name=query_name,
-                                               item_type='stacked_area_chart',
-                                               **kwargs)
-    @classmethod
-    def from_json(cls, d):
-        _delattr(d, 'item_type')
-        return cls(**d)
-
 class TablePresentation(Presentation):
+    """Base class for all text-table-based presentations."""
     def __init__(self, **kwargs):
         super(TablePresentation, self).__init__(**kwargs)
 
@@ -204,58 +168,156 @@ class SummationTable(TablePresentation):
         _delattr(d, 'item_type')
         return cls(**d)
 
-# =============================================================================
-# Layouts
+# -----------------------------------------------------------------------------
+# Chart Presentations
+# -----------------------------------------------------------------------------
 
-class Cell(DashboardItem):
+class ChartPresentation(Presentation):
+    """Base class for all chart presentations."""
+    def __init__(self, title='', options=None, interactive=True, **kwargs):
+        super(ChartPresentation, self).__init__(**kwargs)
+        self.title = title
+        self.options = options or {}
+        self.interactive = interactive
+
+class DonutChart(ChartPresentation):
+    def __init__(self, **kwargs):
+        super(DonutChart, self).__init__(item_type='donut_chart', **kwargs)
+
+    @classmethod
+    def from_json(cls, d):
+        _delattr(d, 'item_type')
+        return cls(**d)
+
+class SimpleTimeSeries(ChartPresentation):
+    """A simple, somewhat abstracted view of a single time series,
+    presented without a lot of chart extras, for high level
+    visualizations.
+
+    """
+    def __init__(self, query_name, filled=False, **kwargs):
+        super(SimpleTimeSeries, self).__init__(query_name=query_name,
+                                               item_type='simple_time_series',
+                                               **kwargs)
+        self.filled = filled
+
+    @classmethod
+    def from_json(cls, d):
+        _delattr(d, 'item_type')
+        return cls(**d)
+
+class SingleGraph(ChartPresentation):
+    """A combination of SingleStat and SimpleTimeSeries - displays a
+    single metric as a line graph, with a summation value overlayed
+    (ala Tasseo).
+
+    """
+    def __init__(self, query_name, format=',.1s', transform=Presentation.Transform.MEAN, **kwargs):
+        super(SingleGraph, self).__init__(query_name=query_name,
+                                          item_type=kwargs.get('item_type', 'singlegraph'),
+                                          **kwargs)
+        self.format = format
+        self.transform = transform
+
+    @classmethod
+    def from_json(cls, d):
+        _delattr(d, 'item_type')
+        return cls(**d)
+
+class StandardTimeSeries(ChartPresentation):
+    """A multi-series time series line chart, with all the bells and
+    whistles.
+
+    """
+    def __init__(self, query_name, **kwargs):
+        super(StandardTimeSeries, self).__init__(query_name=query_name,
+                                                 item_type='standard_time_series',
+                                                 **kwargs)
+    @classmethod
+    def from_json(cls, d):
+        _delattr(d, 'item_type')
+        return cls(**d)
+
+class StackedAreaChart(ChartPresentation):
+    """A multi-series stacked time series area chart, with all the bells
+    and whistles and a few extras to boot.
+
+    """
+    def __init__(self, query_name, **kwargs):
+        super(StackedAreaChart, self).__init__(query_name=query_name,
+                                               item_type='stacked_area_chart',
+                                               **kwargs)
+    @classmethod
+    def from_json(cls, d):
+        _delattr(d, 'item_type')
+        return cls(**d)
+
+# -----------------------------------------------------------------------------
+# Layouts
+# -----------------------------------------------------------------------------
+
+class DashboardContainer(DashboardItem):
+    """Base class for all items that contain other items.
+
+    """
+    def __init__(self, items=None, **kwargs):
+        super(DashboardContainer, self).__init__(**kwargs)
+        if isinstance(items, list):
+            self.items = items
+        elif not items:
+            self.items = []
+        else:
+            self.items = [items]
+
+    @classmethod
+    def _process_items(cls, data):
+        data['items'] = [DashboardItem.from_json(i) for i in data['items']]
+
+
+class Cell(DashboardContainer):
     """Cell defines how to position and size a presentation on the
     grid. Cells should be contained in Rows.
     """
-    def __init__(self, presentation, span, offset=None, align=None, **kwargs):
-        super(Cell, self).__init__(item_type='cell', **kwargs)
-        self.presentation = presentation if isinstance(presentation, list) else [presentation]
+    def __init__(self, items=None, span=3, offset=None, align=None, **kwargs):
+        super(Cell, self).__init__(items=items, item_type='cell', **kwargs)
         self.span = span
         self.offset = offset
         self.align = align
 
     @classmethod
     def from_json(cls, d):
-        d['presentation'] = [DashboardItem.from_json(p) for p in d['presentation']]
+        DashboardContainer._process_items(d)
         _delattr(d, 'item_type')
         return Cell(**d)
 
 
-class Row(DashboardItem):
+class Row(DashboardContainer):
     """A row holds one or more Cells, which span a single row in the
     rendered layout grid. An instance of Row maps directly to a <div
     class="row">...</div>.
     """
-    def __init__(self, *cells, **kwargs):
-        super(Row, self).__init__(item_type='row', **kwargs)
-        self.cells = [] if len(cells) == 0 else cells
+    def __init__(self, items=None, **kwargs):
+        super(Row, self).__init__(items=items, item_type='row', **kwargs)
 
     @classmethod
     def from_json(cls, d):
-        cells = [DashboardItem.from_json(c) for c in d['cells']]
+        DashboardContainer._process_items(d)
         _delattr(d, 'item_type')
-        _delattr(d, 'cells')
-        return Row(*cells, **d)
+        return Row(**d)
 
 
-class Grid(DashboardItem):
-    def __init__(self, *rows, **kwargs):
-        super(Grid, self).__init__(item_type='grid', **kwargs)
-        self.rows = [] if len(rows) == 0 else rows
+class Section(DashboardContainer):
+    def __init__(self, is_container=False, items=None, **kwargs):
+        super(Section, self).__init__(items=items, item_type='section', **kwargs)
+        self.is_container = is_container
 
     @classmethod
     def from_json(cls, d):
         if not d:
-            return Grid()
-        rows = [DashboardItem.from_json(r) for r in d['rows']]
+            return Section()
+        DashboardContainer._process_items(d)
         _delattr(d, 'item_type')
-        _delattr(d, 'rows')
-        return Grid(*rows, **d)
-
+        return Section(**d)
 
 class Separator(DashboardItem):
     """A visual element to separate groups of elements.
@@ -295,13 +357,12 @@ class Markdown(DashboardItem):
         return Markdown(**d)
 
 
-class DashboardDefinition(object):
-    def __init__(self, queries=None, grid=None, item_type='dashboard'):
-        self.item_type = item_type
+class DashboardDefinition(DashboardContainer):
+    def __init__(self, queries=None, items=None, item_type='dashboard', **kwargs):
+        super(DashboardDefinition, self).__init__(items=items, item_type='dashboard', **kwargs)
         self.queries = queries or {}
-        self.grid = grid or Grid()
 
     @classmethod
     def from_json(cls, data):
-        data['grid'] = Grid.from_json(data.get('grid', None))
+        DashboardContainer._process_items(data)
         return DashboardDefinition(**data)

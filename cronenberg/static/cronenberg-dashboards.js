@@ -34,7 +34,7 @@ cronenberg.DashboardHolder = function(url_, element_) {
 };
 
 cronenberg.DashboardManager = function() {
-    this.current = null,
+    this.current = null;
 
     /**
      * Register an event handler for processing a dashboard once it's
@@ -64,6 +64,18 @@ cronenberg.DashboardManager = function() {
         });
     };
 
+    this._process_item_ids = function(item, data) {
+        var self = this;
+        if (item.element_id) {
+            data[item.element_id] = item;
+        }
+        if (item.items) {
+            item.items.map(function(child) {
+                self._process_item_ids(child, data);
+            });
+        }
+    };
+
     /**
      * Load and render a dashboard.
      */
@@ -80,17 +92,7 @@ cronenberg.DashboardManager = function() {
 
             // Build a map from the presentation elements to their
             // model objects.
-            dashboard.definition.grid.rows.map(function(row) {
-                if (row.item_type == 'row') {
-                    row.cells.forEach(function(cell) {
-                        cell.presentation.forEach(function(presentation) {
-                            if (typeof(presentation.element_id) != "undefined") {
-                                holder.elementToItemMap[presentation.element_id] = presentation;
-                            }
-                        });
-                    });
-                }
-            });
+            self._process_item_ids(dashboard.definition, holder.elementToItemMap);
 
             // Set up the queries
             cronenberg.queries.clear();
