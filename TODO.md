@@ -158,6 +158,7 @@
     - [messenger](http://github.hubspot.com/messenger/docs/welcome/)
     - [bootstrap-growl](http://bootstrap-growl.remabledesigns.com/)
     - [pnotify](http://sciactive.com/pnotify/)
+    - [bootstrap-notify](https://github.com/goodybag/bootstrap-notify)
 - custom time range picker
 - configuration for the recent time ranges shown in the easy picker
 - settings page
