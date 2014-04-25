@@ -256,55 +256,68 @@ class StackedAreaChart(ChartPresentation):
 # Layouts
 # -----------------------------------------------------------------------------
 
-class Cell(DashboardItem):
+class DashboardContainer(DashboardItem):
+    """Base class for all items that contain other items.
+
+    """
+    def __init__(self, items=None, **kwargs):
+        super(DashboardContainer, self).__init__(**kwargs)
+        if isinstance(items, list):
+            self.items = items
+        elif not items:
+            self.items = []
+        else:
+            self.items = [items]
+
+    @classmethod
+    def _process_items(cls, data):
+        data['items'] = [DashboardItem.from_json(i) for i in data['items']]
+
+
+class Cell(DashboardContainer):
     """Cell defines how to position and size a presentation on the
     grid. Cells should be contained in Rows.
     """
-    def __init__(self, items, span, offset=None, align=None, **kwargs):
-        super(Cell, self).__init__(item_type='cell', **kwargs)
-        self.items = items if isinstance(items, list) else [items]
+    def __init__(self, items=None, span=3, offset=None, align=None, **kwargs):
+        super(Cell, self).__init__(items=items, item_type='cell', **kwargs)
         self.span = span
         self.offset = offset
         self.align = align
 
     @classmethod
     def from_json(cls, d):
-        d['items'] = [DashboardItem.from_json(p) for p in d['items']]
+        DashboardContainer._process_items(d)
         _delattr(d, 'item_type')
         return Cell(**d)
 
 
-class Row(DashboardItem):
+class Row(DashboardContainer):
     """A row holds one or more Cells, which span a single row in the
     rendered layout grid. An instance of Row maps directly to a <div
     class="row">...</div>.
     """
-    def __init__(self, *items, **kwargs):
-        super(Row, self).__init__(item_type='row', **kwargs)
-        self.items = [] if len(items) == 0 else items
+    def __init__(self, items=None, **kwargs):
+        super(Row, self).__init__(items=items, item_type='row', **kwargs)
 
     @classmethod
     def from_json(cls, d):
-        items = [DashboardItem.from_json(c) for c in d['items']]
+        DashboardContainer._process_items(d)
         _delattr(d, 'item_type')
-        _delattr(d, 'items')
-        return Row(*items, **d)
+        return Row(**d)
 
 
-class Grid(DashboardItem):
-    def __init__(self, *items, **kwargs):
-        super(Grid, self).__init__(item_type='grid', **kwargs)
-        self.items = [] if len(items) == 0 else items
+class Section(DashboardContainer):
+    def __init__(self, is_container=False, items=None, **kwargs):
+        super(Section, self).__init__(items=items, item_type='section', **kwargs)
+        self.is_container = is_container
 
     @classmethod
     def from_json(cls, d):
         if not d:
-            return Grid()
-        items = [DashboardItem.from_json(r) for r in d['items']]
+            return Section()
+        DashboardContainer._process_items(d)
         _delattr(d, 'item_type')
-        _delattr(d, 'items')
-        return Grid(*items, **d)
-
+        return Section(**d)
 
 class Separator(DashboardItem):
     """A visual element to separate groups of elements.
@@ -344,13 +357,12 @@ class Markdown(DashboardItem):
         return Markdown(**d)
 
 
-class DashboardDefinition(object):
-    def __init__(self, queries=None, grid=None, item_type='dashboard'):
-        self.item_type = item_type
+class DashboardDefinition(DashboardContainer):
+    def __init__(self, queries=None, items=None, item_type='dashboard', **kwargs):
+        super(DashboardDefinition, self).__init__(items=items, item_type='dashboard', **kwargs)
         self.queries = queries or {}
-        self.grid = grid or Grid()
 
     @classmethod
     def from_json(cls, data):
-        data['grid'] = Grid.from_json(data.get('grid', None))
+        DashboardContainer._process_items(data)
         return DashboardDefinition(**data)

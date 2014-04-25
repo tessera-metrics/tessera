@@ -362,7 +362,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
   -->
 <script id="ds-tmpl-row" data-ds-item-type="row" type="text/x-handlebars-template">
   {{#if item.style}}<div class="{{style_class item}}">{{/if}}
-  <div class="row ds-row">
+    <div class="row ds-row {{css_class item}}">
     {{#each item.items}}
       {{item this}}
     {{/each}}
@@ -371,14 +371,32 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
 </script>
 
 <!--
+     TEMPLATE: Dashboard sections
+  -->
+<script id="ds-tmpl-section" data-ds-item-type="section" type="text/x-handlebars-template">
+  {{#if item.is_container}}<div class="container">{{/if}}
+    {{#if item.style}}<div class="{{style_class item}}">{{/if}}
+      <div class="{{css_class item}}">
+        {{#each item.items}}
+        {{item this}}
+        {{/each}}
+      </div>
+      {{#if item.style}}</div>{{/if}}
+    {{#if item.is_container}}</div>{{/if}}
+</script>
+
+
+<!--
      TEMPLATE: Top-level dashboard.
   -->
 <script id="ds-tmpl-dashboard" data-ds-item-type="dashboard" type="text/x-handlebars-template">
-  <div class="container">
-    {{#each item.grid.items}}
+<div class="container">
+  <div class="{{css_class item}}">
+    {{#each item.items}}
       {{item this}}
     {{/each}}
   </div>
+</div>
 </script>
 
 <script>
@@ -387,6 +405,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
         .register_presentation({ elementId: 'ds-tmpl-heading' })
         .register_presentation({ elementId: 'ds-tmpl-cell' })
         .register_presentation({ elementId: 'ds-tmpl-row' })
+        .register_presentation({ elementId: 'ds-tmpl-section' })
         .register_presentation({ elementId: 'ds-tmpl-dashboard' });
 </script>
 
