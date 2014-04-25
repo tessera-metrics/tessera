@@ -77,10 +77,6 @@ h1.page-title {
     font-size: 3em;
 }
 
-.ds-grid {
-   margin-top: 1em;
-}
-
 .ds-grid h1 {
     margin-bottom: 0.125em;
 }
@@ -119,7 +115,6 @@ h1.page-title {
 .ds-jumbotron-singlestat div {
     position:relative;
     top: -2em;
-    text-align: right;
 }
 
 .ds-jumbotron-singlestat .unit {
@@ -139,6 +134,7 @@ h1.page-title {
     font-size: 2.5em;
     position: relative;
     top: -1em;
+    right: -1em;
 }
 
 h1 .ds-primary-title {
@@ -206,4 +202,32 @@ h1 .ds-secondary-title {
 .ds-presentation h6 {
     line-height:1;
     margin-top: 0;
+}
+
+.ds-singlegraph {
+    font-weight: bold;
+}
+
+.ds-singlegraph svg {
+    height: 90px;
+}
+
+.ds-singlegraph span.ds-label {
+    display: block;
+    position: absolute;
+    z-index: 10000;
+    font-size: 1.2em;
+    left: 20px;
+    bottom: 1.5em;
+    width: 75%;
+    text-shadow: 1px 1px #dfdfff;
+}
+
+.ds-singlegraph span.value {
+    display: block;
+    position: absolute;
+    z-index: 10000;
+    font-size: 4.5em;
+    top: -20px;
+    right: 20px;
 }
