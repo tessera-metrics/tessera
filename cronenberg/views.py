@@ -193,10 +193,11 @@ def api_dashboard_get_expanded(id):
     interactive = not(_get_param('interactive', 'true').lower() == 'false')
 
     # HACK
-    for row in definition['grid'].get('rows', []):
-        for cell in row.get('cells', []):
-            for presentation in cell.get('presentation', []):
-                presentation['interactive'] = interactive
+    for section in definition['items']:
+        for row in section.get('items', []):
+            for cell in row.get('items', []):
+                for item in cell.get('items', []):
+                    item['interactive'] = interactive
 
     # Make a copy of the query map with all targets rendered to full
     # graphite URLs
