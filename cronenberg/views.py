@@ -96,8 +96,9 @@ def api_dashboard_list_tagged(tag):
     the metadata, not the definitions.
 
     """
+    tag = database.Tag.query.filter_by(name=tag).first()
     return _jsonify({
-        'dashboards' : [d.to_json() for d in database.Tag.query.filter_by(name=tag).first().dashboards]
+        'dashboards' : [d.to_json() for d in tag.dashboards if tag]
     })
 
 
