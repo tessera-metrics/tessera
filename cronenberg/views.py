@@ -37,10 +37,14 @@ def _render_pybars_template(template, variables):
     output = compiled(variables)
     return ''.join(output)
 
-def _jsonify(data):
-    return flask.Response(status=200,
-                          mimetype="application/json",
-                          response=json.dumps(data, cls=EntityEncoder))
+def _jsonify(data, status=200, headers=None):
+    response = flask.Response(status=status,
+                              mimetype="application/json",
+                              response=json.dumps(data, cls=EntityEncoder))
+    if isinstance(headers, dict):
+        for key, value in headers.items():
+            response.headers[key] = str(value)
+    return response
 
 def _get_param(name, default=None, store_in_session=False):
     value = request.args.get(name) or session.get(name, default)
@@ -126,7 +130,11 @@ def api_dashboard_create():
     dashboard.definition = database.DashboardDef(dumps(DashboardDefinition()))
     mgr.store_dashboard(dashboard)
     # TODO - return 201 with URL of created dashboard
-    return _jsonify({ 'ok' : True })
+    href = '/api/dashboard/{0}'.format(dashboard.id)
+    return _jsonify({ 'ok' : True,
+                      'dashboard_href' : href },
+                    status=201,
+                    headers = { 'Location' : href })
 
 @app.route('/api/dashboard/<id>', methods=['PUT'])
 def api_dashboard_update(id):
