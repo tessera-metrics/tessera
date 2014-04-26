@@ -2,9 +2,79 @@
 
 A dashboard front-end for Graphite.
 
+## Overview
+
+Words. Words about pictures.
+
+### Screenshot
+
 ![screenshot](docs/screenshot-single-node-light.png)
 
-## Dependencies ##
+## Setup
+
+### Creating the Database
+
+Cronenberg runs off of a sqlite backing store, which has to be
+initialized, and can be populated with a bunch of demo dashboards. To
+initialize the database and generate the demo dashboards:
+
+```shell
+$ manage.py initdb
+```
+
+### Importing Dashboards from Graphite-Web
+
+Importing dashboard definitions from the built-in dashboard system in
+graphite-web is currently supported, via the command
+**import_graphite_dashboards**, which supports three optional
+arguments **query**, **layout**, and **columns**.
+
+To import everything with default settings, which will create a 4
+column fluid layout:
+
+```shell
+$ manage.py import_graphite_dashboards
+```
+
+You can import a subset of dashboards with the ``--query`` parameter.
+
+```shell
+$ manage.py import_graphite_dashboards --query=hbase
+```
+
+The importer also allows specify the basic layout type (``fluid`` or
+``fixed``), and the number of columns.
+
+```shell
+$ manage.py import_graphite_dashboards --query=api --layout=fixed --columns=1
+```
+
+
+
+## Developing or Running from Source ##
+
+```shell
+git clone git@github.com:urbanairship/cronenberg.git
+cd cronenberg
+virtualenv .
+. bin/activate
+
+# If you are on a Mac and have XCode 5.1 installed, you'll need this
+# set before installing the dependencies from requirements.txt for
+# SQLAlchemy's C extensions to compile.  export
+export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Create the database and generate the demo dashboards
+./manage.py initdb
+
+# Run it (defaults to http://localhost:5000)
+./manage.py run
+```
+
+### Third-Party Code ###
 
 Server Side:
 
@@ -34,33 +104,3 @@ Client Side:
 * [handlebars.js](http://handlebarsjs.com/) for client side templating.
 * [markdown-js](https://github.com/evilstreak/markdown-js) for rendering of Markdown to HTML.
 * [URI.js](https://github.com/medialize/URI.js) for URL manipulation.
-
-## Creating the Database
-
-Cronenberg runs off of a sqlite backing store, which has to be
-initialized, and can be populated with a bunch of demo dashboards. To
-initialize the database, run ``manage.py createdb``, and run
-``manage.py generate`` to generate the demo dashboard definitions.
-
-## Developing or Running from Source ##
-
-```shell
-git clone git@github.com:urbanairship/cronenberg.git
-cd cronenberg
-virtualenv .
-. bin/activate
-
-# If you are on a Mac and have XCode 5.1 installed, you'll need this
-# set before installing the dependencies from requirements.txt for
-# SQLAlchemy's C extensions to compile.  export
-export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Create the database and generate the demo dashboards
-./manage.py initdb
-
-# Run it (defaults to http://localhost:5000)
-./manage.py run
-```
