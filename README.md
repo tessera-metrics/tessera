@@ -78,7 +78,6 @@ pip install -r requirements.txt
 
 Server Side:
 
-* [toolbox (UA)](https://github.com/urbanairship/toolbox)
 * [Flask](http://flask.pocoo.org/)
 * [Flask-Script](http://packages.python.org/Flask-Script/)
 * [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/)
