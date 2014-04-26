@@ -29,7 +29,7 @@ def demo_automation_overview():
                         'total_pushes_sent': 'alias(sumSeries(nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-fulfillment.pushfulfillmenthandler.total_push_count.Count),nonNegativeDerivative(servers.{s0306,s0307}.rash.triggers-fulfillment.delayedpushfulfillmenthandler.total_delayed_push_count.Count)),"Push Count")'
                     },
                     items=[
-                        Section(is_container=True,
+                        Section(layout=Section.Layout.FIXED,
                                   items=[
                                       Row(items=[
                                           Cell(span=3, style=DashboardItem.Style.WELL, align='center',
@@ -54,12 +54,12 @@ def demo_automation_overview():
                                                                 transform='sum'))
                                       ])
                                   ]),
-                        Section(is_container=False,
+                        Section(layout=Section.Layout.NONE,
                                 items=[
                                     StackedAreaChart(height=4,
                                                      query_name='total_push_rate')
                                 ]),
-                        Section(is_container=True,
+                        Section(layout=Section.Layout.FIXED,
                                 items=[
                                       Separator()
                                       ,Row(items=[

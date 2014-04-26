@@ -5,12 +5,15 @@
 - integrate some proper JS build-fu to minify and compress all the
   javascript, etc...
   - [browserify](http://browserify.org/) sounds like a leading candidate
-- presentations.html is getting out of hand; having each template in a separate file would be good; can also incorporate handlebars pre-compilation for better runtime efficiency
-  - how to handle switching between that and a dev mode w/o the compile step?
+- presentations.html is getting out of hand; having each template in a
+  separate file would be good; can also incorporate handlebars
+  pre-compilation for better runtime efficiency
+- how to handle switching between that and a dev mode w/o the compile step?
 
 ### Optimization
 
-- In non-interactive graph mode, don't evaluate the raw data queries if there are no textual presentations
+- In non-interactive graph mode, don't evaluate the raw data queries
+  if there are no textual presentations
 - consider moving to graphite's raw text protocol
 
 ### Model & Persistence
@@ -26,10 +29,6 @@
     - or simple link to another dashboard
     - Presentations can have more than one drilldown
 - add standard deviation to summation model
-- ~~refactor API to a flask blueprint to reuse for different model
-  classes~~ Update: nah, maybe not. API surface area is small, and hand-tuning is good. 
-- Refactor how from_json() works, maybe a metaclass or somesuch, to
-  cut down on the janky dispatching
 - ~~more sophisticated persistence (i.e. SQLAlchemy or somesuch) that
   would allow tagging and searching by tag~~
 - only dashboards are named entities right now. Presentations should
@@ -39,12 +38,21 @@
   - that requires queries to be (optionally) named entities too, since
     they're independent of presentations
   - groups (such as sections, see below) are probably the most useful form of shared building-block.
-- element_id doesn't need to be stored; just generate unique element
-  IDs in expanded API view. Current method has chance for collisions.
 - ~~add support for multi-valued queries (graphite URL api supports
   multiple values for target). Will help with graphite dashboard
   importing~~
 - ~~Persistence for model objects via cask~~
+
+### API
+
+- accept inline definition in POST /api/dashboard
+- custom error views for API that return proper API responses
+- Refactor how from_json() works, maybe a metaclass or somesuch, to
+  cut down on the janky dispatching
+- element_id doesn't need to be stored; just generate unique element
+  IDs in expanded API view. Current method has chance for collisions.
+- ~~refactor API to a flask blueprint to reuse for different model
+  classes~~ Update: nah, maybe not. API surface area is small, and hand-tuning is good.
 - ~~queries should be dumped to JSON without graphite hostname or
   format=json in URL. Need a render_url_path w/o format or host~~
 - ~~basic API for dashboards~~
@@ -74,7 +82,7 @@
 - Updates to existing presentations
   - 2nd Y axis support
     - existing options should change from yAxisLabel, yAxisThis, yAxisThat to an array of axis options
-  - pie/donut chart needs some CSS tweaking for dark mode
+  - ~~pie/donut chart needs some CSS tweaking for dark mode~~
   - allow selection of which columns are display in ``SummationTable``
   - ``JumboTronSinglestat`` is a hack. A properly responsive presentation
     that scales w/size of parent would rock.
@@ -82,9 +90,8 @@
   - threshold to automatically switch to graphite rendering for long
   time windows (SVG rendering in browser gets slow)
   - more options for time formatting
-- New layout options
-  - dashboard sections. Section = separator + heading + rows, collapsible (click on heading)
-    - alternate rendering as tabs
+  - ~~dashboard sections. Section = separator + heading + rows, collapsible (click on heading)~~
+  - tabbed dashboard sections (not as useful as auto-flipping carousel for bigboard displays)
 - ~~titles~~
 - ~~donut/pie charts~~
 - ~~replace use of jquery.number with d3.format. No need to carry around
@@ -116,8 +123,8 @@
   - moving averages/medians
   - mostDeviant
   - scan obfuscurity's blog and teh int3rwebz for interesting graphite tricks that could be automated
-- Add action menu to some presentations
-  - replace graphite SVG export w/D3 SVG
+- ~~Add action menu to some presentations~~
+  - ~~replace graphite SVG export w/D3 SVG~~
   - ~~have a single function for graphite render URL that dispatches on item type~~
   - ~~Hide in fullscreen~~
   - ~~Open in Graphite Composer~~
@@ -133,7 +140,7 @@
   - ~~display dashboard counts in tag selector~~
   - ~~render client side~~
   - ~~better presentation (2 lines per entry, title, last modified time)~~
-  - action menu on each row, to delete or duplicate (or others)
+  - ~~action menu on each row, to delete or duplicate (or others)~~
 - add notifications confirming delete (or update, etc...)
 - Grafana's [javascript parser for graphite queries](https://github.com/torkelo/grafana/tree/master/src/app/services/graphite)
 - ~~Client-side rendering. Not strictly needed for creating an editor, but preferable.~~
@@ -148,20 +155,29 @@
 
 ### UI
 
-- [bootbox](http://bootboxjs.com/) could potentially remove a lot of markup for modals
+- custom error views (for 404, etc...)
+- integrate a **notification/alert** lib for error messages & general notifications.
+    - [messenger](http://github.hubspot.com/messenger/docs/welcome/)
+    - [bootstrap-growl](http://bootstrap-growl.remabledesigns.com/)
+    - [pnotify](http://sciactive.com/pnotify/)
+    - [bootstrap-notify](https://github.com/goodybag/bootstrap-notify)
+- custom **date-time range picker**
+  - [bootstrap-datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker)
+    looks very nice, fits well with bootstrap 3.
+- configuration for the recent time ranges shown in the easy picker
+- user preferences page
+  - default auto-refresh period
+  - color theme
+  - recent time ranges
+  - static vs. interactive images as default
+  - whether action menus are shown by default or not
 - Grid alternatives. Other ways of laying out the dashboard grid, as an alternative to the
   bootstrap CSS grid. Some of these are interactive, with possibilities for editing.
   - [Nested](http://suprb.com/apps/nested/)
   - [uberVU grid](https://github.com/uberVU/grid)
   - [gridster.js](https://github.com/ducksboard/gridster.js)
   - [jquery.shapeshift](https://github.com/McPants/jquery.shapeshift)
-- integrate a notification/alert lib for error messages & general notifications.
-    - [messenger](http://github.hubspot.com/messenger/docs/welcome/)
-    - [bootstrap-growl](http://bootstrap-growl.remabledesigns.com/)
-    - [pnotify](http://sciactive.com/pnotify/)
-- custom time range picker
-- configuration for the recent time ranges shown in the easy picker
-- settings page
+- ~~[bootbox](http://bootboxjs.com/) could potentially remove a lot of markup for modals~~
 - ~~auto-refresh~~
 - ~~refresh button~~
 - ~~Add a 'full screen' button that removes everything except the

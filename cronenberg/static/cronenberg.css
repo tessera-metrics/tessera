@@ -55,20 +55,27 @@ table.table thead .sorting_desc_disabled { background: url('/static/img/datatabl
   background-color: #d9534f;
 }
 
+.bg-neutral {
+    background-color: #f0f0f0;
+}
+.alert-neutral {
+    background-color: #f0f0f0;
+}
+
 /* =============================================================================
    Application Styles
    ============================================================================= */
 
 .well-small .dashboard { padding-left: 18px; }
 
-.ds-height1 { height: 70px; }
+.ds-height1 { height: 80px; }
 .ds-height2 { height: 140px; }
-.ds-height3 { height: 210px; }
-.ds-height4 { height: 280px; }
-.ds-height5 { height: 350px; }
-.ds-height6 { height: 420px; }
-.ds-height7 { height: 490px; }
-.ds-height8 { height: 560px; }
+.ds-height3 { height: 200px; }
+.ds-height4 { height: 260px; }
+.ds-height5 { height: 320px; }
+.ds-height6 { height: 480px; }
+.ds-height7 { height: 540px; }
+.ds-height8 { height: 600px; }
 
 h1, h2, h3, h4 {
     font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;

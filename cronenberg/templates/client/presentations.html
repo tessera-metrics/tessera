@@ -1,7 +1,7 @@
 {% raw %}
 
 <!--
-    PARTIAL: action menu
+    PARTIAL: chart action menu
 
     For now this is shown in edit menu. It could easily have its own
     dedicated visibility toggle if desired.
@@ -374,7 +374,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
      TEMPLATE: Dashboard sections
   -->
 <script id="ds-tmpl-section" data-ds-item-type="section" type="text/x-handlebars-template">
-  {{#if item.is_container}}<div class="container">{{/if}}
+  <div class="{{container_class item}}">
     {{#if item.style}}<div class="{{style_class item}}">{{/if}}
       <div class="{{css_class item}}">
         {{#each item.items}}
@@ -382,7 +382,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
         {{/each}}
       </div>
       {{#if item.style}}</div>{{/if}}
-    {{#if item.is_container}}</div>{{/if}}
+  </div>
 </script>
 
 
