@@ -23,7 +23,7 @@ def demo_gallery_dashboard():
                         'single2' : 'randomWalkFunction("thing2")'
                     },
                     items=[
-                        Section(is_container=True,
+                        Section(layout=Section.Layout.FIXED,
                                  items=[
                                      #
                                      # Time Series Charts
@@ -82,8 +82,8 @@ def demo_gallery_dashboard():
                                               items=SingleGraph(height=1, query_name='multiple', index=2))
                                      ])
                                  ]),
-                        Section(is_container=False,
-                                css_class='bs-callout bs-callout-neutral',
+                        Section(layout=Section.Layout.NONE,
+                                style=DashboardItem.Style.CALLOUT_NEUTRAL,
                                 items=[
                                     Heading(text='Breakout!', description="Items don't have to be confined to the fixed width grid"),
                                     Separator(),
@@ -93,7 +93,7 @@ def demo_gallery_dashboard():
                                         'yAxisFormat' : ',.1s'
                                     })
                                 ]),
-                        Section(is_container=True,
+                        Section(layout=Section.Layout.FIXED,
                                 items=[
 
                                      #

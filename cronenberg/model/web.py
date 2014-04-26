@@ -71,6 +71,8 @@ class DashboardItem(object):
         # metaclass.
         item_type = d['item_type']
         _delattr(d, 'item_type')
+
+        # Layouts
         if item_type == 'separator':
             return Separator.from_json(d)
         elif item_type == 'heading':
@@ -79,8 +81,12 @@ class DashboardItem(object):
             return Markdown.from_json(d)
         elif item_type == 'row':
             return Row.from_json(d)
-        elif item_type == 'grid':
-            return Grid.from_json(d)
+        elif item_type == 'section':
+            return Section.from_json(d)
+        elif item_type == 'dashboard':
+            return DashboardDefinition.from_json(d)
+
+            # Presentations
         elif item_type == 'singlestat':
             return SingleStat.from_json(d)
         elif item_type == 'jumbotron_singlestat':
@@ -307,9 +313,14 @@ class Row(DashboardContainer):
 
 
 class Section(DashboardContainer):
-    def __init__(self, is_container=False, items=None, **kwargs):
+    class Layout:
+        FIXED = 'fixed'
+        FLUID = 'fluid'
+        NONE = 'none'
+
+    def __init__(self, layout=Layout.FIXED, items=None, **kwargs):
         super(Section, self).__init__(items=items, item_type='section', **kwargs)
-        self.is_container = is_container
+        self.layout = layout
 
     @classmethod
     def from_json(cls, d):

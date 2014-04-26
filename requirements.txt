@@ -4,5 +4,4 @@ flask-sqlalchemy
 requests
 simplejson
 inflection
-gunicorn
 pybars

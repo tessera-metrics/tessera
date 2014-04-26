@@ -16,6 +16,7 @@ var cronenberg = {
         EXIT_EDIT_MODE:       'ds-exit-edit-mode',
         DATA_AVAILABLE:       'ds-data-available',
         DASHBOARD_LOADED:     'ds-dashboard-loaded',
+        DASHBOARD_LIST_LOADED:'ds-dashboard-list-loaded',
         RANGE_CHANGED:        'ds-range-changed'
     },
 
