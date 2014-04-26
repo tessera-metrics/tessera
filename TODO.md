@@ -117,6 +117,8 @@
 
 ### Actions/Drilldowns
 
+- Action menu
+  - chart.io has the same thing [see live demo](https://chartio.com/project/9258/dash/10832/?gf162633_start=2014-03-27&gf162633_end=2014-04-26&gf2241_start=2012-W41&gf2241_end=2013-W19) but the menu appears on mouseover. shouldn't be hard to do for cronenberg too, since the menu is actually in a div that's outside the charts (shouldn't conflict w/chart events)
 - create some demo dashboards with drilldown explorations
   - time shifting
     - ``SummationComparisonTable`` will be a good one to add for that
