@@ -50,8 +50,9 @@ cd cronenberg
 virtualenv .
 . bin/activate
 
-# If you are on a Mac and have XCode 5.1 installed, you'll need
-# this set before installing the dependencies from requirements.txt:
+# If you are on a Mac and have XCode 5.1 installed, you'll need this
+# set before installing the dependencies from requirements.txt for
+# SQLAlchemy's C extensions to compile.  export
 export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
 
 # Install dependencies
