@@ -62,6 +62,7 @@
 
 - New presentations
   - ``SummationComparisonTable``, compare 2 series w/% change indicator (see stathat)
+  - ``ComparisonSingleStat`` - compare a single summation number between two metrics (i.e. this week & last) w/%change as the primary value shown. Show actual A/B numbers smaller
   - For very compact dashboards summarizing lots of metrics, could use simple [bootstrap badges](http://getbootstrap.com/components/#badges) for a
     singlestat value, plus actual mini sparklines
   - multi-stat version of ``SingleStat`` that flips through them using a
