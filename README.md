@@ -24,7 +24,7 @@ Client Side:
   * The extracted
     [callouts](https://gist.github.com/matthiasg/6153853) from
     bootstrap's documentation site.
-  * [bootbox](http://bootboxjs.com/) simplifies modal dialog interactions. 
+  * [bootbox](http://bootboxjs.com/) simplifies modal dialog interactions.
 * [jQuery](http://jquery.com/)
 * [nvd3](https://github.com/novus/nvd3) for interactive charts build
   on top of [d3](http://d3js.org). d3 is also used for value
@@ -50,10 +50,6 @@ cd cronenberg
 virtualenv .
 . bin/activate
 
-# Export pip environment variables if you didn't globally
-export PIP_NO_INDEX=1
-export PIP_FIND_LINKS=http://pulp.prod.urbanairship.com/repos/python-packages/
-
 # If you are on a Mac and have XCode 5.1 installed, you'll need
 # this set before installing the dependencies from requirements.txt:
 export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
@@ -61,11 +57,8 @@ export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
 # Install dependencies
 pip install -r requirements.txt
 
-# Create the database
-./manage.py createdb
-
-# Generate the demo dashboards
-./manage.gy generate
+# Create the database and generate the demo dashboards
+./manage.py initdb
 
 # Run it (defaults to http://localhost:5000)
 ./manage.py run
