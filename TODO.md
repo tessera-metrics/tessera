@@ -123,8 +123,8 @@
   - moving averages/medians
   - mostDeviant
   - scan obfuscurity's blog and teh int3rwebz for interesting graphite tricks that could be automated
-- Add action menu to some presentations
-  - replace graphite SVG export w/D3 SVG
+- ~~Add action menu to some presentations~~
+  - ~~replace graphite SVG export w/D3 SVG~~
   - ~~have a single function for graphite render URL that dispatches on item type~~
   - ~~Hide in fullscreen~~
   - ~~Open in Graphite Composer~~
@@ -155,27 +155,29 @@
 
 ### UI
 
-- custom error views
-- ~~[bootbox](http://bootboxjs.com/) could potentially remove a lot of markup for modals~~
+- custom error views (for 404, etc...)
+- integrate a **notification/alert** lib for error messages & general notifications.
+    - [messenger](http://github.hubspot.com/messenger/docs/welcome/)
+    - [bootstrap-growl](http://bootstrap-growl.remabledesigns.com/)
+    - [pnotify](http://sciactive.com/pnotify/)
+    - [bootstrap-notify](https://github.com/goodybag/bootstrap-notify)
+- custom **date-time range picker**
+  - [bootstrap-datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker)
+    looks very nice, fits well with bootstrap 3.
+- configuration for the recent time ranges shown in the easy picker
+- user preferences page
+  - default auto-refresh period
+  - color theme
+  - recent time ranges
+  - static vs. interactive images as default
+  - whether action menus are shown by default or not
 - Grid alternatives. Other ways of laying out the dashboard grid, as an alternative to the
   bootstrap CSS grid. Some of these are interactive, with possibilities for editing.
   - [Nested](http://suprb.com/apps/nested/)
   - [uberVU grid](https://github.com/uberVU/grid)
   - [gridster.js](https://github.com/ducksboard/gridster.js)
   - [jquery.shapeshift](https://github.com/McPants/jquery.shapeshift)
-- integrate a notification/alert lib for error messages & general notifications.
-    - [messenger](http://github.hubspot.com/messenger/docs/welcome/)
-    - [bootstrap-growl](http://bootstrap-growl.remabledesigns.com/)
-    - [pnotify](http://sciactive.com/pnotify/)
-    - [bootstrap-notify](https://github.com/goodybag/bootstrap-notify)
-- custom time range picker
-- configuration for the recent time ranges shown in the easy picker
-- settings page
-  - default auto-refresh period
-  - color theme
-  - recent time ranges
-  - static vs. interactive images as default
-  - whether action menus are shown by default or not
+- ~~[bootbox](http://bootboxjs.com/) could potentially remove a lot of markup for modals~~
 - ~~auto-refresh~~
 - ~~refresh button~~
 - ~~Add a 'full screen' button that removes everything except the
