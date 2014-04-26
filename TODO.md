@@ -155,6 +155,8 @@
 
 ### UI
 
+- Add option to include a graph on the front page - something like our carbon metrics, on the state of the graphite system itself
+- add option for readable slugs in UI URLs
 - custom error views (for 404, etc...)
 - integrate a **notification/alert** lib for error messages & general notifications.
     - [messenger](http://github.hubspot.com/messenger/docs/welcome/)
