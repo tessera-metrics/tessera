@@ -248,7 +248,7 @@ def api_dashboard_get_expanded(id):
     return _jsonify({
         'dashboard' : dash,
         'definition' : definition,
-        'theme' : _get_param('theme', 'light')
+        'theme' : _get_param('theme', app.config['DEFAULT_THEME'])
     })
 
 # =============================================================================
@@ -310,6 +310,7 @@ class RenderContext:
     def __init__(self):
         self.now = datetime.now()
         self.element_index = 0
+        self.theme = self.get('theme', default=app.config['DEFAULT_THEME'], store_in_session=True)
 
     def get(self, key, default=None, store_in_session=False):
         return _get_param(key, default=default, store_in_session=store_in_session)
