@@ -88,7 +88,7 @@ def _dashboards_response(dashboards):
     for dash in dashboards:
         id = dash['id']
         dash['href'] = '/api/dashboard/{0}'.format(id)
-        dash['view_href'] = '/dashboards/{0}'.format(id)
+        dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
     return _jsonify({
         'dashboards' : dashboards
     })
@@ -344,6 +344,13 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html'):
 
 # =============================================================================
 # UI: Basics
+#
+# UI endpoints:
+#
+# ``/dashboards``
+# ``/dashboards/tagged/<tag>``
+# ``/dashboards/<id>``
+# ``/dashboards/<id>/<slug>``
 # =============================================================================
 
 @app.route('/')
@@ -381,3 +388,7 @@ def ui_dashboard_list_tagged(tag):
 def ui_dashboard(id):
     dashboard = database.Dashboard.query.get_or_404(id)
     return _render_client_side_dashboard(dashboard)
+
+@app.route('/dashboards/<id>/<slug>')
+def ui_dashboard_with_slug(id, slug):
+    return ui_dashboard(id)
