@@ -1,5 +1,19 @@
 cronenberg.charts = {
 
+    colorToHex: function(color) {
+        if (color.substr(0, 1) === '#') {
+            return color;
+        }
+        var digits = /(.*?)rgb\((\d+), (\d+), (\d+)\)/.exec(color);
+
+        var red = parseInt(digits[2]);
+        var green = parseInt(digits[3]);
+        var blue = parseInt(digits[4]);
+
+        var rgb = blue | (green << 8) | (red << 16);
+        return digits[1] + '#' + rgb.toString(16);
+    },
+
     /* -----------------------------------------------------------------------------
        Graphite Helpers
        ----------------------------------------------------------------------------- */
@@ -15,12 +29,13 @@ cronenberg.charts = {
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || 'white')
+            .setQuery('bgcolor', options.bgcolor || this.colorToHex(window.getComputedStyle($('body')[0]).backgroundColor))
             .setQuery('fgcolor', options.fgcolor || 'white')
             .setQuery('hideLegend', 'true')
             .setQuery('hideAxes', 'true')
             .setQuery('margin', '0')
             .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
+            .setQuery('title', options.showTitle ? item.title : '')
             .href();
         return png_url;
     },
@@ -32,7 +47,7 @@ cronenberg.charts = {
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || 'white')
+            .setQuery('bgcolor', options.bgcolor || this.colorToHex(window.getComputedStyle($('body')[0]).backgroundColor))
             .setQuery('fgcolor', options.fgcolor || 'black')
             .setQuery('majorGridLineColor', options.majorGridLineColor || '#dddddd')
             .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
@@ -40,7 +55,7 @@ cronenberg.charts = {
             .setQuery('hideAxes', options.hideAxes || 'false')
             .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
             .setQuery('vtitle', item.options.yAxisLabel)
-            .setQuery('title', item.options.showTitle ? item.title : '')
+            .setQuery('title', options.showTitle ? item.title : '')
             .href();
         return png_url;
     },
@@ -72,7 +87,7 @@ cronenberg.charts = {
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || 'white')
+            .setQuery('bgcolor', options.bgcolor || this.colorToHex(window.getComputedStyle($('body')[0]).backgroundColor))
             .setQuery('fgcolor', options.fgcolor || 'black')
             .setQuery('majorGridLineColor', options.majorGridLineColor || '#dddddd')
             .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
