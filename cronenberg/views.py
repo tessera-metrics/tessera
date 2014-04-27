@@ -350,20 +350,31 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html'):
 def ui_root():
     return _render_template('index.html', breadcrumbs=[('Home', '/')])
 
+@app.route('/preferences/')
+def ui_preferences():
+    title = 'User Preferences'
+    return _render_template('preferences.html',
+                            title=title,
+                            breadcrumbs=[('Home', '/'),
+                                         (title, '')])
+
+
 @app.route('/dashboards/')
 def ui_dashboard_list():
+    title = 'Dashboards'
     return _render_template('dashboard-list.html',
-                            title='Dashboards',
+                            title=title,
                             breadcrumbs=[('Home', '/'),
-                                         ('Dashboards', '')])
+                                         (title, '')])
 
 @app.route('/dashboards/tagged/<tag>')
 def ui_dashboard_list_tagged(tag):
+    title = 'Dashboards'
     return _render_template('dashboard-list.html',
                             tag=tag,
-                            title='Dashboards',
+                            title=title,
                             breadcrumbs=[('Home', '/'),
-                                         ('Dashboards', '')])
+                                         (title, '')])
 
 
 @app.route('/dashboards/<id>')

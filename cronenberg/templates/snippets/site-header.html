@@ -31,6 +31,6 @@ use something like require.js for sanity -->
 <script src="{{ url_for('static', filename='cronenberg-dashboards.js') }}"></script>
 <script src="{{ url_for('static', filename='cronenberg-templates.js') }}"></script>
 
-<link  href="{{ url_for('static', filename='bootstrap-{{ctx-theme}}.css') }}" rel="stylesheet"></link>
-<link  href="{{ url_for('static', filename='cronenberg-{{ctx-theme}}.css') }}" rel="stylesheet"></link>
+<link  href="{{ url_for('static', filename='themes/bootstrap-' + ctx.theme + '.css') }}" rel="stylesheet"></link>
+<link  href="{{ url_for('static', filename='themes/cronenberg-' + ctx.theme + '.css') }}" rel="stylesheet"></link>
 <link  href="{{ url_for('static', filename='cronenberg.css') }}" rel="stylesheet"></link>
