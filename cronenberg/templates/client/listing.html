@@ -11,7 +11,7 @@
             data-toggle="dropdown">
       <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu dropdown-menu-right ds-action-menu" role="menu" data-ds-href="{{href}}">
+    <ul class="dropdown-menu dropdown-menu-right ds-action-menu" role="menu" data-ds-href="{{href}}" data-ds-view-href="{{view_href}}">
       <li data-ds-action="open"><a href="#"><i class="fa fa-external-link"></i> Open</a></li>
       <li class="disabled" data-ds-action="edit"><a href="#"><i class="fa fa-edit"></i> Edit&hellip;</a></li>
       <li data-ds-action="duplicate"><a href="#"><i class="fa fa-copy"></i> Duplicate&hellip;</a></li>
@@ -28,7 +28,7 @@
           var href = $(event.target).parent().parent()[0].getAttribute('data-ds-href');
           switch (action) {
           case 'open':
-              window.location = URI(href).directory('/dashboards').href();
+              window.location = $(event.target).parent().parent()[0].getAttribute('data-ds-view-href');
               break;
           case 'duplicate':
               // TODO - should have dynamic refresh instead of setting window.location
@@ -59,7 +59,7 @@
         </div>
         <div class="col-md-12">
           <div class="pull-left">
-            <a href="/dashboards/{{id}}">
+            <a href="{{view_href}}">
               {{category}} /
               <strong>
                 {{title}}
