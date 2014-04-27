@@ -247,7 +247,8 @@ def api_dashboard_get_expanded(id):
 
     return _jsonify({
         'dashboard' : dash,
-        'definition' : definition
+        'definition' : definition,
+        'theme' : _get_param('theme', app.config['DEFAULT_THEME'])
     })
 
 # =============================================================================
@@ -309,6 +310,7 @@ class RenderContext:
     def __init__(self):
         self.now = datetime.now()
         self.element_index = 0
+        self.theme = self.get('theme', default=app.config['DEFAULT_THEME'], store_in_session=True)
 
     def get(self, key, default=None, store_in_session=False):
         return _get_param(key, default=default, store_in_session=store_in_session)
@@ -348,20 +350,31 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html'):
 def ui_root():
     return _render_template('index.html', breadcrumbs=[('Home', '/')])
 
+@app.route('/preferences/')
+def ui_preferences():
+    title = 'User Preferences'
+    return _render_template('preferences.html',
+                            title=title,
+                            breadcrumbs=[('Home', '/'),
+                                         (title, '')])
+
+
 @app.route('/dashboards/')
 def ui_dashboard_list():
+    title = 'Dashboards'
     return _render_template('dashboard-list.html',
-                            title='Dashboards',
+                            title=title,
                             breadcrumbs=[('Home', '/'),
-                                         ('Dashboards', '')])
+                                         (title, '')])
 
 @app.route('/dashboards/tagged/<tag>')
 def ui_dashboard_list_tagged(tag):
+    title = 'Dashboards'
     return _render_template('dashboard-list.html',
                             tag=tag,
-                            title='Dashboards',
+                            title=title,
                             breadcrumbs=[('Home', '/'),
-                                         ('Dashboards', '')])
+                                         (title, '')])
 
 
 @app.route('/dashboards/<id>')
