@@ -7,7 +7,7 @@ module.exports = function(grunt) {
       options: {
         separator: ';'
       },
-      dist: {
+      bundle: {
         src: [
           'cronenberg/static/js/jquery-1.11.0.min.js',
           'cronenberg/static/js/moment.min.js',
@@ -19,15 +19,20 @@ module.exports = function(grunt) {
           'cronenberg/static/js/bootbox.min.js',
           'cronenberg/static/js/d3.min.js',
           'cronenberg/static/js/nv.d3.min.js',
+        ],
+        dest: 'cronenberg/static/bundle.js'
+      },
+      app: {
+        src: [
           'cronenberg/static/cronenberg.js',
           'cronenberg/static/cronenberg-queries.js',
           'cronenberg/static/cronenberg-charts.js',
           'cronenberg/static/cronenberg-dashboards.js',
           'cronenberg/static/cronenberg-templates.js'
         ],
-        // the location of the resulting JS file
-        dest: 'cronenberg/static/bundle.js'
+        dest: 'cronenberg/static/app.js'
       }
+
     },
     watch: {
       files: ['<%= concat.dist.src %>'],
@@ -37,4 +42,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-less');
+
+  grunt.registerTask('default', ['concat', 'watch']);
 }
