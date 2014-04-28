@@ -222,7 +222,7 @@ def api_dashboard_get_expanded(id):
     from_time   = _get_param('from', app.config['DEFAULT_FROM_TIME'])
     until_time  = _get_param('until', None)
     variables   = _get_template_variables(request.args)
-    interactive = not(_get_param('interactive', 'true').lower() == 'false')
+    interactive = not(_get_param('interactive', 'true', store_in_session=True).lower() == 'false')
 
     # HACK
     _set_interactive(definition, interactive)
