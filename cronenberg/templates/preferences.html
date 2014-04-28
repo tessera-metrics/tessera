@@ -25,25 +25,28 @@
           <!-- Form Name -->
           <!-- <legend>Form Name</legend> -->
 
-          <!-- Multiple Radios -->
+          <!-- Chart Style -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="chartRadios">Default Chart Style</label>
             <div class="col-md-4">
               <div class="radio">
                 <label for="chartRadios-0">
-                  <input type="radio" name="chartRadios" id="chartRadios-0" value="static" checked="checked">
+                  <!-- Static -->
+                  <input type="radio" name="chartRadios" id="chartRadios-0" value="static" {% if not preferences.interactive %} checked{% endif %}>
                     Static
                 </label>
 	          </div>
               <div class="radio">
                 <label for="chartRadios-1">
-                  <input type="radio" name="chartRadios" id="chartRadios-1" value="interactive">
+                  <!-- Interactive -->
+                  <input type="radio" name="chartRadios" id="chartRadios-1" value="interactive" {% if preferences.interactive %} checked{% endif %}>
                     Interactive
                 </label>
 	          </div>
             </div>
           </div>
 
+          <!-- Theme -->
           <div class="form-group">
             <label class="col-md-4 control-label">Theme</label>
             <div class="col-md-8">
