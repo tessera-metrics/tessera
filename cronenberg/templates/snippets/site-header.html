@@ -5,31 +5,16 @@
 use something like require.js for sanity -->
 
 <!-- jQuery, etc... -->
-<script src="{{ url_for('static', filename='js/jquery-1.11.0.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/bean.js') }}"></script>
-<script src="{{ url_for('static', filename='js/URI.js') }}"></script>
-<script src="{{ url_for('static', filename='js/handlebars-v1.3.0.js') }}"></script>
-<script src="{{ url_for('static', filename='js/markdown.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bundle.js') }}"></script>
 
 <!-- Bootstrap and related -->
 <link  href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet"></link>
 <link  href="{{ url_for('static', filename='css/bootstrap-callouts.css') }}" rel="stylesheet"></link>
 <link  href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet"></link>
-<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/bootbox.min.js') }}"></script>
 
 <!-- d3 and related -->
-<script src="{{ url_for('static', filename='js/d3.js') }}"></script>
-<script src="{{ url_for('static', filename='js/nv.d3.js') }}"></script>
 <link  href="{{ url_for('static', filename='css/nv.d3.css') }}" rel="stylesheet"></link>
 
-<!-- Application -->
-<script src="{{ url_for('static', filename='cronenberg.js') }}"></script>
-<script src="{{ url_for('static', filename='cronenberg-queries.js') }}"></script>
-<script src="{{ url_for('static', filename='cronenberg-charts.js') }}"></script>
-<script src="{{ url_for('static', filename='cronenberg-dashboards.js') }}"></script>
-<script src="{{ url_for('static', filename='cronenberg-templates.js') }}"></script>
 
 <link  href="{{ url_for('static', filename='themes/bootstrap-' + ctx.theme + '.css') }}" rel="stylesheet"></link>
 <link  href="{{ url_for('static', filename='themes/cronenberg-' + ctx.theme + '.css') }}" rel="stylesheet"></link>

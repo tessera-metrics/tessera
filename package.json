@@ -1,0 +1,26 @@
+{
+  "name": "cronenberg",
+  "version": "0.0.0",
+  "description": "A dashboard front-end for Graphite.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/urbanairship/cronenberg"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/urbanairship/cronenberg/issues"
+  },
+  "homepage": "https://github.com/urbanairship/cronenberg",
+  "devDependencies": {
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
