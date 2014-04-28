@@ -10,19 +10,63 @@ Words. Words about pictures.
 
 ![screenshot](docs/screenshot-single-node-light.png)
 
+# Getting Started
+
 ## Setup
 
-### Creating the Database
+### Setting up the Python Environment
+
+```shell
+git clone git@github.com:urbanairship/cronenberg.git
+cd cronenberg
+virtualenv .
+. bin/activate
+
+# If you are on a Mac and have XCode 5.1 installed, you'll need this
+# set before installing the dependencies from requirements.txt for
+# SQLAlchemy's C extensions to compile.  export
+export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### Setting up the Javascript Environment
+
+Javascript code is bundled using [Grunt](http://gruntjs.com/). To set
+up grunt and generate the bundled .js files that the web app loads:
+
+```shell
+npm install -g grunt-cli
+npm install
+grunt
+```
+
+If you're going to edit the javascript files and wish to automatically
+regenerate the bundled files as they're edited, run
+
+```
+grunt watch &
+```
+
+### Create the database and run
 
 Cronenberg runs off of a sqlite backing store, which has to be
 initialized, and can be populated with a bunch of demo dashboards. To
 initialize the database and generate the demo dashboards:
 
 ```shell
-$ manage.py initdb
+manage.py initdb
 ```
 
-### Importing Dashboards from Graphite-Web
+And to run it from source:
+
+```
+# Run it (defaults to http://localhost:5000)
+manage.py run
+```
+
+## Importing Dashboards from Graphite-Web
 
 Importing dashboard definitions from the built-in dashboard system in
 graphite-web is currently supported, via the command
@@ -49,57 +93,7 @@ The importer also allows specify the basic layout type (``fluid`` or
 $ manage.py import_graphite_dashboards --query=api --layout=fixed --columns=1
 ```
 
-
-
-## Developing or Running from Source ##
-
-### Setting up the Python Environment
-
-```shell
-git clone git@github.com:urbanairship/cronenberg.git
-cd cronenberg
-virtualenv .
-. bin/activate
-
-# If you are on a Mac and have XCode 5.1 installed, you'll need this
-# set before installing the dependencies from requirements.txt for
-# SQLAlchemy's C extensions to compile.  export
-export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
-
-# Install dependencies
-pip install -r requirements.txt
-
-```
-
-### Setting up the Javascript Environment
-
-Javascript code is bundled using [Grunt](http://gruntjs.com/). To set
-up grunt and generate the bundled .js files that the web app loads:
-
-```shell
-npm install -g grunt-cli
-npm install
-grunt
-```
-
-If you're going to edit the javascript files and wish to automatically
-regenerate the bundled files as they're edited, run
-
-```
-grunt watch &
-```
-
-### Create the database and run
-
-```
-# Create the database and generate the demo dashboards
-./manage.py initdb
-
-# Run it (defaults to http://localhost:5000)
-./manage.py run
-```
-
-### Third-Party Code ###
+## Third-Party Code ###
 
 Server Side:
 
