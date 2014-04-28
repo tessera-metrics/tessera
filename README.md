@@ -53,6 +53,8 @@ $ manage.py import_graphite_dashboards --query=api --layout=fixed --columns=1
 
 ## Developing or Running from Source ##
 
+### Setting up the Python Environment
+
 ```shell
 git clone git@github.com:urbanairship/cronenberg.git
 cd cronenberg
@@ -67,6 +69,29 @@ export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
 # Install dependencies
 pip install -r requirements.txt
 
+```
+
+### Setting up the Javascript Environment
+
+Javascript code is bundled using [Grunt](http://gruntjs.com/). To set
+up grunt and generate the bundled .js files that the web app loads:
+
+```shell
+npm install -g grunt-cli
+npm install
+grunt
+```
+
+If you're going to edit the javascript files and wish to automatically
+regenerate the bundled files as they're edited, run
+
+```
+grunt watch &
+```
+
+### Create the database and run
+
+```
 # Create the database and generate the demo dashboards
 ./manage.py initdb
 
