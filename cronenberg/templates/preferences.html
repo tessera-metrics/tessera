@@ -13,15 +13,57 @@
     {% include "snippets/breadcrumbs.html" %}
   </div>
 
+
   <div class="row">
-    <div class="col-md-8 col-md-offset-4">
-    <div class="btn-group">
-        <button class="btn btn-default" onclick="setTheme('dark')">Dark</button>
-        <button class="btn btn-default" onclick="setTheme('light')">Light</button>
-    <!-- <button class="btn btn-default" onclick="setTheme('solarized-dark')">Solarized Dark</button> -->
-        <button class="btn btn-default" onclick="setTheme('solarized-light')">Solarized Light</button>
+    <div class="col-md-8 col-md-offset-2">
+
+      <div class="well">
+
+      <form class="form-horizontal">
+        <fieldset>
+
+          <!-- Form Name -->
+          <!-- <legend>Form Name</legend> -->
+
+          <!-- Multiple Radios -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="chartRadios">Default Chart Style</label>
+            <div class="col-md-4">
+              <div class="radio">
+                <label for="chartRadios-0">
+                  <input type="radio" name="chartRadios" id="chartRadios-0" value="static" checked="checked">
+                    Static
+                </label>
+	          </div>
+              <div class="radio">
+                <label for="chartRadios-1">
+                  <input type="radio" name="chartRadios" id="chartRadios-1" value="interactive">
+                    Interactive
+                </label>
+	          </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4 control-label">Theme</label>
+            <div class="col-md-8">
+              <div class="btn-group">
+                <input type="button" class="btn btn-default col-md-4" onclick="setTheme('dark')" value="Dark">
+                <input type-"button" class="btn btn-default col-md-4" onclick="setTheme('light')" value="Light">
+                <!-- <button class="btn btn-default" onclick="setTheme('solarized-dark')">Solarized Dark</button> -->
+                <input type="button" class="btn btn-default col-md-4" onclick="setTheme('solarized-light')" value="Solarized Light">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
       </div>
     </div>
+  </div>
+
+
+  <div class="row">
   </div>
 
 </div> <!-- container -->
