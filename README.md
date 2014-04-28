@@ -10,16 +10,59 @@ Words. Words about pictures.
 
 ![screenshot](docs/screenshot-single-node-light.png)
 
-## Setup
+## Getting Started
 
-### Creating the Database
+
+### Setting up the Python Environment
+
+```shell
+git clone git@github.com:urbanairship/cronenberg.git
+cd cronenberg
+virtualenv .
+. bin/activate
+
+# If you are on a Mac and have XCode 5.1 installed, you'll need this
+# set before installing the dependencies from requirements.txt for
+# SQLAlchemy's C extensions to compile.  export
+export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### Setting up the Javascript Environment
+
+Javascript code is bundled using [Grunt](http://gruntjs.com/). To set
+up grunt and generate the bundled .js files that the web app loads:
+
+```shell
+npm install -g grunt-cli
+npm install
+grunt
+```
+
+If you're going to edit the javascript files and wish to automatically
+regenerate the bundled files as they're edited, run
+
+```
+grunt watch &
+```
+
+### Create the database and run
 
 Cronenberg runs off of a sqlite backing store, which has to be
 initialized, and can be populated with a bunch of demo dashboards. To
 initialize the database and generate the demo dashboards:
 
 ```shell
-$ manage.py initdb
+manage.py initdb
+```
+
+And to run it from source:
+
+```
+# Run it (defaults to http://localhost:5000)
+manage.py run
 ```
 
 ### Importing Dashboards from Graphite-Web
@@ -47,31 +90,6 @@ The importer also allows specify the basic layout type (``fluid`` or
 
 ```shell
 $ manage.py import_graphite_dashboards --query=api --layout=fixed --columns=1
-```
-
-
-
-## Developing or Running from Source ##
-
-```shell
-git clone git@github.com:urbanairship/cronenberg.git
-cd cronenberg
-virtualenv .
-. bin/activate
-
-# If you are on a Mac and have XCode 5.1 installed, you'll need this
-# set before installing the dependencies from requirements.txt for
-# SQLAlchemy's C extensions to compile.  export
-export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Create the database and generate the demo dashboards
-./manage.py initdb
-
-# Run it (defaults to http://localhost:5000)
-./manage.py run
 ```
 
 ### Third-Party Code ###

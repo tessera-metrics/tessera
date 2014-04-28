@@ -9,3 +9,7 @@ include/
 man/
 dist/
 .Python
+bower_components/
+node_modules/
+cronenberg/static/app.js
+cronenberg/static/bundle.js
