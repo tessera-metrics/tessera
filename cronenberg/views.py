@@ -361,15 +361,15 @@ def ui_root():
 
 @app.route('/preferences/')
 def ui_preferences():
-    interactive = _get_param('interactive', app.config['INTERACTIVE_CHARTS_DEFAULT'], store_in_session=True)
-    theme = _get_param('theme', app.config['DEFAULT_THEME'], store_in_session=True)
+    preferences = {
+        'interactive' : _get_param('interactive', app.config['INTERACTIVE_CHARTS_DEFAULT'], store_in_session=True),
+        'theme' : _get_param('theme', app.config['DEFAULT_THEME'], store_in_session=True)
+    }
+    print preferences
     title = 'User Preferences'
     return _render_template('preferences.html',
                             title=title,
-                            preferences = {
-                                'interactive' : interactive,
-                                'theme' : theme
-                            },
+                            preferences=preferences,
                             breadcrumbs=[('Home', '/'),
                                          (title, '')])
 
