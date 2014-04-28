@@ -254,7 +254,6 @@ cronenberg.DashboardManager = function() {
 
     // Oh this is ugly
     this.duplicate = function(href, handler) {
-        console.log("Duplicating " + href);
         // Get dashboard
         $.get(href, function(data) {
             var dashboard = data.dashboards[0];
@@ -262,9 +261,7 @@ cronenberg.DashboardManager = function() {
 
             // Get definition
             $.get(href + '/definition', function(data) {
-                var definition = data.definition;
-                console.log(JSON.stringify(dashboard));
-
+                dashboard.definition = data.definition;
                 // Duplicate dashboard
                 $.ajax({
                     type: 'POST',
@@ -273,23 +270,12 @@ cronenberg.DashboardManager = function() {
                     dataType: 'json',
                     data: JSON.stringify(dashboard)
                 }).done(function(data) {
-                    var new_href = data.dashboard_href;
-                    // Upload definition to duplicate
-                    $.ajax({
-                        type: 'PUT',
-                        url: new_href + '/definition',
-                        contentType: 'application/json',
-                        dataType: 'json',
-                        data: JSON.stringify(definition)
-                    }).done(function(data) {
-                        // Yay!
-                        if (handler) {
-                            handler();
-                        }
-                    });
+                  if (handler) {
+                    handler();
+                  }
                 });
             });
-        });
+        })
     };
 };
 
