@@ -126,9 +126,11 @@ def api_dashboard_create():
 
     """
     dashboard = database.Dashboard.from_json(request.json)
-    dashboard.definition = database.DashboardDef(dumps(DashboardDefinition()))
+    if 'definition' in request.json:
+        dashboard.definition = database.DashboardDef(dumps(request.json['definition']))
+    else:
+        dashboard.definition = database.DashboardDef(dumps(DashboardDefinition()))
     mgr.store_dashboard(dashboard)
-    # TODO - return 201 with URL of created dashboard
     href = '/api/dashboard/{0}'.format(dashboard.id)
     return _jsonify({ 'ok' : True,
                       'dashboard_href' : href },
