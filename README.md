@@ -10,9 +10,8 @@ Words. Words about pictures.
 
 ![screenshot](docs/screenshot-single-node-light.png)
 
-# Getting Started
+## Getting Started
 
-## Setup
 
 ### Setting up the Python Environment
 
@@ -66,7 +65,7 @@ And to run it from source:
 manage.py run
 ```
 
-## Importing Dashboards from Graphite-Web
+### Importing Dashboards from Graphite-Web
 
 Importing dashboard definitions from the built-in dashboard system in
 graphite-web is currently supported, via the command
@@ -93,7 +92,7 @@ The importer also allows specify the basic layout type (``fluid`` or
 $ manage.py import_graphite_dashboards --query=api --layout=fixed --columns=1
 ```
 
-## Third-Party Code ###
+### Third-Party Code ###
 
 Server Side:
 
