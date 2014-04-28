@@ -12,8 +12,8 @@
 
 ### Optimization
 
-- In non-interactive graph mode, don't evaluate the raw data queries
-  if there are no textual presentations
+- ~~In non-interactive graph mode, don't evaluate the raw data queries
+  if there are no textual presentations~~
 - consider moving to graphite's raw text protocol
 
 ### Model & Persistence
@@ -174,7 +174,9 @@
   - default auto-refresh period
   - color theme
   - recent time ranges
-  - static vs. interactive images as default
+  - ~~static vs. interactive images as default~~
+    - ~~currently a little simplistic; the toggle on the dashboard page
+      should not change the session's persistent setting~~
   - whether action menus are shown by default or not
 - Grid alternatives. Other ways of laying out the dashboard grid, as an alternative to the
   bootstrap CSS grid. Some of these are interactive, with possibilities for editing.

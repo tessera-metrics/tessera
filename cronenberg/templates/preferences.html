@@ -13,23 +13,67 @@
     {% include "snippets/breadcrumbs.html" %}
   </div>
 
+
   <div class="row">
-    <div class="col-md-8 col-md-offset-4">
-    <div class="btn-group">
-        <button class="btn btn-default" onclick="setTheme('dark')">Dark</button>
-        <button class="btn btn-default" onclick="setTheme('light')">Light</button>
-    <!-- <button class="btn btn-default" onclick="setTheme('solarized-dark')">Solarized Dark</button> -->
-        <button class="btn btn-default" onclick="setTheme('solarized-light')">Solarized Light</button>
+    <div class="col-md-8 col-md-offset-2">
+
+      <div class="well">
+
+      <form class="form-horizontal">
+        <fieldset>
+
+          <!-- Form Name -->
+          <!-- <legend>Form Name</legend> -->
+
+          <!-- Chart Style -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="chartRadios">Default Chart Style</label>
+            <div class="col-md-4">
+              <div class="radio">
+                <label for="chartRadios-0">
+                  <!-- Static -->
+                  <input type="radio" name="chartRadios" id="chartRadios-0" value="static" {% if preferences.interactive == 'false' %} checked="checked"{% endif %} onclick="setPref('interactive', 'false')">
+                    Static
+                </label>
+	          </div>
+              <div class="radio">
+                <label for="chartRadios-1">
+                  <!-- Interactive -->
+                  <input type="radio" name="chartRadios" id="chartRadios-1" value="interactive" {% if preferences.interactive == 'true' %} checked="checked"{% endif %} onclick="setPref('interactive', 'true')">
+                    Interactive
+                </label>
+	          </div>
+            </div>
+          </div>
+
+          <!-- Theme -->
+          <div class="form-group">
+            <label class="col-md-4 control-label">Theme</label>
+            <div class="col-md-8">
+              <div class="btn-group">
+                <input type="button" class="btn {% if preferences.theme=='dark' %} btn-primary {% else %} btn-default {% endif %} col-md-4" onclick="setPref('theme', 'dark')" value="Dark">
+                <input type="button" class="btn {% if preferences.theme=='light' %} btn-primary {% else %} btn-default {% endif %} col-md-4" onclick="setPref('theme', 'light')" value="Light">
+                <input type="button" class="btn {% if preferences.theme=='solarized-light' %} btn-primary {% else %} btn-default {% endif %} col-md-4" onclick="setPref('theme', 'solarized-light')" value="Solarized Light">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
       </div>
     </div>
+  </div>
+
+
+  <div class="row">
   </div>
 
 </div> <!-- container -->
 
 <script>
-  setTheme = function(theme) {
+  setPref = function(key, value) {
       window.location = URI(window.location)
-          .setQuery('theme', theme)
+          .setQuery(key, value)
           .href();
   };
 
