@@ -75,14 +75,25 @@ cronenberg.DashboardManager = function() {
         });
     };
 
-    this._process_item_ids = function(item, data) {
+    this._process_item_ids = function(item, holder) {
         var self = this;
         if (item.element_id) {
-            data[item.element_id] = item;
+            holder.elementToItemMap[item.element_id] = item;
         }
+      if (item.interactive) {
+        holder.raw_data_required = true;
+      }
+      switch (item.item_type) {
+        case 'singlestat':
+        case 'jumbotron_singlestat':
+        case 'summation_table':
+        case 'donut_chart':
+        holder.raw_data_required = true;
+        break;
+      }
         if (item.items) {
             item.items.map(function(child) {
-                self._process_item_ids(child, data);
+                self._process_item_ids(child, holder);
             });
         }
     };
@@ -103,7 +114,7 @@ cronenberg.DashboardManager = function() {
 
             // Build a map from the presentation elements to their
             // model objects.
-            self._process_item_ids(dashboard.definition, holder.elementToItemMap);
+            self._process_item_ids(dashboard.definition, holder);
 
             // Set up the queries
             cronenberg.queries.clear();
@@ -123,9 +134,9 @@ cronenberg.DashboardManager = function() {
             });
 
             // Load the queries
-            cronenberg.queries.loadAll();
+            cronenberg.queries.loadAll(!holder.raw_data_required);
 
-            bean.fire(self, cronenberg.events.DASHBOARD_LOADED, dashboard);
+          bean.fire(self, cronenberg.events.DASHBOARD_LOADED, dashboard);
         });
         return self;
     };
