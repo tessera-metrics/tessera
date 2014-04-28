@@ -32,10 +32,12 @@ module.exports = function(grunt) {
         ],
         dest: 'cronenberg/static/app.js'
       }
-
     },
     watch: {
-      files: ['<%= concat.dist.src %>'],
+      files: [
+        'cronenberg/static/cron*.js',
+        'cronenberg/static/js/*.js'
+      ],
       tasks: ['concat']
     }
   });
