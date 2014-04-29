@@ -80,17 +80,17 @@ cronenberg.DashboardManager = function() {
         if (item.element_id) {
             holder.elementToItemMap[item.element_id] = item;
         }
-      if (item.interactive) {
-        holder.raw_data_required = true;
-      }
-      switch (item.item_type) {
+        if (item.interactive) {
+            holder.raw_data_required = true;
+        }
+        switch (item.item_type) {
         case 'singlestat':
         case 'jumbotron_singlestat':
         case 'summation_table':
         case 'donut_chart':
-        holder.raw_data_required = true;
-        break;
-      }
+            holder.raw_data_required = true;
+            break;
+        }
         if (item.items) {
             item.items.map(function(child) {
                 self._process_item_ids(child, holder);
@@ -136,7 +136,7 @@ cronenberg.DashboardManager = function() {
             // Load the queries
             cronenberg.queries.loadAll(!holder.raw_data_required);
 
-          bean.fire(self, cronenberg.events.DASHBOARD_LOADED, dashboard);
+            bean.fire(self, cronenberg.events.DASHBOARD_LOADED, dashboard);
         });
         return self;
     };
@@ -148,8 +148,8 @@ cronenberg.DashboardManager = function() {
         }
     };
 
-  // Definitely getting to the point we need some kind of reactive MVC
-  // here
+    // Definitely getting to the point we need some kind of reactive MVC
+    // here
     this.toggle_interactive_charts = function() {
         var self = this;
         $.get('/api/preferences', function(data) {
@@ -289,9 +289,9 @@ cronenberg.DashboardManager = function() {
                     dataType: 'json',
                     data: JSON.stringify(dashboard)
                 }).done(function(data) {
-                  if (handler) {
-                    handler();
-                  }
+                    if (handler) {
+                        handler();
+                    }
                 });
             });
         })

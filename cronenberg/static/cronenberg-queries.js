@@ -75,10 +75,10 @@ cronenberg.Query = function(name, url) {
         }).done(completionHandler(self));
     };
 
-  this.fire = function() {
-    var self = this;
-    bean.fire(self, cronenberg.events.DATA_AVAILABLE, self)
-  };
+    this.fire = function() {
+        var self = this;
+        bean.fire(self, cronenberg.events.DATA_AVAILABLE, self)
+    };
 
     this.available = function(handler) {
         bean.on(this, cronenberg.events.DATA_AVAILABLE, handler);
@@ -138,11 +138,11 @@ cronenberg.QueryRegistry = function() {
     this.loadAll = function(fireOnly) {
         var self = this;
         for (var query_name in self.registry) {
-          if (fireOnly) {
-            self.registry[query_name].fire();
-          } else {
-            self.registry[query_name].load();
-          }
+            if (fireOnly) {
+                self.registry[query_name].fire();
+            } else {
+                self.registry[query_name].load();
+            }
         }
         return self;
     };

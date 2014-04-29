@@ -24,7 +24,7 @@ var cronenberg = {
      * Register an event handler for entering fullscreen mode.
      */
     onEnterFullscreen: function(handler) {
-      var self = this;
+        var self = this;
         bean.on(self, cronenberg.events.ENTER_FULL_SCREEN, handler);
         return self;
     },
@@ -41,18 +41,18 @@ var cronenberg = {
     },
 
     onEnterEditMode: function(handler) {
-      var self = this;
+        var self = this;
         bean.on(self, cronenberg.events.ENTER_EDIT_MODE, handler);
         return self;
     },
 
     enterEditMode: function() {
-      var self = this;
+        var self = this;
         $("[data-ds-edit-mode=hide]").hide(self.ANIMATION_DELAY);
         $("[data-ds-edit-mode=show]").show(self.ANIMATION_DELAY);
-      self.editing = true;
-      bean.fire(self, cronenberg.events.ENTER_EDIT_MODE);
-      return self;
+        self.editing = true;
+        bean.fire(self, cronenberg.events.ENTER_EDIT_MODE);
+        return self;
     },
 
     /**
@@ -67,12 +67,12 @@ var cronenberg = {
      * Exit full screen mode.
      */
     exitFullscreen: function() {
-      var self = this;
+        var self = this;
         $("[data-ds-fullscreen=show]").hide(this.ANIMATION_DELAY)
         $("[data-ds-fullscreen=hide]").show(this.ANIMATION_DELAY)
         bean.fire(self, cronenberg.events.EXIT_FULL_SCREEN);
         self.fullscreen = false;
-      return self;
+        return self;
     },
 
     onExitEditMode: function(handler) {
@@ -81,7 +81,7 @@ var cronenberg = {
     },
 
     exitEditMode: function() {
-      var self = this;
+        var self = this;
         $("[data-ds-edit-mode=show]").hide(this.ANIMATION_DELAY);
         $("[data-ds-edit-mode=hide]").show(this.ANIMATION_DELAY);
         bean.fire(self, cronenberg.events.EXIT_EDIT_MODE);
@@ -90,13 +90,13 @@ var cronenberg = {
     },
 
     toggleEditMode: function() {
-      var self = this;
+        var self = this;
         if (self.editing) {
             this.exitEditMode();
         } else {
             self.enterEditMode();
         }
-      return self;
+        return self;
     },
 
     check_thresholds: function(item, value, element) {
