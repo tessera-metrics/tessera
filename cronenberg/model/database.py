@@ -44,7 +44,7 @@ class Dashboard(db.Model):
             'creation_date' : self.creation_date.isoformat() + 'Z',
             'last_modified_date' : self.last_modified_date.isoformat() + 'Z',
             'imported_from' : self.imported_from,
-            'tags' : [t.name for t in self.tags]
+            'tags' : self.tags
         }
 
     def merge_from_json(self, d):
@@ -78,18 +78,21 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
     description = db.Column(db.Text)
+    color = db.Column(db.String(24))
     count = None
 
-    def __init__(self, name, description=None, count=None, **kwargs):
+    def __init__(self, name, description=None, color=None, count=None, **kwargs):
         self.name = name
         self.description = description
         self.count = count
+        self.color = color
 
     def to_json(self):
         return {
             'id' : self.id,
             'name' : self.name,
             'description' : self.description,
+            'color' : self.color,
             'count' : self.count
         }
 
