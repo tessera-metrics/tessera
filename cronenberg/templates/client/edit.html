@@ -9,11 +9,11 @@
       <table class="table-condensed">
         <tbody>
           <tr>
-            <th>Title</th><td>{{dashboard.title}}</td>
+            <th>Title</th><td class="ds-editable" data-type="text">{{dashboard.title}}</td>
           </tr>
 
           <tr>
-            <th>Category</th><td>{{dashboard.category}}</td>
+            <th>Category</th><td class="ds-editable" data-type="text">{{dashboard.category}}</td>
           </tr>
 
           <tr>
@@ -39,13 +39,17 @@
     <!-- Column 2 -->
     <div class="col-md-4">
       <h4>Description</h4>
-      <p>{{dashboard.description}}</p>
+      <p class="ds-editable"
+         data-type="textarea"
+         data-rows="9"
+         data-showbuttons="bottom"
+         data-inputclass="input-sm col-sm-12">
+        {{dashboard.description}}
+      </p>
     </div>
 
   </div>
 </script>
-
-
 <script>
         cronenberg.templates.edit = cronenberg.templates.edit || {};
         cronenberg.templates.edit.infopanel = Handlebars.compile($("#tmpl-dashboard-info-edit-panel").html());
