@@ -32,14 +32,14 @@
               <div class="radio">
                 <label for="chartRadios-0">
                   <!-- Static -->
-                  <input type="radio" name="chartRadios" id="chartRadios-0" value="static" {% if ctx.prefs.interactive == 'false' %} checked="checked"{% endif %} onclick="setPref('interactive', 'false')">
+                  <input type="radio" name="chartRadios" id="chartRadios-0" value="static" {% if not ctx.prefs.interactive %} checked="checked"{% endif %} onclick="setPref('interactive', 'false')">
                     Static
                 </label>
 	          </div>
               <div class="radio">
                 <label for="chartRadios-1">
                   <!-- Interactive -->
-                  <input type="radio" name="chartRadios" id="chartRadios-1" value="interactive" {% if ctx.prefs.interactive == 'true' %} checked="checked"{% endif %} onclick="setPref('interactive', 'true')">
+                  <input type="radio" name="chartRadios" id="chartRadios-1" value="interactive" {% if ctx.prefs.interactive %} checked="checked"{% endif %} onclick="setPref('interactive', 'true')">
                     Interactive
                 </label>
 	          </div>
