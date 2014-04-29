@@ -113,6 +113,8 @@
 
 ### UI
 
+- Investigate [react](http://facebook.github.io/react/)
+  - [Why you might not need MVC with React](http://www.code-experience.com/why-you-might-not-need-mvc-with-reactjs/)
 - Add option to include a graph on the front page - something like our
   carbon metrics, on the state of the graphite system itself
 - add option for readable slugs in UI URLs
