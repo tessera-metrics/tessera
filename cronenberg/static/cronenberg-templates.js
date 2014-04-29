@@ -39,7 +39,9 @@ cronenberg.TemplateRegistry = function() {
         Handlebars.registerHelper('item', function(item) {
             return new Handlebars.SafeString(cronenberg.templates.render_presentation(item));
         });
-
+        Handlebars.registerHelper('moment', function(format, value) {
+            return moment(value).format(format);
+        });
         Handlebars.registerHelper('format', function(format, value) {
             return d3.format(format)(value);
         });
