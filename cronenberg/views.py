@@ -52,6 +52,16 @@ def _get_param(name, default=None, store_in_session=False):
         session[name] = value
     return value
 
+def _get_preferences(store_in_session=False):
+    return {
+        'interactive' : _get_param('interactive', app.config['INTERACTIVE_CHARTS_DEFAULT'], store_in_session=store_in_session) == 'true',
+        'theme' : _get_param('theme', app.config['DEFAULT_THEME'], store_in_session=store_in_session)
+    }
+
+def _set_preferences(prefs):
+    for name, value in prefs.items():
+        session[name] = value
+
 # =============================================================================
 #
 # ## API Endpoints
@@ -296,15 +306,15 @@ def api_dashboard_update_tags(id):
 
     return _jsonify({ 'ok' : True })
 
+@app.route('/api/preferences/')
+def api_preferences_get():
+    return _jsonify(_get_preferences())
 
-# @app.route('/api/dashboard/<name>', methods=['POST'])
-# def api_dashboard_instance_post(name):
-#     """Workaround for the fact that XmlHttpRequest and form posting
-#     *still* doesn't support anything other than GET and POST."""
-#     if '_method' in request.args and request.args['_method'] == 'delete':
-#         return api_dashboard_delete(name)
-#     else:
-#         return api_dashboard_put(name)
+@app.route('/api/preferences/', methods=['PUT'])
+def api_preferences_put():
+    _set_preferences(request.json)
+    return _jsonify({ 'ok' : True })
+
 
 # =============================================================================
 # UI Helpers
@@ -314,7 +324,7 @@ class RenderContext:
     def __init__(self):
         self.now = datetime.now()
         self.element_index = 0
-        self.theme = self.get('theme', default=app.config['DEFAULT_THEME'], store_in_session=True)
+        self.prefs = _get_preferences()
 
     def get(self, key, default=None, store_in_session=False):
         return _get_param(key, default=default, store_in_session=store_in_session)
@@ -330,6 +340,7 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html'):
 
     dashboard.title = _render_pybars_template(dashboard.title, template_variables)
     dashboard.description = _render_pybars_template(dashboard.description, template_variables)
+    dashboard.summary = _render_pybars_template(dashboard.summary, template_variables)
 
     extra_params = request.args.to_dict()
 
@@ -363,18 +374,12 @@ def ui_root():
 
 @app.route('/preferences/')
 def ui_preferences():
-    preferences = {
-        'interactive' : _get_param('interactive', app.config['INTERACTIVE_CHARTS_DEFAULT'], store_in_session=True),
-        'theme' : _get_param('theme', app.config['DEFAULT_THEME'], store_in_session=True)
-    }
-    print preferences
+    _get_preferences(store_in_session=True),
     title = 'User Preferences'
     return _render_template('preferences.html',
                             title=title,
-                            preferences=preferences,
                             breadcrumbs=[('Home', '/'),
                                          (title, '')])
-
 
 @app.route('/dashboards/')
 def ui_dashboard_list():

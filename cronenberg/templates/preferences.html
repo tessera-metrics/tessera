@@ -32,14 +32,14 @@
               <div class="radio">
                 <label for="chartRadios-0">
                   <!-- Static -->
-                  <input type="radio" name="chartRadios" id="chartRadios-0" value="static" {% if preferences.interactive == 'false' %} checked="checked"{% endif %} onclick="setPref('interactive', 'false')">
+                  <input type="radio" name="chartRadios" id="chartRadios-0" value="static" {% if ctx.prefs.interactive == 'false' %} checked="checked"{% endif %} onclick="setPref('interactive', 'false')">
                     Static
                 </label>
 	          </div>
               <div class="radio">
                 <label for="chartRadios-1">
                   <!-- Interactive -->
-                  <input type="radio" name="chartRadios" id="chartRadios-1" value="interactive" {% if preferences.interactive == 'true' %} checked="checked"{% endif %} onclick="setPref('interactive', 'true')">
+                  <input type="radio" name="chartRadios" id="chartRadios-1" value="interactive" {% if ctx.prefs.interactive == 'true' %} checked="checked"{% endif %} onclick="setPref('interactive', 'true')">
                     Interactive
                 </label>
 	          </div>
@@ -51,9 +51,9 @@
             <label class="col-md-4 control-label">Theme</label>
             <div class="col-md-8">
               <div class="btn-group">
-                <input type="button" class="btn {% if preferences.theme=='dark' %} btn-primary {% else %} btn-default {% endif %} col-md-4" onclick="setPref('theme', 'dark')" value="Dark">
-                <input type="button" class="btn {% if preferences.theme=='light' %} btn-primary {% else %} btn-default {% endif %} col-md-4" onclick="setPref('theme', 'light')" value="Light">
-                <input type="button" class="btn {% if preferences.theme=='solarized-light' %} btn-primary {% else %} btn-default {% endif %} col-md-4" onclick="setPref('theme', 'solarized-light')" value="Solarized Light">
+                <input type="button" class="btn {% if ctx.prefs.theme=='dark' %} btn-primary {% else %} btn-default {% endif %} col-md-4" onclick="setPref('theme', 'dark')" value="Dark">
+                <input type="button" class="btn {% if ctx.prefs.theme=='light' %} btn-primary {% else %} btn-default {% endif %} col-md-4" onclick="setPref('theme', 'light')" value="Light">
+                <input type="button" class="btn {% if ctx.prefs.theme=='solarized-light' %} btn-primary {% else %} btn-default {% endif %} col-md-4" onclick="setPref('theme', 'solarized-light')" value="Solarized Light">
               </div>
             </div>
           </div>
