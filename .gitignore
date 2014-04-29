@@ -8,6 +8,7 @@ lib/
 include/
 man/
 dist/
+data/
 .Python
 bower_components/
 node_modules/
