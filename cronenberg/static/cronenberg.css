@@ -54,6 +54,10 @@ table.table thead .sorting_desc_disabled { background: url('/static/img/datatabl
 .badge-danger {
   background-color: #d9534f;
 }
+/* Badges are just more readable when slightly less bold */
+.badge {
+  font-weight: 400;
+}
 
 .bg-neutral {
     background-color: #f0f0f0;
