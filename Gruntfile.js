@@ -19,6 +19,7 @@ module.exports = function(grunt) {
           'cronenberg/static/js/bootbox.min.js',
           'cronenberg/static/js/d3.min.js',
           'cronenberg/static/js/nv.d3.min.js',
+          'cronenberg/static/js/tagmanager.js'
         ],
         dest: 'cronenberg/static/bundle.js'
       },
