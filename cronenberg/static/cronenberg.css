@@ -66,6 +66,12 @@ table.table thead .sorting_desc_disabled { background: url('/static/img/datatabl
     background-color: #f0f0f0;
 }
 
+/* x-editable's textarea in dashboard info edit panel comes out too
+narrow unless we override */
+.ds-dashboard-info-edit-panel span.editable-container textarea {
+    width: 30em;
+}
+
 /* =============================================================================
    Application Styles
    ============================================================================= */
