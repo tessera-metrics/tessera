@@ -2,28 +2,46 @@
 
 <script id="tmpl-dashboard-info-edit-panel" type="text/x-handlebars-template">
   <div class="row">
-    <div class="col-md-6">
-      <dl class="dl-horizontal">
+    <!-- Column 1 -->
+    <div class="col-md-4">
+      <h4>Properties</h4>
 
-        <dt>Title</dt><dd>{{dashboard.title}}</dd>
+      <table class="table-condensed">
+        <tbody>
+          <tr>
+            <th>Title</th><td>{{dashboard.title}}</td>
+          </tr>
 
-        <dt>Category</dt><dd>{{dashboard.category}}</dd>
+          <tr>
+            <th>Category</th><td>{{dashboard.category}}</td>
+          </tr>
 
-        <!-- <dt>Created</dt><dd>{{dashboard.creation_date}}</dd>
+          <tr>
+            <th>Tags</th>
+            <td>
+              {{#each dashboard.tags}}
+              <span class="badge badge-primary">{{this}}</span>
+              {{/each}}
+            </td>
+          </tr>
 
-        <dt>Last Modified</dt><dd>{{dashboard.last_modified_date}}</dd> -->
+          <tr>
+            <th>Created</th><td>{{moment 'MMMM Do YYYY, h:mm:ss a' dashboard.creation_date}}</td>
+          </tr>
+          <tr>
+            <th>Last Modified</th><td>{{moment 'MMMM Do YYYY, h:mm:ss a' dashboard.last_modified_date}}</td>
+          </tr>
 
-        <dt>Description</dt><dd>{{dashboard.description}}</dd>
+        </tbody>
+      </table>
+    </div> <!-- column -->
 
-        <dt>Tags</dt>
-        <dd>
-          {{#each dashboard.tags}}
-          <span class="badge badge-primary">{{this}}</span>
-          {{/each}}
-        </dd>
-
-      </dl>
+    <!-- Column 2 -->
+    <div class="col-md-4">
+      <h4>Description</h4>
+      <p>{{dashboard.description}}</p>
     </div>
+
   </div>
 </script>
 
