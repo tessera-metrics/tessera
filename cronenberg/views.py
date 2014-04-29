@@ -242,6 +242,7 @@ def api_dashboard_get_expanded(id):
 
     dash.title = _render_pybars_template(dash.title, variables)
     dash.description = _render_pybars_template(dash.description, variables)
+    dash.summary = _render_pybars_template(dash.summary, variables)
 
     dash = dash.to_json()
     dash['href'] = '/api/dashboard/{0}'.format(id)
