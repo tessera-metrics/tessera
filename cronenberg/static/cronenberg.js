@@ -24,8 +24,9 @@ var cronenberg = {
      * Register an event handler for entering fullscreen mode.
      */
     onEnterFullscreen: function(handler) {
-        bean.on(this, cronenberg.events.ENTER_FULL_SCREEN, handler);
-        return this;
+      var self = this;
+        bean.on(self, cronenberg.events.ENTER_FULL_SCREEN, handler);
+        return self;
     },
 
     /**
@@ -40,16 +41,18 @@ var cronenberg = {
     },
 
     onEnterEditMode: function(handler) {
-        bean.on(this, cronenberg.events.ENTER_EDIT_MODE, handler);
-        return this;
+      var self = this;
+        bean.on(self, cronenberg.events.ENTER_EDIT_MODE, handler);
+        return self;
     },
 
     enterEditMode: function() {
-        $("[data-ds-edit-mode=hide]").hide(this.ANIMATION_DELAY);
-        $("[data-ds-edit-mode=show]").show(this.ANIMATION_DELAY)
-        bean.fire(this, cronenberg.events.ENTER_EDIT_MODE);
-        this.editing = true;
-        return this;
+      var self = this;
+        $("[data-ds-edit-mode=hide]").hide(self.ANIMATION_DELAY);
+        $("[data-ds-edit-mode=show]").show(self.ANIMATION_DELAY);
+      self.editing = true;
+      bean.fire(self, cronenberg.events.ENTER_EDIT_MODE);
+      return self;
     },
 
     /**
@@ -64,11 +67,12 @@ var cronenberg = {
      * Exit full screen mode.
      */
     exitFullscreen: function() {
+      var self = this;
         $("[data-ds-fullscreen=show]").hide(this.ANIMATION_DELAY)
         $("[data-ds-fullscreen=hide]").show(this.ANIMATION_DELAY)
-        bean.fire(this, cronenberg.events.EXIT_FULL_SCREEN);
-        this.fullscreen = false;
-        return this;
+        bean.fire(self, cronenberg.events.EXIT_FULL_SCREEN);
+        self.fullscreen = false;
+      return self;
     },
 
     onExitEditMode: function(handler) {
@@ -77,19 +81,22 @@ var cronenberg = {
     },
 
     exitEditMode: function() {
-        $("[data-ds-edit-mode=show]").hide(this.ANIMATION_DELAY)
-        $("[data-ds-edit-mode=hide]").show(this.ANIMATION_DELAY)
-        bean.fire(this, cronenberg.events.EXIT_EDIT_MODE);
-        this.editing = false;
+      var self = this;
+        $("[data-ds-edit-mode=show]").hide(this.ANIMATION_DELAY);
+        $("[data-ds-edit-mode=hide]").show(this.ANIMATION_DELAY);
+        bean.fire(self, cronenberg.events.EXIT_EDIT_MODE);
+        self.editing = false;
         return this;
     },
 
     toggleEditMode: function() {
-        if (this.editing) {
+      var self = this;
+        if (self.editing) {
             this.exitEditMode();
         } else {
-            this.enterEditMode();
+            self.enterEditMode();
         }
+      return self;
     },
 
     check_thresholds: function(item, value, element) {
