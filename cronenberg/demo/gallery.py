@@ -9,7 +9,10 @@ def demo_gallery_dashboard():
     return database.Dashboard(
         title='Gallery',
         category='Demo',
-        description='A gallery of all the supported presentations',
+        summary='A gallery of all the supported presentations',
+        description='Dashboard descriptions can be longer and more detailed. \n' \
+        + '### Markdown Formatted \n'
+        + 'Plus, they can be _formatted_ in **Markdown** format for rendering to HTML.',
         tags=[ Tag('demo'), Tag('random'), Tag('featured')],
         definition = DashboardDef(
             definition=dumps(

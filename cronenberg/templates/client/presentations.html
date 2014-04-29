@@ -7,10 +7,9 @@
     dedicated visibility toggle if desired.
 -->
 <script id="ds-tmpl-action-menu" type="text/x-handlebars-template">
-  <div class="btn-group">
-    <button data-ds-edit-mode="show"
-            style="display:none"
-            type="button"
+  <div data-ds-fullscreen="hide"
+       class="btn-group">
+    <button type="button"
             class="btn btn-default btn-xs dropdown-toggle"
             data-toggle="dropdown">
       <span class="caret"></span>
@@ -51,7 +50,7 @@
     PARTIAL: title bar
 -->
 <script id="ds-tmpl-title-bar" type="text/x-handlebars-template">
-  <div>
+  <div class="row">
     <div class="pull-right">
       {{> ds-action-menu}}
     </div>

@@ -54,12 +54,27 @@ table.table thead .sorting_desc_disabled { background: url('/static/img/datatabl
 .badge-danger {
   background-color: #d9534f;
 }
+/* Badges are just more readable when slightly less bold */
+.badge {
+  font-weight: 400;
+}
 
 .bg-neutral {
     background-color: #f0f0f0;
 }
 .alert-neutral {
     background-color: #f0f0f0;
+}
+
+/* x-editable's textarea in dashboard info edit panel comes out too
+narrow unless we override */
+.ds-dashboard-info-edit-panel span.editable-container textarea {
+    width: 30em;
+}
+
+/* text boxes get formatted a little oddly by x-editable without resetting this */
+.editable-pre-wrapped {
+    white-space: normal;
 }
 
 /* =============================================================================
