@@ -3,7 +3,7 @@
 <script id="tmpl-dashboard-info-edit-panel" type="text/x-handlebars-template">
   <div class="row">
     <!-- Column 1 -->
-    <div class="col-md-4">
+    <div class="col-md-5">
       <h4>Properties</h4>
 
       <table class="table-condensed">
@@ -41,15 +41,16 @@
     </div> <!-- column -->
 
     <!-- Column 2 -->
-    <div class="col-md-4">
+    <div class="col-md-7">
       <h4>Description</h4>
-      <p class="ds-editable"
+      <div class="ds-editable"
          data-type="textarea"
          data-rows="9"
          data-showbuttons="bottom"
-         data-inputclass="input-sm col-sm-12">
-        {{dashboard.description}}
-      </p>
+         data-inputclass="ds-dashboard-description"
+           style="text-align:top;">
+        {{markdown dashboard.description}}
+      </div>
     </div>
 
   </div>

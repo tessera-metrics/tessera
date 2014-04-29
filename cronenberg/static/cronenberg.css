@@ -72,6 +72,11 @@ narrow unless we override */
     width: 30em;
 }
 
+/* text boxes get formatted a little oddly by x-editable without resetting this */
+.editable-pre-wrapped {
+    white-space: normal;
+}
+
 /* =============================================================================
    Application Styles
    ============================================================================= */
