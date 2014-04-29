@@ -88,6 +88,7 @@ def _dashboards_response(dashboards):
     for dash in dashboards:
         id = dash['id']
         dash['href'] = '/api/dashboard/{0}'.format(id)
+        dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
         dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
     return _jsonify({
         'dashboards' : dashboards
@@ -241,6 +242,7 @@ def api_dashboard_get_expanded(id):
 
     dash.title = _render_pybars_template(dash.title, variables)
     dash.description = _render_pybars_template(dash.description, variables)
+    dash.summary = _render_pybars_template(dash.summary, variables)
 
     dash = dash.to_json()
     dash['href'] = '/api/dashboard/{0}'.format(id)

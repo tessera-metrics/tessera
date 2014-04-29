@@ -64,9 +64,9 @@
               <strong>
                 {{title}}
               </strong>
-              {{#if description}}
+              {{#if summary}}
               <br/>
-              <small>{{description}}</small>
+              <small>{{summary}}</small>
               {{/if}}
             </a><br/>
             Last modified {{last_modified}}.
@@ -76,7 +76,7 @@
           </div>
           <div class="pull-right" style="text-align:right">
             {{#each tags}}
-            <a href="/dashboards/tagged/{{this}}"><span class="badge badge-primary">{{this}}</span></a>
+              {{> ds-dashboard-tag-with-link this}}
             {{/each}}
             <br/>
             {{#if imported_from}}
@@ -89,6 +89,24 @@
     </td>
   </tr>
 </script>
+
+<!--
+     PARTIAL: Dashboard Tags with link
+  -->
+<script id="ds-tmpl-dashboard-tag-with-link" type="text/x-handlebars-template">
+<a href="/dashboards/tagged/{{name}}">{{> ds-dashboard-tag this}}</a>
+</script>
+
+<!--
+     PARTIAL: Dashboard Tags
+  -->
+<script id="ds-tmpl-dashboard-tag" type="text/x-handlebars-template">
+  <span class="badge badge-primary"
+    {{#if color}}
+      style="background-color: {{color}};"
+    {{/if}}>{{name}}</span>
+</script>
+
 
 <!--
     TEMPLATE: dashboard listing table
@@ -105,6 +123,7 @@
     </tbody>
   </table>
 </script>
+
 
 <!--
     TEMPLATE: tag listing picker
@@ -123,6 +142,8 @@
 <script>
   Handlebars.registerPartial('ds-dashboard-listing-entry', $('#ds-tmpl-dashboard-listing-entry').html());
   Handlebars.registerPartial('ds-dashboard-listing-action-menu', $('#ds-tmpl-dashboard-listing-action-menu').html());
+  Handlebars.registerPartial('ds-dashboard-tag', $('#ds-tmpl-dashboard-tag').html());
+  Handlebars.registerPartial('ds-dashboard-tag-with-link', $('#ds-tmpl-dashboard-tag-with-link').html());
   cronenberg.templates.other = cronenberg.templates.other || {};
   cronenberg.templates.other.listing = Handlebars.compile($("#ds-tmpl-main-listing").html());
   cronenberg.templates.other.taglisting = Handlebars.compile($("#ds-tmpl-tag-listing").html());
