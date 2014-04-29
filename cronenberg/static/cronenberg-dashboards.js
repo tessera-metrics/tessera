@@ -148,20 +148,28 @@ cronenberg.DashboardManager = function() {
         }
     };
 
+  // Definitely getting to the point we need some kind of reactive MVC
+  // here
     this.toggle_interactive_charts = function() {
         var self = this;
-        var dashboard_url = URI(self.current.url);
-        var window_url = URI(window.location);
-        var setting = 'false';
-        if (dashboard_url.hasQuery('interactive', 'false')) {
-            setting = 'true';
-        }
-        dashboard_url.setQuery('interactive', setting);
-        window_url.setQuery('interactive', setting);
-        self.current.url = dashboard_url.href();
-        window.history.pushState({url: self.current.url, element:self.current.element}, '', window_url.href());
-        self.refresh();
-        return setting == 'true';
+        $.get('/api/preferences', function(data) {
+            var setting = !data.interactive;
+            var dashboard_url = URI(self.current.url);
+            var window_url = URI(window.location);
+
+            if (window_url.hasQuery('interactive', 'true')) {
+                setting = false;
+            } else if (window_url.hasQuery('interactive', 'false')) {
+                setting = true;
+            }
+
+            dashboard_url.setQuery('interactive', setting);
+            window_url.setQuery('interactive', setting);
+            self.current.url = dashboard_url.href();
+            window.history.pushState({url: self.current.url, element:self.current.element}, '', window_url.href());
+            self.refresh();
+            return setting == 'true';
+        });
     };
 
     /* -----------------------------------------------------------------------------

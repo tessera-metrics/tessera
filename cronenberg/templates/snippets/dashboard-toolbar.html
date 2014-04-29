@@ -10,7 +10,11 @@
     <div class="btn-toolbar pull-right">
 
       <div class="btn-group" data-ds-edit-mode="show" style="display:none">
-        <button type="button" id="ds-delete-button" class="btn btn-danger" data-ds-href="{{ dashboard.href }}" data-toggle="tooltip" title="Delete this dashboard">
+        <button type="button" id="ds-delete-button"
+                class="btn btn-danger"
+                data-toggle="tooltip"
+                onclick="cronenberg.dashboards.delete_current()"
+                title="Delete this dashboard">
           <i class="fa fa-lg fa-trash-o"></i>
         </button>
       </div>
@@ -47,12 +51,10 @@
             $('#ds-toggle-interactive-button').removeClass('btn-default').addClass('btn-inverse');
         }
     };
-$("#ds-delete-button").click(function() {
-    cronenberg.dashboards.delete_current();
-});
-cronenberg.onEnterEditMode(function() {
-    $('#ds-edit-button').removeClass('btn-default').addClass('btn-inverse');
-}).onExitEditMode(function() {
-    $('#ds-edit-button').removeClass('btn-inverse').addClass('btn-default');
-});
+
+    cronenberg.onEnterEditMode(function() {
+        $('#ds-edit-button').removeClass('btn-default').addClass('btn-inverse');
+    }).onExitEditMode(function() {
+        $('#ds-edit-button').removeClass('btn-inverse').addClass('btn-default');
+    });
 </script>
