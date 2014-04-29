@@ -4,9 +4,17 @@
 
 - integrate some proper JS build-fu to minify and compress all the
   javascript, etc...
-  - ~~[browserify](http://browserify.org/) sounds like a leading candidate~~
-- Precompile client side templates with [grunt-contrib-handlebars](https://github.com/gruntjs/grunt-contrib-handlebars)
-- Compile CSS from LESS with [grunt-contrib-less](https://github.com/gruntjs/grunt-contrib-less)
+  - ~~[browserify](http://browserify.org/) sounds like a leading
+    candidate~~
+- Precompile client side templates with
+  [grunt-contrib-handlebars](https://github.com/gruntjs/grunt-contrib-handlebars)
+- Compile CSS from LESS with
+  [grunt-contrib-less](https://github.com/gruntjs/grunt-contrib-less)
+- Files can be extracted from bower with
+  [grunt-bower](https://www.npmjs.org/package/grunt-bower)
+- More sophisticated javascript concatenation + minification can be
+  done with
+  [grunt-contrib-uglify](https://github.com/gruntjs/grunt-contrib-uglify)
 
 ### Optimization
 
@@ -35,7 +43,11 @@
   - templatized presentations should also be named entities
   - that requires queries to be (optionally) named entities too, since
     they're independent of presentations
-  - groups (such as sections, see below) are probably the most useful form of shared building-block.
+  - groups (such as sections, see below) are probably the most useful
+    form of shared building-block.
+  - UPDATE: Now that dashboards are also dashboard-items, dashboard is
+    already effectively a unit of named reuse. No real need to have a
+    separate unit. Hooray for consistent models.
 - ~~add support for multi-valued queries (graphite URL api supports
   multiple values for target). Will help with graphite dashboard
   importing~~
