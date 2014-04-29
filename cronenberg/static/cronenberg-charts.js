@@ -333,7 +333,7 @@ cronenberg.charts = {
                     x: function(d) { return d.key; },
                     y: function(d) { return d.y; }
                 }) */
-                .color(cronenberg.charts._color_function(options.palette || 'spectrum6'))
+                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
                 .labelType(options.labelType || "percent")
                 .donut(options.donut !== false)
                 .donutRatio(options.donutRatio || 0.3)
