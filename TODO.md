@@ -4,17 +4,20 @@
 
 - integrate some proper JS build-fu to minify and compress all the
   javascript, etc...
-  - ~~[browserify](http://browserify.org/) sounds like a leading
-    candidate~~
-- Precompile client side templates with
-  [grunt-contrib-handlebars](https://github.com/gruntjs/grunt-contrib-handlebars)
-- Compile CSS from LESS with
-  [grunt-contrib-less](https://github.com/gruntjs/grunt-contrib-less)
-- Files can be extracted from bower with
-  [grunt-bower](https://www.npmjs.org/package/grunt-bower)
-- More sophisticated javascript concatenation + minification can be
-  done with
-  [grunt-contrib-uglify](https://github.com/gruntjs/grunt-contrib-uglify)
+- _Grunt_
+  - Precompile client side templates with
+    [grunt-contrib-handlebars](https://github.com/gruntjs/grunt-contrib-handlebars)
+  - Compile CSS from LESS with
+    [grunt-contrib-less](https://github.com/gruntjs/grunt-contrib-less)
+  - Files can be extracted from bower with
+    [grunt-bower](https://www.npmjs.org/package/grunt-bower)
+  - More sophisticated javascript concatenation + minification can be
+    done with
+    [grunt-contrib-uglify](https://github.com/gruntjs/grunt-contrib-uglify)
+- or _[Gulp](http://gulpjs.com/)_
+  - [gulp-handlebars](https://www.npmjs.org/package/gulp-handlebars)
+  - [browserify-handlebars](https://www.npmjs.org/package/browserify-handlebars)
+  
 
 ### Optimization
 
@@ -27,13 +30,13 @@
 - Thresholds
   - Attach them to queries, not presentations
   - if a threshold is triggered, update ALL presentations linked to it
-- Drilldowns
+- Transforms (pka Drilldowns)
   - They should be entities in the model
-  - each drilldown defines how to generate the drilldown
+  - each transform defines how to generate the new display
     - from a single graph to the same graph on multiple time scales
     - or breaking out a multi-host chart into one chart per host
     - or simple link to another dashboard
-    - Presentations can have more than one drilldown
+    - Presentations can have more than one transform
 - add standard deviation to summation model
 - ~~more sophisticated persistence (i.e. SQLAlchemy or somesuch) that
   would allow tagging and searching by tag~~
@@ -55,7 +58,7 @@
 
 ### API
 
-- accept inline definition in POST /api/dashboard
+- ~~accept inline definition in POST /api/dashboard~~
 - custom error views for API that return proper API responses
 - Refactor how from_json() works, maybe a metaclass or somesuch, to
   cut down on the janky dispatching
