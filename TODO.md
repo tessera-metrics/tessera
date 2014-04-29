@@ -49,7 +49,6 @@
 
 ### API
 
-- ~~accept inline definition in POST /api/dashboard~~
 - custom error views for API that return proper API responses
 - Refactor how from_json() works, maybe a metaclass or somesuch, to
   cut down on the janky dispatching
@@ -178,6 +177,7 @@
 
 #### API
 
+- ~~accept inline definition in POST /api/dashboard~~
 - ~~refactor API to a flask blueprint to reuse for different model
   classes~~ Update: nah, maybe not. API surface area is small, and hand-tuning is good.
 - ~~queries should be dumped to JSON without graphite hostname or
