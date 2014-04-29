@@ -11,6 +11,7 @@ class Dashboard(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80))
     category = db.Column(db.String(40))
+    summary = db.Column(db.String(60))
     description = db.Column(db.Text)
     creation_date = db.Column(db.DateTime)
     imported_from = db.Column(db.String(200))
@@ -21,13 +22,14 @@ class Dashboard(db.Model):
                            backref=db.backref('dashboards', lazy='dynamic'),
                            lazy='joined')
 
-    def __init__(self, title, category=None,
+    def __init__(self, title, category=None, summary=None,
                  description=None, creation_date=None, last_modified_date=None, imported_from=None,
                  definition=None,
                  tags=None):
         now = datetime.utcnow()
         self.title = title
         self.category = category
+        self.summary = summary
         self.creation_date = creation_date or now
         self.last_modified_date = last_modified_date or now
         self.definition = definition
@@ -40,6 +42,7 @@ class Dashboard(db.Model):
             'id' : self.id,
             'title' : self.title,
             'category' : self.category,
+            'summary' : self.summary,
             'description' : self.description,
             'creation_date' : self.creation_date.isoformat() + 'Z',
             'last_modified_date' : self.last_modified_date.isoformat() + 'Z',
@@ -59,6 +62,7 @@ class Dashboard(db.Model):
             tags = [Tag.canonicalize(t) for t in data['tags']]
         return Dashboard(title=data.get('title'),
                          category=data.get('category', None),
+                         summary=data.get('summary', None),
                          description=data.get('description', None),
                          tags=tags,
                          imported_from=data.get('imported_from', None))
