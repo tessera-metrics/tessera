@@ -19,9 +19,9 @@
           <tr>
             <th>Tags</th>
             <td>
-              {{#each dashboard.tags}}
-              <span class="badge badge-primary">{{this}}</span>
-              {{/each}}
+            {{#each dashboard.tags}}
+              {{> ds-dashboard-tag this}}
+            {{/each}}
             </td>
           </tr>
 
