@@ -98,8 +98,12 @@ class Tag(db.Model):
 
     @classmethod
     def canonicalize(cls, tag):
-        if isinstance(tag, basestring):
-            tag = Tag(tag)
+        if isinstance(tag, Tag) and tag.id is not None:
+            return tag
+        elif isinstance(tag, dict):
+            tag = Tag.from_json(tag)
+        elif isinstance(tag, basestring):
+            tag = Tag(name=tag)
         return cls.query.filter_by(name=tag.name).first() or tag
 
     @classmethod
