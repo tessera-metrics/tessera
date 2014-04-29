@@ -11,7 +11,7 @@ class Dashboard(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80))
     category = db.Column(db.String(40))
-    description = db.Column(db.String(200))
+    description = db.Column(db.Text)
     creation_date = db.Column(db.DateTime)
     imported_from = db.Column(db.String(200))
     last_modified_date = db.Column(db.DateTime)
