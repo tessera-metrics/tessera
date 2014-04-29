@@ -19,7 +19,7 @@
         <button type="button" id="ds-edit-button" onclick="toolbarEditHandler()" class="btn btn-default" data-toggle="tooltip" title="Edit">
           <i class="fa fa-lg fa-edit"></i>
         </button>
-        <button type="button" id="ds-toggle-interactive-button" onclick="toggle_interactive_charts()" class="btn btn-default" data-toggle="tooltip" title="Toggle Interactive Graphs">
+        <button type="button" id="ds-toggle-interactive-button" onclick="toggle_interactive_charts()" class="btn {% if ctx.prefs.interactive %} btn-default {% else %} btn-inverse {% endif %}" data-toggle="tooltip" title="Toggle Interactive Graphs">
           <i class="fa fa-lock"></i>
         </button>
         {% include "snippets/refresh-button.html" %}
