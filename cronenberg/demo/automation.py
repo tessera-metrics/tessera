@@ -7,7 +7,7 @@ def demo_automation_overview():
     return database.Dashboard(
         title='Overview',
         category='Automation',
-        description='A high level summary of automation',
+        summary='A high level summary of automation',
         tags=[ Tag('automation'), Tag('summary'), Tag('executive'), Tag('featured') ],
         definition = DashboardDef(
             definition=dumps(
