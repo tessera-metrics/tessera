@@ -4,8 +4,6 @@
 
 - integrate some proper JS build-fu to minify and compress all the
   javascript, etc...
-  - ~~[browserify](http://browserify.org/) sounds like a leading
-    candidate~~
 - Precompile client side templates with
   [grunt-contrib-handlebars](https://github.com/gruntjs/grunt-contrib-handlebars)
 - Compile CSS from LESS with
@@ -18,8 +16,6 @@
 
 ### Optimization
 
-- ~~In non-interactive graph mode, don't evaluate the raw data queries
-  if there are no textual presentations~~
 - consider moving to graphite's raw text protocol
 
 ### Model & Persistence
@@ -35,8 +31,6 @@
     - or simple link to another dashboard
     - Presentations can have more than one drilldown
 - add standard deviation to summation model
-- ~~more sophisticated persistence (i.e. SQLAlchemy or somesuch) that
-  would allow tagging and searching by tag~~
 - only dashboards are named entities right now. Presentations should
   *optionally* be named entities, so they can be reused between
   dashboards w/o duplication (ditto queries).
@@ -48,10 +42,6 @@
   - UPDATE: Now that dashboards are also dashboard-items, dashboard is
     already effectively a unit of named reuse. No real need to have a
     separate unit. Hooray for consistent models.
-- ~~add support for multi-valued queries (graphite URL api supports
-  multiple values for target). Will help with graphite dashboard
-  importing~~
-- ~~Persistence for model objects via cask~~
 
 ### API
 
@@ -61,12 +51,6 @@
   cut down on the janky dispatching
 - element_id doesn't need to be stored; just generate unique element
   IDs in expanded API view. Current method has chance for collisions.
-- ~~refactor API to a flask blueprint to reuse for different model
-  classes~~ Update: nah, maybe not. API surface area is small, and hand-tuning is good.
-- ~~queries should be dumped to JSON without graphite hostname or
-  format=json in URL. Need a render_url_path w/o format or host~~
-- ~~basic API for dashboards~~
-
 
 ### Presentations
 
@@ -87,43 +71,17 @@
   - nvd3: [multi-bar](http://nvd3.org/examples/multiBar.html) option for time series
   - nvd3: has an [excellent implementation](http://nvd3.org/examples/bullet.html) of
     Stephen Few's [bullet graph](http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf).
-  - ~~[tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a
-    singlestat and simple_time_series with fill)~~
   - horizon graphs with [Cubism](http://square.github.io/cubism/)
 - Updates to existing presentations
   - 2nd Y axis support
     - existing options should change from yAxisLabel, yAxisThis, yAxisThat to an array of axis options
-  - ~~pie/donut chart needs some CSS tweaking for dark mode~~
   - allow selection of which columns are display in ``SummationTable``
   - ``JumboTronSinglestat`` is a hack. A properly responsive presentation
     that scales w/size of parent would rock.
-  - ~~thresholds for alert colors (i.e. turn value in singlestat yellow/orange/red)~~
   - threshold to automatically switch to graphite rendering for long
   time windows (SVG rendering in browser gets slow)
   - more options for time formatting
-  - ~~dashboard sections. Section = separator + heading + rows, collapsible (click on heading)~~
   - tabbed dashboard sections (not as useful as auto-flipping carousel for bigboard displays)
-- ~~titles~~
-- ~~donut/pie charts~~
-- ~~replace use of jquery.number with d3.format. No need to carry around
-  two number formatters.~~
-- ~~height needs to be a first-class attribute, not just smashed into css_class~~
-- ~~min/max/mean/total datatable - see
-  [stathat](http://blog.stathat.com/2014/04/09/web-app-interface-changes-stats.html)
-  for a nice example (and a
-  [rundown of the components used](http://blog.stathat.com/2014/04/10/whats-powering-the-new-web-interface.html)).~~
-- ~~axis labels~~
-- ~~Lists of presentations per cell~~
-  - and/or nested rows
-- ~~text presentations. Just put some formatted text in a grid Cell for
-  explanation. Render markdown with
-  [markdown.js](https://github.com/evilstreak/markdown-js) or
-  [showdown.js](https://github.com/coreyti/showdown). ~~Alternatively,
-  here's a [flask snippet](http://flask.pocoo.org/snippets/19/) for
-  rendering markdown server-side.~~
-      - ~~[Flask-Misaka](https://flask-misaka.readthedocs.org/en/latest/)
-        looks even better. Presentation template would just be
-        {{item.text|markdown}}~~
 
 ### Actions/Drilldowns
 
@@ -141,39 +99,19 @@
   - moving averages/medians
   - mostDeviant
   - scan obfuscurity's blog and teh int3rwebz for interesting graphite tricks that could be automated
-- ~~Add action menu to some presentations~~
-  - ~~replace graphite SVG export w/D3 SVG~~
-  - ~~have a single function for graphite render URL that dispatches on item type~~
-  - ~~Hide in fullscreen~~
-  - ~~Open in Graphite Composer~~
-    - ~~take the render URL and replace ``/render`` with ``/composer`` and remove ``format=json``~~
 
 ### Editing
-
 
 - display count of queries
 - display count of presentations
 - basic info updates (title, category, tags)
-- Update dashboard list
-  - ~~display dashboard counts in tag selector~~
-  - ~~render client side~~
-  - ~~better presentation (2 lines per entry, title, last modified time)~~
-  - ~~action menu on each row, to delete or duplicate (or others)~~
 - add notifications confirming delete (or update, etc...)
 - Grafana's [javascript parser for graphite queries](https://github.com/torkelo/grafana/tree/master/src/app/services/graphite)
-- ~~Client-side rendering. Not strictly needed for creating an editor, but preferable.~~
-  - ~~passing complex options to javascript code is clumsy using server side templates~~
-  - ~~needed for dynamic editing~~
-  - ~~depends on API~~
-  - ~~API depends on persistence~~
-  - ~~tentative candidate is [Handlebars](http://handlebarsjs.com/)~~
-    - ~~probably need to define a block helper for render dispatching
-      based on presentation type. Don't think Handlebars has callable
-      macros like jinja2.~~
 
 ### UI
 
-- Add option to include a graph on the front page - something like our carbon metrics, on the state of the graphite system itself
+- Add option to include a graph on the front page - something like our
+  carbon metrics, on the state of the graphite system itself
 - add option for readable slugs in UI URLs
 - custom error views (for 404, etc...)
 - integrate a **notification/alert** lib for error messages & general notifications.
@@ -189,9 +127,6 @@
   - default auto-refresh period
   - color theme
   - recent time ranges
-  - ~~static vs. interactive images as default~~
-    - ~~currently a little simplistic; the toggle on the dashboard page
-      should not change the session's persistent setting~~
   - whether action menus are shown by default or not
 - Grid alternatives. Other ways of laying out the dashboard grid, as an alternative to the
   bootstrap CSS grid. Some of these are interactive, with possibilities for editing.
@@ -199,6 +134,112 @@
   - [uberVU grid](https://github.com/uberVU/grid)
   - [gridster.js](https://github.com/ducksboard/gridster.js)
   - [jquery.shapeshift](https://github.com/McPants/jquery.shapeshift)
+- other themes, like [Solarized](http://ethanschoonover.com/solarized).
+- generate CSS with [sass](http://sass-lang.com/)
+
+### Navigation
+
+- Drilldowns - define links from individual presentations to other
+  dashboards, or to larger presentations (i.e. a generic dashboard
+  page that shows a single presentation from the parent scaled up)
+
+### Demos
+
+- Add chef runs to single node overview
+
+### Integration
+
+- LDAP integration
+  - persistent sessions based on login
+  - user preferences
+- import of gdash dashboards. Hmm - gdash has no API. So, not likely.
+
+
+# Done
+-----------------------------------------------------------------------------
+
+#### Optimization
+
+- ~~In non-interactive graph mode, don't evaluate the raw data queries
+  if there are no textual presentations~~
+
+#### Model & Persistence
+
+- ~~more sophisticated persistence (i.e. SQLAlchemy or somesuch) that
+  would allow tagging and searching by tag~~
+- ~~add support for multi-valued queries (graphite URL api supports
+  multiple values for target). Will help with graphite dashboard
+  importing~~
+- ~~Persistence for model objects via cask~~
+
+#### API
+
+- ~~refactor API to a flask blueprint to reuse for different model
+  classes~~ Update: nah, maybe not. API surface area is small, and hand-tuning is good.
+- ~~queries should be dumped to JSON without graphite hostname or
+  format=json in URL. Need a render_url_path w/o format or host~~
+- ~~basic API for dashboards~~
+
+#### Presentations
+
+  - ~~[tasseo](https://github.com/obfuscurity/tasseo)-style simple graphs (combination of a
+    singlestat and simple_time_series with fill)~~
+  - ~~pie/donut chart needs some CSS tweaking for dark mode~~
+  - ~~thresholds for alert colors (i.e. turn value in singlestat yellow/orange/red)~~
+  - ~~dashboard sections. Section = separator + heading + rows, collapsible (click on heading)~~
+- ~~titles~~
+- ~~donut/pie charts~~
+- ~~replace use of jquery.number with d3.format. No need to carry around
+  two number formatters.~~
+- ~~height needs to be a first-class attribute, not just smashed into css_class~~
+- ~~min/max/mean/total datatable - see
+  [stathat](http://blog.stathat.com/2014/04/09/web-app-interface-changes-stats.html)
+  for a nice example (and a
+  [rundown of the components used](http://blog.stathat.com/2014/04/10/whats-powering-the-new-web-interface.html)).~~
+- ~~axis labels~~
+- ~~Lists of presentations per cell~~
+- ~~text presentations. Just put some formatted text in a grid Cell for
+  explanation. Render markdown with
+  [markdown.js](https://github.com/evilstreak/markdown-js) or
+  [showdown.js](https://github.com/coreyti/showdown). ~~Alternatively,
+  here's a [flask snippet](http://flask.pocoo.org/snippets/19/) for
+  rendering markdown server-side.~~
+      - ~~[Flask-Misaka](https://flask-misaka.readthedocs.org/en/latest/)
+        looks even better. Presentation template would just be
+        {{item.text|markdown}}~~
+
+#### Actions/Drilldowns
+
+- ~~Add action menu to some presentations~~
+  - ~~replace graphite SVG export w/D3 SVG~~
+  - ~~have a single function for graphite render URL that dispatches on item type~~
+  - ~~Hide in fullscreen~~
+  - ~~Open in Graphite Composer~~
+    - ~~take the render URL and replace ``/render`` with ``/composer`` and remove ``format=json``~~
+
+
+#### Editing
+
+- ~~Update dashboard list~~
+  - ~~display dashboard counts in tag selector~~
+  - ~~render client side~~
+  - ~~better presentation (2 lines per entry, title, last modified time)~~
+  - ~~action menu on each row, to delete or duplicate (or others)~~
+- ~~Client-side rendering. Not strictly needed for creating an editor, but preferable.~~
+  - ~~passing complex options to javascript code is clumsy using server side templates~~
+  - ~~needed for dynamic editing~~
+  - ~~depends on API~~
+  - ~~API depends on persistence~~
+  - ~~tentative candidate is [Handlebars](http://handlebarsjs.com/)~~
+    - ~~probably need to define a block helper for render dispatching
+      based on presentation type. Don't think Handlebars has callable
+      macros like jinja2.~~
+
+#### UI
+
+- ~~static vs. interactive images as default~~
+  - ~~currently a little simplistic; the toggle on the dashboard page
+    should not change the session's persistent setting~~
 - ~~[bootbox](http://bootboxjs.com/) could potentially remove a lot of markup for modals~~
 - ~~auto-refresh~~
 - ~~refresh button~~
@@ -213,31 +254,27 @@
     exit fullscreen button all on one line~~
 - ~~dark/light theme switching~~
   - ~~session persistence~~
-  - other themes, like [Solarized](http://ethanschoonover.com/solarized).
-  - generate CSS with [sass](http://sass-lang.com/)
 
-### Navigation
+#### Navigation
 
-- Drilldowns - define links from individual presentations to other dashboards, or to larger presentations (i.e. a generic dashboard page that shows a single presentation from the parent scaled up)
 - ~~Featured dashboards on front page are currently hard-coded. They should be driven from metadata
   (need to add metadata to back-end first; probably by adding in a SQL datastore)~~
 - ~~Tags. Produce a related dashboards list based on common tags (also requires metadata store)~~
 
-### Demos
+#### Integration
 
-- Add chef runs to single node overview
-
-### Integration
-
-- LDAP integration
-  - persistent sessions based on login
-  - user preferences
-- import of gdash dashboards. Hmm - gdash has no API. So, not likely.
 - ~~import of graphite built-in dashboards~~
 - ~~start with anonymous, non-persistent sessions. ~~
 - ~~excise dependence on toolbox's graphite classes entirely (partway there already) ~~
 
-### Bugs
+#### Third Party Components
+
+- ~~upgrade to bootstrap3 (darkstrap support is only unofficial and
+  incomplete so far - see
+  [here](https://github.com/danneu/darkstrap/issues/17))~~
+- ~~upgrade to jQuery 1.11~~
+
+#### Bugs
 
 - ~~yAxis labels. probably a JS scoping issue. Nope, it was Python.~~
 - ~~hover! Why do the tables all have hover backgrounds when I haven't
@@ -247,10 +284,3 @@
   - ~~it's the dashboard-height classes. NVD3 renders the svg taller
     than them, so they get clipped. Remove the height classes after
     rendering? patch nvd3?~~
-
-### Third Party Components
-
-- ~~upgrade to bootstrap3 (darkstrap support is only unofficial and
-  incomplete so far - see
-  [here](https://github.com/danneu/darkstrap/issues/17))~~
-- ~~upgrade to jQuery 1.11~~
