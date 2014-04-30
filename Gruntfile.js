@@ -8,7 +8,7 @@ module.exports = function(grunt) {
         options: {
           namespace: function(filename) {
             var names = filename.replace(/templates\/(.*)(\/\w+\.hbs)/, '$1');
-            return 'ds.templates.' + names.split('/').join('.');
+            return 'ds.' + names.split('/').join('.');
           },
           processName: function(filePath) {
             return filePath
