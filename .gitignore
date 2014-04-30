@@ -12,5 +12,5 @@ data/
 .Python
 bower_components/
 node_modules/
-cronenberg/static/app.js
-cronenberg/static/bundle.js
+cronenberg/static/*.js
+cronenberg/cronenberg.db
