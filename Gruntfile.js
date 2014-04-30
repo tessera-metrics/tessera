@@ -44,13 +44,9 @@ module.exports = function(grunt) {
       },
       app: {
         src: [
-          'js/app/cronenberg.js',
-          'js/app/cronenberg-queries.js',
-          'js/app/cronenberg-charts.js',
-          'js/app/cronenberg-dashboards.js',
-          'js/app/cronenberg-templates.js',
-          'js/app/menu-handlers.js',
           'js/core.js',
+          'js/cronenberg.js',
+          'js/app/*.js',
           'js/models/*.js',
           'js/models/presentations/*.js',
           'js/models/layouts/*.js',
