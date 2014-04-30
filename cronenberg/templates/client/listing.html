@@ -26,41 +26,5 @@
   });
 </script>
 
-<!--
-    TEMPLATE: dashboard listing table
-  -->
-
-<script id="ds-tmpl-main-listing" type="text/x-handlebars-template">
-  <table class="table table-hover table-condensed">
-    <tbody>
-      {{#each dashboards}}
-      {{> ds-dashboard-listing-entry}}
-      {{else}}
-      <tr><td><h3>No dashboards defined</h3></td></tr>
-      {{/each}}
-    </tbody>
-  </table>
-</script>
-
-
-<!--
-    TEMPLATE: tag listing picker
-  -->
-<script id="ds-tmpl-tag-listing" type="text/x-handlebars-template">
-  <div class="list-group">
-    <a class="list-group-item {{#unless tag}}active{{/unless}}" href="/dashboards">All <span class="badge badge-primary pull-right"></span></a>
-    {{#each tags}}
-    <a class="list-group-item " data-ds-tag="{{name}}" href="/dashboards/tagged/{{name}}">
-      {{name}}
-      <span class="badge badge-default pull-right">{{count}}</span></a>
-    {{/each}}
-  </div>
-</script>
-
-<script>
-  cronenberg.templates.other = cronenberg.templates.other || {};
-  cronenberg.templates.other.listing = Handlebars.compile($("#ds-tmpl-main-listing").html());
-  cronenberg.templates.other.taglisting = Handlebars.compile($("#ds-tmpl-tag-listing").html());
-</script>
 
 {% endraw %}
