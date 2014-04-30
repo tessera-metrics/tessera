@@ -1,28 +1,6 @@
 {% raw %}
 
-<!--
-    PARTIAL: chart action menu
-
-    For now this is shown in edit menu. It could easily have its own
-    dedicated visibility toggle if desired.
--->
-<script id="ds-tmpl-action-menu" type="text/x-handlebars-template">
-  <div data-ds-fullscreen="hide"
-       class="btn-group">
-    <button type="button"
-            class="btn btn-default btn-xs dropdown-toggle"
-            data-toggle="dropdown">
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-right ds-action-menu" role="menu">
-      <li data-ds-action="open-in-graphite"><a href="#"><i class="fa fa-bar-chart-o"></i> Open in Graphite&hellip;</a></li>
-      <li class="divider"/>
-      <li data-ds-action="export-png"><a href="#"><i class="fa fa-picture-o"></i> Export PNG&hellip;</a></li>
-      <li data-ds-action="export-svg"><a href="#"><i class="fa fa-code"></i> Export SVG&hellip;</a></li>
-    </ul>
-  </div>
-</script>
-<!-- menu event handler -->
+<!-- menu event handler for chart action partial -->
 <script>
   cronenberg.dashboards.onDashboardLoaded(function(d) {
       $('ul.ds-action-menu li').click(function(event) {
@@ -44,25 +22,6 @@
           }
       });
   });
-</script>
-
-<!--
-    PARTIAL: title bar
--->
-<script id="ds-tmpl-title-bar" type="text/x-handlebars-template">
-  <div class="row">
-    <div class="pull-right">
-      {{> ds-action-menu}}
-    </div>
-    <div>
-      {{#if item.title}}<h3>{{item.title}}</h3>{{/if}}
-    </div>
-  </div>
-</script>
-
-<script>
-  Handlebars.registerPartial('ds-action-menu', $('#ds-tmpl-action-menu').html());
-  Handlebars.registerPartial('ds-title-bar', $('#ds-tmpl-title-bar').html());
 </script>
 
 <!-- ============================================================================= -->
