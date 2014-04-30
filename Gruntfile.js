@@ -30,7 +30,12 @@ module.exports = function(grunt) {
           'cronenberg/static/cronenberg-queries.js',
           'cronenberg/static/cronenberg-charts.js',
           'cronenberg/static/cronenberg-dashboards.js',
-          'cronenberg/static/cronenberg-templates.js'
+          'cronenberg/static/cronenberg-templates.js',
+          'js/core.js',
+          'js/models/item.js',
+          'js/models/thresholds.js',
+          'js/models/singlestat.js',
+          'js/models/jumbotron-singlestat.js'
         ],
         dest: 'cronenberg/static/app.js'
       }

@@ -31,6 +31,9 @@ def _delattr(dictionary, attr):
         del dictionary[attr]
 
 class Thresholds(object):
+    """
+    JS class: ds.models.thresholds
+    """
     def __init__(self, summation_type='max', warning=None, danger=None):
         self.summation_type = summation_type
         self.warning = warning
@@ -40,6 +43,8 @@ class DashboardItem(object):
     """Layout elements are class that define how presentations are
     arrange in the dashboard. The base class provides common CSS class
     overriding.
+
+    JS class: ds.models.item
     """
     NEXT = 1
 
@@ -130,6 +135,9 @@ class Presentation(DashboardItem):
 # -----------------------------------------------------------------------------
 
 class SingleStat(Presentation):
+    """
+    JS class: ds.models.singlestat
+    """
     def __init__(self, title, query_name, units='', format=',.3f', index=False, transform=Presentation.Transform.MEAN, **kwargs):
         super(SingleStat, self).__init__(query_name=query_name,
                                          item_type=kwargs.get('item_type', 'singlestat'),
@@ -146,6 +154,9 @@ class SingleStat(Presentation):
         return cls(**d)
 
 class JumbotronSingleStat(SingleStat):
+    """
+    JS class: ds.models.jumbotron_singlestat
+    """
     def __init__(self, **kwargs):
         super(JumbotronSingleStat, self).__init__(**kwargs)
         self.item_type='jumbotron_singlestat'
@@ -295,6 +306,7 @@ class Cell(DashboardContainer):
         DashboardContainer._process_items(d)
         _delattr(d, 'item_type')
         return Cell(**d)
+
 
 
 class Row(DashboardContainer):
