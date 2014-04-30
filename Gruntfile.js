@@ -35,7 +35,10 @@ module.exports = function(grunt) {
           'js/models/item.js',
           'js/models/thresholds.js',
           'js/models/singlestat.js',
-          'js/models/jumbotron-singlestat.js'
+          'js/models/jumbotron-singlestat.js',
+          'js/models/summation-table.js',
+          'js/models/chart.js',
+          'js/models/simple-time-series.js',
         ],
         dest: 'cronenberg/static/app.js'
       }
