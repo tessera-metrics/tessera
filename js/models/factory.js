@@ -4,7 +4,8 @@ ds.models.factory = function(data) {
       singlestat:           ds.models.singlestat,
       jumbotron_singlestat: ds.models.jumbotron_singlestat,
       summation_table:      ds.models.summation_table,
-      simple_time_series:   ds.models.simple_time_series
+      simple_time_series:   ds.models.simple_time_series,
+      single_graph:         ds.models.single_graph
   }
 
   if (data.item_type && dispatch_table[data.item_type]) {
