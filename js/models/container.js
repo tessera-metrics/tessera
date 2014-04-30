@@ -21,10 +21,10 @@ ds.models.container = function(data) {
     return item;
   }
 
-  item.to_json = function(data_) {
+  item.toJSON = function(data_) {
     var data = data_ || {};
     data.items = items.map(function(i) {
-                   return i.to_json();
+                   return i.toJSON();
                  });
     return data;
   }

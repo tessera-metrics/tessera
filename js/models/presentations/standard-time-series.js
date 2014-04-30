@@ -34,8 +34,8 @@ ds.models.standard_time_series = function(data) {
     return item;
   }
 
-  item.to_json = function() {
-    return base.to_json({
+  item.toJSON = function() {
+    return base.toJSON({
       options: chart.options(),
       title: chart.title(),
       query_name: query_name

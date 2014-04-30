@@ -10,8 +10,8 @@ ds.models.separator = function(data) {
 
   ds.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
 
-  item.to_json = function() {
-    return base.to_json();
+  item.toJSON = function() {
+    return base.toJSON();
   }
 
   return item;

@@ -46,7 +46,7 @@ ds.models.tag = function(data) {
     return item;
   }
 
-  item.to_json = function() {
+  item.toJSON = function() {
     return {
       id: id,
       name: name,

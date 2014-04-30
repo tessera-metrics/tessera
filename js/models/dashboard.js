@@ -117,7 +117,7 @@ ds.models.dashboard = function(data) {
     return item;
   }
 
-  item.to_json = function() {
+  item.toJSON = function() {
     return {
      id: id,
      title: title,
@@ -128,9 +128,9 @@ ds.models.dashboard = function(data) {
      last_modified_date: last_modified_date,
      imported_from: imported_from,
      tags: tags.map(function(t) {
-             return t.to_json();
+             return t.toJSON();
            }),
-     definition: definition ? definition.to_json() : null,
+     definition: definition ? definition.toJSON() : null,
      href: href,
      view_href: view_href,
      definition_href: definition_href

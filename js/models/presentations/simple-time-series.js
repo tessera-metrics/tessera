@@ -42,8 +42,8 @@ ds.models.simple_time_series = function(data) {
     return item;
   }
 
-  item.to_json = function() {
-    return base.to_json({
+  item.toJSON = function() {
+    return base.toJSON({
       filled: filled,
       options: chart.options(),
       title: chart.title(),

@@ -30,7 +30,7 @@ ds.models.thresholds = function(data) {
     return item;
   }
 
-  item.to_json = function() {
+  item.toJSON = function() {
     return {
       summation_type: summation_type,
       warning: warning,

@@ -66,8 +66,8 @@ ds.models.singlestat = function(data) {
     return item;
   }
 
- item.to_json = function() {
-    return base.to_json({
+ item.toJSON = function() {
+    return base.toJSON({
       title: title,
       query_name: query_name,
       format: format,
