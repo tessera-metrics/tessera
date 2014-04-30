@@ -173,6 +173,9 @@ class TablePresentation(Presentation):
 
 class SummationTable(TablePresentation):
     # TODO - control which columns are shown
+    """
+    JS class: ds.models.summation_table
+    """
     def __init__(self, query_name, format=',.3f', striped=False, **kwargs):
         super(SummationTable, self).__init__(query_name=query_name,
                                              item_type='summation_table',
@@ -190,7 +193,10 @@ class SummationTable(TablePresentation):
 # -----------------------------------------------------------------------------
 
 class ChartPresentation(Presentation):
-    """Base class for all chart presentations."""
+    """Base class for all chart presentations.
+
+    JS Class: ds.models.chart
+    """
     def __init__(self, title='', options=None, interactive=True, **kwargs):
         super(ChartPresentation, self).__init__(**kwargs)
         self.title = title
@@ -211,6 +217,7 @@ class SimpleTimeSeries(ChartPresentation):
     presented without a lot of chart extras, for high level
     visualizations.
 
+    JS class: ds.models.simple_time_series
     """
     def __init__(self, query_name, filled=False, **kwargs):
         super(SimpleTimeSeries, self).__init__(query_name=query_name,
