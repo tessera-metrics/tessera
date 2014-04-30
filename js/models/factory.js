@@ -14,6 +14,7 @@ ds.models.factory = function(data) {
       markdown:             ds.models.markdown,
       cell:                 ds.models.cell,
       row:                  ds.models.row,
+      section:              ds.models.section,
       dashboard:            ds.models.dashboard
   }
 
