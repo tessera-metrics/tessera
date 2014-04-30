@@ -1,0 +1,37 @@
+<tr>
+  <td>
+    <div class="row">
+      <div class=""> <!-- col-md-1 -->
+        <!-- <a href="/dashboards/{{id}}"><i class="fa fa-2x fa-dashboard"></i></a> -->
+      </div>
+      <div class="col-md-12">
+        <div class="pull-left">
+          <a href="{{view_href}}">
+            {{category}} /
+            <strong>
+              {{title}}
+            </strong>
+            {{#if summary}}
+            <br/>
+            <small>{{summary}}</small>
+            {{/if}}
+          </a><br/>
+          Last modified {{last_modified}}.
+        </div>
+        <div class="pull-right" style="margin-left: 0.5em">
+          {{> ds-dashboard-listing-action-menu}}
+        </div>
+        <div class="pull-right" style="text-align:right">
+          {{#each tags}}
+          {{> ds-dashboard-tag-with-link this}}
+          {{/each}}
+          <br/>
+          {{#if imported_from}}
+          <a href="{{imported_from}}" target="_blank"><i class="fa fa-cloud"></i></a><br/>
+          {{/if}}
+        </div>
+      </div>
+
+    </div> <!-- row -->
+  </td>
+</tr>
