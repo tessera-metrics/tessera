@@ -62,7 +62,7 @@ module.exports = function(grunt) {
     watch: {
       files: [
         'cronenberg/static/cron*.js',
-        'cronenberg/static/js/*.js'
+        'cronenberg/static/js/**/*.js'
       ],
       tasks: ['concat']
     }
