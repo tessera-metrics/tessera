@@ -153,7 +153,7 @@ cronenberg.DashboardManager = function() {
     this.toggle_interactive_charts = function() {
         var self = this;
         $.get('/api/preferences', function(data) {
-            var setting = !data.interactive;
+            var setting = !data.preferences.interactive;
             var dashboard_url = URI(self.current.url);
             var window_url = URI(window.location);
 

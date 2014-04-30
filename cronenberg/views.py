@@ -52,6 +52,12 @@ def _get_param(name, default=None, store_in_session=False):
         session[name] = value
     return value
 
+def _get_config():
+    return {
+        'GRAPHITE_URL' : app.config['GRAPHITE_URL'],
+        'DEFAULT_FROM_TIME' : app.config['DEFAULT_FROM_TIME']
+    }
+
 def _get_preferences(store_in_session=False):
     return {
         'interactive' : _get_param('interactive', app.config['INTERACTIVE_CHARTS_DEFAULT'], store_in_session=store_in_session) == 'true',
@@ -61,6 +67,15 @@ def _get_preferences(store_in_session=False):
 def _set_preferences(prefs):
     for name, value in prefs.items():
         session[name] = value
+
+# HACK!
+def _set_interactive(item, value):
+    if 'interactive' in item:
+        item['interactive'] = value
+    if 'items' in item:
+        for child in item['items']:
+            _set_interactive(child, value)
+
 
 # =============================================================================
 #
@@ -101,6 +116,7 @@ def _dashboards_response(dashboards):
         dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
         dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
     return _jsonify({
+        'ok' : True,
         'dashboards' : dashboards
     })
 
@@ -168,7 +184,8 @@ def api_dashboard_delete(id):
     db.session.delete(dashboard)
     db.session.commit()
     # TODO - return 204 status
-    return _jsonify({ 'ok' : True })
+    return _jsonify({ 'ok' : True },
+                    status=204)
 
 @app.route('/api/dashboard/<id>/definition')
 def api_dashboard_get_definition(id):
@@ -181,6 +198,7 @@ def api_dashboard_get_definition(id):
     definition['href'] = '/api/dashboard/{0}/definition'.format(id)
     definition['dashboard_href'] = '/api/dashboard/{0}'.format(id)
     return _jsonify({
+        'ok' : True,
         'definition' : definition
     })
 
@@ -205,13 +223,6 @@ def api_dashboard_update_definition(id):
     mgr.store_dashboard(dashboard)
 
     return _jsonify({ 'ok' : True })
-
-def _set_interactive(item, value):
-    if 'interactive' in item:
-        item['interactive'] = value
-    if 'items' in item:
-        for child in item['items']:
-            _set_interactive(child, value)
 
 @app.route('/api/dashboard/<id>/definition/expanded')
 def api_dashboard_get_expanded(id):
@@ -260,9 +271,17 @@ def api_dashboard_get_expanded(id):
     dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
 
     return _jsonify({
+        'ok' : True,
         'dashboard' : dash,
         'definition' : definition,
         'theme' : _get_param('theme', app.config['DEFAULT_THEME'])
+    })
+
+@app.route('/api/config')
+def api_config_get():
+    return _jsonify({
+        'ok' : True,
+        'config' : _get_config()
     })
 
 # =============================================================================
@@ -287,6 +306,7 @@ def api_tag_list():
         tags.append(tag)
 
     return _jsonify({
+        'ok' : True,
         'tags' : tags
     })
 
@@ -308,7 +328,10 @@ def api_dashboard_update_tags(id):
 
 @app.route('/api/preferences/')
 def api_preferences_get():
-    return _jsonify(_get_preferences())
+    return _jsonify({
+        'ok' : True,
+        'preferences' : _get_preferences()
+    })
 
 @app.route('/api/preferences/', methods=['PUT'])
 def api_preferences_put():
