@@ -3,6 +3,24 @@ module.exports = function(grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
+    handlebars: {
+      all: {
+        options: {
+          namespace: function(filename) {
+            var names = filename.replace(/js\/(.*)(\/\w+\.hbs)/, '$1');
+            return 'ds.templates.' + names.split('/').join('.');
+          },
+          processName: function(filePath) {
+            return filePath
+                   .replace(/js\/(.*)\//, '')
+                   .replace(/\.hbs$/, '');
+          }
+        },
+        files: {
+          'cronenberg/static/templates.js' : [ 'js/**/*.hbs']
+        }
+      }
+    },
     concat: {
       options: {
         separator: ';'
@@ -32,41 +50,21 @@ module.exports = function(grunt) {
           'js/app/cronenberg-dashboards.js',
           'js/app/cronenberg-templates.js',
           'js/core.js',
-          'js/models/item.js',
-          'js/models/container.js',
-          'js/models/factory.js',
-          'js/models/thresholds.js',
-          'js/models/tag.js',
-          'js/models/dashboard.js',
-          'js/models/dashboard_definition.js',
-          'js/models/presentations/chart.js',
-          'js/models/presentations/singlestat.js',
-          'js/models/presentations/jumbotron_singlestat.js',
-          'js/models/presentations/summation_table.js',
-          'js/models/presentations/simple_time_series.js',
-          'js/models/presentations/standard_time_series.js',
-          'js/models/presentations/stacked_area_chart.js',
-          'js/models/presentations/donut_chart.js',
-          'js/models/presentations/single_graph.js',
-          'js/models/layouts/heading.js',
-          'js/models/layouts/markdown.js',
-          'js/models/layouts/cell.js',
-          'js/models/layouts/row.js',
-          'js/models/layouts/separator.js',
-          'js/models/layouts/section.js',
-          'js/models/layouts/dashboard_definition.js'
+          'js/models/*.js',
+          'js/models/presentations/*.js',
+          'js/models/layouts/*.js',
+          'cronenberg/static/templates.js'
         ],
         dest: 'cronenberg/static/app.js'
       }
     },
-    handlebars: {
-    },
     watch: {
       files: [
-        'cronenberg/static/cron*.js',
+        'js/**/cron*.js',
+        'js/**/cron*.hbs',
         'cronenberg/static/js/**/*.js'
       ],
-      tasks: ['concat']
+      tasks: ['handlebars', 'concat']
     }
   });
 
