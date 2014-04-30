@@ -26,13 +26,6 @@ cronenberg.TemplateRegistry = function() {
             dataHandler: template.dataHandler || null
         };
 
-        // Register a helper for the item time, so it can be
-        // explicitly called from another template - i.e {{row
-        // path.to.a.row}}.
-        Handlebars.registerHelper(itemType, function(item) {
-            return cronenberg.templates.presentation_registry[itemType]({ item: item });
-        });
-
         return self;
     };
 
