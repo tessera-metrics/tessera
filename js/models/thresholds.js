@@ -1,6 +1,3 @@
-/**
- * Mirrors cronenberg.model.web.Thresholds
- */
 ds.models.thresholds = function(data) {
   "use strict";
 

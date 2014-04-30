@@ -1,6 +1,3 @@
-/**
- * Mirrors cronenberg.model.web.summation_table
- */
 ds.models.container = function(data) {
   "use strict";
 

@@ -8,7 +8,6 @@ ds.models.standard_time_series = function(data) {
 
   if (data) {
     query_name = data.query_name;
-    filled = data.filled !== false;
     chart = ds.models.chart(data);
     base = ds.models.item(data);
   } else {
