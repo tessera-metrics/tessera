@@ -1,4 +1,6 @@
 module.exports = function(grunt) {
+  var path = require('path');
+
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
@@ -7,13 +9,11 @@ module.exports = function(grunt) {
       all: {
         options: {
           namespace: function(filename) {
-            var names = filename.replace(/templates\/(.*)(\/\w+\.hbs)/, '$1');
-            return 'ds.' + names.split('/').join('.');
+            return 'ds.' + path.dirname(filename).replace('/', '.');
           },
-          processName: function(filePath) {
-            return filePath
-                   .replace(/templates\/(.*)\//, '')
-                   .replace(/\.hbs$/, '');
+          processName: function(filename) {
+            var pieces = filename.split('/');
+            return pieces[pieces.length - 1].split('.')[0];
           }
         },
         files: {

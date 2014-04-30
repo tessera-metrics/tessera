@@ -35,7 +35,7 @@
       var path = '/api/dashboard/';
     {% endif %}
     cronenberg.dashboards.list(path, function(data) {
-      var rendered = cronenberg.templates.other.listing(data);
+      var rendered = ds.templates.listing.dashboard_list(data);
       $("#ds-dashboard-main-listing").html(rendered);
     });
 
@@ -47,7 +47,7 @@
     {% if tag %}
       context.tag = '{{ tag }}';
     {% endif %}
-      var rendered = cronenberg.templates.other.taglisting(context);
+      var rendered = ds.templates.listing.dashboard_tag_list(context);
       $("#ds-dashboard-tag-listing").html(rendered);
       $("[data-ds-tag={{tag}}]").addClass("active");
     });
