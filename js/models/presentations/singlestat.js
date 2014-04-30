@@ -1,6 +1,3 @@
-/**
- * Mirrors cronenberg.model.web.singlestat
- */
 ds.models.singlestat = function(data) {
   "use strict";
 
@@ -29,6 +26,10 @@ ds.models.singlestat = function(data) {
   item.base = base;
 
   ds.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
+
+  /**
+   * Data accessors
+   */
 
   item.query_name = function(_) {
     if (!arguments.length) return query_name;

@@ -22,3 +22,12 @@ function ds_rebind(target, source, method) {
     return value === source ? target : value;
   };
 }
+
+ds.render_template = function(str, context) {
+  if (str.indexOf('{{') == -1) {
+    return str;
+  } else {
+    var template = Handlebars.compile(str);
+    return template(context);
+  }
+}

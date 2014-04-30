@@ -39,6 +39,30 @@ ds.models.dashboard = function(data) {
     }
   }
 
+  /**
+   * Operations
+   */
+
+  item.render_templates = function(context) {
+    description = ds.render_template(description, context);
+    title = ds.render_template(title, context);
+    summary = ds.render_template(summary, context);
+
+    return item;
+  }
+
+  item.visit = function(visitor) {
+    visitor(item);
+    if (definition) {
+      definition.visit(visitor);
+    }
+    return item;
+  }
+
+  /**
+   * Data accessors.
+   */
+
   item.id = function(_) {
     if (!arguments.length) return id;
     id = _;

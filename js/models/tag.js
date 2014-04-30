@@ -16,6 +16,10 @@ ds.models.tag = function(data) {
     count = data.count;
   }
 
+  /**
+   * Data accesors
+   */
+
   item.id = function(_) {
     if (!arguments.length) return id;
     id = _;

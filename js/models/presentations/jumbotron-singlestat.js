@@ -1,6 +1,3 @@
-/**
- * Mirrors cronenberg.model.web.jumbotron_singlestat
- */
 ds.models.jumbotron_singlestat = function(data) {
   "use strict";
 

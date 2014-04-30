@@ -23,6 +23,19 @@ ds.models.cell = function(data) {
   ds.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
   ds.rebind(item, container, 'items', 'add');
 
+  /**
+   * Operations
+   */
+
+  item.visit = function(visitor) {
+    container.visit(visitor);
+    return item;
+  }
+
+  /**
+   * Data accessors
+   */
+
   item.span = function(_) {
     if (!arguments.length) return span;
     span = _;

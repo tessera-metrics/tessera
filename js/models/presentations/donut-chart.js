@@ -9,12 +9,9 @@ ds.models.donut_chart = function(data) {
   if (data) {
     query_name = data.query_name;
     filled = data.filled !== false;
-    chart = ds.models.chart(data);
-    base = ds.models.item(data);
-  } else {
-    chart = ds.models.chart();
-    base = ds.models.item();
   }
+  chart = ds.models.chart(data);
+  base = ds.models.item(data);
 
   base.type('donut_chart');
   item.base = base;
@@ -22,6 +19,10 @@ ds.models.donut_chart = function(data) {
 
   ds.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
   ds.rebind(item, chart, 'title', 'options');
+
+  /**
+   * Data accessors
+   */
 
   item.query_name = function(_) {
     if (!arguments.length) return query_name;
