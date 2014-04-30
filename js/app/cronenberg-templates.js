@@ -19,7 +19,7 @@ cronenberg.TemplateRegistry = function() {
         var self = this;
         var element  = $('#' + template.elementId);
         var itemType = element.attr('data-ds-item-type');
-        var compiled = template.renderHandler || Handlebars.compile(element.html());
+        var compiled = Handlebars.compile(element.html());
 
         self.presentation_registry[itemType] = {
             renderer: compiled,
