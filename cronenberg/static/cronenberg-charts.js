@@ -22,8 +22,8 @@ cronenberg.charts = {
         return cronenberg.charts.colors[name || cronenberg.charts.DEFAULT_PALETTE];
     },
 
-    simple_line_chart_url: function(item, options) {
-        var options = options || {};
+    simple_line_chart_url: function(item, options_) {
+        var options = options_ || {};
         var data_url = cronenberg.dashboards.current.findQueryForPresentation(item);
         var png_url = URI(data_url)
             .setQuery('format', options.format || 'png')
@@ -40,8 +40,8 @@ cronenberg.charts = {
         return png_url;
     },
 
-    standard_line_chart_url: function(item, options) {
-        var options = options || {};
+    standard_line_chart_url: function(item, options_) {
+        var options = options_ || {};
         var data_url = cronenberg.dashboards.current.findQueryForPresentation(item);
         var png_url = URI(data_url)
             .setQuery('format', options.format || 'png')
@@ -60,8 +60,8 @@ cronenberg.charts = {
         return png_url;
     },
 
-    simple_area_chart_url: function(item, options) {
-        var options = options || {};
+    simple_area_chart_url: function(item, options_) {
+        var options = options_ || {};
         var data_url = cronenberg.dashboards.current.findQueryForPresentation(item);
         var png_url = URI(data_url)
             .setQuery('format', options.format || 'png')
@@ -80,8 +80,8 @@ cronenberg.charts = {
         return png_url;
     },
 
-    stacked_area_chart_url: function(item, options) {
-        var options = options || {};
+    stacked_area_chart_url: function(item, options_) {
+        var options = options_ || {};
         var data_url = cronenberg.dashboards.current.findQueryForPresentation(item);
         var png_url = URI(data_url)
             .setQuery('format', options.format || 'png')
@@ -117,8 +117,8 @@ cronenberg.charts = {
         return undefined;
     },
 
-    composer_url: function(item, options) {
-        var options = options || {};
+    composer_url: function(item, options_) {
+        var options = options_ || {};
         var data_url = cronenberg.dashboards.current.findQueryForPresentation(item);
         var composer_url = URI(data_url)
             .filename('composer')
