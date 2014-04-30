@@ -20,23 +20,15 @@
      TEMPLATE: Markdown.
   -->
 <script id="ds-tmpl-markdown" data-ds-item-type="markdown" type="text/x-handlebars-template">
-</script>
-<script>
-cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', renderHandler: function(data) {
-    var html = '<div class="ds-presentation ds-markdown';
-    if (data.item.height) {
-        html += ' ds-height' + data.item.height;
-    }
-    if (data.item.css_class) {
-        html += ' ' + data.item.css_class;
-    }
-    html += '">';
-    if (data.item.raw) {
-        return html + '<pre>' + data.item.text + '</pre></div>';
-    } else {
-        return html + markdown.toHTML(data.item.text) + '</div>';
-    }
-}});
+  <div class="ds-presentation ds-markdown {{height item}} {{css_class item}}">
+    {{#if item.raw}}
+      <pre>
+        {{item.text}}
+      </pre>
+    {{else}}
+      {{markdown item.text}}
+    {{/if}}
+  </div>
 </script>
 
 <!--
@@ -333,6 +325,7 @@ cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-markdown', rend
   cronenberg.templates
         .register_presentation({ elementId: 'ds-tmpl-separator'})
         .register_presentation({ elementId: 'ds-tmpl-heading' })
+        .register_presentation({ elementId: 'ds-tmpl-markdown' })
         .register_presentation({ elementId: 'ds-tmpl-cell' })
         .register_presentation({ elementId: 'ds-tmpl-row' })
         .register_presentation({ elementId: 'ds-tmpl-section' })
