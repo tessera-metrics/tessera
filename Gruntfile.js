@@ -40,6 +40,7 @@ module.exports = function(grunt) {
           'js/models/summation-table.js',
           'js/models/chart.js',
           'js/models/simple-time-series.js',
+          'js/models/single-graph.js',
         ],
         dest: 'cronenberg/static/app.js'
       }
