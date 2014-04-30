@@ -1,0 +1,7 @@
+  {{#if item.style}}<div class="{{style_class item}}">{{/if}}
+    <div class="row ds-row {{css_class item}}">
+    {{#each item.items}}
+      {{item this}}
+    {{/each}}
+  </div>
+  {{#if item.style}}</div>{{/if}}
