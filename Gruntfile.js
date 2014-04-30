@@ -49,6 +49,7 @@ module.exports = function(grunt) {
           'js/app/cronenberg-charts.js',
           'js/app/cronenberg-dashboards.js',
           'js/app/cronenberg-templates.js',
+          'js/app/menu-handlers.js',
           'js/core.js',
           'js/models/*.js',
           'js/models/presentations/*.js',
