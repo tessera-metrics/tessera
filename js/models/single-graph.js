@@ -44,14 +44,14 @@ ds.models.single_graph = function(data) {
     return item;
   }
 
-  item.to_json = function() {
-    var json = base.to_json();
-    json.query_name = query_name;
-    json.format = format;
-    json.transform = transform;
-    json.options = chart.options();
-    json.title = chart.title();
-    return json;
+ item.to_json = function() {
+    return base.to_json({
+      options: chart.options(),
+      title: chart.title(),
+      query_name: query_name,
+      format: format,
+      transform: transform
+    });
   }
 
   return item;

@@ -66,15 +66,15 @@ ds.models.singlestat = function(data) {
     return item;
   }
 
-  item.to_json = function() {
-    var json = base.to_json();
-    json.query_name = query_name;
-    json.title = title;
-    json.units = units;
-    json.format = format;
-    json.index = index;
-    json.transform = transform;
-    return json;
+ item.to_json = function() {
+    return base.to_json({
+      title: title,
+      query_name: query_name,
+      format: format,
+      transform: transform,
+      units: units,
+      index: index
+    });
   }
 
   return item;

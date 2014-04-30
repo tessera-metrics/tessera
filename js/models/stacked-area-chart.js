@@ -1,8 +1,7 @@
-ds.models.simple_time_series = function(data) {
+ds.models.stacked_area_chart = function(data) {
   "use strict";
 
   var query_name
-    , filled = false
     , chart
     , base
     , item = {};
@@ -17,7 +16,7 @@ ds.models.simple_time_series = function(data) {
     base = ds.models.item();
   }
 
-  base.type('simple_time_series');
+  base.type('stacked_area_chart');
   item.base = base;
   item.chart = chart;
 
@@ -30,21 +29,14 @@ ds.models.simple_time_series = function(data) {
     return item;
   }
 
-  item.filled = function(_) {
-    if (!arguments.length) return filled;
-    filled = _;
-    return item;
-  }
-
   item.chart = function(_) {
     if (!arguments.length) return chart;
     chart = _;
     return item;
   }
 
-  item.to_json = function() {
+ item.to_json = function() {
     return base.to_json({
-      filled: filled,
       options: chart.options(),
       title: chart.title(),
       query_name: query_name

@@ -1,8 +1,7 @@
-ds.models.simple_time_series = function(data) {
+ds.models.standard_time_series = function(data) {
   "use strict";
 
   var query_name
-    , filled = false
     , chart
     , base
     , item = {};
@@ -17,7 +16,7 @@ ds.models.simple_time_series = function(data) {
     base = ds.models.item();
   }
 
-  base.type('simple_time_series');
+  base.type('standard_time_series');
   item.base = base;
   item.chart = chart;
 
@@ -30,12 +29,6 @@ ds.models.simple_time_series = function(data) {
     return item;
   }
 
-  item.filled = function(_) {
-    if (!arguments.length) return filled;
-    filled = _;
-    return item;
-  }
-
   item.chart = function(_) {
     if (!arguments.length) return chart;
     chart = _;
@@ -44,7 +37,6 @@ ds.models.simple_time_series = function(data) {
 
   item.to_json = function() {
     return base.to_json({
-      filled: filled,
       options: chart.options(),
       title: chart.title(),
       query_name: query_name

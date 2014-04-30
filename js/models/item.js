@@ -49,14 +49,14 @@ ds.models.item = function(data) {
     return item;
   }
 
-  item.to_json = function() {
-    return {
-      item_type: item_type,
-      css_class: css_class,
-      element_id: element_id,
-      height: height,
-      style: style
-    }
+  item.to_json = function(data_) {
+    var data = data_ || {};
+    data.item_type = item_type;
+    data.css_class = css_class;
+    data.element_id = element_id;
+    data.height = height;
+    data.style = style;
+    return data;
   }
 
   return item;
