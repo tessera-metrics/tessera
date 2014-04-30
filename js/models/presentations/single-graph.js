@@ -26,6 +26,10 @@ ds.models.single_graph = function(data) {
   ds.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
   ds.rebind(item, chart, 'title', 'options');
 
+  /**
+   * Data accessors
+   */
+
   item.query_name = function(_) {
     if (!arguments.length) return query_name;
     query_name = _;

@@ -13,6 +13,10 @@ ds.models.chart = function(data) {
     options = data.options || options;
   }
 
+  /**
+   * Data accessors
+   */
+
   item.title = function(_) {
     if (!arguments.length) return title;
     title = _;

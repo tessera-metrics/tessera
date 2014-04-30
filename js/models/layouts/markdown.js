@@ -17,6 +17,10 @@ ds.models.markdown = function(data) {
 
   ds.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
 
+  /**
+   * Data accessors
+   */
+
   item.text = function(_) {
     if (!arguments.length) return text;
     text = _;
