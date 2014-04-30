@@ -115,6 +115,9 @@ def _dashboards_response(dashboards):
         dash['href'] = '/api/dashboard/{0}'.format(id)
         dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
         dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
+        if 'definition' in dash:
+            definition = dash['definition']
+            definition['href'] = '/api/dashboard/{0}/definition'.format(id)
     return _jsonify({
         'ok' : True,
         'dashboards' : dashboards
@@ -144,8 +147,11 @@ def api_dashboard_get(id):
     """Get the metadata for a single dashboard.
 
     """
-    dashboards = [database.Dashboard.query.get_or_404(id).to_json()]
-    return _dashboards_response(dashboards)
+    dashboard = database.Dashboard.query.get_or_404(id)
+    dash = dashboard.to_json()
+    if _get_param('definition', False):
+        dash['definition'] = json.loads(dashboard.definition.definition)
+    return _dashboards_response([dash])
 
 @app.route('/api/dashboard/', methods=['POST'])
 def api_dashboard_create():
