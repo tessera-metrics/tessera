@@ -88,7 +88,7 @@ class DashboardItem(object):
             return Row.from_json(d)
         elif item_type == 'section':
             return Section.from_json(d)
-        elif item_type == 'dashboard':
+        elif item_type == 'dashboard_definition':
             return DashboardDefinition.from_json(d)
 
             # Presentations
@@ -394,8 +394,8 @@ class Markdown(DashboardItem):
 
 
 class DashboardDefinition(DashboardContainer):
-    def __init__(self, queries=None, items=None, item_type='dashboard', **kwargs):
-        super(DashboardDefinition, self).__init__(items=items, item_type='dashboard', **kwargs)
+    def __init__(self, queries=None, items=None, item_type='dashboard_definition', **kwargs):
+        super(DashboardDefinition, self).__init__(items=items, item_type='dashboard_definition', **kwargs)
         self.queries = queries or {}
 
     @classmethod
