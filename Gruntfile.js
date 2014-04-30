@@ -40,7 +40,17 @@ module.exports = function(grunt) {
           'js/models/summation-table.js',
           'js/models/chart.js',
           'js/models/simple-time-series.js',
+          'js/models/standard-time-series.js',
+          'js/models/stacked-area-chart.js',
+          'js/models/donut-chart.js',
           'js/models/single-graph.js',
+          'js/models/cell.js',
+          'js/models/container.js',
+          'js/models/row.js',
+          'js/models/separator.js',
+          'js/models/heading.js',
+          'js/models/markdown.js',
+          'js/models/dashboard.js'
         ],
         dest: 'cronenberg/static/app.js'
       }

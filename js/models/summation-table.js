@@ -43,10 +43,10 @@ ds.models.summation_table = function(data) {
   }
 
   item.to_json = function() {
-    var json = base.to_json();
-    json.format = format;
-    json.query_name = query_name;
-    return json;
+    return base.to_json({
+      format: format,
+      query_name: query_name
+    });
   }
 
   return item;

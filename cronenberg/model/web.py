@@ -204,6 +204,9 @@ class ChartPresentation(Presentation):
         self.interactive = interactive
 
 class DonutChart(ChartPresentation):
+    """
+    JS class: ds.models.donut_chart
+    """
     def __init__(self, **kwargs):
         super(DonutChart, self).__init__(item_type='donut_chart', **kwargs)
 
@@ -235,6 +238,7 @@ class SingleGraph(ChartPresentation):
     single metric as a line graph, with a summation value overlayed
     (ala Tasseo).
 
+    JS class: ds.models.single_graph
     """
     def __init__(self, query_name, format=',.1s', transform=Presentation.Transform.MEAN, **kwargs):
         super(SingleGraph, self).__init__(query_name=query_name,
@@ -252,6 +256,7 @@ class StandardTimeSeries(ChartPresentation):
     """A multi-series time series line chart, with all the bells and
     whistles.
 
+    JS class: ds.models.standard_time_series
     """
     def __init__(self, query_name, **kwargs):
         super(StandardTimeSeries, self).__init__(query_name=query_name,
@@ -266,6 +271,7 @@ class StackedAreaChart(ChartPresentation):
     """A multi-series stacked time series area chart, with all the bells
     and whistles and a few extras to boot.
 
+    JS class: ds.models.stacked_area_chart
     """
     def __init__(self, query_name, **kwargs):
         super(StackedAreaChart, self).__init__(query_name=query_name,
