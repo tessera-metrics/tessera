@@ -1,37 +1,6 @@
 {% raw %}
 
 <!--
-     TEMPLATE: Separator layout.
-  -->
-<script id="ds-tmpl-separator" data-ds-item-type="separator" type="text/x-handlebars-template">
-  <hr{{#if item.css_class}}class="{{item.css_class}}"{{/if}}></hr>
-</script>
-
-<!--
-     TEMPLATE: Heading layout.
-  -->
-<script id="ds-tmpl-heading" data-ds-item-type="heading" type="text/x-handlebars-template">
-  <h{{item.level}} {{#if item.css_class}}class="{{item.css_class}}"{{/if}}>
-    {{item.text}} {{#if item.description}}<small>{{item.description}}</small>{{/if}}
-  </h{{item.level}}>
-</script>
-
-<!--
-     TEMPLATE: Markdown.
-  -->
-<script id="ds-tmpl-markdown" data-ds-item-type="markdown" type="text/x-handlebars-template">
-  <div class="ds-presentation ds-markdown {{height item}} {{css_class item}}">
-    {{#if item.raw}}
-      <pre>
-        {{item.text}}
-      </pre>
-    {{else}}
-      {{markdown item.text}}
-    {{/if}}
-  </div>
-</script>
-
-<!--
      TEMPLATE: Singlestat presentation.
   -->
 <script id="ds-tmpl-singlestat" data-ds-item-type="singlestat" type="text/x-handlebars-template">
@@ -260,76 +229,6 @@
       });
   };
   cronenberg.templates.register_presentation({ elementId: 'ds-tmpl-summation-table', dataHandler: handler});
-</script>
-
-<!-- ============================================================================= -->
-
-<!--
-     TEMPLATE: Dashboard cells.
-  -->
-<script id="ds-tmpl-cell" data-ds-item-type="cell" type="text/x-handlebars-template">
-  <div class="{{span item}} {{offset item}} {{css_class item}} {{height item}}"
-       {{#if item.align}} align="{{item.align}}" {{/if}}
-       >
-  {{#if item.style}}<div class="{{style_class item}}">{{/if}}
-
-  {{#each item.items}}
-    {{item this}}
-  {{/each}}
-
-  {{#if item.style}}</div>{{/if}}
-</div>
-</script>
-
-<!--
-     TEMPLATE: Dashboard rows.
-  -->
-<script id="ds-tmpl-row" data-ds-item-type="row" type="text/x-handlebars-template">
-  {{#if item.style}}<div class="{{style_class item}}">{{/if}}
-    <div class="row ds-row {{css_class item}}">
-    {{#each item.items}}
-      {{item this}}
-    {{/each}}
-  </div>
-  {{#if item.style}}</div>{{/if}}
-</script>
-
-<!--
-     TEMPLATE: Dashboard sections
-  -->
-<script id="ds-tmpl-section" data-ds-item-type="section" type="text/x-handlebars-template">
-  <div class="{{container_class item}}">
-    {{#if item.style}}<div class="{{style_class item}}">{{/if}}
-      <div class="{{css_class item}}">
-        {{#each item.items}}
-        {{item this}}
-        {{/each}}
-      </div>
-      {{#if item.style}}</div>{{/if}}
-  </div>
-</script>
-
-
-<!--
-     TEMPLATE: Top-level dashboard.
-  -->
-<script id="ds-tmpl-dashboard" data-ds-item-type="dashboard_definition" type="text/x-handlebars-template">
-  <div class="{{css_class item}}">
-    {{#each item.items}}
-      {{item this}}
-    {{/each}}
-  </div>
-</script>
-
-<script>
-  cronenberg.templates
-        .register_presentation({ elementId: 'ds-tmpl-separator'})
-        .register_presentation({ elementId: 'ds-tmpl-heading' })
-        .register_presentation({ elementId: 'ds-tmpl-markdown' })
-        .register_presentation({ elementId: 'ds-tmpl-cell' })
-        .register_presentation({ elementId: 'ds-tmpl-row' })
-        .register_presentation({ elementId: 'ds-tmpl-section' })
-        .register_presentation({ elementId: 'ds-tmpl-dashboard' });
 </script>
 
 {% endraw %}
