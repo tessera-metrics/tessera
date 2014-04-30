@@ -26,11 +26,11 @@ module.exports = function(grunt) {
       },
       app: {
         src: [
-          'cronenberg/static/cronenberg.js',
-          'cronenberg/static/cronenberg-queries.js',
-          'cronenberg/static/cronenberg-charts.js',
-          'cronenberg/static/cronenberg-dashboards.js',
-          'cronenberg/static/cronenberg-templates.js',
+          'js/app/cronenberg.js',
+          'js/app/cronenberg-queries.js',
+          'js/app/cronenberg-charts.js',
+          'js/app/cronenberg-dashboards.js',
+          'js/app/cronenberg-templates.js',
           'js/core.js',
           'js/models/item.js',
           'js/models/container.js',
@@ -54,10 +54,12 @@ module.exports = function(grunt) {
           'js/models/layouts/row.js',
           'js/models/layouts/separator.js',
           'js/models/layouts/section.js',
-          'js/models/layouts/dashboard-definition.js'
+          'js/models/layouts/dashboard-definition.js',
         ],
         dest: 'cronenberg/static/app.js'
       }
+    },
+    handlebars: {
     },
     watch: {
       files: [
@@ -70,6 +72,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-handlebars');
 
-  grunt.registerTask('default', ['concat']);
+  grunt.registerTask('default', ['handlebars', 'concat']);
 }
