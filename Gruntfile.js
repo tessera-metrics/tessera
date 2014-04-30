@@ -7,17 +7,17 @@ module.exports = function(grunt) {
       all: {
         options: {
           namespace: function(filename) {
-            var names = filename.replace(/js\/(.*)(\/\w+\.hbs)/, '$1');
+            var names = filename.replace(/templates\/(.*)(\/\w+\.hbs)/, '$1');
             return 'ds.templates.' + names.split('/').join('.');
           },
           processName: function(filePath) {
             return filePath
-                   .replace(/js\/(.*)\//, '')
+                   .replace(/templates\/(.*)\//, '')
                    .replace(/\.hbs$/, '');
           }
         },
         files: {
-          'cronenberg/static/templates.js' : [ 'js/**/*.hbs']
+          'cronenberg/static/templates.js' : [ 'templates/**/*.hbs']
         }
       }
     },
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
     watch: {
       files: [
         'js/**/cron*.js',
-        'js/**/cron*.hbs',
+        'templates/**/cron*.hbs',
         'cronenberg/static/js/**/*.js'
       ],
       tasks: ['handlebars', 'concat']
