@@ -37,12 +37,12 @@ ds.models.heading = function(data) {
     return item;
   }
 
-  item.to_json = function() {
-    return container.to_json(base.to_json({
+  item.toJSON = function() {
+    return base.toJSON({
       text: text,
       level: level,
       description: description
-    }));
+    });
   }
 
   return item;

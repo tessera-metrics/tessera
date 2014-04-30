@@ -25,7 +25,7 @@ ds.models.chart = function(data) {
     return item;
   }
 
-  item.to_json = function(data_) {
+  item.toJSON = function(data_) {
     var data = data_ || {};
     data.title = title;
     data.options = options;

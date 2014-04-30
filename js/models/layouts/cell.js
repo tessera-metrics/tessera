@@ -41,8 +41,8 @@ ds.models.cell = function(data) {
     return item;
   }
 
-  item.to_json = function() {
-    return container.to_json(base.to_json({
+  item.toJSON = function() {
+    return container.toJSON(base.toJSON({
       span: span,
       offset: offset,
       align: align
