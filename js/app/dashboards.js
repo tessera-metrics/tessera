@@ -111,7 +111,7 @@ cronenberg.DashboardManager = function() {
             dataType: "json",
             url: url
         }).done(function(data) {
-            var dashboard = data
+          var dashboard = data.dashboard;
             holder.dashboard = dashboard;
 
             // Build a map from the presentation elements to their
@@ -270,7 +270,7 @@ cronenberg.DashboardManager = function() {
 
     this.delete_current = function() {
         var self = this;
-        self.delete_with_confirmation(self.current.dashboard.dashboard.href);
+        self.delete_with_confirmation(self.current.dashboard.href);
     };
 
     // Oh this is ugly
