@@ -1,4 +1,4 @@
-ds.models.single_graph = function(data) {
+ds.models.singlegraph = function(data) {
   "use strict";
 
   var query_name
