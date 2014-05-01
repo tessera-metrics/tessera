@@ -11,34 +11,28 @@ ds.models.summation_table = function(data) {
     query_name = data.query_name;
     striped = data.striped !== false
     format = data.format || format;
-    base = ds.models.item(data);
-  } else {
-    base = ds.models.item();
   }
-  base.type('summation_table');
+  base = ds.models.item(data).set_type('summation_table').rebind(item);
 
-  item.base = base;
-
-  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
+  Object.defineProperty(item, 'query_name', {get: function() { return query_name; }});
+  Object.defineProperty(item, 'striped', {get: function() { return striped; }});
+  Object.defineProperty(item, 'format', {get: function() { return format; }});
 
   /**
-   * Data accessors
+   * Data mutators
    */
 
-  item.query_name = function(_) {
-    if (!arguments.length) return query_name;
+  item.set_query_name = function(_) {
     query_name = _;
     return item;
   }
 
-  item.striped = function(_) {
-    if (!arguments.length) return striped;
+  item.set_striped = function(_) {
     striped = _;
     return item;
   }
 
-  item.format = function(_) {
-    if (!arguments.length) return format;
+  item.set_format = function(_) {
     format = _;
     return item;
   }

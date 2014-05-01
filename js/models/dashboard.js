@@ -81,7 +81,7 @@ ds.models.dashboard = function(data) {
   }
 
   /**
-   * Data accessors.
+   * Data mutators.
    */
 
   item.set_title = function(_) {

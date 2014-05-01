@@ -1,6 +1,3 @@
-/**
- * Mirrors cronenberg.model.web.summation_table
- */
 ds.models.chart = function(data) {
   "use strict";
 
@@ -13,18 +10,25 @@ ds.models.chart = function(data) {
     options = data.options || options;
   }
 
+  Object.defineProperty(item, 'title', {get: function() { return title; }});
+  Object.defineProperty(item, 'options', {get: function() { return options; }});
+
+  item.rebind = function(target) {
+    d3.rebind(target, item, 'set_title', 'set_options');
+    ds.rebind_properties(target, item, 'title', 'options');
+    return item;
+  }
+
   /**
-   * Data accessors
+   * Data mutators
    */
 
-  item.title = function(_) {
-    if (!arguments.length) return title;
+  item.set_title = function(_) {
     title = _;
     return item;
   }
 
-  item.options = function(_) {
-    if (!arguments.length) return options;
+  item.set_options = function(_) {
     options = _;
     return item;
   }
