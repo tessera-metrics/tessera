@@ -50,7 +50,8 @@ module.exports = function(grunt) {
           'js/models/*.js',
           'js/models/presentations/*.js',
           'js/models/layouts/*.js',
-          'cronenberg/static/templates.js'
+          'cronenberg/static/templates.js',
+          'templates/**/*.js'
         ],
         dest: 'cronenberg/static/app.js'
       }

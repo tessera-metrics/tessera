@@ -19,7 +19,7 @@ ds.models.single_graph = function(data) {
     base = ds.models.item();
   }
 
-  base.type('single_graph');
+  base.type('singlegraph');
   item.base = base;
   item.chart = chart;
 
