@@ -27,7 +27,7 @@ ds.models.dashboard_definition = function(data) {
    */
 
   item.render_templates = function(context) {
-    for (key in queries) {
+    for (var key in queries) {
       queries[key] = ds.render_template(queries[key], context);
     }
     return item;
