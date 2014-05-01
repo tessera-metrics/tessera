@@ -75,16 +75,24 @@ cronenberg.DashboardManager = function() {
         });
     };
 
-    this._process_item_ids = function(item, holder, nextid_) {
+    /**
+       * Recurse through the presentation tree, giving each dashboard
+       * item an element ID, and checking to see if we have any
+       * components that require the raw data queries to be made.
+       *
+       * Use dashboard.visit() when we convert to using the model
+       * objects.
+     */
+    this._prep_items = function(item, holder, interactive, nextid_) {
       nextid = nextid_ || 1;
         var self = this;
         if (!item.element_id) {
           item.element_id = 'd' + nextid++;
             holder.elementToItemMap[item.element_id] = item;
         }
-        if (item.interactive) {
-            holder.raw_data_required = true;
-        }
+        item.interactive = interactive;
+        // Now that we have a proper client side model, this logic
+        // should move to the model objects
         switch (item.item_type) {
         case 'singlestat':
         case 'jumbotron_singlestat':
@@ -95,8 +103,56 @@ cronenberg.DashboardManager = function() {
         }
         if (item.items) {
             item.items.map(function(child) {
-                self._process_item_ids(child, holder, nextid);
+                self._prep_items(child, holder, interactive, nextid);
             });
+        }
+    };
+
+    /**
+     * Set up us the API call.
+     */
+    this._prep_url = function(base_url) {
+        var url = URI(base_url).setQuery('rendering', true);
+        var variables = {};
+        var params = URI(window.location).query(true);
+        if (params.from) {
+            url.setQuery('from', params.from);
+        }
+        if (params.until) {
+            url.setQuery('until', params.until);
+        }
+        for (key in params) {
+            if (key.indexOf('p[') == 0) {
+                var name = key.slice(2, -1);
+                variables[name] = params[key];
+            }
+        }
+        var data = {
+            url: url.href(),
+            variables: variables
+        }
+        if (params.interactive) {
+            data.interactive == params.interactive != 'false';
+        }
+        return data;
+    };
+
+    this._prep_queries = function(config, definition) {
+        for (query_name in definition.queries) {
+            var url = URI(config.GRAPHITE_URL)
+                .path('/render')
+                .setQuery('format', 'json');
+            var targets = definition.queries[query_name];
+            if (targets instanceof Array) {
+                for (t in targets) {
+                    url.addQuery('target', targets[i]);
+                }
+            } else {
+                url.addQuery('target', targets);
+            }
+            // Should probably store this outside the original
+            // definition, but for now...
+            definition.queries[query_name] = url.href();
         }
     };
 
@@ -106,17 +162,30 @@ cronenberg.DashboardManager = function() {
     this.load = function(url, element) {
         var self = this;
         var holder = new cronenberg.DashboardHolder(url, element);
+        var loc = self._prep_url(url);
         self.current = holder;
         $.ajax({
             dataType: "json",
-            url: url
+            url: loc.url
         }).done(function(data) {
-          var dashboard = data.dashboard;
-            holder.dashboard = dashboard;
+          var dashboard = data.dashboards[0];
+            // Temporary - convert to model to expand templates and
+            // back to raw object form. Will transition to using model
+            // directly eventually.
+            holder.dashboard = ds.models.dashboard(dashboard)
+                .render_templates(loc.variables)
+                .toJSON();
+
+            var interactive = data.preferences.interactive;
+            if (loc.interactive != undefined) {
+                interactive = loc.interactive;
+            }
+            holder.raw_data_required = interactive;
 
             // Build a map from the presentation elements to their
             // model objects.
-            self._process_item_ids(dashboard.definition, holder);
+            self._prep_items(dashboard.definition, holder, interactive);
+            self._prep_queries(data.config, dashboard.definition);
 
             // Set up the queries
             cronenberg.queries.clear();
