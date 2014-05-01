@@ -10,6 +10,15 @@ ds.models.container = function(data) {
             });
   }
 
+  Object.defineProperty(item, 'items', {get: function() { return items; }});
+  Object.defineProperty(item, 'length', {get: function() { return items.length; }});
+
+  item.rebind = function(target) {
+    d3.rebind(target, item, 'set_items', 'add');
+    ds.rebind_properties(target, item, 'items', 'length');
+    return item;
+  }
+
   /**
    * Operations
    */
@@ -29,8 +38,7 @@ ds.models.container = function(data) {
    * Data accessors
    */
 
-  item.items = function(_) {
-    if (!arguments.length) return items;
+  item.set_items = function(_) {
     items = _;
     return item;
   }
