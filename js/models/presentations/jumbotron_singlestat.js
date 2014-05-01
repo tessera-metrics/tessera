@@ -6,7 +6,7 @@ ds.models.jumbotron_singlestat = function(data) {
 
   base.type('jumbotron_singlestat');
 
-  ds.rebind(item, base,
+  d3.rebind(item, base,
             'type', 'css_class', 'element_id', 'height', 'style',
             'query_name', 'thresholds',
             'title', 'units', 'format', 'index', 'transform', 'base', 'toJSON');

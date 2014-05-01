@@ -21,8 +21,8 @@ ds.models.simple_time_series = function(data) {
   item.base = base;
   item.chart = chart;
 
-  ds.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
-  ds.rebind(item, chart, 'title', 'options');
+  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
+  d3.rebind(item, chart, 'title', 'options');
 
   /**
    * Data accessors

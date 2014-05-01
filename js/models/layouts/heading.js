@@ -17,7 +17,7 @@ ds.models.heading = function(data) {
   base.type('heading');
   item.base = base;
 
-  ds.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
+  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
 
   item.text = function(_) {
     if (!arguments.length) return text;
