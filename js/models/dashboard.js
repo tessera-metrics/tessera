@@ -48,6 +48,10 @@ ds.models.dashboard = function(data) {
     title = ds.render_template(title, context);
     summary = ds.render_template(summary, context);
 
+    if (definition) {
+      definition.render_templates(context);
+    }
+
     return item;
   }
 
