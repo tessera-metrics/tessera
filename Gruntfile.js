@@ -1,8 +1,26 @@
 module.exports = function(grunt) {
+  var path = require('path');
+
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
 
+    handlebars: {
+      all: {
+        options: {
+          namespace: function(filename) {
+            return 'ds.' + path.dirname(filename).replace('/', '.');
+          },
+          processName: function(filename) {
+            var pieces = filename.split('/');
+            return pieces[pieces.length - 1].split('.')[0];
+          }
+        },
+        files: {
+          'cronenberg/static/templates.js' : [ 'templates/**/*.hbs']
+        }
+      }
+    },
     concat: {
       options: {
         separator: ';'
@@ -26,27 +44,31 @@ module.exports = function(grunt) {
       },
       app: {
         src: [
-          'cronenberg/static/cronenberg.js',
-          'cronenberg/static/cronenberg-queries.js',
-          'cronenberg/static/cronenberg-charts.js',
-          'cronenberg/static/cronenberg-dashboards.js',
-          'cronenberg/static/cronenberg-templates.js'
+          'js/core.js',
+          'js/cronenberg.js',
+          'js/app/*.js',
+          'js/models/*.js',
+          'js/models/presentations/*.js',
+          'js/models/layouts/*.js',
+          'cronenberg/static/templates.js',
+          'templates/**/*.js'
         ],
         dest: 'cronenberg/static/app.js'
       }
     },
     watch: {
       files: [
-        'cronenberg/static/cron*.js',
-        'cronenberg/static/js/*.js'
+        'js/**/cron*.js',
+        'templates/**/cron*.hbs',
+        'cronenberg/static/js/**/*.js'
       ],
-      tasks: ['concat']
+      tasks: ['handlebars', 'concat']
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-handlebars');
 
-  grunt.registerTask('default', ['concat']);
+  grunt.registerTask('default', ['handlebars', 'concat']);
 }

@@ -1,0 +1,53 @@
+<div class="row">
+  <!-- Column 1 -->
+  <div class="col-md-5">
+    <h4>Properties</h4>
+
+    <table class="table-condensed">
+      <tbody>
+        <tr>
+          <th>Title</th><td class="ds-editable" data-type="text">{{dashboard.title}}</td>
+        </tr>
+
+        <tr>
+          <th>Category</th><td class="ds-editable" data-type="text">{{dashboard.category}}</td>
+        </tr>
+
+        <tr>
+          <th>Summary</th><td class="ds-editable" data-type="text">{{dashboard.summary}}</td>
+        </tr>
+
+        <tr>
+          <th>Tags</th>
+          <td>
+            {{#each dashboard.tags}}
+            {{> ds-dashboard-tag this}}
+            {{/each}}
+          </td>
+        </tr>
+
+        <tr>
+          <th>Created</th><td>{{moment 'MMMM Do YYYY, h:mm:ss a' dashboard.creation_date}}</td>
+        </tr>
+        <tr>
+          <th>Last Modified</th><td>{{moment 'MMMM Do YYYY, h:mm:ss a' dashboard.last_modified_date}}</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div> <!-- column -->
+
+  <!-- Column 2 -->
+  <div class="col-md-7">
+    <h4>Description</h4>
+    <div class="ds-editable"
+         data-type="textarea"
+         data-rows="9"
+         data-showbuttons="bottom"
+         data-inputclass="ds-dashboard-description"
+         style="text-align:top;">
+      {{markdown dashboard.description}}
+    </div>
+  </div>
+
+</div>

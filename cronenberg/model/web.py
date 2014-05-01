@@ -31,6 +31,9 @@ def _delattr(dictionary, attr):
         del dictionary[attr]
 
 class Thresholds(object):
+    """
+    JS class: ds.models.thresholds
+    """
     def __init__(self, summation_type='max', warning=None, danger=None):
         self.summation_type = summation_type
         self.warning = warning
@@ -40,6 +43,8 @@ class DashboardItem(object):
     """Layout elements are class that define how presentations are
     arrange in the dashboard. The base class provides common CSS class
     overriding.
+
+    JS class: ds.models.item
     """
     NEXT = 1
 
@@ -83,7 +88,7 @@ class DashboardItem(object):
             return Row.from_json(d)
         elif item_type == 'section':
             return Section.from_json(d)
-        elif item_type == 'dashboard':
+        elif item_type == 'dashboard_definition':
             return DashboardDefinition.from_json(d)
 
             # Presentations
@@ -130,6 +135,9 @@ class Presentation(DashboardItem):
 # -----------------------------------------------------------------------------
 
 class SingleStat(Presentation):
+    """
+    JS class: ds.models.singlestat
+    """
     def __init__(self, title, query_name, units='', format=',.3f', index=False, transform=Presentation.Transform.MEAN, **kwargs):
         super(SingleStat, self).__init__(query_name=query_name,
                                          item_type=kwargs.get('item_type', 'singlestat'),
@@ -146,6 +154,9 @@ class SingleStat(Presentation):
         return cls(**d)
 
 class JumbotronSingleStat(SingleStat):
+    """
+    JS class: ds.models.jumbotron_singlestat
+    """
     def __init__(self, **kwargs):
         super(JumbotronSingleStat, self).__init__(**kwargs)
         self.item_type='jumbotron_singlestat'
@@ -162,6 +173,9 @@ class TablePresentation(Presentation):
 
 class SummationTable(TablePresentation):
     # TODO - control which columns are shown
+    """
+    JS class: ds.models.summation_table
+    """
     def __init__(self, query_name, format=',.3f', striped=False, **kwargs):
         super(SummationTable, self).__init__(query_name=query_name,
                                              item_type='summation_table',
@@ -179,7 +193,10 @@ class SummationTable(TablePresentation):
 # -----------------------------------------------------------------------------
 
 class ChartPresentation(Presentation):
-    """Base class for all chart presentations."""
+    """Base class for all chart presentations.
+
+    JS Class: ds.models.chart
+    """
     def __init__(self, title='', options=None, interactive=True, **kwargs):
         super(ChartPresentation, self).__init__(**kwargs)
         self.title = title
@@ -187,6 +204,9 @@ class ChartPresentation(Presentation):
         self.interactive = interactive
 
 class DonutChart(ChartPresentation):
+    """
+    JS class: ds.models.donut_chart
+    """
     def __init__(self, **kwargs):
         super(DonutChart, self).__init__(item_type='donut_chart', **kwargs)
 
@@ -200,6 +220,7 @@ class SimpleTimeSeries(ChartPresentation):
     presented without a lot of chart extras, for high level
     visualizations.
 
+    JS class: ds.models.simple_time_series
     """
     def __init__(self, query_name, filled=False, **kwargs):
         super(SimpleTimeSeries, self).__init__(query_name=query_name,
@@ -217,6 +238,7 @@ class SingleGraph(ChartPresentation):
     single metric as a line graph, with a summation value overlayed
     (ala Tasseo).
 
+    JS class: ds.models.single_graph
     """
     def __init__(self, query_name, format=',.1s', transform=Presentation.Transform.MEAN, **kwargs):
         super(SingleGraph, self).__init__(query_name=query_name,
@@ -234,6 +256,7 @@ class StandardTimeSeries(ChartPresentation):
     """A multi-series time series line chart, with all the bells and
     whistles.
 
+    JS class: ds.models.standard_time_series
     """
     def __init__(self, query_name, **kwargs):
         super(StandardTimeSeries, self).__init__(query_name=query_name,
@@ -248,6 +271,7 @@ class StackedAreaChart(ChartPresentation):
     """A multi-series stacked time series area chart, with all the bells
     and whistles and a few extras to boot.
 
+    JS class: ds.models.stacked_area_chart
     """
     def __init__(self, query_name, **kwargs):
         super(StackedAreaChart, self).__init__(query_name=query_name,
@@ -295,6 +319,7 @@ class Cell(DashboardContainer):
         DashboardContainer._process_items(d)
         _delattr(d, 'item_type')
         return Cell(**d)
+
 
 
 class Row(DashboardContainer):
@@ -369,8 +394,8 @@ class Markdown(DashboardItem):
 
 
 class DashboardDefinition(DashboardContainer):
-    def __init__(self, queries=None, items=None, item_type='dashboard', **kwargs):
-        super(DashboardDefinition, self).__init__(items=items, item_type='dashboard', **kwargs)
+    def __init__(self, queries=None, items=None, item_type='dashboard_definition', **kwargs):
+        super(DashboardDefinition, self).__init__(items=items, item_type='dashboard_definition', **kwargs)
         self.queries = queries or {}
 
     @classmethod
