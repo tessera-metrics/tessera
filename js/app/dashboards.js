@@ -144,7 +144,7 @@ cronenberg.DashboardManager = function() {
                 .setQuery('format', 'json');
             var targets = definition.queries[query_name];
             if (targets instanceof Array) {
-                for (t in targets) {
+                for (i in targets) {
                     url.addQuery('target', targets[i]);
                 }
             } else {
