@@ -4,4 +4,3 @@ flask-sqlalchemy
 requests
 simplejson
 inflection
-pybars

@@ -101,7 +101,6 @@ Server Side:
 * [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/)
 * [requests](https://github.com/kennethreitz/requests)
 * inflection
-* pybars
 
 Client Side:
 
