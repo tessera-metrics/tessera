@@ -9,15 +9,10 @@ ds.models.section = function(data) {
   if (data) {
     layout = data.layout || layout;
   }
-  base = ds.models.item(data);
-  container = ds.models.container(data);
+  base = ds.models.item(data).set_type('section').rebind(item);
+  container = ds.models.container(data).rebind(item);
 
-  base.type('section');
-  item.base = base;
-  item.container = container;
-
-  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
-  d3.rebind(item, container, 'items', 'add');
+  Object.defineProperty(item, 'layout', {get: function() { return layout; }});
 
   /**
    * Operations
@@ -32,8 +27,7 @@ ds.models.section = function(data) {
    * Data accessors
    */
 
-  item.layout = function(_) {
-    if (!arguments.length) return layout;
+  item.set_layout = function(_) {
     layout = _;
     return item;
   }

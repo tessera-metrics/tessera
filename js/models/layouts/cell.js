@@ -13,15 +13,12 @@ ds.models.cell = function(data) {
     offset = data.offset;
     align = data.align;
   }
-  base = ds.models.item(data);
-  container = ds.models.container(data);
+  base = ds.models.item(data).set_type('cell').rebind(item);
+  container = ds.models.container(data).rebind(item);
 
-  base.type('cell');
-  item.base = base;
-  item.container = container;
-
-  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
-  d3.rebind(item, container, 'items', 'add');
+  Object.defineProperty(item, 'span', { get: function() { return span; }});
+  Object.defineProperty(item, 'offset', { get: function() { return offset; }});
+  Object.defineProperty(item, 'align', { get: function() { return align; }});
 
   /**
    * Operations
@@ -36,20 +33,17 @@ ds.models.cell = function(data) {
    * Data accessors
    */
 
-  item.span = function(_) {
-    if (!arguments.length) return span;
+  item.set_span = function(_) {
     span = _;
     return item;
   }
 
-  item.offset = function(_) {
-    if (!arguments.length) return offset;
+  item.set_offset = function(_) {
     offset = _;
     return item;
   }
 
-  item.align = function(_) {
-    if (!arguments.length) return align;
+  item.set_align = function(_) {
     align = _;
     return item;
   }
