@@ -150,7 +150,7 @@ def api_dashboard_get(id):
 
     """
     dashboard = database.Dashboard.query.get_or_404(id)
-    dash = dashboard.to_json()
+    dash = _set_dashboard_hrefs(dashboard.to_json())
     response = {
         'ok' : True,
         'dashboards' : [dash]
