@@ -109,18 +109,20 @@ def _set_interactive(item, value):
 #
 # =============================================================================
 
+def _set_dashboard_hrefs(dash):
+    id = dash['id']
+    dash['href'] = '/api/dashboard/{0}'.format(id)
+    dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
+    dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
+    if 'definition' in dash:
+        definition = dash['definition']
+        definition['href'] = '/api/dashboard/{0}/definition'.format(id)
+    return dasha
+
 def _dashboards_response(dashboards):
-    for dash in dashboards:
-        id = dash['id']
-        dash['href'] = '/api/dashboard/{0}'.format(id)
-        dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
-        dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
-        if 'definition' in dash:
-            definition = dash['definition']
-            definition['href'] = '/api/dashboard/{0}/definition'.format(id)
     return _jsonify({
         'ok' : True,
-        'dashboards' : dashboards
+        'dashboards' : [ _set_dashboard_hrefs(d) for d in dashboards]
     })
 
 @app.route('/api/dashboard/')
@@ -149,9 +151,16 @@ def api_dashboard_get(id):
     """
     dashboard = database.Dashboard.query.get_or_404(id)
     dash = dashboard.to_json()
+    response = {
+        'ok' : True,
+        'dashboards' : [dash]
+    }
     if _get_param('definition', False):
         dash['definition'] = json.loads(dashboard.definition.definition)
-    return _dashboards_response([dash])
+    if _get_param('rendering', False):
+        response['config'] = _get_config()
+        response['preferences'] = _get_preferences()
+    return _jsonify(response)
 
 @app.route('/api/dashboard/', methods=['POST'])
 def api_dashboard_create():
