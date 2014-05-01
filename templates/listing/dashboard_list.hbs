@@ -1,0 +1,9 @@
+<table class="table table-hover table-condensed">
+  <tbody>
+    {{#each dashboards}}
+      {{> ds-dashboard-listing-entry}}
+    {{else}}
+      <tr><td><h3>No dashboards defined</h3></td></tr>
+    {{/each}}
+  </tbody>
+</table>

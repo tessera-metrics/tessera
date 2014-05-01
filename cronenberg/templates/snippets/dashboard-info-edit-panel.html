@@ -1,6 +1,3 @@
-{% include "client/listing.html" %}
-{% include "client/edit.html" %}
-
 <div class="alert alert-info" data-ds-edit-mode="show" style="display:none; margin-top:1em;">
   <div class="ds-dashboard-info-edit-panel">
     <div class="row">
@@ -14,6 +11,6 @@
 </div>
 <script>
 cronenberg.onEnterEditMode(function() {
-    $(".ds-dashboard-info-edit-panel").html(cronenberg.templates.edit.infopanel(cronenberg.dashboards.current.dashboard));
+    $(".ds-dashboard-info-edit-panel").html(ds.templates.edit.info_panel(cronenberg.dashboards.current.dashboard));
 });
 </script>

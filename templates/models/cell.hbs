@@ -1,0 +1,11 @@
+<div class="{{span item}} {{offset item}} {{css_class item}} {{height item}}"
+     {{#if item.align}} align="{{item.align}}" {{/if}}
+     >
+  {{#if item.style}}<div class="{{style_class item}}">{{/if}}
+
+    {{#each item.items}}
+    {{item this}}
+    {{/each}}
+
+    {{#if item.style}}</div>{{/if}}
+</div>
