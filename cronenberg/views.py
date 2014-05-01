@@ -275,11 +275,11 @@ def api_dashboard_get_expanded(id):
     dash['href'] = '/api/dashboard/{0}'.format(id)
     dash['view_href'] = '/dashboards/{0}'.format(id)
     dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
+    dash['definition'] = definition
 
     return _jsonify({
         'ok' : True,
         'dashboard' : dash,
-        'definition' : definition,
         'theme' : _get_param('theme', app.config['DEFAULT_THEME'])
     })
 
@@ -352,7 +352,6 @@ def api_preferences_put():
 class RenderContext:
     def __init__(self):
         self.now = datetime.now()
-        self.element_index = 0
         self.prefs = _get_preferences()
 
     def get(self, key, default=None, store_in_session=False):
