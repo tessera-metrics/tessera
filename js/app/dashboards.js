@@ -112,36 +112,42 @@ cronenberg.DashboardManager = function() {
      * Set up us the API call.
      */
     this._prep_url = function(base_url) {
-        var url = URI(base_url).setQuery('rendering', true);
-        var variables = {};
-        var params = URI(window.location).query(true);
-        if (params.from) {
-            url.setQuery('from', params.from);
-        }
-        if (params.until) {
-            url.setQuery('until', params.until);
-        }
+      var url = URI(base_url).setQuery('rendering', true);
+      var context = url.query(true);
+      var params = URI(window.location).query(true);
+      var variables = {};
+      context.from = context.from || params.from || '-3h';
+      context.until = context.until || params.until;
+
+      url.setQuery('from', context.from);
+      if (context.until) {
+        url.setQuery('until', context.until);
+      }
         for (key in params) {
             if (key.indexOf('p[') == 0) {
                 var name = key.slice(2, -1);
                 variables[name] = params[key];
             }
         }
-        var data = {
-            url: url.href(),
-            variables: variables
-        }
-        if (params.interactive) {
-            data.interactive == params.interactive != 'false';
-        }
-        return data;
+      context.url = url.href();
+      context.variables = variables;
+      if (params.interactive) {
+            context.interactive == params.interactive != 'false';
+      }
+      return context;
     };
 
-    this._prep_queries = function(config, definition) {
+    this._prep_queries = function(config, context, definition) {
         for (query_name in definition.queries) {
             var url = URI(config.GRAPHITE_URL)
                 .path('/render')
                 .setQuery('format', 'json');
+          if (context.from) {
+            url.setQuery('from', context.from);
+          }
+          if (context.until) {
+            url.setQuery('until', context.until);
+          }
             var targets = definition.queries[query_name];
             if (targets instanceof Array) {
                 for (i in targets) {
@@ -162,30 +168,30 @@ cronenberg.DashboardManager = function() {
     this.load = function(url, element) {
         var self = this;
         var holder = new cronenberg.DashboardHolder(url, element);
-        var loc = self._prep_url(url);
+        var context = self._prep_url(url);
         self.current = holder;
         $.ajax({
             dataType: "json",
-            url: loc.url
+            url: context.url
         }).done(function(data) {
           var dashboard = data.dashboards[0];
             // Temporary - convert to model to expand templates and
             // back to raw object form. Will transition to using model
             // directly eventually.
             holder.dashboard = ds.models.dashboard(dashboard)
-                .render_templates(loc.variables)
+                .render_templates(context.variables)
                 .toJSON();
 
             var interactive = data.preferences.interactive;
-            if (loc.interactive != undefined) {
-                interactive = loc.interactive;
+            if (context.interactive != undefined) {
+                interactive = context.interactive;
             }
             holder.raw_data_required = interactive;
 
             // Build a map from the presentation elements to their
             // model objects.
             self._prep_items(dashboard.definition, holder, interactive);
-            self._prep_queries(data.config, dashboard.definition);
+            self._prep_queries(data.config, context, dashboard.definition);
 
             // Set up the queries
             cronenberg.queries.clear();
