@@ -8,7 +8,7 @@ ds.models.separator = function(data) {
   base.type('separator');
   item.base = base;
 
-  ds.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
+  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
 
   item.toJSON = function() {
     return base.toJSON();

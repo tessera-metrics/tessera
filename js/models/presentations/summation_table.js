@@ -19,7 +19,7 @@ ds.models.summation_table = function(data) {
 
   item.base = base;
 
-  ds.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
+  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
 
   /**
    * Data accessors

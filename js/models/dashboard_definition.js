@@ -19,8 +19,8 @@ ds.models.dashboard_definition = function(data) {
   item.base = base;
   item.container = container;
 
-  ds.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
-  ds.rebind(item, container, 'items', 'add');
+  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
+  d3.rebind(item, container, 'items', 'add');
 
   /**
    * Operations
