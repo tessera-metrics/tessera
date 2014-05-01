@@ -75,9 +75,11 @@ cronenberg.DashboardManager = function() {
         });
     };
 
-    this._process_item_ids = function(item, holder) {
+    this._process_item_ids = function(item, holder, nextid_) {
+      nextid = nextid_ || 1;
         var self = this;
-        if (item.element_id) {
+        if (!item.element_id) {
+          item.element_id = 'd' + nextid++;
             holder.elementToItemMap[item.element_id] = item;
         }
         if (item.interactive) {
@@ -93,7 +95,7 @@ cronenberg.DashboardManager = function() {
         }
         if (item.items) {
             item.items.map(function(child) {
-                self._process_item_ids(child, holder);
+                self._process_item_ids(child, holder, nextid);
             });
         }
     };
