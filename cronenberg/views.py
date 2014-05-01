@@ -109,18 +109,20 @@ def _set_interactive(item, value):
 #
 # =============================================================================
 
+def _set_dashboard_hrefs(dash):
+    id = dash['id']
+    dash['href'] = '/api/dashboard/{0}'.format(id)
+    dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
+    dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
+    if 'definition' in dash:
+        definition = dash['definition']
+        definition['href'] = '/api/dashboard/{0}/definition'.format(id)
+    return dash
+
 def _dashboards_response(dashboards):
-    for dash in dashboards:
-        id = dash['id']
-        dash['href'] = '/api/dashboard/{0}'.format(id)
-        dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
-        dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
-        if 'definition' in dash:
-            definition = dash['definition']
-            definition['href'] = '/api/dashboard/{0}/definition'.format(id)
     return _jsonify({
         'ok' : True,
-        'dashboards' : dashboards
+        'dashboards' : [ _set_dashboard_hrefs(d) for d in dashboards]
     })
 
 @app.route('/api/dashboard/')
@@ -148,10 +150,18 @@ def api_dashboard_get(id):
 
     """
     dashboard = database.Dashboard.query.get_or_404(id)
-    dash = dashboard.to_json()
-    if _get_param('definition', False):
+    dash = _set_dashboard_hrefs(dashboard.to_json())
+    response = {
+        'ok' : True,
+        'dashboards' : [dash]
+    }
+    rendering = _get_param('rendering', False)
+    if rendering or _get_param('definition', False):
         dash['definition'] = json.loads(dashboard.definition.definition)
-    return _dashboards_response([dash])
+    if rendering:
+        response['config'] = _get_config()
+        response['preferences'] = _get_preferences()
+    return _jsonify(response)
 
 @app.route('/api/dashboard/', methods=['POST'])
 def api_dashboard_create():
@@ -230,59 +240,6 @@ def api_dashboard_update_definition(id):
 
     return _jsonify({ 'ok' : True })
 
-@app.route('/api/dashboard/<id>/definition/expanded')
-def api_dashboard_get_expanded(id):
-    """Fetch the complete definition of a dashboard and its metadata in a
-    single object, with all graphite URLs expanded and any template
-    variables filled in from the request parameters.
-
-    The result of this API is suitable for rendering by the front-end
-    library.
-    """
-    dash        = database.Dashboard.query.get_or_404(id)
-    definition  = dash.definition.to_json()
-    id          = dash.id
-
-    # TODO - consolidate all this in one location
-    definition['href'] = '/api/dashboard/{0}/definition'.format(id)
-    definition['dashboard_href'] = '/api/dashboard/{0}'.format(id)
-
-    from_time   = _get_param('from', app.config['DEFAULT_FROM_TIME'])
-    until_time  = _get_param('until', None)
-    variables   = _get_template_variables(request.args)
-    interactive = not(_get_param('interactive', 'true', store_in_session=False).lower() == 'false')
-
-    # HACK
-    _set_interactive(definition, interactive)
-
-    for k, v in definition['queries'].iteritems():
-        params = [('format', 'json'), ('from', from_time)]
-        if until_time:
-            params.append(('until', until_time))
-        if isinstance(v, basestring):
-            v = [v]
-        for target in v:
-            target = _render_pybars_template(target, variables)
-            params.append(('target', target))
-        query = '{0}/render?{1}'.format(app.config['GRAPHITE_URL'], urllib.urlencode(params))
-        definition['queries'][k] = query
-
-    dash.title = _render_pybars_template(dash.title, variables)
-    dash.description = _render_pybars_template(dash.description, variables)
-    dash.summary = _render_pybars_template(dash.summary, variables)
-
-    dash = dash.to_json()
-    dash['href'] = '/api/dashboard/{0}'.format(id)
-    dash['view_href'] = '/dashboards/{0}'.format(id)
-    dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
-
-    return _jsonify({
-        'ok' : True,
-        'dashboard' : dash,
-        'definition' : definition,
-        'theme' : _get_param('theme', app.config['DEFAULT_THEME'])
-    })
-
 @app.route('/api/config')
 def api_config_get():
     return _jsonify({
@@ -352,7 +309,6 @@ def api_preferences_put():
 class RenderContext:
     def __init__(self):
         self.now = datetime.now()
-        self.element_index = 0
         self.prefs = _get_preferences()
 
     def get(self, key, default=None, store_in_session=False):

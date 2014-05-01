@@ -8,7 +8,7 @@ ds.models.factory = function(data) {
     standard_time_series: ds.models.standard_time_series,
     stacked_area_chart:   ds.models.stacked_area_chart,
     donut_chart:          ds.models.donut_chart,
-    single_graph:         ds.models.single_graph,
+    singlegraph:          ds.models.singlegraph,
     separator:            ds.models.separator,
     heading:              ds.models.heading,
     markdown:             ds.models.markdown,
@@ -25,6 +25,6 @@ ds.models.factory = function(data) {
   } else {
     console.log('Unknown type');
     console.log(data);
-    return None;
+    return null;
   }
 }

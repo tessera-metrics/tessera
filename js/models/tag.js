@@ -2,6 +2,7 @@ ds.models.tag = function(data) {
   "use strict";
 
    var id
+     , href
      , name
      , description
      , color
@@ -10,6 +11,7 @@ ds.models.tag = function(data) {
 
   if (data) {
     id = data.id;
+    href = data.href;
     name = data.name;
     description = data.description;
     color = data.color;
@@ -17,14 +19,16 @@ ds.models.tag = function(data) {
   }
 
   /**
-   * Data accesors
+   * Public read-only data properties.
    */
 
-  item.id = function(_) {
-    if (!arguments.length) return id;
-    id = _;
-    return item;
-  }
+  Object.defineProperty(item, 'id', { value: id });
+  Object.defineProperty(item, 'href', { value: href });
+  Object.defineProperty(item, 'count', { value: count });
+
+  /**
+   * Data accesors
+   */
 
   item.name = function(_) {
     if (!arguments.length) return name;
@@ -44,15 +48,10 @@ ds.models.tag = function(data) {
     return item;
   }
 
-  item.count = function(_) {
-    if (!arguments.length) return count;
-    count = _;
-    return item;
-  }
-
   item.toJSON = function() {
     return {
       id: id,
+      href: href,
       name: name,
       description: description,
       color: color,

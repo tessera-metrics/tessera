@@ -29,8 +29,7 @@
 
   <script>
     cronenberg.dashboards.list('/api/dashboard/tagged/featured', function(data) {
-        var rendered = ds.templates.listing.dashboard_list(data);
-        $("#ds-dashboard-featured-listing").html(rendered);
+        $("#ds-dashboard-featured-listing").html(ds.templates.listing.dashboard_list(data));
     });
   </script>
 

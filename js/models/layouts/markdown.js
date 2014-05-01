@@ -2,7 +2,7 @@ ds.models.markdown = function(data) {
   "use strict";
 
   var text
-    , raw = False
+    , raw = false
     , base
     , item = {};
 
@@ -34,10 +34,10 @@ ds.models.markdown = function(data) {
   }
 
   item.toJSON = function() {
-    return container.toJSON(base.toJSON({
+    return base.toJSON({
       text: text,
       raw: raw
-    }));
+    });
   }
 
   return item;

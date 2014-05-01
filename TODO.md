@@ -52,8 +52,8 @@
 - custom error views for API that return proper API responses
 - Refactor how from_json() works, maybe a metaclass or somesuch, to
   cut down on the janky dispatching
-- element_id doesn't need to be stored; just generate unique element
-  IDs in expanded API view. Current method has chance for collisions.
+- ~~element_id doesn't need to be stored; just generate unique element
+  IDs in expanded API view. Current method has chance for collisions.~~
 
 ### Presentations
 

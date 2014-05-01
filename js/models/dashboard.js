@@ -40,14 +40,27 @@ ds.models.dashboard = function(data) {
   }
 
   /**
+   * Public read-only data properties.
+   */
+
+  Object.defineProperty(item, 'id', { value: id });
+  Object.defineProperty(item, 'href', { value: href });
+  Object.defineProperty(item, 'view_href', { value: view_href });
+  Object.defineProperty(item, 'definition_href', { value: definition_href });
+  Object.defineProperty(item, 'creation_date', { value: creation_date });
+  Object.defineProperty(item, 'last_modified_date', { value: last_modified_date });
+
+  /**
    * Operations
    */
 
   item.render_templates = function(context) {
     description = ds.render_template(description, context);
-    title = ds.render_template(title, context);
-    summary = ds.render_template(summary, context);
-
+    title       = ds.render_template(title, context);
+    summary     = ds.render_template(summary, context);
+    if (definition) {
+      definition.render_templates(context);
+    }
     return item;
   }
 
@@ -62,12 +75,6 @@ ds.models.dashboard = function(data) {
   /**
    * Data accessors.
    */
-
-  item.id = function(_) {
-    if (!arguments.length) return id;
-    id = _;
-    return item;
-  }
 
   item.title = function(_) {
     if (!arguments.length) return title;
@@ -93,18 +100,6 @@ ds.models.dashboard = function(data) {
     return item;
   }
 
-  item.creation_date = function(_) {
-    if (!arguments.length) return creation_date;
-    creation_date = _;
-    return item;
-  }
-
-  item.last_modified_date = function(_) {
-    if (!arguments.length) return last_modified_date;
-    last_modified_date = _;
-    return item;
-  }
-
   item.imported_from = function(_) {
     if (!arguments.length) return imported_from;
     imported_from = _;
@@ -120,24 +115,6 @@ ds.models.dashboard = function(data) {
   item.definition = function(_) {
     if (!arguments.length) return definition;
     definition = _;
-    return item;
-  }
-
-  item.href = function(_) {
-    if (!arguments.length) return href;
-    href = _;
-    return item;
-  }
-
-  item.view_href = function(_) {
-    if (!arguments.length) return view_href;
-    view_href = _;
-    return item;
-  }
-
-  item.definition_href = function(_) {
-    if (!arguments.length) return definition_href;
-    definition_href = _;
     return item;
   }
 
