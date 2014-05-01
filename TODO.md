@@ -5,12 +5,12 @@
 - integrate some proper JS build-fu to minify and compress all the
   javascript, etc...
 - _Grunt_
-  - Precompile client side templates with
-    [grunt-contrib-handlebars](https://github.com/gruntjs/grunt-contrib-handlebars)
+  - ~~Precompile client side templates with
+    [grunt-contrib-handlebars](https://github.com/gruntjs/grunt-contrib-handlebars)~~
   - Compile CSS from LESS with
     [grunt-contrib-less](https://github.com/gruntjs/grunt-contrib-less)
-  - Files can be extracted from bower with
-    [grunt-bower](https://www.npmjs.org/package/grunt-bower)
+  - ~~Files can be extracted from bower with
+    [grunt-bower](https://www.npmjs.org/package/grunt-bower)~~
   - More sophisticated javascript concatenation + minification can be
     done with
     [grunt-contrib-uglify](https://github.com/gruntjs/grunt-contrib-uglify)
@@ -89,12 +89,12 @@
 ### Actions/Drilldowns
 
 - Action menu
-  - chart.io has the same thing
+  - ~~chart.io has the same thing
     [see live demo](https://chartio.com/project/9258/dash/10832/?gf162633_start=2014-03-27&gf162633_end=2014-04-26&gf2241_start=2012-W41&gf2241_end=2013-W19)
     but the menu appears on mouseover. shouldn't be hard to do for
     cronenberg too, since the menu is actually in a div that's outside
-    the charts (shouldn't conflict w/chart events)
-    - Simple option is just show them in regular view, and hide them in fullscreen
+    the charts (shouldn't conflict w/chart events)~~
+    - ~~Simple option is just show them in regular view, and hide them in fullscreen~~
 - create some demo dashboards with drilldown explorations
   - time shifting
     - ``SummationComparisonTable`` will be a good one to add for that
@@ -109,7 +109,7 @@
 - display count of presentations
 - basic info updates (title, category, tags)
 - add notifications confirming delete (or update, etc...)
-- Grafana's [javascript parser for graphite queries](https://github.com/torkelo/grafana/tree/master/src/app/services/graphite)
+- Grafana's [javascript parser for graphite queries](https://github.com/torkelo/grafana/tree/master/src/app/services/graphite) could be useful
 
 ### UI
 
@@ -117,7 +117,7 @@
   - [Why you might not need MVC with React](http://www.code-experience.com/why-you-might-not-need-mvc-with-reactjs/)
 - Add option to include a graph on the front page - something like our
   carbon metrics, on the state of the graphite system itself
-- add option for readable slugs in UI URLs
+- ~~add option for readable slugs in UI URLs~~
 - custom error views (for 404, etc...)
 - integrate a **notification/alert** lib for error messages & general notifications.
     - [messenger](http://github.hubspot.com/messenger/docs/welcome/)
@@ -130,7 +130,7 @@
 - configuration for the recent time ranges shown in the easy picker
 - user preferences page
   - default auto-refresh period
-  - color theme
+  - ~~color theme~~
   - recent time ranges
   - whether action menus are shown by default or not
 - Grid alternatives. Other ways of laying out the dashboard grid, as an alternative to the
@@ -140,7 +140,6 @@
   - [gridster.js](https://github.com/ducksboard/gridster.js)
   - [jquery.shapeshift](https://github.com/McPants/jquery.shapeshift)
 - other themes, like [Solarized](http://ethanschoonover.com/solarized).
-- generate CSS with [sass](http://sass-lang.com/)
 
 ### Navigation
 
@@ -157,7 +156,7 @@
 - LDAP integration
   - persistent sessions based on login
   - user preferences
-- import of gdash dashboards. Hmm - gdash has no API. So, not likely.
+- ~~import of gdash dashboards. Hmm - gdash has no API. So, not likely.~~
 
 
 # Done
