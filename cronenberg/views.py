@@ -117,7 +117,7 @@ def _set_dashboard_hrefs(dash):
     if 'definition' in dash:
         definition = dash['definition']
         definition['href'] = '/api/dashboard/{0}/definition'.format(id)
-    return dasha
+    return dash
 
 def _dashboards_response(dashboards):
     return _jsonify({
