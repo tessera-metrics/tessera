@@ -12,4 +12,5 @@ dist/
 bower_components/
 node_modules/
 cronenberg/static/*.js
+cronenberg/static/css/bundle.css
 cronenberg/cronenberg.db

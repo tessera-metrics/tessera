@@ -1,15 +1,9 @@
 <title>{{config.get('DASHBOARD_APPNAME')}}: {{title}}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<link  href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet"></link>
-<link  href="{{ url_for('static', filename='css/bootstrap-callouts.css') }}" rel="stylesheet"></link>
-<link  href="{{ url_for('static', filename='css/bootstrap-editable.css') }}" rel="stylesheet"></link>
-<link  href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet"></link>
-<link  href="{{ url_for('static', filename='css/nv.d3.css') }}" rel="stylesheet"></link>
-
+<link  href="{{ url_for('static', filename='css/bundle.css') }}" rel="stylesheet"></link>
 <link  href="{{ url_for('static', filename='themes/bootstrap-' + ctx.prefs.theme + '.css') }}" rel="stylesheet"></link>
 <link  href="{{ url_for('static', filename='themes/cronenberg-' + ctx.prefs.theme + '.css') }}" rel="stylesheet"></link>
 <link  href="{{ url_for('static', filename='cronenberg.css') }}" rel="stylesheet"></link>
-
 <script src="{{ url_for('static', filename='bundle.js') }}"></script>
 <script src="{{ url_for('static', filename='app.js') }}"></script>
