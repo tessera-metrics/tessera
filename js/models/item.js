@@ -6,7 +6,7 @@ ds.models.item = function(data) {
     , element_id
     , height
     , style
-    , item = {};
+    , self = {};
 
   if (data) {
     item_type = data.item_type;
@@ -16,44 +16,44 @@ ds.models.item = function(data) {
     style = data.style;
   }
 
-  Object.defineProperty(item, 'item_type', {get: function() { return item_type; }});
-  Object.defineProperty(item, 'css_class', {get: function() { return css_class; }});
-  Object.defineProperty(item, 'element_id', {get: function() { return element_id; }});
-  Object.defineProperty(item, 'height', {get: function() { return height; }});
-  Object.defineProperty(item, 'style', {get: function() { return style; }});
+  Object.defineProperty(self, 'item_type', {get: function() { return item_type; }});
+  Object.defineProperty(self, 'css_class', {get: function() { return css_class; }});
+  Object.defineProperty(self, 'element_id', {get: function() { return element_id; }});
+  Object.defineProperty(self, 'height', {get: function() { return height; }});
+  Object.defineProperty(self, 'style', {get: function() { return style; }});
 
-  item.rebind = function(target) {
-    d3.rebind(target, item, 'set_type', 'set_css_class', 'set_element_id','set_height', 'set_style');
-    ds.rebind_properties(target, item, 'item_type', 'css_class', 'element_id', 'height', 'style');
-    return item;
+  self.rebind = function(target) {
+    d3.rebind(target, self, 'set_type', 'set_css_class', 'set_element_id','set_height', 'set_style');
+    ds.rebind_properties(target, self, 'item_type', 'css_class', 'element_id', 'height', 'style');
+    return self;
   }
 
-  item.set_type = function(_) {
+  self.set_type = function(_) {
     item_type = _;
-    return item;
+    return self;
   }
 
-  item.set_css_class = function(_) {
+  self.set_css_class = function(_) {
     css_class = _;
-    return item;
+    return self;
   }
 
-  item.set_element_id = function(_) {
+  self.set_element_id = function(_) {
     element_id = _;
-    return item;
+    return self;
   }
 
-  item.set_height = function(_) {
+  self.set_height = function(_) {
     height = _;
-    return item;
+    return self;
   }
 
-  item.set_style = function(_) {
+  self.set_style = function(_) {
     style = _;
-    return item;
+    return self;
   }
 
-  item.toJSON = function(data_) {
+  self.toJSON = function(data_) {
     var data = data_ || {};
     data.item_type = item_type;
     data.css_class = css_class;
@@ -63,5 +63,5 @@ ds.models.item = function(data) {
     return data;
   }
 
-  return item;
+  return self;
 }

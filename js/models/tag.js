@@ -7,7 +7,7 @@ ds.models.tag = function(data) {
      , description
      , color
      , count
-     , item = {};
+     , self = {};
 
   if (data) {
     id = data.id;
@@ -22,34 +22,34 @@ ds.models.tag = function(data) {
    * Public read-only data properties.
    */
 
-  Object.defineProperty(item, 'id', { value: id });
-  Object.defineProperty(item, 'href', { value: href });
-  Object.defineProperty(item, 'count', { value: count });
+  Object.defineProperty(self, 'id', { value: id });
+  Object.defineProperty(self, 'href', { value: href });
+  Object.defineProperty(self, 'count', { value: count });
 
-  Object.defineProperty(item, 'name', {get: function() { return name; }});
-  Object.defineProperty(item, 'description', {get: function() { return description; }});
-  Object.defineProperty(item, 'color', {get: function() { return color; }});
+  Object.defineProperty(self, 'name', {get: function() { return name; }});
+  Object.defineProperty(self, 'description', {get: function() { return description; }});
+  Object.defineProperty(self, 'color', {get: function() { return color; }});
 
   /**
    * Data mutators
    */
 
-  item.set_name = function(_) {
+  self.set_name = function(_) {
     name = _;
-    return item;
+    return self;
   }
 
-  item.set_description = function(_) {
+  self.set_description = function(_) {
     description = _;
-    return item;
+    return self;
   }
 
-  item.set_color = function(_) {
+  self.set_color = function(_) {
     color = _;
-    return item;
+    return self;
   }
 
-  item.toJSON = function() {
+  self.toJSON = function() {
     return {
       id: id,
       href: href,
@@ -60,5 +60,5 @@ ds.models.tag = function(data) {
     }
   }
 
-  return item;
+  return self;
 }

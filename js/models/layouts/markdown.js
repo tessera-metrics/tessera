@@ -4,37 +4,37 @@ ds.models.markdown = function(data) {
   var text
     , raw = false
     , base
-    , item = {};
+    , self = {};
 
   if (data) {
     text = data.text;
     raw = data.raw !== false;
   }
-  base = ds.models.item(data).set_type('markdown').rebind(item);
+  base = ds.models.item(data).set_type('markdown').rebind(self);
 
-  Object.defineProperty(item, 'text', {get: function() { return text; }});
-  Object.defineProperty(item, 'raw', {get: function() { return raw; }});
+  Object.defineProperty(self, 'text', {get: function() { return text; }});
+  Object.defineProperty(self, 'raw', {get: function() { return raw; }});
 
   /**
    * Data accessors
    */
 
-  item.set_text = function(_) {
+  self.set_text = function(_) {
     text = _;
-    return item;
+    return self;
   }
 
-  item.set_raw = function(_) {
+  self.set_raw = function(_) {
     raw = _;
-    return item;
+    return self;
   }
 
-  item.toJSON = function() {
+  self.toJSON = function() {
     return base.toJSON({
       text: text,
       raw: raw
     });
   }
 
-  return item;
+  return self;
 };

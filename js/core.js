@@ -1,5 +1,6 @@
 var ds = window.ds || {};
 ds.models = ds.models || {};
+ds.models.data = ds.models.data || {};
 
 ds.render_template = function(str, context) {
   if (str == null) {

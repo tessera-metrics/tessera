@@ -2,57 +2,57 @@ ds.models.dashboard_definition = function(data) {
   "use strict";
 
   // TODO: for now queries is a plain object mapping strings to
-  // string. It should map strings to Query model objects that can
+  // strings. It should map strings to Query model objects that can
   // register listeners.
   var queries = {}
     , container
     , base
-    , item = {};
+    , self = {};
 
   if (data) {
     queries = data.queries || queries
   }
-  base = ds.models.item(data).set_type('dashboard_definition').rebind(item);
-  container = ds.models.container(data).rebind(item);
+  base = ds.models.item(data).set_type('dashboard_definition').rebind(self);
+  container = ds.models.container(data).rebind(self);
 
-  Object.defineProperty(item, 'queries', {get: function() { return queries; }});
+  Object.defineProperty(self, 'queries', {get: function() { return queries; }});
 
   /**
    * Operations
    */
 
-  item.render_templates = function(context) {
+  self.render_templates = function(context) {
     for (var key in queries) {
       queries[key] = ds.render_template(queries[key], context);
     }
-    return item;
+    return self;
   }
 
-  item.visit = function(visitor) {
-    visitor(item);
+  self.visit = function(visitor) {
+    visitor(self);
     container.visit(visitor);
-    return item;
+    return self;
   }
 
   /**
    * Data accessors
    */
 
-  item.set_queries = function(_) {
+  self.set_queries = function(_) {
     queries = _;
-    return item;
+    return self;
   }
 
-  item.add_query = function(name, target) {
+  self.add_query = function(name, target) {
     queries[name] = target;
-    return item;
+    return self;
   }
 
-  item.toJSON = function() {
+  self.toJSON = function() {
     return container.toJSON(base.toJSON({
       queries: queries
     }));
   }
 
-  return item;
+  return self;
 };

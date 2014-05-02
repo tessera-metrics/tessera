@@ -1,61 +1,8 @@
-/**
- * Class - Summarized stats for a data series or set of series. When
- * constructed with a data series, computes the sum, min, max, and
- * mean.
- */
-cronenberg.Summation = function(series) {
-    this.sum = 0;
-    this.min = Number.MAX_VALUE;
-    this.max = Number.MIN_VALUE;
-    this.mean = 0;
-    this.first = 0;
-    this.last = 0;
-    this.datapoint_count = 0;
+// =============================================================================
+// This whole file can pretty much go away
+// - need to integrate Query model into dashboard_definition first
+// =============================================================================
 
-    /**
-     * Merge another summation into this one. For summarizing
-     * queries with multiple data series.
-     */
-    this.merge = function(other) {
-        var self = this;
-        self.sum += other.sum;
-        self.datapoint_count += other.datapoint_count;
-        self.mean = self.sum / self.datapoint_count;
-        if (other.min < self.min) {
-            self.min = other.min;
-        }
-        if (other.max > self.max) {
-            self.max = other.max;
-        }
-        return this;
-    };
-
-    // If constructed with a series passed in, process it.
-    if (typeof(series) != "undefined") {
-        this.first = series.datapoints[0][0];
-        this.datapoint_count = series.datapoints.length;
-        if (this.first == null) {
-            this.first = 0;
-        }
-        series.datapoints.reduce(function(context, point) {
-            var value = point[0] == null ? 0 : point[0];
-            context.sum = context.sum + value;
-            if (value > context.max) {
-                context.max = value;
-            }
-            if (value < context.min) {
-                context.min = value;
-            }
-            context.last = value;
-            return context;
-        }, this);
-        this.mean = this.sum / series.datapoints.length;
-    }
-};
-
-/**
- * Class - Representation of a query and all its current state.
- */
 cronenberg.Query = function(name, url) {
     this.name = name;
     this.url = url;
@@ -92,12 +39,12 @@ cronenberg.Query = function(name, url) {
     this.process_data = function(data) {
         var self = this;
         self.data = data.map(function(series) {
-            series.summation = new cronenberg.Summation(series);
+            series.summation = ds.models.data.Summation(series);
             series.key = series.target;
             series.values = series.datapoints;
             return series;
         });
-        self.summation = new cronenberg.Summation();
+        self.summation = ds.models.data.Summation();
         // Oh, scoping
         var sum = self.summation;
         self.data.forEach(function(series) {
