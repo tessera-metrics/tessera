@@ -5,6 +5,7 @@ ds.models.data.Query = function(data) {
     , name
     , data
     , summation
+    , options
     , self = {};
 
   if (data) {
@@ -24,19 +25,16 @@ ds.models.data.Query = function(data) {
   Object.defineProperty(self, 'name', {get: function() { return name; }});
   Object.defineProperty(self, 'data', {get: function() { return data; }});
   Object.defineProperty(self, 'summation', {get: function() { return summation; }});
+  Object.defineProperty(self, 'options', {get: function() { return options; }});
 
-  /**
-   * Render a URL to fetch this query from Graphite.
-   *
-   * @param {Object} options Parameters for generating the URL. Valid
-   * properties are:
-   *   * base_url (required)
-   *   * format (defaults to 'png')
-   *   * from
-   *   * until
-   */
-  self.render_url = function(options) {
-    // TODO: error if base_url is missing
+  self.render_templates = function(context) {
+    targets = targets.map(function(t) {
+                return ds.render_template(t, context);
+              });
+  }
+
+  self.url = function(_) {
+    if (_) options = _;
     var url = URI(options.base_url)
               .path('/render')
               .setQuery('format', options.format || 'png')
@@ -61,10 +59,19 @@ ds.models.data.Query = function(data) {
    *   * from
    *   * until
    *   * ready
+   *   * fire_only
    */
-  self.load = function(options) {
+  self.load = function(options_) {
+    options = options_;
+    if (options.fire_only) {
+      // This is a bit of a hack for optimization, to fire the query
+      // events when if we don't need the raw data because we're
+      // rendering non-interactive graphs only. Would like a more
+      // elegant way to handle the case.
+      bean.fire(sef, 'ds-data-ready', self);
+    }
     options.format = 'json';
-    var url = self.render_url(options);
+    var url = self.url(options);
     bean.fire(self, 'ds-data-loading');
     $.ajax({
       dataType: 'json',
@@ -74,8 +81,16 @@ ds.models.data.Query = function(data) {
       if (options.ready && (options.ready instanceof Function)) {
         options.ready(self);
       }
-      bean.fire(self, 'ds-data-available', self);
+      bean.fire(self, 'ds-data-ready', self);
     });
+  }
+
+  /**
+   * Register an event handler to be called when the query's data is
+   * loaded.
+   */
+  self.on_load = function(handler) {
+    bean.on(self, 'ds-data-ready', handler);
   }
 
   /**
