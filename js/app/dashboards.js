@@ -157,8 +157,7 @@ cronenberg.DashboardManager = function() {
           self._prep_items(dashboard, holder, interactive);
 
           // Render the dashboard
-          var rendered = cronenberg.templates.render_presentation(dashboard.definition);
-          $(holder.element).html(rendered);
+          $(holder.element).html(dashboard.definition.render());
 
           var currentURL = URI(holder.url);
           bean.fire(self, cronenberg.events.RANGE_CHANGED, {

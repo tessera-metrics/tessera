@@ -69,5 +69,5 @@ Handlebars.registerHelper('style_class', function(item) {
 Handlebars.registerHelper('item', function(item) {
   if (!item)
     return '';
-  return new Handlebars.SafeString(cronenberg.templates.render_presentation(item));
+  return new Handlebars.SafeString(item.render());
 });

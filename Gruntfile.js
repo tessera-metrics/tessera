@@ -72,8 +72,8 @@ module.exports = function(grunt) {
     },
     watch: {
       files: [
-        'js/**/cron*.js',
-        'templates/**/cron*.hbs',
+        'js/**/*.js',
+        'templates/**/*.hbs',
         'cronenberg/static/js/**/*.js'
       ],
       tasks: ['handlebars', 'concat']

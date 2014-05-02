@@ -12,7 +12,7 @@ ds.models.jumbotron_singlestat = function(data) {
             'set_title', 'set_units', 'set_format', 'set_index', 'set_transform', 'toJSON');
   ds.rebind_properties(self, base,
                        'item_type', 'css_class', 'element_id', 'height', 'style',
-                       'query_name', 'title', 'units', 'format', 'index', 'transform');
+                       'query_name', 'title', 'units', 'format', 'index', 'transform', 'render');
 
   return self;
 }
