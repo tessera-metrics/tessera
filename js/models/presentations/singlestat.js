@@ -8,7 +8,7 @@ ds.models.singlestat = function(data) {
     , index
     , transform='mean'
     , base
-    , item = {};
+    , self = {};
 
   if (data) {
     query_name = data.query_name;
@@ -18,50 +18,50 @@ ds.models.singlestat = function(data) {
     index = data.index;
     transform = data.transform || transform;
   }
-  base = ds.models.item(data).set_type('singlestat').rebind(item);
+  base = ds.models.item(data).set_type('singlestat').rebind(self);
 
-  Object.defineProperty(item, 'query_name', {get: function() { return query_name; }});
-  Object.defineProperty(item, 'title', {get: function() { return title; }});
-  Object.defineProperty(item, 'units', {get: function() { return units; }});
-  Object.defineProperty(item, 'format', {get: function() { return format; }});
-  Object.defineProperty(item, 'index', {get: function() { return index; }});
-  Object.defineProperty(item, 'transform', {get: function() { return transform; }});
+  Object.defineProperty(self, 'query_name', {get: function() { return query_name; }});
+  Object.defineProperty(self, 'title', {get: function() { return title; }});
+  Object.defineProperty(self, 'units', {get: function() { return units; }});
+  Object.defineProperty(self, 'format', {get: function() { return format; }});
+  Object.defineProperty(self, 'index', {get: function() { return index; }});
+  Object.defineProperty(self, 'transform', {get: function() { return transform; }});
 
   /**
    * Data accessors
    */
 
-  item.set_query_name = function(_) {
+  self.set_query_name = function(_) {
     query_name = _;
-    return item;
+    return self;
   }
 
-  item.set_title = function(_) {
+  self.set_title = function(_) {
     title = _;
-    return item;
+    return self;
   }
 
-  item.set_units = function(_) {
+  self.set_units = function(_) {
     units = _;
-    return item;
+    return self;
   }
 
-  item.set_format = function(_) {
+  self.set_format = function(_) {
     format = _;
-    return item;
+    return self;
   }
 
-  item.set_index = function(_) {
+  self.set_index = function(_) {
     index = _;
-    return item;
+    return self;
   }
 
-  item.set_transform = function(_) {
+  self.set_transform = function(_) {
     transform = _;
-    return item;
+    return self;
   }
 
- item.toJSON = function() {
+ self.toJSON = function() {
     return base.toJSON({
       title: title,
       query_name: query_name,
@@ -72,5 +72,5 @@ ds.models.singlestat = function(data) {
     });
   }
 
-  return item;
+  return self;
 }

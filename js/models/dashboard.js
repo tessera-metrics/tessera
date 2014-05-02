@@ -14,7 +14,7 @@ ds.models.dashboard = function(data) {
     , href
     , view_href
     , definition_href
-    , item = {};
+    , self = {};
 
   if (data) {
     id = data.id;
@@ -43,88 +43,88 @@ ds.models.dashboard = function(data) {
    * Public read-only data properties.
    */
 
-  Object.defineProperty(item, 'id', { value: id });
-  Object.defineProperty(item, 'href', { value: href });
-  Object.defineProperty(item, 'view_href', { value: view_href });
-  Object.defineProperty(item, 'definition_href', { value: definition_href });
-  Object.defineProperty(item, 'creation_date', { value: creation_date });
-  Object.defineProperty(item, 'last_modified_date', { value: last_modified_date });
+  Object.defineProperty(self, 'id', { value: id });
+  Object.defineProperty(self, 'href', { value: href });
+  Object.defineProperty(self, 'view_href', { value: view_href });
+  Object.defineProperty(self, 'definition_href', { value: definition_href });
+  Object.defineProperty(self, 'creation_date', { value: creation_date });
+  Object.defineProperty(self, 'last_modified_date', { value: last_modified_date });
 
-  Object.defineProperty(item, 'title', {get: function() { return title; }});
-  Object.defineProperty(item, 'category', {get: function() { return category; }});
-  Object.defineProperty(item, 'summary', {get: function() { return summary; }});
-  Object.defineProperty(item, 'description', {get: function() { return description; }});
-  Object.defineProperty(item, 'imported_from', {get: function() { return imported_from; }});
-  Object.defineProperty(item, 'tags', {get: function() { return tags; }});
-  Object.defineProperty(item, 'definition', {get: function() { return definition; }});
+  Object.defineProperty(self, 'title', {get: function() { return title; }});
+  Object.defineProperty(self, 'category', {get: function() { return category; }});
+  Object.defineProperty(self, 'summary', {get: function() { return summary; }});
+  Object.defineProperty(self, 'description', {get: function() { return description; }});
+  Object.defineProperty(self, 'imported_from', {get: function() { return imported_from; }});
+  Object.defineProperty(self, 'tags', {get: function() { return tags; }});
+  Object.defineProperty(self, 'definition', {get: function() { return definition; }});
 
   /**
    * Operations
    */
 
-  item.render_templates = function(context) {
+  self.render_templates = function(context) {
     description = ds.render_template(description, context);
     title       = ds.render_template(title, context);
     summary     = ds.render_template(summary, context);
     if (definition) {
       definition.render_templates(context);
     }
-    return item;
+    return self;
   }
 
-  item.visit = function(visitor) {
-    visitor(item);
+  self.visit = function(visitor) {
+    visitor(self);
     if (definition) {
       definition.visit(visitor);
     }
-    return item;
+    return self;
   }
 
   /**
    * Data mutators.
    */
 
-  item.set_title = function(_) {
+  self.set_title = function(_) {
     title = _;
-    return item;
+    return self;
   }
 
-  item.set_category = function(_) {
+  self.set_category = function(_) {
     category = _;
-    return item;
+    return self;
   }
 
-  item.set_summary = function(_) {
+  self.set_summary = function(_) {
     summary = _;
-    return item;
+    return self;
   }
 
-  item.set_description = function(_) {
+  self.set_description = function(_) {
     description = _;
-    return item;
+    return self;
   }
 
-  item.set_imported_from = function(_) {
+  self.set_imported_from = function(_) {
     imported_from = _;
-    return item;
+    return self;
   }
 
-  item.set_tags = function(_) {
+  self.set_tags = function(_) {
     tags = _;
-    return item;
+    return self;
   }
 
-  item.add_tag = function(_) {
+  self.add_tag = function(_) {
     tags.push(_);
-    return item;
+    return self;
   }
 
-  item.set_definition = function(_) {
+  self.set_definition = function(_) {
     definition = _;
-    return item;
+    return self;
   }
 
-  item.toJSON = function() {
+  self.toJSON = function() {
     return {
      id: id,
      title: title,
@@ -144,5 +144,5 @@ ds.models.dashboard = function(data) {
     }
   }
 
-  return item;
+  return self;
 };

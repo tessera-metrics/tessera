@@ -5,35 +5,35 @@ ds.models.heading = function(data) {
     , level = 1
     , description
     , base
-    , item = {};
+    , self = {};
 
   if (data) {
     text = data.text;
     level = data.level || level;
     description = data.description;
   }
-  base = ds.models.item(data).set_type('heading').rebind(item);
+  base = ds.models.item(data).set_type('heading').rebind(self);
 
-  Object.defineProperty(item, 'text', {get: function() { return text; }});
-  Object.defineProperty(item, 'level', {get: function() { return level; }});
-  Object.defineProperty(item, 'description', {get: function() { return description; }});
+  Object.defineProperty(self, 'text', {get: function() { return text; }});
+  Object.defineProperty(self, 'level', {get: function() { return level; }});
+  Object.defineProperty(self, 'description', {get: function() { return description; }});
 
-  item.set_text = function(_) {
+  self.set_text = function(_) {
     text = _;
-    return item;
+    return self;
   }
 
-  item.set_level = function(_) {
+  self.set_level = function(_) {
     level = _;
-    return item;
+    return self;
   }
 
-  item.set_description = function(_) {
+  self.set_description = function(_) {
     description = _;
-    return item;
+    return self;
   }
 
-  item.toJSON = function() {
+  self.toJSON = function() {
     return base.toJSON({
       text: text,
       level: level,
@@ -41,5 +41,5 @@ ds.models.heading = function(data) {
     });
   }
 
-  return item;
+  return self;
 };
