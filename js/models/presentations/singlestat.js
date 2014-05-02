@@ -17,52 +17,46 @@ ds.models.singlestat = function(data) {
     format = data.format || format;
     index = data.index;
     transform = data.transform || transform;
-    base = ds.models.item(data);
-  } else {
-    base = ds.models.item(data);
   }
-  base.type('singlestat');
+  base = ds.models.item(data).set_type('singlestat').rebind(item);
 
-  item.base = base;
-
-  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
+  Object.defineProperty(item, 'query_name', {get: function() { return query_name; }});
+  Object.defineProperty(item, 'title', {get: function() { return title; }});
+  Object.defineProperty(item, 'units', {get: function() { return units; }});
+  Object.defineProperty(item, 'format', {get: function() { return format; }});
+  Object.defineProperty(item, 'index', {get: function() { return index; }});
+  Object.defineProperty(item, 'transform', {get: function() { return transform; }});
 
   /**
    * Data accessors
    */
 
-  item.query_name = function(_) {
-    if (!arguments.length) return query_name;
+  item.set_query_name = function(_) {
     query_name = _;
     return item;
   }
 
-  item.title = function(_) {
-    if (!arguments.length) return title;
+  item.set_title = function(_) {
     title = _;
     return item;
   }
 
-  item.units = function(_) {
-    if (!arguments.length) return units;
+  item.set_units = function(_) {
     units = _;
     return item;
   }
 
-  item.format = function(_) {
-    if (!arguments.length) return format;
+  item.set_format = function(_) {
     format = _;
     return item;
   }
 
-  item.index = function(_) {
-    if (!arguments.length) return index;
+  item.set_index = function(_) {
     index = _;
     return item;
   }
 
-  item.transform = function(_) {
-    if (!arguments.length) return transform;
+  item.set_transform = function(_) {
     transform = _;
     return item;
   }

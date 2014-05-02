@@ -1,15 +1,16 @@
 ds.models.jumbotron_singlestat = function(data) {
   "use strict";
 
-  var base = ds.models.singlestat(data)
+  var base
     , item = {};
 
-  base.type('jumbotron_singlestat');
+  base = ds.models.singlestat(data).set_type('jumbotron_singlestat');
 
   d3.rebind(item, base,
-            'type', 'css_class', 'element_id', 'height', 'style',
-            'query_name', 'thresholds',
-            'title', 'units', 'format', 'index', 'transform', 'base', 'toJSON');
+            'set_css_class', 'set_element_id', 'set_height', 'set_style',
+            'set_title', 'set_units', 'set_format', 'set_index', 'set_transform', 'toJSON');
+  ds.rebind_properties(item, base,
+                       'query_name', 'title', 'units', 'format', 'index', 'transform');
 
   return item;
 }

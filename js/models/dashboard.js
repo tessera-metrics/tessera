@@ -50,6 +50,14 @@ ds.models.dashboard = function(data) {
   Object.defineProperty(item, 'creation_date', { value: creation_date });
   Object.defineProperty(item, 'last_modified_date', { value: last_modified_date });
 
+  Object.defineProperty(item, 'title', {get: function() { return title; }});
+  Object.defineProperty(item, 'category', {get: function() { return category; }});
+  Object.defineProperty(item, 'summary', {get: function() { return summary; }});
+  Object.defineProperty(item, 'description', {get: function() { return description; }});
+  Object.defineProperty(item, 'imported_from', {get: function() { return imported_from; }});
+  Object.defineProperty(item, 'tags', {get: function() { return tags; }});
+  Object.defineProperty(item, 'definition', {get: function() { return definition; }});
+
   /**
    * Operations
    */
@@ -73,47 +81,45 @@ ds.models.dashboard = function(data) {
   }
 
   /**
-   * Data accessors.
+   * Data mutators.
    */
 
-  item.title = function(_) {
-    if (!arguments.length) return title;
+  item.set_title = function(_) {
     title = _;
     return item;
   }
 
-  item.category = function(_) {
-    if (!arguments.length) return category;
+  item.set_category = function(_) {
     category = _;
     return item;
   }
 
-  item.summary = function(_) {
-    if (!arguments.length) return summary;
+  item.set_summary = function(_) {
     summary = _;
     return item;
   }
 
-  item.description = function(_) {
-    if (!arguments.length) return description;
+  item.set_description = function(_) {
     description = _;
     return item;
   }
 
-  item.imported_from = function(_) {
-    if (!arguments.length) return imported_from;
+  item.set_imported_from = function(_) {
     imported_from = _;
     return item;
   }
 
-  item.tags = function(_) {
-    if (!arguments.length) return tags;
+  item.set_tags = function(_) {
     tags = _;
     return item;
   }
 
-  item.definition = function(_) {
-    if (!arguments.length) return definition;
+  item.add_tag = function(_) {
+    tags.push(_);
+    return item;
+  }
+
+  item.set_definition = function(_) {
     definition = _;
     return item;
   }

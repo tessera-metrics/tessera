@@ -12,20 +12,21 @@ ds.models.thresholds = function(data) {
     danger = data.danger;
   }
 
-  item.summation_type = function(_) {
-    if (!arguments.length) return summation_type;
+  Object.defineProperty(item, 'summation_type', {get: function() { return summation_type; }});
+  Object.defineProperty(item, 'warning', {get: function() { return warning; }});
+  Object.defineProperty(item, 'danger', {get: function() { return danger; }});
+
+  item.set_summation_type = function(_) {
     summation_type = _;
     return item;
   }
 
-  item.warning = function(_) {
-    if (!arguments.length) return warning;
+  item.set_warning = function(_) {
     warning = _;
     return item;
   }
 
-  item.danger = function(_) {
-    if (!arguments.length) return danger;
+  item.set_danger = function(_) {
     danger = _;
     return item;
   }

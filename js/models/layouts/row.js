@@ -5,15 +5,8 @@ ds.models.row = function(data) {
     , container
     , item = {};
 
-  base = ds.models.item(data);
-  container = ds.models.container(data);
-
-  base.type('row');
-  item.base = base;
-  item.container = container;
-
-  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
-  d3.rebind(item, container, 'items', 'add');
+  base = ds.models.item(data).set_type('row').rebind(item);
+  container = ds.models.container(data).rebind(item);
 
   /**
    * Operations

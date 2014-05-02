@@ -9,38 +9,25 @@ ds.models.donut_chart = function(data) {
   if (data) {
     query_name = data.query_name;
   }
-  chart = ds.models.chart(data);
-  base = ds.models.item(data);
+  chart = ds.models.chart(data).rebind(item);
+  base = ds.models.item(data).set_type('donut_chart').rebind(item);
 
-  base.type('donut_chart');
-  item.base = base;
-  item.chart = chart;
-
-  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
-  d3.rebind(item, chart, 'title', 'options');
+  Object.defineProperty(item, 'query_name', {get: function() { return query_name; }});
 
   /**
-   * Data accessors
+   * Data mutators
    */
 
-  item.query_name = function(_) {
-    if (!arguments.length) return query_name;
+  item.set_query_name = function(_) {
     query_name = _;
     return item;
   }
 
-  item.chart = function(_) {
-    if (!arguments.length) return chart;
-    chart = _;
-    return item;
-  }
 
  item.toJSON = function() {
-    return base.toJSON({
-      options: chart.options(),
-      title: chart.title(),
+    return chart.toJSON(base.toJSON({
       query_name: query_name
-    });
+    }));
   }
 
   return item;
