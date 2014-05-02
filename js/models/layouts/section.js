@@ -4,39 +4,39 @@ ds.models.section = function(data) {
   var layout = 'fixed'
     , container
     , base
-    , item = {};
+    , self = {};
 
   if (data) {
     layout = data.layout || layout;
   }
-  base = ds.models.item(data).set_type('section').rebind(item);
-  container = ds.models.container(data).rebind(item);
+  base = ds.models.item(data).set_type('section').rebind(self);
+  container = ds.models.container(data).rebind(self);
 
-  Object.defineProperty(item, 'layout', {get: function() { return layout; }});
+  Object.defineProperty(self, 'layout', {get: function() { return layout; }});
 
   /**
    * Operations
    */
 
-  item.visit = function(visitor) {
+  self.visit = function(visitor) {
     container.visit(visitor);
-    return item;
+    return self;
   }
 
   /**
    * Data accessors
    */
 
-  item.set_layout = function(_) {
+  self.set_layout = function(_) {
     layout = _;
-    return item;
+    return self;
   }
 
-  item.toJSON = function() {
+  self.toJSON = function() {
     return container.toJSON(base.toJSON({
       layout: layout
     }));
   }
 
-  return item;
+  return self;
 };
