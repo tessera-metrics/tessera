@@ -1,13 +1,19 @@
 
 Handlebars.registerHelper('markdown', function(value) {
+  if (!value)
+    return '';
   return new Handlebars.SafeString(markdown.toHTML(value));
 });
 
 Handlebars.registerHelper('moment', function(format, value) {
+  if (!value)
+    return '';
   return moment(value).format(format);
 });
 
 Handlebars.registerHelper('format', function(format, value) {
+  if (!value)
+    return '';
   return d3.format(format)(value);
 });
 

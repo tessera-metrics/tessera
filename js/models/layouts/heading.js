@@ -12,27 +12,23 @@ ds.models.heading = function(data) {
     level = data.level || level;
     description = data.description;
   }
-  base = ds.models.item(data);
+  base = ds.models.item(data).set_type('heading').rebind(item);
 
-  base.type('heading');
-  item.base = base;
+  Object.defineProperty(item, 'text', {get: function() { return text; }});
+  Object.defineProperty(item, 'level', {get: function() { return level; }});
+  Object.defineProperty(item, 'description', {get: function() { return description; }});
 
-  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
-
-  item.text = function(_) {
-    if (!arguments.length) return text;
+  item.set_text = function(_) {
     text = _;
     return item;
   }
 
-  item.level = function(_) {
-    if (!arguments.length) return level;
+  item.set_level = function(_) {
     level = _;
     return item;
   }
 
-  item.description = function(_) {
-    if (!arguments.length) return description;
+  item.set_description = function(_) {
     description = _;
     return item;
   }

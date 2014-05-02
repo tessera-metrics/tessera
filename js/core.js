@@ -12,3 +12,21 @@ ds.render_template = function(str, context) {
     return template(context);
   }
 }
+
+ds.rebind_properties = function(target, source) {
+  var i = 1,
+      n = arguments.length,
+      property;
+  while (++i < n) {
+    var name = arguments[i];
+    ds_rebind_property(target, source, name);
+  }
+}
+
+function ds_rebind_property(target, source, name) {
+  Object.defineProperty(target, name, {
+    get: function() {
+      return source[name];
+    }
+  });
+}

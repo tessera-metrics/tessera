@@ -26,24 +26,25 @@ ds.models.tag = function(data) {
   Object.defineProperty(item, 'href', { value: href });
   Object.defineProperty(item, 'count', { value: count });
 
+  Object.defineProperty(item, 'name', {get: function() { return name; }});
+  Object.defineProperty(item, 'description', {get: function() { return description; }});
+  Object.defineProperty(item, 'color', {get: function() { return color; }});
+
   /**
-   * Data accesors
+   * Data mutators
    */
 
-  item.name = function(_) {
-    if (!arguments.length) return name;
+  item.set_name = function(_) {
     name = _;
     return item;
   }
 
-  item.description = function(_) {
-    if (!arguments.length) return description;
+  item.set_description = function(_) {
     description = _;
     return item;
   }
 
-  item.color = function(_) {
-    if (!arguments.length) return color;
+  item.set_color = function(_) {
     color = _;
     return item;
   }

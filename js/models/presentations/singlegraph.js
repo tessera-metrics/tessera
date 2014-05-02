@@ -12,50 +12,39 @@ ds.models.singlegraph = function(data) {
     query_name = data.query_name;
     format = data.format || format;
     transform = data.transform || transform;
-    chart = ds.models.chart(data);
-    base = ds.models.item(data);
-  } else {
-    chart = ds.models.chart();
-    base = ds.models.item();
   }
+  chart = ds.models.chart(data).rebind(item);
+  base = ds.models.item(data).set_type('singlegraph').rebind(item);
 
-  base.type('singlegraph');
-  item.base = base;
-  item.chart = chart;
-
-  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
-  d3.rebind(item, chart, 'title', 'options');
+  Object.defineProperty(item, 'query_name', {get: function() { return query_name; }});
+  Object.defineProperty(item, 'format', {get: function() { return format; }});
+  Object.defineProperty(item, 'transform', {get: function() { return transform; }});
 
   /**
    * Data accessors
    */
 
-  item.query_name = function(_) {
-    if (!arguments.length) return query_name;
+  item.set_query_name = function(_) {
     query_name = _;
     return item;
   }
 
-  item.format = function(_) {
-    if (!arguments.length) return format;
+  item.set_format = function(_) {
     format = _;
     return item;
   }
 
-  item.transform = function(_) {
-    if (!arguments.length) return transform;
+  item.set_transform = function(_) {
     transform = _;
     return item;
   }
 
  item.toJSON = function() {
-    return base.toJSON({
-      options: chart.options(),
-      title: chart.title(),
+    return chart.toJSON(base.toJSON({
       query_name: query_name,
       format: format,
       transform: transform
-    });
+    }));
   }
 
   return item;

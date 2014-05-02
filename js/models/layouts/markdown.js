@@ -10,25 +10,21 @@ ds.models.markdown = function(data) {
     text = data.text;
     raw = data.raw !== false;
   }
-  base = ds.models.item(data);
+  base = ds.models.item(data).set_type('markdown').rebind(item);
 
-  base.type('markdown');
-  item.base = base;
-
-  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
+  Object.defineProperty(item, 'text', {get: function() { return text; }});
+  Object.defineProperty(item, 'raw', {get: function() { return raw; }});
 
   /**
    * Data accessors
    */
 
-  item.text = function(_) {
-    if (!arguments.length) return text;
+  item.set_text = function(_) {
     text = _;
     return item;
   }
 
-  item.raw = function(_) {
-    if (!arguments.length) return raw;
+  item.set_raw = function(_) {
     raw = _;
     return item;
   }

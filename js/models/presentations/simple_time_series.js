@@ -10,49 +10,32 @@ ds.models.simple_time_series = function(data) {
   if (data) {
     query_name = data.query_name;
     filled = data.filled !== false;
-    chart = ds.models.chart(data);
-    base = ds.models.item(data);
-  } else {
-    chart = ds.models.chart();
-    base = ds.models.item();
   }
+  chart = ds.models.chart(data).rebind(item);
+  base = ds.models.item(data).set_type('simple_time_series').rebind(item);
 
-  base.type('simple_time_series');
-  item.base = base;
-  item.chart = chart;
-
-  d3.rebind(item, base, 'type', 'css_class', 'element_id', 'height', 'style');
-  d3.rebind(item, chart, 'title', 'options');
+  Object.defineProperty(item, 'query_name', {get: function() { return query_name; }});
+  Object.defineProperty(item, 'filled', {get: function() { return filled; }});
 
   /**
    * Data accessors
    */
 
-  item.query_name = function(_) {
-    if (!arguments.length) return query_name;
+  item.set_query_name = function(_) {
     query_name = _;
     return item;
   }
 
-  item.filled = function(_) {
-    if (!arguments.length) return filled;
+  item.set_filled = function(_) {
     filled = _;
     return item;
   }
 
-  item.chart = function(_) {
-    if (!arguments.length) return chart;
-    chart = _;
-    return item;
-  }
-
   item.toJSON = function() {
-    return base.toJSON({
+    return chart.toJSON(base.toJSON({
       filled: filled,
-      options: chart.options(),
-      title: chart.title(),
       query_name: query_name
-    });
+    }));
   }
 
   return item;

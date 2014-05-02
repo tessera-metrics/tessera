@@ -6,31 +6,31 @@
     <table class="table-condensed">
       <tbody>
         <tr>
-          <th>Title</th><td class="ds-editable" data-type="text">{{dashboard.title}}</td>
+          <th>Title</th><td class="ds-editable" data-type="text">{{title}}</td>
         </tr>
 
         <tr>
-          <th>Category</th><td class="ds-editable" data-type="text">{{dashboard.category}}</td>
+          <th>Category</th><td class="ds-editable" data-type="text">{{category}}</td>
         </tr>
 
         <tr>
-          <th>Summary</th><td class="ds-editable" data-type="text">{{dashboard.summary}}</td>
+          <th>Summary</th><td class="ds-editable" data-type="text">{{summary}}</td>
         </tr>
 
         <tr>
           <th>Tags</th>
           <td>
-            {{#each dashboard.tags}}
+            {{#each tags}}
             {{> ds-dashboard-tag this}}
             {{/each}}
           </td>
         </tr>
 
         <tr>
-          <th>Created</th><td>{{moment 'MMMM Do YYYY, h:mm:ss a' dashboard.creation_date}}</td>
+          <th>Created</th><td>{{moment 'MMMM Do YYYY, h:mm:ss a' creation_date}}</td>
         </tr>
         <tr>
-          <th>Last Modified</th><td>{{moment 'MMMM Do YYYY, h:mm:ss a' dashboard.last_modified_date}}</td>
+          <th>Last Modified</th><td>{{moment 'MMMM Do YYYY, h:mm:ss a' last_modified_date}}</td>
         </tr>
 
       </tbody>
@@ -46,7 +46,7 @@
          data-showbuttons="bottom"
          data-inputclass="ds-dashboard-description"
          style="text-align:top;">
-      {{markdown dashboard.description}}
+      {{markdown description}}
     </div>
   </div>
 
