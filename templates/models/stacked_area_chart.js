@@ -2,7 +2,7 @@ ds.templates.models.stacked_area_chart.dataHandler
     = function(query, item) {
         if (!item.interactive) {
             var element = $('#' + item.element_id + ' svg');
-            var png_url = cronenberg.charts.chart_url(item, {
+            var png_url = cronenberg.charts.chart_url(item, query, {
                 height: element.height(),
                 width: element.width()
             });
