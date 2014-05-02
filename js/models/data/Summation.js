@@ -7,13 +7,13 @@ ds.models.data.Summation = function(series) {
   "use strict";
 
   var series
-    , sum
+    , sum = 0
     , min = Number.MAX_VALUE
     , max = Number.MIN_VALUE
-    , mean
-    , first
-    , last
-    , count
+    , mean = 0
+    , first = 0
+    , last = 0
+    , count = 0
     , self = {};
 
   if (series) {
