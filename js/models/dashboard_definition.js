@@ -2,7 +2,7 @@ ds.models.dashboard_definition = function(data) {
   "use strict";
 
   // TODO: for now queries is a plain object mapping strings to
-  // string. It should map strings to Query model objects that can
+  // strings. It should map strings to Query model objects that can
   // register listeners.
   var queries = {}
     , container

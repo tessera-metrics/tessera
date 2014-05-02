@@ -49,19 +49,25 @@ Handlebars.registerHelper('style_class', function(item) {
   if (item.style) {
     switch (item.style) {
       case 'well':
-      return 'well';
+        return 'well';
       case 'callout_neutral':
-      return 'bs-callout bs-callout-neutral';
+        return 'bs-callout bs-callout-neutral';
       case 'callout_info':
-      return 'bs-callout bs-callout-info';
+        return 'bs-callout bs-callout-info';
       case 'callout_success':
-      return 'bs-callout bs-callout-success';
+        return 'bs-callout bs-callout-success';
       case 'callout_warning':
-      return 'bs-callout bs-callout-warning';
+        return 'bs-callout bs-callout-warning';
       case 'callout_danger':
-      return 'bs-callout bs-callout-danger';
+        return 'bs-callout bs-callout-danger';
     }
   }  else {
     return '';
   }
+});
+
+Handlebars.registerHelper('item', function(item) {
+  if (!item)
+    return '';
+  return new Handlebars.SafeString(cronenberg.templates.render_presentation(item));
 });

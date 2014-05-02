@@ -1,6 +1,8 @@
-/**
- * Class - Representation of a query and all its current state.
- */
+// =============================================================================
+// This whole file can pretty much go away
+// - need to integrate Query model into dashboard_definition first
+// =============================================================================
+
 cronenberg.Query = function(name, url) {
     this.name = name;
     this.url = url;
