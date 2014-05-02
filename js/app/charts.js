@@ -24,8 +24,7 @@ cronenberg.charts = {
 
     simple_line_chart_url: function(item, query, options_) {
         var options = options_ || {};
-      var data_url = query.url();
-        var png_url = URI(data_url)
+        var png_url = URI(query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
@@ -42,8 +41,7 @@ cronenberg.charts = {
 
     standard_line_chart_url: function(item, query, options_) {
         var options = options_ || {};
-        var data_url = query.url();
-        var png_url = URI(data_url)
+        var png_url = URI(query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
