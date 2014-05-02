@@ -1,16 +1,19 @@
 ds.models.dashboard_definition = function(data) {
   "use strict";
 
-  // TODO: for now queries is a plain object mapping strings to
-  // strings. It should map strings to Query model objects that can
-  // register listeners.
   var queries = {}
     , container
     , base
     , self = {};
 
-  if (data) {
-    queries = data.queries || queries
+  if (data && data.queries) {
+    // For now the on-the-wire query map is string/string. Eventually
+    // it will be come string/object as we move thresholds into the
+    // queries instead of presentations.
+    for (var key in data.queries) {
+      var query = ds.models.data.Query({name: key, targets: data.queries[key]});
+      queries[key] = query;
+    }
   }
   base = ds.models.item(data).set_type('dashboard_definition').rebind(self);
   container = ds.models.container(data).rebind(self);
@@ -23,7 +26,7 @@ ds.models.dashboard_definition = function(data) {
 
   self.render_templates = function(context) {
     for (var key in queries) {
-      queries[key] = ds.render_template(queries[key], context);
+      queries[key].render_templates(context);
     }
     return self;
   }
@@ -31,6 +34,13 @@ ds.models.dashboard_definition = function(data) {
   self.visit = function(visitor) {
     visitor(self);
     container.visit(visitor);
+    return self;
+  }
+
+  self.load_all = function(options) {
+    for (var key in queries) {
+      queries[key].load(options);
+    }
     return self;
   }
 

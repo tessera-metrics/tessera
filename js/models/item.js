@@ -6,6 +6,7 @@ ds.models.item = function(data) {
     , element_id
     , height
     , style
+    , interactive // TODO: hack
     , self = {};
 
   if (data) {
@@ -21,10 +22,11 @@ ds.models.item = function(data) {
   Object.defineProperty(self, 'element_id', {get: function() { return element_id; }});
   Object.defineProperty(self, 'height', {get: function() { return height; }});
   Object.defineProperty(self, 'style', {get: function() { return style; }});
+  Object.defineProperty(self, 'interactive', {get: function() { return interactive; }}); // TODO: hack
 
   self.rebind = function(target) {
-    d3.rebind(target, self, 'set_type', 'set_css_class', 'set_element_id','set_height', 'set_style');
-    ds.rebind_properties(target, self, 'item_type', 'css_class', 'element_id', 'height', 'style');
+    d3.rebind(target, self, 'set_type', 'set_css_class', 'set_element_id','set_height', 'set_style', 'set_interactive');
+    ds.rebind_properties(target, self, 'item_type', 'css_class', 'element_id', 'height', 'style', 'interactive');
     return self;
   }
 
@@ -50,6 +52,11 @@ ds.models.item = function(data) {
 
   self.set_style = function(_) {
     style = _;
+    return self;
+  }
+
+  self.set_interactive = function(_) {
+    interactive = _;
     return self;
   }
 
