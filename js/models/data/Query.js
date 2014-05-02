@@ -3,6 +3,8 @@ ds.models.data.Query = function(data) {
 
   var targets = []
     , name
+    , data
+    , summation
     , self = {};
 
   if (data) {
@@ -20,6 +22,8 @@ ds.models.data.Query = function(data) {
 
   Object.defineProperty(self, 'targets', {get: function() { return targets; }});
   Object.defineProperty(self, 'name', {get: function() { return name; }});
+  Object.defineProperty(self, 'data', {get: function() { return data; }});
+  Object.defineProperty(self, 'summation', {get: function() { return summation; }});
 
   /**
    * Render a URL to fetch this query from Graphite.
@@ -54,19 +58,45 @@ ds.models.data.Query = function(data) {
    * @param {Object} options Parameters for generating the URL to
    * load. Valid properties are:
    *   * base_url (required)
-   *   * format (defaults to 'png')
    *   * from
    *   * until
+   *   * ready
    */
   self.load = function(options) {
+    options.format = 'json';
     var url = self.render_url(options);
     bean.fire(self, 'ds-data-loading');
     $.ajax({
       dataType: 'json',
       url: url
-    }).done(function(data, textStatus) {
+    }).done(function(response_data, textStatus) {
+      self._process(response_data);
+      if (options.ready && (options.ready instanceof Function)) {
+        options.ready(self);
+      }
       bean.fire(self, 'ds-data-available', self);
     });
+  }
+
+  /**
+   * Process the results of executing the query, transforming
+   * the returned structure into something consumable by the
+   * charting library, and calculating sums.
+   */
+  self._process = function(response_data) {
+    console.log("process()");
+    summation = ds.models.data.Summation();
+    data = response_data.map(function(series) {
+             series.summation = ds.models.data.Summation(series);
+             series.key = series.target;
+             series.values = series.datapoints;
+             summation.merge(series.summation);
+             delete series.target;
+             delete series.datapoints;
+             return series;
+           });
+    console.log(summation);
+    return self;
   }
 
   /**
@@ -86,7 +116,9 @@ ds.models.data.Query = function(data) {
   self.toJSON = function() {
     return {
       name: name,
-      targets: targets
+      targets: targets,
+      data: data,
+      summation: summation
     }
   }
 
