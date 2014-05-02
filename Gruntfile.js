@@ -22,10 +22,20 @@ module.exports = function(grunt) {
       }
     },
     concat: {
-      options: {
-        separator: ';'
+      bundle_css: {
+        src: [
+          'cronenberg/static/css/bootstrap.css',
+          'cronenberg/static/css/bootstrap-callouts.css',
+          'cronenberg/static/css/bootstrap-editable.css',
+          'cronenberg/static/css/font-awesome.css',
+          'cronenberg/static/css/nv.d3.css'
+        ],
+        dest: 'cronenberg/static/css/bundle.css'
       },
       bundle: {
+        options: {
+          separator: ';'
+        },
         src: [
           'cronenberg/static/js/jquery-1.11.0.min.js',
           'cronenberg/static/js/moment.min.js',
@@ -43,6 +53,9 @@ module.exports = function(grunt) {
         dest: 'cronenberg/static/bundle.js'
       },
       app: {
+        options: {
+          separator: ';'
+        },
         src: [
           'js/core.js',
           'js/cronenberg.js',
