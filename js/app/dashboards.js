@@ -66,10 +66,6 @@ cronenberg.DashboardManager = function() {
             dataType: 'json',
             url: path
         }).done(function(data) {
-            data.dashboards.forEach(function(dashboard) {
-                dashboard.last_modified = moment(dashboard.last_modified_date).fromNow();
-                dashboard.created = moment(dashboard.creation_date).format('MMMM Do YYYY');
-            });
             handler(data);
             bean.fire(self, cronenberg.events.DASHBOARD_LIST_LOADED, data);
         });

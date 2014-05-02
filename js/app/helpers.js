@@ -8,7 +8,11 @@ Handlebars.registerHelper('markdown', function(value) {
 Handlebars.registerHelper('moment', function(format, value) {
   if (!value)
     return '';
-  return moment(value).format(format);
+  if (format == 'fromNow') {
+    return moment(value).fromNow();
+  } else {
+    return moment(value).format(format);
+  }
 });
 
 Handlebars.registerHelper('format', function(format, value) {
