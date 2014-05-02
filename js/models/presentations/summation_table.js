@@ -5,44 +5,44 @@ ds.models.summation_table = function(data) {
     , striped
     , format = ',.3f'
     , base
-    , item = {};
+    , self = {};
 
   if (data) {
     query_name = data.query_name;
     striped = data.striped !== false
     format = data.format || format;
   }
-  base = ds.models.item(data).set_type('summation_table').rebind(item);
+  base = ds.models.item(data).set_type('summation_table').rebind(self);
 
-  Object.defineProperty(item, 'query_name', {get: function() { return query_name; }});
-  Object.defineProperty(item, 'striped', {get: function() { return striped; }});
-  Object.defineProperty(item, 'format', {get: function() { return format; }});
+  Object.defineProperty(self, 'query_name', {get: function() { return query_name; }});
+  Object.defineProperty(self, 'striped', {get: function() { return striped; }});
+  Object.defineProperty(self, 'format', {get: function() { return format; }});
 
   /**
    * Data mutators
    */
 
-  item.set_query_name = function(_) {
+  self.set_query_name = function(_) {
     query_name = _;
-    return item;
+    return self;
   }
 
-  item.set_striped = function(_) {
+  self.set_striped = function(_) {
     striped = _;
-    return item;
+    return self;
   }
 
-  item.set_format = function(_) {
+  self.set_format = function(_) {
     format = _;
-    return item;
+    return self;
   }
 
-  item.toJSON = function() {
+  self.toJSON = function() {
     return base.toJSON({
       format: format,
       query_name: query_name
     });
   }
 
-  return item;
+  return self;
 }

@@ -3,27 +3,27 @@ ds.models.row = function(data) {
 
   var base
     , container
-    , item = {};
+    , self = {};
 
-  base = ds.models.item(data).set_type('row').rebind(item);
-  container = ds.models.container(data).rebind(item);
+  base = ds.models.item(data).set_type('row').rebind(self);
+  container = ds.models.container(data).rebind(self);
 
   /**
    * Operations
    */
 
-  item.visit = function(visitor) {
+  self.visit = function(visitor) {
     container.visit(visitor);
-    return item;
+    return self;
   }
 
   /**
    * Data accessors
    */
 
-  item.toJSON = function() {
+  self.toJSON = function() {
     return container.toJSON(base.toJSON());
   }
 
-  return item;
+  return self;
 };

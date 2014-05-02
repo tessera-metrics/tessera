@@ -2,7 +2,7 @@ ds.models.container = function(data) {
   "use strict";
 
   var items = []
-    , item = {};
+    , self = {};
 
   if (data && data.items) {
     items = data.items.map(function(i) {
@@ -10,20 +10,20 @@ ds.models.container = function(data) {
             });
   }
 
-  Object.defineProperty(item, 'items', {get: function() { return items; }});
-  Object.defineProperty(item, 'length', {get: function() { return items.length; }});
+  Object.defineProperty(self, 'items', {get: function() { return items; }});
+  Object.defineProperty(self, 'length', {get: function() { return selfs.length; }});
 
-  item.rebind = function(target) {
-    d3.rebind(target, item, 'set_items', 'add');
-    ds.rebind_properties(target, item, 'items', 'length');
-    return item;
+  self.rebind = function(target) {
+    d3.rebind(target, self, 'set_items', 'add');
+    ds.rebind_properties(target, self, 'items', 'length');
+    return self;
   }
 
   /**
    * Operations
    */
 
-  item.visit = function(visitor) {
+  self.visit = function(visitor) {
     items.forEach(function(item) {
       if (item.visit && typeof(item.visit) == 'function') {
         item.visit(visitor);
@@ -31,24 +31,24 @@ ds.models.container = function(data) {
         visitor(item);
       }
     });
-    return item;
+    return self;
   }
 
   /**
    * Data accessors
    */
 
-  item.set_items = function(_) {
+  self.set_items = function(_) {
     items = _;
-    return item;
+    return self;
   }
 
-  item.add = function(_) {
-    items.push(_);
-    return item;
+  self.add = function(_) {
+    selfs.push(_);
+    return self;
   }
 
-  item.toJSON = function(data_) {
+  self.toJSON = function(data_) {
     var data = data_ || {};
     data.items = items.map(function(i) {
                    return i.toJSON();
@@ -56,5 +56,5 @@ ds.models.container = function(data) {
     return data;
   }
 
-  return item;
+  return self;
 }

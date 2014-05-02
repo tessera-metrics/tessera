@@ -4,7 +4,7 @@ ds.models.thresholds = function(data) {
   var summation_type = 'mean'
     , warning
     , danger
-    , item = {};
+    , self = {};
 
   if (data) {
     summation_type = data.summation_type  || summation_type;
@@ -12,26 +12,26 @@ ds.models.thresholds = function(data) {
     danger = data.danger;
   }
 
-  Object.defineProperty(item, 'summation_type', {get: function() { return summation_type; }});
-  Object.defineProperty(item, 'warning', {get: function() { return warning; }});
-  Object.defineProperty(item, 'danger', {get: function() { return danger; }});
+  Object.defineProperty(self, 'summation_type', {get: function() { return summation_type; }});
+  Object.defineProperty(self, 'warning', {get: function() { return warning; }});
+  Object.defineProperty(self, 'danger', {get: function() { return danger; }});
 
-  item.set_summation_type = function(_) {
+  self.set_summation_type = function(_) {
     summation_type = _;
-    return item;
+    return self;
   }
 
-  item.set_warning = function(_) {
+  self.set_warning = function(_) {
     warning = _;
-    return item;
+    return self;
   }
 
-  item.set_danger = function(_) {
+  self.set_danger = function(_) {
     danger = _;
-    return item;
+    return self;
   }
 
-  item.toJSON = function() {
+  self.toJSON = function() {
     return {
       summation_type: summation_type,
       warning: warning,
@@ -39,5 +39,5 @@ ds.models.thresholds = function(data) {
     }
   }
 
-  return item;
+  return self;
 }

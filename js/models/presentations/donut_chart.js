@@ -4,31 +4,31 @@ ds.models.donut_chart = function(data) {
   var query_name
     , chart
     , base
-    , item = {};
+    , self = {};
 
   if (data) {
     query_name = data.query_name;
   }
-  chart = ds.models.chart(data).rebind(item);
-  base = ds.models.item(data).set_type('donut_chart').rebind(item);
+  chart = ds.models.chart(data).rebind(self);
+  base = ds.models.item(data).set_type('donut_chart').rebind(self);
 
-  Object.defineProperty(item, 'query_name', {get: function() { return query_name; }});
+  Object.defineProperty(self, 'query_name', {get: function() { return query_name; }});
 
   /**
    * Data mutators
    */
 
-  item.set_query_name = function(_) {
+  self.set_query_name = function(_) {
     query_name = _;
-    return item;
+    return self;
   }
 
 
- item.toJSON = function() {
+ self.toJSON = function() {
     return chart.toJSON(base.toJSON({
       query_name: query_name
     }));
   }
 
-  return item;
+  return self;
 };
