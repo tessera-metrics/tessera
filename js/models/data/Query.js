@@ -47,6 +47,29 @@ ds.models.data.Query = function(data) {
   }
 
   /**
+   * Asynchronously load the data for this query from the graphite
+   * server, notifying any listening consumers when the data is
+   * available.
+   *
+   * @param {Object} options Parameters for generating the URL to
+   * load. Valid properties are:
+   *   * base_url (required)
+   *   * format (defaults to 'png')
+   *   * from
+   *   * until
+   */
+  self.load = function(options) {
+    var url = self.render_url(options);
+    bean.fire(self, 'ds-data-loading');
+    $.ajax({
+      dataType: 'json',
+      url: url
+    }).done(function(data, textStatus) {
+      bean.fire(self, 'ds-data-available', self);
+    });
+  }
+
+  /**
    * Data mutators
    */
 
