@@ -1,4 +1,4 @@
-ds.models.query = function(data) {
+ds.models.data.Query = function(data) {
   "use strict";
 
   var targets = []
@@ -43,7 +43,6 @@ ds.models.query = function(data) {
     for (var i in targets) {
       url.addQuery('target', targets[i]);
     }
-    console.log("render_url: " + url.href());
     return url.href();
   }
 

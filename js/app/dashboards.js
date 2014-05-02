@@ -135,7 +135,7 @@ cronenberg.DashboardManager = function() {
 
     this._prep_queries = function(config, context, definition) {
         for (query_name in definition.queries) {
-          var query = ds.models.query({
+          var query = ds.models.data.Query({
             targets: definition.queries[query_name]
           });
 
