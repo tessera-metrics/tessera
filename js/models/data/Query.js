@@ -68,7 +68,7 @@ ds.models.data.Query = function(data) {
       // events when if we don't need the raw data because we're
       // rendering non-interactive graphs only. Would like a more
       // elegant way to handle the case.
-      bean.fire(sef, 'ds-data-ready', self);
+      bean.fire(self, 'ds-data-ready', self);
     }
     options.format = 'json';
     var url = self.url(options);
