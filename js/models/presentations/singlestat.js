@@ -1,8 +1,7 @@
 ds.models.singlestat = function(data) {
   "use strict";
 
-  var query_name
-    , title
+  var title
     , units
     , format=',.3f'
     , index
@@ -11,7 +10,6 @@ ds.models.singlestat = function(data) {
     , self = {};
 
   if (data) {
-    query_name = data.query_name;
     title = data.title;
     units = data.units;
     format = data.format || format;
@@ -20,7 +18,6 @@ ds.models.singlestat = function(data) {
   }
   base = ds.models.item(data).set_type('singlestat').rebind(self);
 
-  Object.defineProperty(self, 'query_name', {get: function() { return query_name; }});
   Object.defineProperty(self, 'title', {get: function() { return title; }});
   Object.defineProperty(self, 'units', {get: function() { return units; }});
   Object.defineProperty(self, 'format', {get: function() { return format; }});
@@ -30,11 +27,6 @@ ds.models.singlestat = function(data) {
   /**
    * Data accessors
    */
-
-  self.set_query_name = function(_) {
-    query_name = _;
-    return self;
-  }
 
   self.set_title = function(_) {
     title = _;
@@ -64,7 +56,6 @@ ds.models.singlestat = function(data) {
  self.toJSON = function() {
     return base.toJSON({
       title: title,
-      query_name: query_name,
       format: format,
       transform: transform,
       units: units,
