@@ -139,26 +139,18 @@ cronenberg.DashboardManager = function() {
 
     this._prep_queries = function(config, context, definition) {
         for (query_name in definition.queries) {
-            var url = URI(config.GRAPHITE_URL)
-                .path('/render')
-                .setQuery('format', 'json');
-          if (context.from) {
-            url.setQuery('from', context.from);
-          }
-          if (context.until) {
-            url.setQuery('until', context.until);
-          }
-            var targets = definition.queries[query_name];
-            if (targets instanceof Array) {
-                for (i in targets) {
-                    url.addQuery('target', targets[i]);
-                }
-            } else {
-                url.addQuery('target', targets);
-            }
-            // Should probably store this outside the original
-            // definition, but for now...
-            definition.queries[query_name] = url.href();
+          var query = ds.models.query({
+            targets: definition.queries[query_name]
+          });
+
+          // Should probably store this outside the original
+          // definition, but for now...
+          definition.queries[query_name] = query.render_url({
+            base_url: config.GRAPHITE_URL,
+            from: config.from,
+            until: config.until,
+            format: 'json'
+          });
         }
     };
 
