@@ -84,7 +84,6 @@ ds.models.data.Query = function(data) {
    * charting library, and calculating sums.
    */
   self._process = function(response_data) {
-    console.log("process()");
     summation = ds.models.data.Summation();
     data = response_data.map(function(series) {
              series.summation = ds.models.data.Summation(series);
@@ -95,7 +94,6 @@ ds.models.data.Query = function(data) {
              delete series.datapoints;
              return series;
            });
-    console.log(summation);
     return self;
   }
 
