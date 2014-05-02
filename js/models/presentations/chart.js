@@ -11,7 +11,7 @@ ds.models.chart = function(data) {
   }
 
   Object.defineProperty(self, 'title', {get: function() { return title; }});
-  Object.defineProperty(self, 'options', {get: function() { return options; }});
+  Object.defineProperty(self, 'options', {get: function() { return options || {}; }});
 
   self.rebind = function(target) {
     d3.rebind(target, self, 'set_title', 'set_options');

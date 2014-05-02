@@ -8,6 +8,7 @@ ds.models.item = function(data) {
     , height
     , style
     , interactive // TODO: hack
+    , parent
     , self = {};
 
   if (data) {
@@ -28,10 +29,34 @@ ds.models.item = function(data) {
   Object.defineProperty(self, 'interactive', {get: function() { return interactive; }}); // TODO: hack
 
   self.rebind = function(target) {
+    parent = target;
     d3.rebind(target, self, 'set_type', 'set_query_name', 'set_css_class', 'set_element_id','set_height', 'set_style', 'set_interactive', 'render');
     ds.rebind_properties(target, self, 'item_type', 'query_name', 'css_class', 'element_id', 'height', 'style', 'interactive');
     return self;
   }
+
+  /**
+   * Operations
+   */
+
+  self.render = function() {
+    var template = ds.templates.models[item_type];
+    if (template) {
+      if (template.dataHandler && query_name) {
+        var definition = cronenberg.dashboards.current.dashboard.definition;
+        definition.queries[query_name].on_load(function(query) {
+          template.dataHandler(query, parent);
+        });
+      }
+      return template({item: parent});
+    } else {
+      return "<p>Unknown item type <code>" + item_type + "</code></p>";
+    }
+  }
+
+  /**
+   * Data mutators
+   */
 
   self.set_type = function(_) {
     item_type = _;
