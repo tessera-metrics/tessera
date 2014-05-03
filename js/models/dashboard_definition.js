@@ -2,6 +2,7 @@ ds.models.dashboard_definition = function(data) {
   "use strict";
 
   var queries = {}
+    , options = {}
     , container
     , base
     , self = {};
@@ -37,7 +38,8 @@ ds.models.dashboard_definition = function(data) {
     return self;
   }
 
-  self.load_all = function(options) {
+  self.load_all = function(options_) {
+    options = options_ || options;
     for (var key in queries) {
       queries[key].load(options);
     }
