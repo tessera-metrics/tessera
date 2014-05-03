@@ -32,6 +32,7 @@ ds.models.item = function(data) {
     parent = target;
     d3.rebind(target, self, 'set_type', 'set_query_name', 'set_css_class', 'set_element_id','set_height', 'set_style', 'set_interactive', 'render');
     ds.rebind_properties(target, self, 'item_type', 'query_name', 'css_class', 'element_id', 'height', 'style', 'interactive');
+    Object.defineProperty(target, 'base', {value: self});
     return self;
   }
 

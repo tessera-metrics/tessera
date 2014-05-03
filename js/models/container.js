@@ -11,11 +11,12 @@ ds.models.container = function(data) {
   }
 
   Object.defineProperty(self, 'items', {get: function() { return items; }});
-  Object.defineProperty(self, 'length', {get: function() { return selfs.length; }});
+  Object.defineProperty(self, 'length', {get: function() { return items.length; }});
 
   self.rebind = function(target) {
     d3.rebind(target, self, 'set_items', 'add');
     ds.rebind_properties(target, self, 'items', 'length');
+    Object.defineProperty(target, 'container', {value: self});
     return self;
   }
 
@@ -44,7 +45,7 @@ ds.models.container = function(data) {
   }
 
   self.add = function(_) {
-    selfs.push(_);
+    items.push(_);
     return self;
   }
 
