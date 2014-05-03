@@ -62,7 +62,7 @@ ds.models.data.Query = function(data) {
    *   * fire_only
    */
   self.load = function(options_) {
-    options = options_;
+    options = options_ || {}
     if (options.fire_only) {
       // This is a bit of a hack for optimization, to fire the query
       // events when if we don't need the raw data because we're

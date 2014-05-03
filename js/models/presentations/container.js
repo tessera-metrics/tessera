@@ -16,7 +16,8 @@ ds.models.container = function(data) {
   self.rebind = function(target) {
     d3.rebind(target, self, 'set_items', 'add');
     ds.rebind_properties(target, self, 'items', 'length');
-    Object.defineProperty(target, 'container', {value: self});
+    Object.defineProperty(target, '_container', {value: self});
+    Object.defineProperty(target, 'is_container', {value: true});
     return self;
   }
 

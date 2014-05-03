@@ -80,6 +80,10 @@ ds.models.dashboard = function(data) {
     return self;
   }
 
+  self.flatten = function() {
+    return definition ? definition.flatten() : [];
+  }
+
   /**
    * Data mutators.
    */
