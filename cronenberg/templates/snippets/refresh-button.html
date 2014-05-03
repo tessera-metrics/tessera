@@ -1,12 +1,11 @@
-<div class="btn-group refresh-button">
+<div class="btn-group ds-refresh-button">
 
   <button type="button"
-          onclick="cronenberg.dashboards.refresh()"
-          class="btn btn-default"
+          class="btn btn-default ds-refresh-button"
           data-toggle="tooltip"
           data-placement="bottom"
           title="Refresh">
-    <i class="fa fa-lg fa-refresh"></i>
+    <i class="fa fa-refresh"></i>
   </button>
 
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -39,22 +38,5 @@
     <li data-ds-interval="1800"><a href="#">30 minutes</a></li>
     <li data-ds-interval="3600"><a href="#">1 hour</a></li>
   </ul>
-
-  <script>
-    $("ul.ds-refresh-menu li").on('click', 'a', function(e) {
-        var target = $(e.target).parent();
-        if (target.attr('data-ds-range')) {
-            var range = target.attr('data-ds-range');
-            cronenberg.dashboards.set_time_range(range, null);
-            $("ul.ds-refresh-menu li[data-ds-range]").removeClass('active');
-            $("ul.ds-refresh-menu li[data-ds-range=" + range + "]").addClass('active');
-        } else if (target.attr('data-ds-interval')) {
-            var interval = target.attr('data-ds-interval');
-            cronenberg.dashboards.set_refresh_interval(interval);
-            $("ul.ds-refresh-menu li[data-ds-interval]").removeClass('active');
-            $("ul.ds-refresh-menu li[data-ds-interval=" + interval + "]").addClass('active');
-        }
-    });
-  </script>
 
 </div>
