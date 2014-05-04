@@ -7,7 +7,7 @@ ds.models.item = function(data) {
     , element_id
     , height
     , style
-    , interactive // TODO: hack
+    , interactive = false // TODO: hack
     , parent
     , self = {};
 
