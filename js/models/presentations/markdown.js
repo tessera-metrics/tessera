@@ -8,7 +8,9 @@ ds.models.markdown = function(data) {
 
   if (data) {
     text = data.text;
-    raw = data.raw !== false;
+    if (data.raw !== undefined) {
+      raw = data.raw;
+    }
   }
   base = ds.models.item(data).set_type('markdown').rebind(self);
 
