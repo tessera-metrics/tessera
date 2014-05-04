@@ -4,7 +4,7 @@ cronenberg.dashboards.onDashboardLoaded(function(d) {
     var cols = target.attr('data-ds-cols');
     var section_type = target.attr('data-ds-section-type');
 
-    var layout = ds.models.layout.SimpleGrid({
+    var layout = ds.models.transform.SimpleGrid({
       section_type: section_type,
       columns: cols
     });
