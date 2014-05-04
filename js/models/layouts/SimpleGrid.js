@@ -29,7 +29,8 @@ ds.models.layout.SimpleGrid = function(options) {
   Object.defineProperty(self, 'section_type', { get: function() { return section_type; }});
   Object.defineProperty(self, 'filter', { get: function() { return filter; }});
 
-  self.layout = function(items) {
+  self.layout = function(item) {
+    var items       = item.flatten();
     var section     = ds.models.section().set_layout(section_type);
     var current_row = ds.models.row();
 
