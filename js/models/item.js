@@ -113,7 +113,7 @@ ds.models.item = function(data) {
   self.toJSON = function(data_) {
     var data = data_ || {};
     data.item_type = item_type;
-    data.query = query.toJSON();
+    data.query = typeof(query) === 'string' ? query : query.toJSON();
     data.css_class = css_class;
     data.element_id = element_id;
     data.height = height;
