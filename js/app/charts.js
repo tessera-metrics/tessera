@@ -19,7 +19,8 @@ cronenberg.charts = {
        ----------------------------------------------------------------------------- */
 
     get_palette: function(name) {
-        return cronenberg.charts.colors[name || cronenberg.charts.DEFAULT_PALETTE];
+      var palette = cronenberg.charts.colors[name];
+      return palette || cronenberg.charts.colors[cronenberg.charts.DEFAULT_PALETTE];
     },
 
     simple_line_chart_url: function(item, query, options_) {
