@@ -180,10 +180,7 @@ cronenberg.DashboardManager = function() {
 
   this.change_layout = function(layout) {
     var self = this;
-    var items = self.current.dashboard.flatten();
-    console.log("change_layout(): " + items.length);
-    var new_layout = layout.layout(items);
-
+    var new_layout = layout.layout(self.current.dashboard.definition);
 
     self.current.dashboard.definition.set_items([new_layout]);
     $(self.current.element).html(self.current.dashboard.definition.render());
