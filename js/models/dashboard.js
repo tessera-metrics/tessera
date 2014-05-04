@@ -114,12 +114,12 @@ ds.models.dashboard = function(data) {
   }
 
   self.set_tags = function(_) {
-    tags = _;
+    tags = _.map(function(t) { return ds.models.tag(t); });
     return self;
   }
 
   self.add_tag = function(_) {
-    tags.push(_);
+    tags.push(ds.models.tag(_));
     return self;
   }
 
