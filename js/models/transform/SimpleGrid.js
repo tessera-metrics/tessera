@@ -1,8 +1,8 @@
 /**
- * A layout which simply takes all presentations and arranges them in
+ * A transform which simply takes all presentations and arranges them in
  * a regular grid.
  */
-ds.models.layout.SimpleGrid = function(options) {
+ds.models.transform.SimpleGrid = function(options) {
   "use strict";
 
   var columns = 1
@@ -20,16 +20,15 @@ ds.models.layout.SimpleGrid = function(options) {
     }
   }
   span = 12 / columns;
-  base = ds.models.layout.layout({
-    layout_name: 'Simple Grid',
-    layout_type: 'simple_grid'
+  base = ds.models.transform.transform({
+    transform_name: 'Simple Grid',
+    transform_type: 'simple_grid'
   }).rebind(self);
 
   Object.defineProperty(self, 'columns', { get: function() { return columns; }});
   Object.defineProperty(self, 'section_type', { get: function() { return section_type; }});
-  Object.defineProperty(self, 'filter', { get: function() { return filter; }});
 
-  self.layout = function(item) {
+  self.transform = function(item) {
     var items       = item.flatten();
     var section     = ds.models.section().set_layout(section_type);
     var current_row = ds.models.row();
