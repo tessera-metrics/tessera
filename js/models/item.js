@@ -2,7 +2,7 @@ ds.models.item = function(data) {
   "use strict";
 
   var item_type
-    , query_name
+    , query
     , css_class
     , element_id
     , height
@@ -13,7 +13,7 @@ ds.models.item = function(data) {
 
   if (data) {
     item_type = data.item_type;
-    query_name = data.query_name;
+    query = data.query;
     css_class = data.css_class;
     element_id = data.element_id;
     height = data.height;
@@ -21,7 +21,7 @@ ds.models.item = function(data) {
   }
 
   Object.defineProperty(self, 'item_type', {get: function() { return item_type; }});
-  Object.defineProperty(self, 'query_name', {get: function() { return query_name; }});
+  Object.defineProperty(self, 'query', {get: function() { return query; }});
   Object.defineProperty(self, 'css_class', {get: function() { return css_class; }});
   Object.defineProperty(self, 'element_id', {get: function() { return element_id; }});
   Object.defineProperty(self, 'height', {get: function() { return height; }});
@@ -30,8 +30,8 @@ ds.models.item = function(data) {
 
   self.rebind = function(target) {
     parent = target;
-    d3.rebind(target, self, 'set_type', 'set_query_name', 'set_css_class', 'set_element_id','set_height', 'set_style', 'set_interactive', 'render', 'flatten');
-    ds.rebind_properties(target, self, 'item_type', 'query_name', 'css_class', 'element_id', 'height', 'style', 'interactive');
+    d3.rebind(target, self, 'set_type', 'set_query', 'set_css_class', 'set_element_id','set_height', 'set_style', 'set_interactive', 'render', 'flatten');
+    ds.rebind_properties(target, self, 'item_type', 'query', 'css_class', 'element_id', 'height', 'style', 'interactive');
     Object.defineProperty(target, '_base', {value: self});
     Object.defineProperty(target, 'is_dashboard_item', {value: true});
     return self;
@@ -44,10 +44,10 @@ ds.models.item = function(data) {
   self.render = function() {
     var template = ds.templates.models[item_type];
     if (template) {
-      if (template.dataHandler && query_name) {
+      if (template.dataHandler && query) {
         var definition = cronenberg.dashboards.current.dashboard.definition;
-        definition.queries[query_name].on_load(function(query) {
-          template.dataHandler(query, parent);
+        definition.queries[query].on_load(function(q) {
+          template.dataHandler(q, parent);
         });
       }
       return template({item: parent});
@@ -80,8 +80,8 @@ ds.models.item = function(data) {
     return self;
   }
 
-  self.set_query_name = function(_) {
-    query_name = _;
+  self.set_query = function(_) {
+    query = _;
     return self;
   }
 
@@ -113,7 +113,7 @@ ds.models.item = function(data) {
   self.toJSON = function(data_) {
     var data = data_ || {};
     data.item_type = item_type;
-    data.query_name = query_name;
+    data.query = query.toJSON();
     data.css_class = css_class;
     data.element_id = element_id;
     data.height = height;

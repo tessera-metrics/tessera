@@ -69,13 +69,13 @@ class GraphiteDashboardImporter(object):
             targets, options, render_url = graph
             presentation = None
             stacked_p = render_url.find('stacked') != -1 or options.get('areaMode', None) == 'stacked'
-            query_name = 'q' + str(len(definition.queries))
+            query = 'q' + str(len(definition.queries))
             targets = options.get('target', [])
-            definition.queries[query_name] = targets[0] if len(targets) == 1 else targets
+            definition.queries[query] = targets[0] if len(targets) == 1 else targets
             if stacked_p:
-                presentation = StackedAreaChart(query_name=query_name, title=options.get('title', ''))
+                presentation = StackedAreaChart(query=query, title=options.get('title', ''))
             else:
-                presentation = StandardTimeSeries(query_name=query_name, title=options.get('title', ''))
+                presentation = StandardTimeSeries(query=query, title=options.get('title', ''))
             presentation.options['yAxisFormat'] = ',.2s'
             presentation.height = 4
             if 'template' in options:
