@@ -7,11 +7,11 @@
 - _Grunt_
   - ~~Precompile client side templates with
     [grunt-contrib-handlebars](https://github.com/gruntjs/grunt-contrib-handlebars)~~
-  - Compile CSS from LESS with
+  - [ ] Compile CSS from LESS with
     [grunt-contrib-less](https://github.com/gruntjs/grunt-contrib-less)
   - ~~Files can be extracted from bower with
     [grunt-bower](https://www.npmjs.org/package/grunt-bower)~~
-  - More sophisticated javascript concatenation + minification can be
+  - [ ] More sophisticated javascript concatenation + minification can be
     done with
     [grunt-contrib-uglify](https://github.com/gruntjs/grunt-contrib-uglify)
 - or _[Gulp](http://gulpjs.com/)_
@@ -21,7 +21,7 @@
 ### Optimization
 
 - consider moving to graphite's raw text protocol
-- integrate
+- [ ] integrate
   [handlebars-async](https://www.npmjs.org/package/handlebars-async)
   which will be useful when we need to fetch data from clusto for
   templates.
@@ -31,9 +31,9 @@
 - Thresholds
   - Attach them to queries, not presentations
   - if a threshold is triggered, update ALL presentations linked to it
-- Transforms (pka Drilldowns)
-  - They should be entities in the model
-  - each transform defines how to generate the new display
+- [ ] Transforms (pka Drilldowns)
+  - [ ] They should be entities in the model
+  - [ ] each transform defines how to generate the new display
     - from a single graph to the same graph on multiple time scales
     - or breaking out a multi-host chart into one chart per host
     - or simple link to another dashboard
@@ -53,53 +53,52 @@
 
 ### API
 
-- custom error views for API that return proper API responses
-- Refactor how from_json() works, maybe a metaclass or somesuch, to
-  cut down on the janky dispatching
-- ~~element_id doesn't need to be stored; just generate unique element
-  IDs in expanded API view. Current method has chance for collisions.~~
+- [ ] custom error views for API that return proper API responses
+- [ ] Refactor how from_json() works, maybe a metaclass or somesuch, to
+  cut down on the janky dispatching. UPDATE: With the model existing on the client side now, the server side implementation is likely to disappear soon. 
+- [x] element_id doesn't need to be stored; just generate unique element
+  IDs in expanded API view. Current method has chance for collisions.
 
 ### Presentations
 
 - New presentations
-  - ``SummationComparisonTable``, compare 2 series w/% change indicator (see stathat)
-  - ``ComparisonSingleStat`` - compare a single summation number between two metrics (i.e. this week & last) w/%change as the primary value shown. Show actual A/B numbers smaller
-  - For very compact dashboards summarizing lots of metrics, could use simple [bootstrap badges](http://getbootstrap.com/components/#badges) for a
+  - [ ] ``SummationComparisonTable``, compare 2 series w/% change indicator (see stathat)
+  - [ ] ``ComparisonSingleStat`` - compare a single summation number between two metrics (i.e. this week & last) w/%change as the primary value shown. Show actual A/B numbers smaller
+  - [ ] For very compact dashboards summarizing lots of metrics, could use simple [bootstrap badges](http://getbootstrap.com/components/#badges) for a
     singlestat value, plus actual mini sparklines
-  - multi-stat version of ``SingleStat`` that flips through them using a
+  - [ ] multi-stat version of ``SingleStat`` that flips through them using a
     carousel (i.e. [Slick](http://kenwheeler.github.io/slick) which is
     the......slickest carousel I've found yet).
   - nvd3 can do combination area/line graphs
     (such as [jquery.sparkline](http://omnipotent.net/jquery.sparkline/#s-about)).
-  - [reD3](http://bugzu.github.io/reD3/) has an interesting [day/hour heatmap](http://bugzu.github.io/reD3/#/heatmap)
+  - [ ] [reD3](http://bugzu.github.io/reD3/) has an interesting [day/hour heatmap](http://bugzu.github.io/reD3/#/heatmap)
   - [punchcard](https://github.com/fogleman/Punchcard) is similar, implementing a github-style punchcard view. In python, so server-side.
-  - [isometric pixel graphics](https://github.com/nosir/obelisk.js) are probably _completely irrelevant_ for this application, but damn are they cool.
   - [dc.js](http://nickqizhu.github.io/dc.js/) with [crossfilter](http://square.github.io/crossfilter/).
-  - nvd3: [multi-bar](http://nvd3.org/examples/multiBar.html) option for time series
-  - nvd3: has an [excellent implementation](http://nvd3.org/examples/bullet.html) of
+  - [ ] nvd3: [multi-bar](http://nvd3.org/examples/multiBar.html) option for time series
+  - [ ] nvd3: has an [excellent implementation](http://nvd3.org/examples/bullet.html) of
     Stephen Few's [bullet graph](http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf).
   - horizon graphs with [Cubism](http://square.github.io/cubism/)
 - Updates to existing presentations
-  - 2nd Y axis support
+  - [ ] 2nd Y axis support
     - existing options should change from yAxisLabel, yAxisThis, yAxisThat to an array of axis options
-  - allow selection of which columns are display in ``SummationTable``
-  - ``JumboTronSinglestat`` is a hack. A properly responsive presentation
+  - [ ] allow selection of which columns are display in ``SummationTable``
+  - [ ] ``JumboTronSinglestat`` is a hack. A properly responsive presentation
     that scales w/size of parent would rock.
-  - threshold to automatically switch to graphite rendering for long
-  time windows (SVG rendering in browser gets slow)
-  - more options for time formatting
-  - tabbed dashboard sections (not as useful as auto-flipping carousel for bigboard displays)
+  - [x] threshold to automatically switch to graphite rendering for long
+  time windows (SVG rendering in browser gets slow). UPDATE: This is largely rendered irrelevant by the existing static/dynamic switch, and defaulting to static rendering
+  - [ ] more options for time formatting
+  - [ ] tabbed dashboard sections (not as useful as auto-flipping carousel for bigboard displays)
 
 ### Actions/Drilldowns
 
-- Action menu
-  - ~~chart.io has the same thing
+- [x] Action menu
+  - [x] chart.io has the same thing
     [see live demo](https://chartio.com/project/9258/dash/10832/?gf162633_start=2014-03-27&gf162633_end=2014-04-26&gf2241_start=2012-W41&gf2241_end=2013-W19)
     but the menu appears on mouseover. shouldn't be hard to do for
     cronenberg too, since the menu is actually in a div that's outside
-    the charts (shouldn't conflict w/chart events)~~
-    - ~~Simple option is just show them in regular view, and hide them in fullscreen~~
-- create some demo dashboards with drilldown explorations
+    the charts (shouldn't conflict w/chart events)
+    - [x] Simple option is just show them in regular view, and hide them in fullscreen
+- [x] create some demo dashboards with drilldown explorations
   - time shifting
     - ``SummationComparisonTable`` will be a good one to add for that
   - percentile expansion
@@ -109,11 +108,11 @@
 
 ### Editing
 
-- display count of queries
-- display count of presentations
-- basic info updates (title, category, tags)
-- add notifications confirming delete (or update, etc...)
-- Grafana's [javascript parser for graphite queries](https://github.com/torkelo/grafana/tree/master/src/app/services/graphite) could be useful
+- [ ] display count of queries
+- [ ] display count of presentations
+- [ ] basic info updates (title, category, tags)
+- [ ] add notifications confirming delete (or update, etc...)
+- [ ] Grafana's [javascript parser for graphite queries](https://github.com/torkelo/grafana/tree/master/src/app/services/graphite) could be useful
 
 ### UI
 
