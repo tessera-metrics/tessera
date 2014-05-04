@@ -10,12 +10,18 @@ ds.models.tag = function(data) {
      , self = {};
 
   if (data) {
-    id = data.id;
-    href = data.href;
-    name = data.name;
-    description = data.description;
-    color = data.color;
-    count = data.count;
+    if (data.is_tag) {
+      return data;
+    } else if (typeof data === 'string') {
+      name = data;
+    } else {
+      id = data.id;
+      href = data.href;
+      name = data.name;
+      description = data.description;
+      color = data.color;
+      count = data.count;
+    }
   }
 
   /**
@@ -29,6 +35,7 @@ ds.models.tag = function(data) {
   Object.defineProperty(self, 'name', {get: function() { return name; }});
   Object.defineProperty(self, 'description', {get: function() { return description; }});
   Object.defineProperty(self, 'color', {get: function() { return color; }});
+  Object.defineProperty(self, 'is_tag', {value: true});
 
   /**
    * Data mutators
