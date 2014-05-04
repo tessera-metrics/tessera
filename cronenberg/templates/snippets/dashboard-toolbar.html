@@ -23,7 +23,7 @@
         <button type="button" id="ds-edit-button" onclick="toolbarEditHandler()" class="btn btn-default" data-toggle="tooltip" title="Edit">
           <i class="fa fa-edit"></i>
         </button>
-        <button type="button" id="ds-toggle-interactive-button" onclick="toggle_interactive_charts()" class="btn {% if ctx.prefs.interactive %} btn-default {% else %} btn-inverse {% endif %}" data-toggle="tooltip" title="Toggle Interactive Graphs">
+        <button type="button" id="ds-toggle-interactive-button" onclick="toggle_interactive_charts()" class="btn btn-default {% if ctx.prefs.interactive %} {% else %} active {% endif %}" data-toggle="tooltip" title="Toggle Interactive Graphs">
           <i class="fa fa-lock"></i>
         </button>
         {% include "snippets/rejigger-button.html" %}
@@ -47,15 +47,15 @@
 
     window.toggle_interactive_charts = function() {
         if (cronenberg.dashboards.toggle_interactive_charts()) {
-            $('#ds-toggle-interactive-button').removeClass('btn-inverse').addClass('btn-default');
+            $('#ds-toggle-interactive-button').removeClass('active');
         } else {
-            $('#ds-toggle-interactive-button').removeClass('btn-default').addClass('btn-inverse');
+            $('#ds-toggle-interactive-button').addClass('active');
         }
     };
 
     cronenberg.onEnterEditMode(function() {
-        $('#ds-edit-button').removeClass('btn-default').addClass('btn-inverse');
+        $('#ds-edit-button').addClass('active');
     }).onExitEditMode(function() {
-        $('#ds-edit-button').removeClass('btn-inverse').addClass('btn-default');
+        $('#ds-edit-button').removeClass('active');
     });
 </script>

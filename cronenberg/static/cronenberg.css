@@ -211,7 +211,7 @@ h1 .ds-secondary-title {
     margin-top: 0.25em;
 }
 
-.ds-fullscreen-titlebar .refresh-button {
+.ds-fullscreen-titlebar .ds-refresh-button-group {
     margin-top: 1em;
     margin-left: .5em;
 }
