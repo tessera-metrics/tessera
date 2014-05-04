@@ -16,6 +16,8 @@ ds.models.chart = function(data) {
   self.rebind = function(target) {
     d3.rebind(target, self, 'set_title', 'set_options');
     ds.rebind_properties(target, self, 'title', 'options');
+    Object.defineProperty(target, '_chart', {value: self});
+    Object.defineProperty(target, 'is_chart', {value: true});
     return self;
   }
 

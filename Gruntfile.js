@@ -59,11 +59,9 @@ module.exports = function(grunt) {
         src: [
           'js/core.js',
           'js/cronenberg.js',
-          'js/app/*.js',
-          'js/models/*.js',
-          'js/models/presentations/*.js',
-          'js/models/layouts/*.js',
-          'js/models/data/*.js',
+          'js/app/**/*.js',
+          'js/models/**/*.js',
+          'js/extensions/**/*.js',
           'cronenberg/static/templates.js',
           'templates/**/*.js'
         ],

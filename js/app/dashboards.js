@@ -178,6 +178,15 @@ cronenberg.DashboardManager = function() {
         return self;
     };
 
+  this.change_layout = function(layout) {
+    var self = this;
+    var new_layout = layout.layout(self.current.dashboard.definition);
+
+    self.current.dashboard.definition.set_items([new_layout]);
+    $(self.current.element).html(self.current.dashboard.definition.render());
+    self.current.dashboard.definition.load_all();
+  };
+
     this.refresh = function() {
         var self = this;
         if (self.current) {
