@@ -30,8 +30,10 @@ ds.models.item = function(data) {
 
   self.rebind = function(target) {
     parent = target;
-    d3.rebind(target, self, 'set_type', 'set_query_name', 'set_css_class', 'set_element_id','set_height', 'set_style', 'set_interactive', 'render');
+    d3.rebind(target, self, 'set_type', 'set_query_name', 'set_css_class', 'set_element_id','set_height', 'set_style', 'set_interactive', 'render', 'flatten');
     ds.rebind_properties(target, self, 'item_type', 'query_name', 'css_class', 'element_id', 'height', 'style', 'interactive');
+    Object.defineProperty(target, '_base', {value: self});
+    Object.defineProperty(target, 'is_dashboard_item', {value: true});
     return self;
   }
 
@@ -52,6 +54,21 @@ ds.models.item = function(data) {
     } else {
       return "<p>Unknown item type <code>" + item_type + "</code></p>";
     }
+  }
+
+  // TODO: this should use streams
+  self.flatten = function(filter) {
+    var items = [];
+    parent.visit(function(item) {
+      if (item.item_type) {
+        if (filter && (filter instanceof Function)) {
+          if (!filter(item))
+            return;
+        }
+        items.push(item);
+      }
+    });
+    return items;
   }
 
   /**
