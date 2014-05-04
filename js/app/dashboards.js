@@ -17,7 +17,7 @@ cronenberg.DashboardHolder = function(url_, element_) {
 
     this.findQueryForPresentation = function(presentation) {
       var self = this;
-      var query = self.dashboard.definition.queries[presentation.query_name];
+      var query = self.dashboard.definition.queries[presentation.query];
       return query;
     };
 
