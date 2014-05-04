@@ -21,6 +21,10 @@
 ### Optimization
 
 - consider moving to graphite's raw text protocol
+- integrate
+  [handlebars-async](https://www.npmjs.org/package/handlebars-async)
+  which will be useful when we need to fetch data from clusto for
+  templates.
 
 ### Model & Persistence
 
