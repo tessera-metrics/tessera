@@ -1,5 +1,5 @@
 ds.models.factory = function(data) {
-  if (data.type && typeof(data.type) == 'function') {
+  if (data.is_dashboard_item) {
     return data;
   } else if (data.item_type && ds.models[data.item_type]) {
     return ds.models[data.item_type](data);
