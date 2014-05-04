@@ -6,8 +6,7 @@
 ds.models.data.Summation = function(series) {
   "use strict";
 
-  var series
-    , sum = 0
+  var sum = 0
     , min = Number.MAX_VALUE
     , max = Number.MIN_VALUE
     , mean = 0
@@ -36,7 +35,6 @@ ds.models.data.Summation = function(series) {
     mean = sum / count;
   }
 
-  Object.defineProperty(self, 'series', {get: function() { return series; }});
   Object.defineProperty(self, 'sum', {get: function() { return sum; }});
   Object.defineProperty(self, 'min', {get: function() { return min; }});
   Object.defineProperty(self, 'max', {get: function() { return max; }});
@@ -64,7 +62,6 @@ ds.models.data.Summation = function(series) {
 
   self.toJSON = function() {
     return {
-      series: series,
       sum: sum,
       min: min,
       max: max,
