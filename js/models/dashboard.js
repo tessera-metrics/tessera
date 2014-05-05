@@ -65,6 +65,7 @@ ds.models.dashboard = function(data) {
    */
 
   self._build_index = function() {
+    _index = {};
     var id = 0;
     self.visit(function(item) {
       if (item.is_dashboard_item) {
@@ -78,6 +79,21 @@ ds.models.dashboard = function(data) {
 
   self.get_item = function(id) {
     return _index[id];
+  }
+
+  self.set_items = function(items) {
+    definition.set_items(items);
+    self._build_index();
+    return self;
+  }
+
+  self.render = function() {
+    return definition.render();
+  }
+
+  self.load_all = function() {
+    definition.load_all();
+    return self;
   }
 
   self.render_templates = function(context) {
