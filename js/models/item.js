@@ -9,6 +9,7 @@ ds.models.item = function(data) {
     , style
     , interactive = false // TODO: hack
     , parent
+    , dashboard
     , self = {};
 
   if (data) {
@@ -22,16 +23,23 @@ ds.models.item = function(data) {
 
   Object.defineProperty(self, 'item_type', {get: function() { return item_type; }});
   Object.defineProperty(self, 'item_id', {get: function() { return item_id; }});
-  Object.defineProperty(self, 'query', {get: function() { return query; }});
   Object.defineProperty(self, 'css_class', {get: function() { return css_class; }});
   Object.defineProperty(self, 'height', {get: function() { return height; }});
   Object.defineProperty(self, 'style', {get: function() { return style; }});
-  Object.defineProperty(self, 'interactive', {get: function() { return interactive; }}); // TODO: hack
+  Object.defineProperty(self, 'interactive', {get: function() { return interactive; }});
+  Object.defineProperty(self, 'dashboard', {get: function() { return dashboard; }});
+  Object.defineProperty(self, 'query', {get: function() {
+                                          if (typeof(query) == 'string' && self.dashboard) {
+                                            return self.dashboard.definition.queries[query];
+                                          } else {
+                                            return query;
+                                          }
+                                        }});
 
   self.rebind = function(target) {
     parent = target;
-    d3.rebind(target, self, 'set_type', 'set_query', 'set_css_class', 'set_item_id','set_height', 'set_style', 'set_interactive', 'render', 'flatten');
-    ds.rebind_properties(target, self, 'item_type', 'query', 'css_class', 'item_id', 'height', 'style', 'interactive');
+    d3.rebind(target, self, 'set_type', 'set_query', 'set_css_class', 'set_item_id','set_height', 'set_style', 'set_interactive', 'set_dashboard', 'render', 'flatten');
+    ds.rebind_properties(target, self, 'item_type', 'query', 'css_class', 'item_id', 'height', 'style', 'interactive', 'dashboard');
     Object.defineProperty(target, '_base', {value: self});
     Object.defineProperty(target, 'is_dashboard_item', {value: true});
     return self;
@@ -110,11 +118,17 @@ ds.models.item = function(data) {
     return self;
   }
 
+  self.set_dashboard = function(_) {
+    dashboard = _;
+    return self;
+  }
+
   self.toJSON = function(data_) {
     var data = data_ || {};
     data.item_type = item_type;
     data.item_id = item_id;
-    data.query = typeof(query) === 'string' ? query : query.toJSON();
+    // TODO: return query.toJSON() when server side supports it
+    data.query = typeof(query) === 'string' ? query : query.name;
     data.css_class = css_class;
     data.height = height;
     data.style = style;

@@ -23,9 +23,9 @@ cronenberg.charts = {
       return palette || cronenberg.charts.colors[cronenberg.charts.DEFAULT_PALETTE];
     },
 
-    simple_line_chart_url: function(item, query, options_) {
+    simple_line_chart_url: function(item, options_) {
         var options = options_ || {};
-        var png_url = URI(query.url())
+        var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
@@ -40,9 +40,9 @@ cronenberg.charts = {
         return png_url;
     },
 
-    standard_line_chart_url: function(item, query, options_) {
+    standard_line_chart_url: function(item, options_) {
         var options = options_ || {};
-        var png_url = URI(query.url())
+        var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
@@ -59,9 +59,9 @@ cronenberg.charts = {
         return png_url;
     },
 
-    simple_area_chart_url: function(item, query, options_) {
+    simple_area_chart_url: function(item, options_) {
         var options = options_ || {};
-        var png_url = URI(query.url())
+        var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
@@ -78,9 +78,9 @@ cronenberg.charts = {
         return png_url;
     },
 
-    stacked_area_chart_url: function(item, query, options_) {
+    stacked_area_chart_url: function(item, options_) {
         var options = options_ || {};
-        var png_url = URI(query.url())
+        var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
@@ -98,25 +98,25 @@ cronenberg.charts = {
         return png_url;
     },
 
-    chart_url: function(item, query, options) {
+    chart_url: function(item, options) {
         switch (item.item_type) {
         case 'simple_time_series':
             return item.filled
-                ? cronenberg.charts.simple_area_chart_url(item, query, options)
-                : cronenberg.charts.simple_line_chart_url(item, query, options);
+                ? cronenberg.charts.simple_area_chart_url(item, options)
+                : cronenberg.charts.simple_line_chart_url(item, options);
         case 'standard_time_series':
-            return cronenberg.charts.standard_line_chart_url(item, query, options);
+            return cronenberg.charts.standard_line_chart_url(item, options);
         case 'stacked_area_chart':
-            return cronenberg.charts.stacked_area_chart_url(item, query, options);
+            return cronenberg.charts.stacked_area_chart_url(item, options);
         case 'singlegraph':
-            return cronenberg.charts.simple_area_chart_url(item, query, options);
+            return cronenberg.charts.simple_area_chart_url(item, options);
         }
         return undefined;
     },
 
-    composer_url: function(item, query, options_) {
+    composer_url: function(item, options_) {
         var options = options_ || {};
-        var composer_url = URI(query.url())
+        var composer_url = URI(item.query.url())
             .filename('composer')
             .removeQuery('format')
             .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
