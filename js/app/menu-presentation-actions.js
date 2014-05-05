@@ -5,15 +5,15 @@ ds.manager.onDashboardLoaded(function(d) {
         console.log(item);
           switch (this.getAttribute('data-ds-action')) {
           case 'open-in-graphite':
-              var composer_url = cronenberg.charts.composer_url(item, { showTitle: true });
+              var composer_url = ds.charts.composer_url(item, { showTitle: true });
               window.open(composer_url);
               break;
           case 'export-png':
-              var image_url = cronenberg.charts.chart_url(item, { showTitle: true });
+              var image_url = ds.charts.chart_url(item, { showTitle: true });
               window.open(image_url);
               break;
           case 'export-svg':
-              var image_url = cronenberg.charts.chart_url(item, { showTitle: true, format: 'svg' });
+              var image_url = ds.charts.chart_url(item, { showTitle: true, format: 'svg' });
               window.open(image_url);
               break;
           }

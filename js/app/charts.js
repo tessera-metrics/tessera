@@ -1,4 +1,4 @@
-cronenberg.charts =
+ds.charts =
   (function () {
 
     var self = {};
