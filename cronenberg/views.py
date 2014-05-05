@@ -396,7 +396,7 @@ def ui_dashboard_list_tagged(tag):
                                          (title, '')])
 
 
-@app.route('/dashboards/<id>')
+@app.route('/dashboards/<id>/')
 def ui_dashboard(id):
     dashboard = database.Dashboard.query.get_or_404(id)
     return _render_client_side_dashboard(dashboard)

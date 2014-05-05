@@ -111,6 +111,7 @@ Client Side:
     [callouts](https://gist.github.com/matthiasg/6153853) from
     bootstrap's documentation site.
   * [bootbox](http://bootboxjs.com/) simplifies modal dialog interactions.
+  * [bootstrap-validator](http://bootstrapvalidator.com/)
 * [jQuery](http://jquery.com/)
 * [nvd3](https://github.com/novus/nvd3) for interactive charts build
   on top of [d3](http://d3js.org). d3 is also used for value
