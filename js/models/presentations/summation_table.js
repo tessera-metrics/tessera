@@ -14,6 +14,7 @@ ds.models.summation_table = function(data) {
 
   Object.defineProperty(self, 'striped', {get: function() { return striped; }});
   Object.defineProperty(self, 'format', {get: function() { return format; }});
+  Object.defineProperty(self, 'requires_data', {value: true});
 
   /**
    * Data mutators

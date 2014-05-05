@@ -67,15 +67,8 @@ ds.manager =
         if (!item.item_type)
           return;
         item.set_interactive(interactive);
-        // Now that we have a proper client side model, this logic
-        // should move to the model objects
-        switch (item.item_type) {
-          case 'singlestat':
-          case 'jumbotron_singlestat':
-          case 'summation_table':
-          case 'donut_chart':
+        if (item.requires_data) {
           holder.raw_data_required = true;
-          break;
         }
       });
     }
