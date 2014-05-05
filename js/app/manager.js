@@ -292,6 +292,22 @@ ds.manager =
       });
     }
 
+    self.update = function(dashboard, handler) {
+      $.ajax({
+        type: 'PUT',
+        url: dashboard.href,
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(dashboard)
+      }).done(function(data) {
+        console.log(data);
+        if (handler && handler instanceof Function) {
+          handler(data);
+        }
+      });
+    }
+
+
     // Oh this is ugly
     self.duplicate = function(href, handler) {
         // Get dashboard

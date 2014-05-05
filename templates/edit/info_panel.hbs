@@ -6,15 +6,15 @@
     <table class="table-condensed">
       <tbody>
         <tr>
-          <th>Title</th><td class="ds-editable" data-type="text">{{title}}</td>
+          <th>Title</th><td class="ds-editable" id="ds-info-panel-edit-title" data-type="text">{{title}}</td>
         </tr>
 
         <tr>
-          <th>Category</th><td class="ds-editable" data-type="text">{{category}}</td>
+          <th>Category</th><td class="ds-editable" id="ds-info-panel-edit-category" data-type="text">{{category}}</td>
         </tr>
 
         <tr>
-          <th>Summary</th><td class="ds-editable" data-type="text">{{summary}}</td>
+          <th>Summary</th><td class="ds-editable" id="ds-info-panel-edit-summary" data-type="text">{{summary}}</td>
         </tr>
 
         <tr>
@@ -41,6 +41,7 @@
   <div class="col-md-7">
     <h4>Description</h4>
     <div class="ds-editable"
+         id="ds-info-panel-edit-description"
          data-type="textarea"
          data-rows="9"
          data-showbuttons="bottom"
