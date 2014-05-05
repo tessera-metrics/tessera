@@ -23,7 +23,4 @@ ds.manager.onDashboardLoaded(function() {
     $('[data-ds-range]').removeClass('active');
     $('[data-ds-range=' + from + ']').addClass('active');
 });
-$(".ds-recent-range-picker").click(function(e) {
-    ds.manager.set_time_range($(e.target).attr('data-ds-range'), null);
-});
 </script>
