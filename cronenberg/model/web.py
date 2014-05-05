@@ -55,8 +55,9 @@ class DashboardItem(object):
         CALLOUT_WARNING = 'callout_warning'
         CALLOUT_DANGER  = 'callout_danger'
 
-    def __init__(self, item_type, css_class='', style=Style.PLAIN, height=None, **kwargs):
+    def __init__(self, item_type, css_class='', style=Style.PLAIN, height=None, item_id=None, **kwargs):
         self.item_type = item_type
+        self.item_id = item_id
         self.css_class = css_class
         self.height = height
         self.style = style

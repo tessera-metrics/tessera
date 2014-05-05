@@ -86,8 +86,8 @@ cronenberg.DashboardManager = function() {
       dashboard.visit(function(item) {
         if (!item.item_type)
           return;
-        item.set_element_id('d' + id++);
-        holder.elementToItemMap[item.element_id] = item;
+        item.set_item_id('d' + id++);
+        holder.elementToItemMap[item.item_id] = item;
         item.set_interactive(interactive);
         // Now that we have a proper client side model, this logic
         // should move to the model objects
