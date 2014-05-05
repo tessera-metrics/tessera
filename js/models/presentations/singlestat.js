@@ -23,6 +23,7 @@ ds.models.singlestat = function(data) {
   Object.defineProperty(self, 'format', {get: function() { return format; }});
   Object.defineProperty(self, 'index', {get: function() { return index; }});
   Object.defineProperty(self, 'transform', {get: function() { return transform; }});
+  Object.defineProperty(self, 'requires_data', {value: true});
 
   /**
    * Data accessors
