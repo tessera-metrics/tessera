@@ -7,6 +7,7 @@ ds.models.donut_chart = function(data) {
 
   chart = ds.models.chart(data).rebind(self);
   base = ds.models.item(data).set_type('donut_chart').rebind(self);
+  Object.defineProperty(self, 'requires_data', {value: true});
 
   /**
    * Data mutators

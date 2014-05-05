@@ -28,7 +28,7 @@
   </div> <!-- container -->
 
   <script>
-    cronenberg.dashboards.list('/api/dashboard/tagged/featured', function(data) {
+    ds.manager.list('/api/dashboard/tagged/featured', function(data) {
         $("#ds-dashboard-featured-listing").html(ds.templates.listing.dashboard_list(data));
     });
   </script>

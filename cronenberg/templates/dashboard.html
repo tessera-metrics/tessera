@@ -48,8 +48,8 @@
               </li>
             </ul>
             <script>
-              cronenberg.dashboards.onRangeChanged(function(data) {
-              var description = cronenberg.dashboards.getRangeDescription(data.from);
+              ds.manager.onRangeChanged(function(data) {
+              var description = ds.manager.getRangeDescription(data.from);
               if ( description ) {
               $("a.ds-fullscreen-range-indicator").text(description);
               }
@@ -74,7 +74,7 @@
 
   <script>
     var url = '/api/dashboard/{{dashboard.id}}';
-    cronenberg.dashboards.load(url, "#dashboard");
+    ds.manager.load(url, "#dashboard");
     $("[data-toggle=tooltip]").tooltip({animation:false, delay: { show:300, hide:100}});
   </script>
 

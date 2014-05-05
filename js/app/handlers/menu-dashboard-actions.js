@@ -1,5 +1,4 @@
-cronenberg.dashboards.onDashboardListLoaded(function(data) {
-  $('ul.ds-dashboard-action-menu li').click(function(event) {
+  $(document).on('click', 'ul.ds-dashboard-action-menu li', function(event) {
     var action = this.getAttribute('data-ds-action');
     var href = $(event.target).parent().parent()[0].getAttribute('data-ds-href');
     switch (action) {
@@ -8,15 +7,14 @@ cronenberg.dashboards.onDashboardListLoaded(function(data) {
       break;
       case 'duplicate':
         // TODO - should have dynamic refresh instead of setting window.location
-        cronenberg.dashboards.duplicate(href, function() {
+        ds.manager.duplicate(href, function() {
           window.location.reload();
         });
         break;
       case 'delete':
-        cronenberg.dashboards.delete_with_confirmation(href, function() {
+        ds.manager.delete_with_confirmation(href, function() {
           window.location.reload();
         });
         break;
     }
   });
-});

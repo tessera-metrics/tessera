@@ -1,25 +1,9 @@
 cronenberg.DashboardHolder = function(url_, element_) {
+  "use strict";
+
     this.url = url_;
     this.dashboard = null;
     this.element = element_;
-    this.elementToItemMap = {};
-
-    this.findPresentationForElement = function(element_id) {
-        var self = this;
-        return self.elementToItemMap[element_id];
-    };
-
-    this.findQueryForElement = function(element_id) {
-        var self = this;
-        var presentation = self.findPresentationForElement(element_id);
-        return self.findQueryForPresentation(presentation);
-    };
-
-    this.findQueryForPresentation = function(presentation) {
-      var self = this;
-      var query = self.dashboard.definition.queries[presentation.query_name];
-      return query;
-    };
 
     this.setRange = function(from, until) {
         var self = this;
@@ -34,43 +18,41 @@ cronenberg.DashboardHolder = function(url_, element_) {
     };
 };
 
-cronenberg.DashboardManager = function() {
-    this.current = null;
+ds.manager =
+  (function() {
+    "use strict";
+
+    var current
+      , self = {};
+
+    Object.defineProperty(self, 'current', { get: function() { return current; }});
+
+    self.set_current = function(_) {
+      current = _;
+      return self;
+    }
 
     /**
      * Register an event handler for processing a dashboard once it's
      * loaded and ready.
      */
-    this.onDashboardLoaded = function(handler) {
-        var self = this;
+    self.onDashboardLoaded = function(handler) {
         bean.on(self, cronenberg.events.DASHBOARD_LOADED, handler);
         return self;
-    };
-
-    /**
-     * Register an event handler for processing the list of dashboards
-     * once they're loaded.
-     */
-    this.onDashboardListLoaded = function(handler) {
-        var self = this;
-        bean.on(self, cronenberg.events.DASHBOARD_LIST_LOADED, handler);
-        return self;
-    };
+    }
 
     /**
      * List all dashboards.
      */
-    this.list = function(path, handler) {
+    self.list = function(path, handler) {
         var path = path || '/api/dashboard';
-        var self = this;
         $.ajax({
             dataType: 'json',
             url: path
         }).done(function(data) {
             handler(data);
-            bean.fire(self, cronenberg.events.DASHBOARD_LIST_LOADED, data);
         });
-    };
+    }
 
     /**
        * Recurse through the presentation tree, giving each dashboard
@@ -80,24 +62,13 @@ cronenberg.DashboardManager = function() {
        * Use dashboard.visit() when we convert to using the model
        * objects.
      */
-    this._prep_items = function(dashboard, holder, interactive) {
-      var id = 0;
-
+    self._prep_items = function(dashboard, holder, interactive) {
       dashboard.visit(function(item) {
         if (!item.item_type)
           return;
-        item.set_element_id('d' + id++);
-        holder.elementToItemMap[item.element_id] = item;
         item.set_interactive(interactive);
-        // Now that we have a proper client side model, this logic
-        // should move to the model objects
-        switch (item.item_type) {
-          case 'singlestat':
-          case 'jumbotron_singlestat':
-          case 'summation_table':
-          case 'donut_chart':
+        if (item.requires_data) {
           holder.raw_data_required = true;
-          break;
         }
       });
     }
@@ -105,7 +76,7 @@ cronenberg.DashboardManager = function() {
     /**
      * Set up us the API call.
      */
-    this._prep_url = function(base_url) {
+    self._prep_url = function(base_url) {
       var url = URI(base_url).setQuery('rendering', true);
       var context = url.query(true);
       var params = URI(window.location).query(true);
@@ -117,7 +88,7 @@ cronenberg.DashboardManager = function() {
       if (context.until) {
         url.setQuery('until', context.until);
       }
-        for (key in params) {
+        for (var key in params) {
             if (key.indexOf('p[') == 0) {
                 var name = key.slice(2, -1);
                 variables[name] = params[key];
@@ -129,16 +100,15 @@ cronenberg.DashboardManager = function() {
         context.interactive == params.interactive != 'false';
       }
       return context;
-    };
+    }
 
     /**
      * Load and render a dashboard.
      */
-    this.load = function(url, element) {
-        var self = this;
+    self.load = function(url, element) {
         var holder = new cronenberg.DashboardHolder(url, element);
         var context = self._prep_url(url);
-        self.current = holder;
+        self.set_current(holder);
         $.ajax({
             dataType: "json",
             url: context.url
@@ -176,28 +146,25 @@ cronenberg.DashboardManager = function() {
           bean.fire(self, cronenberg.events.DASHBOARD_LOADED, dashboard);
         });
         return self;
-    };
+    }
 
-  this.change_layout = function(layout) {
-    var self = this;
-    var new_layout = layout.layout(self.current.dashboard.definition);
+  self.change_layout = function(layout) {
+    var new_layout = layout.transform(self.current.dashboard.definition);
 
-    self.current.dashboard.definition.set_items([new_layout]);
-    $(self.current.element).html(self.current.dashboard.definition.render());
-    self.current.dashboard.definition.load_all();
-  };
+    self.current.dashboard.set_items([new_layout]);
+    $(self.current.element).html(self.current.dashboard.render());
+    self.current.dashboard.load_all();
+  }
 
-    this.refresh = function() {
-        var self = this;
+    self.refresh = function() {
         if (self.current) {
             self.load(self.current.url, self.current.element);
         }
-    };
+    }
 
     // Definitely getting to the point we need some kind of reactive MVC
     // here
-    this.toggle_interactive_charts = function() {
-        var self = this;
+    self.toggle_interactive_charts = function() {
         $.get('/api/preferences', function(data) {
             var setting = !data.preferences.interactive;
             var dashboard_url = URI(self.current.url);
@@ -216,14 +183,13 @@ cronenberg.DashboardManager = function() {
             self.refresh();
             return setting == 'true';
         });
-    };
+    }
 
     /* -----------------------------------------------------------------------------
        Time range and auto-refresh
        ----------------------------------------------------------------------------- */
 
-    this.set_time_range = function(from, until) {
-        var self = this;
+    self.set_time_range = function(from, until) {
         var location = URI(window.location).setQuery('from', from).href();
         window.history.pushState({url: self.current.url, element:self.current.element}, '', location);
 
@@ -232,9 +198,9 @@ cronenberg.DashboardManager = function() {
             from: from, until: until
         });
         self.refresh();
-    };
+    }
 
-    this.ranges = {
+    self.ranges = {
         // TODO - quick hack. Parse the range and generate on the fly
         // for maximum flexibiliy
         '-1h'  : 'Past Hour',
@@ -245,27 +211,25 @@ cronenberg.DashboardManager = function() {
         '-12h' : 'Past 12 Hours',
         '-1d'  : 'Past Day',
         '-7d'  : 'Past Week'
-    };
+    }
 
-    this.getRangeDescription = function(range) {
-        var self = this;
+    self.getRangeDescription = function(range) {
         if (range in self.ranges) {
             return self.ranges[range];
         } else {
             return null;
         }
-    };
+    }
 
-    this.onRangeChanged = function(handler) {
+    self.onRangeChanged = function(handler) {
         var self = this;
         bean.on(self, cronenberg.events.RANGE_CHANGED, handler);
-    };
+    }
 
-    this.autoRefreshInterval = null;
-    this.intervalId = null;
+    self.autoRefreshInterval = null;
+    self.intervalId = null;
 
-    this.set_refresh_interval = function(value) {
-        var self = this;
+    self.set_refresh_interval = function(value) {
         var intervalSeconds = parseInt(value);
         self.autoRefreshInterval = intervalSeconds;
         if (self.intervalId) {
@@ -275,10 +239,9 @@ cronenberg.DashboardManager = function() {
             self.intervalSeconds = intervalSeconds;
             self.intervalId = window.setInterval(self.refresh, intervalSeconds * 1000);
         }
-    };
+    }
 
-    this.delete_with_confirmation = function(href, handler) {
-        var self = this;
+    self.delete_with_confirmation = function(href, handler) {
         bootbox.dialog({
             message: "Are you really sure you want to delete this dashboard? Deletion is irrevocable.",
             title: "Confirm dashboard delete",
@@ -299,10 +262,9 @@ cronenberg.DashboardManager = function() {
                 }
             }
         });
-    };
+    }
 
-    this.delete_dashboard = function(href, done_) {
-        var self = this;
+    self.delete_dashboard = function(href, done_) {
         var done = done_ || function() {
             window.location = '/dashboards';
         };
@@ -310,15 +272,14 @@ cronenberg.DashboardManager = function() {
             url: href,
             type: 'DELETE'
         }).done(done);
-    };
+    }
 
-    this.delete_current = function() {
-        var self = this;
+    self.delete_current = function() {
         self.delete_with_confirmation(self.current.dashboard.href);
-    };
+    }
 
     // Oh this is ugly
-    this.duplicate = function(href, handler) {
+    self.duplicate = function(href, handler) {
         // Get dashboard
         $.get(href, function(data) {
             var dashboard = data.dashboards[0];
@@ -341,7 +302,7 @@ cronenberg.DashboardManager = function() {
                 });
             });
         })
-    };
-};
+    }
 
-cronenberg.dashboards = new cronenberg.DashboardManager();
+   return self;
+})();

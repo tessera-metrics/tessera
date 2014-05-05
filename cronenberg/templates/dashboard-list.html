@@ -33,7 +33,7 @@
     {% else %}
       var path = '/api/dashboard/';
     {% endif %}
-    cronenberg.dashboards.list(path, function(data) {
+    ds.manager.list(path, function(data) {
       var rendered = ds.templates.listing.dashboard_list(data);
       $("#ds-dashboard-main-listing").html(rendered);
     });

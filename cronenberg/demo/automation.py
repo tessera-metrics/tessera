@@ -34,22 +34,22 @@ def demo_automation_overview():
                                       Row(items=[
                                           Cell(span=3, style=DashboardItem.Style.WELL, align='center',
                                                items=SingleStat(title='Raw Events Processed',
-                                                                query_name='total_events_processed',
+                                                                query='total_events_processed',
                                                                 format=',.0f',
                                                                 transform='sum')),
                                           Cell(span=3, style=DashboardItem.Style.WELL, align='center',
                                                items=SingleStat(title='Triggers Processed',
-                                                                query_name='total_triggers_processed',
+                                                                query='total_triggers_processed',
                                                                 format=',.0f',
                                                                 transform='sum')),
                                           Cell(span=3, style=DashboardItem.Style.WELL, align='center',
                                                items=SingleStat(title='Triggers Satisifed',
-                                                                query_name='total_triggers_satisfied',
+                                                                query='total_triggers_satisfied',
                                                                 format=',.0f',
                                                                 transform='sum')),
                                           Cell(span=3, style=DashboardItem.Style.WELL, align='center',
                                                items=SingleStat(title='Pushes Sent',
-                                                                query_name='total_pushes_sent',
+                                                                query='total_pushes_sent',
                                                                 format=',.0f',
                                                                 transform='sum'))
                                       ])
@@ -57,7 +57,7 @@ def demo_automation_overview():
                         Section(layout=Section.Layout.NONE,
                                 items=[
                                     StackedAreaChart(height=4,
-                                                     query_name='total_push_rate')
+                                                     query='total_push_rate')
                                 ]),
                         Section(layout=Section.Layout.FIXED,
                                 items=[
@@ -66,80 +66,80 @@ def demo_automation_overview():
                                           Cell(span=4,
                                                items=JumbotronSingleStat(height=4,
                                                                          title='Average Push Rate',
-                                                                         query_name='total_push_rate',
+                                                                         query='total_push_rate',
                                                                          transform='mean',
                                                                          units=' /sec'
                                                                      )),
                                           Cell(span=8,
                                                items=StandardTimeSeries(height=4,
-                                                                        query_name='total_push_rate'))
+                                                                        query='total_push_rate'))
                                       ])
                                       ,Row(items=[
                                           Cell(span=2, offset=2,
                                                items=SingleStat(title='Mean End to End Delivery Time',
-                                                                query_name='end_to_end',
+                                                                query='end_to_end',
                                                                 units=' ms',
                                                                 format=',.0f',
                                                                 transform='mean')),
-                                          Cell(span=8, items=SimpleTimeSeries(query_name='end_to_end'))
+                                          Cell(span=8, items=SimpleTimeSeries(query='end_to_end'))
                                       ])
                                       ,Heading('Trigger Details', description='Breakdown between immediate and historical')
                                       ,Separator()
                                       ,Row(items=[
                                           Cell(span=2,
                                                items=SingleStat(title='Immediate Triggers Processed',
-                                                                query_name='immediate_triggers',
+                                                                query='immediate_triggers',
                                                                 units='/sec',
                                                                 format=',.2f')),
                                           Cell(span=2,
                                                items=SingleStat(title='Immediate Triggers Satisfied',
-                                                                query_name='immediate_triggers',
+                                                                query='immediate_triggers',
                                                                 units='/sec',
                                                                 index=3,
                                                                 format=',.2f')),
                                           Cell(span=8,
-                                               items=SimpleTimeSeries(query_name='immediate_triggers'))
+                                               items=SimpleTimeSeries(query='immediate_triggers'))
                                       ])
                                       ,Row(items=[
                                           Cell(span=2,
                                                items=SingleStat(title='Historical Triggers Processed',
-                                                                query_name='historical_triggers',
+                                                                query='historical_triggers',
                                                                 units='/sec',
                                                                 format=',.2f')),
                                           Cell(span=2,
                                                items=SingleStat(title='Historical Triggers Satisfied',
-                                                                query_name='historical_triggers',
+                                                                query='historical_triggers',
                                                                 units='/sec',
                                                                 index=3,
                                                                 format=',.2f')),
                                           Cell(span=8,
-                                               items=SimpleTimeSeries(query_name='historical_triggers'))
+                                               items=SimpleTimeSeries(query='historical_triggers'))
                                       ])
                                       ,Row(items=[
                                           Cell(span=2, offset=2,
                                                items=SingleStat(title='Mean Device Opens Rate',
-                                                                query_name='device_event_rate',
+                                                                query='device_event_rate',
                                                                 units='/sec',
                                                                 format=',.0f')),
                                           Cell(span=8,
-                                               items=SimpleTimeSeries(query_name='device_event_rate'))
+                                               items=SimpleTimeSeries(query='device_event_rate'))
                                       ])
                                       ,Heading('API')
                                       ,Separator()
                                       ,Row(items=[
                                           Cell(span=2,
                                                items=SingleStat(title='Mean API Response Time',
-                                                                query_name='api_latency',
+                                                                query='api_latency',
                                                                 units=' ms',
                                                                 format=',.2f')),
                                           Cell(span=2,
                                                items=SingleStat(title='API Requests',
-                                                                query_name='api_rate',
+                                                                query='api_rate',
                                                                 index=1,
                                                                 format=',.0f',
                                                                 transform='sum')),
                                           Cell(span=8,
-                                               items=SimpleTimeSeries(query_name='api_rate'))
+                                               items=SimpleTimeSeries(query='api_rate'))
                                       ])
                                 ])
                     ]))))

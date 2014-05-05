@@ -55,8 +55,9 @@ class DashboardItem(object):
         CALLOUT_WARNING = 'callout_warning'
         CALLOUT_DANGER  = 'callout_danger'
 
-    def __init__(self, item_type, css_class='', style=Style.PLAIN, height=None, **kwargs):
+    def __init__(self, item_type, css_class='', style=Style.PLAIN, height=None, item_id=None, **kwargs):
         self.item_type = item_type
+        self.item_id = item_id
         self.css_class = css_class
         self.height = height
         self.style = style
@@ -116,9 +117,9 @@ class Presentation(DashboardItem):
         LAST   = 'last'
         FIRST  = 'first'
 
-    def __init__(self, query_name, thresholds=None, **kwargs):
+    def __init__(self, query, thresholds=None, **kwargs):
         super(Presentation, self).__init__(**kwargs)
-        self.query_name = query_name
+        self.query = query
         self.thresholds = thresholds
 
 
@@ -130,8 +131,8 @@ class SingleStat(Presentation):
     """
     JS class: ds.models.singlestat
     """
-    def __init__(self, title, query_name, units='', format=',.3f', index=False, transform=Presentation.Transform.MEAN, **kwargs):
-        super(SingleStat, self).__init__(query_name=query_name,
+    def __init__(self, title, query, units='', format=',.3f', index=False, transform=Presentation.Transform.MEAN, **kwargs):
+        super(SingleStat, self).__init__(query=query,
                                          item_type=kwargs.get('item_type', 'singlestat'),
                                          **kwargs)
         self.title = title
@@ -168,8 +169,8 @@ class SummationTable(TablePresentation):
     """
     JS class: ds.models.summation_table
     """
-    def __init__(self, query_name, format=',.3f', striped=False, **kwargs):
-        super(SummationTable, self).__init__(query_name=query_name,
+    def __init__(self, query, format=',.3f', striped=False, **kwargs):
+        super(SummationTable, self).__init__(query=query,
                                              item_type='summation_table',
                                              **kwargs)
         self.format = format
@@ -214,8 +215,8 @@ class SimpleTimeSeries(ChartPresentation):
 
     JS class: ds.models.simple_time_series
     """
-    def __init__(self, query_name, filled=False, **kwargs):
-        super(SimpleTimeSeries, self).__init__(query_name=query_name,
+    def __init__(self, query, filled=False, **kwargs):
+        super(SimpleTimeSeries, self).__init__(query=query,
                                                item_type='simple_time_series',
                                                **kwargs)
         self.filled = filled
@@ -232,8 +233,8 @@ class SingleGraph(ChartPresentation):
 
     JS class: ds.models.single_graph
     """
-    def __init__(self, query_name, format=',.1s', transform=Presentation.Transform.MEAN, **kwargs):
-        super(SingleGraph, self).__init__(query_name=query_name,
+    def __init__(self, query, format=',.1s', transform=Presentation.Transform.MEAN, **kwargs):
+        super(SingleGraph, self).__init__(query=query,
                                           item_type=kwargs.get('item_type', 'singlegraph'),
                                           **kwargs)
         self.format = format
@@ -250,8 +251,8 @@ class StandardTimeSeries(ChartPresentation):
 
     JS class: ds.models.standard_time_series
     """
-    def __init__(self, query_name, **kwargs):
-        super(StandardTimeSeries, self).__init__(query_name=query_name,
+    def __init__(self, query, **kwargs):
+        super(StandardTimeSeries, self).__init__(query=query,
                                                  item_type='standard_time_series',
                                                  **kwargs)
     @classmethod
@@ -265,8 +266,8 @@ class StackedAreaChart(ChartPresentation):
 
     JS class: ds.models.stacked_area_chart
     """
-    def __init__(self, query_name, **kwargs):
-        super(StackedAreaChart, self).__init__(query_name=query_name,
+    def __init__(self, query, **kwargs):
+        super(StackedAreaChart, self).__init__(query=query,
                                                item_type='stacked_area_chart',
                                                **kwargs)
     @classmethod

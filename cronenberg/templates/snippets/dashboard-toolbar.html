@@ -13,7 +13,7 @@
         <button type="button" id="ds-delete-button"
                 class="btn btn-danger"
                 data-toggle="tooltip"
-                onclick="cronenberg.dashboards.delete_current()"
+                onclick="ds.manager.delete_current()"
                 title="Delete this dashboard">
           <i class="fa fa-trash-o"></i>
         </button>
@@ -46,7 +46,7 @@
     };
 
     window.toggle_interactive_charts = function() {
-        if (cronenberg.dashboards.toggle_interactive_charts()) {
+        if (ds.manager.toggle_interactive_charts()) {
             $('#ds-toggle-interactive-button').removeClass('active');
         } else {
             $('#ds-toggle-interactive-button').addClass('active');
