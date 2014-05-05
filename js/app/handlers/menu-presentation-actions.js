@@ -1,5 +1,4 @@
-ds.manager.onDashboardLoaded(function(d) {
-  $(document).on('click', 'ul.ds-action-menu li', function(event) {
+$(document).on('click', 'ul.ds-action-menu li', function(event) {
           var presentation_id = $(this).parent().parent().parent().parent().parent()[0].id;
           var item = ds.manager.current.dashboard.get_item(presentation_id);
         console.log(item);
@@ -17,5 +16,4 @@ ds.manager.onDashboardLoaded(function(d) {
               window.open(image_url);
               break;
           }
-      });
-  });
+});
