@@ -22,8 +22,8 @@ cronenberg.charts =
        ----------------------------------------------------------------------------- */
 
     self.get_palette = function(name) {
-      var palette = cronenberg.charts.colors[name];
-      return palette || cronenberg.charts.colors[cronenberg.charts.DEFAULT_PALETTE];
+      var palette = self.colors[name];
+      return palette || self.colors[self.DEFAULT_PALETTE];
     }
 
     self.simple_line_chart_url = function(item, options_) {
@@ -37,7 +37,7 @@ cronenberg.charts =
             .setQuery('hideLegend', 'true')
             .setQuery('hideAxes', 'true')
             .setQuery('margin', '0')
-            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
+            .setQuery('colorList', self.get_palette(item.options.palette).join())
             .setQuery('title', options.showTitle ? item.title : '')
             .href();
         return png_url;
@@ -55,7 +55,7 @@ cronenberg.charts =
             .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
             .setQuery('hideLegend', options.hideLegend || 'false')
             .setQuery('hideAxes', options.hideAxes || 'false')
-            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
+            .setQuery('colorList', self.get_palette(item.options.palette).join())
             .setQuery('vtitle', item.options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
             .href();
@@ -76,7 +76,7 @@ cronenberg.charts =
             .setQuery('hideAxes', 'true')
             .setQuery('areaMode', 'stacked')
             .setQuery('margin', '0')
-            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
+            .setQuery('colorList', self.get_palette(item.options.palette).join())
             .href();
         return png_url;
     }
@@ -94,7 +94,7 @@ cronenberg.charts =
             .setQuery('hideLegend', options.hideLegend || 'false')
             .setQuery('hideAxes', options.hideAxes || 'false')
             .setQuery('areaMode', 'stacked')
-            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
+            .setQuery('colorList', self.get_palette(item.options.palette).join())
             .setQuery('vtitle', item.options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
             .href();
@@ -105,14 +105,14 @@ cronenberg.charts =
         switch (item.item_type) {
         case 'simple_time_series':
             return item.filled
-                ? cronenberg.charts.simple_area_chart_url(item, options)
-                : cronenberg.charts.simple_line_chart_url(item, options);
+                ? self.simple_area_chart_url(item, options)
+                : self.simple_line_chart_url(item, options);
         case 'standard_time_series':
-            return cronenberg.charts.standard_line_chart_url(item, options);
+            return self.standard_line_chart_url(item, options);
         case 'stacked_area_chart':
-            return cronenberg.charts.stacked_area_chart_url(item, options);
+            return self.stacked_area_chart_url(item, options);
         case 'singlegraph':
-            return cronenberg.charts.simple_area_chart_url(item, options);
+            return self.simple_area_chart_url(item, options);
         }
         return undefined;
     }
@@ -122,7 +122,7 @@ cronenberg.charts =
         var composer_url = URI(item.query.url())
             .filename('composer')
             .removeQuery('format')
-            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
+            .setQuery('colorList', self.get_palette(item.options.palette).join())
             .setQuery('vtitle', item.options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '');
         if (item.item_type === 'stacked_area_chart') {
@@ -154,7 +154,7 @@ cronenberg.charts =
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
-                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
+                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
                 .margin(options.margin || { top: 0, right: 16, bottom: 0, left: 40 })
                 .width(width)
                 .height(height);
@@ -187,7 +187,7 @@ cronenberg.charts =
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
-                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
+                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
                 .margin(options.margin || { top: 12, right: 16, bottom: 16, left: 40 })
                 .width(width)
                 .height(height);
@@ -223,7 +223,7 @@ cronenberg.charts =
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
-                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
+                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
                 .style('stack')
                 .width(width)
                 .height(height)
@@ -262,7 +262,7 @@ cronenberg.charts =
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
-                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
+                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
                 .style(options.style || 'stack')
                 .width(width)
                 .height(height)
@@ -308,7 +308,7 @@ cronenberg.charts =
                x: function(d) { return d.key; },
                y: function(d) { return d.y; }
                }) */
-                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
+                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
                 .labelType(options.labelType || "percent")
                 .donut(options.donut !== false)
                 .donutRatio(options.donutRatio || 0.3)
