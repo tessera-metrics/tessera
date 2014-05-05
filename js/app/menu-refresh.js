@@ -1,8 +1,8 @@
 cronenberg.dashboards.onDashboardLoaded(function(d) {
-  $("button.ds-refresh-button").click(function(e) {
+  $(document).on('click', 'button.ds-refresh-button', function(e) {
     cronenberg.dashboards.refresh();
   });
-  $("ul.ds-refresh-menu li").click(function(e) {
+  $(document).on('click', 'ul.ds-refresh-menu li', function(e) {
     var target = $(e.target).parent();
     if (target.attr('data-ds-range')) {
       var range = target.attr('data-ds-range');

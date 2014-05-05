@@ -1,5 +1,5 @@
 cronenberg.dashboards.onDashboardLoaded(function(d) {
-      $('ul.ds-action-menu li').click(function(event) {
+  $(document).on('click', 'ul.ds-action-menu li', function(event) {
           var presentation_id = $(this).parent().parent().parent().parent().parent()[0].id;
           var item = cronenberg.dashboards.current.dashboard.get_item(presentation_id);
         console.log(item);

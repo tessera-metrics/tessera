@@ -1,5 +1,5 @@
 cronenberg.dashboards.onDashboardLoaded(function(d) {
-  $("ul.ds-rejigger-menu li").on('click', 'a', function(e) {
+  $(document).on('click', 'ul.ds-rejigger-menu li a', function(e) {
     var target = $(e.target).parent();
     var cols = target.attr('data-ds-cols');
     var section_type = target.attr('data-ds-section-type');
