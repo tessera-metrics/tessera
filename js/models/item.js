@@ -15,7 +15,7 @@ ds.models.item = function(data) {
   if (data) {
     item_type = data.item_type;
     item_id = data.item_id;
-    query = data.query;
+    query = data.query || {};
     css_class = data.css_class;
     height = data.height;
     style = data.style;
@@ -29,7 +29,7 @@ ds.models.item = function(data) {
   Object.defineProperty(self, 'interactive', {get: function() { return interactive; }});
   Object.defineProperty(self, 'dashboard', {get: function() { return dashboard; }});
   Object.defineProperty(self, 'query', {get: function() {
-                                          if (typeof(query) == 'string' && self.dashboard) {
+                                          if (typeof(query) === 'string' && self.dashboard) {
                                             return self.dashboard.definition.queries[query];
                                           } else {
                                             return query;
@@ -53,8 +53,7 @@ ds.models.item = function(data) {
     var template = ds.templates.models[item_type];
     if (template) {
       if (template.dataHandler && query) {
-        var definition = ds.manager.current.dashboard.definition;
-        definition.queries[query].on_load(function(q) {
+        self.query.on_load(function(q) {
           template.dataHandler(q, parent);
         });
       }

@@ -176,7 +176,9 @@ def api_dashboard_create():
     mgr.store_dashboard(dashboard)
     href = '/api/dashboard/{0}'.format(dashboard.id)
     return _jsonify({ 'ok' : True,
-                      'dashboard_href' : href },
+                      'dashboard_href' : href,
+                      # TODO: should use normalized method for this
+                      'view_href' : '/dashboards/{0}/{1}'.format(dashboard.id, inflection.parameterize(dashboard.title)) },
                     status=201,
                     headers = { 'Location' : href })
 
@@ -374,6 +376,16 @@ def ui_dashboard_list():
                             breadcrumbs=[('Home', '/'),
                                          (title, '')])
 
+@app.route('/dashboards/create/')
+def ui_dashboard_create():
+    title = 'New Dashboard'
+    return _render_template('dashboard-create.html',
+                            title=title,
+                            breadcrumbs=[('Home', '/'),
+                                         ('Dashboards', '/dashboards'),
+                                         (title, '')])
+
+
 @app.route('/dashboards/tagged/<tag>')
 def ui_dashboard_list_tagged(tag):
     title = 'Dashboards'
@@ -384,7 +396,7 @@ def ui_dashboard_list_tagged(tag):
                                          (title, '')])
 
 
-@app.route('/dashboards/<id>')
+@app.route('/dashboards/<id>/')
 def ui_dashboard(id):
     dashboard = database.Dashboard.query.get_or_404(id)
     return _render_client_side_dashboard(dashboard)
