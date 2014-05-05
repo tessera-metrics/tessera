@@ -5,12 +5,21 @@ $(document).ready(function() {
   });
 });
 
+$(document).ready(function() {
+    $('#ds-dashboard-create-form').bootstrapValidator();
+});
+
+
 $(document).on('click', '#ds-new-dashboard-create', function(e) {
   var title = $('#ds-dashboard-title')[0].value;
   var category = $('#ds-dashboard-category')[0].value;
   var summary = $('#ds-dashboard-summary')[0].value;
   var description = $('#ds-dashboard-description')[0].value;
   var tags = $('#ds-dashboard-tags').tagsManager('tags');
+
+  if (!$('#ds-dashboard-create-form').data('bootstrapValidator').validate().isValid()) {
+    return;
+  }
 
   var dashboard = ds.models.dashboard({
     title: title,
