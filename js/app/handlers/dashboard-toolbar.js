@@ -1,3 +1,7 @@
+cronenberg.onEnterEditMode(function() {
+  $(".ds-dashboard-info-edit-panel").html(ds.templates.edit.info_panel(ds.manager.current.dashboard));
+});
+
 $(document).ready(function() {
 
   /**
