@@ -1,25 +1,9 @@
 cronenberg.DashboardHolder = function(url_, element_) {
+  "use strict";
+
     this.url = url_;
     this.dashboard = null;
     this.element = element_;
-    this.elementToItemMap = {};
-
-    this.findPresentationForElement = function(element_id) {
-        var self = this;
-        return self.elementToItemMap[element_id];
-    };
-
-    this.findQueryForElement = function(element_id) {
-        var self = this;
-        var presentation = self.findPresentationForElement(element_id);
-        return self.findQueryForPresentation(presentation);
-    };
-
-    this.findQueryForPresentation = function(presentation) {
-      var self = this;
-      var query = self.dashboard.definition.queries[presentation.query];
-      return query;
-    };
 
     this.setRange = function(from, until) {
         var self = this;
@@ -35,6 +19,8 @@ cronenberg.DashboardHolder = function(url_, element_) {
 };
 
 cronenberg.DashboardManager = function() {
+  "use strict";
+
     this.current = null;
 
     /**
@@ -81,13 +67,9 @@ cronenberg.DashboardManager = function() {
        * objects.
      */
     this._prep_items = function(dashboard, holder, interactive) {
-      var id = 0;
-
       dashboard.visit(function(item) {
         if (!item.item_type)
           return;
-        item.set_item_id('d' + id++);
-        holder.elementToItemMap[item.item_id] = item;
         item.set_interactive(interactive);
         // Now that we have a proper client side model, this logic
         // should move to the model objects
@@ -117,7 +99,7 @@ cronenberg.DashboardManager = function() {
       if (context.until) {
         url.setQuery('until', context.until);
       }
-        for (key in params) {
+        for (var key in params) {
             if (key.indexOf('p[') == 0) {
                 var name = key.slice(2, -1);
                 variables[name] = params[key];

@@ -14,6 +14,7 @@ ds.models.dashboard = function(data) {
     , href
     , view_href
     , definition_href
+    , _index = {}
     , self = {};
 
   if (data) {
@@ -57,10 +58,27 @@ ds.models.dashboard = function(data) {
   Object.defineProperty(self, 'imported_from', {get: function() { return imported_from; }});
   Object.defineProperty(self, 'tags', {get: function() { return tags; }});
   Object.defineProperty(self, 'definition', {get: function() { return definition; }});
+  Object.defineProperty(self, 'index', {get: function() { return _index; }});
 
   /**
    * Operations
    */
+
+  self._build_index = function() {
+    var id = 0;
+    self.visit(function(item) {
+      if (item.is_dashboard_item) {
+        item.set_item_id('d' + id++);
+        _index[item.item_id] = item;
+        item.set_dashboard(self);
+      }
+    });
+    return self;
+  };
+
+  self.get_item = function(id) {
+    return _index[id];
+  }
 
   self.render_templates = function(context) {
     description = ds.render_template(description, context);
@@ -146,6 +164,10 @@ ds.models.dashboard = function(data) {
      view_href: view_href,
      definition_href: definition_href
     }
+  }
+
+  if (definition) {
+    self._build_index();
   }
 
   return self;
