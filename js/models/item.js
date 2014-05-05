@@ -53,7 +53,7 @@ ds.models.item = function(data) {
     var template = ds.templates.models[item_type];
     if (template) {
       if (template.dataHandler && query) {
-        var definition = cronenberg.dashboards.current.dashboard.definition;
+        var definition = ds.manager.current.dashboard.definition;
         definition.queries[query].on_load(function(q) {
           template.dataHandler(q, parent);
         });

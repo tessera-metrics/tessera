@@ -18,12 +18,12 @@
   </ul>
 
 <script>
-cronenberg.dashboards.onDashboardLoaded(function() {
+ds.manager.onDashboardLoaded(function() {
     var from = URI(window.location).search(true).from || '-3h';
     $('[data-ds-range]').removeClass('active');
     $('[data-ds-range=' + from + ']').addClass('active');
 });
 $(".ds-recent-range-picker").click(function(e) {
-    cronenberg.dashboards.set_time_range($(e.target).attr('data-ds-range'), null);
+    ds.manager.set_time_range($(e.target).attr('data-ds-range'), null);
 });
 </script>

@@ -18,7 +18,7 @@ cronenberg.DashboardHolder = function(url_, element_) {
     };
 };
 
-cronenberg.dashboards =
+ds.manager =
   (function() {
     "use strict";
 
