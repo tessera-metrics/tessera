@@ -42,15 +42,6 @@ ds.manager =
     }
 
     /**
-     * Register an event handler for processing the list of dashboards
-     * once they're loaded.
-     */
-    self.onDashboardListLoaded = function(handler) {
-        bean.on(self, cronenberg.events.DASHBOARD_LIST_LOADED, handler);
-        return self;
-    }
-
-    /**
      * List all dashboards.
      */
     self.list = function(path, handler) {
@@ -60,7 +51,6 @@ ds.manager =
             url: path
         }).done(function(data) {
             handler(data);
-            bean.fire(self, cronenberg.events.DASHBOARD_LIST_LOADED, data);
         });
     }
 

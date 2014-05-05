@@ -1,4 +1,3 @@
-ds.manager.onDashboardLoaded(function(d) {
   $(document).on('click', 'ul.ds-rejigger-menu li a', function(e) {
     var target = $(e.target).parent();
     var cols = target.attr('data-ds-cols');
@@ -11,4 +10,3 @@ ds.manager.onDashboardLoaded(function(d) {
 
     ds.manager.change_layout(layout);
   });
-});

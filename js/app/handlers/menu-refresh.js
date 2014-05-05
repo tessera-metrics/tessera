@@ -1,7 +1,7 @@
-ds.manager.onDashboardLoaded(function(d) {
   $(document).on('click', 'button.ds-refresh-button', function(e) {
     ds.manager.refresh();
   });
+
   $(document).on('click', 'ul.ds-refresh-menu li', function(e) {
     var target = $(e.target).parent();
     if (target.attr('data-ds-range')) {
@@ -16,4 +16,3 @@ ds.manager.onDashboardLoaded(function(d) {
       $("ul.ds-refresh-menu li[data-ds-interval=" + interval + "]").addClass('active');
     }
   });
-});
