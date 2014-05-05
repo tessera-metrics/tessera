@@ -42,14 +42,14 @@ def demo_gallery_dashboard():
                                                              + "Use like a [sparkline](http://en.wikipedia.org/wiki/Sparkline), "
                                                             + "for displaying overall trends in a high level view.")),
                                          Cell(span=9,
-                                              items=[ SimpleTimeSeries(query_name='single1'), SimpleTimeSeries(query_name='single1', title='Filled', filled=True) ])
+                                              items=[ SimpleTimeSeries(query='single1'), SimpleTimeSeries(query='single1', title='Filled', filled=True) ])
                                      ]),
                                      Row(items=[
                                          Cell(span=3,
                                               items=Markdown(text="### Standard Time Series\n"
                                                              + "Your basic multi-series line chart, with some nice interactive features.")),
                                          Cell(span=9,
-                                              items=StandardTimeSeries(query_name='positive', options={
+                                              items=StandardTimeSeries(query='positive', options={
                                                   'margin' : margin,
                                                   'yAxisFormat' : ',.1s'
                                               }))
@@ -62,12 +62,12 @@ def demo_gallery_dashboard():
                                                              + "a percentage view.")),
                                          Cell(span=9,
                                               items=[
-                                                  StackedAreaChart(query_name='positive', options={
+                                                  StackedAreaChart(query='positive', options={
                                                       'margin' : margin,
                                                       'yAxisFormat' : ',.1s'
                                                   }),
                                                   Separator(),
-                                                  StackedAreaChart(query_name='multiple', height=3, title='Stream Graph', options={
+                                                  StackedAreaChart(query='multiple', height=3, title='Stream Graph', options={
                                                       'style' : 'stream',
                                                       'margin' : margin,
                                                       'yAxisFormat' : ',.1s'
@@ -78,11 +78,11 @@ def demo_gallery_dashboard():
                                               items=Markdown(text='### Single Graph\n'
                                                              + 'Shamelessly stolen from [Tasseo](https://github.com/obfuscurity/tasseo).')),
                                          Cell(span=3,
-                                              items=SingleGraph(height=1, query_name='single1')),
+                                              items=SingleGraph(height=1, query='single1')),
                                          Cell(span=3,
-                                              items=SingleGraph(height=1, query_name='single2')),
+                                              items=SingleGraph(height=1, query='single2')),
                                          Cell(span=3,
-                                              items=SingleGraph(height=1, query_name='multiple', index=2))
+                                              items=SingleGraph(height=1, query='multiple', index=2))
                                      ])
                                  ]),
                         Section(layout=Section.Layout.NONE,
@@ -90,7 +90,7 @@ def demo_gallery_dashboard():
                                 items=[
                                     Heading(text='Breakout!', description="Items don't have to be confined to the fixed width grid"),
                                     Separator(),
-                                    StackedAreaChart(query_name='positive2', height=5, options={
+                                    StackedAreaChart(query='positive2', height=5, options={
                                         'style' : 'stream',
                                         'margin' : margin,
                                         'yAxisFormat' : ',.1s'
@@ -112,16 +112,16 @@ def demo_gallery_dashboard():
                                                              + "A single stat presentation shows one of the summation values that are "
                                                              + "calculated for each data series, along with a title and optionally units. ")),
                                          Cell(span=2,
-                                              items=SingleStat(query_name='single1',
+                                              items=SingleStat(query='single1',
                                                                title='Sum, Left Justified',
                                                                transform='sum')),
                                          Cell(span=2, align='right',
-                                              items=SingleStat(query_name='single1',
+                                              items=SingleStat(query='single1',
                                                                title='Min, Right Justified',
                                                                units='units',
                                                                transform='min')),
                                          Cell(span=2, align='center',
-                                              items=SingleStat(query_name='single1',
+                                              items=SingleStat(query='single1',
                                                                title='Max, Centered',
                                                                format=',.0f',
                                                                units='/min',
@@ -132,7 +132,7 @@ def demo_gallery_dashboard():
                                               items=Markdown(text="### Jumbotron Single Stat\n"
                                                              + "A larger single stat suitable for big displays")),
                                          Cell(span=5,
-                                              items=JumbotronSingleStat(query_name='single1',
+                                              items=JumbotronSingleStat(query='single1',
                                                                         height=3,
                                                                         format=',.2f',
                                                                         units='/sec',
@@ -146,7 +146,7 @@ def demo_gallery_dashboard():
                                                              + "values calculated. A summation table shows one or more of those values "
                                                              + "for each data series in the query." )),
                                          Cell(span=9,
-                                              items=SummationTable(query_name='positive'))
+                                              items=SummationTable(query='positive'))
                                      ]),
                                      Row(items=[
                                          Cell(span=3,
@@ -182,32 +182,32 @@ def demo_gallery_dashboard():
                                          Cell(span=3,
                                               items=Markdown(text="Key metrics can be **emphasized** for attention in a variety of styles.")),
                                          Cell(span=3, style=DashboardItem.Style.WELL, align='center',
-                                              items=SingleStat(query_name='single1',
+                                              items=SingleStat(query='single1',
                                                                title='Emphasized, Well',
                                                             transform='mean')),
                                          Cell(span=3, style=DashboardItem.Style.CALLOUT_NEUTRAL, align='center',
-                                              items=SingleStat(query_name='single1',
+                                              items=SingleStat(query='single1',
                                                                title='Neutral Callout',
                                                                transform='mean')),
                                          Cell(span=3, style=DashboardItem.Style.CALLOUT_INFO, align='center',
-                                              items=SingleStat(query_name='single1',
+                                              items=SingleStat(query='single1',
                                                                title='Information Callout',
                                                                transform='mean'))
                                      ]),
                                      Row(items=[
                                          Cell(span=3, offset=3, style=DashboardItem.Style.CALLOUT_SUCCESS, align='center',
-                                              items=SingleStat(query_name='single1',
+                                              items=SingleStat(query='single1',
                                                                title='Success Callout',
                                                                transform='mean')),
                                          Cell(span=3,
-                                              items=SingleStat(query_name='single2',
+                                              items=SingleStat(query='single2',
                                                                title='Warning Threshold',
                                                                transform='mean',
                                                                units='/sec',
                                                                format=',.2f',
                                                                css_class="ds-warning bs-callout bs-callout-warning")),
                                          Cell(span=3,
-                                              items=SingleStat(query_name='single2',
+                                              items=SingleStat(query='single2',
                                                                title='Danger Threshold',
                                                                transform='max',
                                                                units='ms',
@@ -218,7 +218,7 @@ def demo_gallery_dashboard():
                                          Cell(span=3,
                                               items=Markdown(text="Jumbotron singlestats with emphasis can get a lot of attention.")),
                                          Cell(span=5,style=DashboardItem.Style.CALLOUT_DANGER,
-                                              items=JumbotronSingleStat(query_name='single1',
+                                              items=JumbotronSingleStat(query='single1',
                                                                         height=2,
                                                                         format=',.2f',
                                                                         units='/sec',
@@ -238,13 +238,13 @@ def demo_gallery_dashboard():
                                               items=Markdown(text="### Donuts & Pies\n"
                                                              + "Often abused, occasionally useful, always tasty!")),
                                          Cell(span=4,
-                                              items=DonutChart(query_name='positive', height=3, title='Donut Chart', options={
+                                              items=DonutChart(query='positive', height=3, title='Donut Chart', options={
                                                   'margin' : {
                                                       'top' : 0, 'left' : 0, 'bottom' : 12, 'right' : 0
                                                   }
                                               })),
                                          Cell(span=5,
-                                              items=DonutChart(query_name='positive', title='Pie Chart', height=3, options={
+                                              items=DonutChart(query='positive', title='Pie Chart', height=3, options={
                                                   'donut': False,
                                                   'labelType' : 'key',
                                                   'palette': 'applegreen'

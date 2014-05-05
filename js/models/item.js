@@ -2,36 +2,44 @@ ds.models.item = function(data) {
   "use strict";
 
   var item_type
-    , query_name
+    , item_id
+    , query
     , css_class
-    , element_id
     , height
     , style
-    , interactive // TODO: hack
+    , interactive = false // TODO: hack
     , parent
+    , dashboard
     , self = {};
 
   if (data) {
     item_type = data.item_type;
-    query_name = data.query_name;
+    item_id = data.item_id;
+    query = data.query;
     css_class = data.css_class;
-    element_id = data.element_id;
     height = data.height;
     style = data.style;
   }
 
   Object.defineProperty(self, 'item_type', {get: function() { return item_type; }});
-  Object.defineProperty(self, 'query_name', {get: function() { return query_name; }});
+  Object.defineProperty(self, 'item_id', {get: function() { return item_id; }});
   Object.defineProperty(self, 'css_class', {get: function() { return css_class; }});
-  Object.defineProperty(self, 'element_id', {get: function() { return element_id; }});
   Object.defineProperty(self, 'height', {get: function() { return height; }});
   Object.defineProperty(self, 'style', {get: function() { return style; }});
-  Object.defineProperty(self, 'interactive', {get: function() { return interactive; }}); // TODO: hack
+  Object.defineProperty(self, 'interactive', {get: function() { return interactive; }});
+  Object.defineProperty(self, 'dashboard', {get: function() { return dashboard; }});
+  Object.defineProperty(self, 'query', {get: function() {
+                                          if (typeof(query) == 'string' && self.dashboard) {
+                                            return self.dashboard.definition.queries[query];
+                                          } else {
+                                            return query;
+                                          }
+                                        }});
 
   self.rebind = function(target) {
     parent = target;
-    d3.rebind(target, self, 'set_type', 'set_query_name', 'set_css_class', 'set_element_id','set_height', 'set_style', 'set_interactive', 'render', 'flatten');
-    ds.rebind_properties(target, self, 'item_type', 'query_name', 'css_class', 'element_id', 'height', 'style', 'interactive');
+    d3.rebind(target, self, 'set_type', 'set_query', 'set_css_class', 'set_item_id','set_height', 'set_style', 'set_interactive', 'set_dashboard', 'render', 'flatten');
+    ds.rebind_properties(target, self, 'item_type', 'query', 'css_class', 'item_id', 'height', 'style', 'interactive', 'dashboard');
     Object.defineProperty(target, '_base', {value: self});
     Object.defineProperty(target, 'is_dashboard_item', {value: true});
     return self;
@@ -44,10 +52,10 @@ ds.models.item = function(data) {
   self.render = function() {
     var template = ds.templates.models[item_type];
     if (template) {
-      if (template.dataHandler && query_name) {
-        var definition = cronenberg.dashboards.current.dashboard.definition;
-        definition.queries[query_name].on_load(function(query) {
-          template.dataHandler(query, parent);
+      if (template.dataHandler && query) {
+        var definition = ds.manager.current.dashboard.definition;
+        definition.queries[query].on_load(function(q) {
+          template.dataHandler(q, parent);
         });
       }
       return template({item: parent});
@@ -80,8 +88,8 @@ ds.models.item = function(data) {
     return self;
   }
 
-  self.set_query_name = function(_) {
-    query_name = _;
+  self.set_query = function(_) {
+    query = _;
     return self;
   }
 
@@ -90,8 +98,8 @@ ds.models.item = function(data) {
     return self;
   }
 
-  self.set_element_id = function(_) {
-    element_id = _;
+  self.set_item_id = function(_) {
+    item_id = _;
     return self;
   }
 
@@ -110,12 +118,18 @@ ds.models.item = function(data) {
     return self;
   }
 
+  self.set_dashboard = function(_) {
+    dashboard = _;
+    return self;
+  }
+
   self.toJSON = function(data_) {
     var data = data_ || {};
     data.item_type = item_type;
-    data.query_name = query_name;
+    data.item_id = item_id;
+    // TODO: return query.toJSON() when server side supports it
+    data.query = typeof(query) === 'string' ? query : query.name;
     data.css_class = css_class;
-    data.element_id = element_id;
     data.height = height;
     data.style = style;
     return data;

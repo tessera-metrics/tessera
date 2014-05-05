@@ -40,7 +40,7 @@ def _render_pybars_template(template, variables):
 def _jsonify(data, status=200, headers=None):
     response = flask.Response(status=status,
                               mimetype="application/json",
-                              response=json.dumps(data, cls=EntityEncoder))
+                              response=json.dumps(data, cls=EntityEncoder, sort_keys=True))
     if isinstance(headers, dict):
         for key, value in headers.items():
             response.headers[key] = str(value)

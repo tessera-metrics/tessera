@@ -1,4 +1,4 @@
-ds.models.data.Query = function(data) {
+ds.models.data.Query = function(data_) {
   "use strict";
 
   var targets = []
@@ -8,15 +8,15 @@ ds.models.data.Query = function(data) {
     , options
     , self = {};
 
-  if (data) {
-    if (data.targets) {
-      if (data.targets instanceof Array) {
-        targets = data.targets;
+  if (data_) {
+    if (data_.targets) {
+      if (data_.targets instanceof Array) {
+        targets = data_.targets;
       } else {
-        targets = [data.targets];
+        targets = [data_.targets];
       }
     }
-    name = data.name;
+    name = data_.name;
   }
 
   self.DEFAULT_FROM_TIME = '-3h';
@@ -26,6 +26,7 @@ ds.models.data.Query = function(data) {
   Object.defineProperty(self, 'data', {get: function() { return data; }});
   Object.defineProperty(self, 'summation', {get: function() { return summation; }});
   Object.defineProperty(self, 'options', {get: function() { return options; }});
+  Object.defineProperty(self, 'is_query', {value: true});
 
   self.render_templates = function(context) {
     targets = targets.map(function(t) {
@@ -101,7 +102,7 @@ ds.models.data.Query = function(data) {
   self._process = function(response_data) {
     summation = ds.models.data.Summation();
     data = response_data.map(function(series) {
-             series.summation = ds.models.data.Summation(series);
+             series.summation = ds.models.data.Summation(series).toJSON();
              series.key = series.target;
              series.values = series.datapoints;
              summation.merge(series.summation);
@@ -131,7 +132,7 @@ ds.models.data.Query = function(data) {
       name: name,
       targets: targets,
       data: data,
-      summation: summation
+      summation: summation.toJSON()
     }
   }
 

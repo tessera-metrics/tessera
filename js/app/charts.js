@@ -1,6 +1,9 @@
-cronenberg.charts = {
+ds.charts =
+  (function () {
 
-    colorToHex: function(color) {
+    var self = {};
+
+    self.color_to_hex = function(color) {
         if (color.substr(0, 1) === '#') {
             return color;
         }
@@ -12,56 +15,56 @@ cronenberg.charts = {
 
         var rgb = blue | (green << 8) | (red << 16);
         return digits[1] + '#' + rgb.toString(16);
-    },
+    }
 
     /* -----------------------------------------------------------------------------
        Graphite Helpers
        ----------------------------------------------------------------------------- */
 
-    get_palette: function(name) {
-      var palette = cronenberg.charts.colors[name];
-      return palette || cronenberg.charts.colors[cronenberg.charts.DEFAULT_PALETTE];
-    },
+    self.get_palette = function(name) {
+      var palette = self.colors[name];
+      return palette || self.colors[self.DEFAULT_PALETTE];
+    }
 
-    simple_line_chart_url: function(item, query, options_) {
+    self.simple_line_chart_url = function(item, options_) {
         var options = options_ || {};
-        var png_url = URI(query.url())
+        var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || this.colorToHex(window.getComputedStyle($('body')[0]).backgroundColor))
+            .setQuery('bgcolor', options.bgcolor || self.color_to_hex(window.getComputedStyle($('body')[0]).backgroundColor))
             .setQuery('fgcolor', options.fgcolor || 'white')
             .setQuery('hideLegend', 'true')
             .setQuery('hideAxes', 'true')
             .setQuery('margin', '0')
-            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
+            .setQuery('colorList', self.get_palette(item.options.palette).join())
             .setQuery('title', options.showTitle ? item.title : '')
             .href();
         return png_url;
-    },
+    }
 
-    standard_line_chart_url: function(item, query, options_) {
+    self.standard_line_chart_url = function(item, options_) {
         var options = options_ || {};
-        var png_url = URI(query.url())
+        var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || this.colorToHex(window.getComputedStyle($('body')[0]).backgroundColor))
+            .setQuery('bgcolor', options.bgcolor || self.color_to_hex(window.getComputedStyle($('body')[0]).backgroundColor))
             .setQuery('fgcolor', options.fgcolor || 'black')
             .setQuery('majorGridLineColor', options.majorGridLineColor || '#dddddd')
             .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
             .setQuery('hideLegend', options.hideLegend || 'false')
             .setQuery('hideAxes', options.hideAxes || 'false')
-            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
+            .setQuery('colorList', self.get_palette(item.options.palette).join())
             .setQuery('vtitle', item.options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
             .href();
         return png_url;
-    },
+    }
 
-    simple_area_chart_url: function(item, query, options_) {
+    self.simple_area_chart_url = function(item, options_) {
         var options = options_ || {};
-        var png_url = URI(query.url())
+        var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
@@ -73,71 +76,70 @@ cronenberg.charts = {
             .setQuery('hideAxes', 'true')
             .setQuery('areaMode', 'stacked')
             .setQuery('margin', '0')
-            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
+            .setQuery('colorList', self.get_palette(item.options.palette).join())
             .href();
         return png_url;
-    },
+    }
 
-    stacked_area_chart_url: function(item, query, options_) {
+    self.stacked_area_chart_url = function(item, options_) {
         var options = options_ || {};
-        var png_url = URI(query.url())
+        var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || this.colorToHex(window.getComputedStyle($('body')[0]).backgroundColor))
+            .setQuery('bgcolor', options.bgcolor || self.color_to_hex(window.getComputedStyle($('body')[0]).backgroundColor))
             .setQuery('fgcolor', options.fgcolor || 'black')
             .setQuery('majorGridLineColor', options.majorGridLineColor || '#dddddd')
             .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
             .setQuery('hideLegend', options.hideLegend || 'false')
             .setQuery('hideAxes', options.hideAxes || 'false')
             .setQuery('areaMode', 'stacked')
-            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
+            .setQuery('colorList', self.get_palette(item.options.palette).join())
             .setQuery('vtitle', item.options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
             .href();
         return png_url;
-    },
+    }
 
-    chart_url: function(item, query, options) {
+    self.chart_url = function(item, options) {
         switch (item.item_type) {
         case 'simple_time_series':
             return item.filled
-                ? cronenberg.charts.simple_area_chart_url(item, query, options)
-                : cronenberg.charts.simple_line_chart_url(item, query, options);
+                ? self.simple_area_chart_url(item, options)
+                : self.simple_line_chart_url(item, options);
         case 'standard_time_series':
-            return cronenberg.charts.standard_line_chart_url(item, query, options);
+            return self.standard_line_chart_url(item, options);
         case 'stacked_area_chart':
-            return cronenberg.charts.stacked_area_chart_url(item, query, options);
+            return self.stacked_area_chart_url(item, options);
         case 'singlegraph':
-            return cronenberg.charts.simple_area_chart_url(item, query, options);
+            return self.simple_area_chart_url(item, options);
         }
         return undefined;
-    },
+    }
 
-    composer_url: function(item, query, options_) {
+    self.composer_url = function(item, options_) {
         var options = options_ || {};
-        var composer_url = URI(query.url())
+        var composer_url = URI(item.query.url())
             .filename('composer')
             .removeQuery('format')
-            .setQuery('colorList', cronenberg.charts.get_palette(item.options.palette).join())
+            .setQuery('colorList', self.get_palette(item.options.palette).join())
             .setQuery('vtitle', item.options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '');
         if (item.item_type === 'stacked_area_chart') {
             composer_url.setQuery('areaMode', 'stacked');
         }
         return composer_url.href();
-    },
+    }
 
 
     /* -----------------------------------------------------------------------------
        Charts
        ----------------------------------------------------------------------------- */
 
-    DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD: 6,
-    DEFAULT_PALETTE: 'spectrum6',
+    self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD = 6;
+    self.DEFAULT_PALETTE = 'spectrum6';
 
-    simple_line_chart: function(e, series, options_) {
-        var self = this;
+    self.simple_line_chart = function(e, series, options_) {
         var options = options_ || {};
       var data = [series];
         nv.addGraph(function() {
@@ -152,7 +154,7 @@ cronenberg.charts = {
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
-                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
+                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
                 .margin(options.margin || { top: 0, right: 16, bottom: 0, left: 40 })
                 .width(width)
                 .height(height);
@@ -165,10 +167,9 @@ cronenberg.charts = {
                 .call(chart);
             return chart;
         });
-    },
+    }
 
-    standard_line_chart: function(e, data, options_) {
-        var self = this;
+    self.standard_line_chart = function(e, data, options_) {
         var options = options_ || {};
         var showLegend = options.showLegend !== false;
         if (data.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
@@ -186,7 +187,7 @@ cronenberg.charts = {
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
-                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
+                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
                 .margin(options.margin || { top: 12, right: 16, bottom: 16, left: 40 })
                 .width(width)
                 .height(height);
@@ -204,10 +205,9 @@ cronenberg.charts = {
                 .call(chart);
             return chart;
         });
-    },
+    }
 
-    simple_area_chart: function(e, series, options_) {
-        var self = this;
+    self.simple_area_chart = function(e, series, options_) {
         var options = options_ || {};
       var data = [series];
         nv.addGraph(function() {
@@ -223,7 +223,7 @@ cronenberg.charts = {
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
-                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
+                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
                 .style('stack')
                 .width(width)
                 .height(height)
@@ -241,11 +241,10 @@ cronenberg.charts = {
                 .call(chart);
             return chart;
         });
-    },
+    }
 
 
-    stacked_area_chart: function(e, data, options_) {
-        var self = this;
+    self.stacked_area_chart = function(e, data, options_) {
         var options = options_ || {};
         var showLegend = options.showLegend !== false;
         if (data.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
@@ -263,7 +262,7 @@ cronenberg.charts = {
                     x: function(d) { return d[1]; },
                     y: function(d) { return d[0]; }
                 })
-                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
+                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
                 .style(options.style || 'stack')
                 .width(width)
                 .height(height)
@@ -284,10 +283,9 @@ cronenberg.charts = {
                 .call(chart);
             return chart;
         });
-    },
+    }
 
-    donut_chart: function(e, series, options_, transform_) {
-        var self = this;
+    self.donut_chart = function(e, series, options_, transform_) {
         var options = options_ || {};
         var transform = transform_ || 'sum';
         /* var showLegend = options.showLegend !== false;
@@ -310,7 +308,7 @@ cronenberg.charts = {
                x: function(d) { return d.key; },
                y: function(d) { return d.y; }
                }) */
-                .color(cronenberg.charts._color_function(options.palette || self.DEFAULT_PALETTE))
+                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
                 .labelType(options.labelType || "percent")
                 .donut(options.donut !== false)
                 .donutRatio(options.donutRatio || 0.3)
@@ -327,11 +325,10 @@ cronenberg.charts = {
                 .call(chart);
             return chart;
         });
-    },
+    }
 
 
-    _color_function: function(palette_name) {
-        var self = this;
+    self._color_function = function(palette_name) {
         var palette = self.colors[palette_name];
         if (!palette) {
             palette = self.colors[self.DEFAULT_PALETTE];
@@ -339,15 +336,15 @@ cronenberg.charts = {
         return function(d, i) {
             return palette[i % palette.length];
         }
-    },
+    }
 
     /**
      * Some color palettes", handily compiled by the Stanford Vis
      * Group for their Color Palette Analyzer project.
      * http://vis.stanford.edu/color-names/analyzer/
      */
-    colors: {
-        applespectrum:[ "#2d588a", "#58954c", "#e9a044", "#c12f32", "#723e77", "#7d807f" ],
+    self.colors = {
+      applespectrum:[ "#2d588a", "#58954c", "#e9a044", "#c12f32", "#723e77", "#7d807f" ],
         appleblue:    [ "#4972a8", "#92b9d8", "#002d64", "#599bcf", "#134d8d" ],
         applebrown:   [ "#8b6c4f", "#c8b68e", "#3b291d", "#ae8e5d", "#713f24" ],
         applegrey:    [ "#717372", "#c0c2c1", "#2d2f2e", "#8c8e8d", "#484a49" ],
@@ -431,4 +428,6 @@ cronenberg.charts = {
                         "#bdbdbd", "#d9d9d9"]
 
     }
-};
+
+      return self;
+})();
