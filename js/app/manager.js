@@ -25,7 +25,6 @@ ds.manager =
     var current
       , self = {};
 
-
     Object.defineProperty(self, 'current', { get: function() { return current; }});
 
     self.set_current = function(_) {
