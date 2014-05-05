@@ -77,6 +77,19 @@ narrow unless we override */
     white-space: normal;
 }
 
+/* Tag Manager */
+.tm-tag {
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+}
+.tm-tag-remove {
+    color: lightgray;
+    margin-left: 4px;
+}
+
 /* =============================================================================
    Application Styles
    ============================================================================= */

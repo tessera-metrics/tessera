@@ -3,7 +3,7 @@ ds.models.item = function(data) {
 
   var item_type
     , item_id
-    , query
+    , query = {}
     , css_class
     , height
     , style
@@ -15,7 +15,7 @@ ds.models.item = function(data) {
   if (data) {
     item_type = data.item_type;
     item_id = data.item_id;
-    query = data.query;
+    query = data.query || query;
     css_class = data.css_class;
     height = data.height;
     style = data.style;
