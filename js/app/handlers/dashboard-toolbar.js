@@ -16,9 +16,9 @@ $(document).ready(function() {
       $("#ds-info-panel-edit-title").editable({
         unsavedclass: null,
         success: function(ignore, newValue) {
+          ds.manager.current.dashboard.title = newValue;
           var dash = ds.manager.current.dashboard.toJSON();
           delete dash.definition;
-          dash.title = newValue;
           ds.manager.update(dash);
         }
       });
@@ -27,9 +27,9 @@ $(document).ready(function() {
       $("#ds-info-panel-edit-category").editable({
         unsavedclass: null,
         success: function(ignore, newValue) {
+          ds.manager.current.dashboard.category = newValue;
           var dash = ds.manager.current.dashboard.toJSON();
           delete dash.definition;
-          dash.category = newValue;
           ds.manager.update(dash);
         }
       });
@@ -37,9 +37,9 @@ $(document).ready(function() {
       $("#ds-info-panel-edit-summary").editable({
         unsavedclass: null,
         success: function(ignore, newValue) {
+          ds.manager.current.dashboard.summary = newValue;
           var dash = ds.manager.current.dashboard.toJSON();
           delete dash.definition;
-          dash.summary = newValue;
           ds.manager.update(dash);
         }
       });
@@ -48,9 +48,9 @@ $(document).ready(function() {
         unsavedclass: null,
         value: ds.manager.current.dashboard.description || '',
         success: function(ignore, newValue) {
+          ds.manager.current.dashboard.description = newValue;
           var dash = ds.manager.current.dashboard.toJSON();
           delete dash.definition;
-          dash.description = newValue;
           ds.manager.update(dash);
         },
         display: function(value, response) {
