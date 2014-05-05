@@ -278,6 +278,20 @@ ds.manager =
         self.delete_with_confirmation(self.current.dashboard.href);
     }
 
+    self.create = function(dashboard, handler) {
+      $.ajax({
+        type: 'POST',
+        url: '/api/dashboard/',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(dashboard)
+      }).done(function(data) {
+        if (handler && handler instanceof Function) {
+          handler(data);
+        }
+      });
+    }
+
     // Oh this is ugly
     self.duplicate = function(href, handler) {
         // Get dashboard

@@ -1,0 +1,97 @@
+<!-- -*- mode:jinja2 -*- -->
+{% extends "base.html" %}
+
+{% block pagetitle %}
+  <span class="ds-primary-title">{{config['DASHBOARD_APPNAME']}}</span> <span class="ds-secondary-title">Index</span>
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    {% include "snippets/breadcrumbs.html" %}
+
+    <div class="row">
+
+      <div class="col-md-8 col-md-offset-2">
+
+
+          <form role="form" id="ds-dashboard-create-form">
+          <fieldset>
+
+            <legend>New Dashboard</legend>
+
+            <!-- Title -->
+            <div class="form-group">
+              <label class="control-label" for="title">Title</label>
+              <div class="controls">
+                <input id="ds-dashboard-title"
+                       name="title"
+                       type="text"
+                       placeholder="Dashboard Title"
+                       class="form-control"
+                       data-bv-notempty data-bv-notempty-message="The title is required.">
+                  <p class="help-block">The dashboard main title. This will be displayed across the top of the dashboard, and as a readable slug in the URL. </p>
+              </div>
+            </div>
+
+            <!-- Category -->
+            <div class="form-group">
+              <label class="control-label" for="category">Category</label>
+              <div class="controls">
+                <input id="ds-dashboard-category" name="category" type="text" placeholder="Dashboard Category" class="form-control">
+                  <p class="help-block">A one-word category for dashboard organization.</p>
+              </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="form-group">
+              <label class="control-label" for="category">Summary</label>
+              <div class="controls">
+                <input id="ds-dashboard-summary" name="category" type="text" placeholder="Dashboard Summary" class="form-control">
+                  <p class="help-block">A short, one line description to appear in listings.</p>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+              <label class="control-label" for="description">Description</label>
+              <div class="controls">
+                <textarea row="4" class="form-control" id="ds-dashboard-description" name="description"></textarea>
+              </div>
+              <p class="help-block">An extended description of the dashboard,
+                which
+                supports <a href="http://daringfireball.net/projects/markdown/syntax"
+                target="_new">Markdown</a> formatting. </p>
+            </div>
+
+            <!-- Tags -->
+            <div class="form-group">
+              <label class="control-label" for="tags">Tags</label>
+              <div class="row">
+                <div class="ds-tag-holder pull-left" style="margin-left:1em"></div>
+                <div class="controls col-md-4">
+                  <input id="ds-dashboard-tags" name="tags" type="text" placeholder="" class="form-control tm-input tm-input-info" style="">
+                  <p class="help-block"></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="form-group">
+              <label class="control-label" for="create"></label>
+              <div class="controls">
+                <button id="ds-new-dashboard-create" name="create" class="btn btn-primary">Create</button>
+                <button id="ds-new-dashboard-cancel" name="cancel" class="btn btn-default">Cancel</button>
+              </div>
+            </div>
+
+          </fieldset>
+          </form>
+
+      </div> <!-- col -->
+    </div> <!-- row -->
+
+
+  </div> <!-- container -->
+
+{% endblock %}

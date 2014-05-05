@@ -27,6 +27,7 @@ module.exports = function(grunt) {
           'cronenberg/static/css/bootstrap.css',
           'cronenberg/static/css/bootstrap-callouts.css',
           'cronenberg/static/css/bootstrap-editable.css',
+          'cronenberg/static/css/bootstrapValidator.min.css',
           'cronenberg/static/css/font-awesome.css',
           'cronenberg/static/css/nv.d3.css'
         ],
@@ -48,7 +49,8 @@ module.exports = function(grunt) {
           'cronenberg/static/js/d3.min.js',
           'cronenberg/static/js/nv.d3.min.js',
           'cronenberg/static/js/tagmanager.js',
-          'cronenberg/static/js/bootstrap-editable.min.js'
+          'cronenberg/static/js/bootstrap-editable.min.js',
+          'cronenberg/static/js/bootstrapValidator.min.js'
         ],
         dest: 'cronenberg/static/bundle.js'
       },
