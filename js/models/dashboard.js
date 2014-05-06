@@ -44,7 +44,6 @@ ds.models.dashboard = function(data) {
             .property(self, 'last_modified_date', storage)
             .property(self, 'imported_from', storage)
             .property(self, 'index', storage)
-
             .property(self, 'title', storage)
             .property(self, 'category', storage)
             .property(self, 'summary', storage)
@@ -61,7 +60,6 @@ ds.models.dashboard = function(data) {
                        })
               }
             })
-
 
   /**
    * Operations
