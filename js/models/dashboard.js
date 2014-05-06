@@ -2,41 +2,43 @@ ds.models.dashboard = function(data) {
   "use strict";
 
   var id
-    , title
-    , category
-    , summary
-    , description
     , creation_date
     , last_modified_date
     , imported_from
-    , tags = []
-    , definition
     , href
     , view_href
     , definition_href
     , _index = {}
+    , storage = {}
     , self = {};
 
-  if (data) {
-    id = data.id;
-    title = data.title;
-    category = data.category;
-    summary = data.summary;
-    description = data.description;
-    creation_date = data.creation_date;
-    last_modified_date = data.last_modified_date;
-    imported_from = data.imported_from;
-    href = data.href;
-    view_href = data.view_href;
-    definition_href = data.definition_href;
 
-    if (data.definition) {
-      definition = ds.models.dashboard_definition(data.definition);
-    }
-    if (data.tags && data.tags.length) {
-      tags = data.tags.map(function(t) {
-               return ds.models.tag(t);
-             });
+  function _init(_) {
+    if (_) {
+      id = _.id
+      self.set_title(_.title)
+          .set_category(_.category)
+          .set_summary(_.summary)
+          .set_description(_.description)
+
+      if (_.definition) {
+        self.set_definition(ds.models.dashboard_definition(_.definition))
+      }
+
+      if (_.tags && _.tags.length) {
+        self.tags = _.tags.map(function(t) {
+                      return ds.models.tag(t);
+                    });
+      }
+
+      creation_date = _.creation_date;
+      last_modified_date = _.last_modified_date;
+      imported_from = _.imported_from;
+      href = _.href;
+      view_href = _.view_href;
+      definition_href = _.definition_href;
+
+      return self;
     }
   }
 
@@ -50,15 +52,26 @@ ds.models.dashboard = function(data) {
   Object.defineProperty(self, 'definition_href', { value: definition_href });
   Object.defineProperty(self, 'creation_date', { value: creation_date });
   Object.defineProperty(self, 'last_modified_date', { value: last_modified_date });
-
-  Object.defineProperty(self, 'title', {get: function() { return title; }});
-  Object.defineProperty(self, 'category', {get: function() { return category; }});
-  Object.defineProperty(self, 'summary', {get: function() { return summary; }});
-  Object.defineProperty(self, 'description', {get: function() { return description; }});
-  Object.defineProperty(self, 'imported_from', {get: function() { return imported_from; }});
-  Object.defineProperty(self, 'tags', {get: function() { return tags; }});
-  Object.defineProperty(self, 'definition', {get: function() { return definition; }});
   Object.defineProperty(self, 'index', {get: function() { return _index; }});
+
+  limivorous.observable(self, storage)
+            .property(self, 'title', storage)
+            .property(self, 'category', storage)
+            .property(self, 'summary', storage)
+            .property(self, 'description', storage)
+            .property(self, 'definition', storage, {
+              update: function() {
+                self._build_index()
+              }
+            })
+            .property(self, 'tags', storage, {
+              transform: function(tags) {
+                return tags.map(function(t) {
+                         return ds.models.tag(t)
+                       })
+              }
+              })
+
 
   /**
    * Operations
@@ -82,109 +95,67 @@ ds.models.dashboard = function(data) {
   }
 
   self.set_items = function(items) {
-    definition.set_items(items);
+    storage.definition.set_items(items);
     self._build_index();
     return self;
   }
 
   self.render = function() {
-    return definition.render();
+    return storage.definition.render();
   }
 
   self.load_all = function() {
-    definition.load_all();
+    storage.definition.load_all();
     return self;
   }
 
   self.render_templates = function(context) {
-    description = ds.render_template(description, context);
-    title       = ds.render_template(title, context);
-    summary     = ds.render_template(summary, context);
-    if (definition) {
-      definition.render_templates(context);
+    storage.description = ds.render_template(storage.description, context);
+    storage.title       = ds.render_template(storage.title, context);
+    storage.summary     = ds.render_template(storage.summary, context);
+    if (storage.definition) {
+      storage.definition.render_templates(context);
     }
     return self;
   }
 
   self.visit = function(visitor) {
     visitor(self);
-    if (definition) {
-      definition.visit(visitor);
+    if (storage.definition) {
+      storage.definition.visit(visitor);
     }
     return self;
   }
 
   self.flatten = function() {
-    return definition ? definition.flatten() : [];
+    return storage.definition ? storage.definition.flatten() : [];
   }
 
   /**
    * Data mutators.
    */
 
-  self.set_title = function(_) {
-    title = _;
-    return self;
-  }
 
-  self.set_category = function(_) {
-    category = _;
-    return self;
-  }
-
-  self.set_summary = function(_) {
-    summary = _;
-    return self;
-  }
-
-  self.set_description = function(_) {
-    description = _;
-    return self;
-  }
-
-  self.set_imported_from = function(_) {
-    imported_from = _;
-    return self;
-  }
-
-  self.set_tags = function(_) {
-    tags = _.map(function(t) { return ds.models.tag(t); });
-    return self;
-  }
-
-  self.add_tag = function(_) {
-    tags.push(ds.models.tag(_));
-    return self;
-  }
-
-  self.set_definition = function(_) {
-    definition = _;
-    return self;
-  }
 
   self.toJSON = function() {
     return {
      id: id,
-     title: title,
-     category: category,
-     summary: summary,
-     description: description,
+     title: storage.title,
+     category: storage.category,
+     summary: storage.summary,
+     description: storage.description,
      creation_date: creation_date,
      last_modified_date: last_modified_date,
      imported_from: imported_from,
-     tags: tags.map(function(t) {
+     tags: storage.tags.map(function(t) {
              return t.toJSON();
            }),
-     definition: definition ? definition.toJSON() : null,
+     definition: storage.definition ? storage.definition.toJSON() : null,
      href: href,
      view_href: view_href,
      definition_href: definition_href
     }
   }
 
-  if (definition) {
-    self._build_index();
-  }
-
-  return self;
+  return _init(data);
 };
