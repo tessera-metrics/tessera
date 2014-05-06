@@ -97,7 +97,7 @@ ds.manager =
       context.url = url.href();
       context.variables = variables;
       if (params.interactive) {
-        context.interactive == params.interactive != 'false';
+        context.interactive = params.interactive != 'false';
       }
       return context;
     }
