@@ -109,6 +109,8 @@ def _set_interactive(item, value):
 #
 # =============================================================================
 
+## Dashboard util functions
+
 def _set_dashboard_hrefs(dash):
     id = dash['id']
     dash['href'] = '/api/dashboard/{0}'.format(id)
@@ -119,11 +121,27 @@ def _set_dashboard_hrefs(dash):
         definition['href'] = '/api/dashboard/{0}/definition'.format(id)
     return dash
 
+def _dashboard_sort_column():
+    columns = {
+        'created' : database.Dashboard.creation_date.desc(),
+        'modified' : database.Dashboard.last_modified_date.desc(),
+        'category' : database.Dashboard.category,
+        'id' : database.Dashboard.id,
+        'title' : database.Dashboard.title
+    }
+    colname = _get_param('sort', 'created')
+    if colname in columns:
+        return columns[colname]
+    else:
+        return database.Dashboard.creation_date
+
 def _dashboards_response(dashboards):
     return _jsonify({
         'ok' : True,
         'dashboards' : [ _set_dashboard_hrefs(d) for d in dashboards]
     })
+
+## Dashboard endpoints
 
 @app.route('/api/dashboard/')
 def api_dashboard_list():
@@ -131,7 +149,7 @@ def api_dashboard_list():
     definitions.
 
     """
-    dashboards = [d.to_json() for d in database.Dashboard.query.all()]
+    dashboards = [d.to_json() for d in database.Dashboard.query.order_by(_dashboard_sort_column()).all()]
     return _dashboards_response(dashboards)
 
 @app.route('/api/dashboard/tagged/<tag>')
@@ -141,8 +159,35 @@ def api_dashboard_list_tagged(tag):
 
     """
     tag = database.Tag.query.filter_by(name=tag).first()
-    dashboards = [d.to_json() for d in tag.dashboards if tag]
+    dashboards = [d.to_json() for d in tag.dashboards.order_by(_dashboard_sort_column()) if tag]
     return _dashboards_response(dashboards)
+
+@app.route('/api/dashboard/category/<category>')
+def api_dashboard_list_dashboards_in_category(category):
+    """Listing for a set of dashboards in a specified category. Returns
+    just the metadata, not the definitions.
+
+    """
+    dashboards = [d.to_json() for d in database.Dashboard.query
+                  .filter_by(category=category)
+                  .order_by(_dashboard_sort_column()) ]
+    return _dashboards_response(dashboards)
+
+
+@app.route('/api/dashboard/category/')
+def api_dashboard_list_all_dashboard_categories():
+    sql = 'SELECT category, count(category) FROM dashboard GROUP BY category'
+    categories = []
+    for row in db.engine.execute(sql):
+        categories.append({
+            'name' : row[0],
+            'count' : row[1]
+        })
+    return _jsonify({
+        'ok' : True,
+        'categories' : categories
+    })
+
 
 @app.route('/api/dashboard/<id>')
 def api_dashboard_get(id):
