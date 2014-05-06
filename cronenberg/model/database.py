@@ -51,9 +51,11 @@ class Dashboard(db.Model):
         }
 
     def merge_from_json(self, d):
-        for attr in ['title', 'category', 'description', 'imported_from']:
+        for attr in ['title', 'category', 'description', 'summary', 'imported_from']:
             if hasattr(self, attr):
                 setattr(self, attr, d[attr])
+        if 'tags' in d:
+            self.tags = [Tag.canonicalize(t) for t in d['tags']]
 
     @classmethod
     def from_json(cls, data):

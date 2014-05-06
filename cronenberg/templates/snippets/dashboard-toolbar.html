@@ -9,28 +9,38 @@
   <div class="col-md-6">
     <div class="btn-toolbar pull-right">
 
+      <!-- Delete button -->
       <div class="btn-group" data-ds-edit-mode="show" style="display:none">
-        <button type="button" id="ds-delete-button"
+        <button type="button"
+                id="ds-delete-dashboard-button"
                 class="btn btn-danger"
                 data-toggle="tooltip"
-                onclick="ds.manager.delete_current()"
                 title="Delete this dashboard">
           <i class="fa fa-trash-o"></i>
         </button>
       </div>
 
       <div class="btn-group">
-        <button type="button" id="ds-edit-button" onclick="toolbarEditHandler()" class="btn btn-default" data-toggle="tooltip" title="Edit">
+
+        <!-- Edit button -->
+        <button type="button" id="ds-edit-info-button" class="btn btn-default" data-toggle="tooltip" title="Edit">
           <i class="fa fa-edit"></i>
         </button>
-        <button type="button" id="ds-toggle-interactive-button" onclick="toggle_interactive_charts()" class="btn btn-default {% if ctx.prefs.interactive %} {% else %} active {% endif %}" data-toggle="tooltip" title="Toggle Interactive Graphs">
+
+        <!-- Toggle interactive button -->
+        <button type="button" id="ds-toggle-interactive-button" class="btn btn-default {% if ctx.prefs.interactive %} {% else %} active {% endif %}" data-toggle="tooltip" title="Toggle Interactive Graphs">
           <i class="fa fa-lock"></i>
         </button>
+
         {% include "snippets/rejigger-button.html" %}
+
         {% include "snippets/refresh-button.html" %}
-        <button type="button" onclick="cronenberg.enterFullscreen()" class="btn btn-default" data-toggle="tooltip" title="Enter Display Mode">
+
+        <!-- Display mode button -->
+        <button type="button" id="ds-enter-fullscreen-button" class="btn btn-default" data-toggle="tooltip" title="Enter Display Mode">
           <i class="fa fa-expand"></i>
         </button>
+
       </div> <!-- btn-group -->
 
     </div> <!-- btn-toolbar -->
@@ -38,24 +48,5 @@
 </div> <!-- row -->
 
 <script>
-    toolbarEditHandler = function() {
-        if (cronenberg.toggleEditMode().editing) {
-            $.fn.editable.defaults.mode = 'inline';
-            $(".ds-editable").editable();
-        }
-    };
 
-    window.toggle_interactive_charts = function() {
-        if (ds.manager.toggle_interactive_charts()) {
-            $('#ds-toggle-interactive-button').removeClass('active');
-        } else {
-            $('#ds-toggle-interactive-button').addClass('active');
-        }
-    };
-
-    cronenberg.onEnterEditMode(function() {
-        $('#ds-edit-button').addClass('active');
-    }).onExitEditMode(function() {
-        $('#ds-edit-button').removeClass('active');
-    });
 </script>
