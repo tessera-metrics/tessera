@@ -3,7 +3,7 @@
 
 {% block pagetitle %}
   <span class="ds-primary-title">{{dashboard.category}}</span> <span class="ds-secondary-title">{{dashboard.title}}</span>
-  <small>{{dashboard.summary}}</small>
+  <small class="ds-summary">{{dashboard.summary}}</small>
 {% endblock %}
 
 {% block content %}
@@ -73,9 +73,18 @@
   <div class="ds-grid" id="dashboard"/>
 
   <script>
-    var url = '/api/dashboard/{{dashboard.id}}';
-    ds.manager.load(url, "#dashboard");
-    $("[data-toggle=tooltip]").tooltip({animation:false, delay: { show:300, hide:100}});
+
+    ds.manager.onDashboardLoaded(function(dashboard) {
+      dashboard.on('change', function(e) {
+        $(".ds-primary-title").text(e.target.category)
+        $(".ds-secondary-title").text(e.target.title)
+        $(".ds-summary").text(e.target.summary)
+      })
+    })
+
+    var url = '/api/dashboard/{{dashboard.id}}'
+    ds.manager.load(url, "#dashboard")
+    $("[data-toggle=tooltip]").tooltip({animation:false, delay: { show:300, hide:100}})
   </script>
 
 {% endblock %}
