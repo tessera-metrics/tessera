@@ -5,6 +5,7 @@
         <!-- <a href="/dashboards/{{id}}"><i class="fa fa-2x fa-dashboard"></i></a> -->
       </div>
       <div class="col-md-12">
+
         <div class="pull-left">
           <a href="{{view_href}}">
             {{category}} /
@@ -18,9 +19,11 @@
           </a><br/>
           Last modified {{moment 'fromNow' last_modified_date}}.
         </div>
+
         <div class="pull-right" style="margin-left: 0.5em">
           {{> ds-dashboard-listing-action-menu}}
         </div>
+
         <div class="pull-right" style="text-align:right">
           {{#each tags}}
           {{> ds-dashboard-tag-with-link this}}
@@ -30,6 +33,7 @@
           <a href="{{imported_from}}" target="_blank"><i class="fa fa-cloud"></i></a><br/>
           {{/if}}
         </div>
+
       </div>
 
     </div> <!-- row -->
