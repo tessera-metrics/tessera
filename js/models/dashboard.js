@@ -1,60 +1,50 @@
 ds.models.dashboard = function(data) {
   "use strict";
 
-  var id
-    , creation_date
-    , last_modified_date
-    , imported_from
-    , href
-    , view_href
-    , definition_href
-    , _index = {}
-    , storage = {}
+  var storage = {}
     , self = {};
 
 
-  function _init(_) {
+  this._init = function(_) {
+    self.index = {}
     if (_) {
-      id = _.id
-      self.set_title(_.title)
+      self.set_id(_.id)
+          .set_title(_.title)
           .set_category(_.category)
           .set_summary(_.summary)
           .set_description(_.description)
-
+          .set_creation_date(_.creation_date)
+          .set_last_modified_date(_.last_modified_date)
+          .set_imported_from(_.imported_from)
+          .set_href(_.href)
+          .set_view_href(_.view_href)
+          .set_definition_href(_.definition_href)
       if (_.definition) {
         self.set_definition(ds.models.dashboard_definition(_.definition))
       }
-
       if (_.tags && _.tags.length) {
         self.tags = _.tags.map(function(t) {
                       return ds.models.tag(t);
                     });
       }
-
-      creation_date = _.creation_date;
-      last_modified_date = _.last_modified_date;
-      imported_from = _.imported_from;
-      href = _.href;
-      view_href = _.view_href;
-      definition_href = _.definition_href;
-
-      return self;
     }
+    return self;
   }
 
   /**
    * Public read-only data properties.
    */
 
-  Object.defineProperty(self, 'id', { value: id });
-  Object.defineProperty(self, 'href', { value: href });
-  Object.defineProperty(self, 'view_href', { value: view_href });
-  Object.defineProperty(self, 'definition_href', { value: definition_href });
-  Object.defineProperty(self, 'creation_date', { value: creation_date });
-  Object.defineProperty(self, 'last_modified_date', { value: last_modified_date });
-  Object.defineProperty(self, 'index', {get: function() { return _index; }});
-
   limivorous.observable(self, storage)
+            .property(self, 'id', storage)
+            .property(self, 'href', storage)
+            .property(self, 'view_href', storage)
+            .property(self, 'definition_href', storage)
+            .property(self, 'creation_date', storage)
+            .property(self, 'last_modified_date', storage)
+            .property(self, 'imported_from', storage)
+            .property(self, 'index', storage)
+
             .property(self, 'title', storage)
             .property(self, 'category', storage)
             .property(self, 'summary', storage)
@@ -70,7 +60,7 @@ ds.models.dashboard = function(data) {
                          return ds.models.tag(t)
                        })
               }
-              })
+            })
 
 
   /**
@@ -78,12 +68,12 @@ ds.models.dashboard = function(data) {
    */
 
   self._build_index = function() {
-    _index = {};
+    var index = self.index = {}
     var id = 0;
     self.visit(function(item) {
       if (item.is_dashboard_item) {
         item.set_item_id('d' + id++);
-        _index[item.item_id] = item;
+        index[item.item_id] = item;
         item.set_dashboard(self);
       }
     });
@@ -91,7 +81,7 @@ ds.models.dashboard = function(data) {
   };
 
   self.get_item = function(id) {
-    return _index[id];
+    return self.index[id];
   }
 
   self.set_items = function(items) {
@@ -139,23 +129,23 @@ ds.models.dashboard = function(data) {
 
   self.toJSON = function() {
     return {
-     id: id,
+     id: storage.id,
      title: storage.title,
      category: storage.category,
      summary: storage.summary,
      description: storage.description,
-     creation_date: creation_date,
-     last_modified_date: last_modified_date,
-     imported_from: imported_from,
+     creation_date: storage.creation_date,
+     last_modified_date: storage.last_modified_date,
+     imported_from: storage.imported_from,
      tags: storage.tags.map(function(t) {
              return t.toJSON();
            }),
      definition: storage.definition ? storage.definition.toJSON() : null,
-     href: href,
-     view_href: view_href,
-     definition_href: definition_href
+     href: storage.href,
+     view_href: storage.view_href,
+     definition_href: storage.definition_href
     }
   }
 
-  return _init(data);
+  return this._init(data);
 };
