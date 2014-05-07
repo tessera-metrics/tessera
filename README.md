@@ -123,3 +123,4 @@ Client Side:
 * [markdown-js](https://github.com/evilstreak/markdown-js) for rendering of Markdown to HTML.
 * [URI.js](https://github.com/medialize/URI.js) for URL manipulation.
 * [limivorous](https://github.com/aalpern/limivorous)
+* [tagmanager](https://github.com/max-favilli/tagmanager)
