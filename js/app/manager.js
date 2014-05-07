@@ -346,7 +346,6 @@ ds.manager =
         dataType: 'json',
         data: JSON.stringify(dashboard)
       }).done(function(data) {
-        console.log(data);
         if (handler && handler instanceof Function) {
           handler(data);
         }
