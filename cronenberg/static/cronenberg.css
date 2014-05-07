@@ -274,3 +274,18 @@ h1 .ds-secondary-title {
 .ds-info-edit-panel .tm-input {
     margin-top: 8px;
 }
+
+
+.ds-dashboard-listing-category {
+    font-weight: 600;
+    margin-right: 4px;
+    color: #777;
+    width:120px;
+    display:inline-block;
+}
+.ds-dashboard-listing-title {
+    font-weight: 600;
+}
+.ds-dashboard-listing-last-modified {
+  color: #aaa;
+}

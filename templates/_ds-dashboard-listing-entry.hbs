@@ -8,16 +8,20 @@
 
         <div class="pull-left">
           <a href="{{view_href}}">
-            {{category}} /
-            <strong>
+            <span class="ds-dashboard-listing-category">
+              {{category}}
+            </span>
+            <span class="ds-dashboard-listing-title">
               {{title}}
-            </strong>
+            </span>
             {{#if summary}}
             <br/>
             <small>{{summary}}</small>
             {{/if}}
           </a><br/>
-          Last modified {{moment 'fromNow' last_modified_date}}.
+          <span class="ds-dashboard-listing-last-modified">
+            Last modified {{moment 'fromNow' last_modified_date}}.
+          </span>
         </div>
 
         <div class="pull-right" style="margin-left: 0.5em">
