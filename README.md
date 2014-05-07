@@ -104,7 +104,7 @@ Server Side:
 
 Client Side:
 
-* [Twitter Bootstrap](http://twitter.github.com/bootstrap)
+* [Bootstrap](http://getbootstrap.com/)
   * [Font Awesome](http://fortawesome.github.com/Font-Awesome/)
   * [darkstrap](https://github.com/danneu/darkstrap)
   * The extracted
