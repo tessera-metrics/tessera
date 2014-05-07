@@ -27,6 +27,7 @@ def generate():
     log.info('Generating demo dashboards')
     dashboards = [
          demo_automation_overview(),
+         demo_automation_2(),
          demo_random_data_dashboard(),
          demo_gallery_dashboard(),
          demo_node_dashboard()
