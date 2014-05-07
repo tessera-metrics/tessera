@@ -13,7 +13,8 @@
         break;
       case 'delete':
         ds.manager.delete_with_confirmation(href, function() {
-          window.location.reload();
+          $('tr[data-ds-href="' + href + '"]').remove();
+          ds.manager.success('Succesfully deleted dashboard ' + href);
         });
         break;
     }

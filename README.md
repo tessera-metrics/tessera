@@ -100,7 +100,7 @@ Server Side:
 * [Flask-Script](http://packages.python.org/Flask-Script/)
 * [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/)
 * [requests](https://github.com/kennethreitz/requests)
-* inflection
+* [inflection](https://github.com/jpvanhal/inflection)
 
 Client Side:
 
@@ -112,6 +112,7 @@ Client Side:
     bootstrap's documentation site.
   * [bootbox](http://bootboxjs.com/) simplifies modal dialog interactions.
   * [bootstrap-validator](http://bootstrapvalidator.com/)
+  * [bootstrap-growl](https://github.com/mouse0270/bootstrap-growl)
 * [jQuery](http://jquery.com/)
 * [nvd3](https://github.com/novus/nvd3) for interactive charts build
   on top of [d3](http://d3js.org). d3 is also used for value

@@ -77,12 +77,16 @@ ds.models.data.Query = function(data_) {
     $.ajax({
       dataType: 'json',
       url: url
-    }).done(function(response_data, textStatus) {
+    })
+     .done(function(response_data, textStatus) {
       self._process(response_data);
       if (options.ready && (options.ready instanceof Function)) {
         options.ready(self);
       }
       bean.fire(self, 'ds-data-ready', self);
+    })
+    .error(function(xhr, status, error) {
+      ds.manager.error('Failed to load query ' + self.name + '. ' + error);
     });
   }
 
