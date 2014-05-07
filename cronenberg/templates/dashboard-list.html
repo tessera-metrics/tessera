@@ -33,9 +33,9 @@
 
   <script>
     {% if tag %}
-      var path = '/api/dashboard/tagged/{{tag}}';
+      var path = '/api/dashboard/tagged/{{tag}}?sort={{ctx.get('sort', 'created')}}';
     {% else %}
-      var path = '/api/dashboard/';
+      var path = '/api/dashboard/?sort={{ctx.get('sort', 'created')}}';
     {% endif %}
     ds.manager.list(path, function(data) {
       var rendered = ds.templates.listing.dashboard_list(data);
