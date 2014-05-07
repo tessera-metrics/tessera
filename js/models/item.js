@@ -7,6 +7,7 @@ ds.models.item = function(data) {
     , css_class
     , height
     , style
+    , thresholds
     , interactive = false // TODO: hack
     , parent
     , dashboard
@@ -19,6 +20,7 @@ ds.models.item = function(data) {
     css_class = data.css_class;
     height = data.height;
     style = data.style;
+    thresholds = data.thresholds;
   }
 
   Object.defineProperty(self, 'item_type', {get: function() { return item_type; }});
@@ -26,6 +28,7 @@ ds.models.item = function(data) {
   Object.defineProperty(self, 'css_class', {get: function() { return css_class; }});
   Object.defineProperty(self, 'height', {get: function() { return height; }});
   Object.defineProperty(self, 'style', {get: function() { return style; }});
+  Object.defineProperty(self, 'thresholds', {get: function() { return thresholds; }});
   Object.defineProperty(self, 'interactive', {get: function() { return interactive; }});
   Object.defineProperty(self, 'dashboard', {get: function() { return dashboard; }});
   Object.defineProperty(self, 'query', {get: function() {
@@ -38,8 +41,8 @@ ds.models.item = function(data) {
 
   self.rebind = function(target) {
     parent = target;
-    d3.rebind(target, self, 'set_type', 'set_query', 'set_css_class', 'set_item_id','set_height', 'set_style', 'set_interactive', 'set_dashboard', 'render', 'flatten');
-    ds.rebind_properties(target, self, 'item_type', 'query', 'css_class', 'item_id', 'height', 'style', 'interactive', 'dashboard');
+    d3.rebind(target, self, 'set_type', 'set_query', 'set_css_class', 'set_item_id','set_height', 'set_style', 'set_thresholds', 'set_interactive', 'set_dashboard', 'render', 'flatten');
+    ds.rebind_properties(target, self, 'item_type', 'query', 'css_class', 'item_id', 'height', 'style', 'thresholds', 'interactive', 'dashboard');
     Object.defineProperty(target, '_base', {value: self});
     Object.defineProperty(target, 'is_dashboard_item', {value: true});
     return self;
@@ -112,6 +115,12 @@ ds.models.item = function(data) {
     return self;
   }
 
+  self.set_thresholds = function(_) {
+    thresholds = _;
+    return self;
+  }
+
+
   self.set_interactive = function(_) {
     interactive = _;
     return self;
@@ -131,6 +140,9 @@ ds.models.item = function(data) {
     data.css_class = css_class;
     data.height = height;
     data.style = style;
+    if (data.thresholds) {
+      data.thresholds = thresholds.toJSON();
+    }
     return data;
   }
 
