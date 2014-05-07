@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row ds-info-edit-panel">
   <!-- Column 1 -->
   <div class="col-md-5">
     <h4>Properties</h4>
@@ -20,9 +20,14 @@
         <tr>
           <th>Tags</th>
           <td>
+            <!--
             {{#each tags}}
             {{> ds-dashboard-tag this}}
             {{/each}}
+            -->
+
+            <input id="ds-info-panel-edit-tags" class="tm-input tm-input-success tm-input-info"/>
+
           </td>
         </tr>
 
