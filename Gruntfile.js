@@ -50,6 +50,7 @@ module.exports = function(grunt) {
           'cronenberg/static/js/nv.d3.min.js',
           'cronenberg/static/js/tagmanager.js',
           'cronenberg/static/js/bootstrap-editable.min.js',
+          'cronenberg/static/js/bootstrap-growl.min.js',
           'cronenberg/static/js/bootstrapValidator.min.js',
           'cronenberg/static/js/limivorous.js'
         ],

@@ -45,13 +45,52 @@ ds.manager =
      * List all dashboards.
      */
     self.list = function(path, handler) {
-        var path = path || '/api/dashboard';
+        var path = path || '/api/dashboard'
         $.ajax({
             dataType: 'json',
             url: path
         }).done(function(data) {
             handler(data);
-        });
+        }).error(function(xhr, status, error) {
+          self.error('Error listing dashboards. ' + error);
+        })
+    }
+
+    self.default_error_handler = function(xhr, status, error) {
+      console.log(xhr);
+      console.log(status);
+      console.log(error);
+      self.error('Oops');
+    }
+
+    self.error = function(message, options_) {
+      var options = options_ || {}
+      options.type = options.type || 'danger'
+      $.growl({
+        message: message,
+        title: 'Error',
+        icon: 'fa fa-exclamation-circle'
+      }, options)
+    }
+
+    self.warning = function(message, options_) {
+      var options = options_ || {}
+      options.type = options.type || 'warning'
+      $.growl({
+        message: message,
+        title: options.title || 'Warning',
+        icon: options.icon || 'fa fa-exclamation-circle'
+      }, options)
+    }
+
+    self.success = function(message, options_) {
+      var options = options_ || {}
+      options.type = options.type || 'success'
+      $.growl({
+        message: message,
+        title: options.title || 'Success',
+        icon: options.icon || 'fa fa-check-circle'
+      }, options)
     }
 
     /**
@@ -112,6 +151,8 @@ ds.manager =
         $.ajax({
             dataType: "json",
             url: context.url
+        }).error(function(xhr, status, error) {
+          self.error('Error loading dashboard. ' + error);
         }).done(function(data) {
           var dashboard = ds.models.dashboard(data.dashboards[0]).render_templates(context.variables);
           holder.dashboard = dashboard;
@@ -265,13 +306,16 @@ ds.manager =
     }
 
     self.delete_dashboard = function(href, done_) {
-        var done = done_ || function() {
-            window.location = '/dashboards';
-        };
+      var done = done_ || function() {
+                            window.location = '/dashboards'
+                            self.success('Successfully deleted dashboard ' + href)
+                          }
         $.ajax({
             url: href,
             type: 'DELETE'
-        }).done(done);
+        }).done(done).error(function(xhr, status, error) {
+          self.error('Error deleting dashboard ' + href + ' ' + error);
+        })
     }
 
     self.delete_current = function() {
@@ -289,6 +333,8 @@ ds.manager =
         if (handler && handler instanceof Function) {
           handler(data);
         }
+      }).error(function(xhr, status, error) {
+        self.error('Error creating dashboard. ' + error);
       });
     }
 
@@ -304,6 +350,8 @@ ds.manager =
         if (handler && handler instanceof Function) {
           handler(data);
         }
+      }).error(function(xhr, status, error) {
+        self.error('Error updating dashboard ' + dashboard.title + '. ' + error);
       });
     }
 
@@ -329,6 +377,8 @@ ds.manager =
                     if (handler) {
                         handler();
                     }
+                }).error(function(xhr, status, error) {
+                  self.error('Error duplicating dashboard ' + href + '. ' + error);
                 });
             });
         })
