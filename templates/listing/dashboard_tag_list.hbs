@@ -1,8 +1,16 @@
-<div class="list-group">
-  <a class="list-group-item {{#unless tag}}active{{/unless}}" href="/dashboards">All <span class="badge badge-primary pull-right"></span></a>
+<ul class="nav nav-pills nav-stacked">
+  <li class="{{#unless tag}}active{{/unless}}">
+    <a href="/dashboards">
+      All <span class="badge badge-primary pull-right"></span>
+    </a>
+  </li>
+
     {{#each tags}}
-      <a class="list-group-item " data-ds-tag="{{name}}" href="/dashboards/tagged/{{name}}">
+  <li data-ds-tag="{{name}}">
+    <a href="/dashboards/tagged/{{name}}">
       {{name}}
-      <span class="badge badge-default pull-right">{{count}}</span></a>
-    {{/each}}
-</div>
+      <span class="badge badge-default pull-right">{{count}}</span>
+    </a>
+  </li>
+  {{/each}}
+</ul>
