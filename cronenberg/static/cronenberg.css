@@ -270,3 +270,7 @@ h1 .ds-secondary-title {
 .ds-editable {
   border-bottom: none;
 }
+
+.ds-info-edit-panel .tm-input {
+    margin-top: 8px;
+}
