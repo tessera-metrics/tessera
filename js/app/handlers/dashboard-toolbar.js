@@ -58,10 +58,12 @@ $(document).ready(function() {
         }
       })
 
+
+      var tags = ds.manager.current.dashboard.tags || []
       $("#ds-info-panel-edit-tags").tagsManager({
         hiddenTagListName: 'ds-info-panel-edit-taglist',
         tagClass: 'badge badge-primary',
-        prefilled: ds.manager.current.dashboard.tags.map(function(tag) {
+        prefilled: tags.map(function(tag) {
                      return tag.name
                    })
       })
