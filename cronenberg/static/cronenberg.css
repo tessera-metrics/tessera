@@ -289,3 +289,6 @@ h1 .ds-secondary-title {
 .ds-dashboard-listing-last-modified {
   color: #aaa;
 }
+.ds-featured-dashboard {
+    margin-bottom: 2em;
+}
