@@ -26,26 +26,39 @@ class GraphiteDashboardImporter(object):
         names = self.get_dashboard_names(query)
         print json.dumps([ self.get_dashboard(n) for n in names ], cls=EntityEncoder, indent=4)
 
-    def import_dashboards(self, query, **kwargs):
+    def import_dashboards(self, query, overwrite=False, **kwargs):
         names = self.get_dashboard_names(query)
         log.info('Found {0} dashboards to import'.format(len(names)))
         log.info(','.join(names))
 
         for name in names:
-            log.info('Importing {0}'.format(name))
-            dash = self.import_dashboard(name, **kwargs)
+            href = self.__graphite_href(name)
+            dashboard = database.Dashboard.query.filter_by(imported_from=href).first()
+            if dashboard and (not overwrite):
+                log.info('Skipping {0}'.format(name))
+                continue
+            elif dashboard and overwrite:
+                log.info('Updating {0}'.format(name))
+            else:
+                log.info('Importing {0}'.format(name))
+            dash = self.import_dashboard(name, dash=dashboard, **kwargs)
             mgr.store_dashboard(dash)
+
+    def __graphite_href(self, name):
+        return '{0}/dashboard/{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name))
 
     def import_dashboard(self, name, **kwargs):
         return self.__convert(self.get_dashboard(name), **kwargs)
 
-    def __convert(self, graphite_dashboard, layout=Section.Layout.FIXED, columns=2):
+    def __convert(self, graphite_dashboard, dash=None, layout=Section.Layout.FIXED, columns=2, overwrite=False):
         span = 12 / columns
         name = graphite_dashboard['name']
-        dashboard = database.Dashboard(title=inflection.parameterize(name),
-                                       category='Graphite',
-                                       tags=[database.Tag('imported')],
-                                       imported_from = '{0}/dashboard/{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
+        dashboard = dash
+        if dashboard is None:
+            dashboard = database.Dashboard(title=inflection.parameterize(name),
+                                           category='Graphite',
+                                           tags=[database.Tag('imported')],
+                                           imported_from = '{0}/dashboard/{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
         definition = DashboardDefinition()
         section = Section(layout=layout)
         definition.items.append(section)
