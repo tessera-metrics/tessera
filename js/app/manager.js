@@ -115,13 +115,13 @@ ds.manager =
     /**
      * Set up us the API call.
      */
-    self._prep_url = function(base_url) {
+    self._prep_url = function(base_url, options) {
       var url = URI(base_url).setQuery('rendering', true);
       var context = url.query(true);
       var params = URI(window.location).query(true);
       var variables = {};
-      context.from = context.from || params.from || '-3h';
-      context.until = context.until || params.until;
+      context.from = context.from || params.from || options.from || '-3h'
+      context.until = context.until || params.until || options.until
 
       url.setQuery('from', context.from);
       if (context.until) {
@@ -135,18 +135,22 @@ ds.manager =
         }
       context.url = url.href();
       context.variables = variables;
-      if (params.interactive) {
-        context.interactive = params.interactive != 'false';
+
+      if (typeof(options.interactive) != 'undefined') {
+        context.interactive = options.interactive
+      } else if (params.interactive) {
+        context.interactive = params.interactive != 'false'
       }
-      return context;
+      return context
     }
 
     /**
      * Load and render a dashboard.
      */
-    self.load = function(url, element) {
+    self.load = function(url, element, options_) {
+      var options = options_ || {}
         var holder = new cronenberg.DashboardHolder(url, element);
-        var context = self._prep_url(url);
+        var context = self._prep_url(url, options);
         self.set_current(holder);
         $.ajax({
             dataType: "json",
