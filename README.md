@@ -6,9 +6,6 @@ A dashboard front-end for Graphite.
 
 Words. Words about pictures.
 
-### Screenshot
-
-![screenshot](docs/screenshot-single-node-light.png)
 
 ## Getting Started
 
@@ -55,14 +52,14 @@ initialized, and can be populated with a bunch of demo dashboards. To
 initialize the database and generate the demo dashboards:
 
 ```shell
-manage.py initdb
+./manage.py initdb
 ```
 
 And to run it from source:
 
 ```
 # Run it (defaults to http://localhost:5000)
-manage.py run
+./manage.py run
 ```
 
 ### Importing Dashboards from Graphite-Web
@@ -124,3 +121,9 @@ Client Side:
 * [URI.js](https://github.com/medialize/URI.js) for URL manipulation.
 * [limivorous](https://github.com/aalpern/limivorous)
 * [tagmanager](https://github.com/max-favilli/tagmanager)
+
+
+### Screenshot
+
+![screenshot](docs/screenshot-single-node-light.png)
+
