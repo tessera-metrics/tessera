@@ -1,6 +1,7 @@
-  <table class="ds-presentation table table-condensed ds-summation-table {{height item}} {{css_class item}}
-                {{#if item.striped}}table-striped{{/if}}"
-         id="{{item.item_id}}">
+<div class="ds-presentation" id="{{item.item_id}}">
+{{> ds-title-bar}}
+<table class="table table-condensed ds-summation-table {{height item}} {{css_class item}}
+                {{#if item.striped}}table-striped{{/if}}">
     <thead>
       <tr>
         <th></th>
@@ -13,4 +14,5 @@
     </thead>
     <tbody>
     </tbody>
-  </table>
+</table>
+</div>
