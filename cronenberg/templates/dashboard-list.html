@@ -13,11 +13,33 @@
 
     <div class="row">
       <div class="col-md-8">
-        {% if tag %}
-          <h3>Dashboards</h3>
-        {% else %}
-          <h3>All Dashboards</h3>
-        {% endif %}
+        <div class="row">
+          <div class="col-md-10">
+            <h3>{% if tag %}Dashboards{% else %}All Dashboards{% endif %}</h3>
+          </div>
+          <div class="col-md-2" align="right">
+
+            <!-- sort menu -->
+            <div class="btn-group" align="left">
+              <button style="margin-top:1.75em;" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                Sort <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu ds-dashboard-sort-menu" role="menu">
+                <li><a href="#">Default</a></li>
+                <li><a data-ds-sort-col="title" data-ds-sort-order="asc" href="#">Title (A-Z)</a></li>
+                <li><a data-ds-sort-col="title" data-ds-sort-order="desc" href="#">Title (Z-A)</a></li>
+                <li><a data-ds-sort-col="category" data-ds-sort-order="asc" href="#">Category (A-Z)</a></li>
+                <li><a data-ds-sort-col="category" data-ds-sort-order="desc" href="#">Category (Z-A)</a></li>
+                <li><a data-ds-sort-col="modified" data-ds-sort-order="desc" href="#">Last Modified Time (newest first)</a></li>
+                <li><a data-ds-sort-col="modified" data-ds-sort-order="asc" href="#">Last Modified Time (oldest first)</a></li>
+                <li class="divider"></li>
+                <li><a data-ds-sort-col="created" data-ds-sort-order="desc" href="#">Creation Date (newest first)</a></li>
+                <li><a data-ds-sort-col="created" data-ds-sort-order="asc" href="#">Creation Date (oldest first)</a></li>
+              </ul>
+            </div> <!-- sort menu -->
+
+          </div>
+        </div>
         <div id="ds-dashboard-main-listing"></div>
       </div>
       <div class="col-md-4">
@@ -33,9 +55,9 @@
 
   <script>
     {% if tag %}
-      var path = '/api/dashboard/tagged/{{tag}}?sort={{ctx.get('sort', 'created')}}';
+      var path = '/api/dashboard/tagged/{{tag}}?sort={{ctx.get('sort', 'created')}}&order={{ctx.get('order', 'desc')}}';
     {% else %}
-      var path = '/api/dashboard/?sort={{ctx.get('sort', 'created')}}';
+      var path = '/api/dashboard/?sort={{ctx.get('sort', 'created')}}&order={{ctx.get('order', 'desc')}}';
     {% endif %}
     ds.manager.list(path, function(data) {
       var rendered = ds.templates.listing.dashboard_list(data);

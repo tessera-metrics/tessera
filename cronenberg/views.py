@@ -108,17 +108,22 @@ def _set_dashboard_hrefs(dash):
 
 def _dashboard_sort_column():
     columns = {
-        'created' : database.Dashboard.creation_date.desc(),
-        'modified' : database.Dashboard.last_modified_date.desc(),
+        'created' : database.Dashboard.creation_date,
+        'modified' : database.Dashboard.last_modified_date,
         'category' : database.Dashboard.category,
         'id' : database.Dashboard.id,
         'title' : database.Dashboard.title
     }
     colname = _get_param('sort', 'created')
+    order   = _get_param('order')
+    column  = database.Dashboard.creation_date
     if colname in columns:
-        return columns[colname]
+        column = columns[colname]
+
+    if order == 'desc' or order == u'desc':
+        return column.desc()
     else:
-        return database.Dashboard.creation_date
+        return column.asc()
 
 def _dashboards_response(dashboards):
     return _jsonify({
