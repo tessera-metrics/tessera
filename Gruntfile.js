@@ -79,7 +79,9 @@ module.exports = function(grunt) {
       files: [
         'js/**/*.js',
         'templates/**/*.hbs',
-        'cronenberg/static/js/**/*.js'
+        'templates/**/*.js',
+        'cronenberg/static/js/**/*.js',
+        'cronenberg/static/cronenberg.css'
       ],
       tasks: ['handlebars', 'concat']
     }
