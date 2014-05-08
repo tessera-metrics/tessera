@@ -53,59 +53,6 @@ def _set_preferences(prefs):
     for name, value in prefs.items():
         session[name] = value
 
-# HACK!
-def _set_interactive(item, value):
-    if 'interactive' in item:
-        item['interactive'] = value
-    if 'items' in item:
-        for child in item['items']:
-            _set_interactive(child, value)
-
-
-# =============================================================================
-#
-# ## API Endpoints
-#
-# ``/api/dashboard`` (GET, POST)
-#
-#   List all dashboards, returning their basic metadata (replaces the
-#   /names and /listing endpoints)
-#
-# ``/api/dashboard/<id>`` (GET, POST, PUT, DELETE)
-#
-#  Manage the metadata for a single dashboard.
-#
-# ``/api/dashboard/<id>/definition`` (GET, PUT)
-#
-#   Manage the complete definition of a single dashboard
-#
-# ``/api/dashboard/<id>/definition/expanded`` (GET)
-#
-#   Get the complete definition of a single dashboard with all URLs
-#   and template variables expanded, ready for rendering.
-#
-# ``/api/dashboard/<id>/tags`` (GET, PUT)
-#
-#   Manage the tags sub-set of the dashboard's metadata.
-#
-# ``/api/tags`` (GET)
-#
-#  Get a list of all tags, for populating auto-complete widgets.
-#
-# =============================================================================
-
-## Dashboard util functions
-
-def _set_dashboard_hrefs(dash):
-    id = dash['id']
-    dash['href'] = '/api/dashboard/{0}'.format(id)
-    dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
-    dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
-    if 'definition' in dash:
-        definition = dash['definition']
-        definition['href'] = '/api/dashboard/{0}/definition'.format(id)
-    return dash
-
 def _dashboard_sort_column():
     columns = {
         'created' : database.Dashboard.creation_date,
@@ -125,11 +72,38 @@ def _dashboard_sort_column():
     else:
         return column.asc()
 
+def _set_dashboard_hrefs(dash):
+    id = dash['id']
+    dash['href'] = '/api/dashboard/{0}'.format(id)
+    dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
+    dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
+    if 'definition' in dash:
+        definition = dash['definition']
+        definition['href'] = '/api/dashboard/{0}/definition'.format(id)
+    return dash
+
 def _dashboards_response(dashboards):
     return _jsonify({
         'ok' : True,
         'dashboards' : [ _set_dashboard_hrefs(d) for d in dashboards]
     })
+
+def _set_tag_hrefs(tag):
+    id = tag['id']
+    tag['href'] = '/api/tag/{0}'.format(id)
+    return tag
+
+def _tags_response(tags):
+    if not isinstance(tags, list):
+        tags = [tags]
+    return _jsonify({
+        'ok' : True,
+        'tags' : [_set_tag_hrefs(t.to_json()) for t in tags]
+    })
+
+# =============================================================================
+# API Endpoints
+# =============================================================================
 
 ## Dashboard endpoints
 
@@ -236,7 +210,6 @@ def api_dashboard_delete(id):
     dashboard = database.Dashboard.query.get_or_404(id)
     db.session.delete(dashboard)
     db.session.commit()
-    # TODO - return 204 status
     return _jsonify({ 'ok' : True },
                     status=204)
 
@@ -277,13 +250,6 @@ def api_dashboard_update_definition(id):
 
     return _jsonify({ 'ok' : True })
 
-@app.route('/api/config')
-def api_config_get():
-    return _jsonify({
-        'ok' : True,
-        'config' : _get_config()
-    })
-
 # =============================================================================
 # Tags API
 # =============================================================================
@@ -305,26 +271,23 @@ def api_tag_list():
         tag.id = row[0]
         tags.append(tag)
 
+    return _tags_response(tags)
+
+@app.route('/api/tag/<id>')
+def api_tag_get(id):
+    tag = database.Tag.query.get_or_404(id)
+    return _tags_response(tag)
+
+# =============================================================================
+# Misc API
+# =============================================================================
+
+@app.route('/api/config')
+def api_config_get():
     return _jsonify({
         'ok' : True,
-        'tags' : tags
+        'config' : _get_config()
     })
-
-
-@app.route('/api/dashboard/<id>/tags', methods=['PUT'])
-def api_dashboard_update_tags(id):
-    """Update the tags for a dashboard.
-
-    """
-    dashboard = database.Dashboard.query.get_or_404(id)
-
-    data = json.loads(request.data)
-    tags = [Tag.from_json(t) for t in data['tags']]
-
-    dashboard.tags = tags
-    mgr.store_dashboard(dashboard)
-
-    return _jsonify({ 'ok' : True })
 
 @app.route('/api/preferences/')
 def api_preferences_get():
