@@ -264,22 +264,6 @@ def api_tag_list():
         'tags' : tags
     })
 
-
-@app.route('/api/dashboard/<id>/tags', methods=['PUT'])
-def api_dashboard_update_tags(id):
-    """Update the tags for a dashboard.
-
-    """
-    dashboard = database.Dashboard.query.get_or_404(id)
-
-    data = json.loads(request.data)
-    tags = [Tag.from_json(t) for t in data['tags']]
-
-    dashboard.tags = tags
-    mgr.store_dashboard(dashboard)
-
-    return _jsonify({ 'ok' : True })
-
 # =============================================================================
 # Misc API
 # =============================================================================
