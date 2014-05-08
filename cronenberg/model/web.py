@@ -169,10 +169,11 @@ class SummationTable(TablePresentation):
     """
     JS class: ds.models.summation_table
     """
-    def __init__(self, query, format=',.3f', striped=False, **kwargs):
+    def __init__(self, query, title=None, format=',.3f', striped=False, **kwargs):
         super(SummationTable, self).__init__(query=query,
                                              item_type='summation_table',
                                              **kwargs)
+        self.title=title
         self.format = format
         self.striped = striped
 
