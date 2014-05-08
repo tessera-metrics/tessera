@@ -8,6 +8,13 @@
 {% block content %}
 
   <div class="container">
+
+    <div class="row">
+      <div class="ds-featured-dashboard">
+      </div>
+    </div>
+
+
     <div class="row">
 
       <div class="col-md-4">
@@ -17,20 +24,54 @@
         </div>
       </div>
 
-      <div class="col-md-8">
+      <div class="col-md-4">
+        <div class="well" align="center">
+          <a href="#"><h3><i class="fa fa-lg fa-tag" style="font-size: 4em"></i>
+              <br/><br/>Tags</h3></a>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="well" align="center">
+          <a href="/preferences"><h3><i class="fa fa-lg fa-cog" style="font-size: 4em"></i>
+              <br/><br/>Preferences</h3></a>
+        </div>
+      </div>
+
+    </div> <!-- row -->
+
+
+    <div class="row">
+      <div class="col-md-12">
         <h3>Featured Dashboards</h3>
         <div id="ds-dashboard-featured-listing"></div>
       </div>
-
-    </div>
+    </div> <!-- row -->
 
     <hr/>
   </div> <!-- container -->
 
   <script>
+    /* Load featured dashboard list */
     ds.manager.list('/api/dashboard/tagged/featured', function(data) {
         $("#ds-dashboard-featured-listing").html(ds.templates.listing.dashboard_list(data));
     });
+
+    /* Load the dashboards tagged with 'featured-billboard', and
+     * select one of them at random to display at the top of the
+     * page. */
+    $.ajax({
+        dataType: 'json',
+        url: '/api/dashboard/tagged/featured-billboard'
+    }).done(function(data) {
+        if (data.dashboards && data.dashboards.length > 0) {
+            var dashboard = data.dashboards[Math.floor(Math.random() * data.dashboards.length)]
+            ds.manager.load(dashboard.href, '.ds-featured-dashboard', {
+                interactive: true,
+                from: '-12h'
+            })
+        }
+    }).error(ds.manager.default_error_handler)
   </script>
 
 {% endblock %}
