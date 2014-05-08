@@ -6,7 +6,6 @@ import logging
 import copy
 from datetime import datetime
 import inflection
-import pybars
 import urllib
 
 from flask import render_template, request, redirect, jsonify, abort, session
@@ -17,25 +16,11 @@ from .application import app
 from .application import db
 
 mgr = database.DatabaseManager(db)
-compiler = pybars.Compiler()
 log = logging.getLogger(__name__)
 
 # =============================================================================
 # API Helpers
 # =============================================================================
-
-def _get_template_variables(query_params):
-    variables = {}
-    for key, value in query_params.items():
-        if key.startswith('p[') and key.endswith(']'):
-            variable_name = key[2:-1]
-            variables[key[2:-1]] = value
-    return variables
-
-def _render_pybars_template(template, variables):
-    compiled = compiler.compile(unicode(template))
-    output = compiled(variables)
-    return ''.join(output)
 
 def _jsonify(data, status=200, headers=None):
     response = flask.Response(status=status,
@@ -367,21 +352,11 @@ def _render_template(template, **kwargs):
 def _render_client_side_dashboard(dashboard, template='dashboard.html'):
     from_time = _get_param('from', app.config['DEFAULT_FROM_TIME'])
     until_time = _get_param('until', None)
-
-    template_variables = _get_template_variables(request.args)
-
-    dashboard.title = _render_pybars_template(dashboard.title, template_variables)
-    dashboard.description = _render_pybars_template(dashboard.description, template_variables)
-    dashboard.summary = _render_pybars_template(dashboard.summary, template_variables)
-
-    extra_params = request.args.to_dict()
-
     title = '{0} {1}'.format(dashboard.category, dashboard.title)
     return _render_template(template,
                             dashboard=dashboard,
                             definition=dashboard.definition,
                             from_time=from_time,
-                            extra_params=urllib.urlencode(extra_params),
                             until_time=until_time,
                             title=title,
                             breadcrumbs=[('Home', '/'),
