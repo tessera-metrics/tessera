@@ -7,65 +7,52 @@ ds.models.tag = function(data) {
      , description
      , color
      , count
-     , self = {};
+     , storage = {}
+     , self = {}
 
-  if (data) {
-    if (data.is_tag) {
-      return data;
-    } else if (typeof data === 'string') {
-      name = data;
-    } else {
-      id = data.id;
-      href = data.href;
-      name = data.name;
-      description = data.description;
-      color = data.color;
-      count = data.count;
+  this._init = function(_) {
+    if (_) {
+      if (_.is_tag) {
+        return _
+      } else if (typeof _ === 'string') {
+        self.set_name(_)
+      } else {
+        self.set_id(_.id)
+        self.set_href(_.href)
+        self.set_name(_.name)
+        self.set_description(_.description)
+      color = _.color
+      count = _.count
+      }
     }
+    return self
   }
 
+
   /**
-   * Public read-only data properties.
+   * Public data properties.
    */
 
-  Object.defineProperty(self, 'id', { value: id });
-  Object.defineProperty(self, 'href', { value: href });
-  Object.defineProperty(self, 'count', { value: count });
+  limivorous.observable(self, storage)
+            .property(self, 'id', storage)
+            .property(self, 'href', storage)
+            .property(self, 'name', storage)
+            .property(self, 'description', storage)
+            .property(self, 'color', storage)
+            .property(self, 'count', storage)
 
-  Object.defineProperty(self, 'name', {get: function() { return name; }});
-  Object.defineProperty(self, 'description', {get: function() { return description; }});
-  Object.defineProperty(self, 'color', {get: function() { return color; }});
   Object.defineProperty(self, 'is_tag', {value: true});
-
-  /**
-   * Data mutators
-   */
-
-  self.set_name = function(_) {
-    name = _;
-    return self;
-  }
-
-  self.set_description = function(_) {
-    description = _;
-    return self;
-  }
-
-  self.set_color = function(_) {
-    color = _;
-    return self;
-  }
 
   self.toJSON = function() {
     return {
-      id: id,
-      href: href,
-      name: name,
-      description: description,
-      color: color,
-      count: count
+      id: storage.id,
+      href: storage.href,
+      name: storage.name,
+      description: storage.description,
+      color: storage.color,
+      count: storage.count
     }
   }
 
-  return self;
+  return this._init(data)
 }

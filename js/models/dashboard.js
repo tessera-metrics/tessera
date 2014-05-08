@@ -32,7 +32,7 @@ ds.models.dashboard = function(data) {
   }
 
   /**
-   * Public read-only data properties.
+   * Public data properties.
    */
 
   limivorous.observable(self, storage)
