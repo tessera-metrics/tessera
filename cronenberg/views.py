@@ -53,49 +53,6 @@ def _set_preferences(prefs):
     for name, value in prefs.items():
         session[name] = value
 
-# HACK!
-def _set_interactive(item, value):
-    if 'interactive' in item:
-        item['interactive'] = value
-    if 'items' in item:
-        for child in item['items']:
-            _set_interactive(child, value)
-
-
-# =============================================================================
-#
-# ## API Endpoints
-#
-# ``/api/dashboard`` (GET, POST)
-#
-#   List all dashboards, returning their basic metadata (replaces the
-#   /names and /listing endpoints)
-#
-# ``/api/dashboard/<id>`` (GET, POST, PUT, DELETE)
-#
-#  Manage the metadata for a single dashboard.
-#
-# ``/api/dashboard/<id>/definition`` (GET, PUT)
-#
-#   Manage the complete definition of a single dashboard
-#
-# ``/api/dashboard/<id>/definition/expanded`` (GET)
-#
-#   Get the complete definition of a single dashboard with all URLs
-#   and template variables expanded, ready for rendering.
-#
-# ``/api/dashboard/<id>/tags`` (GET, PUT)
-#
-#   Manage the tags sub-set of the dashboard's metadata.
-#
-# ``/api/tags`` (GET)
-#
-#  Get a list of all tags, for populating auto-complete widgets.
-#
-# =============================================================================
-
-## Dashboard util functions
-
 def _set_dashboard_hrefs(dash):
     id = dash['id']
     dash['href'] = '/api/dashboard/{0}'.format(id)
@@ -130,6 +87,10 @@ def _dashboards_response(dashboards):
         'ok' : True,
         'dashboards' : [ _set_dashboard_hrefs(d) for d in dashboards]
     })
+
+# =============================================================================
+# API Endpoints
+# =============================================================================
 
 ## Dashboard endpoints
 
@@ -277,13 +238,6 @@ def api_dashboard_update_definition(id):
 
     return _jsonify({ 'ok' : True })
 
-@app.route('/api/config')
-def api_config_get():
-    return _jsonify({
-        'ok' : True,
-        'config' : _get_config()
-    })
-
 # =============================================================================
 # Tags API
 # =============================================================================
@@ -325,6 +279,17 @@ def api_dashboard_update_tags(id):
     mgr.store_dashboard(dashboard)
 
     return _jsonify({ 'ok' : True })
+
+# =============================================================================
+# Misc API
+# =============================================================================
+
+@app.route('/api/config')
+def api_config_get():
+    return _jsonify({
+        'ok' : True,
+        'config' : _get_config()
+    })
 
 @app.route('/api/preferences/')
 def api_preferences_get():
