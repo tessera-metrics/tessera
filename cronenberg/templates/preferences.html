@@ -48,12 +48,25 @@
 
           <!-- Theme -->
           <div class="form-group">
-            <label class="col-md-4 control-label">Theme</label>
+            <label class="col-md-4 control-label" for="themeRadios">Theme</label>
             <div class="col-md-8">
-              <div class="btn-group">
-                <input type="button" class="btn {% if ctx.prefs.theme=='dark' %} btn-primary {% else %} btn-default {% endif %} col-md-4" onclick="setPref('theme', 'dark')" value="Dark">
-                <input type="button" class="btn {% if ctx.prefs.theme=='light' %} btn-primary {% else %} btn-default {% endif %} col-md-4" onclick="setPref('theme', 'light')" value="Light">
-                <input type="button" class="btn {% if ctx.prefs.theme=='solarized-light' %} btn-primary {% else %} btn-default {% endif %} col-md-4" onclick="setPref('theme', 'solarized-light')" value="Solarized Light">
+              <div class="radio">
+                <label for="themeRadios-dark">
+                  <input type="radio" name="themeRadios" id="themeRadios-dark" {% if ctx.prefs.theme=='dark' %} checked="checked" {% endif %} onclick="setPref('theme', 'dark')" value="Dark">
+                    Dark
+                </label>
+              </div>
+              <div class="radio">
+                <label for="themeRadios-light">
+                  <input type="radio" name="themeRadios" id="themeRadios-light" {% if ctx.prefs.theme=='light' %} checked="checked" {% endif %} onclick="setPref('theme', 'light')" value="Light">
+                    Light
+                </label>
+              </div>
+              <div class="radio">
+                <label for="themeRadios-solarized-light">
+                  <input type="radio" name="themeRadios" id="themeRadios-solarized-light" {% if ctx.prefs.theme=='solarized-light' %} checked="checked" {% endif %} onclick="setPref('theme', 'solarized-light')" value="Solarized Light">
+                    Solarized Light
+                </label>
               </div>
             </div>
           </div>
