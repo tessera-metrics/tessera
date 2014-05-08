@@ -6,7 +6,6 @@ import logging
 import copy
 import datetime
 import inflection
-import pybars
 import urllib
 
 from flask import Flask, render_template, request, redirect, jsonify, abort, session
