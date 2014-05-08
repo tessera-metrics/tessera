@@ -1,7 +1,6 @@
 $(document).on('click', 'ul.ds-dashboard-sort-menu li', function(e) {
   var column = e.target.getAttribute('data-ds-sort-col')
   var order = e.target.getAttribute('data-ds-sort-order')
-  console.log("Sort by " + column + ", " + order)
   var url = URI(window.location)
   if (column) {
     url.setQuery('sort', column)
@@ -10,4 +9,15 @@ $(document).on('click', 'ul.ds-dashboard-sort-menu li', function(e) {
     url.setQuery('order', order)
   }
   window.location = url.href()
+});
+
+
+$(document).ready(function() {
+  var params = URI(window.location).search(true)
+  if (params.sort !== 'default' ) {
+    $('ul.ds-dashboard-sort-menu li').removeClass('active')
+    $('[data-ds-sort-col="' + params.sort + '"][data-ds-sort-order="' + (params.order || 'asc') + '"]')
+                                    .parent()
+                                    .addClass('active')
+  }
 });
