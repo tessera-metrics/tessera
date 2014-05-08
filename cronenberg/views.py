@@ -53,16 +53,6 @@ def _set_preferences(prefs):
     for name, value in prefs.items():
         session[name] = value
 
-def _set_dashboard_hrefs(dash):
-    id = dash['id']
-    dash['href'] = '/api/dashboard/{0}'.format(id)
-    dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
-    dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
-    if 'definition' in dash:
-        definition = dash['definition']
-        definition['href'] = '/api/dashboard/{0}/definition'.format(id)
-    return dash
-
 def _dashboard_sort_column():
     columns = {
         'created' : database.Dashboard.creation_date,
@@ -82,10 +72,33 @@ def _dashboard_sort_column():
     else:
         return column.asc()
 
+def _set_dashboard_hrefs(dash):
+    id = dash['id']
+    dash['href'] = '/api/dashboard/{0}'.format(id)
+    dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
+    dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
+    if 'definition' in dash:
+        definition = dash['definition']
+        definition['href'] = '/api/dashboard/{0}/definition'.format(id)
+    return dash
+
 def _dashboards_response(dashboards):
     return _jsonify({
         'ok' : True,
         'dashboards' : [ _set_dashboard_hrefs(d) for d in dashboards]
+    })
+
+def _set_tag_hrefs(tag):
+    id = tag['id']
+    tag['href'] = '/api/tag/{0}'.format(id)
+    return tag
+
+def _tags_response(tags):
+    if not isinstance(tags, list):
+        tags = [tags]
+    return _jsonify({
+        'ok' : True,
+        'tags' : [_set_tag_hrefs(t.to_json()) for t in tags]
     })
 
 # =============================================================================
@@ -197,7 +210,6 @@ def api_dashboard_delete(id):
     dashboard = database.Dashboard.query.get_or_404(id)
     db.session.delete(dashboard)
     db.session.commit()
-    # TODO - return 204 status
     return _jsonify({ 'ok' : True },
                     status=204)
 
@@ -259,10 +271,12 @@ def api_tag_list():
         tag.id = row[0]
         tags.append(tag)
 
-    return _jsonify({
-        'ok' : True,
-        'tags' : tags
-    })
+    return _tags_response(tags)
+
+@app.route('/api/tag/<id>')
+def api_tag_get(id):
+    tag = database.Tag.query.get_or_404(id)
+    return _tags_response(tag)
 
 # =============================================================================
 # Misc API
