@@ -66,8 +66,13 @@ And to run it from source:
 
 Importing dashboard definitions from the built-in dashboard system in
 graphite-web is currently supported, via the command
-**import_graphite_dashboards**, which supports three optional
-arguments **query**, **layout**, and **columns**.
+**import_graphite_dashboards**, which supports four optional
+arguments **query**, **layout**, and **columns**, and **overwrite**.
+
+By default, the importer will skip any dashboards that have already
+been imported, as determined by the original dashboard URL in
+``Dashboard.imported_from``. To re-import a dashboard, overwriting the
+definition, supply ``--overwrite`` on the command line.
 
 To import everything with default settings, which will create a 4
 column fluid layout:
@@ -126,4 +131,3 @@ Client Side:
 ### Screenshot
 
 ![screenshot](docs/screenshot-single-node-light.png)
-
