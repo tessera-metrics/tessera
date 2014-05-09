@@ -29,6 +29,9 @@ function ds_rebind_property(target, source, name) {
   Object.defineProperty(target, name, {
     get: function() {
       return source[name];
+    },
+    set: function(value) {
+      source[name] = value
     }
   });
 }
