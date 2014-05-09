@@ -23,6 +23,12 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
       break;
     }
 
+    case 'export-csv': {
+      var data_url = ds.charts.chart_url(item, { showTitle: true, format: 'csv' });
+      window.open(data_url);
+      break;
+    }
+
     case 'set-chart-type-stacked-area-chart': {
       item.set_type('stacked_area_chart')
       ds.manager.update_item_view(item)
