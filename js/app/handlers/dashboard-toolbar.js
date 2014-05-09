@@ -87,8 +87,6 @@ $(document).ready(function() {
     ds.manager.update(dash)
   })
 
-
-
   $(document).on('click', '#ds-toggle-interactive-button', function(e) {
     if (ds.manager.toggle_interactive_charts()) {
       $('#ds-toggle-interactive-button').removeClass('active')
@@ -104,7 +102,6 @@ $(document).ready(function() {
   $(document).on('click', '#ds-delete-dashboard-button', function(e) {
     ds.manager.delete_current()
   })
-
 
   cronenberg.onEnterEditMode(function() {
     $('#ds-edit-button').addClass('active')
