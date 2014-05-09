@@ -14,6 +14,9 @@ clusto.get_role = function(role) {
       async: false,
       success: function(data) {
         result = data.join(',')
+      },
+      error: function() {
+        ds.manager.error('Unable to retrieve role ' + role + ' from clusto')
       }
     })
     clusto.cache[role] = result
