@@ -35,7 +35,7 @@ ds.models.data.Query = function(data_) {
   }
 
   self.url = function(_) {
-    if (_) options = _;
+    options = options || _ || {}
     var url = URI(options.base_url)
               .path('/render')
               .setQuery('format', options.format || 'png')
@@ -63,31 +63,44 @@ ds.models.data.Query = function(data_) {
    *   * fire_only
    */
   self.load = function(options_) {
-    options = options_ || {}
-    if (options.fire_only) {
+    options = options || options_ || {}
+    console.log("Query.load")
+    // Ugh this default overriding is geting ugly. I need an options
+    // merge() function
+    if ((options_ && options_.fire_only) || options.fire_only) {
+      console.log("Query.load fire_only");
       // This is a bit of a hack for optimization, to fire the query
       // events when if we don't need the raw data because we're
       // rendering non-interactive graphs only. Would like a more
       // elegant way to handle the case.
-      bean.fire(self, 'ds-data-ready', self);
-    }
-    options.format = 'json';
-    var url = self.url(options);
-    bean.fire(self, 'ds-data-loading');
-    $.ajax({
-      dataType: 'json',
-      url: url
-    })
-     .done(function(response_data, textStatus) {
-      self._process(response_data);
-      if (options.ready && (options.ready instanceof Function)) {
-        options.ready(self);
+      var ready = options.ready
+      if (options_ && options_.ready) {
+        ready = options_.ready
+      }
+      if (ready && (ready instanceof Function)) {
+        ready(self);
       }
       bean.fire(self, 'ds-data-ready', self);
-    })
-    .error(function(xhr, status, error) {
-      ds.manager.error('Failed to load query ' + self.name + '. ' + error);
-    });
+    } else {
+    console.log("Query.load ajaxing")
+      options.format = 'json';
+      var url = self.url(options);
+      bean.fire(self, 'ds-data-loading');
+      $.ajax({
+        dataType: 'json',
+        url: url
+      })
+       .done(function(response_data, textStatus) {
+        self._process(response_data);
+        if (options.ready && (options.ready instanceof Function)) {
+          options.ready(self);
+        }
+        bean.fire(self, 'ds-data-ready', self);
+      })
+       .error(function(xhr, status, error) {
+        ds.manager.error('Failed to load query ' + self.name + '. ' + error);
+      });
+    }
   }
 
   /**

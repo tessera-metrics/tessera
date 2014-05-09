@@ -23,5 +23,39 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
       break;
     }
 
+    case 'set-chart-type-stacked-area-chart': {
+      item.set_type('stacked_area_chart')
+      var rendered = item.render()
+      $('#'+presentation_id).replaceWith(rendered)
+      item.query.load({
+        fire_only: true
+      })
+      break;
+    }
+
+    case 'set-chart-type-standard-time-series': {
+      item.set_type('standard_time_series')
+      var rendered = item.render()
+      $('#'+presentation_id).replaceWith(rendered)
+      item.query.load({
+        fire_only: true
+      })
+      break;
+    }
+
+    case 'set-chart-type-simple-time-series': {
+      item.set_type('simple_time_series')
+      var rendered = item.render()
+      $('#'+presentation_id).replaceWith(rendered)
+      item.query.load({
+        fire_only: true
+      })
+      break;
+    }
+
+
+
   }
+  /* prevents resetting scroll position */
+  return false
 });
