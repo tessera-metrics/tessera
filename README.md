@@ -9,6 +9,9 @@ Words. Words about pictures.
 
 ## Getting Started
 
+In order to get this project running from source, you will need to have python, 
+node.js, and a C compiler installed. node.js is used for building the web assets, 
+but is not used for running the server. 
 
 ### Setting up the Python Environment
 
