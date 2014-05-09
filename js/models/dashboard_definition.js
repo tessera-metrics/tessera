@@ -61,8 +61,12 @@ ds.models.dashboard_definition = function(data) {
   }
 
   self.toJSON = function() {
+    var q = {}
+    for (var key in queries) {
+      q[key] = queries[key].toJSON()
+    }
     return container.toJSON(base.toJSON({
-      queries: queries
+      queries: q
     }));
   }
 
