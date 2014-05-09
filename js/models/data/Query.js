@@ -1,50 +1,48 @@
 ds.models.data.Query = function(data_) {
   "use strict";
 
-  var targets = []
-    , name
-    , data
-    , summation
-    , options
-    , self = {};
+  var storage = {}
+    , self = {}
+
+  limivorous.observable(self, storage)
+            .property(self, 'targets', storage)
+            .property(self, 'name', storage)
+            .property(self, 'data', storage)
+            .property(self, 'summation', storage)
+            .property(self, 'options', storage)
 
   if (data_) {
     if (data_.targets) {
       if (data_.targets instanceof Array) {
-        targets = data_.targets;
+        self.targets = data_.targets;
       } else {
-        targets = [data_.targets];
+        self.targets = [data_.targets];
       }
     }
-    name = data_.name;
+    self.name = data_.name;
   }
 
   self.DEFAULT_FROM_TIME = '-3h';
 
-  Object.defineProperty(self, 'targets', {get: function() { return targets; }});
-  Object.defineProperty(self, 'name', {get: function() { return name; }});
-  Object.defineProperty(self, 'data', {get: function() { return data; }});
-  Object.defineProperty(self, 'summation', {get: function() { return summation; }});
-  Object.defineProperty(self, 'options', {get: function() { return options; }});
   Object.defineProperty(self, 'is_query', {value: true});
 
   self.render_templates = function(context) {
-    targets = targets.map(function(t) {
-                return ds.render_template(t, context);
-              });
+    self.targets = self.targets.map(function(t) {
+                     return ds.render_template(t, context);
+                   });
   }
 
   self.url = function(_) {
-    options = options || _ || {}
-    var url = URI(options.base_url)
+    self.options = self.options || _ || {}
+    var url = URI(self.options.base_url)
               .path('/render')
-              .setQuery('format', options.format || 'png')
-              .setQuery('from', options.from || self.DEFAULT_FROM_TIME);
-    if (options.until) {
-      url.setQuery('until', options.until);
+              .setQuery('format', self.options.format || 'png')
+              .setQuery('from', self.options.from || self.DEFAULT_FROM_TIME);
+    if (self.options.until) {
+      url.setQuery('until', self.options.until);
     }
-    for (var i in targets) {
-      url.addQuery('target', targets[i]);
+    for (var i in self.targets) {
+      url.addQuery('target', self.targets[i]);
     }
     return url.href();
   }
@@ -63,15 +61,15 @@ ds.models.data.Query = function(data_) {
    *   * fire_only
    */
   self.load = function(options_) {
-    options = options || options_ || {}
+    self.options = self.options || options_ || {}
     // Ugh this default overriding is geting ugly. I need an options
     // merge() function
-    if ((options_ && options_.fire_only) || options.fire_only) {
+    if ((options_ && options_.fire_only) || self.options.fire_only) {
       // This is a bit of a hack for optimization, to fire the query
       // events when if we don't need the raw data because we're
       // rendering non-interactive graphs only. Would like a more
       // elegant way to handle the case.
-      var ready = options.ready
+      var ready = self.options.ready
       if (options_ && options_.ready) {
         ready = options_.ready
       }
@@ -80,8 +78,8 @@ ds.models.data.Query = function(data_) {
       }
       bean.fire(self, 'ds-data-ready', self);
     } else {
-      options.format = 'json';
-      var url = self.url(options);
+      self.options.format = 'json';
+      var url = self.url(self.options);
       bean.fire(self, 'ds-data-loading');
       $.ajax({
         dataType: 'json',
@@ -89,8 +87,8 @@ ds.models.data.Query = function(data_) {
       })
        .done(function(response_data, textStatus) {
         self._process(response_data);
-        if (options.ready && (options.ready instanceof Function)) {
-          options.ready(self);
+        if (self.options.ready && (self.options.ready instanceof Function)) {
+          self.options.ready(self);
         }
         bean.fire(self, 'ds-data-ready', self);
       })
@@ -114,43 +112,29 @@ ds.models.data.Query = function(data_) {
    * charting library, and calculating sums.
    */
   self._process = function(response_data) {
-    summation = ds.models.data.Summation();
-    data = response_data.map(function(series) {
-             series.summation = ds.models.data.Summation(series).toJSON();
-             series.key = series.target;
-             series.values = series.datapoints;
-             summation.merge(series.summation);
-             delete series.target;
-             delete series.datapoints;
-             return series;
-           });
-    return self;
-  }
-
-  /**
-   * Data mutators
-   */
-
-  self.set_targets = function(_) {
-    targets = _;
-    return self;
-  }
-
-  self.set_name = function(_) {
-    name = _;
+    self.summation = ds.models.data.Summation();
+    self.data = response_data.map(function(series) {
+                  series.summation = ds.models.data.Summation(series).toJSON();
+                  series.key = series.target;
+                  series.values = series.datapoints;
+                  self.summation.merge(series.summation);
+                  delete series.target;
+                  delete series.datapoints;
+                  return series;
+                });
     return self;
   }
 
   self.toJSON = function() {
     var json = {}
-    if (name)
-      json.name = name
-    if (targets)
-      json.targets = targets
-    if (data)
-      json.data = data
-    if (summation)
-      json.summation = summation.toJSON()
+    if (self.name)
+      json.name = self.name
+    if (self.targets)
+      json.targets = self.targets
+    if (self.data)
+      json.data = self.data
+    if (self.summation)
+      json.summation = self.summation.toJSON()
     return json
   }
 
