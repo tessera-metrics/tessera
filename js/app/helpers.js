@@ -2,7 +2,7 @@
 Handlebars.registerHelper('markdown', function(value) {
   if (!value)
     return '';
-  return new Handlebars.SafeString(markdown.toHTML(value));
+  return new Handlebars.SafeString(marked(value));
 });
 
 Handlebars.registerHelper('moment', function(format, value) {
