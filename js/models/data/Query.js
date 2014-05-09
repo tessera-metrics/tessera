@@ -64,11 +64,9 @@ ds.models.data.Query = function(data_) {
    */
   self.load = function(options_) {
     options = options || options_ || {}
-    console.log("Query.load")
     // Ugh this default overriding is geting ugly. I need an options
     // merge() function
     if ((options_ && options_.fire_only) || options.fire_only) {
-      console.log("Query.load fire_only");
       // This is a bit of a hack for optimization, to fire the query
       // events when if we don't need the raw data because we're
       // rendering non-interactive graphs only. Would like a more
@@ -82,7 +80,6 @@ ds.models.data.Query = function(data_) {
       }
       bean.fire(self, 'ds-data-ready', self);
     } else {
-    console.log("Query.load ajaxing")
       options.format = 'json';
       var url = self.url(options);
       bean.fire(self, 'ds-data-loading');
