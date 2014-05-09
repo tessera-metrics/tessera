@@ -4,23 +4,22 @@ from ..model import *
 from ..model.database import *
 
 queries = {
-    'latency_overall'                 : 'groupByNode(servers.*.rash.triggers-fulfillment.pushfulfillmenthandler.push_dispatch_time.*Percentile, 6, "maxSeries")',
-    'latency_richpush_create'         : 'groupByNode(servers.*.rash.triggers-fulfillment.pushdependencymetrics.createmessagelatency.richpush.*Percentile, 7, "maxSeries")',
-    'latency_scheduled_overall'       : 'groupByNode(servers.*.rash.triggers-fulfillment.delayedpushfulfillmenthandler.scheduled_push_dispatch_time.*Percentile, 6, "maxSeries")',
-    'latency_kenneth'                 : 'groupByNode(servers.*.rash.triggers-fulfillment.synchronouswithretriesclient_kenneth_client_get_violation_request_timer.request_duration.*Percentile, 6, "maxSeries")',
-    'latency_hangar'                  : 'groupByNode(servers.*.rash.triggers-fulfillment.synchronouswithretriesclient_hangarrpcclient_store_request_timer.request_duration.*Percentile, 6, "maxSeries")',
-    'latency_meganome'                : 'groupByNode(servers.*.rash.triggers-fulfillment.synchronouswithretriesclient_meganome_schedule_pushes_timer.request_duration.*Percentile, 6, "maxSeries")',
-    'latency_gbc'                     : 'groupByNode(servers.*.rash.triggers-fulfillment.synchronousgooeyclientimpl_timer.sendpushexecutiontime.*Percentile, 6, "maxSeries")',
-    'latency_process_fulfillment_rpc' : 'groupByNode(servers.*.rash.triggers-fulfillment.reactorrpcmetrics_timer.processfulfillmentscommandexecutiontime.*Percentile, 6, "maxSeries")',
+    'latency_overall'                 : 'groupByNode(servers.{{clusto "notices-worker"}}.rash.triggers-fulfillment.pushfulfillmenthandler.push_dispatch_time.*Percentile, 6, "maxSeries")',
+    'latency_richpush_create'         : 'groupByNode(servers.{{clusto "notices-worker"}}.rash.triggers-fulfillment.pushdependencymetrics.createmessagelatency.richpush.*Percentile, 7, "maxSeries")',
+    'latency_scheduled_overall'       : 'groupByNode(servers.{{clusto "notices-worker"}}.rash.triggers-fulfillment.delayedpushfulfillmenthandler.scheduled_push_dispatch_time.*Percentile, 6, "maxSeries")',
+    'latency_kenneth'                 : 'groupByNode(servers.{{clusto "notices-worker"}}.rash.triggers-fulfillment.synchronouswithretriesclient_kenneth_client_get_violation_request_timer.request_duration.*Percentile, 6, "maxSeries")',
+    'latency_hangar'                  : 'groupByNode(servers.{{clusto "notices-worker"}}.rash.triggers-fulfillment.synchronouswithretriesclient_hangarrpcclient_store_request_timer.request_duration.*Percentile, 6, "maxSeries")',
+    'latency_meganome'                : 'groupByNode(servers.{{clusto "notices-worker"}}.rash.triggers-fulfillment.synchronouswithretriesclient_meganome_schedule_pushes_timer.request_duration.*Percentile, 6, "maxSeries")',
+    'latency_gbc'                     : 'groupByNode(servers.{{clusto "notices-worker"}}.rash.triggers-fulfillment.synchronousgooeyclientimpl_timer.sendpushexecutiontime.*Percentile, 6, "maxSeries")',
+    'latency_process_fulfillment_rpc' : 'groupByNode(servers.{{clusto "notices-worker"}}.rash.triggers-fulfillment.reactorrpcmetrics_timer.processfulfillmentscommandexecutiontime.*Percentile, 6, "maxSeries")',
 
-    'timeouts_fulfillment_from_ingress' : 'alias(sumSeries(nonNegativeDerivative(servers.*.rash.triggers-state-ingress.synchronouswithretriesclient_triggersfulfillmentclient_process_fulfillments_request_meter.timeout.Count)),"Fulfillment Timeouts")',
+    'timeouts_fulfillment_from_ingress' : 'alias(sumSeries(nonNegativeDerivative(servers.{{clusto "notices-worker"}}.rash.triggers-state-ingress.synchronouswithretriesclient_triggersfulfillmentclient_process_fulfillments_request_meter.timeout.Count)),"Fulfillment Timeouts")',
 
-    'push_count_total'    : 'alias(nonNegativeDerivative(sumSeries(servers.*.rash.triggers-fulfillment.pushpayloadmetrics.pushcount.all.Count)), "Total Push Count")',
-    'push_count_plain'    : 'alias(nonNegativeDerivative(diffSeries(sumSeries(servers.*.rash.triggers-fulfillment.pushpayloadmetrics.pushcount.all.Count),sumSeries(servers.*.rash.triggers-fulfillment.pushpayloadmetrics.pushfeaturetype_richpush.payload.Count))), "Plain Push Count")',
-    'push_count_richpush' : 'alias(nonNegativeDerivative(sumSeries(servers.*.rash.triggers-fulfillment.pushpayloadmetrics.pushfeaturetype_richpush.payload.Count)), "Rich Push Count")',
-    'push_platform' : 'aliasByNode(nonNegativeDerivative(groupByNode(servers.*.rash.triggers-fulfillment.pushpayloadmetrics.audienceplatform_*.platform.Count, 5, "sumSeries")),0)'
+    'push_count_total'    : 'alias(nonNegativeDerivative(sumSeries(servers.{{clusto "notices-worker"}}.rash.triggers-fulfillment.pushpayloadmetrics.pushcount.all.Count)), "Total Push Count")',
+    'push_count_plain'    : 'alias(nonNegativeDerivative(diffSeries(sumSeries(servers.{{clusto "notices-worker"}}.rash.triggers-fulfillment.pushpayloadmetrics.pushcount.all.Count),sumSeries(servers.{{clusto "notices-worker"}}.rash.triggers-fulfillment.pushpayloadmetrics.pushfeaturetype_richpush.payload.Count))), "Plain Push Count")',
+    'push_count_richpush' : 'alias(nonNegativeDerivative(sumSeries(servers.{{clusto "notices-worker"}}.rash.triggers-fulfillment.pushpayloadmetrics.pushfeaturetype_richpush.payload.Count)), "Rich Push Count")',
+    'push_platform' : 'aliasByNode(nonNegativeDerivative(groupByNode(servers.{{clusto "notices-worker"}}.rash.triggers-fulfillment.pushpayloadmetrics.audienceplatform_*.platform.Count, 5, "sumSeries")),0)'
 }
-
 
 
 
