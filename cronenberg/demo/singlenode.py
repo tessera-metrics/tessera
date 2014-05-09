@@ -13,14 +13,14 @@ def demo_node_dashboard():
             definition=dumps(
                 DashboardDefinition(
                      queries = {
-                         'cpu_usage' : 'aliasByNode(group(servers.{{clusto (arg "role")}}.sysstat.cpu.all.system,servers.{{clusto (arg "role")}}.sysstat.cpu.all.user,servers.{{clusto (arg "role")}}.sysstat.cpu.all.io_wait), 1, 5)',
-                         'loadavg' : 'aliasByNode(servers.{{clusto (arg "role")}}.sysstat.loadavg.01, 1)',
-                         'context' : 'aliasByNode(servers.{{clusto (arg "role")}}.sysstat.context_switches.context_switches, 1)',
-                         'processes' : 'aliasByNode(servers.{{clusto (arg "role")}}.sysstat.loadavg.process_list_size, 1)',
-                         'bytes_received' : 'aliasByNode(servers.{{clusto (arg "role")}}.sysstat.network.*.bytes_rx,1,4)',
-                         'tcp_establised' : 'aliasByNode(servers.{{clusto (arg "role")}}.tcp.CurrEstab,1)',
-                         'memory_usage' : 'aliasByNode(asPercent(sumSeries(servers.{{clusto (arg "role")}}.memory.Active),sumSeries(servers.{{clusto (arg "role")}}.memory.MemTotal)),1)',
-                         'chef' : 'drawAsInfinite(servers.{{clusto (arg "role")}}.chef.elapsed)'
+                         'cpu_usage' : 'aliasByNode(group(servers.{{clusto-query "role"}}.sysstat.cpu.all.system,servers.{{clusto-query "role"}}.sysstat.cpu.all.user,servers.{{clusto-query "role"}}.sysstat.cpu.all.io_wait), 1, 5)',
+                         'loadavg' : 'aliasByNode(servers.{{clusto-query "role"}}.sysstat.loadavg.01, 1)',
+                         'context' : 'aliasByNode(servers.{{clusto-query "role"}}.sysstat.context_switches.context_switches, 1)',
+                         'processes' : 'aliasByNode(servers.{{clusto-query "role"}}.sysstat.loadavg.process_list_size, 1)',
+                         'bytes_received' : 'aliasByNode(servers.{{clusto-query "role"}}.sysstat.network.*.bytes_rx,1,4)',
+                         'tcp_establised' : 'aliasByNode(servers.{{clusto-query "role"}}.tcp.CurrEstab,1)',
+                         'memory_usage' : 'aliasByNode(asPercent(sumSeries(servers.{{clusto-query "role"}}.memory.Active),sumSeries(servers.{{clusto-query "role"}}.memory.MemTotal)),1)',
+                         'chef' : 'drawAsInfinite(servers.{{clusto-query "role"}}.chef.elapsed)'
                      },
                      items=Section(layout=Section.Layout.FIXED,
                                    items=[

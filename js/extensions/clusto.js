@@ -25,6 +25,7 @@ Handlebars.registerHelper('clusto', function(role) {
   return '{' + clusto.get_role(role) + '}'
 })
 
-Handlebars.registerHelper('arg', function(name) {
-  return URI(window.location).query(true)[name]
+Handlebars.registerHelper('clusto-query', function(query) {
+  var role = URI(window.location).query(true)[query]
+  return '{' + clusto.get_role(role) + '}'
 })
