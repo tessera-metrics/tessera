@@ -145,12 +145,16 @@ ds.models.data.Query = function(data_) {
   }
 
   self.toJSON = function() {
-    return {
-      name: name,
-      targets: targets,
-      data: data,
-      summation: summation.toJSON()
-    }
+    var json = {}
+    if (name)
+      json.name = name
+    if (targets)
+      json.targets = targets
+    if (data)
+      json.data = data
+    if (summation)
+      json.summation = summation.toJSON()
+    return json
   }
 
   return self;
