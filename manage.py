@@ -31,7 +31,9 @@ def generate():
          demo_random_data_dashboard(),
          demo_gallery_dashboard(),
          demo_node_dashboard(),
-         demo_carbon_dashboard()
+         demo_carbon_dashboard(),
+        demo_yaw_sends_dashboard(),
+        demo_bonestorm_sends_dashboard()
     ]
     for d in dashboards:
         log.info('Storing dashboard {0} {1}'.format(d.category, d.title))

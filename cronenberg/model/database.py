@@ -1,7 +1,6 @@
 import json
 from datetime import datetime
 from ..application import db
-from .web import EntityEncoder
 
 # =============================================================================
 # Database model
