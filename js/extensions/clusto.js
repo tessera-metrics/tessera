@@ -13,7 +13,7 @@ clusto.get_role = function(role) {
       type: 'GET',
       async: false,
       success: function(data) {
-        if (!result || (result.length == 0)) {
+        if (!data || (data.length == 0)) {
           result = role
         } else {
           result = data.join(',')
