@@ -6,69 +6,69 @@
 ds.models.data.Summation = function(series) {
   "use strict";
 
-  var sum = 0
-    , min = Number.MAX_VALUE
-    , max = Number.MIN_VALUE
-    , mean = 0
-    , first = 0
-    , last = 0
-    , count = 0
-    , self = {};
+  var storage = {}
+    , self = {}
+
+  limivorous.observable(self, storage)
+            .property(self, 'sum', storage)
+            .property(self, 'min', storage)
+            .property(self, 'max', storage)
+            .property(self, 'mean', storage)
+            .property(self, 'first', storage)
+            .property(self, 'last', storage)
+            .property(self, 'count', storage)
+  Object.defineProperty(self, 'is_summation', {value: true});
+
+  self.sum = self.mean = self.first = self.last = self.count = 0
+  self.min = Number.MAX_VALUE
+  self.max = Number.MIN_VALUE
 
   if (series) {
-    first = series.datapoints[0][0];
-    count = series.datapoints.length;
-    if (first == null) {
-      first = 0;
+    self.first = series.datapoints[0][0];
+    self.count = series.datapoints.length;
+    if (self.first == null) {
+      self.first = 0;
     }
     series.datapoints.forEach(function(point) {
       var value = point[0] == null ? 0 : point[0];
-      sum = sum + value;
-      if (value > max) {
-        max = value;
+      self.sum = self.sum + value;
+      if (value > self.max) {
+        self.max = value;
       }
-      if (value < min) {
-        min = value;
+      if (value < self.min) {
+        self.min = value;
       }
-      last = value;
+      self.last = value;
     });
-    mean = sum / count;
+    self.mean = self.sum / self.count;
   }
-
-  Object.defineProperty(self, 'sum', {get: function() { return sum; }});
-  Object.defineProperty(self, 'min', {get: function() { return min; }});
-  Object.defineProperty(self, 'max', {get: function() { return max; }});
-  Object.defineProperty(self, 'mean', {get: function() { return mean; }});
-  Object.defineProperty(self, 'first', {get: function() { return first; }});
-  Object.defineProperty(self, 'last', {get: function() { return last; }});
-  Object.defineProperty(self, 'count', {get: function() { return count; }});
 
   /**
    * Merge another summation into this one. For summarizing
    * queries with multiple data series.
    */
   self.merge = function(other) {
-    sum += other.sum;
-    count += other.count;
-    mean = sum / count;
-    if (other.min < min) {
-      min = other.min;
+    self.sum += other.sum;
+    self.count += other.count;
+    self.mean = self.sum / self.count;
+    if (other.min < self.min) {
+      self.min = other.min;
     }
-    if (other.max > max) {
-      max = other.max;
+    if (other.max > self.max) {
+      self.max = other.max;
     }
     return self;
   }
 
   self.toJSON = function() {
     return {
-      sum: sum,
-      min: min,
-      max: max,
-      mean: mean,
-      first: first,
-      last: last,
-      count: count
+      sum: self.sum,
+      min: self.min,
+      max: self.max,
+      mean: self.mean,
+      first: self.first,
+      last: self.last,
+      count: self.count
     }
   }
 
