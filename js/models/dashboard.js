@@ -98,9 +98,9 @@ ds.models.dashboard = function(data) {
   }
 
   self.render_templates = function(context) {
-    storage.description = ds.render_template(storage.description, context);
-    storage.title       = ds.render_template(storage.title, context);
-    storage.summary     = ds.render_template(storage.summary, context);
+    self.description = ds.render_template(storage.description, context);
+    self.title       = ds.render_template(storage.title, context);
+    self.summary     = ds.render_template(storage.summary, context);
     if (storage.definition) {
       storage.definition.render_templates(context);
     }
