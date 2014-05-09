@@ -40,7 +40,7 @@ module.exports = function(grunt) {
         src: [
           'cronenberg/static/js/jquery-1.11.0.min.js',
           'cronenberg/static/js/moment.min.js',
-          'cronenberg/static/js/markdown.min.js',
+          'cronenberg/static/js/marked.min.js',
           'cronenberg/static/js/bean.min.js',
           'cronenberg/static/js/URI.min.js',
           'cronenberg/static/js/handlebars.min.js',

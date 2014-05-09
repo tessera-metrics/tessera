@@ -54,7 +54,7 @@ $(document).ready(function() {
           ds.manager.update(dash)
         },
         display: function(value, response) {
-          $(this).html(markdown.toHTML(value))
+          $(this).html(marked(value))
         }
       })
 
