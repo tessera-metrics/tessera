@@ -104,15 +104,12 @@ $(document).ready(function() {
   })
 
   $(document).on('click', '#ds-view-dashboard-source-button', function(e) {
-    var dashboard = ds.manager.current.dashboard.toJSON()
-    for (var key in dashboard.definition.queries) {
-      delete dashboard.definition.queries[key].data
-      delete dashboard.definition.queries[key].summation
-    }
-    var contents = '<div class="container">' + ds.templates.edit.item_source({item:dashboard}) + '</div>'
-    $(ds.manager.current.element).replaceWith(contents)
+    var dashboard = ds.manager.current.dashboard;
+    $.get(dashboard.href + '?definition=true', function(data) {
+      var contents = '<div class="container">' + ds.templates.edit.item_source({item:data.dashboards[0]}) + '</div>'
+      $(ds.manager.current.element).replaceWith(contents)
+    })
   })
-
 
   cronenberg.onEnterEditMode(function() {
     $('#ds-edit-button').addClass('active')

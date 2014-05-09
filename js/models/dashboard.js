@@ -123,8 +123,6 @@ ds.models.dashboard = function(data) {
    * Data mutators.
    */
 
-
-
   self.toJSON = function() {
     return {
      id: storage.id,
