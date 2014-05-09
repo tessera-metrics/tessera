@@ -127,14 +127,17 @@ ds.manager =
       if (context.until) {
         url.setQuery('until', context.until);
       }
-        for (var key in params) {
-            if (key.indexOf('p[') == 0) {
-                var name = key.slice(2, -1);
-                variables[name] = params[key];
-            }
+      for (var key in params) {
+        /* compatibility w/gdash params */
+        if (key.indexOf('p[') == 0) {
+          var name = key.slice(2, -1)
+          variables[name] = params[key]
+        } else {
+          variables[key] = params[key]
         }
-      context.url = url.href();
-      context.variables = variables;
+      }
+      context.url = url.href()
+      context.variables = variables
 
       if (typeof(options.interactive) != 'undefined') {
         context.interactive = options.interactive
@@ -158,8 +161,12 @@ ds.manager =
         }).error(function(xhr, status, error) {
           self.error('Error loading dashboard. ' + error);
         }).done(function(data) {
-          var dashboard = ds.models.dashboard(data.dashboards[0]).render_templates(context.variables);
-          holder.dashboard = dashboard;
+          var dashboard = ds.models.dashboard(data.dashboards[0])
+          holder.dashboard = dashboard
+
+          bean.fire(self, 'ds-dashboard-loaded', dashboard);
+
+          dashboard.render_templates(context.variables)
 
           var interactive = data.preferences.interactive;
           if (context.interactive != undefined) {
@@ -188,7 +195,7 @@ ds.manager =
             fire_only: !holder.raw_data_required
           });
 
-          bean.fire(self, cronenberg.events.DASHBOARD_LOADED, dashboard);
+          bean.fire(self, 'ds-dashboard-rendered', dashboard);
         });
         return self;
     }
