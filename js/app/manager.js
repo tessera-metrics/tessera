@@ -193,18 +193,24 @@ ds.manager =
         return self;
     }
 
+    self.update_item_view = function(item) {
+      var element = $('#' + item.item_id)
+      element.replaceWith(item.render())
+      item.query.load({ fire_only: true })
+    }
+
   self.change_layout = function(layout) {
     var new_layout = layout.transform(self.current.dashboard.definition);
 
     self.current.dashboard.set_items([new_layout]);
-    $(self.current.element).html(self.current.dashboard.render());
+    $(self.current.element).replaceWith(self.current.dashboard.render());
     self.current.dashboard.load_all();
   }
 
     self.refresh = function() {
-        if (self.current) {
-            self.load(self.current.url, self.current.element);
-        }
+      if (self.current) {
+        self.load(self.current.url, self.current.element);
+      }
     }
 
     // Definitely getting to the point we need some kind of reactive MVC
