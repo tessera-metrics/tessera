@@ -107,7 +107,7 @@ $(document).ready(function() {
     var dashboard = ds.manager.current.dashboard;
     $.get(dashboard.href + '?definition=true', function(data) {
       var contents = '<div class="container">' + ds.templates.edit.item_source({item:data.dashboards[0]}) + '</div>'
-      $(ds.manager.current.element).replaceWith(contents)
+      $(ds.manager.current.element).html(contents)
     })
   })
 
