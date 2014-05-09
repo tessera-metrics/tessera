@@ -29,14 +29,20 @@ ds.models.tag = function(data) {
   }
 
   self.toJSON = function() {
-    return {
-      id: self.id,
-      href: self.href,
-      name: self.name,
-      description: self.description,
-      color: self.color,
-      count: self.count
-    }
+    var json = {}
+    if (self.id)
+      json.id = self.id
+    if (self.href)
+      json.href = self.href
+    if (self.name)
+      json.name = self.name
+    if (self.description)
+      json.description = self.description
+    if (self.color)
+      json.color = self.color
+    if (self.count)
+      json.count = self.count
+    return json
   }
 
   return self
