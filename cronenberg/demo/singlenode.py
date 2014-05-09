@@ -6,7 +6,7 @@ from ..model.database import *
 def demo_node_dashboard():
     return database.Dashboard(
         title='System Overview',
-        summary='Summary of {{#if title}}{{title}}{{else}}{{ node }}{{/if}}',
+        summary='Summary of {{#if title}}{{title}}{{else}}{{ role }}{{/if}}',
         category='Demo',
         tags=[ Tag('template') ],
         definition = DashboardDef(
