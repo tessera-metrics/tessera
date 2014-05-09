@@ -34,11 +34,14 @@ ds.models.heading = function(data) {
   }
 
   self.toJSON = function() {
-    return base.toJSON({
-      text: text,
-      level: level,
-      description: description
-    });
+    var data = base.toJSON()
+    if (text)
+      data.text = text
+    if (level)
+      data.level = level
+    if (description)
+      data.description = description
+    return data
   }
 
   return self;

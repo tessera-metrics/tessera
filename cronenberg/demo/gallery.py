@@ -1,3 +1,4 @@
+
 import json
 import sys
 from ..model import *
@@ -155,7 +156,7 @@ def demo_gallery_dashboard():
                                               items=Markdown(text='# Heading 1\n'
                                                              + '[Markdown](https://daringfireball.net/projects/markdown/) is a simple plain text format '
                                                              + 'for generating markup. It is rendered in a dashboard element by '
-                                                             + '[markdown-js](https://github.com/evilstreak/markdown-js). \n'
+                                                             + '[marked](https://github.com/chjj/marked). \n'
                                                              + '## Heading 2\n'
                                                              + '* List \n'
                                                              + '* items \n'

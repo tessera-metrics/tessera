@@ -54,7 +54,7 @@ $(document).ready(function() {
           ds.manager.update(dash)
         },
         display: function(value, response) {
-          $(this).html(markdown.toHTML(value))
+          $(this).html(marked(value))
         }
       })
 
@@ -101,6 +101,14 @@ $(document).ready(function() {
 
   $(document).on('click', '#ds-delete-dashboard-button', function(e) {
     ds.manager.delete_current()
+  })
+
+  $(document).on('click', '#ds-view-dashboard-source-button', function(e) {
+    var dashboard = ds.manager.current.dashboard;
+    $.get(dashboard.href + '?definition=true', function(data) {
+      var contents = '<div class="container">' + ds.templates.edit.item_source({item:data.dashboards[0]}) + '</div>'
+      $(ds.manager.current.element).html(contents)
+    })
   })
 
   cronenberg.onEnterEditMode(function() {

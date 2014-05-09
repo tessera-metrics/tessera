@@ -49,6 +49,12 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
       break;
     }
 
+    case 'view-definition': {
+      var contents = ds.templates.edit.item_source({item:item})
+      bootbox.alert(contents)
+      break;
+    }
+
   }
   /* prevents resetting scroll position */
   return false

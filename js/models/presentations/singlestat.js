@@ -55,14 +55,19 @@ ds.models.singlestat = function(data) {
   }
 
  self.toJSON = function() {
-    return base.toJSON({
-      title: title,
-      format: format,
-      transform: transform,
-      units: units,
-      index: index
-    });
-  }
+   var data = base.toJSON()
+   if (title)
+     data.title = title
+   if (format)
+     data.format = format
+   if (transform)
+     data.transform = transform
+   if (units)
+     data.units = units
+   if (index)
+     data.index = index
+   return data
+ }
 
   return self;
 }

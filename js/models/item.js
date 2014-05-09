@@ -134,12 +134,17 @@ ds.models.item = function(data) {
   self.toJSON = function(data_) {
     var data = data_ || {};
     data.item_type = item_type;
-    data.item_id = item_id;
+    if (data.item_id)
+      data.item_id = item_id;
     // TODO: return query.toJSON() when server side supports it
-    data.query = typeof(query) === 'string' ? query : query.name;
-    data.css_class = css_class;
-    data.height = height;
-    data.style = style;
+    if (data.query)
+      data.query = typeof(query) === 'string' ? query : query.name;
+    if (data.css_class)
+      data.css_class = css_class;
+    if (data.height)
+      data.height = height;
+    if (data.style)
+      data.style = style;
     if (data.thresholds) {
       data.thresholds = thresholds.toJSON();
     }
