@@ -20,7 +20,7 @@ ds.models.item = function(data) {
     css_class = data.css_class;
     height = data.height;
     style = data.style;
-    thresholds = data.thresholds;
+    thresholds = ds.models.thresholds(data.thresholds)
   }
 
   Object.defineProperty(self, 'item_type', {get: function() { return item_type; }});
@@ -120,7 +120,6 @@ ds.models.item = function(data) {
     return self;
   }
 
-
   self.set_interactive = function(_) {
     interactive = _;
     return self;
@@ -146,7 +145,7 @@ ds.models.item = function(data) {
     if (style)
       data.style = style;
     if (thresholds) {
-      data.thresholds = thresholds.toJSON();
+      data.thresholds = thresholds.toJSON()
     }
     return data;
   }
