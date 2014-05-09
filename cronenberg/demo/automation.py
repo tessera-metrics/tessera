@@ -56,7 +56,7 @@ def demo_automation_overview():
                                                                 transform='sum'))
                                       ])
                                   ]),
-                        Section(layout=Section.Layout.NONE,
+                        Section(layout=Section.Layout.FIXED,
                                 items=[
                                     StackedAreaChart(height=4,
                                                      query='total_push_rate')
