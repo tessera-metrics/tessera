@@ -1,25 +1,37 @@
 
+marked.setOptions({
+  highlight: function(code) {
+    return hljs.highlightAuto(code).value
+  }
+})
+
 Handlebars.registerHelper('markdown', function(value) {
   if (!value)
-    return '';
-  return new Handlebars.SafeString(markdown.toHTML(value));
-});
+    return ''
+  return new Handlebars.SafeString(marked(value));
+})
+
+Handlebars.registerHelper('json', function(value) {
+  return new Handlebars.SafeString(hljs.highlightAuto(JSON.stringify(value, null, '  ')).value)
+})
+
 
 Handlebars.registerHelper('moment', function(format, value) {
   if (!value)
-    return '';
+    return ''
   if (format == 'fromNow') {
-    return moment(value).fromNow();
+    return moment(value).fromNow()
   } else {
-    return moment(value).format(format);
+    return moment(value).format(format)
   }
-});
+})
 
 Handlebars.registerHelper('format', function(format, value) {
   if (!value)
-    return '';
-  return d3.format(format)(value);
-});
+    return ''
+  return d3.format(format)(value)
+})
+
 
 Handlebars.registerHelper('height', function(item) {
   return item.height ? 'ds-height' + item.height : '';

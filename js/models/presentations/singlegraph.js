@@ -32,11 +32,13 @@ ds.models.singlegraph = function(data) {
   }
 
  self.toJSON = function() {
-    return chart.toJSON(base.toJSON({
-      format: format,
-      transform: transform
-    }));
-  }
+   var data = chart.toJSON(base.toJSON())
+   if (format)
+     data.format = format
+   if (transform)
+     data.transform = transform
+   return data
+ }
 
   return self;
 };
