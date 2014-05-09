@@ -13,7 +13,11 @@ clusto.get_role = function(role) {
       type: 'GET',
       async: false,
       success: function(data) {
-        result = data.join(',')
+        if (!result || (result.length == 0)) {
+          result = role
+        } else {
+          result = data.join(',')
+        }
       },
       error: function() {
         ds.manager.error('Unable to retrieve role ' + role + ' from clusto')
