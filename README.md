@@ -123,6 +123,7 @@ Client Side:
 * [bean.js](https://github.com/fat/bean) for events.
 * [handlebars.js](http://handlebarsjs.com/) for client side templating.
 * [marked](https://github.com/chjj/marked) for Markdown support.
+* [highlight.js](http://highlightjs.org/)
 * [URI.js](https://github.com/medialize/URI.js) for URL manipulation.
 * [limivorous](https://github.com/aalpern/limivorous)
 * [tagmanager](https://github.com/max-favilli/tagmanager)

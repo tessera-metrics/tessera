@@ -14,7 +14,7 @@ Handlebars.registerHelper('markdown', function(value) {
 Handlebars.registerHelper('json', function(value) {
   if (!value)
     return ''
-  return new Handlebars.SafeString(<'pre><code>' + hljs.highlightAuto(JSON.stringify(value, null, ' ')).value + '</code></pre>')
+  return new Handlebars.SafeString('<pre><code>' + hljs.highlightAuto(JSON.stringify(value, null, ' ')).value + '</code></pre>')
 })
 
 
