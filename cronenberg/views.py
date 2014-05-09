@@ -123,6 +123,8 @@ def api_dashboard_list_tagged(tag):
 
     """
     tag = database.Tag.query.filter_by(name=tag).first()
+    if not tag:
+        return _dashboards_response([])
     dashboards = [d.to_json() for d in tag.dashboards.order_by(_dashboard_sort_column()) if tag]
     return _dashboards_response(dashboards)
 
@@ -259,7 +261,7 @@ def api_tag_list():
     """Listing for all tags.
 
     """
-    sql = 'SELECT tag.id, tag.name, tag.description, count(*)' \
+    sql = 'SELECT tag.id, tag.name, tag.description, tag.fgcolor, tag.bgcolor, count(*)' \
     + ' FROM tag' \
     + ' INNER JOIN dashboard_tags' \
     + ' ON dashboard_tags.tag_id = tag.id' \
@@ -267,7 +269,7 @@ def api_tag_list():
 
     tags = []
     for row in db.engine.execute(sql):
-        tag = database.Tag(name=row[1], description=row[2], count=row[3])
+        tag = database.Tag(name=row[1], description=row[2], fgcolor=row[3], bgcolor=row[4], count=row[5])
         tag.id = row[0]
         tags.append(tag)
 

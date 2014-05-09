@@ -1,5 +1,11 @@
 <span class="badge badge-neutral" data-ds-tag="{{name}}"
-  {{#if color}}
-    style="background-color: {{color}};"
-  {{/if}}>{{name}}
+  style="
+  {{#if bgcolor}}
+    background-color: {{bgcolor}};
+  {{/if}}
+  {{#if fgcolor}}
+    color: {{fgcolor}};
+  {{/if}}>
+  ">
+  {{name}}
 </span>
