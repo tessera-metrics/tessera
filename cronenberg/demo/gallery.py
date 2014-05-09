@@ -14,7 +14,7 @@ def demo_gallery_dashboard():
         description='Dashboard descriptions can be longer and more detailed. \n' \
         + '### Markdown Formatted \n'
         + 'Plus, they can be _formatted_ in **Markdown** format for rendering to HTML.',
-        tags=[ Tag('demo'), Tag('random'), Tag('featured')],
+        tags=[ Tag('demo', fgcolor='#333', bgcolor='#ddd'), Tag('random'), Tag('featured', bgcolor='green')],
         definition = DashboardDef(
             definition=dumps(
                 DashboardDefinition(

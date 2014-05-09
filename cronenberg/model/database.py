@@ -83,23 +83,32 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
     description = db.Column(db.Text)
-    color = db.Column(db.String(24))
+    bgcolor = db.Column(db.String(24))
+    fgcolor = db.Column(db.String(24))
     count = None
 
-    def __init__(self, name, description=None, color=None, count=None, **kwargs):
+    def __init__(self, name, description=None, bgcolor=None, fgcolor=None, count=None, **kwargs):
         self.name = name
         self.description = description
         self.count = count
-        self.color = color
+        self.fgcolor = fgcolor
+        self.bgcolor = bgcolor
 
     def to_json(self):
-        return {
-            'id' : self.id,
-            'name' : self.name,
-            'description' : self.description,
-            'color' : self.color,
-            'count' : self.count
-        }
+        json = {}
+        if (self.id):
+            json['id'] = self.id
+        if (self.name):
+            json['name'] = self.name
+        if (self.description):
+            json['description'] = self.description
+        if (self.bgcolor):
+            json['bgcolor'] = self.bgcolor
+        if (self.fgcolor):
+            json['fgcolor'] = self.fgcolor
+        if (self.count):
+            json['count'] = self.count
+        return json
 
     @classmethod
     def canonicalize(cls, tag):

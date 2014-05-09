@@ -10,7 +10,7 @@ def demo_automation_overview():
         title='Overview',
         category='Automation',
         summary='A high level summary of automation',
-        tags=[ Tag('automation'), Tag('summary'), Tag('executive'), Tag('featured') ],
+        tags=[ Tag('automation', bgcolor="purple"), Tag('summary'), Tag('executive'), Tag('featured') ],
         definition = DashboardDef(
             definition=dumps(
                 DashboardDefinition(
