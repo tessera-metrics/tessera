@@ -37,8 +37,10 @@ ds.models.chart = function(data) {
 
   self.toJSON = function(data_) {
     var data = data_ || {};
-    data.title = title;
-    data.options = options;
+    if (title)
+      data.title = title;
+    if (options)
+      data.options = options;
     return data;
   }
 

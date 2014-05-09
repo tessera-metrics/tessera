@@ -39,11 +39,14 @@ ds.models.summation_table = function(data) {
   }
 
   self.toJSON = function() {
-    return base.toJSON({
-      format: format,
-      striped: striped,
-      title: title
-    });
+    var data = base.toJSON()
+    if (format)
+      data.format = format
+    if (striped)
+      data.striped = striped
+    if (title)
+      data.title = title
+    return data;
   }
 
   return self;

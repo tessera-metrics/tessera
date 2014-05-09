@@ -49,11 +49,14 @@ ds.models.cell = function(data) {
   }
 
   self.toJSON = function() {
-    return container.toJSON(base.toJSON({
-      span: span,
-      offset: offset,
-      align: align
-    }));
+    var data = container.toJSON(base.toJSON())
+    if (span)
+      data.span = span
+    if (offset)
+      data.offset = offset
+    if (align)
+      data.align = align
+    return data
   }
 
   return self;
