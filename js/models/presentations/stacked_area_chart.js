@@ -6,7 +6,7 @@ ds.models.stacked_area_chart = function(data) {
     , self = {};
 
   chart = ds.models.chart(data).rebind(self);
-  base = ds.models.item(data).set_type('stacked_area_chart').rebind(self);
+  base = ds.models.item(data).set_item_type('stacked_area_chart').rebind(self);
 
  self.toJSON = function() {
    return chart.toJSON(base.toJSON({

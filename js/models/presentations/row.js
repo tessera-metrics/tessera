@@ -5,7 +5,7 @@ ds.models.row = function(data) {
     , container
     , self = {};
 
-  base = ds.models.item(data).set_type('row').rebind(self);
+  base = ds.models.item(data).set_item_type('row').rebind(self);
   container = ds.models.container(data).rebind(self);
 
   /**

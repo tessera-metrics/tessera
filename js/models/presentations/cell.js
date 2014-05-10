@@ -13,7 +13,7 @@ ds.models.cell = function(data) {
     offset = data.offset;
     align = data.align;
   }
-  base = ds.models.item(data).set_type('cell').rebind(self);
+  base = ds.models.item(data).set_item_type('cell').rebind(self);
   container = ds.models.container(data).rebind(self);
 
   Object.defineProperty(self, 'span', { get: function() { return span; }});
