@@ -116,6 +116,11 @@ var limivorous =
        *              before storing it.
        *   update: A function which can be used for updating internal
        *           state before observers are notified.
+       *   get: A function which returns the property value. Will be
+       *        passed the storage context.
+       *   init: An initial value for the property. Can be a function
+       *         to return the value, which will be invoked with no
+       *         arguments.
        *
        * @param {Object} target The object to define the property on.
        * @param {String} name The name of the public property.
@@ -129,6 +134,10 @@ var limivorous =
         var context = builder.context
         var target = builder.target
 
+        /*
+         * The property setter, which optionally transforms the value,
+         * stores it, then signals any observers.
+         */
         var setter = function(value) {
           if (options.transform && (options.transform instanceof Function)) {
             value = options.transform(value)
@@ -148,13 +157,35 @@ var limivorous =
           return target
         }
 
+        /**
+         * Default getter just returns data from the storage context.
+         */
+        var getter = function() {
+          return context[name]
+        }
+
+        /**
+         * Optionally override the getter
+         */
+        if (options.get && (options.get instanceof Function)) {
+          getter = function() {
+            return options.get(context)
+          }
+        }
+
+        /**
+         * Create the property and the chainable setter method
+         */
         Object.defineProperty(target, name, {
-          get: function() { return context[name] },
+          get: getter,
           set: setter,
           enumerable: true
         })
         target['set_' + name] = setter
 
+        /**
+         * Initialize the property value
+         */
         if (options.init) {
           target[name] = (options.init instanceof Function)
                        ? options.init()
