@@ -27,15 +27,15 @@ ua.clusto =
     cache.getItem = function(role) {
       var key = cache.key(role)
       if (cache_data[key]) {
-        console.log('Cache hit (immediate) for ' + role)
+        // console.log('Cache hit (immediate) for ' + role)
         return cache_data[key]
       } else if (localStorage[key]) {
-        console.log('Cache hit (localStorage) for ' + role)
+        // console.log('Cache hit (localStorage) for ' + role)
         var data = localStorage[key]
         cache[key] = data
         return data
       }
-      console.log('Cache miss for ' + role)
+      // console.log('Cache miss for ' + role)
       return null
     }
 
@@ -51,12 +51,12 @@ ua.clusto =
       if (arguments.length > 0)
         clearLocal = arguments[0]
       if (clearLocal) {
-        console.log("Clearing localStorage")
+        // console.log("Clearing localStorage")
         var localKeys = Object.keys(localStorage)
         for (var i in localKeys) {
           var key = localKeys[i]
           if (key.search('ua.clusto') == 0) {
-            console.log("Clearing " + key + " from localStorage");
+            // console.log("Clearing " + key + " from localStorage");
             localStorage.removeItem(key)
           }
         }
