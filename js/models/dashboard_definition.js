@@ -16,7 +16,7 @@ ds.models.dashboard_definition = function(data) {
       queries[key] = query;
     }
   }
-  base = ds.models.item(data).set_type('dashboard_definition').rebind(self);
+  base = ds.models.item(data).set_item_type('dashboard_definition').rebind(self);
   container = ds.models.container(data).rebind(self);
 
   Object.defineProperty(self, 'queries', {get: function() { return queries; }});

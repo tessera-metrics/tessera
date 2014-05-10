@@ -12,7 +12,7 @@ ds.models.summation_table = function(data) {
     title = data.title
     format = data.format || format;
   }
-  base = ds.models.item(data).set_type('summation_table').rebind(self);
+  base = ds.models.item(data).set_item_type('summation_table').rebind(self);
 
   Object.defineProperty(self, 'striped', {get: function() { return striped; }});
   Object.defineProperty(self, 'title', {get: function() { return title; }});

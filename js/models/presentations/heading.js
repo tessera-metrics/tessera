@@ -12,7 +12,7 @@ ds.models.heading = function(data) {
     level = data.level || level;
     description = data.description;
   }
-  base = ds.models.item(data).set_type('heading').rebind(self);
+  base = ds.models.item(data).set_item_type('heading').rebind(self);
 
   Object.defineProperty(self, 'text', {get: function() { return text; }});
   Object.defineProperty(self, 'level', {get: function() { return level; }});

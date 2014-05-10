@@ -12,7 +12,7 @@ ds.models.singlegraph = function(data) {
     transform = data.transform || transform;
   }
   chart = ds.models.chart(data).rebind(self);
-  base = ds.models.item(data).set_type('singlegraph').rebind(self);
+  base = ds.models.item(data).set_item_type('singlegraph').rebind(self);
 
   Object.defineProperty(self, 'format', {get: function() { return format; }});
   Object.defineProperty(self, 'transform', {get: function() { return transform; }});

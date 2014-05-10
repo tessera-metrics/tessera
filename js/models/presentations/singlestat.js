@@ -16,7 +16,7 @@ ds.models.singlestat = function(data) {
     index = data.index;
     transform = data.transform || transform;
   }
-  base = ds.models.item(data).set_type('singlestat').rebind(self);
+  base = ds.models.item(data).set_item_type('singlestat').rebind(self);
 
   Object.defineProperty(self, 'title', {get: function() { return title; }});
   Object.defineProperty(self, 'units', {get: function() { return units; }});

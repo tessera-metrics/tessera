@@ -12,7 +12,7 @@ ds.models.markdown = function(data) {
       raw = data.raw;
     }
   }
-  base = ds.models.item(data).set_type('markdown').rebind(self);
+  base = ds.models.item(data).set_item_type('markdown').rebind(self);
 
   Object.defineProperty(self, 'text', {get: function() { return text; }});
   Object.defineProperty(self, 'raw', {get: function() { return raw; }});

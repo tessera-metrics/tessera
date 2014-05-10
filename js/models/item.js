@@ -36,12 +36,9 @@ ds.models.item = function(data) {
     self.thresholds = ds.models.thresholds(data.thresholds)
   }
 
-  // temporary alias
-  self.set_type = self.set_item_type
-
   self.rebind = function(target) {
     parent = target;
-    d3.rebind(target, self, 'set_type', 'set_item_type', 'set_query', 'set_css_class', 'set_item_id','set_height', 'set_style', 'set_thresholds', 'set_interactive', 'set_dashboard', 'render', 'flatten');
+    d3.rebind(target, self, 'set_item_type', 'set_query', 'set_css_class', 'set_item_id','set_height', 'set_style', 'set_thresholds', 'set_interactive', 'set_dashboard', 'render', 'flatten');
     ds.rebind_properties(target, self, 'item_type', 'query', 'css_class', 'item_id', 'height', 'style', 'thresholds', 'interactive', 'dashboard');
     Object.defineProperty(target, '_base', {value: self});
     Object.defineProperty(target, 'is_dashboard_item', {value: true});

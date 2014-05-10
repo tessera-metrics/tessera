@@ -4,7 +4,7 @@ ds.models.separator = function(data) {
   var base
     , self = {};
 
-  base = ds.models.item(data).set_type('separator').rebind(self);
+  base = ds.models.item(data).set_item_type('separator').rebind(self);
 
   self.toJSON = function() {
     return base.toJSON();

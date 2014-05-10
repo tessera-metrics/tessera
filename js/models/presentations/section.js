@@ -9,7 +9,7 @@ ds.models.section = function(data) {
   if (data) {
     layout = data.layout || layout;
   }
-  base = ds.models.item(data).set_type('section').rebind(self);
+  base = ds.models.item(data).set_item_type('section').rebind(self);
   container = ds.models.container(data).rebind(self);
 
   Object.defineProperty(self, 'layout', {get: function() { return layout; }});

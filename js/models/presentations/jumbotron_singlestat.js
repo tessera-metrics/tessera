@@ -4,7 +4,7 @@ ds.models.jumbotron_singlestat = function(data) {
   var base
     , self = {};
 
-  base = ds.models.singlestat(data).set_type('jumbotron_singlestat');
+  base = ds.models.singlestat(data).set_item_type('jumbotron_singlestat');
   base._base.rebind(self);
 
   d3.rebind(self, base, 'set_title', 'set_units', 'set_format', 'set_index', 'set_transform', 'toJSON');
