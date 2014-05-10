@@ -186,7 +186,7 @@ var limivorous =
         /**
          * Initialize the property value
          */
-        if (options.init) {
+        if (typeof(options.init) !== 'undefined') {
           target[name] = (options.init instanceof Function)
                        ? options.init()
                        : options.init
@@ -199,3 +199,7 @@ var limivorous =
 
     return self
   })();
+
+if (module) {
+  module.exports = limivorous
+}
