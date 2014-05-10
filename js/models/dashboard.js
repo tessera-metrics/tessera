@@ -35,7 +35,7 @@ ds.models.dashboard = function(data) {
             .property('last_modified_date')
             .property('imported_from')
             .property('index')
-             .property('title')
+            .property('title')
             .property('category')
             .property('summary')
             .property('description')
