@@ -198,8 +198,4 @@ var limivorous =
     }
 
     return self
-  })();
-
-if (module) {
-  module.exports = limivorous
-}
+  })()
