@@ -16,14 +16,24 @@ ua.clusto =
 
     Object.defineProperty(self, 'cache', {get: function() { return cache }})
 
+    /**
+     * Return the cache key for a role.
+     */
     cache.key = function(role) {
       return 'ua.clusto/' + role
     }
 
+    /**
+     * List all the keys in the immediate cache.
+     */
     cache.keys = function() {
       return Object.keys(cache_data)
     }
 
+    /**
+     * Retrieve an item from the cache. Checks the in-memory cache
+     * first, falling back to browser-local storage.
+     */
     cache.getItem = function(role) {
       var key = cache.key(role)
       if (cache_data[key]) {
@@ -39,6 +49,10 @@ ua.clusto =
       return null
     }
 
+    /**
+     * Store an item in the cache, in both the transient in-memory
+     * cache and the browser-local storage.
+     */
     cache.putItem = function(role, data) {
       var key = cache.key(role)
       cache_data[key] = data
@@ -46,6 +60,11 @@ ua.clusto =
       return data
     }
 
+    /**
+     * Clear the cache. This defaults to clearing the browser-local
+     * storage as well as the transient cache. Passing false as the
+     * first argument will retain the local storage cache.
+     */
     cache.clear = function(_) {
       var clearLocal = true
       if (arguments.length > 0)
@@ -64,7 +83,11 @@ ua.clusto =
       cache_data = {}
     }
 
-
+    /**
+     * Return a comma-delimited list of the hostnames for a given role
+     * or service name. Returns null if the role or service cannot be
+     * found.
+     */
     self.get_role = function(role) {
       var data = cache.getItem(role)
       if (data) {
