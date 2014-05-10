@@ -4,66 +4,13 @@ ds.models.dashboard = function(data) {
   var storage = {}
     , self = {};
 
-
-  this._init = function(_) {
-    self.index = {}
-    if (_) {
-      self.set_id(_.id)
-          .set_title(_.title)
-          .set_category(_.category)
-          .set_summary(_.summary)
-          .set_description(_.description)
-          .set_creation_date(_.creation_date)
-          .set_last_modified_date(_.last_modified_date)
-          .set_imported_from(_.imported_from)
-          .set_href(_.href)
-          .set_view_href(_.view_href)
-          .set_definition_href(_.definition_href)
-      if (_.definition) {
-        self.set_definition(ds.models.dashboard_definition(_.definition))
-      }
-      if (_.tags && _.tags.length) {
-        self.tags = _.tags.map(function(t) {
-                      return ds.models.tag(t);
-                    });
-      }
+  self.visit = function(visitor) {
+    visitor(self);
+    if (storage.definition) {
+      storage.definition.visit(visitor);
     }
     return self;
   }
-
-  /**
-   * Public data properties.
-   */
-
-  limivorous.observable(self, storage)
-            .property(self, 'id', storage)
-            .property(self, 'href', storage)
-            .property(self, 'view_href', storage)
-            .property(self, 'definition_href', storage)
-            .property(self, 'creation_date', storage)
-            .property(self, 'last_modified_date', storage)
-            .property(self, 'imported_from', storage)
-            .property(self, 'index', storage)
-            .property(self, 'title', storage)
-            .property(self, 'category', storage)
-            .property(self, 'summary', storage)
-            .property(self, 'description', storage)
-            .property(self, 'definition', storage, {
-              update: function() {
-                self._build_index()
-              }
-            })
-            .property(self, 'tags', storage, {
-              transform: function(tags) {
-                return tags.map(function(t) {
-                         return ds.models.tag(t)
-                       })
-              }
-            })
-
-  /**
-   * Operations
-   */
 
   self._build_index = function() {
     var index = self.index = {}
@@ -77,6 +24,60 @@ ds.models.dashboard = function(data) {
     });
     return self;
   };
+
+
+  limivorous.observable(self, storage)
+            .property('id')
+            .property('href')
+            .property('view_href')
+            .property('definition_href')
+            .property('creation_date')
+            .property('last_modified_date')
+            .property('imported_from')
+            .property('index')
+             .property('title')
+            .property('category')
+            .property('summary')
+            .property('description')
+            .property('definition', {
+              update: function() {
+                self._build_index()
+              }
+            })
+            .property('tags', {
+              transform: function(tags) {
+                return tags.map(function(t) {
+                         return ds.models.tag(t)
+                       })
+              }
+            })
+
+  self.index = {}
+  if (data) {
+    self.set_id(data.id)
+        .set_title(data.title)
+        .set_category(data.category)
+        .set_summary(data.summary)
+        .set_description(data.description)
+        .set_creation_date(data.creation_date)
+        .set_last_modified_date(data.last_modified_date)
+        .set_imported_from(data.imported_from)
+        .set_href(data.href)
+        .set_view_href(data.view_href)
+        .set_definition_href(data.definition_href)
+    if (data.definition) {
+        self.set_definition(ds.models.dashboard_definition(data.definition))
+    }
+    if (data.tags && data.tags.length) {
+      self.tags = data.tags.map(function(t) {
+                    return ds.models.tag(t);
+                  });
+    }
+  }
+
+  /**
+   * Operations
+   */
 
   self.get_item = function(id) {
     return self.index[id];
@@ -103,14 +104,6 @@ ds.models.dashboard = function(data) {
     self.summary     = ds.render_template(storage.summary, context);
     if (storage.definition) {
       storage.definition.render_templates(context);
-    }
-    return self;
-  }
-
-  self.visit = function(visitor) {
-    visitor(self);
-    if (storage.definition) {
-      storage.definition.visit(visitor);
     }
     return self;
   }
@@ -142,6 +135,5 @@ ds.models.dashboard = function(data) {
      definition_href: storage.definition_href
     }
   }
-
-  return this._init(data);
+return self
 };

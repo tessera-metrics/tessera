@@ -5,9 +5,9 @@ ds.models.thresholds = function(data) {
     , self = {}
 
   limivorous.observable(self, storage)
-            .property(self, 'summation_type', storage)
-            .property(self, 'warning', storage)
-            .property(self, 'danger', storage)
+            .property('summation_type')
+            .property('warning')
+            .property('danger')
 
   if (data) {
     self.summation_type = data.summation_type  || 'mean'

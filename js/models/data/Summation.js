@@ -10,13 +10,13 @@ ds.models.data.Summation = function(series) {
     , self = {}
 
   limivorous.observable(self, storage)
-            .property(self, 'sum', storage)
-            .property(self, 'min', storage)
-            .property(self, 'max', storage)
-            .property(self, 'mean', storage)
-            .property(self, 'first', storage)
-            .property(self, 'last', storage)
-            .property(self, 'count', storage)
+            .property('sum')
+            .property('min')
+            .property('max')
+            .property('mean')
+            .property('first')
+            .property('last')
+            .property('count')
   Object.defineProperty(self, 'is_summation', {value: true});
 
   self.sum = self.mean = self.first = self.last = self.count = 0

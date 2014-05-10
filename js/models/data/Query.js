@@ -5,11 +5,11 @@ ds.models.data.Query = function(data_) {
     , self = {}
 
   limivorous.observable(self, storage)
-            .property(self, 'targets', storage)
-            .property(self, 'name', storage)
-            .property(self, 'data', storage)
-            .property(self, 'summation', storage)
-            .property(self, 'options', storage)
+            .property('targets')
+            .property('name')
+            .property('data')
+            .property('summation')
+            .property('options')
 
   if (data_) {
     if (data_.targets) {
