@@ -33,11 +33,11 @@ ds.models.item = function(data) {
   Object.defineProperty(self, 'dashboard', {get: function() { return dashboard; }});
   Object.defineProperty(self, 'query', {get: function() {
                                           if (typeof(query) === 'string' && self.dashboard) {
-                                            return self.dashboard.definition.queries[query];
+                                            return self.dashboard.definition.queries[query]
                                           } else {
-                                            return query;
+                                            return query
                                           }
-                                        }});
+                                        }})
 
   self.rebind = function(target) {
     parent = target;

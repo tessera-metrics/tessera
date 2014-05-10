@@ -5,12 +5,12 @@ ds.models.tag = function(data) {
      , self = {}
 
   limivorous.observable(self, storage)
-            .property(self, 'id', storage)
-            .property(self, 'href', storage)
-            .property(self, 'name', storage)
-            .property(self, 'description', storage)
-            .property(self, 'color', storage)
-            .property(self, 'count', storage)
+            .property('id')
+            .property('href')
+            .property('name')
+            .property('description')
+            .property('color')
+            .property('count')
   Object.defineProperty(self, 'is_tag', {value: true});
 
   if (data) {
