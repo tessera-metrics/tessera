@@ -198,4 +198,4 @@ var limivorous =
     }
 
     return self
-  })();
+  })()
