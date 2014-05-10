@@ -155,6 +155,12 @@ var limivorous =
         })
         target['set_' + name] = setter
 
+        if (options.init) {
+          target[name] = (options.init instanceof Function)
+                       ? options.init()
+                       : options.init
+        }
+
         return builder
       }
       return builder
