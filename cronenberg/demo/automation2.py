@@ -55,10 +55,10 @@ def section_payload():
                                                                                         query='push_count_richpush')),
                                  Cell(span=9, items=StandardTimeSeries(title='Push Count (Rich Push)',
                                                                        query='push_count_richpush'))
-                             ]),
-                             Row(items=[
-                                 Cell(span=9, offset=3, items=SummationTable(title='Distribution by Platform', query='push_platform'))
                              ])
+#                             Row(items=[
+#                                 Cell(span=9, offset=3, items=SummationTable(title='Distribution by Platform', query='push_platform'))
+#                             ])
 
                          ])
     return section
