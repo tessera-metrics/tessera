@@ -36,7 +36,9 @@ ds.models.transform.TimeSpans = function(options) {
                                                   }))
       var modified_item = ds.models.factory(item.toJSON())
                             .set_query(modified_query)
-                            .set_title(span.title)
+                            .set_title(item.title
+                                      ? span.title + ' - ' + item.title
+                                      : span.title)
       section.add(ds.models.cell()
                   .set_span(12)
                   .add(modified_item))
