@@ -45,26 +45,26 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
     }
 
     case 'set-chart-type-stacked-area-chart': {
-      item.set_type('stacked_area_chart')
+      item.set_item_type('stacked_area_chart')
       ds.manager.update_item_view(item)
       break;
     }
 
     case 'set-chart-type-standard-time-series': {
-      item.set_type('standard_time_series')
+      item.set_item_type('standard_time_series')
       ds.manager.update_item_view(item)
       break;
     }
 
     case 'set-chart-type-simple-time-series': {
-      item.set_type('simple_time_series')
+      item.set_item_type('simple_time_series')
       item.filled = false
       ds.manager.update_item_view(item)
       break;
     }
 
     case 'set-chart-type-simple-time-series-filled': {
-      item.set_type('simple_time_series')
+      item.set_item_type('simple_time_series')
       item.filled = true
       ds.manager.update_item_view(item)
       break;
