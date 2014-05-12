@@ -83,7 +83,7 @@ ds.models.dashboard = function(data) {
   }
 
   self.set_items = function(items) {
-    self.definition.set_items(items)
+    self.definition.items = items
     self._build_index()
     return self
   }

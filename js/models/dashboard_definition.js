@@ -24,6 +24,18 @@ ds.models.dashboard_definition = function(data) {
    * Operations
    */
 
+  self.summarize = function() {
+    var counts = {}
+    self.visit(function(item) {
+      if (typeof(counts[item.item_type]) === 'undefined') {
+        counts[item.item_type] = 1
+      } else {
+        counts[item.item_type] = counts[item.item_type] + 1
+      }
+    })
+    return counts
+  }
+
   self.render_templates = function(context) {
     for (var key in self.queries) {
       self.queries[key].render_templates(context)
