@@ -1,17 +1,17 @@
 ds.models.standard_time_series = function(data) {
-  "use strict";
+  'use strict';
 
-  var chart
-    , base
-    , self = {};
+  var self = limivorous.observable()
+                       .extend(ds.models.item, {item_type: 'standard_time_series'})
+                       .extend(ds.models.chart)
+                       .build()
 
-  base = ds.models.item(data).set_type('standard_time_series').rebind(self);
-  chart = ds.models.chart(data).rebind(self);
+  ds.models.chart.init(self, data)
+  ds.models.item.init(self, data)
 
   self.toJSON = function() {
-    return chart.toJSON(base.toJSON({
-    }));
+    return ds.models.chart.json(self, ds.models.item.json(self))
   }
 
-  return self;
-};
+  return self
+}

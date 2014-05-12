@@ -1,48 +1,29 @@
 ds.models.heading = function(data) {
   "use strict";
 
-  var text
-    , level = 1
-    , description
-    , base
-    , self = {};
-
+  var self = limivorous.observable()
+                       .property('text')
+                       .property('level', {init: 1})
+                       .property('description')
+                       .extend(ds.models.item, {item_type: 'heading'})
+                       .build()
   if (data) {
-    text = data.text;
-    level = data.level || level;
-    description = data.description;
+    self.text = data.text;
+    self.level = data.level || self.level;
+    self.description = data.description;
   }
-  base = ds.models.item(data).set_type('heading').rebind(self);
-
-  Object.defineProperty(self, 'text', {get: function() { return text; }});
-  Object.defineProperty(self, 'level', {get: function() { return level; }});
-  Object.defineProperty(self, 'description', {get: function() { return description; }});
-
-  self.set_text = function(_) {
-    text = _;
-    return self;
-  }
-
-  self.set_level = function(_) {
-    level = _;
-    return self;
-  }
-
-  self.set_description = function(_) {
-    description = _;
-    return self;
-  }
+  ds.models.item.init(self, data)
 
   self.toJSON = function() {
-    var data = base.toJSON()
-    if (text)
-      data.text = text
-    if (level)
-      data.level = level
-    if (description)
-      data.description = description
+    var data = ds.models.item.json(self)
+    if (self.text)
+      data.text = self.text
+    if (self.level)
+      data.level = self.level
+    if (self.description)
+      data.description = self.description
     return data
   }
 
-  return self;
-};
+  return self
+}

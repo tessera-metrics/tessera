@@ -1,14 +1,15 @@
 ds.models.separator = function(data) {
   "use strict";
 
-  var base
-    , self = {};
+  var self = limivorous.observable()
+                       .extend(ds.models.item, {item_type: 'separator'})
+                       .build()
 
-  base = ds.models.item(data).set_type('separator').rebind(self);
+  ds.models.item.init(self, data)
 
   self.toJSON = function() {
-    return base.toJSON();
+    return ds.models.item.json(self)
   }
 
-  return self;
-};
+  return self
+}

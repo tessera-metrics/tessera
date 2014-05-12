@@ -1,17 +1,17 @@
 ds.models.stacked_area_chart = function(data) {
-  "use strict";
+  'use strict';
 
-  var chart
-    , base
-    , self = {};
+  var self = limivorous.observable()
+                       .extend(ds.models.item, {item_type: 'stacked_area_chart'})
+                       .extend(ds.models.chart)
+                       .build()
 
-  chart = ds.models.chart(data).rebind(self);
-  base = ds.models.item(data).set_type('stacked_area_chart').rebind(self);
+  ds.models.chart.init(self, data)
+  ds.models.item.init(self, data)
 
- self.toJSON = function() {
-   return chart.toJSON(base.toJSON({
-   }));
- }
+  self.toJSON = function() {
+    return ds.models.chart.json(self, ds.models.item.json(self))
+  }
 
-  return self;
-};
+  return self
+}

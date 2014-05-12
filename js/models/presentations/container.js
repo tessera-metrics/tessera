@@ -1,62 +1,60 @@
-ds.models.container = function(data) {
-  "use strict";
+/**
+ * Mixin for all dashboard items that contain other items.
+ */
+ds.models.container =
+  (function() {
+    'use strict';
 
-  var items = []
-    , self = {};
-
-  if (data && data.items) {
-    items = data.items.map(function(i) {
-              return ds.models.factory(i);
-            });
-  }
-
-  Object.defineProperty(self, 'items', {get: function() { return items; }});
-  Object.defineProperty(self, 'length', {get: function() { return items.length; }});
-
-  self.rebind = function(target) {
-    d3.rebind(target, self, 'set_items', 'add');
-    ds.rebind_properties(target, self, 'items', 'length');
-    Object.defineProperty(target, '_container', {value: self});
-    Object.defineProperty(target, 'is_container', {value: true});
-    return self;
-  }
-
-  /**
-   * Operations
-   */
-
-  self.visit = function(visitor) {
-    items.forEach(function(item) {
-      if (item.visit && typeof(item.visit) == 'function') {
-        item.visit(visitor);
-      } else {
-        visitor(item);
+    function init(target, data) {
+      if (data && data.items) {
+        target.items = data.items.map(function(i) {
+                         return ds.models.factory(i);
+                       });
       }
-    });
-    return self;
-  }
+    }
 
-  /**
-   * Data accessors
-   */
+    function extend(builder, options) {
+      Object.defineProperty(builder.target, 'is_container', {value: true});
+      builder.property('items', {init: []})
+             .property('length', {
+               get: function(context) {
+                 return context.items.length
+               }
+             })
 
-  self.set_items = function(_) {
-    items = _;
-    return self;
-  }
+      var self = builder.target
 
-  self.add = function(_) {
-    items.push(_);
-    return self;
-  }
+      self.visit = function(visitor) {
+        visitor(self)
+        self.items.forEach(function(item) {
+          if (item.visit && typeof(item.visit) == 'function') {
+            item.visit(visitor)
+          } else {
+            visitor(item)
+          }
+        })
+        return self
+      }
 
-  self.toJSON = function(data_) {
-    var data = data_ || {};
-    data.items = items.map(function(i) {
-                   return i.toJSON();
-                 });
-    return data;
-  }
+      self.add = function(item) {
+        self.items.push(item)
+        return self
+      }
 
-  return self;
-}
+      return builder
+    }
+
+    function json(target, data) {
+      data = data || {}
+      data.items = target.items.map(function(i) {
+                     return i.toJSON()
+                   })
+      return data
+    }
+
+    return {
+      extend: extend,
+      init: init,
+      json: json
+    }
+  })()

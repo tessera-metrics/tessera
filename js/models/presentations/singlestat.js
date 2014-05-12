@@ -1,71 +1,37 @@
 ds.models.singlestat = function(data) {
   "use strict";
 
-  var title
-    , units
-    , format=',.3f'
-    , index
-    , transform='mean'
-    , base
-    , self = {};
-
-  if (data) {
-    title = data.title;
-    units = data.units;
-    format = data.format || format;
-    index = data.index;
-    transform = data.transform || transform;
-  }
-  base = ds.models.item(data).set_type('singlestat').rebind(self);
-
-  Object.defineProperty(self, 'title', {get: function() { return title; }});
-  Object.defineProperty(self, 'units', {get: function() { return units; }});
-  Object.defineProperty(self, 'format', {get: function() { return format; }});
-  Object.defineProperty(self, 'index', {get: function() { return index; }});
-  Object.defineProperty(self, 'transform', {get: function() { return transform; }});
+  var self = limivorous.observable()
+                       .property('title')
+                       .property('units')
+                       .property('format', {init: ',.3f'})
+                       .property('index')
+                       .property('transform', {init: 'mean'})
+                       .extend(ds.models.item, {item_type: 'singlestat'})
+                       .build()
   Object.defineProperty(self, 'requires_data', {value: true});
 
-  /**
-   * Data accessors
-   */
-
-  self.set_title = function(_) {
-    title = _;
-    return self;
+  if (data) {
+    self.title = data.title;
+    self.units = data.units;
+    self.format = data.format || self.format;
+    self.index = data.index;
+    self.transform = data.transform || self.transform;
   }
-
-  self.set_units = function(_) {
-    units = _;
-    return self;
-  }
-
-  self.set_format = function(_) {
-    format = _;
-    return self;
-  }
-
-  self.set_index = function(_) {
-    index = _;
-    return self;
-  }
-
-  self.set_transform = function(_) {
-    transform = _;
-    return self;
-  }
+  ds.models.item.init(self, data)
 
  self.toJSON = function() {
-   var data = base.toJSON()
-   if (title)
-     data.title = title
-   if (format)
-     data.format = format
-   if (transform)
-     data.transform = transform
-   if (units)
-     data.units = units
-   if (index)
-     data.index = index
+   var data = ds.models.item.json(self)
+   if (self.title)
+     data.title = self.title
+   if (self.format)
+     data.format = self.format
+   if (self.transform)
+     data.transform = self.transform
+   if (self.units)
+     data.units = self.units
+   if (self.index)
+     data.index = self.index
    return data
  }
 
