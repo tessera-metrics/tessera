@@ -35,3 +35,16 @@ function ds_rebind_property(target, source, name) {
     }
   });
 }
+
+ds.extend = function() {
+  var target = {}
+  for (var i = 0; i < arguments.length; i++) {
+    var source = arguments[i]
+    for (var key in source) {
+      if (source.hasOwnProperty(key)) {
+        target[key] = source[key]
+      }
+    }
+  }
+  return target
+}
