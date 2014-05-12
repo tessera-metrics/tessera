@@ -6,8 +6,17 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
   switch (this.getAttribute('data-ds-action')) {
 
     case 'transform-time-spans': {
+      // TODO: this should all be tidied up and moved into the
+      // manager, and integrate with browser history
       var new_item = ds.models.transform.TimeSpans().transform(item)
-      console.log(JSON.stringify(new_item, null, '  '))
+      var dashboard = ds.manager.current.dashboard
+      dashboard.set_items([new_item])
+      $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
+      new_item.visit(function(item) {
+        if (item.query) {
+          item.query.load()
+        }
+      })
       break;
     }
 
