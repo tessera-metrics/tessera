@@ -1,13 +1,11 @@
 ds.models.thresholds = function(data) {
   "use strict";
 
-  var storage = {}
-    , self = {}
-
-  limivorous.observable(self, storage)
-            .property('summation_type')
-            .property('warning')
-            .property('danger')
+  var self = limivorous.observable()
+                       .property('summation_type')
+                       .property('warning')
+                       .property('danger')
+                       .build()
 
   if (data) {
     self.summation_type = data.summation_type  || 'mean'
