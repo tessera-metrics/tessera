@@ -1,16 +1,14 @@
 ds.models.tag = function(data) {
   "use strict";
 
-   var storage = {}
-     , self = {}
-
-  limivorous.observable(self, storage)
-            .property('id')
-            .property('href')
-            .property('name')
-            .property('description')
-            .property('color')
-            .property('count')
+  var self = limivorous.observable()
+                       .property('id')
+                       .property('href')
+                       .property('name')
+                       .property('description')
+                       .property('color')
+                       .property('count')
+                       .build()
   Object.defineProperty(self, 'is_tag', {value: true});
 
   if (data) {
