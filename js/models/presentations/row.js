@@ -1,28 +1,16 @@
 ds.models.row = function(data) {
   "use strict";
 
-  var base
-    , container
-    , self = {};
+  var self = limivorous.observable()
+                       .extend(ds.models.item, {item_type: 'row'})
+                       .extend(ds.models.container)
+                       .build()
 
-  base = ds.models.item(data).set_type('row').rebind(self);
-  container = ds.models.container(data).rebind(self);
-
-  /**
-   * Operations
-   */
-
-  self.visit = function(visitor) {
-    container.visit(visitor);
-    return self;
-  }
-
-  /**
-   * Data accessors
-   */
+  ds.models.item.init(self, data)
+  ds.models.container.init(self, data)
 
   self.toJSON = function() {
-    return container.toJSON(base.toJSON());
+    return ds.models.container.json(self, ds.models.item.json(self))
   }
 
   return self;

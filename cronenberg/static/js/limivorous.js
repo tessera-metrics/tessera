@@ -29,10 +29,19 @@ var limivorous =
      * @returns {Object} A builder object should be used to define
      *                   properties on the target
      */
-    self.observable = function(target, context) {
-      var observer_registry = {}
+    self.observable = function() {
+      var target = {}
+        , context = {}
+        , observer_registry = {}
         , builder = { target: target,
-                      context: context }
+                      context: context,
+                      properties: [],
+                      build: function() {
+                        return target
+                      }
+                    }
+
+      context.properties = []
 
       context.notifyObservers = function(event, data) {
         var observers = observer_registry[event]
@@ -63,7 +72,7 @@ var limivorous =
       target.on = function(event, observer, options_) {
         var options = options_ || {}
         var observers = observer_registry[event]
-        if (observers === undefined) {
+        if (typeof(observers) === 'undefined') {
           observer_registry[event] = observers = []
         }
         observers.push(observer)
@@ -97,7 +106,15 @@ var limivorous =
         return target
       }
 
-      Object.defineProperty(target, 'observers', {get: function() { return observer_registry }})
+      Object.defineProperty(target, 'observers', {
+        enumerable: true,
+        get: function() { return observer_registry }
+      })
+
+      Object.defineProperty(target, 'properties', {
+        enumerable: true,
+        get: function() { return context.properties }
+      })
 
       /**
        * Define an observable property on target.
@@ -132,7 +149,9 @@ var limivorous =
       builder.property = function(name, options_) {
         var options = options_ || {}
         var context = builder.context
-        var target = builder.target
+        var target  = builder.target
+
+        context.properties.push(name)
 
         /*
          * The property setter, which optionally transforms the value,
@@ -194,6 +213,22 @@ var limivorous =
 
         return builder
       }
+
+      /**
+       * Extend the model object with properties defined by another
+       * model.
+       *
+       * @param model {Object} A model module which with a 'extender'
+       *      property. The extender proprty must be a function which
+       *      accepts a builder and defines additional properties.
+       */
+      builder.extend = function(model, options) {
+        if (model.extend && (model.extend instanceof Function)) {
+          model.extend(builder, options)
+        }
+        return builder
+      }
+
       return builder
     }
 

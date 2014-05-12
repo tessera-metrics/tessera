@@ -1,44 +1,25 @@
 ds.models.singlegraph = function(data) {
   "use strict";
 
-  var format = ',.1s'
-    , transform = 'mean'
-    , chart
-    , base
-    , self = {};
+  var self = limivorous.observable()
+                       .property('format', {init: ',.1s'})
+                       .property('transform', {init: 'mean'})
+                       .extend(ds.models.item, {item_type: 'singlegraph'})
+                       .extend(ds.models.chart)
+                       .build()
 
   if (data) {
-    format = data.format || format;
-    transform = data.transform || transform;
+    self.format = data.format || self.format;
+    self.transform = data.transform || self.transform;
   }
-  chart = ds.models.chart(data).rebind(self);
-  base = ds.models.item(data).set_type('singlegraph').rebind(self);
-
-  Object.defineProperty(self, 'format', {get: function() { return format; }});
-  Object.defineProperty(self, 'transform', {get: function() { return transform; }});
-
-  /**
-   * Data accessors
-   */
-
-  self.set_format = function(_) {
-    format = _;
-    return self;
-  }
-
-  self.set_transform = function(_) {
-    transform = _;
-    return self;
-  }
+  ds.models.chart.init(self, data)
+  ds.models.item.init(self, data)
 
  self.toJSON = function() {
-   var data = chart.toJSON(base.toJSON())
-   if (format)
-     data.format = format
-   if (transform)
-     data.transform = transform
-   return data
+   return ds.models.chart.json(self, ds.models.item.json(self, {
+     format: self.format,
+     transform: self.transform
+   }))
  }
-
-  return self;
-};
+  return self
+}

@@ -1,15 +1,13 @@
 ds.models.data.Query = function(data_) {
   "use strict";
 
-  var storage = {}
-    , self = {}
-
-  limivorous.observable(self, storage)
-            .property('targets')
-            .property('name')
-            .property('data')
-            .property('summation')
-            .property('options')
+  var self = limivorous.observable()
+                       .property('targets')
+                       .property('name')
+                       .property('data')
+                       .property('summation')
+                       .property('options')
+                       .build()
 
   if (data_) {
     if (data_.targets) {

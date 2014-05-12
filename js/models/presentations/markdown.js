@@ -1,42 +1,26 @@
 ds.models.markdown = function(data) {
   "use strict";
 
-  var text
-    , raw = false
-    , base
-    , self = {};
+  var self = limivorous.observable()
+                       .property('text')
+                       .property('raw', {init: false})
+                       .extend(ds.models.item, {item_type: 'markdown'})
+                       .build()
 
   if (data) {
-    text = data.text;
+    self.text = data.text
     if (data.raw !== undefined) {
-      raw = data.raw;
+      self.raw = data.raw
     }
   }
-  base = ds.models.item(data).set_type('markdown').rebind(self);
-
-  Object.defineProperty(self, 'text', {get: function() { return text; }});
-  Object.defineProperty(self, 'raw', {get: function() { return raw; }});
-
-  /**
-   * Data accessors
-   */
-
-  self.set_text = function(_) {
-    text = _;
-    return self;
-  }
-
-  self.set_raw = function(_) {
-    raw = _;
-    return self;
-  }
+  ds.models.item.init(self, data)
 
   self.toJSON = function() {
-    return base.toJSON({
-      text: text,
-      raw: raw
-    });
+    return ds.models.item.json(self, {
+      text: self.text,
+      raw: self.raw
+    })
   }
 
-  return self;
-};
+  return self
+}
