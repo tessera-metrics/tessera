@@ -10,11 +10,12 @@ ds.models.item =
         if (data.item_type)
           target.item_type = data.item_type
         target.item_id = data.item_id
-        target.query = data.query || {}
+        target.query = data.query
         target.css_class = data.css_class
         target.height = data.height
         target.style = data.style
-        // target.thresholds = ds.models.thresholds(data.thresholds)
+        if (data.thresholds)
+          target.thresholds = ds.models.thresholds(data.thresholds)
       }
       return target
     }
@@ -84,9 +85,8 @@ ds.models.item =
       data.item_type = target.item_type
       if (target.item_id)
         data.item_id = target.item_id
-      // TODO: return query.toJSON() when server side supports it
       if (target.query)
-        data.query = typeof(target.query) === 'string' ? target.query : target.query.name
+        data.query = typeof(target.query) === 'string' ? target.query : target.query.toJSON()
       if (target.css_class)
         data.css_class = target.css_class
       if (target.height)

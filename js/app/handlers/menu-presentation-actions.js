@@ -5,6 +5,49 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
 
   switch (this.getAttribute('data-ds-action')) {
 
+    case 'time-spans': {
+      // TODO: this should all be tidied up and moved into the
+      // manager, and integrate with browser history
+      var new_item = ds.models.transform.TimeSpans().transform(item)
+      var dashboard = ds.manager.current.dashboard
+      dashboard.set_items([new_item])
+      $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
+
+      var queries = {}
+      new_item.visit(function(i) {
+        if (i.query) {
+          queries[i.query.name] = i.query
+        }
+      })
+
+      dashboard.definition.queries = queries
+      dashboard.load_all()
+
+      break;
+    }
+
+    case 'time-shifts': {
+      // TODO: this should all be tidied up and moved into the
+      // manager, and integrate with browser history
+      var new_item = ds.models.transform.TimeShift().transform(item)
+      var dashboard = ds.manager.current.dashboard
+      dashboard.set_items([new_item])
+      $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
+
+      var queries = {}
+      new_item.visit(function(i) {
+        if (typeof(i.query) !== 'undefined') {
+          queries[i.query.name] = i.query
+        }
+      })
+
+      dashboard.definition.queries = queries
+      dashboard.load_all()
+
+      break;
+    }
+
+
     case 'open-in-graphite': {
       var composer_url = ds.charts.composer_url(item, { showTitle: true });
       window.open(composer_url);
@@ -30,26 +73,26 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
     }
 
     case 'set-chart-type-stacked-area-chart': {
-      item.set_type('stacked_area_chart')
+      item.set_item_type('stacked_area_chart')
       ds.manager.update_item_view(item)
       break;
     }
 
     case 'set-chart-type-standard-time-series': {
-      item.set_type('standard_time_series')
+      item.set_item_type('standard_time_series')
       ds.manager.update_item_view(item)
       break;
     }
 
     case 'set-chart-type-simple-time-series': {
-      item.set_type('simple_time_series')
+      item.set_item_type('simple_time_series')
       item.filled = false
       ds.manager.update_item_view(item)
       break;
     }
 
     case 'set-chart-type-simple-time-series-filled': {
-      item.set_type('simple_time_series')
+      item.set_item_type('simple_time_series')
       item.filled = true
       ds.manager.update_item_view(item)
       break;
