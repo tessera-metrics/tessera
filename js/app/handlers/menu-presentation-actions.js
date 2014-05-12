@@ -5,7 +5,7 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
 
   switch (this.getAttribute('data-ds-action')) {
 
-    case 'transform-time-spans': {
+    case 'time-spans': {
       // TODO: this should all be tidied up and moved into the
       // manager, and integrate with browser history
       var new_item = ds.models.transform.TimeSpans().transform(item)
@@ -25,6 +25,28 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
 
       break;
     }
+
+    case 'time-shifts': {
+      // TODO: this should all be tidied up and moved into the
+      // manager, and integrate with browser history
+      var new_item = ds.models.transform.TimeShift().transform(item)
+      var dashboard = ds.manager.current.dashboard
+      dashboard.set_items([new_item])
+      $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
+
+      var queries = {}
+      new_item.visit(function(i) {
+        if (i.query) {
+          queries[i.query.name] = i.query
+        }
+      })
+
+      dashboard.definition.queries = queries
+      dashboard.load_all()
+
+      break;
+    }
+
 
     case 'open-in-graphite': {
       var composer_url = ds.charts.composer_url(item, { showTitle: true });
