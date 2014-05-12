@@ -9,9 +9,9 @@ Words. Words about pictures.
 
 ## Getting Started
 
-In order to get this project running from source, you will need to have python, 
-node.js, and a C compiler installed. node.js is used for building the web assets, 
-but is not used for running the server. 
+In order to get this project running from source, you will need to have python,
+node.js, and a C compiler installed. node.js is used for building the web assets,
+but is not used for running the server.
 
 ### Setting up the Python Environment
 
@@ -130,6 +130,7 @@ Client Side:
 * [URI.js](https://github.com/medialize/URI.js) for URL manipulation.
 * [limivorous](https://github.com/aalpern/limivorous)
 * [tagmanager](https://github.com/max-favilli/tagmanager)
+* [x-editable](http://vitalets.github.io/x-editable/)
 
 
 ### Screenshot
