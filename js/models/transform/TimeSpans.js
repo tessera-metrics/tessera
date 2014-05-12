@@ -40,6 +40,7 @@ ds.models.transform.TimeSpans = function(options) {
   self.transform = function(item) {
     var query   = item.query
     var section = ds.models.section()
+    var colspan = 12 / self.columnsx
 
     for (var i in self.spans) {
       var span = self.spans[i]
@@ -56,7 +57,7 @@ ds.models.transform.TimeSpans = function(options) {
                                       ? span.title + ' - ' + item.title
                                       : span.title)
       section.add(ds.models.cell()
-                  .set_span(12)
+                  .set_span(colspan)
                   .add(modified_item))
     }
 
