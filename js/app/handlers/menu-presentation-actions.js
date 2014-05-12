@@ -5,6 +5,12 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
 
   switch (this.getAttribute('data-ds-action')) {
 
+    case 'transform-time-spans': {
+      var new_item = ds.models.transform.TimeSpans().transform(item)
+      console.log(JSON.stringify(new_item, null, '  '))
+      break;
+    }
+
     case 'open-in-graphite': {
       var composer_url = ds.charts.composer_url(item, { showTitle: true });
       window.open(composer_url);

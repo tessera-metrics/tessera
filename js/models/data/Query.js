@@ -133,6 +133,8 @@ ds.models.data.Query = function(data_) {
       json.data = self.data
     if (self.summation)
       json.summation = self.summation.toJSON()
+    if (self.options)
+      json.options = self.options
     return json
   }
 
