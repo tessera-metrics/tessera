@@ -3,24 +3,34 @@
  * multiple time spans. The item being transformed should be a single
  * presentation, not a composite (i.e. not a cell, row, section, or
  * dashboard).
+ *
+ * The time periods can be customized by passing an array of objects
+ * with from/until/title properties
  */
 ds.models.transform.TimeSpans = function(options) {
   'use strict'
 
-  var self = limivorous.observable()
-             .property('spans', {
-               init: [
-               { from: '-1h', title: 'Past Hour' },
-               { from: '-4h', title: 'Past 4 Hours' },
-               { from: '-1d', title: 'Past Day' },
-               { from: '-1w', title: 'Past Week' }
-               ]
-             })
-             .extend(ds.models.transform.transform, {
-               transform_name: 'View across time spans',
-               transform_type: 'time_spans'
-             })
-             .build()
+  var self =
+    limivorous.observable()
+              .property('spans', {
+                init: [
+                  { from: '-1h', title: 'Past Hour' },
+                  { from: '-4h', title: 'Past 4 Hours' },
+                  { from: '-1d', title: 'Past Day' },
+                  { from: '-1w', title: 'Past Week' }
+                ]
+              })
+              .property('columns', { init: 1})
+              .extend(ds.models.transform.transform, {
+                transform_name: 'View across time spans',
+                transform_type: 'time_spans'
+              })
+              .build()
+
+  if (options) {
+    self.spans = options.spans || self.spans
+    self.columns = options.columns || self.columns
+  }
 
   self.transform = function(item) {
     var query   = item.query
@@ -29,7 +39,8 @@ ds.models.transform.TimeSpans = function(options) {
     for (var i in self.spans) {
       var span = self.spans[i]
       var modified_query = ds.models.data.Query(query.toJSON())
-                           .set_options(ds.extend(query.options || {},
+                             .set_name(query.name + '/' + span.from + '/' + span.until)
+                             .set_options(ds.extend(query.options || {},
                                                   {
                                                     from: span.from,
                                                     until: span.until

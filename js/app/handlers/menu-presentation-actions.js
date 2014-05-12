@@ -12,11 +12,17 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
       var dashboard = ds.manager.current.dashboard
       dashboard.set_items([new_item])
       $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
-      new_item.visit(function(item) {
-        if (item.query) {
-          item.query.load()
+
+      var queries = {}
+      new_item.visit(function(i) {
+        if (i.query) {
+          queries[i.query.name] = i.query
         }
       })
+
+      dashboard.definition.queries = queries
+      dashboard.load_all()
+
       break;
     }
 
