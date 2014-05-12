@@ -169,7 +169,7 @@ var limivorous =
           }
           context[name] = value
           if (options.update && (options.update instanceof Function)) {
-            options.update()
+            options.update(target)
           }
           context.notifyObservers(self.CHANGE_EVENT + ':' + name, event)
           context.notifyObservers(self.CHANGE_EVENT, event)

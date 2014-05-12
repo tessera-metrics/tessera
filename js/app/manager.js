@@ -206,13 +206,14 @@ ds.manager =
       item.query.load({ fire_only: true })
     }
 
-  self.change_layout = function(layout) {
-    var new_layout = layout.transform(self.current.dashboard.definition);
-
-    self.current.dashboard.set_items([new_layout]);
-    $(self.current.element).replaceWith(self.current.dashboard.render());
-    self.current.dashboard.load_all();
-  }
+    self.change_layout = function(layout) {
+      var dashboard = self.current.dashboard
+      var new_layout = layout.transform(dashboard.definition)
+      dashboard.set_items([new_layout]);
+      var rendered = dashboard.render()
+      $('#' + dashboard.definition.item_id).replaceWith(rendered)
+      dashboard.load_all();
+    }
 
     self.refresh = function() {
       if (self.current) {
