@@ -1,42 +1,24 @@
 ds.models.section = function(data) {
   "use strict";
 
-  var layout = 'fixed'
-    , container
-    , base
-    , self = {};
+  var self = limivorous.observable()
+                       .property('layout', {init: 'fixed'})
+                       .extend(ds.models.item, {item_type: 'section'})
+                       .extend(ds.models.container)
+                       .build()
 
   if (data) {
-    layout = data.layout || layout;
+    self.layout = data.layout || layout
   }
-  base = ds.models.item(data).set_item_type('section').rebind(self);
-  container = ds.models.container(data).rebind(self);
-
-  Object.defineProperty(self, 'layout', {get: function() { return layout; }});
-
-  /**
-   * Operations
-   */
-
-  self.visit = function(visitor) {
-    container.visit(visitor);
-    return self;
-  }
-
-  /**
-   * Data accessors
-   */
-
-  self.set_layout = function(_) {
-    layout = _;
-    return self;
-  }
+  ds.models.item.init(self, data)
+  ds.models.container.init(self, data)
 
   self.toJSON = function() {
-    return container.toJSON(base.toJSON({
-      layout: layout
-    }));
+    var data = ds.models.container.json(self, ds.models.item.json(self))
+    if (self.layout)
+      data.layout = self.layout
+    return data
   }
 
-  return self;
-};
+  return self
+}

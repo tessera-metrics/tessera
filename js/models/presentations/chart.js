@@ -1,48 +1,36 @@
-ds.models.chart = function(data) {
-  "use strict";
+/**
+ * Mixin for all chart presentation types
+ */
+ds.models.chart =
+  (function() {
+    'use strict';
 
-  var title
-    , options = {}
-    , self = {};
+    function extend(builder) {
+      Object.defineProperty(builder.target, 'is_chart', {value: true});
+      return builder.property('title')
+                    .property('options')
+    }
 
-  if (data) {
-    title = data.title;
-    options = data.options || options;
-  }
+    function init(target, data) {
+      if (data) {
+        target.title = data.title
+        target.options = data.options || {}
+      }
+      return target
+    }
 
-  Object.defineProperty(self, 'title', {get: function() { return title; }});
-  Object.defineProperty(self, 'options', {get: function() { return options || {}; }});
+    function json(target, data) {
+      data = data || {}
+      if (target.title)
+        data.title = target.title
+      if (target.options)
+        data.options = target.options
+      return data
+    }
 
-  self.rebind = function(target) {
-    d3.rebind(target, self, 'set_title', 'set_options');
-    ds.rebind_properties(target, self, 'title', 'options');
-    Object.defineProperty(target, '_chart', {value: self});
-    Object.defineProperty(target, 'is_chart', {value: true});
-    return self;
-  }
-
-  /**
-   * Data mutators
-   */
-
-  self.set_title = function(_) {
-    title = _;
-    return self;
-  }
-
-  self.set_options = function(_) {
-    options = _;
-    return self;
-  }
-
-  self.toJSON = function(data_) {
-    var data = data_ || {};
-    if (title)
-      data.title = title;
-    if (options)
-      data.options = options;
-    return data;
-  }
-
-  return self;
-}
+    return {
+      extend: extend,
+      init: init,
+      json: json
+    }
+  })()

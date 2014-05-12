@@ -105,7 +105,7 @@ ds.manager =
       dashboard.visit(function(item) {
         if (!item.item_type)
           return;
-        item.set_interactive(interactive);
+        item.interactive = interactive
         if (item.requires_data) {
           holder.raw_data_required = true;
         }
