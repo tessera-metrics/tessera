@@ -63,17 +63,17 @@ ds.models.item =
 
       // TODO: this should use streams
       self.flatten = function(filter) {
-        var items = []
+        var flat = []
         self.visit(function(item) {
           if (item.item_type) {
             if (filter && (filter instanceof Function)) {
               if (!filter(item))
                 return
             }
-            items.push(item)
+            flat.push(item)
           }
         })
-        return items
+        return flat
       }
 
       return builder
