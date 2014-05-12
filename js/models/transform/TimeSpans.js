@@ -39,8 +39,12 @@ ds.models.transform.TimeSpans = function(options) {
 
   self.transform = function(item) {
     var query   = item.query
-    var section = ds.models.section()
     var colspan = 12 / self.columnsx
+    var section = ds.models.section()
+                    .add(ds.models.heading({ level: 2, text: item.title
+                                                ? 'Time Spans - ' + item.title
+                                                : 'Time Spans' }))
+                    .add(ds.models.separator())
 
     for (var i in self.spans) {
       var span = self.spans[i]
@@ -53,9 +57,8 @@ ds.models.transform.TimeSpans = function(options) {
                                                   }))
       var modified_item = ds.models.factory(item.toJSON())
                             .set_query(modified_query)
-                            .set_title(item.title
-                                      ? span.title + ' - ' + item.title
-                                      : span.title)
+                            .set_title(span.title)
+
       section.add(ds.models.cell()
                   .set_span(colspan)
                   .add(modified_item))

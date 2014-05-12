@@ -27,11 +27,13 @@ ds.models.transform.TimeShift = function(options) {
 
   self.transform = function(item) {
     var query   = item.query
-    var section = ds.models.section()
     var colspan = 12 / self.columns
-
-    /* Include the original */
-    section.add(item)
+    var section = ds.models.section()
+                    .add(ds.models.heading({ level: 2, text: item.title
+                                                 ? 'Time shift - ' + item.title
+                                                 : 'Time shift' }))
+                    .add(ds.models.separator())
+                    .add(item)     /* Include the original */
 
     for (var i in self.shifts) {
       var shift = self.shifts[i]
@@ -42,13 +44,10 @@ ds.models.transform.TimeShift = function(options) {
                                             return 'timeShift(' + target + ', "' + shift.shift + '")'
                                           }))
 
-      console.log(JSON.stringify(modified_query, null, '  '))
-
       var modified_item = ds.models.factory(item.toJSON())
                             .set_query(modified_query)
-                            .set_title(item.title
-                                      ? shift.title + ' - ' + item.title
-                                      : shift.title)
+                            .set_title(shift.title)
+
       section.add(ds.models.cell()
                   .set_span(colspan)
                   .add(modified_item))

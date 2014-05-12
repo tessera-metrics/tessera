@@ -36,7 +36,7 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
 
       var queries = {}
       new_item.visit(function(i) {
-        if (i.query) {
+        if (typeof(i.query) !== 'undefined') {
           queries[i.query.name] = i.query
         }
       })
