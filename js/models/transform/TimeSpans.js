@@ -6,6 +6,11 @@
  *
  * The time periods can be customized by passing an array of objects
  * with from/until/title properties
+ *
+ * Input => A single presentation
+ *
+ * Output => A section with a list of copies of the presentation with
+ *           immediate query objects that override the time period
  */
 ds.models.transform.TimeSpans = function(options) {
   'use strict'
@@ -56,6 +61,13 @@ ds.models.transform.TimeSpans = function(options) {
     }
 
     return section
+  }
+
+  self.toJSON = function() {
+    return ds.models.transform.transform.json(self, {
+      spans: self.spans,
+      columns: self.columns
+    })
   }
 
   return self
