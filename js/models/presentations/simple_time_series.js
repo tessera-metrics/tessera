@@ -1,33 +1,23 @@
 ds.models.simple_time_series = function(data) {
-  "use strict";
+  'use strict';
 
-  var filled = false
-    , chart
-    , base
-    , self = {};
+  var self = limivorous.observable()
+                       .extend(ds.models.item, {item_type: 'simple_time_series'})
+                       .extend(ds.models.chart)
+                       .property('filled', {init: false})
+                       .build()
 
   if (data) {
-    filled = data.filled !== false;
+    self.filled = data.filled !== false
   }
-  chart = ds.models.chart(data).rebind(self);
-  base = ds.models.item(data).set_item_type('simple_time_series').rebind(self);
-
-  Object.defineProperty(self, 'filled', {get: function() { return filled; }});
-
-  /**
-   * Data accessors
-   */
-
-  self.set_filled = function(_) {
-    filled = _;
-    return self;
-  }
+  ds.models.chart.init(self, data)
+  ds.models.item.init(self, data)
 
   self.toJSON = function() {
-    return chart.toJSON(base.toJSON({
-      filled: filled
-    }));
+    return ds.models.chart.json(self, ds.models.item.json(self, {
+      filled: self.filled
+    }))
   }
 
-  return self;
-};
+  return self
+}

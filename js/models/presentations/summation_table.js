@@ -1,53 +1,30 @@
 ds.models.summation_table = function(data) {
-  "use strict";
+  "use strict"
 
-  var striped
-    , title
-    , format = ',.3f'
-    , base
-    , self = {};
+  var self = limivorous.observable()
+                       .property('striped', {init: false})
+                       .property('format', {init: ',.3f'})
+                       .extend(ds.models.item, {item_type: 'summation_table'})
+                       .build()
+  Object.defineProperty(self, 'requires_data', {value: true})
 
   if (data) {
-    striped = data.striped !== false
-    title = data.title
-    format = data.format || format;
+    self.striped = data.striped !== false
+    self.title = data.title
+    self.format = data.format || self.format
   }
-  base = ds.models.item(data).set_item_type('summation_table').rebind(self);
-
-  Object.defineProperty(self, 'striped', {get: function() { return striped; }});
-  Object.defineProperty(self, 'title', {get: function() { return title; }});
-  Object.defineProperty(self, 'format', {get: function() { return format; }});
-  Object.defineProperty(self, 'requires_data', {value: true});
-
-  /**
-   * Data mutators
-   */
-
-  self.set_striped = function(_) {
-    striped = _;
-    return self;
-  }
-
-  self.set_format = function(_) {
-    format = _;
-    return self;
-  }
-
-  self.set_title = function(_) {
-    title = _;
-    return self;
-  }
+  ds.models.item.init(self, data)
 
   self.toJSON = function() {
-    var data = base.toJSON()
-    if (format)
-      data.format = format
-    if (striped)
-      data.striped = striped
-    if (title)
-      data.title = title
-    return data;
+    var data = ds.models.item.json(self)
+    if (self.format)
+      data.format = self.format
+    if (self.striped)
+      data.striped = self.striped
+    if (self.title)
+      data.title = self.title
+    return data
   }
 
-  return self;
+  return self
 }

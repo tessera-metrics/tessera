@@ -4,39 +4,37 @@
  * mean.
  */
 ds.models.data.Summation = function(series) {
-  "use strict";
+  "use strict"
 
-  var storage = {}
-    , self = {}
-
-  limivorous.observable(self, storage)
-            .property('sum', { init: 0 })
-            .property('min', { init: Number.MAX_VALUE })
-            .property('max', { init: Number.MIN_VALUE })
-            .property('mean', { init: 0 })
-            .property('first', { init: 0 })
-            .property('last', { init: 0 })
-            .property('count', { init: 0 })
-  Object.defineProperty(self, 'is_summation', {value: true});
+  var self = limivorous.observable()
+                       .property('sum', { init: 0 })
+                       .property('min', { init: Number.MAX_VALUE })
+                       .property('max', { init: Number.MIN_VALUE })
+                       .property('mean', { init: 0 })
+                       .property('first', { init: 0 })
+                       .property('last', { init: 0 })
+                       .property('count', { init: 0 })
+                       .build()
+  Object.defineProperty(self, 'is_summation', {value: true})
 
   if (series) {
-    self.first = series.datapoints[0][0];
-    self.count = series.datapoints.length;
+    self.first = series.datapoints[0][0]
+    self.count = series.datapoints.length
     if (self.first == null) {
-      self.first = 0;
+      self.first = 0
     }
     series.datapoints.forEach(function(point) {
-      var value = point[0] == null ? 0 : point[0];
-      self.sum = self.sum + value;
+      var value = point[0] == null ? 0 : point[0]
+      self.sum = self.sum + value
       if (value > self.max) {
-        self.max = value;
+        self.max = value
       }
       if (value < self.min) {
-        self.min = value;
+        self.min = value
       }
-      self.last = value;
-    });
-    self.mean = self.sum / self.count;
+      self.last = value
+    })
+    self.mean = self.sum / self.count
   }
 
   /**
@@ -44,16 +42,16 @@ ds.models.data.Summation = function(series) {
    * queries with multiple data series.
    */
   self.merge = function(other) {
-    self.sum += other.sum;
-    self.count += other.count;
-    self.mean = self.sum / self.count;
+    self.sum += other.sum
+    self.count += other.count
+    self.mean = self.sum / self.count
     if (other.min < self.min) {
-      self.min = other.min;
+      self.min = other.min
     }
     if (other.max > self.max) {
-      self.max = other.max;
+      self.max = other.max
     }
-    return self;
+    return self
   }
 
   self.toJSON = function() {
@@ -68,5 +66,5 @@ ds.models.data.Summation = function(series) {
     }
   }
 
-  return self;
+  return self
 }
