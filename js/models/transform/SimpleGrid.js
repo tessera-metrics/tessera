@@ -2,81 +2,73 @@
  * A transform which simply takes all presentations and arranges them in
  * a regular grid.
  */
-ds.models.transform.SimpleGrid = function(options) {
+ds.models.transform.SimpleGrid = function(data) {
   "use strict";
 
-  var columns = 1
-    , span = 12
-    , section_type = 'fixed'
-    , charts_only = false
-    , base
-    , self = {};
+  var self = limivorous.observable()
+                       .property('columns', { init: 1,
+                                              update: function(target) {
+                                                target.span = 12 / target.columns
+                                              }
+                                            })
+                       .property('span', {init: 12})
+                       .property('section_type', {init: 'fixed'})
+                       .property('charts_only', {init: false})
+                       .extend(ds.models.transform.transform, {
+                         transform_name: 'Simple Grid',
+                         transform_type: 'simple_grid'
+                       })
+                       .build()
 
-  if (options) {
-    columns = options.columns || columns;
-    section_type = options.section_type || section_type;
-    if (options.charts_only) {
-      charts_only = options.charts_only;
+  if (data) {
+    self.columns = data.columns || self.columns
+    self.section_type = data.section_type || self.section_type
+    if (data.charts_only) {
+      self.charts_only = data.charts_only
     }
   }
-  span = 12 / columns;
-  base = ds.models.transform.transform({
-    transform_name: 'Simple Grid',
-    transform_type: 'simple_grid'
-  }).rebind(self);
-
-  Object.defineProperty(self, 'columns', { get: function() { return columns; }});
-  Object.defineProperty(self, 'section_type', { get: function() { return section_type; }});
+  self.span = 12 / self.columns
+  ds.models.transform.transform.init(self, data)
 
   self.transform = function(item) {
-    var items       = item.flatten();
-    var section     = ds.models.section().set_layout(section_type);
-    var current_row = ds.models.row();
+    var items       = item.flatten()
+    var section     = ds.models.section().set_layout(self.section_type)
+    var current_row = ds.models.row()
 
     items.forEach( function(item) {
-      if (item.item_type == 'dashboard_definition'
-         || (charts_only && !item.is_chart))
-        return;
-      var cell = ds.models.cell()
-                 .set_span(span)
-                 .add(item);
-
-      if (current_row.add(cell).length == columns) {
-        section.add(current_row);
-        current_row = ds.models.row();
+      if (   item.item_type === 'dashboard_definition'
+          || item.item_type === 'cell'
+          || item.item_type === 'row'
+          || item.item_type === 'section'
+          || (self.charts_only && !item.is_chart)) {
+        return
       }
-    } );
+      var cell = ds.models.cell()
+                   .set_span(self.span)
+                   .add(item)
+
+      if (current_row.add(cell).length == self.columns) {
+        section.add(current_row)
+        current_row = ds.models.row()
+      }
+    } )
 
     if (current_row.length > 0) {
-      section.add(current_row);
+      section.add(current_row)
     }
 
-    return section;
+    return section
   }
 
-  self.set_columns = function(_) {
-    columns = _;
-    span = 12 / columns;
-    return self;
-  }
-
-  self.set_section_type = function(_) {
-    section_type = _;
-    return self;
-  }
-
-  self.set_charts_only = function(_) {
-    charts_only = _;
-    return self;
-  }
 
   self.toJSON = function() {
-    return base.toJSON({
-      columns: columns,
-      section_type: section_type,
-      charts_only: charts_only
-    });
+    return ds.models.transform.transform.json(self, {
+      columns: self.columns,
+      span: self.span,
+      section_type: self.section_type,
+      charts_only: self.charts_only
+    })
   }
 
-  return self;
+  return self
 }
