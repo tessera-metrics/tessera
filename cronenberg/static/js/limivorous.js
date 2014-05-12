@@ -218,8 +218,8 @@ var limivorous =
        * Extend the model object with properties defined by another
        * model.
        *
-       * @param model {Object} A model module which with a 'extender'
-       *      property. The extender proprty must be a function which
+       * @param model {Object} A model module which with a 'extend'
+       *      property. The extend property must be a function which
        *      accepts a builder and defines additional properties.
        */
       builder.extend = function(model, options) {
