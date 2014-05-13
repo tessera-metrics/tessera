@@ -7,8 +7,9 @@ ds.models.transform.Isolate = function(options) {
   var self =
     limivorous.observable()
               .extend(ds.models.transform.transform, {
-                transform_name: 'Isolate',
-                transform_type: 'isolate'
+                display_name: 'Isolate',
+                transform_name: 'isolate',
+                transform_type: 'presentation'
               })
               .build()
 
