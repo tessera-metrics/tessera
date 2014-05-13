@@ -46,6 +46,7 @@ def argon_top_row():
         Cell(span=9, items=StandardTimeSeries(height=5, query='argon_total', title='Total Argon Mutations Processed'))
     ])
 
+
 def event_row(event):
     return Row(items=[
         Cell(span=3, align='right', items=[
@@ -54,21 +55,21 @@ def event_row(event):
         Cell(span=9, items=StandardTimeSeries(title=event, query='argon_' + event))
     ])
 
-#def summary_section():
-#    return Section(items=[
-#        top_row()
-#    ])
+def argon_mutation_sections():
+    return [
+        Section(layout='fixed',
+                items=[Heading(text='Argon Mutation Events',
+                               description="Counts for events received by triggers-gorram-consumer"),
+                       Separator(),
+                   ]),
+        Section(layout='none', style='callout_info', items=[
+            Section(layout='fixed', items=[
+                argon_top_row()
+            ])
+        ]),
+        Section(layout='fixed', items=[ event_row(event) for event in argon_mutation_events ])
+    ]
 
-def argon_mutation_section():
-    section = Section(items=[Heading(text='Argon Mutation Events',
-                                     description="Counts for events received by triggers-gorram-consumer"),
-                             Separator(),
-                             argon_top_row(),
-                             Separator()
-                             ])
-    for event in argon_mutation_events:
-        section.items.extend([event_row(event)])
-    return section
 
 # =============================================================================
 
@@ -106,6 +107,9 @@ def gorram_consumer_lag_section():
 # =============================================================================
 
 def demo_automation_3():
+    items = argon_mutation_sections()
+    items.append(gorram_consumer_lag_section())
+
     return database.Dashboard(
         title='Event Stream',
         category='Automation',
@@ -115,8 +119,5 @@ def demo_automation_3():
             definition=dumps(
                 DashboardDefinition(
                     queries=queries,
-                    items=[
-                        argon_mutation_section(),
-                        gorram_consumer_lag_section()
-                    ]
+                    items=items
                 ))))
