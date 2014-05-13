@@ -206,13 +206,25 @@ ds.manager =
       item.query.load({ fire_only: true })
     }
 
-    self.change_layout = function(layout) {
+    self.apply_transform = function(transform, target) {
+      /*
+       * TODO - push browser history
+       * Set URL hash to #/transform_name/item_id
+       */
       var dashboard = self.current.dashboard
-      var new_layout = layout.transform(dashboard.definition)
-      dashboard.set_items([new_layout]);
-      var rendered = dashboard.render()
-      $('#' + dashboard.definition.item_id).replaceWith(rendered)
-      dashboard.load_all();
+      if (transform.transform_type == 'dashboard' && typeof(target) === 'undefined') {
+        target = dashboard.definition
+      }
+
+      var result = transform.transform(target)
+
+      dashboard.definition.queries = result.queries() // this could go in an observer
+      dashboard.set_items([result])
+
+      $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
+      dashboard.load_all()
+
+      return self
     }
 
     self.refresh = function() {

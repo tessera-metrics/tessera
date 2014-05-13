@@ -62,7 +62,10 @@ ds.models.item =
         }
       }
 
-      // TODO: this should use streams
+      /**
+       * Various visitors for convenience.
+       */
+
       self.flatten = function(filter) {
         var flat = []
         self.visit(function(item) {
@@ -75,6 +78,16 @@ ds.models.item =
           }
         })
         return flat
+      }
+
+      self.queries = function() {
+        var queries = {}
+        self.visit(function(i) {
+          if (typeof(i.query) !== 'undefined') {
+            queries[i.query.name] = i.query
+          }
+        })
+        return queries
       }
 
       return builder

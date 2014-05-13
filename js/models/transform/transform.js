@@ -16,7 +16,7 @@ ds.models.transform.transform =
     function init(target, data) {
       if (data) {
         target.transform_name = data.transform_name || target.transform_name
-        target.transform_type = data.display_name || target.display_name
+        target.display_name = data.display_name || target.display_name
         target.transform_type = data.transform_type || target.transform_type
       }
       return target
