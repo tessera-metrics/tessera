@@ -21,6 +21,8 @@ ds.charts =
        Graphite Helpers
        ----------------------------------------------------------------------------- */
 
+    self.DEFAULT_BGCOLOR = 'ff000000'
+
     self.get_palette = function(name) {
       var palette = self.colors[name];
       return palette || self.colors[self.DEFAULT_PALETTE];
@@ -32,7 +34,7 @@ ds.charts =
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || self.color_to_hex(window.getComputedStyle($('body')[0]).backgroundColor))
+            .setQuery('bgcolor', options.bgcolor || self.DEFAULT_BGCOLOR)
             .setQuery('fgcolor', options.fgcolor || 'white')
             .setQuery('hideLegend', 'true')
             .setQuery('hideAxes', 'true')
@@ -49,7 +51,7 @@ ds.charts =
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || self.color_to_hex(window.getComputedStyle($('body')[0]).backgroundColor))
+            .setQuery('bgcolor', options.bgcolor || self.DEFAULT_BGCOLOR)
             .setQuery('fgcolor', options.fgcolor || 'black')
             .setQuery('majorGridLineColor', options.majorGridLineColor || '#dddddd')
             .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
@@ -68,7 +70,7 @@ ds.charts =
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || 'white')
+            .setQuery('bgcolor', options.bgcolor || self.DEFAULT_BGCOLOR)
             .setQuery('fgcolor', options.fgcolor || 'black')
             .setQuery('majorGridLineColor', options.majorGridLineColor || '#dddddd')
             .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
@@ -87,7 +89,7 @@ ds.charts =
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || self.color_to_hex(window.getComputedStyle($('body')[0]).backgroundColor))
+            .setQuery('bgcolor', options.bgcolor || self.DEFAULT_BGCOLOR)
             .setQuery('fgcolor', options.fgcolor || 'black')
             .setQuery('majorGridLineColor', options.majorGridLineColor || '#dddddd')
             .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
