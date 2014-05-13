@@ -49,10 +49,10 @@
             </ul>
             <script>
               ds.manager.onRangeChanged(function(data) {
-              var description = ds.manager.getRangeDescription(data.from);
-              if ( description ) {
-              $("a.ds-fullscreen-range-indicator").text(description);
-              }
+                var description = ds.manager.getRangeDescription(data.from);
+                if ( description ) {
+                  $("a.ds-fullscreen-range-indicator").text(description);
+                }
               });
             </script>
           </div>
