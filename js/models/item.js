@@ -40,7 +40,11 @@ ds.models.item =
                  }
                }
              })
-
+             .property('is_immediate_query', {
+               get: function(context) {
+                 return typeof(context.query) !== 'string'
+               }
+             })
 
       /**
        * Operations
@@ -66,14 +70,10 @@ ds.models.item =
        * Various visitors for convenience.
        */
 
-      self.flatten = function(filter) {
+      self.flatten = function() {
         var flat = []
         self.visit(function(item) {
           if (item.item_type) {
-            if (filter && (filter instanceof Function)) {
-              if (!filter(item))
-                return
-            }
             flat.push(item)
           }
         })
@@ -98,8 +98,9 @@ ds.models.item =
       data.item_type = target.item_type
       if (target.item_id)
         data.item_id = target.item_id
-      if (target.query)
-        data.query = typeof(target.query) === 'string' ? target.query : target.query.toJSON()
+      if (target.query) {
+        data.query = target.is_immediate_query ? target.query.toJSON() : target.query.name
+      }
       if (target.css_class)
         data.css_class = target.css_class
       if (target.height)
