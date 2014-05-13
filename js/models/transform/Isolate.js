@@ -11,6 +11,7 @@ ds.models.transform.Isolate = function(options) {
                 transform_name: 'isolate',
                 transform_type: 'presentation'
               })
+              .property('style', {init: 'well'})
               .build()
 
   self.transform = function(item) {
@@ -18,6 +19,7 @@ ds.models.transform.Isolate = function(options) {
                     .add(ds.models.row()
                          .add(ds.models.cell()
                                 .set_span(12)
+                                .set_style(self.style)
                                 .add(item.set_height(6)
                                          .set_interactive(true))))
                     .add(ds.models.row()
