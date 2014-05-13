@@ -103,7 +103,7 @@ def demo_node_dashboard():
                                                                                           units='bytes',
                                                                                           format=',.1s'))
                                            ,Cell(span=8,
-                                                 items=StackedAreaChart(title='Bytes Received',query='bytes_received', height=3,
+                                                 items=StackedAreaChart(title='Bytes Received',query='bytes_received', height=5,
                                                                         options={
                                                                             'yAxisLabel' : '# of Bytes/Second',
                                                                             'yAxisFormat' : ',.1s',
