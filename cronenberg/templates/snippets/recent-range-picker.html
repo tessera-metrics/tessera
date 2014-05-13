@@ -1,12 +1,6 @@
   <ul class="nav nav-pills ds-recent-range-picker">
 
-    {% for item in [
-      ('Past Hour', '-1h'),
-      ('Past 3 Hours', '-3h'),
-      ('Past 12 Hours', '-12h'),
-      ('Past Day', '-1d'),
-      ('Past Week', '-7d')]
-      %}
+    {% for item in config['DASHBOARD_RANGE_PICKER'] %}
 
     <li data-ds-range="{{item[1]}}">
       <a data-ds-range="{{item[1]}}">

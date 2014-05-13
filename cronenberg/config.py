@@ -7,3 +7,11 @@ GRAPHITE_URL               = 'http://graphite.prod.urbanairship.com'
 SERVER_ADDRESS             = '0.0.0.0'
 SERVER_PORT                = 5000
 INTERACTIVE_CHARTS_DEFAULT = True
+DASHBOARD_RANGE_PICKER = [
+      ('Past Hour', '-1h'),
+      ('Past 3 Hrs', '-3h'),
+      ('Past 12 Hrs', '-12h'),
+      ('Past Day', '-1d'),
+      ('Past Wk', '-1w'),
+      ('Past 2 Wks', '-2w'),
+]
