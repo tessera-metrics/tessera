@@ -40,8 +40,8 @@ for event in argon_mutation_events:
 
 def argon_top_row():
     return Row(items=[
-        Cell(span=3, style='well', align='center', items=[ SingleStat(title='Processed Argon Events', format=',.0f', transform='sum', query='argon_total'),
-                                                           SingleStat(title='Ignored Argon Events', format=',.0f', transform='sum', query='argon_ignored')
+        Cell(span=3, style='well', align='center', items=[ SingleStat(title='Processed Argon Events', format=',.4s', transform='sum', query='argon_total'),
+                                                           SingleStat(title='Ignored Argon Events', format=',.4s', transform='sum', query='argon_ignored')
                                                            ]),
         Cell(span=9, items=StandardTimeSeries(height=5, query='argon_total', title='Total Argon Mutations Processed'))
     ])
