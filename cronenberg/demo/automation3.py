@@ -43,7 +43,7 @@ def argon_top_row():
         Cell(span=3, style='well', align='center', items=[ SingleStat(title='Processed Argon Events', format=',.0f', transform='sum', query='argon_total'),
                                                            SingleStat(title='Ignored Argon Events', format=',.0f', transform='sum', query='argon_ignored')
                                                            ]),
-        Cell(span=9, style='well', items=StandardTimeSeries(height=5, query='argon_total', title='Total Argon Mutations Processed'))
+        Cell(span=9, items=StandardTimeSeries(height=5, query='argon_total', title='Total Argon Mutations Processed'))
     ])
 
 def event_row(event):
@@ -63,11 +63,47 @@ def argon_mutation_section():
     section = Section(items=[Heading(text='Argon Mutation Events',
                                      description="Counts for events received by triggers-gorram-consumer"),
                              Separator(),
-                             argon_top_row()
+                             argon_top_row(),
+                             Separator()
                              ])
     for event in argon_mutation_events:
         section.items.extend([event_row(event)])
     return section
+
+# =============================================================================
+
+event_lag_metrics = [
+    'device_id_swap_lag',
+    'device_open_lag',
+    'device_reg_delete_lag',
+    'device_reg_uninstall_lag',
+    'device_reg_update_lag',
+    'timezone_update_lag'
+]
+
+for lag in event_lag_metrics:
+#    queries[lag] = 'aliasByNode(averageSeries({{{{ua-service "triggers-gorram-consumer"}}}}.gorramconsumerservice.{0}.50thPercentile),5,6)'.format(lag)
+    queries[lag] = '{{{{ua-service "triggers-gorram-consumer"}}}}.gorramconsumerservice.{0}.50thPercentile'.format(lag)
+
+def lag_row(metric):
+    return Row(items=[
+        Cell(span=3, align='right', items=[
+            SingleStat(title='Average 50th% Lag', query=metric, transform='mean', units='ms', format=',.2s'),
+        ]),
+        Cell(span=9, items=StandardTimeSeries(title=event, query=metric))
+    ])
+
+
+def gorram_consumer_lag_section():
+    section = Section(items=[Heading(text='Gorram Consumer Lag',
+                                     description=""),
+                             Separator()
+                             ])
+    for lag in event_lag_metrics:
+        section.items.extend([lag_row(lag)])
+    return section
+
+# =============================================================================
 
 def demo_automation_3():
     return database.Dashboard(
@@ -80,6 +116,7 @@ def demo_automation_3():
                 DashboardDefinition(
                     queries=queries,
                     items=[
-                        argon_mutation_section()
+                        argon_mutation_section(),
+                        gorram_consumer_lag_section()
                     ]
                 ))))
