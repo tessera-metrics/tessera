@@ -20,8 +20,9 @@ ds.models.transform.TimeShift = function(options) {
                 ]
               })
               .extend(ds.models.transform.transform, {
-                transform_name: 'Time Shift',
-                transform_type: 'time_shift'
+                display_name: 'Time Shift',
+                transform_name: 'time_shift',
+                transform_type: 'presentation'
               })
               .build()
 

@@ -15,8 +15,9 @@ ds.models.transform.SimpleGrid = function(data) {
                        .property('section_type', {init: 'fixed'})
                        .property('charts_only', {init: false})
                        .extend(ds.models.transform.transform, {
-                         transform_name: 'Simple Grid',
-                         transform_type: 'simple_grid'
+                         display_name: 'Simple Grid',
+                         transform_name: 'simple_grid',
+                         transform_type: 'dashboard'
                        })
                        .build()
 
