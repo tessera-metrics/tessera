@@ -29,6 +29,7 @@ def generate():
         demo_gallery_dashboard(),
         demo_automation_overview(),
         demo_automation_2(),
+        demo_automation_3(),
         demo_random_data_dashboard(),
         demo_node_dashboard(),
         demo_carbon_dashboard(),
