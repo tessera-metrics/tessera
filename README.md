@@ -131,6 +131,7 @@ Client Side:
 * [limivorous](https://github.com/aalpern/limivorous)
 * [tagmanager](https://github.com/max-favilli/tagmanager)
 * [x-editable](http://vitalets.github.io/x-editable/)
+* [color](https://github.com/harthur/color)
 
 
 ### Screenshot
