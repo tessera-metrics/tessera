@@ -19,7 +19,7 @@ def demo_node_dashboard():
                          'processes' : 'aliasByNode(servers.{{clusto-query "role"}}.sysstat.loadavg.process_list_size, 1)',
                          'bytes_received' : 'aliasByNode(servers.{{clusto-query "role"}}.sysstat.network.*.bytes_rx,1,4)',
                          'tcp_establised' : 'aliasByNode(servers.{{clusto-query "role"}}.tcp.CurrEstab,1)',
-                         'memory_usage' : 'aliasByNode(asPercent(sumSeries(servers.{{clusto-query "role"}}.memory.Active),sumSeries(servers.{{clusto-query "role"}}.memory.MemTotal)),1)',
+                         'memory_usage' : 'asPercent(sumSeries(servers.{{clusto-query "role"}}.memory.Active),sumSeries(servers.{{clusto-query "role"}}.memory.MemTotal))',
                          'chef' : 'drawAsInfinite(servers.{{clusto-query "role"}}.chef.elapsed)'
                      },
                      items=Section(layout=Section.Layout.FIXED,
