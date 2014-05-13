@@ -8,5 +8,5 @@
       columns: cols
     });
 
-    ds.manager.change_layout(layout);
+    ds.manager.apply_transform(layout)
   });
