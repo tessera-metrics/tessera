@@ -28,8 +28,25 @@ ds.charts =
       return palette || self.colors[self.DEFAULT_PALETTE];
     }
 
+    function getColors() {
+      var color = Color(window.getComputedStyle($('body')[0]).backgroundColor)
+      if (color.dark()) {
+        return {
+          majorGridLineColor: color.clone().lighten(0.75).hexString(),
+          minorGridLineColor: color.clone().lighten(0.5).hexString(),
+          fgcolor: color.clone().lighten(3.0).hexString()
+        }
+      } else {
+        return {
+          majorGridLineColor: color.clone().darken(0.15).hexString(),
+          minorGridLineColor: color.clone().darken(0.05).hexString(),
+          fgcolor: color.clone().darken(0.75).hexString()
+        }
+      }
+    }
+
     self.simple_line_chart_url = function(item, options_) {
-        var options = options_ || {};
+        var options = ds.extend(options_ || {}, getColors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -46,7 +63,7 @@ ds.charts =
     }
 
     self.standard_line_chart_url = function(item, options_) {
-        var options = options_ || {};
+        var options = ds.extend(options_ || {}, getColors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -65,7 +82,7 @@ ds.charts =
     }
 
     self.simple_area_chart_url = function(item, options_) {
-        var options = options_ || {};
+        var options = ds.extend(options_ || {}, getColors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -84,7 +101,7 @@ ds.charts =
     }
 
     self.stacked_area_chart_url = function(item, options_) {
-        var options = options_ || {};
+        var options = ds.extend(options_ || {}, getColors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)

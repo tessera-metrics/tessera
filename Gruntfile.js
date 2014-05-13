@@ -53,7 +53,8 @@ module.exports = function(grunt) {
           'cronenberg/static/js/bootstrap-editable.min.js',
           'cronenberg/static/js/bootstrap-growl.min.js',
           'cronenberg/static/js/bootstrapValidator.min.js',
-          'cronenberg/static/js/limivorous.js'
+          'cronenberg/static/js/limivorous.js',
+          'cronenberg/static/js/color-0.5.0.js'
         ],
         dest: 'cronenberg/static/bundle.js'
       },
