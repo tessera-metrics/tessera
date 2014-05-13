@@ -8,6 +8,9 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
     case 'time-spans': {
       // TODO: this should all be tidied up and moved into the
       // manager, and integrate with browser history
+      //
+      // Also, each one of these transform menu items should be
+      // defined in an extensible registry, not hard-coded
       var new_item = ds.models.transform.TimeSpans().transform(item)
       var dashboard = ds.manager.current.dashboard
       dashboard.set_items([new_item])
@@ -27,8 +30,7 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
     }
 
     case 'time-shifts': {
-      // TODO: this should all be tidied up and moved into the
-      // manager, and integrate with browser history
+      // Same as above
       var new_item = ds.models.transform.TimeShift().transform(item)
       var dashboard = ds.manager.current.dashboard
       dashboard.set_items([new_item])
@@ -46,6 +48,27 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
 
       break;
     }
+
+    case 'isolate': {
+      // Same as above
+      var new_item = ds.models.transform.Isolate().transform(item)
+      var dashboard = ds.manager.current.dashboard
+      dashboard.set_items([new_item])
+      $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
+
+      var queries = {}
+      new_item.visit(function(i) {
+        if (typeof(i.query) !== 'undefined') {
+          queries[i.query.name] = i.query
+        }
+      })
+
+      dashboard.definition.queries = queries
+      dashboard.load_all()
+
+      break;
+    }
+
 
 
     case 'open-in-graphite': {
