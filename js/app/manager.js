@@ -206,15 +206,32 @@ ds.manager =
       item.query.load({ fire_only: true })
     }
 
+    self.handle_popstate = function(event) {
+       if (!event.state) {
+        self.refresh()
+      }
+    }
+
+    window.addEventListener('popstate', self.handle_popstate)
+
     self.apply_transform = function(transform, target) {
-      /*
-       * TODO - push browser history
-       * Set URL hash to #/transform_name/item_id
-       */
       var dashboard = self.current.dashboard
+
+      /**
+       * Set browser URL state
+       */
+      var url = URI(window.location)
+      var path = url.path()
       if (transform.transform_type == 'dashboard' && typeof(target) === 'undefined') {
         target = dashboard.definition
+      } else {
+        path = path + '/' + target.item_id
       }
+      path = path + '/transform/' + transform.transform_name
+      window.history.pushState({ url:self.current.url,
+                                 element:self.current.element,
+                                 transform:transform.toJSON(),
+                                 target:target.toJSON() }, '', url.path(path).href())
 
       var result = transform.transform(target)
 
@@ -412,6 +429,7 @@ ds.manager =
             });
         })
     }
+
 
    return self;
 })();
