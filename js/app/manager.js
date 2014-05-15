@@ -210,11 +210,13 @@ ds.manager =
       console.log(event)
        if (!event.state) {
         self.refresh()
+         ds.app.switch_to_mode('standard')
       } else {
         if (event.state.transform) {
           var item = ds.manager.current.dashboard.get_item(event.state.target.item_id);
           var transform = ds.models.transform[event.state.transform.transform_name](event.state.transform)
           self.apply_transform(transform, item, false)
+          ds.app.switch_to_mode('transform')
         }
       }
     }
@@ -251,6 +253,10 @@ ds.manager =
 
       $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
       dashboard.load_all()
+
+      if (transform.transform_type === 'presentation') {
+        ds.app.switch_to_mode('transform')
+      }
 
       return self
     }
