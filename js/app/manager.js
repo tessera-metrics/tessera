@@ -207,31 +207,42 @@ ds.manager =
     }
 
     self.handle_popstate = function(event) {
+      console.log(event)
        if (!event.state) {
         self.refresh()
+      } else {
+        if (event.state.transform) {
+          var item = ds.manager.current.dashboard.get_item(event.state.target.item_id);
+          var transform = ds.models.transform[event.state.transform.transform_name](event.state.transform)
+          self.apply_transform(transform, item, false)
+        }
       }
     }
 
     window.addEventListener('popstate', self.handle_popstate)
 
-    self.apply_transform = function(transform, target) {
+    self.apply_transform = function(transform, target, set_location) {
       var dashboard = self.current.dashboard
+      if (typeof(set_location) === 'undefined')
+        set_location = true
 
       /**
        * Set browser URL state
        */
-      var url = URI(window.location)
-      var path = url.path()
-      if (transform.transform_type == 'dashboard' && typeof(target) === 'undefined') {
-        target = dashboard.definition
-      } else {
-        path = path + '/' + target.item_id
+      if (set_location) {
+        var url = URI(window.location)
+        var path = url.path()
+        if (transform.transform_type == 'dashboard' && typeof(target) === 'undefined') {
+          target = dashboard.definition
+        } else {
+          path = path + '/' + target.item_id
+        }
+        path = path + '/transform/' + transform.transform_name
+        window.history.pushState({ url:self.current.url,
+                                   element:self.current.element,
+                                   transform:transform.toJSON(),
+                                   target:target.toJSON() }, '', url.path(path).href())
       }
-      path = path + '/transform/' + transform.transform_name
-      window.history.pushState({ url:self.current.url,
-                                 element:self.current.element,
-                                 transform:transform.toJSON(),
-                                 target:target.toJSON() }, '', url.path(path).href())
 
       var result = transform.transform(target)
 
