@@ -18,7 +18,6 @@ ds.app =
       bean.fire(self, 'ds-exit:' + mode)
       var state = mode_stack.pop()
       if (state && state.cleanup && (state.cleanup instanceof Function)) {
-        console.log('running cleanup for ' + mode)
         state.cleanup()
       }
     }
@@ -31,9 +30,7 @@ ds.app =
       mode_stack.push({
         mode: mode,
         cleanup: function() {
-          console.log('Showing ' + hidden.length )
           hidden.show(ANIMATION_DELAY)
-          console.log('Hiding ' + shown.length )
           shown.hide(ANIMATION_DELAY)
         }
       })
@@ -47,9 +44,7 @@ ds.app =
     }
 
     self.add_mode_handler = function(mode, options) {
-      console.log('add_mode_handler ' + mode + ', ' + options)
       if (options.enter && (options.enter instanceof Function)) {
-        console.log('adding enter handler')
         bean.on(self, 'ds-enter:' + mode, options.enter)
       }
       if (options.exit && (options.exit instanceof Function)) {
@@ -62,10 +57,6 @@ ds.app =
   })()
 
 var cronenberg = {
-
-    editing: false,
-
-    ANIMATION_DELAY: 300,
 
     /**
      * Constants for the various custom events cronenberg uses.
