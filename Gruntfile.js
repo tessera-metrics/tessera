@@ -64,7 +64,7 @@ module.exports = function(grunt) {
         },
         src: [
           'js/core.js',
-          'js/cronenberg.js',
+          'js/app.js',
           'js/app/manager.js',
           'js/app/helpers.js',
           'js/app/charts.js',
