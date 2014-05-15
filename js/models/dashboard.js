@@ -20,6 +20,7 @@ ds.models.dashboard = function(data) {
                          }
                        })
                        .property('tags', {
+                         init: [],
                          transform: function(tags) {
                            return tags.map(function(t) {
                                     return ds.models.tag(t)
