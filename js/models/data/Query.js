@@ -114,12 +114,17 @@ ds.models.data.Query = function(data_) {
     self.data = response_data.map(function(series) {
                   series.summation = ds.models.data.Summation(series).toJSON();
                   self.summation.merge(series.summation);
-                  // TODO: should have canonical format in query
-                  // object and process on-demand (cached in
-                  // non-serializing attribute)
-                  return ds.charts.process_series(series);
+                  return series
                 });
     return self;
+  }
+
+  self.chart_data = function(type) {
+    var attribute = 'chart_data_' + type
+    if (typeof(self[attribute]) === 'undefined') {
+      self[attribute] = ds.charts.process_data(self.data, type)
+    }
+    return self[attribute]
   }
 
   self.toJSON = function() {

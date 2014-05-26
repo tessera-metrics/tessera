@@ -8,6 +8,6 @@ ds.templates.models.stacked_area_chart.dataHandler
             });
             element.parent().html($('<img/>').attr('src', png_url));
         } else {
-            ds.charts.stacked_area_chart($("#" + item.item_id + ' .ds-graph-holder'), query.data, item.options);
+            ds.charts.stacked_area_chart($("#" + item.item_id + ' .ds-graph-holder'), item, query);
         }
     };

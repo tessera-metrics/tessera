@@ -8,9 +8,9 @@ ds.charts.nvd3 =
     self.CHART_IMPL_TYPE = 'nvd3'
     self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD = 6
 
-    self.simple_line_chart = function(e, series, options_) {
-      var options = options_ || {};
-      var data = [series];
+    self.simple_line_chart = function(e, item, query) {
+      var options = item.options || {}
+      var data = [query.chart_data('nvd3')[0]]
         nv.addGraph(function() {
             var width = e.width();
             var height = e.height();
@@ -38,8 +38,9 @@ ds.charts.nvd3 =
         });
     }
 
-    self.standard_line_chart = function(e, item, data, options_) {
-      var options = options_ || {}
+    self.standard_line_chart = function(e, item, query) {
+      var options = item.options || {}
+      var data = query.chart_data('nvd3')
         var showLegend = options.showLegend !== false;
         if (data.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
             showLegend = false;
@@ -76,9 +77,9 @@ ds.charts.nvd3 =
         });
     }
 
-    self.simple_area_chart = function(e, series, options_) {
-        var options = options_ || {};
-      var data = [series];
+    self.simple_area_chart = function(e, item, query) {
+      var options = item.options || {}
+      var data = [query.chart_data('nvd3')[0]]
         nv.addGraph(function() {
             var width  = e.width();
             var height = e.height();
@@ -113,9 +114,10 @@ ds.charts.nvd3 =
     }
 
 
-    self.stacked_area_chart = function(e, data, options_) {
-        var options = options_ || {};
+    self.stacked_area_chart = function(e, item, query) {
+        var options = item.options || {};
         var showLegend = options.showLegend !== false;
+      var data = query.chart_data('nvd3')
         if (data.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
             showLegend = false;
         }
@@ -154,9 +156,10 @@ ds.charts.nvd3 =
         });
     }
 
-    self.donut_chart = function(e, series, options_, transform_) {
-        var options = options_ || {};
-        var transform = transform_ || 'sum';
+    self.donut_chart = function(e, item, query) {
+      var options = item.options || {}
+      var transform = item.transform || 'sum'
+      var series = query.chart_data('nvd3')
         /* var showLegend = options.showLegend !== false;
            if (list_of_series.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
            showLegend = false;
@@ -197,12 +200,13 @@ ds.charts.nvd3 =
     }
 
     self.process_series = function(series) {
-      // TODO: should be non-destructive
-      series.key = series.target;
-      series.values = series.datapoints;
-      delete series.target;
-      delete series.datapoints;
-      return series
+      var result = {}
+      if (series.summation) {
+        result.summation = series.summation
+      }
+      result.key = series.target
+      result.values = series.datapoints
+      return result
     }
 
     return self
