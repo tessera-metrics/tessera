@@ -47,7 +47,7 @@ ds.charts.flot =
           labelBoxBorderColor: 'transparent'
         },
         grid: {
-          borderWidth: 1,
+          borderWidth: 0,
           borderColor: "#AAAAAA",
           hoverable: true,
           clickable: true,
@@ -88,7 +88,7 @@ ds.charts.flot =
         var series = context.plot.getData()
         var item = items[0]
         var point = series[item.serieIndex].data[item.dataIndex]
-        var contents = "<span class='tooltip-time'>"
+        var contents = "<span class='ds-tooltip-time'>"
                      + new Date(point[0]).toString()
                      + '</span><table class="table table-condensed table-striped"><tbody>'
         $.each(items, function(index, item) {
@@ -154,7 +154,11 @@ ds.charts.flot =
     }
 
     self.simple_area_chart = function(e, item, query) {
-      $.plot($(e), [query.chart_data('flot')[0]], ds.extend(default_options, {
+      var context = {
+          plot: null
+      }
+      setup_plugins(e, context)
+      context.plot = $.plot($(e), [query.chart_data('flot')[0]], ds.extend(default_options, {
         grid: {
           show: false
         },
@@ -172,7 +176,18 @@ ds.charts.flot =
     }
 
     self.stacked_area_chart = function(e, item, query) {
-      $.plot($(e), query.chart_data('flot'), default_options)
+      var context = {
+          plot: null
+      }
+      setup_plugins(e, context)
+      context.plot = $.plot($(e), query.chart_data('flot'), ds.extend(default_options, {
+        series: {
+          lines: { show: true, lineWidth: 1, fill: true},
+          stack: true,
+          points: { show: false },
+          bars: { show: false }
+        }
+      }))
       return self
     }
 
