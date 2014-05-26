@@ -5,10 +5,11 @@ ds.charts.nvd3 =
 
     var self = {}
 
-    self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD = 6;
+    self.CHART_IMPL_TYPE = 'nvd3'
+    self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD = 6
 
     self.simple_line_chart = function(e, series, options_) {
-        var options = options_ || {};
+      var options = options_ || {};
       var data = [series];
         nv.addGraph(function() {
             var width = e.width();
@@ -37,8 +38,8 @@ ds.charts.nvd3 =
         });
     }
 
-    self.standard_line_chart = function(e, data, options_) {
-        var options = options_ || {};
+    self.standard_line_chart = function(e, item, data, options_) {
+      var options = options_ || {}
         var showLegend = options.showLegend !== false;
         if (data.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
             showLegend = false;

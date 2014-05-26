@@ -11,8 +11,8 @@ ds.charts =
       return self.impl.simple_line_chart(element, series, options)
     }
 
-    self.standard_line_chart = function(element, data, options) {
-      return self.impl.standard_line_chart(element, data, options)
+    self.standard_line_chart = function(element, item, data, options) {
+      return self.impl.standard_line_chart(element, item, data, options)
     }
 
     self.simple_area_chart = function(element, data, options) {
