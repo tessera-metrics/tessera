@@ -248,7 +248,7 @@ ds.manager =
 
       var result = transform.transform(target)
 
-      dashboard.definition.queries = result.queries() // this could go in an observer
+      dashboard.definition.queries = result.get_queries() // this could go in an observer
       dashboard.set_items([result])
 
       $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
