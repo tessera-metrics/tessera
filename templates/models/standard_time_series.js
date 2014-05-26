@@ -8,6 +8,6 @@ ds.templates.models.standard_time_series.dataHandler =
             });
             element.html($('<img/>').attr('src', png_url).height(element.height()).width(element.width()));
         } else {
-            var chart = ds.charts.standard_line_chart($("#" + item.item_id + ' .ds-graph-holder'), item, query.data, item.options);
+            var chart = ds.charts.standard_line_chart($("#" + item.item_id + ' .ds-graph-holder'), item, query);
         }
     };

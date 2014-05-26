@@ -7,37 +7,40 @@ ds.charts =
 
     self.DEFAULT_PALETTE = 'spectrum6'
 
-    self.simple_line_chart = function(element, series, options) {
-      return self.impl.simple_line_chart(element, series, options)
+    self.simple_line_chart = function(element, item, query) {
+      return self.impl.simple_line_chart(element, item, query)
     }
 
-    self.standard_line_chart = function(element, item, data, options) {
-      return self.impl.standard_line_chart(element, item, data, options)
+    self.standard_line_chart = function(element, item, query) {
+      return self.impl.standard_line_chart(element, item, query)
     }
 
-    self.simple_area_chart = function(element, data, options) {
-      return self.impl.simple_area_chart(element, data, options)
+    self.simple_area_chart = function(element, item, query) {
+      return self.impl.simple_area_chart(element, item, query)
     }
 
-    self.stacked_area_chart = function(element, data, options) {
-      return self.impl.stacked_area_chart(element, data, options)
+    self.stacked_area_chart = function(element, item, query) {
+      return self.impl.stacked_area_chart(element, item, query)
     }
 
-    self.donut_chart = function(element, data, options) {
-      return self.impl.donut_chart(element, data, options)
+    self.donut_chart = function(element, item, query) {
+      return self.impl.donut_chart(element, item, query)
     }
 
-    self.process_data = function(data) {
+    self.process_data = function(data, type) {
       if (data instanceof Array) {
         return data.map(function(series) {
-                 self.process_series(series)
+                 return self.process_series(series, type)
                })
       } else {
         return self.process_series(data)
       }
     }
 
-    self.process_series = function(series) {
+    self.process_series = function(series, type) {
+      if (type) {
+        return ds.charts[type].process_series(series)
+      }
       return self.impl.process_series(series)
     }
 
