@@ -113,12 +113,11 @@ ds.models.data.Query = function(data_) {
     self.summation = ds.models.data.Summation();
     self.data = response_data.map(function(series) {
                   series.summation = ds.models.data.Summation(series).toJSON();
-                  series.key = series.target;
-                  series.values = series.datapoints;
                   self.summation.merge(series.summation);
-                  delete series.target;
-                  delete series.datapoints;
-                  return series;
+                  // TODO: should have canonical format in query
+                  // object and process on-demand (cached in
+                  // non-serializing attribute)
+                  return ds.charts.process_series(series);
                 });
     return self;
   }
