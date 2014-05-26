@@ -59,7 +59,8 @@ module.exports = function(grunt) {
           'cronenberg/static/js/flot/jquery.flot.time.js',
           'cronenberg/static/js/flot/jquery.flot.multihighlight.js',
           'cronenberg/static/js/flot/jquery.flot.tooltip.js',
-          'cronenberg/static/js/flot/jquery.flot.stack.js'
+          'cronenberg/static/js/flot/jquery.flot.stack.js',
+          'cronenberg/static/js/flot/jquery.flot.crosshair.js'
         ],
         dest: 'cronenberg/static/bundle.js'
       },
