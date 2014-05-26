@@ -55,7 +55,10 @@ module.exports = function(grunt) {
           'cronenberg/static/js/bootstrapValidator.min.js',
           'cronenberg/static/js/limivorous.js',
           'cronenberg/static/js/color-0.5.0.js',
-          'cronenberg/static/js/flot/*.js'
+          'cronenberg/static/js/flot/jquery.flot.js',
+          'cronenberg/static/js/flot/jquery.flot.time.js',
+          'cronenberg/static/js/flot/jquery.flot.multihighlight.js',
+          'cronenberg/static/js/flot/jquery.flot.tooltip.js'
         ],
         dest: 'cronenberg/static/bundle.js'
       },

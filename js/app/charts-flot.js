@@ -72,8 +72,57 @@ ds.charts.flot =
 
     self.CHART_IMPL_TYPE = 'flot'
 
+    function show_tooltip(x, y, contents) {
+      $('<div id="ds-tooltip">' + contents + '</div>').css( {
+        position: 'absolute',
+        display: 'none',
+        top: y + 5,
+        left: x + 5
+      }).appendTo("body").show();
+    }
+
+    function setup_plugins(container, context) {
+      $(container).bind("multihighlighted", function(event, pos, items) {
+        if ( !items )
+          return
+        var series = context.plot.getData()
+        var item = items[0]
+        var point = series[item.serieIndex].data[item.dataIndex]
+        var contents = "<span class='tooltip-time'>"
+                     + new Date(point[0]).toString()
+                     + '</span><table class="table table-condensed table-striped"><tbody>'
+        $.each(items, function(index, item) {
+          var ser = series[item.serieIndex]
+          var pair = ser.data[item.dataIndex]
+
+          contents += ( "<tr>"
+                        // Value
+                      + "<td class='ds-tooltip-value'>" + pair[1] + "</td>"
+                        // Badge + name
+                      + "<td class='ds-tooltip-label'><span class='badge' style='background-color: "
+                      + ser.color + "'><i class='fa fa-lg fa-bolt'></i> "
+                      + ser.label + "</span></td>"
+                      + "</tr>"
+                      )
+        })
+        contents += "</tbody></table>"
+
+        $("#ds-tooltip").remove()
+        show_tooltip(pos.pageX, pos.pageY, contents)
+      })
+
+      $(container).bind("unmultihighlighted", function(event) {
+        $("#ds-tooltip").remove()
+      })
+
+    }
+
     self.simple_line_chart = function(e, item, query) {
-      $.plot($(e), [query.chart_data('flot')[0]], ds.extend(self.default_options, {
+      var context = {
+          plot: null
+      }
+      setup_plugins(e, context)
+      context.plot = $.plot($(e), [query.chart_data('flot')[0]], ds.extend(default_options, {
         grid: {
           show: false
         },
@@ -85,13 +134,27 @@ ds.charts.flot =
     }
 
     self.standard_line_chart = function(e, item, query) {
-      $.plot($(e), query.chart_data('flot'), ds.extend(self.default_options, {
+      var context = {
+          plot: null
+      }
+      setup_plugins(e, context)
+      context.plot = $.plot($(e), query.chart_data('flot'), ds.extend(default_options, {
+        grid: {
+          borderWidth: 0,
+          hoverable: true,
+          clickable: true,
+          autoHighlight: false
+        },
+        multihighlight: {
+          mode: "x"
+        },
+
       }))
       return self
     }
 
     self.simple_area_chart = function(e, item, query) {
-      $.plot($(e), [query.chart_data('flot')[0]], ds.extend(self.default_options, {
+      $.plot($(e), [query.chart_data('flot')[0]], ds.extend(default_options, {
         grid: {
           show: false
         },
@@ -109,7 +172,7 @@ ds.charts.flot =
     }
 
     self.stacked_area_chart = function(e, item, query) {
-      $.plot($(e), query.chart_data('flot'), self.default_options)
+      $.plot($(e), query.chart_data('flot'), default_options)
       return self
     }
 
