@@ -293,3 +293,7 @@ h1 .ds-secondary-title {
 .ds-featured-dashboard {
     margin-bottom: 2em;
 }
+
+#ds-tooltip {
+    padding: 12px;
+}

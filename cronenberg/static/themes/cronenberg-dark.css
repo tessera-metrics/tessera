@@ -190,3 +190,8 @@ background-color: #222;
     background-color: #690d0d;
     border-color: #a80e0B;
 }
+
+#ds-tooltip {
+    background-color: #444;
+    border: 1px solid #666;
+}
