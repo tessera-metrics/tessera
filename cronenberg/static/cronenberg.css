@@ -295,5 +295,22 @@ h1 .ds-secondary-title {
 }
 
 #ds-tooltip {
+    opacity: 1.0;
+    background-color: #333;
+    color: #cdF;
+    border: 2px solid #666;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
     padding: 12px;
+    margin-left: 12px;
+}
+#ds-tooltip hr {
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+td.ds-tooltip-value {
+    padding-right: 8px;
+    padding-left: 8px;
+    font-weight: bold;
+    text-align: right;
 }
