@@ -5,8 +5,7 @@ ds.charts.flot =
 
     var self = {}
       , default_options = {
-        colors: ['#ecb796','#dc8f70','#b2a470','#92875a','#716c49','#d2ed82','#bbe468','#a1d05d','#e7cbe6','#d8aad6','#a888c2','#9dc2d3','#649eb9','#387aa3'].reverse(),
-
+        colors: ds.charts.util.get_palette(),
         series: {
           lines: { show: true, lineWidth: 1, fill: false},
           stack: null,
@@ -74,25 +73,43 @@ ds.charts.flot =
     self.CHART_IMPL_TYPE = 'flot'
 
     self.simple_line_chart = function(e, item, query) {
-      $.plot($(e), [query.chart_data('flot')[0]], self.default_options)
-      // ds.charts.nvd3.simple_line_chart(e, series, options)
+      $.plot($(e), [query.chart_data('flot')[0]], ds.extend(self.default_options, {
+        grid: {
+          show: false
+        },
+        legend: {
+          show: false
+        }
+      }))
       return self
     }
 
     self.standard_line_chart = function(e, item, query) {
-      $.plot($(e), query.chart_data('flot'), self.default_options)
+      $.plot($(e), query.chart_data('flot'), ds.extend(self.default_options, {
+      }))
       return self
     }
 
     self.simple_area_chart = function(e, item, query) {
-      $.plot($(e), [query.chart_data('flot')[0]], self.default_options)
-      // ds.charts.nvd3.simple_area_chart(e, series, options)
+      $.plot($(e), [query.chart_data('flot')[0]], ds.extend(self.default_options, {
+        grid: {
+          show: false
+        },
+        legend: {
+          show: false
+        },
+        series: {
+          lines: {
+            show: true,
+            fill: true
+          }
+        }
+      }))
       return self
     }
 
     self.stacked_area_chart = function(e, item, query) {
       $.plot($(e), query.chart_data('flot'), self.default_options)
-      // ds.charts.nvd3.stacked_area_chart(e, data, options)
       return self
     }
 
