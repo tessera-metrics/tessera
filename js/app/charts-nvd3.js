@@ -196,5 +196,14 @@ ds.charts.nvd3 =
         });
     }
 
+    self.process_series = function(series) {
+      // TODO: should be non-destructive
+      series.key = series.target;
+      series.values = series.datapoints;
+      delete series.target;
+      delete series.datapoints;
+      return series
+    }
+
     return self
 })()

@@ -27,6 +27,20 @@ ds.charts =
       return self.impl.donut_chart(element, data, options)
     }
 
+    self.process_data = function(data) {
+      if (data instanceof Array) {
+        return data.map(function(series) {
+                 self.process_series(series)
+               })
+      } else {
+        return self.process_series(data)
+      }
+    }
+
+    self.process_series = function(series) {
+      return self.impl.process_series(series)
+    }
+
     return self
 
   })()
