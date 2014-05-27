@@ -32,28 +32,41 @@ def _jsonify(data, status=200, headers=None):
     return response
 
 def _get_param(name, default=None, store_in_session=False):
+    """Retrieve a named parameter from the request, falling back to the
+session. If store_in_session is True, the value will be stored in the
+session.
+    """
     value = request.args.get(name) or session.get(name, default)
     if store_in_session:
         session[name] = value
     return value
 
 def _get_config():
+    """Retrieve a dictionary containing all UI-relevant config settings."""
     return {
         'GRAPHITE_URL' : app.config['GRAPHITE_URL'],
         'DEFAULT_FROM_TIME' : app.config['DEFAULT_FROM_TIME']
     }
 
 def _get_preferences(store_in_session=False):
+    """Retrieve a dictionary containing all user preferences, obtained
+from (in order) the request parameters, session, and config
+defaults.
+    """
     return {
         'interactive' : _get_param('interactive', app.config['INTERACTIVE_CHARTS_DEFAULT'], store_in_session=store_in_session) == 'true',
         'theme' : _get_param('theme', app.config['DEFAULT_THEME'], store_in_session=store_in_session)
     }
 
 def _set_preferences(prefs):
+    """Store multiple key/value pairs in the session."""
     for name, value in prefs.items():
         session[name] = value
 
 def _dashboard_sort_column():
+    """Return a SQLAlchemy column descriptor to sort results by, based on
+the 'sort' and 'order' request parameters.
+    """
     columns = {
         'created' : database.Dashboard.creation_date,
         'modified' : database.Dashboard.last_modified_date,
@@ -73,6 +86,10 @@ def _dashboard_sort_column():
         return column.asc()
 
 def _set_dashboard_hrefs(dash):
+    """Add the various ReSTful hrefs to an outgoing dashboard
+representation. dash should be the dictionary for of the dashboard,
+not the model object.
+    """
     id = dash['id']
     dash['href'] = '/api/dashboard/{0}'.format(id)
     dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
@@ -83,17 +100,30 @@ def _set_dashboard_hrefs(dash):
     return dash
 
 def _dashboards_response(dashboards):
+    """Return a Flask response object for a list of dashboards in API
+format. dashboards must be a list of dashboard model objects, which
+will be converted to their JSON representation.
+    """
+    if not isinstance(dashboards, list):
+        dashboards = [dashboards]
     return _jsonify({
         'ok' : True,
-        'dashboards' : [ _set_dashboard_hrefs(d) for d in dashboards]
+        'dashboards' : [ _set_dashboard_hrefs(d.to_json()) for d in dashboards]
     })
 
 def _set_tag_hrefs(tag):
+    """Add ReSTful href attributes to a tag's dictionary
+representation.
+    """
     id = tag['id']
     tag['href'] = '/api/tag/{0}'.format(id)
     return tag
 
 def _tags_response(tags):
+    """Return a Flask response object for a list of tags in API
+format. tags must be a list of tag model objects, which
+will be converted to their JSON representation.
+"""
     if not isinstance(tags, list):
         tags = [tags]
     return _jsonify({
@@ -105,7 +135,9 @@ def _tags_response(tags):
 # API Endpoints
 # =============================================================================
 
-## Dashboard endpoints
+#
+# Dashboards
+#
 
 @app.route('/api/dashboard/')
 def api_dashboard_list():
@@ -113,7 +145,7 @@ def api_dashboard_list():
     definitions.
 
     """
-    dashboards = [d.to_json() for d in database.Dashboard.query.order_by(_dashboard_sort_column()).all()]
+    dashboards = [d for d in database.Dashboard.query.order_by(_dashboard_sort_column()).all()]
     return _dashboards_response(dashboards)
 
 @app.route('/api/dashboard/tagged/<tag>')
@@ -125,7 +157,7 @@ def api_dashboard_list_tagged(tag):
     tag = database.Tag.query.filter_by(name=tag).first()
     if not tag:
         return _dashboards_response([])
-    dashboards = [d.to_json() for d in tag.dashboards.order_by(_dashboard_sort_column()) if tag]
+    dashboards = [d for d in tag.dashboards.order_by(_dashboard_sort_column()) if tag]
     return _dashboards_response(dashboards)
 
 @app.route('/api/dashboard/category/<category>')
@@ -134,7 +166,7 @@ def api_dashboard_list_dashboards_in_category(category):
     just the metadata, not the definitions.
 
     """
-    dashboards = [d.to_json() for d in database.Dashboard.query
+    dashboards = [d for d in database.Dashboard.query
                   .filter_by(category=category)
                   .order_by(_dashboard_sort_column()) ]
     return _dashboards_response(dashboards)
@@ -252,9 +284,9 @@ def api_dashboard_update_definition(id):
 
     return _jsonify({ 'ok' : True })
 
-# =============================================================================
-# Tags API
-# =============================================================================
+#
+# Tags
+#
 
 @app.route('/api/tag/')
 def api_tag_list():
@@ -280,9 +312,9 @@ def api_tag_get(id):
     tag = database.Tag.query.get_or_404(id)
     return _tags_response(tag)
 
-# =============================================================================
-# Misc API
-# =============================================================================
+#
+# Miscellany
+#
 
 @app.route('/api/config')
 def api_config_get():
@@ -305,8 +337,12 @@ def api_preferences_put():
 
 
 # =============================================================================
-# UI Helpers
+# UI
 # =============================================================================
+
+#
+# Helpers
+#
 
 class RenderContext:
     def __init__(self):
@@ -333,17 +369,9 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html'):
                                          ('Dashboards', '/dashboards'),
                                          (title, '')])
 
-
-# =============================================================================
-# UI: Basics
 #
-# UI endpoints:
+# Endpoints
 #
-# ``/dashboards``
-# ``/dashboards/tagged/<tag>``
-# ``/dashboards/<id>``
-# ``/dashboards/<id>/<slug>``
-# =============================================================================
 
 @app.route('/')
 def ui_root():
