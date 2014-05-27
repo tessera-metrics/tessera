@@ -206,14 +206,44 @@ ds.manager =
       item.query.load({ fire_only: true })
     }
 
-    self.apply_transform = function(transform, target) {
-      /*
-       * TODO - push browser history
-       * Set URL hash to #/transform_name/item_id
-       */
+    self.handle_popstate = function(event) {
+      console.log(event)
+       if (!event.state) {
+        self.refresh()
+         ds.app.switch_to_mode('standard')
+      } else {
+        if (event.state.transform) {
+          var item = ds.manager.current.dashboard.get_item(event.state.target.item_id);
+          var transform = ds.models.transform[event.state.transform.transform_name](event.state.transform)
+          self.apply_transform(transform, item, false)
+          ds.app.switch_to_mode('transform')
+        }
+      }
+    }
+
+    window.addEventListener('popstate', self.handle_popstate)
+
+    self.apply_transform = function(transform, target, set_location) {
       var dashboard = self.current.dashboard
-      if (transform.transform_type == 'dashboard' && typeof(target) === 'undefined') {
-        target = dashboard.definition
+      if (typeof(set_location) === 'undefined')
+        set_location = true
+
+      /**
+       * Set browser URL state
+       */
+      if (set_location) {
+        var url = URI(window.location)
+        var path = url.path()
+        if (transform.transform_type == 'dashboard' && typeof(target) === 'undefined') {
+          target = dashboard.definition
+        } else {
+          path = path + '/' + target.item_id
+        }
+        path = path + '/transform/' + transform.transform_name
+        window.history.pushState({ url:self.current.url,
+                                   element:self.current.element,
+                                   transform:transform.toJSON(),
+                                   target:target.toJSON() }, '', url.path(path).href())
       }
 
       var result = transform.transform(target)
@@ -223,6 +253,10 @@ ds.manager =
 
       $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
       dashboard.load_all()
+
+      if (transform.transform_type === 'presentation') {
+        ds.app.switch_to_mode('transform')
+      }
 
       return self
     }
@@ -412,6 +446,7 @@ ds.manager =
             });
         })
     }
+
 
    return self;
 })();
