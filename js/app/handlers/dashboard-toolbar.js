@@ -1,6 +1,13 @@
-cronenberg.onEnterEditMode(function() {
-  $(".ds-dashboard-info-edit-panel").html(ds.templates.edit.info_panel(ds.manager.current.dashboard));
-});
+ds.app.add_mode_handler('edit', {
+  enter: function() {
+    console.log('ENTER EDIT HANDLER')
+    $(".ds-dashboard-info-edit-panel").html(ds.templates.edit.info_panel(ds.manager.current.dashboard));
+    $('#ds-edit-info-button').addClass('active')
+  },
+  exit: function() {
+    $('#ds-edit-info-button').removeClass('active')
+  }
+})
 
 $(document).ready(function() {
 
@@ -9,7 +16,7 @@ $(document).ready(function() {
    */
   $(document).on('click', '#ds-edit-info-button', function(e) {
 
-    if (cronenberg.toggleEditMode().editing) {
+    if (cronenberg.toggleEditMode()) {
       $.fn.editable.defaults.mode = 'inline'
 
       /** Title */
@@ -21,7 +28,7 @@ $(document).ready(function() {
           delete dash.definition
           ds.manager.update(dash)
         }
-      });
+      })
 
       /** Category */
       $("#ds-info-panel-edit-category").editable({
@@ -57,7 +64,6 @@ $(document).ready(function() {
           $(this).html(marked(value))
         }
       })
-
 
       var tags = ds.manager.current.dashboard.tags || []
       $("#ds-info-panel-edit-tags").tagsManager({
@@ -96,7 +102,11 @@ $(document).ready(function() {
   })
 
   $(document).on('click', '#ds-enter-fullscreen-button', function(e) {
-    cronenberg.enterFullscreen()
+    ds.app.switch_to_mode(ds.app.Mode.DISPLAY)
+  })
+
+  $(document).on('click', '#ds-exit-display-mode-button', function(e) {
+    ds.app.switch_to_mode(ds.app.Mode.STANDARD)
   })
 
   $(document).on('click', '#ds-delete-dashboard-button', function(e) {
@@ -109,12 +119,6 @@ $(document).ready(function() {
       var contents = '<div class="container">' + ds.templates.edit.item_source({item:data.dashboards[0]}) + '</div>'
       $(ds.manager.current.element).html(contents)
     })
-  })
-
-  cronenberg.onEnterEditMode(function() {
-    $('#ds-edit-button').addClass('active')
-  }).onExitEditMode(function() {
-    $('#ds-edit-button').removeClass('active')
   })
 
 })

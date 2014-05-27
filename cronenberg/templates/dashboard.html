@@ -10,7 +10,7 @@
 
   <div class="container">
     <!-- Navigation and toolbar -->
-    <div data-ds-fullscreen="hide">
+    <div data-ds-hide="display">
       <div>
         {% include "snippets/breadcrumbs.html" %}
       </div>
@@ -19,7 +19,7 @@
     </div> <!-- end nav and toolbar -->
 
     <!-- Fullscreen top bar -->
-    <div class="ds-fullscreen-titlebar" data-ds-fullscreen="show" style="display:none">
+    <div class="ds-fullscreen-titlebar" data-ds-show="display" style="display:none">
       <div class="row">
 
         <div class="col-md-7">
@@ -34,7 +34,7 @@
             <button type="button"
                     data-toggle="tooltip" title="Exit Display Mode"
                     data-placement="bottom"
-                    onclick="cronenberg.exitFullscreen()"
+                    id="ds-exit-display-mode-button"
                     class="btn btn-default"
                     style="margin-top: 1em; ">
                     <i class="fa fa-compress"></i>
@@ -67,7 +67,7 @@
       <hr style="margin:.25em"/>
     </div> <!-- end fullscreen titlebar -->
 
-    <hr data-ds-fullscreen="hide"/>
+    <hr data-ds-hide="display"/>
   </div> <!-- container -->
 
   <div class="ds-grid" id="dashboard"/>

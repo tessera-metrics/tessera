@@ -28,7 +28,7 @@ ds.models.transform.TimeSpans = function(options) {
               .property('columns', { init: 1})
               .extend(ds.models.transform.transform, {
                 display_name: 'View across time spans',
-                transform_name: 'time_spans',
+                transform_name: 'TimeSpans',
                 transform_type: 'presentation'
               })
               .build()
