@@ -80,7 +80,7 @@ ds.models.item =
         return flat
       }
 
-      self.queries = function() {
+      self.get_queries = function() {
         var queries = {}
         self.visit(function(i) {
           if (typeof(i.query) !== 'undefined') {

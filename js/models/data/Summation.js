@@ -2,6 +2,9 @@
  * Summarized stats for a data series or set of series. When
  * constructed with a data series, computes the sum, min, max, and
  * mean.
+ *
+ * The input format is assumed to be the JSON representation returned
+ * by graphite-web.
  */
 ds.models.data.Summation = function(series) {
   "use strict"

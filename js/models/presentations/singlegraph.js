@@ -14,6 +14,9 @@ ds.models.singlegraph = function(data) {
   }
   ds.models.chart.init(self, data)
   ds.models.item.init(self, data)
+  if (!self.height) {
+    self.height = 1
+  }
 
  self.toJSON = function() {
    return ds.models.chart.json(self, ds.models.item.json(self, {

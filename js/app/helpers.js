@@ -32,10 +32,13 @@ Handlebars.registerHelper('format', function(format, value) {
   return d3.format(format)(value)
 })
 
-
 Handlebars.registerHelper('height', function(item) {
-  return item.height ? 'ds-height' + item.height : '';
-});
+  var height = item.height
+  if (item.is_chart && !height) {
+    height = 2
+  }
+  return height ? 'ds-height' + height : ''
+})
 
 Handlebars.registerHelper('span', function(item) {
   return item.span ? 'col-md-' + item.span : '';
