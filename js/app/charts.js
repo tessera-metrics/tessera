@@ -1,356 +1,66 @@
 ds.charts =
   (function () {
 
-    var self = {};
+    var self = limivorous.observable()
+               .property('impl')
+               .build()
 
-    self.color_to_hex = function(color) {
-        if (color.substr(0, 1) === '#') {
-            return color;
-        }
-        var digits = /(.*?)rgb\((\d+), (\d+), (\d+)\)/.exec(color);
+    self.DEFAULT_PALETTE = 'spectrum6'
 
-        var red = parseInt(digits[2]);
-        var green = parseInt(digits[3]);
-        var blue = parseInt(digits[4]);
-
-        var rgb = blue | (green << 8) | (red << 16);
-        return digits[1] + '#' + rgb.toString(16);
+    self.simple_line_chart = function(element, item, query) {
+      return self.impl.simple_line_chart(element, item, query)
     }
 
-    /* -----------------------------------------------------------------------------
-       Graphite Helpers
-       ----------------------------------------------------------------------------- */
-
-    self.DEFAULT_BGCOLOR = 'ff000000'
-
-    self.get_palette = function(name) {
-      var palette = self.colors[name];
-      return palette || self.colors[self.DEFAULT_PALETTE];
+    self.standard_line_chart = function(element, item, query) {
+      return self.impl.standard_line_chart(element, item, query)
     }
 
-    function getColors() {
-      var color = Color(window.getComputedStyle($('body')[0]).backgroundColor)
-      if (color.dark()) {
-        return {
-          majorGridLineColor: color.clone().lighten(0.75).hexString(),
-          minorGridLineColor: color.clone().lighten(0.5).hexString(),
-          fgcolor: color.clone().lighten(3.0).hexString()
-        }
+    self.simple_area_chart = function(element, item, query) {
+      return self.impl.simple_area_chart(element, item, query)
+    }
+
+    self.stacked_area_chart = function(element, item, query) {
+      return self.impl.stacked_area_chart(element, item, query)
+    }
+
+    self.donut_chart = function(element, item, query) {
+      return self.impl.donut_chart(element, item, query)
+    }
+
+    self.process_data = function(data, type) {
+      if (data instanceof Array) {
+        return data.map(function(series) {
+                 return self.process_series(series, type)
+               })
       } else {
-        return {
-          majorGridLineColor: color.clone().darken(0.15).hexString(),
-          minorGridLineColor: color.clone().darken(0.05).hexString(),
-          fgcolor: color.clone().darken(0.75).hexString()
-        }
+        return self.process_series(data)
       }
     }
 
-    self.simple_line_chart_url = function(item, options_) {
-        var options = ds.extend(options_ || {}, getColors())
-        var png_url = URI(item.query.url())
-            .setQuery('format', options.format || 'png')
-            .setQuery('height', options.height || 600)
-            .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || self.DEFAULT_BGCOLOR)
-            .setQuery('fgcolor', options.fgcolor || 'white')
-            .setQuery('hideLegend', 'true')
-            .setQuery('hideAxes', 'true')
-            .setQuery('margin', '0')
-            .setQuery('colorList', self.get_palette(item.options.palette).join())
-            .setQuery('title', options.showTitle ? item.title : '')
-            .href();
-        return png_url;
+    self.process_series = function(series, type) {
+      if (type) {
+        return ds.charts[type].process_series(series)
+      }
+      return self.impl.process_series(series)
     }
 
-    self.standard_line_chart_url = function(item, options_) {
-        var options = ds.extend(options_ || {}, getColors())
-        var png_url = URI(item.query.url())
-            .setQuery('format', options.format || 'png')
-            .setQuery('height', options.height || 600)
-            .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || self.DEFAULT_BGCOLOR)
-            .setQuery('fgcolor', options.fgcolor || 'black')
-            .setQuery('majorGridLineColor', options.majorGridLineColor || '#dddddd')
-            .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
-            .setQuery('hideLegend', options.hideLegend || 'false')
-            .setQuery('hideAxes', options.hideAxes || 'false')
-            .setQuery('colorList', self.get_palette(item.options.palette).join())
-            .setQuery('vtitle', item.options.yAxisLabel)
-            .setQuery('title', options.showTitle ? item.title : '')
-            .href();
-        return png_url;
+    return self
+
+  })()
+
+ds.charts.util =
+  (function () {
+    var self = {}
+
+    self.get_palette = function(name) {
+      var palette = self.colors[name];
+      return palette || self.colors[ds.charts.DEFAULT_PALETTE];
     }
-
-    self.simple_area_chart_url = function(item, options_) {
-        var options = ds.extend(options_ || {}, getColors())
-        var png_url = URI(item.query.url())
-            .setQuery('format', options.format || 'png')
-            .setQuery('height', options.height || 600)
-            .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || self.DEFAULT_BGCOLOR)
-            .setQuery('fgcolor', options.fgcolor || 'black')
-            .setQuery('majorGridLineColor', options.majorGridLineColor || '#dddddd')
-            .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
-            .setQuery('hideLegend', 'true')
-            .setQuery('hideAxes', 'true')
-            .setQuery('areaMode', 'stacked')
-            .setQuery('margin', '0')
-            .setQuery('colorList', self.get_palette(item.options.palette).join())
-            .href();
-        return png_url;
-    }
-
-    self.stacked_area_chart_url = function(item, options_) {
-        var options = ds.extend(options_ || {}, getColors())
-        var png_url = URI(item.query.url())
-            .setQuery('format', options.format || 'png')
-            .setQuery('height', options.height || 600)
-            .setQuery('width', options.width || 1200)
-            .setQuery('bgcolor', options.bgcolor || self.DEFAULT_BGCOLOR)
-            .setQuery('fgcolor', options.fgcolor || 'black')
-            .setQuery('majorGridLineColor', options.majorGridLineColor || '#dddddd')
-            .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
-            .setQuery('hideLegend', options.hideLegend || 'false')
-            .setQuery('hideAxes', options.hideAxes || 'false')
-            .setQuery('areaMode', 'stacked')
-            .setQuery('colorList', self.get_palette(item.options.palette).join())
-            .setQuery('vtitle', item.options.yAxisLabel)
-            .setQuery('title', options.showTitle ? item.title : '')
-            .href();
-        return png_url;
-    }
-
-    self.chart_url = function(item, options) {
-        switch (item.item_type) {
-        case 'simple_time_series':
-            return item.filled
-                ? self.simple_area_chart_url(item, options)
-                : self.simple_line_chart_url(item, options);
-        case 'standard_time_series':
-            return self.standard_line_chart_url(item, options);
-        case 'stacked_area_chart':
-            return self.stacked_area_chart_url(item, options);
-        case 'singlegraph':
-            return self.simple_area_chart_url(item, options);
-        }
-        return undefined;
-    }
-
-    self.composer_url = function(item, options_) {
-        var options = options_ || {};
-        var composer_url = URI(item.query.url())
-            .filename('composer')
-            .removeQuery('format')
-            .setQuery('colorList', self.get_palette(item.options.palette).join())
-            .setQuery('vtitle', item.options.yAxisLabel)
-            .setQuery('title', options.showTitle ? item.title : '');
-        if (item.item_type === 'stacked_area_chart') {
-            composer_url.setQuery('areaMode', 'stacked');
-        }
-        return composer_url.href();
-    }
-
-
-    /* -----------------------------------------------------------------------------
-       Charts
-       ----------------------------------------------------------------------------- */
-
-    self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD = 6;
-    self.DEFAULT_PALETTE = 'spectrum6';
-
-    self.simple_line_chart = function(e, series, options_) {
-        var options = options_ || {};
-      var data = [series];
-        nv.addGraph(function() {
-            var width = e.width();
-            var height = e.height();
-            var chart = nv.models.lineChart()
-                .options({
-                    showXAxis: false,
-                    showYAxis: false,
-                    showLegend: false,
-                    useInteractiveGuideline: true,
-                    x: function(d) { return d[1]; },
-                    y: function(d) { return d[0]; }
-                })
-                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
-                .margin(options.margin || { top: 0, right: 16, bottom: 0, left: 40 })
-                .width(width)
-                .height(height);
-            chart.yAxis.tickFormat(d3.format(options.yAxisFormat || ',.2f'));
-            chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow(); });
-            d3.select(e.selector + ' svg')
-                .attr('width', width)
-                .attr('height', height)
-                .datum(data)
-                .call(chart);
-            return chart;
-        });
-    }
-
-    self.standard_line_chart = function(e, data, options_) {
-        var options = options_ || {};
-        var showLegend = options.showLegend !== false;
-        if (data.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
-            showLegend = false;
-        }
-        nv.addGraph(function() {
-            var width = e.width();
-            var height = e.height();
-            var chart = nv.models.lineChart()
-                .options({
-                    showXAxis: options.showXAxis !== false,
-                    showYAxis: options.showYAxis !== false,
-                    showLegend: showLegend,
-                    useInteractiveGuideline: options.useInteractiveGuideline !== false,
-                    x: function(d) { return d[1]; },
-                    y: function(d) { return d[0]; }
-                })
-                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
-                .margin(options.margin || { top: 12, right: 16, bottom: 16, left: 40 })
-                .width(width)
-                .height(height);
-            chart.yAxis
-                .axisLabelDistance(options.yAxisLabelDistance || 30)
-                .axisLabel(options.yAxisLabel || null)
-                .tickFormat(d3.format(options.yAxisFormat || ',.2f'));
-            chart.xAxis
-                .tickFormat(function(d) { return moment.unix(d).format('h:mm A'); })
-                .axisLabel(options.xAxisLabel || null);
-            d3.select(e.selector + ' svg')
-                .attr('width', width)
-                .attr('height', height)
-                .datum(data)
-                .call(chart);
-            return chart;
-        });
-    }
-
-    self.simple_area_chart = function(e, series, options_) {
-        var options = options_ || {};
-      var data = [series];
-        nv.addGraph(function() {
-            var width  = e.width();
-            var height = e.height();
-            var chart  = nv.models.stackedAreaChart()
-                .options({
-                    showLegend: false,
-                    showControls: false,
-                    showXAxis: false,
-                    showYAxis: false,
-                    useInteractiveGuideline: true,
-                    x: function(d) { return d[1]; },
-                    y: function(d) { return d[0]; }
-                })
-                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
-                .style('stack')
-                .width(width)
-                .height(height)
-                .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 });
-            chart.yAxis
-                .tickFormat(d3.format(options.yAxisFormat || ',.2f'));
-            chart.xAxis
-            // .tickFormat(function(d) { return moment.unix(d).format('h:mm A'); });
-                .tickFormat(function(d) { return moment.unix(d).fromNow(); });
-            d3.select(e.selector + ' svg')
-                .attr('width', width)
-                .attr('height', height)
-                .datum(data)
-                .transition()
-                .call(chart);
-            return chart;
-        });
-    }
-
-
-    self.stacked_area_chart = function(e, data, options_) {
-        var options = options_ || {};
-        var showLegend = options.showLegend !== false;
-        if (data.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
-            showLegend = false;
-        }
-        nv.addGraph(function() {
-            var width  = e.width();
-            var height = e.height();
-            var chart  = nv.models.stackedAreaChart()
-                .options({
-                    showLegend: showLegend,
-                    useInteractiveGuideline: options.useInteractiveGuideline !== false,
-                    showXAxis: options.showXAxis !== false,
-                    showYAxis: options.showYAxis !== false,
-                    x: function(d) { return d[1]; },
-                    y: function(d) { return d[0]; }
-                })
-                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
-                .style(options.style || 'stack')
-                .width(width)
-                .height(height)
-                .margin(options.margin || { top: 12, right: 16, bottom: 16, left: 40 });
-            chart.yAxis
-                .axisLabel(options.yAxisLabel || null)
-                .axisLabelDistance(options.yAxisLabelDistance || 30)
-                .tickFormat(d3.format(options.yAxisFormat || ',.2f'));
-            chart.xAxis
-                .axisLabel(options.xAxisLabel || null)
-                .tickFormat(function(d) { return moment.unix(d).format('h:mm A'); });
-            // .tickFormat(function(d) { return moment.unix(d).fromNow(); });
-            d3.select(e.selector + ' svg')
-                .attr('width', width)
-                .attr('height', height)
-                .datum(data)
-                .transition()
-                .call(chart);
-            return chart;
-        });
-    }
-
-    self.donut_chart = function(e, series, options_, transform_) {
-        var options = options_ || {};
-        var transform = transform_ || 'sum';
-        /* var showLegend = options.showLegend !== false;
-           if (list_of_series.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
-           showLegend = false;
-           } */
-        var data = series.map(function(series) {
-            return {
-                label: series.key,
-                y: series.summation[transform]
-            };
-        });
-        nv.addGraph(function() {
-            var width  = e.width();
-            var height = e.height();
-            var chart  = nv.models.pieChart()
-            /* .options({
-               showLegend: showLegend,
-               useInteractiveGuideline: options.useInteractiveGuideline !== false,
-               x: function(d) { return d.key; },
-               y: function(d) { return d.y; }
-               }) */
-                .color(self._color_function(options.palette || self.DEFAULT_PALETTE))
-                .labelType(options.labelType || "percent")
-                .donut(options.donut !== false)
-                .donutRatio(options.donutRatio || 0.3)
-                .showLabels(options.showLabels !== false)
-                .donutLabelsOutside(options.donutLabelsOutside !== false)
-                .width(width)
-                .height(height)
-                .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 });
-            d3.select(e.selector + ' svg')
-                .attr('width', width)
-                .attr('height', height)
-                .datum(data)
-                .transition()
-                .call(chart);
-            return chart;
-        });
-    }
-
 
     self._color_function = function(palette_name) {
         var palette = self.colors[palette_name];
         if (!palette) {
-            palette = self.colors[self.DEFAULT_PALETTE];
+            palette = self.colors[ds.charts.DEFAULT_PALETTE];
         }
         return function(d, i) {
             return palette[i % palette.length];
@@ -448,5 +158,6 @@ ds.charts =
 
     }
 
-      return self;
-})();
+    return self
+
+  })()

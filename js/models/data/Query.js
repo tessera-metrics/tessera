@@ -113,14 +113,18 @@ ds.models.data.Query = function(data_) {
     self.summation = ds.models.data.Summation();
     self.data = response_data.map(function(series) {
                   series.summation = ds.models.data.Summation(series).toJSON();
-                  series.key = series.target;
-                  series.values = series.datapoints;
                   self.summation.merge(series.summation);
-                  delete series.target;
-                  delete series.datapoints;
-                  return series;
+                  return series
                 });
     return self;
+  }
+
+  self.chart_data = function(type) {
+    var attribute = 'chart_data_' + type
+    if (typeof(self[attribute]) === 'undefined') {
+      self[attribute] = ds.charts.process_data(self.data, type)
+    }
+    return self[attribute]
   }
 
   self.toJSON = function() {

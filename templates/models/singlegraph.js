@@ -1,14 +1,14 @@
 ds.templates.models.singlegraph.dataHandler =
     function(query, item) {
         if (!item.interactive) {
-            var element = $('#' + item.item_id + ' svg');
-            var png_url = ds.charts.chart_url(item, {
+            var element = $('#' + item.item_id + ' .ds-graph-holder');
+            var png_url = ds.charts.graphite.chart_url(item, {
                 height: element.height(),
                 width: element.width()
             });
-            element.parent().html($('<img/>').attr('src', png_url));
+            element.html($('<img/>').attr('src', png_url));
         } else {
-            ds.charts.simple_area_chart($("#" + item.item_id + ' .ds-graph-holder'), query.data[0], item.options);
+            ds.charts.simple_area_chart($("#" + item.item_id + ' .ds-graph-holder'), item, query);
         }
         item.options.margin = { top: 0, left: 0, bottom: 0, right: 0 };
         var label = query.data[item.index || 0].key;

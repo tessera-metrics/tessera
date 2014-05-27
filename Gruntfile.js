@@ -54,7 +54,13 @@ module.exports = function(grunt) {
           'cronenberg/static/js/bootstrap-growl.min.js',
           'cronenberg/static/js/bootstrapValidator.min.js',
           'cronenberg/static/js/limivorous.js',
-          'cronenberg/static/js/color-0.5.0.js'
+          'cronenberg/static/js/color-0.5.0.js',
+          'cronenberg/static/js/flot/jquery.flot.js',
+          'cronenberg/static/js/flot/jquery.flot.time.js',
+          'cronenberg/static/js/flot/jquery.flot.multihighlight.js',
+          'cronenberg/static/js/flot/jquery.flot.tooltip.js',
+          'cronenberg/static/js/flot/jquery.flot.stack.js',
+          'cronenberg/static/js/flot/jquery.flot.crosshair.js'
         ],
         dest: 'cronenberg/static/bundle.js'
       },
@@ -68,6 +74,10 @@ module.exports = function(grunt) {
           'js/app/manager.js',
           'js/app/helpers.js',
           'js/app/charts.js',
+          'js/app/charts-graphite.js',
+          'js/app/charts-nvd3.js',
+          'js/app/charts-flot.js',
+          'js/app/charts-impl.js',
           'js/app/handlers/*.js',
           'js/models/**/*.js',
           'js/extensions/**/*.js',
