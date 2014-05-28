@@ -208,6 +208,7 @@ ds.manager =
       var element = $('#' + item.item_id)
       element.replaceWith(item.render())
       item.query.load({ fire_only: true })
+      ds.app.refresh_mode()
     }
 
     self.handle_popstate = function(event) {
