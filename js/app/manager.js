@@ -164,6 +164,10 @@ ds.manager =
           var dashboard = ds.models.dashboard(data.dashboards[0])
           holder.dashboard = dashboard
 
+          if (data.preferences.renderer && ds.charts[data.preferences.renderer]) {
+            ds.charts.impl = ds.charts[data.preferences.renderer]
+          }
+
           bean.fire(self, 'ds-dashboard-loaded', dashboard);
 
           dashboard.render_templates(context.variables)

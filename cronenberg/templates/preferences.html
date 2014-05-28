@@ -46,6 +46,28 @@
             </div>
           </div>
 
+          <!-- Chart Renderer -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="chartRenderRadios">Interactive Chart Renderer</label>
+            <div class="col-md-4">
+              <div class="radio">
+                <label for="chartRenderRadios-0">
+                  <!-- Static -->
+                  <input type="radio" name="chartRenderRadios" id="chartRenderRadios-0" value="static" {% if ctx.prefs.renderer=='nvd3' %} checked="checked"{% endif %} onclick="setPref('renderer', 'nvd3')">
+                    nvd3
+                </label>
+	          </div>
+              <div class="radio">
+                <label for="chartRenderRadios-1">
+                  <!-- Interactive -->
+                  <input type="radio" name="chartRenderRadios" id="chartRenderRadios-1" value="interactive" {% if ctx.prefs.renderer=='flot' %} checked="checked"{% endif %} onclick="setPref('renderer', 'flot')">
+                    flot
+                </label>
+	          </div>
+            </div>
+          </div>
+
+
           <!-- Theme -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="themeRadios">Theme</label>
