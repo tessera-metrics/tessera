@@ -1,6 +1,5 @@
 ds.app.add_mode_handler('edit', {
   enter: function() {
-    console.log('ENTER EDIT HANDLER')
     $(".ds-dashboard-info-edit-panel").html(ds.templates.edit.info_panel(ds.manager.current.dashboard));
     $('#ds-edit-info-button').addClass('active')
   },
