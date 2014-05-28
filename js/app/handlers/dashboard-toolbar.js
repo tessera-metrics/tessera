@@ -15,7 +15,7 @@ $(document).ready(function() {
    */
   $(document).on('click', '#ds-edit-info-button', function(e) {
 
-    if (cronenberg.toggleEditMode()) {
+    if (ds.app.toggle_mode(ds.app.Mode.EDIT)) {
       $.fn.editable.defaults.mode = 'inline'
 
       /** Title */
