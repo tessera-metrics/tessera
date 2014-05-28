@@ -1,5 +1,12 @@
+/**
+ * The central application object. At present, its primary
+ * responsibility is to handle switching between different application
+ * modes, which is mainly about hiding & showing various elements in
+ * the UI.
+ */
 ds.app =
   (function() {
+
     var mode_stack = []
       , ANIMATION_DELAY = 300
       , self = {}
@@ -39,7 +46,7 @@ ds.app =
      * An alias for switch_to_mode(current_mode)
      */
     self.refresh_mode = function() {
-      self.switch_to_mode(self.current_mode)
+      return self.switch_to_mode(self.current_mode)
     }
 
     /**
@@ -51,6 +58,8 @@ ds.app =
      * If the requested mode is already the current mode, the mode
      * will be 'refreshed' by re-evaluating what elements are hidden &
      * shown.
+     *
+     * @param mode {string} A mode name
      */
     self.switch_to_mode = function(mode) {
       if (mode === self.current_mode && mode_stack.length > 0) {
@@ -68,6 +77,9 @@ ds.app =
      * Toggle between the named mode and 'standard'. Return true if
      * we've switched to mode, otherwise false if we've switched back
      * to 'standard'.
+     *
+     * @param mode {string} A mode name
+     * @return true if switched to mode, else false
      */
     self.toggle_mode = function(mode) {
       if (self.current_mode == mode) {
@@ -79,6 +91,14 @@ ds.app =
       }
     }
 
+    /**
+     * Register handlers to run on entrance to and/or exit from an
+     * application mode.
+     *
+     * @param options An object with one or both of 'enter' and 'exit'
+     *                attributes bound to functions which will be run
+     *                on mode transitions.
+     */
     self.add_mode_handler = function(mode, options) {
       if (options.enter && (options.enter instanceof Function)) {
         bean.on(self, 'ds-enter:' + mode, options.enter)
