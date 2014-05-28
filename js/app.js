@@ -17,8 +17,9 @@ ds.app =
     function do_exit_mode(mode) {
       bean.fire(self, 'ds-exit:' + mode)
       var state = mode_stack.pop()
-      if (state && state.cleanup && (state.cleanup instanceof Function)) {
-        state.cleanup()
+      if (state) {
+        state.hidden.show(ANIMATION_DELAY)
+        state.shown.hide(ANIMATION_DELAY)
       }
     }
 
@@ -29,17 +30,25 @@ ds.app =
       self.current_mode = mode
       mode_stack.push({
         mode: mode,
-        cleanup: function() {
-          hidden.show(ANIMATION_DELAY)
-          shown.hide(ANIMATION_DELAY)
-        }
+        hidden: hidden,
+        shown: shown
       })
       bean.fire(self, 'ds-enter:' + mode)
     }
 
+    self.refresh_mode = function() {
+      self.switch_to_mode(self.current_mode)
+    }
+
     self.switch_to_mode = function(mode) {
-      do_exit_mode(self.current_mode)
-      do_enter_mode(mode)
+      if (mode === self.current_mode && mode_stack.length > 0) {
+        var state = mode_stack[mode_stack.length - 1]
+        state.hidden = $('[data-ds-hide~="' + mode + '"]').hide(ANIMATION_DELAY)
+        state.shown = $('[data-ds-show~="' + mode + '"]').show(ANIMATION_DELAY)
+      } else {
+        do_exit_mode(self.current_mode)
+        do_enter_mode(mode)
+      }
       return self
     }
 
