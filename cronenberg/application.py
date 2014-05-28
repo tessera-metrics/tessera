@@ -1,21 +1,7 @@
 # -*- mode:python -*-
 
-import flask
-import json
-import logging
-import copy
-import datetime
-import inflection
-import urllib
-
-from flask import Flask, render_template, request, redirect, jsonify, abort, session
+from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
-
-# =============================================================================
-# Setup
-# =============================================================================
-
-log = logging.getLogger(__name__)
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
