@@ -112,6 +112,9 @@ ds.app =
     return self
   })()
 
+/**
+ * TODO: this is legacy; migrate to more appropriate places.
+ */
 var cronenberg = {
 
     /**
