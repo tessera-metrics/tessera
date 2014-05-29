@@ -10,6 +10,12 @@ ds.app.add_mode_handler('edit', {
 
 $(document).ready(function() {
 
+  function update_dashboard_metadata(dashboard) {
+    var dash = dashboard.toJSON()
+    delete dash.definition
+    ds.manager.update(dash)
+  }
+
   /**
    * Handlers for the Info Edit panel.
    */
@@ -23,9 +29,7 @@ $(document).ready(function() {
         unsavedclass: null,
         success: function(ignore, newValue) {
           ds.manager.current.dashboard.title = newValue
-          var dash = ds.manager.current.dashboard.toJSON()
-          delete dash.definition
-          ds.manager.update(dash)
+          update_dashboard_metadata(ds.manager.current.dashboard)
         }
       })
 
@@ -34,9 +38,7 @@ $(document).ready(function() {
         unsavedclass: null,
         success: function(ignore, newValue) {
           ds.manager.current.dashboard.category = newValue
-          var dash = ds.manager.current.dashboard.toJSON()
-          delete dash.definition
-          ds.manager.update(dash)
+          update_dashboard_metadata(ds.manager.current.dashboard)
         }
       })
 
@@ -44,9 +46,7 @@ $(document).ready(function() {
         unsavedclass: null,
         success: function(ignore, newValue) {
           ds.manager.current.dashboard.summary = newValue
-          var dash = ds.manager.current.dashboard.toJSON()
-          delete dash.definition
-          ds.manager.update(dash)
+          update_dashboard_metadata(ds.manager.current.dashboard)
         }
       })
 
@@ -55,9 +55,7 @@ $(document).ready(function() {
         value: ds.manager.current.dashboard.description || '',
         success: function(ignore, newValue) {
           ds.manager.current.dashboard.description = newValue
-          var dash = ds.manager.current.dashboard.toJSON()
-          delete dash.definition
-          ds.manager.update(dash)
+          update_dashboard_metadata(ds.manager.current.dashboard)
         },
         display: function(value, response) {
           $(this).html(marked(value))
@@ -83,13 +81,7 @@ $(document).ready(function() {
   $(document).on('change', '[name="ds-info-panel-edit-taglist"]', function(e) {
     var tags = $('#ds-info-panel-edit-tags').tagsManager('tags');
     ds.manager.current.dashboard.set_tags(tags);
-
-    // TODO: this snippet is repeated all over (above). Consolidate to
-    // an update_metadata() on ds.manager or somesuch (i.e. update w/o
-    // definition)
-    var dash = ds.manager.current.dashboard.toJSON()
-    delete dash.definition
-    ds.manager.update(dash)
+    update_dashboard_metadata(ds.manager.current.dashboard)
   })
 
   $(document).on('click', '#ds-toggle-interactive-button', function(e) {
