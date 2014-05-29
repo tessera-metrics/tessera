@@ -21,25 +21,25 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
     }
 
     case 'open-in-graphite': {
-      var composer_url = ds.charts.composer_url(item, { showTitle: true });
+      var composer_url = ds.charts.graphite.composer_url(item, { showTitle: true });
       window.open(composer_url);
       break;
     }
 
     case 'export-png': {
-      var image_url = ds.charts.chart_url(item, { showTitle: true });
+      var image_url = ds.charts.graphite.chart_url(item, { showTitle: true });
       window.open(image_url);
       break;
     }
 
     case 'export-svg': {
-      var image_url = ds.charts.chart_url(item, { showTitle: true, format: 'svg' });
+      var image_url = ds.charts.graphite.chart_url(item, { showTitle: true, format: 'svg' });
       window.open(image_url);
       break;
     }
 
     case 'export-csv': {
-      var data_url = ds.charts.chart_url(item, { showTitle: true, format: 'csv' });
+      var data_url = ds.charts.graphite.chart_url(item, { showTitle: true, format: 'csv' });
       window.open(data_url);
       break;
     }
