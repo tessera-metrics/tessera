@@ -24,8 +24,23 @@ ds.charts.graphite =
       }
     }
 
-    self.simple_line_chart = function(item, options_) {
-        var options = ds.extend(options_ || {}, getColors())
+    function img(element, url) {
+      element.html($('<img/>')
+                     .attr('src', url)
+                     .height(element.height())
+                     .width(element.width()))
+    }
+
+    self.simple_line_chart = function(element, item, query) {
+      var url = self.simple_line_chart_url(item, {
+        height: element.height(),
+        width: element.width()
+      })
+      img(element, url)
+    }
+
+    self.simple_line_chart_url = function(item, opt) {
+        var options = ds.extend(opt || {}, getColors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -41,8 +56,16 @@ ds.charts.graphite =
         return png_url;
     }
 
-    self.standard_line_chart = function(item, options_) {
-        var options = ds.extend(options_ || {}, getColors())
+    self.standard_line_chart = function(element, item, query) {
+      var url = self.standard_line_chart_url(item, {
+        height: element.height(),
+        width: element.width()
+      })
+      img(element, url)
+    }
+
+    self.standard_line_chart_url = function(item, opt) {
+        var options = ds.extend(opt || {}, getColors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -60,8 +83,16 @@ ds.charts.graphite =
         return png_url;
     }
 
-    self.simple_area_chart = function(item, options_) {
-        var options = ds.extend(options_ || {}, getColors())
+    self.simple_area_chart = function(element, item, query) {
+      var url = self.simple_area_chart_url(item, {
+        height: element.height(),
+        width: element.width()
+      })
+      img(element, url)
+    }
+
+    self.simple_area_chart_url = function(item, opt) {
+        var options = ds.extend(opt || {}, getColors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -79,8 +110,16 @@ ds.charts.graphite =
         return png_url;
     }
 
-    self.stacked_area_chart = function(item, options_) {
-        var options = ds.extend(options_ || {}, getColors())
+    self.stacked_area_chart = function(element, item, query) {
+      var url = self.stacked_area_chart_url(item, {
+        height: element.height(),
+        width: element.width()
+      })
+      img(element, url)
+    }
+
+    self.stacked_area_chart_url = function(item, opt) {
+        var options = ds.extend(opt || {}, getColors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -99,24 +138,28 @@ ds.charts.graphite =
         return png_url;
     }
 
+    self.donut_chart = function(element, item, query) {
+
+    }
+
     self.chart_url = function(item, options) {
-        switch (item.item_type) {
+      switch (item.item_type) {
         case 'simple_time_series':
             return item.filled
-                ? self.simple_area_chart(item, options)
-                : self.simple_line_chart(item, options);
+                ? self.simple_area_chart_url(item, options)
+                : self.simple_line_chart_url(item, options);
         case 'standard_time_series':
-            return self.standard_line_chart(item, options);
+            return self.standard_line_chart_url(item, options);
         case 'stacked_area_chart':
-            return self.stacked_area_chart(item, options);
+            return self.stacked_area_chart_url(item, options);
         case 'singlegraph':
-            return self.simple_area_chart(item, options);
+            return self.simple_area_chart_url(item, options);
         }
         return undefined;
     }
 
-    self.composer_url = function(item, options_) {
-        var options = options_ || {};
+    self.composer_url = function(item, options) {
+        options = options || {}
         var composer_url = URI(item.query.url())
             .filename('composer')
             .removeQuery('format')
