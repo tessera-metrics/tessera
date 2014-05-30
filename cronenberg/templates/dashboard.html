@@ -84,7 +84,11 @@
 
     var url = '/api/dashboard/{{dashboard.id}}'
     ds.manager.load(url, "#dashboard")
-    $("[data-toggle=tooltip]").tooltip({animation:false, delay: { show:300, hide:100}})
+    $("[data-toggle=tooltip]").tooltip({
+     animation:false,
+     container: 'body',
+     delay: { show:300, hide:100}
+   })
   </script>
 
 {% endblock %}
