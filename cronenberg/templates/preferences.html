@@ -17,7 +17,9 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
 
-      <div class="well">
+      <div class="">
+        <br/>
+        <br/>
 
       <form class="form-horizontal">
         <fieldset>
@@ -49,13 +51,21 @@
           <!-- Chart Renderer -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="chartRenderRadios">Interactive Chart Renderer</label>
-            <div class="col-md-4">
+            <div class="col-md-8">
               <div class="radio">
                 <label for="chartRenderRadios-0">
                   <!-- Static -->
                   <input type="radio" name="chartRenderRadios" id="chartRenderRadios-0" value="static" {% if ctx.prefs.renderer=='nvd3' %} checked="checked"{% endif %} onclick="setPref('renderer', 'nvd3')">
                     nvd3
                 </label>
+                <p><small><a href="http://nvd3.org/" target="_blank">nvd3</a>
+                renders interactive charts
+                using <a href="http://d3js.org/"
+                target="_blank">D3.js</a> and SVG. It supports
+                particularly nice interactive features on stacked area
+                charts, but can bog down the browser when there are a
+                large number of charts or a long time period being
+                rendered.</small></p>
 	          </div>
               <div class="radio">
                 <label for="chartRenderRadios-1">
@@ -63,6 +73,11 @@
                   <input type="radio" name="chartRenderRadios" id="chartRenderRadios-1" value="interactive" {% if ctx.prefs.renderer=='flot' %} checked="checked"{% endif %} onclick="setPref('renderer', 'flot')">
                     flot
                 </label>
+                <p><small><a href="http://www.flotcharts.org/"
+                target="_blank">flot</a> renders interactive charts
+                using HTML canvas. It does not support stream graphs,
+                but can be a better choice for rendering large numbers
+                of graphs or length time periods.</small></p>
 	          </div>
             </div>
           </div>

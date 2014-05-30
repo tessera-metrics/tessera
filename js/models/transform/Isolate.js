@@ -27,7 +27,7 @@ ds.models.transform.Isolate = function(options) {
                                 .set_span(12)
                                 .add(ds.models.summation_table({query: item.query}))))
     /* HACK - everything about the interactive flag is a hack right now */
-    if (item.query.options) {
+    if (item.query && item.query.options) {
       item.query.options.fire_only = false
     }
     return section
