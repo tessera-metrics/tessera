@@ -1,7 +1,7 @@
-var ds = window.ds || {};
-ds.models = ds.models || {};
-ds.models.data = ds.models.data || {};
-ds.models.transform = ds.models.transform || {};
+var ds = window.ds || {}
+ds.models = ds.models || {}
+ds.models.data = ds.models.data || {}
+ds.models.transform = ds.models.transform || {}
 
 /**
  * Helper function to (potentially) render a template with a given
@@ -10,13 +10,13 @@ ds.models.transform = ds.models.transform || {};
  */
 ds.render_template = function(str, context) {
   if (str == null) {
-    return str;
+    return str
   }
   if (str.indexOf('{{') == -1) {
-    return str;
+    return str
   } else {
-    var template = Handlebars.compile(str);
-    return template(context);
+    var template = Handlebars.compile(str)
+    return template(context)
   }
 }
 
@@ -26,7 +26,7 @@ ds.render_template = function(str, context) {
  */
 ds.extend = function() {
   var target = {}
-  for (var i = 0; i < arguments.length; i++) {
+  for (var i in arguments) {
     var source = arguments[i]
     for (var key in source) {
       if (source.hasOwnProperty(key)) {
