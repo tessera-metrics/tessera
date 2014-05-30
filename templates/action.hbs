@@ -1,0 +1,10 @@
+{{#if divider}}
+  <li class="divider" data-ds-show="{{show}}" data-ds-hide="{{hide}}"/>
+{{else}}
+  <li role="presentation"
+    data-ds-action="{{name}}"
+    data-ds-show="{{show}}"
+    data-ds-hide="{{hide}}">
+    <a role="menuitem" href="#"><i class="{{icon}}"></i> {{display}}</a>
+  </li>
+{{/if}}
