@@ -42,16 +42,16 @@ ds.actions.register('presentation-actions', [
   ds.models.action({
     name:    'export-png',
     display: 'Export PNG...',
-    icon:    'fa fa-picture-o',
+    icon:    'fa fa-file-image-o',
     handler: function(action, item) {
       var image_url = ds.charts.graphite.chart_url(item, { showTitle: true });
       window.open(image_url);
     }
   }),
   ds.models.action({
-    name:    'export-png',
+    name:    'export-svg',
     display: 'Export SVG...',
-    icon:    'fa fa-code',
+    icon:    'fa fa-file-code-o',
     handler: function(action, item) {
       var image_url = ds.charts.graphite.chart_url(item, { showTitle: true, format: 'svg' });
       window.open(image_url);
@@ -60,7 +60,7 @@ ds.actions.register('presentation-actions', [
   ds.models.action({
     name:    'export-csv',
     display: 'Export CSV...',
-    icon:    'fa fa-table',
+    icon:    'fa fa-file-excel-o',
     handler: function(action, item) {
       var image_url = ds.charts.graphite.chart_url(item, { showTitle: true, format: 'csv' });
       window.open(image_url);
