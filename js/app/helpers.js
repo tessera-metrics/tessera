@@ -15,7 +15,6 @@ Handlebars.registerHelper('json', function(value) {
   return new Handlebars.SafeString(hljs.highlightAuto(JSON.stringify(value, null, '  ')).value)
 })
 
-
 Handlebars.registerHelper('moment', function(format, value) {
   if (!value)
     return ''
@@ -86,3 +85,16 @@ Handlebars.registerHelper('item', function(item) {
     return '';
   return new Handlebars.SafeString(item.render())
 });
+
+Handlebars.registerHelper('actions', function(category) {
+  var actions = ds.actions.list(category)
+  if (actions && (actions instanceof Array)) {
+    var html = ''
+    for (var i in actions) {
+      html += ds.templates.action(actions[i])
+    }
+    return new Handlebars.SafeString(html)
+  } else {
+    return ''
+  }
+})

@@ -78,9 +78,10 @@ module.exports = function(grunt) {
           'js/app/charts-nvd3.js',
           'js/app/charts-flot.js',
           'js/app/charts-impl.js',
-          'js/app/handlers/*.js',
+          'js/app/actions.js',
           'js/models/**/*.js',
           'js/extensions/**/*.js',
+          'js/app/handlers/*.js',
           'cronenberg/static/templates.js',
           'templates/**/*.js'
         ],

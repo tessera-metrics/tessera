@@ -1,44 +1,32 @@
-var ds = window.ds || {};
-ds.models = ds.models || {};
-ds.models.data = ds.models.data || {};
-ds.models.transform = ds.models.transform || {};
+var ds = window.ds || {}
+ds.models = ds.models || {}
+ds.models.data = ds.models.data || {}
+ds.models.transform = ds.models.transform || {}
 
+/**
+ * Helper function to (potentially) render a template with a given
+ * context object. If the string does not contain any handlebars tags,
+ * it will be returned as-is.
+ */
 ds.render_template = function(str, context) {
   if (str == null) {
-    return str;
+    return str
   }
   if (str.indexOf('{{') == -1) {
-    return str;
+    return str
   } else {
-    var template = Handlebars.compile(str);
-    return template(context);
+    var template = Handlebars.compile(str)
+    return template(context)
   }
 }
 
-ds.rebind_properties = function(target, source) {
-  var i = 1,
-      n = arguments.length,
-      property;
-  while (++i < n) {
-    var name = arguments[i];
-    ds_rebind_property(target, source, name);
-  }
-}
-
-function ds_rebind_property(target, source, name) {
-  Object.defineProperty(target, name, {
-    get: function() {
-      return source[name];
-    },
-    set: function(value) {
-      source[name] = value
-    }
-  });
-}
-
+/**
+ * Yo dawg, I heard you like objects, so I put some objects in your
+ * objects...
+ */
 ds.extend = function() {
   var target = {}
-  for (var i = 0; i < arguments.length; i++) {
+  for (var i in arguments) {
     var source = arguments[i]
     for (var key in source) {
       if (source.hasOwnProperty(key)) {
