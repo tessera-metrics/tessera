@@ -1,8 +1,8 @@
 ds.actions.register('presentation-edit', [
   ds.models.action({
-    name: 'view-definition',
-    icon: 'fa fa-code',
+    name:    'view-definition',
     display: 'View definition...',
+    icon:    'fa fa-code',
     handler: function(action, item) {
       var contents = ds.templates.edit.item_source({item:item})
       bootbox.alert(contents)
@@ -12,9 +12,9 @@ ds.actions.register('presentation-edit', [
     divider: true
   }),
   ds.models.action({
-    name: 'set-chart-type-simple-time-series',
-    icon: 'fa fa-picture-o',
+    name:    'set-chart-type-simple-time-series',
     display: 'Simple Time Series',
+    icon:    'fa fa-picture-o',
     handler: function(action, item) {
       item.set_item_type('simple_time_series')
       item.filled = false
@@ -22,9 +22,9 @@ ds.actions.register('presentation-edit', [
     }
   }),
   ds.models.action({
-    name: 'set-chart-type-simple-time-series-filled',
-    icon: 'fa fa-picture-o',
+    name:    'set-chart-type-simple-time-series-filled',
     display: 'Simple Time Series (Filled)',
+    icon:    'fa fa-picture-o',
     handler: function(action, item) {
       item.set_item_type('simple_time_series')
       item.filled = true
@@ -32,18 +32,18 @@ ds.actions.register('presentation-edit', [
     }
   }),
   ds.models.action({
-    name: 'set-chart-type-standard-time-series',
-    icon: 'fa fa-picture-o',
+    name:    'set-chart-type-standard-time-series',
     display: 'Standard Time Series',
+    icon:    'fa fa-picture-o',
     handler: function(action, item) {
       item.set_item_type('standard_time_series')
       ds.manager.update_item_view(item)
     }
   }),
   ds.models.action({
-    name: 'set-chart-type-stacked-area-chart',
-    icon: 'fa fa-bar-chart-o',
+    name:    'set-chart-type-stacked-area-chart',
     display: 'Stacked Area Chart',
+    icon:    'fa fa-bar-chart-o',
     handler: function(action, item) {
       item.set_item_type('stacked_area_chart')
       ds.manager.update_item_view(item)
