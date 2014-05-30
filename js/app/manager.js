@@ -213,15 +213,18 @@ ds.manager =
 
     self.handle_popstate = function(event) {
       console.log(event)
-       if (!event.state) {
+      if (!event.state) {
         self.refresh()
-         ds.app.switch_to_mode('standard')
+        ds.app.switch_to_mode('standard')
       } else {
         if (event.state.transform) {
           var item = ds.manager.current.dashboard.get_item(event.state.target.item_id);
           var transform = ds.models.transform[event.state.transform.transform_name](event.state.transform)
           self.apply_transform(transform, item, false)
           ds.app.switch_to_mode('transform')
+        } else if (event.state.url) {
+          self.refresh()
+          ds.app.switch_to_mode('standard')
         }
       }
     }
