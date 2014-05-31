@@ -9,6 +9,44 @@ ds.app.add_mode_handler(ds.app.Mode.EDIT, {
   }
 })
 
+  function move_up(action, item) {
+      var parent = ds.manager.current.dashboard.find_parent(item)
+      if (parent.is_container && parent.move(item, 1)) {
+        ds.manager.update_item_view(parent)
+      }
+  }
+
+  function move_down(action, item) {
+      var parent = ds.manager.current.dashboard.find_parent(item)
+      if (parent.is_container && parent.move(item, -1)) {
+        ds.manager.update_item_view(parent)
+      }
+  }
+
+  function remove(action, item) {
+    var parent = ds.manager.current.dashboard.find_parent(item)
+    if (!parent) {
+      return
+    }
+    if (parent && parent.is_container && parent.remove(item)) {
+      ds.manager.update_item_view(parent)
+    }
+  }
+
+  function widen(action, item) {
+    if (item.span) {
+      item.span += 1
+      ds.manager.update_item_view(ds.manager.current.dashboard.find_parent(item))
+    }
+  }
+
+  function narrow(action, item) {
+    if (item.span) {
+      item.span -= 1
+      ds.manager.update_item_view(ds.manager.current.dashboard.find_parent(item))
+    }
+  }
+
   var new_item_action = ds.models.action({
     name:    'add',
     display: 'Add new item...',
@@ -61,17 +99,13 @@ ds.actions.register('edit-bar-cell', [
     name:    'increase-span',
     display: 'Increase cell span by one',
     icon:    'fa fa-expand',
-    handler: function(action, cell) {
-      /** TODO **/
-    }
+    handler:  widen
   }),
   ds.models.action({
     name:    'decrease-span',
     display: 'Decrease cell span by one',
     icon:    'fa fa-compress',
-    handler: function(action, cell) {
-      /** TODO **/
-    }
+    handler:  narrow
   }),
   ds.models.action({
     name:    'delete',
@@ -84,30 +118,6 @@ ds.actions.register('edit-bar-cell', [
 /* -----------------------------------------------------------------------------
    Row actions
    ----------------------------------------------------------------------------- */
-
-  function move_up(action, item) {
-      var parent = ds.manager.current.dashboard.find_parent(item)
-      if (parent.is_container && parent.move(item, 1)) {
-        ds.manager.update_item_view(parent)
-      }
-  }
-
-  function move_down(action, item) {
-      var parent = ds.manager.current.dashboard.find_parent(item)
-      if (parent.is_container && parent.move(item, -1)) {
-        ds.manager.update_item_view(parent)
-      }
-  }
-
-  function remove(action, item) {
-    var parent = ds.manager.current.dashboard.find_parent(item)
-    if (!parent) {
-      return
-    }
-    if (parent && parent.is_container && parent.remove(item)) {
-      ds.manager.update_item_view(parent)
-    }
-  }
 
 ds.actions.register('edit-bar-row', [
   new_item_action,
