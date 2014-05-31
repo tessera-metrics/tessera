@@ -138,6 +138,7 @@ ds.manager =
       }
       context.url = url.href()
       context.variables = variables
+      context.params = params
 
       if (typeof(options.interactive) != 'undefined') {
         context.interactive = options.interactive
@@ -200,6 +201,10 @@ ds.manager =
           });
 
           bean.fire(self, 'ds-dashboard-rendered', dashboard);
+
+          if (context.params.mode) {
+            ds.app.switch_to_mode(context.params.mode)
+          }
         });
         return self;
     }
