@@ -60,6 +60,8 @@ ds.app.add_mode_handler(ds.app.Mode.EDIT, {
     display: 'Properties',
     icon:    'fa fa-edit',
     handler: function(action, item) {
+      var details = $('#' + item.item_id + '-details')
+      details.is(':visible') ? details.fadeOut() : details.fadeIn()
     }
   })
 
@@ -83,6 +85,7 @@ ds.actions.register('edit-bar-cell', [
   new_item_action,
   item_properties_action,
   duplicate_item_action,
+  ds.models.action.divider,
   ds.models.action({
     name:    'move-left',
     display: 'Move cell left in row',
@@ -107,6 +110,7 @@ ds.actions.register('edit-bar-cell', [
     icon:    'fa fa-compress',
     handler:  narrow
   }),
+  ds.models.action.divider,
   ds.models.action({
     name:    'delete',
     display: 'Delete row',
@@ -123,6 +127,7 @@ ds.actions.register('edit-bar-row', [
   new_item_action,
   item_properties_action,
   duplicate_item_action,
+  ds.models.action.divider,
   ds.models.action({
     name:    'move-up',
     display: 'Move row up in section',
@@ -135,6 +140,7 @@ ds.actions.register('edit-bar-row', [
     icon:    'fa fa-caret-down',
     handler:  move_up
   }),
+  ds.models.action.divider,
   ds.models.action({
     name:    'delete',
     display: 'Delete row',
@@ -151,6 +157,7 @@ ds.actions.register('edit-bar-section', [
   new_item_action,
   item_properties_action,
   duplicate_item_action,
+  ds.models.action.divider,
   ds.models.action({
     name:    'move-up',
     display: 'Move section up in dashboard',
@@ -163,6 +170,7 @@ ds.actions.register('edit-bar-section', [
     icon:    'fa fa-caret-down',
     handler:  move_up
   }),
+  ds.models.action.divider,
   ds.models.action({
     name:    'delete',
     display: 'Delete section',
