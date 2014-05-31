@@ -25,6 +25,18 @@ ds.app.add_mode_handler(ds.app.Mode.EDIT, {
     }
   })
 
+  var duplicate_item_action = ds.models.action({
+    name:    'duplicate',
+    display: 'Duplicate Item',
+    icon:    'fa fa-copy',
+    handler: function(action, item) {
+      var dashboard = ds.manager.current.dashboard
+      var parent = dashboard.find_parent(item)
+      var dup = ds.models.factory(item.toJSON())
+      /** TODO: need to generate unique IDs for the duplicate before we can add it to the DOM */
+    }
+  })
+
 /* -----------------------------------------------------------------------------
    Cell actions
    ----------------------------------------------------------------------------- */
@@ -32,6 +44,7 @@ ds.app.add_mode_handler(ds.app.Mode.EDIT, {
 ds.actions.register('edit-bar-cell', [
   new_item_action,
   item_properties_action,
+  duplicate_item_action,
   ds.models.action({
     name:    'move-left',
     display: 'Move cell left in row',
@@ -99,6 +112,7 @@ ds.actions.register('edit-bar-cell', [
 ds.actions.register('edit-bar-row', [
   new_item_action,
   item_properties_action,
+  duplicate_item_action,
   ds.models.action({
     name:    'move-up',
     display: 'Move row up in section',
@@ -126,21 +140,18 @@ ds.actions.register('edit-bar-row', [
 ds.actions.register('edit-bar-section', [
   new_item_action,
   item_properties_action,
+  duplicate_item_action,
   ds.models.action({
     name:    'move-up',
     display: 'Move section up in dashboard',
     icon:    'fa fa-caret-up',
-    handler: function(action, cell) {
-      /** TODO **/
-    }
+    handler:  move_down
   }),
   ds.models.action({
     name:    'move-down',
     display: 'Move section down in dashboard',
     icon:    'fa fa-caret-down',
-    handler: function(action, cell) {
-      /** TODO **/
-    }
+    handler:  move_up
   }),
   ds.models.action({
     name:    'delete',
