@@ -1,3 +1,5 @@
+(function () {
+
 ds.app.add_mode_handler(ds.app.Mode.EDIT, {
   enter: function() {
     $('.ds-section, .ds-cell, .ds-row').addClass('ds-edit')
@@ -7,11 +9,29 @@ ds.app.add_mode_handler(ds.app.Mode.EDIT, {
   }
 })
 
+  var new_item_action = ds.models.action({
+    name:    'add',
+    display: 'Add new item...',
+    icon:    'fa fa-plus',
+    handler: function(action, container) {
+    }
+  })
+
+  var item_properties_action = ds.models.action({
+    name:    'properties',
+    display: 'Properties',
+    icon:    'fa fa-edit',
+    handler: function(action, item) {
+    }
+  })
+
 /* -----------------------------------------------------------------------------
    Cell actions
    ----------------------------------------------------------------------------- */
 
 ds.actions.register('edit-bar-cell', [
+  new_item_action,
+  item_properties_action,
   ds.models.action({
     name:    'move-left',
     display: 'Move cell left in row',
@@ -31,7 +51,7 @@ ds.actions.register('edit-bar-cell', [
   ds.models.action({
     name:    'increase-span',
     display: 'Increase cell span by one',
-    icon:    'fa fa-plus',
+    icon:    'fa fa-expand',
     handler: function(action, cell) {
       /** TODO **/
     }
@@ -39,7 +59,7 @@ ds.actions.register('edit-bar-cell', [
   ds.models.action({
     name:    'decrease-span',
     display: 'Decrease cell span by one',
-    icon:    'fa fa-minus',
+    icon:    'fa fa-compress',
     handler: function(action, cell) {
       /** TODO **/
     }
@@ -59,6 +79,8 @@ ds.actions.register('edit-bar-cell', [
    ----------------------------------------------------------------------------- */
 
 ds.actions.register('edit-bar-row', [
+  new_item_action,
+  item_properties_action,
   ds.models.action({
     name:    'move-up',
     display: 'Move row up in section',
@@ -90,6 +112,8 @@ ds.actions.register('edit-bar-row', [
    ----------------------------------------------------------------------------- */
 
 ds.actions.register('edit-bar-section', [
+  new_item_action,
+  item_properties_action,
   ds.models.action({
     name:    'move-up',
     display: 'Move section up in dashboard',
@@ -128,3 +152,5 @@ $(document).on('click', '.ds-edit-bar button', function(event) {
   console.log('Applying action ' + category + '/' + name + ' to item ' + item.item_type + '/' + item_id)
   action.handler(action, item)
 })
+
+})()
