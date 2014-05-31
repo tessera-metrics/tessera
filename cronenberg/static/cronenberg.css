@@ -72,6 +72,10 @@ narrow unless we override */
     width: 30em;
 }
 
+.ds-dashboard-info-edit-panel .tab-pane {
+    margin-top: 20px;
+}
+
 /* text boxes get formatted a little oddly by x-editable without resetting this */
 .editable-pre-wrapped {
     white-space: normal;
