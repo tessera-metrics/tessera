@@ -94,12 +94,9 @@ ds.manager =
     }
 
     /**
-       * Recurse through the presentation tree, giving each dashboard
-       * item an element ID, and checking to see if we have any
-       * components that require the raw data queries to be made.
-       *
-       * Use dashboard.visit() when we convert to using the model
-       * objects.
+     * Recurse through the presentation tree, giving each dashboard
+     * item an element ID, and checking to see if we have any
+     * components that require the raw data queries to be made.
      */
     self._prep_items = function(dashboard, holder, interactive) {
       dashboard.visit(function(item) {
@@ -109,6 +106,9 @@ ds.manager =
         if (item.requires_data) {
           holder.raw_data_required = true;
         }
+        // item.on('change', function(e) {
+        //   self.update_item_view(e.target)
+        // })
       });
     }
 
@@ -207,7 +207,11 @@ ds.manager =
     self.update_item_view = function(item) {
       var element = $('#' + item.item_id)
       element.replaceWith(item.render())
-      item.query.load({ fire_only: true })
+      item.visit(function(i) {
+        if (i.query) {
+          i.query.load({ fire_only: true })
+        }
+      })
       ds.app.refresh_mode()
     }
 
