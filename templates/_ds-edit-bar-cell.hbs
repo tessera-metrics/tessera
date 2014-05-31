@@ -1,10 +1,11 @@
 <div class="row" data-ds-show="edit" style="display:none">
   <div class="col-md-12">
     <div class="ds-edit-bar ds-edit-bar-cell alert alert-info" align="left">
-      <span class="badge badge-primary"><i class="fa fa-cog"></i> cell</span>
+      <span class="badge badge-primary"><i class="fa fa-cog"></i> cell {{item.item_id}}</span>
       <div class="btn-group btn-group-sm" data-ds-item-id="{{item.item_id}}">
         {{actions 'edit-bar-cell' 'button'}}
       </div>
+      {{> ds-edit-bar-item-details}}
     </div>
   </div>
 </div>
