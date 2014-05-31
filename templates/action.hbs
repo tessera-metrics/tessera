@@ -1,10 +1,11 @@
 {{#if divider}}
-  <li class="divider" data-ds-show="{{show}}" data-ds-hide="{{hide}}"/>
+  <li class="divider" data-ds-show="{{action.show}}" data-ds-hide="{{action.hide}}"/>
 {{else}}
   <li role="presentation"
-    data-ds-action="{{name}}"
-    data-ds-show="{{show}}"
-    data-ds-hide="{{hide}}">
-    <a role="menuitem" href="#"><i class="{{icon}}"></i> {{display}}</a>
+    data-ds-action="{{action.name}}"
+    data-ds-category="{{category}}"
+    data-ds-show="{{action.show}}"
+    data-ds-hide="{{action.hide}}">
+    <a role="menuitem" href="#"><i class="{{action.icon}}"></i> {{action.display}}</a>
   </li>
 {{/if}}

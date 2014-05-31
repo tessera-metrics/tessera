@@ -314,3 +314,8 @@ td.ds-tooltip-value {
     font-weight: bold;
     text-align: right;
 }
+
+.ds-edit-bar {
+    padding: 4px;
+    margin-bottom: 0px;
+}

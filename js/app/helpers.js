@@ -86,12 +86,19 @@ Handlebars.registerHelper('item', function(item) {
   return new Handlebars.SafeString(item.render())
 });
 
-Handlebars.registerHelper('actions', function(category) {
+Handlebars.registerHelper('actions', function(category, type) {
+  var template = ds.templates.action
+  if (type === 'button') {
+    template = ds.templates.action_button
+  }
   var actions = ds.actions.list(category)
   if (actions && (actions instanceof Array)) {
     var html = ''
     for (var i in actions) {
-      html += ds.templates.action(actions[i])
+      html += template({
+        category: category,
+        action: actions[i]
+      })
     }
     return new Handlebars.SafeString(html)
   } else {

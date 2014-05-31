@@ -6,6 +6,7 @@ ds.models.action = function(data) {
                        .property('icon')
                        .property('show')
                        .property('hide')
+                       .property('class')
                        .property('options')
                        .property('handler')
                        .property('divider')
@@ -20,10 +21,7 @@ ds.models.action = function(data) {
     self.show = data.show
     self.hide = data.hide
     self.divider = data.divider
-  }
-
-  self.invoke = function(item) {
-    self.handler(item, self)
+    self.class = data.class
   }
 
   return self
