@@ -8,12 +8,14 @@ module.exports = function(grunt) {
     handlebars: {
       all: {
         options: {
+          partialsUseNamespace: true,
           namespace: function(filename) {
-            return 'ds.' + path.dirname(filename).replace('/', '.');
+            return 'ds.' + path.dirname(filename).replace('/', '.')
           },
           processName: function(filename) {
-            var pieces = filename.split('/');
-            return pieces[pieces.length - 1].split('.')[0];
+            var pieces = filename.split('/')
+            var name = pieces[pieces.length - 1].split('.')[0]
+            return name.replace('-', '_')
           }
         },
         files: {
