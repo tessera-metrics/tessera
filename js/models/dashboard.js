@@ -50,8 +50,6 @@ ds.models.dashboard = function(data) {
     return self
   }
 
-
-
   self.index = {}
   if (data) {
     self.set_id(data.id)
@@ -81,6 +79,16 @@ ds.models.dashboard = function(data) {
 
   self.get_item = function(id) {
     return self.index[id]
+  }
+
+  self.find_parent = function(item_or_id) {
+    var parent = undefined
+    self.visit(function(item) {
+      if (item.is_container && item.contains(item_or_id)) {
+        parent = item
+      }
+    })
+    return parent
   }
 
   self.set_items = function(items) {
