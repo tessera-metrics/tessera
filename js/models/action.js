@@ -26,3 +26,5 @@ ds.models.action = function(data) {
 
   return self
 }
+
+ds.models.action.divider = ds.models.action({divider:true})
