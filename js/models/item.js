@@ -119,3 +119,12 @@ ds.models.item =
       json: json
     }
   })()
+
+ds.models.item.Style = {
+  WELL:            'well',
+  CALLOUT_NEUTRAL: 'callout_neutral',
+  CALLOUT_INFO:    'callout_neutral',
+  CALLOUT_SUCCESS: 'callout_success',
+  CALLOUT_WARNING: 'callout_warning',
+  CALLOUT_DANGER:  'callout_danger'
+}
