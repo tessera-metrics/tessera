@@ -8,6 +8,10 @@ ds.templates.edit.properties.style.editHandler =
                 var value = ds.models.item.Style[k]
                 return { value: value, text: value }
             })),
-            value: item.style
+            value: item.style,
+            success: function(ignore, newValue) {
+                item.style = newValue
+                ds.manager.update_item_view(item)
+            }
         })
     }

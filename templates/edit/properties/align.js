@@ -8,6 +8,10 @@ ds.templates.edit.properties.align.editHandler =
               { value: 'center', text: 'center' },
               { value: 'right', text: 'right' }
             ],
-            value: item.style
+            value: item.style,
+            success: function(ignore, newValue) {
+                item.align = newValue
+                ds.manager.update_item_view(item)
+            }
         })
     }

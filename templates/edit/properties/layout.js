@@ -8,6 +8,10 @@ ds.templates.edit.properties.layout.editHandler =
                 var value = ds.models.section.Layout[k]
                 return { value: value, text: value }
             })),
-            value: item.style
+            value: item.layout,
+            success: function(ignore, newValue) {
+                item.layout = newValue
+                ds.manager.update_item_view(item)
+            }
         })
     }

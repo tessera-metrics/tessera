@@ -17,8 +17,7 @@ ds.models.section = function(data) {
     return [
       ds.models.property({name: 'layout'}),
       ds.models.property({name: 'style'}),
-      ds.models.property({name: 'css_class'}),
-      ds.models.property({name: 'height'})
+      ds.models.property({name: 'css_class'})
     ]
   }
 
