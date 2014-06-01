@@ -123,7 +123,7 @@ ds.models.item =
 ds.models.item.Style = {
   WELL:            'well',
   CALLOUT_NEUTRAL: 'callout_neutral',
-  CALLOUT_INFO:    'callout_neutral',
+  CALLOUT_INFO:    'callout_info',
   CALLOUT_SUCCESS: 'callout_success',
   CALLOUT_WARNING: 'callout_warning',
   CALLOUT_DANGER:  'callout_danger'
