@@ -31,3 +31,9 @@ ds.models.section = function(data) {
 
   return self
 }
+
+ds.models.section.Layout = {
+  FIXED: 'fixed',
+  FLUID: 'fluid',
+  NONE:  'none'
+}
