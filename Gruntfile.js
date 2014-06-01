@@ -14,8 +14,7 @@ module.exports = function(grunt) {
           },
           processName: function(filename) {
             var pieces = filename.split('/')
-            var name = pieces[pieces.length - 1].split('.')[0]
-            return name.replace('-', '_')
+            return pieces[pieces.length - 1].split('.')[0]
           }
         },
         files: {

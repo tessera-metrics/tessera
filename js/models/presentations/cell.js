@@ -17,6 +17,17 @@ ds.models.cell = function(data) {
   ds.models.item.init(self, data)
   ds.models.container.init(self, data)
 
+  self.interactive_properties = function() {
+    return [
+      ds.models.property({name: 'style'}),
+      ds.models.property({name: 'css_class'}),
+      ds.models.property({name: 'height'}),
+      ds.models.property({name: 'span'}),
+      ds.models.property({name: 'offset'}),
+      ds.models.property({name: 'align'})
+    ]
+  }
+
   self.toJSON = function() {
     var data = ds.models.container.json(self, ds.models.item.json(self))
     if (self.span)
