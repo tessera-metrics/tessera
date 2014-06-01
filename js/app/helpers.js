@@ -86,6 +86,11 @@ Handlebars.registerHelper('item', function(item) {
   return new Handlebars.SafeString(item.render())
 });
 
+Handlebars.registerHelper('interactive_property', function(property, item) {
+  return new Handlebars.SafeString(property.render(item))
+})
+
+
 Handlebars.registerHelper('actions', function(category, type) {
   var template = ds.templates.action
   if (type === 'button') {

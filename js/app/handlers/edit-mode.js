@@ -179,6 +179,10 @@ ds.actions.register('edit-bar-section', [
   })
 ])
 
+  /* -----------------------------------------------------------------------------
+     Edit Bar Handler
+     ----------------------------------------------------------------------------- */
+
 $(document).on('click', '.ds-edit-bar button', function(event) {
   var element  = $(this)[0]
   var parent   = $(this).parent()[0]
@@ -190,5 +194,19 @@ $(document).on('click', '.ds-edit-bar button', function(event) {
 
   action.handler(action, item)
 })
+
+  /* -----------------------------------------------------------------------------
+     Dashboard Query Panel
+     ----------------------------------------------------------------------------- */
+
+  ds.actions.register('dashboard-queries', [
+    ds.models.action({
+      name:    'new-query',
+      display: 'New Query...',
+      icon:    'fa fa-plus',
+      handler:  function(action) {
+      }
+    })
+  ])
 
 })()

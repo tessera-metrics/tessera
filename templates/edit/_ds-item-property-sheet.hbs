@@ -1,0 +1,11 @@
+<table class="table table-condensed table-striped">
+  <tbody>
+    <tr><th>Property</th><th>Value</th></tr>
+    {{#each item.interactive_properties}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td data-ds-property-name="{{this.name}}">{{interactive_property this ../item}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
