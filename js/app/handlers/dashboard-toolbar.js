@@ -1,27 +1,14 @@
+function update_dashboard_metadata(dashboard) {
+  var dash = dashboard.toJSON()
+  delete dash.definition
+  ds.manager.update(dash)
+}
+
 ds.app.add_mode_handler('edit', {
   enter: function() {
     $(".ds-dashboard-info-edit-panel").html(ds.templates.edit.dashboard_panel(ds.manager.current.dashboard));
     $('#ds-edit-info-button').addClass('active')
-  },
-  exit: function() {
-    $('#ds-edit-info-button').removeClass('active')
-  }
-})
 
-$(document).ready(function() {
-
-  function update_dashboard_metadata(dashboard) {
-    var dash = dashboard.toJSON()
-    delete dash.definition
-    ds.manager.update(dash)
-  }
-
-  /**
-   * Handlers for the Info Edit panel.
-   */
-  $(document).on('click', '#ds-edit-info-button', function(e) {
-
-    if (ds.app.toggle_mode(ds.app.Mode.EDIT)) {
       $.fn.editable.defaults.mode = 'inline'
 
       /** Title */
@@ -70,8 +57,19 @@ $(document).ready(function() {
                      return tag.name
                    })
       })
+  },
+  exit: function() {
+    $('#ds-edit-info-button').removeClass('active')
+  }
+})
 
-    }
+$(document).ready(function() {
+
+  /**
+   * Handlers for the Info Edit panel.
+   */
+  $(document).on('click', '#ds-edit-info-button', function(e) {
+    ds.app.toggle_mode(ds.app.Mode.EDIT)
   })
 
   /**
