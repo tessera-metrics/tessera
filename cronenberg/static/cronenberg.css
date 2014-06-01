@@ -120,7 +120,7 @@ h1.page-title {
     margin-bottom: 0.125em;
 }
 
-.ds-grid .row {
+.ds-grid .ds-row {
     margin-bottom: 1.0em;
 }
 
@@ -321,5 +321,9 @@ td.ds-tooltip-value {
 
 .ds-edit-bar {
     padding: 4px;
-    margin-bottom: 0px;
+    margin-bottom: .5em;
+}
+
+.ds-edit-bar .table {
+    margin-bottom: .25em;
 }

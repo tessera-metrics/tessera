@@ -16,8 +16,7 @@ ds.models.property = function(data) {
   }
 
   self.render = function(item) {
-    console.log('property.render() - ' + self.name + '/' + item)
-    var template = ds.templates.properties[self.name]
+    var template = ds.templates.edit.properties[self.name]
     if (template) {
       return template({property: self, item: item})
     } else {
@@ -26,7 +25,6 @@ ds.models.property = function(data) {
   }
 
   // TODO:
-  //  - render: return a property sheet row
   //  - update: validate & set the value on a target object
 
   return self

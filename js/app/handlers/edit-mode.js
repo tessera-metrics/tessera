@@ -61,7 +61,21 @@ ds.app.add_mode_handler(ds.app.Mode.EDIT, {
     icon:    'fa fa-edit',
     handler: function(action, item) {
       var details = $('#' + item.item_id + '-details')
-      details.is(':visible') ? details.fadeOut() : details.fadeIn()
+      if (details.is(':visible')) {
+        details.fadeOut()
+      } else {
+        details.fadeIn()
+        if (item.interactive_properties) {
+          var props = item.interactive_properties()
+          for (var i in props) {
+            var prop = props[i]
+            var ns = ds.templates.edit.properties
+            if (prop && ns[prop.name] && ns[prop.name].editHandler) {
+              ns[prop.name].editHandler(prop, item)
+            }
+          }
+        }
+      }
     }
   })
 
