@@ -9,14 +9,14 @@ ds.app.add_mode_handler(ds.app.Mode.EDIT, {
   }
 })
 
-  function move_up(action, item) {
+  function move_forward(action, item) {
       var parent = ds.manager.current.dashboard.find_parent(item)
       if (parent.is_container && parent.move(item, 1)) {
         ds.manager.update_item_view(parent)
       }
   }
 
-  function move_down(action, item) {
+  function move_back(action, item) {
       var parent = ds.manager.current.dashboard.find_parent(item)
       if (parent.is_container && parent.move(item, -1)) {
         ds.manager.update_item_view(parent)
@@ -91,6 +91,28 @@ ds.app.add_mode_handler(ds.app.Mode.EDIT, {
     }
   })
 
+  var delete_action = ds.models.action({
+    name:    'delete',
+    display: 'Delete item',
+    icon:    'fa fa-trash-o',
+    handler:  remove
+  })
+
+  var move_back_action = ds.models.action({
+    name:    'move-back',
+    display: 'Move item back one place',
+    icon:    'fa fa-caret-left',
+    handler:  move_back
+  })
+
+  var move_forward_action = ds.models.action({
+    name:    'move-forward',
+    display: 'Move item forward one place',
+    icon:    'fa fa-caret-right',
+    handler:  move_forward
+  })
+
+
 /* -----------------------------------------------------------------------------
    Cell actions
    ----------------------------------------------------------------------------- */
@@ -100,18 +122,8 @@ ds.actions.register('edit-bar-cell', [
   item_properties_action,
   duplicate_item_action,
   ds.models.action.divider,
-  ds.models.action({
-    name:    'move-left',
-    display: 'Move cell left in row',
-    icon:    'fa fa-caret-left',
-    handler:  move_down
-  }),
-  ds.models.action({
-    name:    'move-right',
-    display: 'Move cell right in row',
-    icon:    'fa fa-caret-right',
-    handler:  move_up
-  }),
+  move_back_action,
+  move_forward_action,
   ds.models.action({
     name:    'increase-span',
     display: 'Increase cell span by one',
@@ -125,12 +137,7 @@ ds.actions.register('edit-bar-cell', [
     handler:  narrow
   }),
   ds.models.action.divider,
-  ds.models.action({
-    name:    'delete',
-    display: 'Delete row',
-    icon:    'fa fa-trash-o',
-    handler:  remove
-  })
+  delete_action
 ])
 
 /* -----------------------------------------------------------------------------
@@ -142,25 +149,10 @@ ds.actions.register('edit-bar-row', [
   item_properties_action,
   duplicate_item_action,
   ds.models.action.divider,
-  ds.models.action({
-    name:    'move-up',
-    display: 'Move row up in section',
-    icon:    'fa fa-caret-up',
-    handler:  move_down
-  }),
-  ds.models.action({
-    name:    'move-down',
-    display: 'Move row down in section',
-    icon:    'fa fa-caret-down',
-    handler:  move_up
-  }),
+  move_back_action,
+  move_forward_action,
   ds.models.action.divider,
-  ds.models.action({
-    name:    'delete',
-    display: 'Delete row',
-    icon:    'fa fa-trash-o',
-    handler:  remove
-  })
+  delete_action
 ])
 
 /* -----------------------------------------------------------------------------
@@ -172,25 +164,10 @@ ds.actions.register('edit-bar-section', [
   item_properties_action,
   duplicate_item_action,
   ds.models.action.divider,
-  ds.models.action({
-    name:    'move-up',
-    display: 'Move section up in dashboard',
-    icon:    'fa fa-caret-up',
-    handler:  move_down
-  }),
-  ds.models.action({
-    name:    'move-down',
-    display: 'Move section down in dashboard',
-    icon:    'fa fa-caret-down',
-    handler:  move_up
-  }),
+  move_back_action,
+  move_forward_action,
   ds.models.action.divider,
-  ds.models.action({
-    name:    'delete',
-    display: 'Delete section',
-    icon:    'fa fa-trash-o',
-    handler:  remove
-  })
+  delete_action
 ])
 
 /* -----------------------------------------------------------------------------
@@ -200,6 +177,9 @@ ds.actions.register('edit-bar-section', [
 ds.actions.register('edit-bar-item', [
   item_properties_action,
   duplicate_item_action,
+  ds.models.action.divider,
+  move_back_action,
+  move_forward_action,
   ds.models.action({
     name:    'view-definition',
     display: 'View definition...',
@@ -210,12 +190,7 @@ ds.actions.register('edit-bar-item', [
     }
   }),
   ds.models.action.divider,
-  ds.models.action({
-    name:    'delete',
-    display: 'Delete item',
-    icon:    'fa fa-trash-o',
-    handler:  remove
-  })
+  delete_action
 ])
 
 
