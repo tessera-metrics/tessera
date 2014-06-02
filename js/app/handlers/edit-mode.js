@@ -1,26 +1,73 @@
 (function () {
 
-ds.app.add_mode_handler(ds.app.Mode.EDIT, {
-  enter: function() {
-    $('.ds-section, .ds-cell, .ds-row').addClass('ds-edit')
-  },
-  exit: function() {
-    $('.ds-section, .ds-cell, .ds-row').removeClass('ds-edit')
+  function toggle_details(item_id) {
+    var details = $('#' + item_id + '-details')
+    if (details.is(':visible')) {
+      hide_details(item_id)
+    } else {
+      show_details(item_id)
+    }
   }
-})
+
+  function hide_details(item_id) {
+    var details = $('#' + item_id + '-details')
+    details.fadeOut()
+  }
+
+  function show_details(item_id) {
+    var details = $('#' + item_id + '-details')
+    details.fadeIn()
+    var item = ds.manager.current.dashboard.get_item(item_id)
+    if (item.interactive_properties) {
+      var props = item.interactive_properties()
+      for (var i in props) {
+        var prop = props[i]
+          var ns = ds.templates.edit.properties
+        if (prop && ns[prop.name] && ns[prop.name].editHandler) {
+          ns[prop.name].editHandler(prop, item)
+        }
+      }
+    }
+  }
+
+
+  $(document).on('mouseenter', '.ds-edit-bar .badge', function(event) {
+    $(this).addClass('ds-badge-highlight')
+    var id = $(this).attr('data-ds-item-id')
+    show_details(id)
+    $('.ds-edit-bar[data-ds-item-id="' + id + '"] .btn-group').fadeIn()
+  })
+  $(document).on('mouseleave', '.ds-edit-bar .badge', function(event) {
+    $(this).removeClass('ds-badge-highlight')
+  })
+  $(document).on('mouseleave', '.ds-edit-bar', function(event) {
+    var id = $(this).attr('data-ds-item-id')
+    hide_details(id)
+    $('.ds-edit-bar[data-ds-item-id="' + id + '"] .btn-group').fadeOut()
+  })
+
+
+  ds.app.add_mode_handler(ds.app.Mode.EDIT, {
+    enter: function() {
+      $('.ds-section, .ds-cell, .ds-row').addClass('ds-edit')
+    },
+    exit: function() {
+      $('.ds-section, .ds-cell, .ds-row').removeClass('ds-edit')
+    }
+  })
 
   function move_forward(action, item) {
-      var parent = ds.manager.current.dashboard.find_parent(item)
-      if (parent.is_container && parent.move(item, 1)) {
-        ds.manager.update_item_view(parent)
-      }
+    var parent = ds.manager.current.dashboard.find_parent(item)
+    if (parent.is_container && parent.move(item, 1)) {
+      ds.manager.update_item_view(parent)
+    }
   }
 
   function move_back(action, item) {
-      var parent = ds.manager.current.dashboard.find_parent(item)
-      if (parent.is_container && parent.move(item, -1)) {
-        ds.manager.update_item_view(parent)
-      }
+    var parent = ds.manager.current.dashboard.find_parent(item)
+    if (parent.is_container && parent.move(item, -1)) {
+      ds.manager.update_item_view(parent)
+    }
   }
 
   function remove(action, item) {
@@ -60,22 +107,7 @@ ds.app.add_mode_handler(ds.app.Mode.EDIT, {
     display: 'Properties',
     icon:    'fa fa-edit',
     handler: function(action, item) {
-      var details = $('#' + item.item_id + '-details')
-      if (details.is(':visible')) {
-        details.fadeOut()
-      } else {
-        details.fadeIn()
-        if (item.interactive_properties) {
-          var props = item.interactive_properties()
-          for (var i in props) {
-            var prop = props[i]
-            var ns = ds.templates.edit.properties
-            if (prop && ns[prop.name] && ns[prop.name].editHandler) {
-              ns[prop.name].editHandler(prop, item)
-            }
-          }
-        }
-      }
+      toggle_details(item_id)
     }
   })
 
@@ -113,108 +145,104 @@ ds.app.add_mode_handler(ds.app.Mode.EDIT, {
   })
 
 
-/* -----------------------------------------------------------------------------
-   Cell actions
-   ----------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+     Cell actions
+     ----------------------------------------------------------------------------- */
 
-ds.actions.register('edit-bar-cell', [
-  new_item_action,
-  item_properties_action,
-  duplicate_item_action,
-  ds.models.action.divider,
-  move_back_action,
-  move_forward_action,
-  ds.models.action({
-    name:    'increase-span',
-    display: 'Increase cell span by one',
-    icon:    'fa fa-expand',
-    handler:  widen
-  }),
-  ds.models.action({
-    name:    'decrease-span',
-    display: 'Decrease cell span by one',
-    icon:    'fa fa-compress',
-    handler:  narrow
-  }),
-  ds.models.action.divider,
-  delete_action
-])
+  ds.actions.register('edit-bar-cell', [
+    new_item_action,
+    duplicate_item_action,
+    ds.models.action.divider,
+    move_back_action,
+    move_forward_action,
+    ds.models.action({
+      name:    'increase-span',
+      display: 'Increase cell span by one',
+      icon:    'fa fa-expand',
+      handler:  widen
+    }),
+    ds.models.action({
+      name:    'decrease-span',
+      display: 'Decrease cell span by one',
+      icon:    'fa fa-compress',
+      handler:  narrow
+    }),
+    ds.models.action.divider,
+    delete_action
+  ])
 
-/* -----------------------------------------------------------------------------
-   Row actions
-   ----------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+     Row actions
+     ----------------------------------------------------------------------------- */
 
-ds.actions.register('edit-bar-row', [
-  new_item_action,
-  item_properties_action,
-  duplicate_item_action,
-  ds.models.action.divider,
-  move_back_action,
-  move_forward_action,
-  ds.models.action.divider,
-  delete_action
-])
+  ds.actions.register('edit-bar-row', [
+    new_item_action,
+    duplicate_item_action,
+    ds.models.action.divider,
+    move_back_action,
+    move_forward_action,
+    ds.models.action.divider,
+    delete_action
+  ])
 
-/* -----------------------------------------------------------------------------
-   Section actions
-   ----------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+     Section actions
+     ----------------------------------------------------------------------------- */
 
-ds.actions.register('edit-bar-section', [
-  new_item_action,
-  item_properties_action,
-  duplicate_item_action,
-  ds.models.action.divider,
-  move_back_action,
-  move_forward_action,
-  ds.models.action.divider,
-  delete_action
-])
+  ds.actions.register('edit-bar-section', [
+    new_item_action,
+    duplicate_item_action,
+    ds.models.action.divider,
+    move_back_action,
+    move_forward_action,
+    ds.models.action.divider,
+    delete_action
+  ])
 
-/* -----------------------------------------------------------------------------
-   Item actions
-   ----------------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------------
+     Item actions
+     ----------------------------------------------------------------------------- */
 
-ds.actions.register('edit-bar-item', [
-  item_properties_action,
-  duplicate_item_action,
-  ds.models.action.divider,
-  move_back_action,
-  move_forward_action,
-  ds.models.action({
-    name:    'view-definition',
-    display: 'View definition...',
-    icon:    'fa fa-code',
-    handler: function(action, item) {
-      var contents = ds.templates.edit.item_source({item:item})
-      bootbox.alert(contents)
-    }
-  }),
-  ds.models.action.divider,
-  delete_action
-])
+  ds.actions.register('edit-bar-item', [
+    duplicate_item_action,
+    ds.models.action.divider,
+    move_back_action,
+    move_forward_action,
+    ds.models.action({
+      name:    'view-definition',
+      display: 'View definition...',
+      icon:    'fa fa-code',
+      handler: function(action, item) {
+        var contents = ds.templates.edit.item_source({item:item})
+        bootbox.alert(contents)
+      }
+    }),
+    ds.models.action.divider,
+    delete_action
+  ])
 
 
   /* -----------------------------------------------------------------------------
      Edit Bar Handler
      ----------------------------------------------------------------------------- */
 
-$(document).on('click', '.ds-edit-bar button', function(event) {
-  var element  = $(this)[0]
-  var parent   = $(this).parent()[0]
-  var item_id  = parent.getAttribute('data-ds-item-id')
-  var name     = element.getAttribute('data-ds-action')
-  var category = element.getAttribute('data-ds-category')
-  var action   = ds.actions.get(category, name)
-  var item     = ds.manager.current.dashboard.get_item(item_id)
+  $(document).on('click', '.ds-edit-bar button', function(event) {
+    var element  = $(this)[0]
+    var parent   = $(this).parent()[0]
+    var item_id  = parent.getAttribute('data-ds-item-id')
+    var name     = element.getAttribute('data-ds-action')
+    var category = element.getAttribute('data-ds-category')
+    var action   = ds.actions.get(category, name)
+    var item     = ds.manager.current.dashboard.get_item(item_id)
 
-  if (action) {
-    action.handler(action, item)
-  }
-})
+    if (action) {
+      action.handler(action, item)
+    }
+  })
 
   /* -----------------------------------------------------------------------------
-     Dashboard Query Panel
-     ----------------------------------------------------------------------------- */
+                               Dashboard Query Panel
+                               ----------------------------------------------------------------------------- */
 
   ds.actions.register('dashboard-queries', [
     ds.models.action({

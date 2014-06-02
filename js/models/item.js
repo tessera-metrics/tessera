@@ -141,7 +141,7 @@ ds.models.item.Transform = {
 }
 
 ds.models.item.interactive_properties = function() {
-  return ['css_class', 'height', 'style', 'query'].map(function(name) {
+  return ['css_class', 'height', 'query'].map(function(name) {
            return ds.models.property({name: name})
          })
 }
