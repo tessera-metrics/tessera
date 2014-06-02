@@ -1,8 +1,8 @@
 <div class="row" data-ds-show="edit" style="display:none">
   <div class="col-md-12">
-    <div class="ds-edit-bar ds-edit-bar-row alert alert-warning">
-      <span class="badge badge-warning"><i class="fa fa-cog"></i> row {{item.item_id}}</span>
-      <div class="btn-group btn-group-sm" data-ds-item-id="{{item.item_id}}">
+    <div class="ds-edit-bar ds-edit-bar-row" data-ds-item-id="{{item.item_id}}">
+      <span class="badge ds-badge-row" data-ds-item-id="{{item.item_id}}"><i class="fa fa-cog"></i> row {{item.item_id}}</span>
+      <div class="btn-group btn-group-sm" data-ds-item-id="{{item.item_id}}" style="display:none">
         {{actions 'edit-bar-row' 'button'}}
       </div>
       {{> ds-edit-bar-item-details}}

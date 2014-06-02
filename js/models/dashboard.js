@@ -16,7 +16,7 @@ ds.models.dashboard = function(data) {
                        .property('description')
                        .property('definition', {
                          update: function() {
-                           self._build_index()
+                           self.update_index()
                          }
                        })
                        .property('tags', {
@@ -37,7 +37,7 @@ ds.models.dashboard = function(data) {
     return self
   }
 
-  self._build_index = function() {
+  self.update_index = function() {
     var index = self.index = {}
     var id = 0
     self.visit(function(item) {
@@ -93,7 +93,7 @@ ds.models.dashboard = function(data) {
 
   self.set_items = function(items) {
     self.definition.items = items
-    self._build_index()
+    self.update_index()
     return self
   }
 
