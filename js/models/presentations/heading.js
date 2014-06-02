@@ -14,6 +14,13 @@ ds.models.heading = function(data) {
   }
   ds.models.item.init(self, data)
 
+  self.interactive_properties = function() {
+    return ['text', 'level', 'description'].map(function(name) {
+             return ds.models.property({name: name})
+           })
+  }
+
+
   self.toJSON = function() {
     var data = ds.models.item.json(self)
     if (self.text)

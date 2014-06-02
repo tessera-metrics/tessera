@@ -15,6 +15,12 @@ ds.models.markdown = function(data) {
   }
   ds.models.item.init(self, data)
 
+  self.interactive_properties = function() {
+    return [
+      ds.models.property({name: 'text'})
+    ].concat(ds.models.item.interactive_properties())
+  }
+
   self.toJSON = function() {
     return ds.models.item.json(self, {
       text: self.text,
