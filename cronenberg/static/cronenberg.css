@@ -380,6 +380,7 @@ table.ds-property-sheet td {
 
 .ds-badge-cell {
     background-color: #649EB9;
+    border: 1px solid #9DC2D3;
 }
 
 .ds-cell.ds-edit {
@@ -388,7 +389,6 @@ table.ds-property-sheet td {
 }
 
 .ds-edit-bar-cell {
-    // background-color: #F5F5F9;
     background-color: #E3F7FF;
     border-color: #9DC2D3;
 }
@@ -409,5 +409,5 @@ table.ds-property-sheet td {
 }
 
 .ds-badge-highlight {
-    background-color: red;
+    border-width: 3px;
 }
