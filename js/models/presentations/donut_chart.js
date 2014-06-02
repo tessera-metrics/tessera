@@ -10,6 +10,11 @@ ds.models.donut_chart = function(data) {
   ds.models.chart.init(self, data)
   ds.models.item.init(self, data)
 
+  self.interactive_properties = function() {
+    return ds.models.chart.interactive_properties()
+             .concat(ds.models.item.interactive_properties())
+  }
+
   self.toJSON = function() {
     return ds.models.chart.json(self, ds.models.item.json(self))
   }

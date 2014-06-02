@@ -34,3 +34,9 @@ ds.models.chart =
       json: json
     }
   })()
+
+ds.models.chart.interactive_properties = function() {
+  return ['title', 'options'].map(function(name) {
+           return ds.models.property({name: name})
+         })
+}

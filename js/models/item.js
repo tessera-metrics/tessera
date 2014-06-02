@@ -132,3 +132,16 @@ ds.models.item.Style = {
   CALLOUT_WARNING: 'callout_warning',
   CALLOUT_DANGER:  'callout_danger'
 }
+
+ds.models.item.Transform = {
+  SUM: 'sum',
+  MIN: 'min',
+  MAX: 'max',
+  MEAN: 'mean'
+}
+
+ds.models.item.interactive_properties = function() {
+  return ['css_class', 'height', 'style', 'query'].map(function(name) {
+           return ds.models.property({name: name})
+         })
+}
