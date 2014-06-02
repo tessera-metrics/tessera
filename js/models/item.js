@@ -66,6 +66,10 @@ ds.models.item =
         }
       }
 
+      self.visit = function(visitor) {
+        visitor(self)
+      }
+
       /**
        * Various visitors for convenience.
        */
