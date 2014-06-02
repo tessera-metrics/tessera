@@ -34,16 +34,14 @@
   $(document).on('mouseenter', '.ds-edit-bar .badge', function(event) {
     $(this).addClass('ds-badge-highlight')
     var id = $(this).attr('data-ds-item-id')
-    show_details(id)
     $('.ds-edit-bar[data-ds-item-id="' + id + '"] .btn-group').fadeIn()
-  })
-  $(document).on('mouseleave', '.ds-edit-bar .badge', function(event) {
-    $(this).removeClass('ds-badge-highlight')
+    show_details(id)
   })
   $(document).on('mouseleave', '.ds-edit-bar', function(event) {
     var id = $(this).attr('data-ds-item-id')
-    hide_details(id)
     $('.ds-edit-bar[data-ds-item-id="' + id + '"] .btn-group').fadeOut()
+    $('.ds-edit-bar[data-ds-item-id="' + id + '"] .badge').removeClass('ds-badge-highlight')
+    hide_details(id)
   })
 
 
