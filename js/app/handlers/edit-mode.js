@@ -206,7 +206,9 @@ $(document).on('click', '.ds-edit-bar button', function(event) {
   var action   = ds.actions.get(category, name)
   var item     = ds.manager.current.dashboard.get_item(item_id)
 
-  action.handler(action, item)
+  if (action) {
+    action.handler(action, item)
+  }
 })
 
   /* -----------------------------------------------------------------------------
