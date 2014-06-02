@@ -347,3 +347,7 @@ td.ds-tooltip-value {
     padding-left: 20px;
     padding-right: 20px;
 }
+
+table.ds-property-sheet td {
+    padding: 4px;
+}
