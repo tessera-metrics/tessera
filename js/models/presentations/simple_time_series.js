@@ -15,7 +15,6 @@ ds.models.simple_time_series = function(data) {
 
   self.interactive_properties = function() {
     return [
-      ds.models.property({name: 'title'}),
       ds.models.property({name: 'filled'})
     ].concat(ds.models.chart.interactive_properties(),
              ds.models.item.interactive_properties())
