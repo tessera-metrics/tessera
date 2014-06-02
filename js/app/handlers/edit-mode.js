@@ -193,6 +193,23 @@ ds.actions.register('edit-bar-section', [
   })
 ])
 
+/* -----------------------------------------------------------------------------
+   Item actions
+   ----------------------------------------------------------------------------- */
+
+ds.actions.register('edit-bar-item', [
+  item_properties_action,
+  duplicate_item_action,
+  ds.models.action.divider,
+  ds.models.action({
+    name:    'delete',
+    display: 'Delete item',
+    icon:    'fa fa-trash-o',
+    handler:  remove
+  })
+])
+
+
   /* -----------------------------------------------------------------------------
      Edit Bar Handler
      ----------------------------------------------------------------------------- */
