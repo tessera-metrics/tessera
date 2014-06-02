@@ -200,6 +200,15 @@ ds.actions.register('edit-bar-section', [
 ds.actions.register('edit-bar-item', [
   item_properties_action,
   duplicate_item_action,
+  ds.models.action({
+    name:    'view-definition',
+    display: 'View definition...',
+    icon:    'fa fa-code',
+    handler: function(action, item) {
+      var contents = ds.templates.edit.item_source({item:item})
+      bootbox.alert(contents)
+    }
+  }),
   ds.models.action.divider,
   ds.models.action({
     name:    'delete',
