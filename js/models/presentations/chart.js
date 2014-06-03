@@ -8,7 +8,7 @@ ds.models.chart =
     function extend(builder) {
       Object.defineProperty(builder.target, 'is_chart', {value: true});
       return builder.property('title')
-                    .property('options')
+                    .property('options', { init: {} })
     }
 
     function init(target, data) {
@@ -37,7 +37,7 @@ ds.models.chart =
 
 ds.models.chart.interactive_properties = function() {
   return [
-    'title',
+    'title'
     // 'options'
   ].map(function(name) {
            return ds.models.property({name: name})
