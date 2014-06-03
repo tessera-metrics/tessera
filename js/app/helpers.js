@@ -59,6 +59,21 @@ Handlebars.registerHelper('container_class', function(item) {
   }
 });
 
+Handlebars.registerHelper('ds-edit-bar', function(item) {
+  var context = { item: item }
+  var template = undefined
+  if (item.item_type === 'cell') {
+    template = ds.templates["ds-edit-bar-cell"]
+  } else if (item.item_type === 'row') {
+    template = ds.templates["ds-edit-bar-row"]
+  } else if (item.item_type === 'section') {
+    template = ds.templates["ds-edit-bar-section"]
+  } else {
+    template = ds.templates["ds-edit-bar-item"]
+  }
+  return template ? new Handlebars.SafeString(template(context)) : ''
+})
+
 Handlebars.registerHelper('style_class', function(item) {
   if (item.style) {
     switch (item.style) {

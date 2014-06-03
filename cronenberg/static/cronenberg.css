@@ -411,3 +411,15 @@ table.ds-property-sheet td {
 .ds-badge-highlight {
     border-width: 3px;
 }
+
+.ds-drag-handle {
+  margin-top: .5em;
+  margin-right: .5em;
+  color: rgba(75,75,75,0.25);
+}
+
+.ds-resize-handle {
+  margin-bottom: .5em;
+  margin-right: .5em;
+  color: rgba(75,75,75,0.25);
+}
