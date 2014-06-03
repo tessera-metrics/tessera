@@ -93,7 +93,12 @@
       var dashboard = ds.manager.current.dashboard
       var parent = dashboard.find_parent(item)
       var dup = ds.models.factory(item.toJSON())
-      /** TODO: need to generate unique IDs for the duplicate before we can add it to the DOM */
+      dup.visit(function(item) {
+        item.item_id = undefined
+      })
+      parent.add(dup) /** TODO: adding immediately after the source item would be nice */
+      dashboard.update_index()
+      ds.manager.update_item_view(parent)
     }
   })
 
