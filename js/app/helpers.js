@@ -118,9 +118,14 @@ Handlebars.registerHelper('actions', function(category, type) {
   if (actions && (actions instanceof Array)) {
     var html = ''
     for (var i in actions) {
-      html += template({
+      var action = actions[i]
+      var tmpl = template
+      if (action.actions) {
+        tmpl = ds.templates["action-menu-button"]
+      }
+      html += tmpl({
         category: category,
-        action: actions[i]
+        action: action
       })
     }
     return new Handlebars.SafeString(html)

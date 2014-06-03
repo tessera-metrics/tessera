@@ -1,0 +1,8 @@
+{{#each actions}}
+  <li role="presentation"
+    data-ds-action="{{name}}"
+    data-ds-category="{{category}}"
+    data-ds-show="{{action.show}}"
+    data-ds-hide="{{action.hide}}">
+    <a role="menuitem" href="#"><i class="{{action.icon}}"></i> {{action.display}}</a>
+{{/each}}
