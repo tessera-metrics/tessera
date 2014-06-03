@@ -102,6 +102,14 @@ $(document).ready(function() {
     ds.manager.delete_current()
   })
 
+  $(document).on('click', '#ds-new-section-button', function(e) {
+    var dash = ds.manager.current.dashboard
+    dash.definition.add(ds.models.section())
+    dash.update_index()
+    ds.manager.update_item_view(dash.definition)
+  })
+
+
   $(document).on('click', '#ds-view-dashboard-source-button', function(e) {
     var dashboard = ds.manager.current.dashboard;
     $.get(dashboard.href + '?definition=true', function(data) {
