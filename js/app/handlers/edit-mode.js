@@ -54,30 +54,6 @@
     }
   })
 
-  function move_forward(action, item) {
-    var parent = ds.manager.current.dashboard.find_parent(item)
-    if (parent.is_container && parent.move(item, 1)) {
-      ds.manager.update_item_view(parent)
-    }
-  }
-
-  function move_back(action, item) {
-    var parent = ds.manager.current.dashboard.find_parent(item)
-    if (parent.is_container && parent.move(item, -1)) {
-      ds.manager.update_item_view(parent)
-    }
-  }
-
-  function remove(action, item) {
-    var parent = ds.manager.current.dashboard.find_parent(item)
-    if (!parent) {
-      return
-    }
-    if (parent && parent.is_container && parent.remove(item)) {
-      ds.manager.update_item_view(parent)
-    }
-  }
-
   function widen(action, item) {
     if (item.span) {
       item.span += 1
@@ -125,23 +101,50 @@
     name:    'delete',
     display: 'Delete item',
     icon:    'fa fa-trash-o',
-    handler:  remove
+    handler:  function(action, item) {
+      var parent = ds.manager.current.dashboard.find_parent(item)
+      if (!parent) {
+        return
+      }
+      if (parent && parent.is_container && parent.remove(item)) {
+        ds.manager.update_item_view(parent)
+      }
+    }
   })
 
   var move_back_action = ds.models.action({
     name:    'move-back',
     display: 'Move item back one place',
     icon:    'fa fa-caret-left',
-    handler:  move_back
+    handler:  function(action, item) {
+      var parent = ds.manager.current.dashboard.find_parent(item)
+      if (parent.is_container && parent.move(item, -1)) {
+        ds.manager.update_item_view(parent)
+      }
+    }
   })
 
   var move_forward_action = ds.models.action({
     name:    'move-forward',
     display: 'Move item forward one place',
     icon:    'fa fa-caret-right',
-    handler:  move_forward
+    handler:  function(action, item) {
+      var parent = ds.manager.current.dashboard.find_parent(item)
+      if (parent.is_container && parent.move(item, 1)) {
+        ds.manager.update_item_view(parent)
+      }
+    }
   })
 
+  var view_definition_action = ds.models.action({
+    name:    'view-definition',
+    display: 'View definition...',
+    icon:    'fa fa-code',
+    handler: function(action, item) {
+      var contents = ds.templates.edit.item_source({item:item})
+      bootbox.alert(contents)
+    }
+  })
 
   /* -----------------------------------------------------------------------------
      Cell actions
@@ -150,6 +153,7 @@
   ds.actions.register('edit-bar-cell', [
     new_item_action,
     duplicate_item_action,
+    view_definition_action,
     ds.models.action.divider,
     move_back_action,
     move_forward_action,
@@ -206,15 +210,7 @@
     ds.models.action.divider,
     move_back_action,
     move_forward_action,
-    ds.models.action({
-      name:    'view-definition',
-      display: 'View definition...',
-      icon:    'fa fa-code',
-      handler: function(action, item) {
-        var contents = ds.templates.edit.item_source({item:item})
-        bootbox.alert(contents)
-      }
-    }),
+    view_definition_action,
     ds.models.action.divider,
     delete_action
   ])
@@ -239,8 +235,8 @@
   })
 
   /* -----------------------------------------------------------------------------
-                               Dashboard Query Panel
-                               ----------------------------------------------------------------------------- */
+     Dashboard Query Panel
+     ----------------------------------------------------------------------------- */
 
   ds.actions.register('dashboard-queries', [
     ds.models.action({
