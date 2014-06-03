@@ -1,11 +1,7 @@
-<div class="row" data-ds-show="edit" style="display:none">
-  <div class="col-md-12">
-    <div class="ds-edit-bar ds-edit-bar-cell alert alert-info" align="left" data-ds-item-id="{{item.item_id}}">
-      <span class="badge ds-badge-cell" data-ds-item-id="{{item.item_id}}"><i class="fa fa-cog"></i> cell {{item.item_id}}</span>
-      <div class="btn-group btn-group-sm" data-ds-item-id="{{item.item_id}}" style="display:none">
-        {{actions 'edit-bar-cell' 'button'}}
-      </div>
-      {{> ds-edit-bar-item-details}}
-    </div>
+<div class="ds-edit-bar ds-edit-bar-cell alert alert-info" align="left" data-ds-item-id="{{item.item_id}}">
+  <span class="badge ds-badge-cell" data-ds-item-id="{{item.item_id}}"><i class="fa fa-cog"></i> cell {{item.item_id}}</span>
+  <div class="btn-group btn-group-sm" data-ds-item-id="{{item.item_id}}" style="display:none">
+    {{actions 'edit-bar-cell' 'button'}}
   </div>
+  {{> ds-edit-bar-item-details}}
 </div>

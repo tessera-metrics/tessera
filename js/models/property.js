@@ -20,7 +20,7 @@ ds.models.property = function(data) {
     if (template) {
       return template({property: self, item: item})
     } else {
-      return "<p>Unknown property <code>" + self.name + "</code></p>"
+      return "<p>Unimplemented property <code>" + self.name + "</code></p>"
     }
   }
 

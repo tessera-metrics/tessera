@@ -1,7 +1,7 @@
 <div class="ds-cell {{span item}} {{offset item}} {{css_class item}} {{height item}}"
      {{#if item.align}} align="{{item.align}}" {{/if}} id="{{item.item_id}}"
        >
-       {{> ds-edit-bar-cell}}
+       {{> ds-edit-bar}}
   {{#if item.style}}<div class="{{style_class item}}">{{/if}}
 
     {{#each item.items}}
@@ -9,4 +9,5 @@
     {{/each}}
 
     {{#if item.style}}</div>{{/if}}
+      <i title="Drag to resize" class="fa fa-arrows-alt pull-right ds-resize-handle" data-ds-item-id="{{item.item_id}}"></i>
 </div>
