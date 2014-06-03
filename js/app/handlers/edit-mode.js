@@ -67,20 +67,6 @@
     }
   })
 
-  function widen(action, item) {
-    if (item.span) {
-      item.span += 1
-      ds.manager.update_item_view(ds.manager.current.dashboard.find_parent(item))
-    }
-  }
-
-  function narrow(action, item) {
-    if (item.span) {
-      item.span -= 1
-      ds.manager.update_item_view(ds.manager.current.dashboard.find_parent(item))
-    }
-  }
-
   var new_item_action = ds.models.action({
     name:    'add',
     display: 'Add new item...',
@@ -179,13 +165,23 @@
       name:    'increase-span',
       display: 'Increase cell span by one',
       icon:    'fa fa-expand',
-      handler:  widen
+      handler:  function(action, item) {
+        if (item.span) {
+          item.span += 1
+          ds.manager.update_item_view(ds.manager.current.dashboard.find_parent(item))
+        }
+      }
     }),
     ds.models.action({
       name:    'decrease-span',
       display: 'Decrease cell span by one',
       icon:    'fa fa-compress',
-      handler:  narrow
+      handler:  function(action, item) {
+        if (item.span) {
+          item.span -= 1
+          ds.manager.update_item_view(ds.manager.current.dashboard.find_parent(item))
+        }
+      }
     }),
     ds.models.action.divider,
     delete_action
