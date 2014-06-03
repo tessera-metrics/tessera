@@ -6,7 +6,7 @@ ds.templates.edit.properties.query.editHandler =
             source: Object.keys(queries).map(function(k) {
                 return { value: k, text: k }
             }),
-            value: item.query.name,
+            value: item.query ? item.query.name : undefined,
             success: function(ignore, newValue) {
                 item.query = newValue
                 ds.manager.update_item_view(item)
