@@ -413,7 +413,7 @@ table.ds-property-sheet td {
 }
 
 .ds-drag-handle {
-  margin-top: .5em;
+  margin-top: 8px;
   margin-right: .5em;
   color: rgba(75,75,75,0.25);
 }
