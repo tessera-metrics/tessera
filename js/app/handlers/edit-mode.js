@@ -16,20 +16,25 @@
 
   function hide_details(item_id) {
     var details = $('#' + item_id + '-details')
-    details.fadeOut()
+    details.remove()
   }
 
   function show_details(item_id) {
-    var details = $('#' + item_id + '-details')
-    details.fadeIn()
     var item = ds.manager.current.dashboard.get_item(item_id)
-    if (item.interactive_properties) {
-      var props = item.interactive_properties()
-      for (var i in props) {
-        var prop = props[i]
+    var bar_id = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
+    var details_id = '#' + item_id + '-details'
+    if ($(details_id).length == 0) {
+      var elt = $('.ds-edit-bar[data-ds-item-id="' + item_id + '"]')
+      var details = ds.templates['ds-edit-bar-item-details']({item:item})
+      elt.append(details)
+      if (item.interactive_properties) {
+        var props = item.interactive_properties()
+        for (var i in props) {
+          var prop = props[i]
           var ns = ds.templates.edit.properties
-        if (prop && ns[prop.name] && ns[prop.name].editHandler) {
-          ns[prop.name].editHandler(prop, item)
+          if (prop && ns[prop.name] && ns[prop.name].editHandler) {
+            ns[prop.name].editHandler(prop, item)
+          }
         }
       }
     }
