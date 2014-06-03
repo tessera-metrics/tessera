@@ -4,7 +4,7 @@ ds.models.cell = function(data) {
   var self = limivorous.observable()
                        .extend(ds.models.item, {item_type: 'cell'})
                        .extend(ds.models.container)
-                       .property('span')
+                       .property('span', { init: 3 })
                        .property('offset')
                        .property('align')
                        .build()
