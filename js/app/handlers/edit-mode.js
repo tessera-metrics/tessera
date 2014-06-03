@@ -1,5 +1,10 @@
 (function () {
 
+  /**
+   * Helper functions to show & hide the action bar & property sheet
+   * for dashboard items.
+   */
+
   function toggle_details(item_id) {
     var details = $('#' + item_id + '-details')
     if (details.is(':visible')) {
@@ -30,6 +35,10 @@
     }
   }
 
+  /**
+   * Event handlers to show & hide the action bar & property sheet for
+   * dashboard items.
+   */
 
   $(document).on('mouseenter', '.ds-edit-bar .badge', function(event) {
     $(this).addClass('ds-badge-highlight')
@@ -37,6 +46,7 @@
     $('.ds-edit-bar[data-ds-item-id="' + id + '"] .btn-group').fadeIn()
     show_details(id)
   })
+
   $(document).on('mouseleave', '.ds-edit-bar', function(event) {
     var id = $(this).attr('data-ds-item-id')
     $('.ds-edit-bar[data-ds-item-id="' + id + '"] .btn-group').fadeOut()
@@ -44,6 +54,9 @@
     hide_details(id)
   })
 
+  /**
+   * Toggle mode-specific CSS rules for dashboard structural elements.
+   */
 
   ds.app.add_mode_handler(ds.app.Mode.EDIT, {
     enter: function() {
