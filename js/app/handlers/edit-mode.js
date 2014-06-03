@@ -373,7 +373,6 @@
   ds.actions.register('edit-bar-cell', [
     new_item_action_for_cell,
     duplicate_item_action,
-    view_definition_action,
     ds.models.action.divider,
     move_back_action,
     move_forward_action,
@@ -446,10 +445,27 @@
       display: 'New Query...',
       icon:    'fa fa-plus',
       handler:  function(action) {
+
       }
     })
   ])
 
 
+  /**
+   * Rename a query and update the UI to reflect the change.
+   */
+  function rename_query(old_name, new_name) {
+    var query = ds.manager.current.dashboard.definition.queries[old_name]
+    var updated_items = ds.manager.current.dashboard.definition.rename_query(old_name, new_name)
+    $('[data-ds-query-name="' + old_name + '"]').replaceWith(
+      ds.templates.edit['dashboard-query-row'](query)
+    )
+    if (updated_items && (updated_items.length > 0)) {
+      for (var i in updated_items) {
+        ds.manager.update_item_view(updated_items[i])
+      }
+    }
+    ds.app.refresh_mode()
+  }
 
 })()
