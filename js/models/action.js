@@ -10,6 +10,8 @@ ds.models.action = function(data) {
                        .property('options')
                        .property('handler')
                        .property('divider')
+                       .property('actions')
+                       .property('category')
                        .build()
 
   if (data) {
@@ -22,6 +24,8 @@ ds.models.action = function(data) {
     self.hide = data.hide
     self.divider = data.divider
     self.class = data.class
+    self.actions = data.actions
+    self.category = data.category
   }
 
   return self
