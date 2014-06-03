@@ -28,6 +28,7 @@ ds.models.dashboard = function(data) {
                          }
                        })
                        .build()
+  , next_id = 0
 
   self.visit = function(visitor) {
     visitor(self)
@@ -39,10 +40,11 @@ ds.models.dashboard = function(data) {
 
   self.update_index = function() {
     var index = self.index = {}
-    var id = 0
     self.visit(function(item) {
       if (item.is_dashboard_item) {
-        item.set_item_id('d' + id++)
+        if ( !item.item_id ) {
+          item.set_item_id('d' + next_id++)
+        }
         index[item.item_id] = item
         item.set_dashboard(self)
       }
