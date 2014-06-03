@@ -56,6 +56,26 @@ ds.models.dashboard_definition = function(data) {
     return self
   }
 
+  /**
+   * Rename a query and update any references to it.
+   */
+  self.rename_query = function(old_name, new_name) {
+    var query = self.queries[old_name]
+    if (!query)
+      return self
+    var updated = []
+    self.visit(function(item) {
+      if (item.query && (item.query.name == old_name)) {
+        item.query = new_name
+        updated.push(item)
+      }
+    })
+    query.name = new_name
+    self.add_query(new_name, query)
+    delete self.queries[old_name]
+    return updated
+  }
+
   self.toJSON = function() {
     var q = {}
     for (var key in self.queries) {

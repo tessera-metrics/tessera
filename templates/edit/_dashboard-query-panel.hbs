@@ -1,4 +1,4 @@
-<div class="ds-query-edit-panel">
+<div class="ds-query-edit-panel" id="ds-query-panel">
 
   <div class="row">
     <div class="col-md-12">
@@ -13,9 +13,7 @@
     <div class="col-md-12">
       <table class="table table-condensed table-striped">
         {{#each definition.queries}}
-          <tr>
-            <th>{{this.name}}</th><td>{{this.targets}}</td>
-          </tr>
+          {{> dashboard-query-row}}
         {{/each}}
       </table>
     </div>
