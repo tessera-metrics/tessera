@@ -51,8 +51,9 @@ ds.models.dashboard_definition = function(data) {
     return self
   }
 
-  self.add_query = function(name, target) {
-    self.queries[name] = target
+  self.add_query = function(query) {
+    self.queries[query.name] = query
+    query.options = self.options
     return self
   }
 
@@ -71,7 +72,7 @@ ds.models.dashboard_definition = function(data) {
       }
     })
     query.name = new_name
-    self.add_query(new_name, query)
+    self.add_query(query)
     delete self.queries[old_name]
     return updated
   }
