@@ -444,24 +444,12 @@
      Dashboard Query Panel
      ----------------------------------------------------------------------------- */
 
-  ds.actions.register('dashboard-queries', [
-    ds.models.action({
-      name:    'new-query',
-      display: 'New Query...',
-      icon:    'fa fa-plus',
-      handler:  function(action) {
-
-      }
-    })
-  ])
-
-
   /**
    * Rename a query and update the UI to reflect the change.
    */
-  function rename_query(old_name, new_name) {
-    var query = ds.manager.current.dashboard.definition.queries[old_name]
-    var updated_items = ds.manager.current.dashboard.definition.rename_query(old_name, new_name)
+  function rename_query(dashboard, old_name, new_name) {
+    var query = dashboard.definition.queries[old_name]
+    var updated_items = dashboard.definition.rename_query(old_name, new_name)
     $('[data-ds-query-name="' + old_name + '"]').replaceWith(
       ds.templates.edit['dashboard-query-row'](query)
     )
@@ -472,5 +460,39 @@
     }
     ds.app.refresh_mode()
   }
+
+  function add_query(dashboard, name, target) {
+    var query = ds.models.data.Query({name: name, targets: target})
+    dashboard.definition.add_query(query)
+    $("#ds-query-panel table").append(ds.templates.edit['dashboard-query-row'](query))
+    delete query.options.fire_only
+    query.load()
+  }
+
+  function new_query(dashboard) {
+    var name = "query" + Object.keys(dashboard.definition.queries).length
+    add_query(dashboard, name, 'randomWalkFunction("' + name + '")')
+  }
+
+  ds.actions.register('dashboard-queries', [
+    ds.models.action({
+      name:    'new-query',
+      display: 'New Query...',
+      icon:    'fa fa-plus',
+      handler:  function(action, dashboard) {
+        new_query(dashboard)
+      }
+    })
+  ])
+
+  $(document).on('click', '#ds-query-panel button', function(event) {
+    var element  = $(this)[0]
+    var name     = element.getAttribute('data-ds-action')
+    var action   = ds.actions.get('dashboard-queries', name)
+
+    if (action) {
+      action.handler(action, ds.manager.current.dashboard)
+    }
+  })
 
 })()
