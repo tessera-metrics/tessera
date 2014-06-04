@@ -326,7 +326,6 @@ td.ds-tooltip-value {
 .ds-edit-bar {
     padding: 4px;
     margin-bottom: .5em;
-    border: 1px solid transparent;
     border-radius: 4px;
 }
 
@@ -339,25 +338,8 @@ table.ds-property-sheet td {
 }
 
 /*
- * Section
- */
-
-.ds-badge-section {
-    background-color: #387AA3;
-}
-
-.ds-edit-bar-section {
-    background-color: #9DC2D3;
-    border-color: #387AA3;
-}
-
-/*
  * Row
  */
-
-.ds-badge-row {
-    background-color: #649EB9;
-}
 
 .ds-edit-bar-row {
     border-bottom-left-radius: 0;
@@ -365,12 +347,9 @@ table.ds-property-sheet td {
     border-top: none;
     border-left: none;
     border-right: none;
-    border-color: #649EB9;
-    background-color: #D9EDF7;
 }
 
 .ds-row.ds-edit {
-    border: 1px solid #649EB9;
     border-radius: 4px;
 }
 
@@ -378,35 +357,14 @@ table.ds-property-sheet td {
  * Cell
  */
 
-.ds-badge-cell {
-    background-color: #649EB9;
-    border: 1px solid #9DC2D3;
-}
-
 .ds-cell.ds-edit {
     padding-left: 20px;
     padding-right: 20px;
 }
 
-.ds-edit-bar-cell {
-    background-color: #E3F7FF;
-    border-color: #9DC2D3;
-}
-
 /*
  * Item
  */
-
-.ds-badge-item {
-    background-color: #D9EDF7;
-    color: #387AA3;
-    border: 1px solid #649EB9;
-}
-
-.ds-edit-bar-item {
-    background-color: #FAFAFA;
-    border-color: #649EB9;
-}
 
 .ds-badge-highlight {
     border-width: 3px;
