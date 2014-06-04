@@ -15,11 +15,12 @@ ds.models.heading = function(data) {
   ds.models.item.init(self, data)
 
   self.interactive_properties = function() {
-    return ['text', 'level', 'description'].map(function(name) {
-             return ds.models.property({name: name})
-           })
+    return [
+      ds.models.property({name:'heading_text', display: 'text'}),
+      ds.models.property({name:'level'}),
+      ds.models.property({name:'description'})
+    ]
   }
-
 
   self.toJSON = function() {
     var data = ds.models.item.json(self)

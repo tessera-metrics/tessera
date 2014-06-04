@@ -98,6 +98,10 @@ narrow unless we override */
    Application Styles
    ============================================================================= */
 
+.ds-source {
+    font-family: Consolas, "Andale Mono", "Courier New", monospace
+}
+
 .well-small .dashboard { padding-left: 18px; }
 
 .ds-height1 { height: 80px; }
