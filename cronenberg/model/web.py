@@ -391,6 +391,9 @@ class DashboardDefinition(DashboardContainer):
     def __init__(self, queries=None, items=None, item_type='dashboard_definition', **kwargs):
         super(DashboardDefinition, self).__init__(items=items, item_type='dashboard_definition', **kwargs)
         self.queries = queries or {}
+        for name, query in self.queries:
+            if isinstance(query, dict):
+                self.queries[name] = query.get('targets', [])
 
     @classmethod
     def from_json(cls, data):
