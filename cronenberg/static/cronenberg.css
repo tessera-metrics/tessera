@@ -371,13 +371,15 @@ table.ds-property-sheet td {
 }
 
 .ds-drag-handle {
-  margin-top: 8px;
-  margin-right: .5em;
-  color: rgba(75,75,75,0.25);
+    display: none;
+    margin-top: 8px;
+    margin-right: .5em;
+    color: rgba(75,75,75,0.25);
 }
 
 .ds-resize-handle {
-  margin-bottom: .5em;
-  margin-right: .5em;
-  color: rgba(75,75,75,0.25);
+    display: none;
+    margin-bottom: .5em;
+    margin-right: .5em;
+    color: rgba(75,75,75,0.25);
 }
