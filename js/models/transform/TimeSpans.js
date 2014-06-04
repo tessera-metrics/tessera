@@ -57,6 +57,7 @@ ds.models.transform.TimeSpans = function(options) {
                                                     until: span.until
                                                   }))
       var modified_item = ds.models.factory(item.toJSON())
+                            .set_item_id(undefined)
                             .set_query(modified_query)
                             .set_title(span.title)
 
