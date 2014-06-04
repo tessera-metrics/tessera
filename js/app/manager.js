@@ -435,6 +435,23 @@ ds.manager =
       });
     }
 
+    self.update_definition = function(dashboard, handler) {
+      $.ajax({
+        type: 'PUT',
+        url: dashboard.definition_href,
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(dashboard.definition)
+      }).done(function(data) {
+        if (handler && handler instanceof Function) {
+          handler(data);
+        }
+      }).error(function(xhr, status, error) {
+        self.error('Error updating dashboard definition ' + dashboard.title + '. ' + error);
+      });
+    }
+
+
 
     // Oh this is ugly
     self.duplicate = function(href, handler) {

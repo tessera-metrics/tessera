@@ -102,6 +102,13 @@ $(document).ready(function() {
     ds.manager.delete_current()
   })
 
+  $(document).on('click', '#ds-save-dashboard-button', function(e) {
+    ds.manager.update_definition(ds.manager.current.dashboard, function() {
+      ds.manager.success('Dashboard saved')
+    })
+  })
+
+
   $(document).on('click', '#ds-new-section-button', function(e) {
     var dash = ds.manager.current.dashboard
     dash.definition.add(ds.models.section())
