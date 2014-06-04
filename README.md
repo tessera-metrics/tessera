@@ -104,6 +104,7 @@ Server Side:
 * [Flask](http://flask.pocoo.org/)
 * [Flask-Script](http://packages.python.org/Flask-Script/)
 * [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/)
+* [SLQAlchemy](http://www.sqlalchemy.org/)
 * [requests](https://github.com/kennethreitz/requests)
 * [inflection](https://github.com/jpvanhal/inflection)
 
@@ -122,6 +123,8 @@ Client Side:
 * [nvd3](https://github.com/novus/nvd3) for interactive charts build
   on top of [d3](http://d3js.org). d3 is also used for value
   formatting in text.
+* [flot](http://www.flotcharts.org/) for alternative interactive chart
+  rendering.
 * [moment.js](http://momentjs.com/) for time parsing & formatting.
 * [bean.js](https://github.com/fat/bean) for events.
 * [handlebars.js](http://handlebarsjs.com/) for client side templating.
