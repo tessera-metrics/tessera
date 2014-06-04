@@ -128,6 +128,7 @@ ds.models.data.Query = function(data_) {
   }
 
   self.toJSON = function() {
+/*
     var json = {}
     if (self.name)
       json.name = self.name
@@ -140,6 +141,8 @@ ds.models.data.Query = function(data_) {
     if (self.options)
       json.options = self.options
     return json
+ */
+    return self.targets
   }
 
   return self;
