@@ -22,7 +22,7 @@ ds.models.markdown = function(data) {
   }
 
   self.interactive_properties = function() {
-    return ['title', 'text', 'css_class', 'style', 'height'].map(function(name) {
+    return ['title', 'markdown_text', 'css_class', 'style', 'height'].map(function(name) {
              return ds.models.property({name: name})
            })
   }
