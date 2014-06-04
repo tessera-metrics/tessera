@@ -15,6 +15,16 @@ ds.edit = ds.edit || {};
     $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .badge').removeClass('ds-badge-highlight')
   }
 
+  function get_edit_handler(property) {
+    if (property.editHandler && property.editHandler instanceof Function) {
+      return property.editHandler
+    }
+
+    return ds.templates.edit.properties[property.name]
+         ? ds.templates.edit.properties[property.name].editHandler
+         : undefined
+  }
+
   ds.edit.show_details = function(item_id) {
     $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').show()
     var item = ds.manager.current.dashboard.get_item(item_id)
@@ -28,9 +38,9 @@ ds.edit = ds.edit || {};
         var props = item.interactive_properties()
         for (var i in props) {
           var prop = props[i]
-          var ns = ds.templates.edit.properties
-          if (prop && ns[prop.name] && ns[prop.name].editHandler) {
-            ns[prop.name].editHandler(prop, item)
+          var handler = get_edit_handler(prop)
+          if (handler) {
+            handler(prop, item)
           }
         }
       }
