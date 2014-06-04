@@ -73,6 +73,9 @@ ds.models.dashboard = function(data) {
                     return ds.models.tag(t)
                   })
     }
+    self.visit(function(item) {
+      next_id++
+    })
   }
 
   /**
