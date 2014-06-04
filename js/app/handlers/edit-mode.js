@@ -1,3 +1,6 @@
+ds.edit = ds.edit || {};
+
+
 (function () {
 
   /**
@@ -5,21 +8,15 @@
    * for dashboard items.
    */
 
-  function toggle_details(item_id) {
-    var details = $('#' + item_id + '-details')
-    if (details.is(':visible')) {
-      hide_details(item_id)
-    } else {
-      show_details(item_id)
-    }
-  }
-
-  function hide_details(item_id) {
+  ds.edit.hide_details = function(item_id) {
     var details = $('#' + item_id + '-details')
     details.remove()
+    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').hide()
+    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .badge').removeClass('ds-badge-highlight')
   }
 
-  function show_details(item_id) {
+  ds.edit.show_details = function(item_id) {
+    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').show()
     var item = ds.manager.current.dashboard.get_item(item_id)
     var bar_id = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
     var details_id = '#' + item_id + '-details'
@@ -40,6 +37,19 @@
     }
   }
 
+  ds.edit.toggle_details = function(item_id) {
+    var details = $('#' + item_id + '-details')
+    if (details.is(':visible')) {
+      ds.edit.hide_details(item_id)
+    } else {
+      ds.edit.show_details(item_id)
+    }
+  }
+
+  ds.edit.details_visibility = function(item) {
+    return $('#' + item.item_id + '-details').is(':visible')
+  }
+
   /**
    * Event handlers to show & hide the action bar & property sheet for
    * dashboard items.
@@ -48,15 +58,12 @@
   $(document).on('mouseenter', '.ds-edit-bar .badge', function(event) {
     $(this).addClass('ds-badge-highlight')
     var id = $(this).attr('data-ds-item-id')
-    $('.ds-edit-bar[data-ds-item-id="' + id + '"] .btn-group').fadeIn()
-    show_details(id)
+    ds.edit.show_details(id)
   })
 
   $(document).on('mouseleave', '.ds-edit-bar', function(event) {
     var id = $(this).attr('data-ds-item-id')
-    $('.ds-edit-bar[data-ds-item-id="' + id + '"] .btn-group').fadeOut()
-    $('.ds-edit-bar[data-ds-item-id="' + id + '"] .badge').removeClass('ds-badge-highlight')
-    hide_details(id)
+    ds.edit.hide_details(id)
   })
 
   /**
@@ -80,7 +87,7 @@
     display: 'Properties',
     icon:    'fa fa-edit',
     handler: function(action, item) {
-      toggle_details(item_id)
+      ds.edit.toggle_details(item_id)
     }
   })
 
@@ -388,7 +395,8 @@
       handler:  function(action, item) {
         if (item.span) {
           item.span += 1
-          ds.manager.update_item_view(ds.manager.current.dashboard.find_parent(item))
+          // ds.manager.update_item_view(ds.manager.current.dashboard.find_parent(item))
+          ds.manager.update_item_view(item)
         }
       }
     }),
@@ -399,7 +407,8 @@
       handler:  function(action, item) {
         if (item.span) {
           item.span -= 1
-          ds.manager.update_item_view(ds.manager.current.dashboard.find_parent(item))
+          // ds.manager.update_item_view(ds.manager.current.dashboard.find_parent(item))
+          ds.manager.update_item_view(item)
         }
       }
     }),
