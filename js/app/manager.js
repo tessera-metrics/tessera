@@ -225,7 +225,6 @@ ds.manager =
     }
 
     self.handle_popstate = function(event) {
-      console.log(event)
       if (!event.state) {
         self.refresh()
         ds.app.switch_to_mode('standard')
@@ -275,7 +274,7 @@ ds.manager =
       $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
       dashboard.load_all()
 
-      if (transform.transform_type === 'presentation') {
+      if ((transform.transform_type === 'presentation') && (ds.app.current_mode != ds.app.Mode.EDIT)) {
         ds.app.switch_to_mode('transform')
       }
 
