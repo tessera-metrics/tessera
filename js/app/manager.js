@@ -211,7 +211,11 @@ ds.manager =
 
     self.update_item_view = function(item) {
       var element = $('#' + item.item_id)
+      var visible = ds.edit.details_visibility(item)
       element.replaceWith(item.render())
+      if (visible) {
+        ds.edit.show_details(item.item_id)
+      }
       item.visit(function(i) {
         if (i.query) {
           i.query.load({ fire_only: true })
