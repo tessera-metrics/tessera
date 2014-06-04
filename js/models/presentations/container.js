@@ -61,7 +61,6 @@ ds.models.container =
       self.remove = function(item) {
         var index = self.find(item)
         if (index < 0) {
-          console.log('container.remove: ' + item.item_id + ' not found')
           return false
         }
         self.items.splice(index, 1)
@@ -82,15 +81,12 @@ ds.models.container =
       self.move = function(item, increment) {
         var index = self.find(item)
         if (index < 0) {
-          console.log('container.move: ' + item.item_id + ' not found')
           return false
         }
         if (index == 0 && increment < 0) {
-          console.log('container.move: item already at start')
           return false
         }
         if (index == (self.length - 1) && increment > 0) {
-          console.log('container.move: item already at end')
           return false
         }
         var target_index = index + increment

@@ -29,7 +29,6 @@ $(document).on('click', '#ds-new-dashboard-create', function(e) {
     tags: tags,
     definition: ds.models.dashboard_definition()
   });
-  console.log(JSON.stringify(dashboard, null, '  '));
   ds.manager.create(dashboard, function(data) {
     window.location = data.view_href;
   });
