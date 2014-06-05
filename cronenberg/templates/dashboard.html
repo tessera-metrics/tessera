@@ -70,7 +70,11 @@
     <hr data-ds-hide="display"/>
   </div> <!-- container -->
 
-  <div class="ds-grid" id="dashboard"/>
+  <div class="ds-grid" id="dashboard"></div>
+
+  <!-- Hack: make sure we have room for comfortably accessing edit
+       menus at the bottom of the dashboard -->
+  <div data-ds-show="edit" style="height:600px;display:none;"></div>
 
   <script>
 
