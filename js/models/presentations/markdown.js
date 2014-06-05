@@ -15,6 +15,16 @@ ds.models.markdown = function(data) {
   }
   ds.models.item.init(self, data)
 
+  self.interactive_properties = function() {
+    return [
+      ds.models.property({name: 'title'}),
+      ds.models.property({name: 'markdown_text', display: 'text'}),
+      ds.models.property({name: 'style'}),
+      ds.models.property({name: 'height'}),
+      ds.models.property({name: 'css_class'})
+    ]
+  }
+
   self.toJSON = function() {
     return ds.models.item.json(self, {
       text: self.text,

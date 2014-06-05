@@ -72,6 +72,10 @@ narrow unless we override */
     width: 30em;
 }
 
+.ds-dashboard-info-edit-panel .tab-pane {
+    margin-top: 20px;
+}
+
 /* text boxes get formatted a little oddly by x-editable without resetting this */
 .editable-pre-wrapped {
     white-space: normal;
@@ -93,6 +97,10 @@ narrow unless we override */
 /* =============================================================================
    Application Styles
    ============================================================================= */
+
+.ds-source {
+    font-family: Consolas, "Andale Mono", "Courier New", monospace
+}
 
 .well-small .dashboard { padding-left: 18px; }
 
@@ -116,7 +124,7 @@ h1.page-title {
     margin-bottom: 0.125em;
 }
 
-.ds-grid .row {
+.ds-grid .ds-row {
     margin-bottom: 1.0em;
 }
 
@@ -313,4 +321,69 @@ td.ds-tooltip-value {
     padding-left: 8px;
     font-weight: bold;
     text-align: right;
+}
+
+/* -----------------------------------------------------------------------------
+ Edit mode headers
+ ----------------------------------------------------------------------------- */
+
+.ds-edit-bar {
+    padding: 4px;
+    margin-bottom: .5em;
+    border-radius: 4px;
+}
+
+.ds-edit-bar .table {
+    margin-bottom: .25em;
+}
+
+table.ds-property-sheet td {
+    padding: 4px;
+}
+
+/*
+ * Row
+ */
+
+.ds-edit-bar-row {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.ds-row.ds-edit {
+    border-radius: 4px;
+}
+
+/*
+ * Cell
+ */
+
+.ds-cell.ds-edit {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/*
+ * Item
+ */
+
+.ds-badge-highlight {
+    border-width: 3px;
+}
+
+.ds-drag-handle {
+    display: none;
+    margin-top: 8px;
+    margin-right: .5em;
+    color: rgba(75,75,75,0.25);
+}
+
+.ds-resize-handle {
+    display: none;
+    margin-bottom: .5em;
+    margin-right: .5em;
+    color: rgba(75,75,75,0.25);
 }

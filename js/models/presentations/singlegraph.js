@@ -18,6 +18,13 @@ ds.models.singlegraph = function(data) {
     self.height = 1
   }
 
+  self.interactive_properties = function() {
+    return ['format', 'transform'].map(function(name) {
+             return ds.models.property({name: name})
+           }).concat(ds.models.chart.interactive_properties(),
+                     ds.models.item.interactive_properties())
+  }
+
  self.toJSON = function() {
    return ds.models.chart.json(self, ds.models.item.json(self, {
      format: self.format,

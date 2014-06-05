@@ -1,0 +1,24 @@
+<div class="btn-group btn-group-sm" align="left">
+  <button type="button"
+    class="btn btn-default dropdown-toggle {{action.class}}"
+    data-toggle="dropdown"
+    title="{{action.display}}">
+    <i class="{{action.icon}}"></i> <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-left ds-edit-menu" role="menu">
+    {{#each action.actions}}
+      {{#if divider}}
+        <li class="divider" data-ds-show="{{show}}" data-ds-hide="{{hide}}"/>
+      {{else}}
+        <li class="{{class}}"
+          role="presentation"
+          data-ds-action="{{name}}"
+          data-ds-category="{{category}}"
+          data-ds-show="{{show}}"
+          data-ds-hide="{{hide}}">
+          <a role="menuitem" href="#"><i class="{{icon}}"></i> {{display}}</a>
+        </li>
+      {{/if}}
+    {{/each}}
+  </ul>
+</div>

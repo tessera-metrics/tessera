@@ -23,9 +23,9 @@ ds.actions =
       } else {
         var a = get_actions(category)
         if (typeof(a.index[action.name]) === 'undefined') {
-          a.list.push(action)
           a.index[action.name] = action
         }
+        a.list.push(action)
       }
       return self
     }

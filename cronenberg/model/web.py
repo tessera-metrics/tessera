@@ -55,7 +55,7 @@ class DashboardItem(object):
         CALLOUT_WARNING = 'callout_warning'
         CALLOUT_DANGER  = 'callout_danger'
 
-    def __init__(self, item_type, css_class='', style=Style.PLAIN, height=None, item_id=None, **kwargs):
+    def __init__(self, item_type, css_class=None, style=Style.PLAIN, height=None, item_id=None, **kwargs):
         self.item_type = item_type
         self.item_id = item_id
         self.css_class = css_class
@@ -64,6 +64,7 @@ class DashboardItem(object):
 
     @classmethod
     def from_json(cls, d):
+
         # TODO - this can be handled more cleanly and more
         # pythonically. E.g. with a dict, or some decorators, or a
         # metaclass.
@@ -131,7 +132,7 @@ class SingleStat(Presentation):
     """
     JS class: ds.models.singlestat
     """
-    def __init__(self, title, query, units='', format=',.3f', index=False, transform=Presentation.Transform.MEAN, **kwargs):
+    def __init__(self, title=None, query=None, units=None, format=',.3f', index=False, transform=Presentation.Transform.MEAN, **kwargs):
         super(SingleStat, self).__init__(query=query,
                                          item_type=kwargs.get('item_type', 'singlestat'),
                                          **kwargs)
@@ -169,7 +170,7 @@ class SummationTable(TablePresentation):
     """
     JS class: ds.models.summation_table
     """
-    def __init__(self, query, title=None, format=',.3f', striped=False, **kwargs):
+    def __init__(self, query=None, title=None, format=',.3f', striped=False, **kwargs):
         super(SummationTable, self).__init__(query=query,
                                              item_type='summation_table',
                                              **kwargs)
@@ -191,7 +192,7 @@ class ChartPresentation(Presentation):
 
     JS Class: ds.models.chart
     """
-    def __init__(self, title='', options=None, interactive=True, **kwargs):
+    def __init__(self, title=None, options=None, interactive=True, **kwargs):
         super(ChartPresentation, self).__init__(**kwargs)
         self.title = title
         self.options = options or {}
@@ -216,7 +217,7 @@ class SimpleTimeSeries(ChartPresentation):
 
     JS class: ds.models.simple_time_series
     """
-    def __init__(self, query, filled=False, **kwargs):
+    def __init__(self, query=None, filled=False, **kwargs):
         super(SimpleTimeSeries, self).__init__(query=query,
                                                item_type='simple_time_series',
                                                **kwargs)
@@ -234,7 +235,7 @@ class SingleGraph(ChartPresentation):
 
     JS class: ds.models.single_graph
     """
-    def __init__(self, query, format=',.1s', transform=Presentation.Transform.MEAN, **kwargs):
+    def __init__(self, query=None, format=',.1s', transform=Presentation.Transform.MEAN, **kwargs):
         super(SingleGraph, self).__init__(query=query,
                                           item_type=kwargs.get('item_type', 'singlegraph'),
                                           **kwargs)
@@ -252,7 +253,7 @@ class StandardTimeSeries(ChartPresentation):
 
     JS class: ds.models.standard_time_series
     """
-    def __init__(self, query, **kwargs):
+    def __init__(self, query=None, **kwargs):
         super(StandardTimeSeries, self).__init__(query=query,
                                                  item_type='standard_time_series',
                                                  **kwargs)
@@ -267,7 +268,7 @@ class StackedAreaChart(ChartPresentation):
 
     JS class: ds.models.stacked_area_chart
     """
-    def __init__(self, query, **kwargs):
+    def __init__(self, query=None, **kwargs):
         super(StackedAreaChart, self).__init__(query=query,
                                                item_type='stacked_area_chart',
                                                **kwargs)
@@ -357,12 +358,12 @@ class Separator(DashboardItem):
 
     @classmethod
     def from_json(cls, d):
-        return Separator(css_class=d['css_class'])
+        return Separator(**d)
 
 
 class Heading(DashboardItem):
     """A large text label."""
-    def __init__(self, text, level=1, description='', **kwargs):
+    def __init__(self, text=None, level=1, description=None, **kwargs):
         super(Heading, self).__init__(item_type='heading', **kwargs)
         self.text = text
         self.level = level
@@ -370,14 +371,10 @@ class Heading(DashboardItem):
 
     @classmethod
     def from_json(cls, d):
-        return Heading(text=d['text'],
-                       level=d['level'],
-                       description = d.get('description', ''),
-                       css_class=d['css_class'])
-
+        return Heading(**d)
 
 class Markdown(DashboardItem):
-    def __init__(self, text, raw=False, **kwargs):
+    def __init__(self, text=None, raw=False, **kwargs):
         super(Markdown, self).__init__(item_type='markdown', **kwargs)
         self.text = text
         self.raw = raw
@@ -391,6 +388,10 @@ class DashboardDefinition(DashboardContainer):
     def __init__(self, queries=None, items=None, item_type='dashboard_definition', **kwargs):
         super(DashboardDefinition, self).__init__(items=items, item_type='dashboard_definition', **kwargs)
         self.queries = queries or {}
+        for name in self.queries.keys():
+            query = self.queries[name]
+            if isinstance(query, dict):
+                self.queries[name] = query.get('targets', [])
 
     @classmethod
     def from_json(cls, data):

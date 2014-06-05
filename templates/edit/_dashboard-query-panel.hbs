@@ -1,0 +1,22 @@
+<div class="ds-query-edit-panel" id="ds-query-panel">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="btn-group btn-group-sm">
+        {{actions 'dashboard-queries' 'button'}}
+      </div>
+      <br/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-condensed table-striped">
+        {{#each definition.queries}}
+          {{> dashboard-query-row}}
+        {{/each}}
+      </table>
+    </div>
+  </div>
+
+</div>

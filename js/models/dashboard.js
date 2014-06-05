@@ -16,7 +16,7 @@ ds.models.dashboard = function(data) {
                        .property('description')
                        .property('definition', {
                          update: function() {
-                           self._build_index()
+                           self.update_index()
                          }
                        })
                        .property('tags', {
@@ -28,6 +28,7 @@ ds.models.dashboard = function(data) {
                          }
                        })
                        .build()
+  , next_id = 0
 
   self.visit = function(visitor) {
     visitor(self)
@@ -37,20 +38,27 @@ ds.models.dashboard = function(data) {
     return self
   }
 
-  self._build_index = function() {
+  self.reindex = function() {
+    next_id = 0
+    self.visit(function(item) {
+      item.item_id = 'd' + ++next_id
+      console.log(item.item_id + ' / ' + item.item_type)
+    })
+  }
+
+  self.update_index = function() {
     var index = self.index = {}
-    var id = 0
     self.visit(function(item) {
       if (item.is_dashboard_item) {
-        item.set_item_id('d' + id++)
+        if ( !item.item_id ) {
+          item.set_item_id('d' + next_id++)
+        }
         index[item.item_id] = item
         item.set_dashboard(self)
       }
     })
     return self
   }
-
-
 
   self.index = {}
   if (data) {
@@ -73,6 +81,9 @@ ds.models.dashboard = function(data) {
                     return ds.models.tag(t)
                   })
     }
+    self.visit(function(item) {
+      next_id++
+    })
   }
 
   /**
@@ -83,9 +94,19 @@ ds.models.dashboard = function(data) {
     return self.index[id]
   }
 
+  self.find_parent = function(item_or_id) {
+    var parent = undefined
+    self.visit(function(item) {
+      if (item.is_container && item.contains(item_or_id)) {
+        parent = item
+      }
+    })
+    return parent
+  }
+
   self.set_items = function(items) {
     self.definition.items = items
-    self._build_index()
+    self.update_index()
     return self
   }
 

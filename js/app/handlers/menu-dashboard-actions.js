@@ -12,7 +12,7 @@ ds.actions.register('dashboard-list-actions', [
     display: 'Edit...',
     icon:    'fa fa-edit',
     handler: function(action, context) {
-      var url = URI(context.view_href).setQuery('edit', true).href()
+      var url = URI(context.view_href).setQuery('mode', ds.app.Mode.EDIT).href()
       window.location = url
     }
   }),
