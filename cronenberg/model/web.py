@@ -55,7 +55,7 @@ class DashboardItem(object):
         CALLOUT_WARNING = 'callout_warning'
         CALLOUT_DANGER  = 'callout_danger'
 
-    def __init__(self, item_type, css_class='', style=Style.PLAIN, height=None, item_id=None, **kwargs):
+    def __init__(self, item_type, css_class=None, style=Style.PLAIN, height=None, item_id=None, **kwargs):
         self.item_type = item_type
         self.item_id = item_id
         self.css_class = css_class
@@ -132,7 +132,7 @@ class SingleStat(Presentation):
     """
     JS class: ds.models.singlestat
     """
-    def __init__(self, title=None, query=None, units='', format=',.3f', index=False, transform=Presentation.Transform.MEAN, **kwargs):
+    def __init__(self, title=None, query=None, units=None, format=',.3f', index=False, transform=Presentation.Transform.MEAN, **kwargs):
         super(SingleStat, self).__init__(query=query,
                                          item_type=kwargs.get('item_type', 'singlestat'),
                                          **kwargs)
@@ -192,7 +192,7 @@ class ChartPresentation(Presentation):
 
     JS Class: ds.models.chart
     """
-    def __init__(self, title='', options=None, interactive=True, **kwargs):
+    def __init__(self, title=None, options=None, interactive=True, **kwargs):
         super(ChartPresentation, self).__init__(**kwargs)
         self.title = title
         self.options = options or {}
@@ -363,7 +363,7 @@ class Separator(DashboardItem):
 
 class Heading(DashboardItem):
     """A large text label."""
-    def __init__(self, text='', level=1, description='', **kwargs):
+    def __init__(self, text=None, level=1, description=None, **kwargs):
         super(Heading, self).__init__(item_type='heading', **kwargs)
         self.text = text
         self.level = level
@@ -374,7 +374,7 @@ class Heading(DashboardItem):
         return Heading(**d)
 
 class Markdown(DashboardItem):
-    def __init__(self, text='', raw=False, **kwargs):
+    def __init__(self, text=None, raw=False, **kwargs):
         super(Markdown, self).__init__(item_type='markdown', **kwargs)
         self.text = text
         self.raw = raw
