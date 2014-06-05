@@ -112,6 +112,7 @@ ds.edit = ds.edit || {};
   ds.app.add_mode_handler(ds.app.Mode.EDIT, {
     enter: function() {
       $('.ds-section, .ds-cell, .ds-row').addClass('ds-edit')
+      ds.edit.edit_queries()
     },
     exit: function() {
       $('.ds-section, .ds-cell, .ds-row').removeClass('ds-edit')
@@ -506,6 +507,7 @@ ds.edit = ds.edit || {};
         ds.manager.update_item_view(updated_items[i])
       }
     }
+    ds.edit.edit_queries()
     ds.app.refresh_mode()
   }
 
@@ -515,6 +517,7 @@ ds.edit = ds.edit || {};
     $("#ds-query-panel table").append(ds.templates.edit['dashboard-query-row'](query))
     delete query.options.fire_only
     query.load()
+    ds.edit.edit_queries()
   }
 
   function new_query(dashboard) {
