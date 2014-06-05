@@ -60,6 +60,35 @@ ds.edit = ds.edit || {};
     return $('#' + item.item_id + '-details').is(':visible')
   }
 
+  ds.edit.edit_queries = function() {
+    /* Query names */
+    $('th.ds-query-name').each(function(index, e) {
+      var element = $(e)
+      var query_name = e.getAttribute('data-ds-query-name')
+      element.editable({
+        type: 'text',
+        value: query_name,
+        success: function(ignore, newValue) {
+          rename_query(ds.manager.current.dashboard, query_name, newValue)
+        }
+      })
+    })
+      /* Query targets */
+      $('td.ds-query-target').each(function(index, e) {
+        var element = $(e)
+        var query_name = e.getAttribute('data-ds-query-name')
+        element.editable({
+          type: 'textarea',
+          value: element.text() || '',
+          success: function(ignore, newValue) {
+            var query = ds.manager.current.dashboard.definition.queries[query_name]
+            query.targets = [newValue]
+            query.load()
+          }
+        })
+      })
+  }
+
   /**
    * Event handlers to show & hide the action bar & property sheet for
    * dashboard items.
