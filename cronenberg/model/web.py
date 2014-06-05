@@ -64,6 +64,7 @@ class DashboardItem(object):
 
     @classmethod
     def from_json(cls, d):
+
         # TODO - this can be handled more cleanly and more
         # pythonically. E.g. with a dict, or some decorators, or a
         # metaclass.
@@ -357,7 +358,7 @@ class Separator(DashboardItem):
 
     @classmethod
     def from_json(cls, d):
-        return Separator(css_class=d.get('css_class', None))
+        return Separator(**d)
 
 
 class Heading(DashboardItem):
@@ -370,11 +371,7 @@ class Heading(DashboardItem):
 
     @classmethod
     def from_json(cls, d):
-        return Heading(text=d.get('text', ''),
-                       level=d.get('level', 1),
-                       description = d.get('description', ''),
-                       css_class=d.get('css_class', None))
-
+        return Heading(**d)
 
 class Markdown(DashboardItem):
     def __init__(self, text='', raw=False, **kwargs):
