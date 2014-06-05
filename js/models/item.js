@@ -9,7 +9,8 @@ ds.models.item =
       if (data) {
         if (data.item_type)
           target.item_type = data.item_type
-        target.item_id = data.item_id
+        if (data.item_id)
+          target.item_id = data.item_id
         target.query = data.query
         target.css_class = data.css_class
         target.height = data.height
