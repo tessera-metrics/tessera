@@ -195,3 +195,66 @@ background-color: #222;
     background-color: #444;
     border: 1px solid #666;
 }
+
+
+/* -----------------------------------------------------------------------------
+ Edit mode headers
+ ----------------------------------------------------------------------------- */
+
+/*
+ * Section
+ */
+
+.ds-badge-section {
+    background-color: #333;
+}
+
+.ds-edit-bar-section {
+    background-color: #111;
+    border: 1px solid #444;
+}
+
+/*
+ * Row
+ */
+
+.ds-badge-row {
+    background-color: #555;
+}
+
+.ds-edit-bar-row {
+    border: 1px solid #555;
+    background-color: #222;
+}
+
+.ds-row.ds-edit {
+    border: 1px solid #555;
+}
+
+/*
+ * Cell
+ */
+
+.ds-badge-cell {
+    border: 1px solid #555;
+}
+
+.ds-edit-bar-cell {
+    background-color: #444;
+    border: 1px solid #777;
+}
+
+/*
+ * Item
+ */
+
+.ds-badge-item {
+    background-color: #777;
+    color: white;
+    border: 1px solid #AAA;
+}
+
+.ds-edit-bar-item {
+    background-color: #555;
+    border: 1px solid #777;
+}
