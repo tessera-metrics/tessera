@@ -17,14 +17,12 @@ ds.models.markdown = function(data) {
 
   self.interactive_properties = function() {
     return [
-      ds.models.property({name: 'text'})
-    ].concat(ds.models.item.interactive_properties())
-  }
-
-  self.interactive_properties = function() {
-    return ['title', 'markdown_text', 'css_class', 'style', 'height'].map(function(name) {
-             return ds.models.property({name: name})
-           })
+      ds.models.property({name: 'title'}),
+      ds.models.property({name: 'markdown_text', display: 'text'}),
+      ds.models.property({name: 'style'}),
+      ds.models.property({name: 'height'}),
+      ds.models.property({name: 'css_class'})
+    ]
   }
 
   self.toJSON = function() {
