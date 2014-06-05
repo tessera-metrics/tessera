@@ -38,6 +38,14 @@ ds.models.dashboard = function(data) {
     return self
   }
 
+  self.reindex = function() {
+    next_id = 0
+    self.visit(function(item) {
+      item.item_id = 'd' + ++next_id
+      console.log(item.item_id + ' / ' + item.item_type)
+    })
+  }
+
   self.update_index = function() {
     var index = self.index = {}
     self.visit(function(item) {
