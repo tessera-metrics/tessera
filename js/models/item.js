@@ -9,7 +9,8 @@ ds.models.item =
       if (data) {
         if (data.item_type)
           target.item_type = data.item_type
-        target.item_id = data.item_id
+        if (data.item_id)
+          target.item_id = data.item_id
         target.query = data.query
         target.css_class = data.css_class
         target.height = data.height
@@ -66,6 +67,10 @@ ds.models.item =
         }
       }
 
+      self.visit = function(visitor) {
+        visitor(self)
+      }
+
       /**
        * Various visitors for convenience.
        */
@@ -119,3 +124,25 @@ ds.models.item =
       json: json
     }
   })()
+
+ds.models.item.Style = {
+  WELL:            'well',
+  CALLOUT_NEUTRAL: 'callout_neutral',
+  CALLOUT_INFO:    'callout_info',
+  CALLOUT_SUCCESS: 'callout_success',
+  CALLOUT_WARNING: 'callout_warning',
+  CALLOUT_DANGER:  'callout_danger'
+}
+
+ds.models.item.Transform = {
+  SUM: 'sum',
+  MIN: 'min',
+  MAX: 'max',
+  MEAN: 'mean'
+}
+
+ds.models.item.interactive_properties = function() {
+  return ['query', 'css_class', 'height'].map(function(name) {
+           return ds.models.property({name: name})
+         })
+}

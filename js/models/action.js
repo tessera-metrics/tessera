@@ -6,9 +6,12 @@ ds.models.action = function(data) {
                        .property('icon')
                        .property('show')
                        .property('hide')
+                       .property('class')
                        .property('options')
                        .property('handler')
                        .property('divider')
+                       .property('actions')
+                       .property('category')
                        .build()
 
   if (data) {
@@ -20,11 +23,12 @@ ds.models.action = function(data) {
     self.show = data.show
     self.hide = data.hide
     self.divider = data.divider
-  }
-
-  self.invoke = function(item) {
-    self.handler(item, self)
+    self.class = data.class
+    self.actions = data.actions
+    self.category = data.category
   }
 
   return self
 }
+
+ds.models.action.divider = ds.models.action({divider:true})

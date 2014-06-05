@@ -46,6 +46,7 @@ ds.models.transform.TimeShift = function(options) {
                                           }))
 
       var modified_item = ds.models.factory(item.toJSON())
+                            .set_item_id(undefined)
                             .set_query(modified_query)
                             .set_title(shift.title)
 

@@ -59,6 +59,21 @@ Handlebars.registerHelper('container_class', function(item) {
   }
 });
 
+Handlebars.registerHelper('ds-edit-bar', function(item) {
+  var context = { item: item }
+  var template = undefined
+  if (item.item_type === 'cell') {
+    template = ds.templates["ds-edit-bar-cell"]
+  } else if (item.item_type === 'row') {
+    template = ds.templates["ds-edit-bar-row"]
+  } else if (item.item_type === 'section') {
+    template = ds.templates["ds-edit-bar-section"]
+  } else {
+    template = ds.templates["ds-edit-bar-item"]
+  }
+  return template ? new Handlebars.SafeString(template(context)) : ''
+})
+
 Handlebars.registerHelper('style_class', function(item) {
   if (item.style) {
     switch (item.style) {
@@ -86,12 +101,32 @@ Handlebars.registerHelper('item', function(item) {
   return new Handlebars.SafeString(item.render())
 });
 
-Handlebars.registerHelper('actions', function(category) {
+Handlebars.registerHelper('interactive_property', function(property, item) {
+  var html = '<span id="' + item.item_id + property.name + '">'
+           + property.render(item)
+           + '</span>'
+  return new Handlebars.SafeString(html)
+})
+
+
+Handlebars.registerHelper('actions', function(category, type) {
+  var template = ds.templates.action
+  if (type === 'button') {
+    template = ds.templates.action_button
+  }
   var actions = ds.actions.list(category)
   if (actions && (actions instanceof Array)) {
     var html = ''
     for (var i in actions) {
-      html += ds.templates.action(actions[i])
+      var action = actions[i]
+      var tmpl = template
+      if (action.actions) {
+        tmpl = ds.templates["action-menu-button"]
+      }
+      html += tmpl({
+        category: category,
+        action: action
+      })
     }
     return new Handlebars.SafeString(html)
   } else {

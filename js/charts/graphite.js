@@ -40,7 +40,7 @@ ds.charts.graphite =
     }
 
     self.simple_line_chart_url = function(item, opt) {
-        var options = ds.extend(opt || {}, getColors())
+        var options = ds.extend(opt || {}, item.options, getColors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -50,7 +50,7 @@ ds.charts.graphite =
             .setQuery('hideLegend', 'true')
             .setQuery('hideAxes', 'true')
             .setQuery('margin', '0')
-            .setQuery('colorList', ds.charts.util.get_palette(item.options.palette).join())
+            .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .setQuery('title', options.showTitle ? item.title : '')
             .href();
         return png_url;
@@ -65,7 +65,7 @@ ds.charts.graphite =
     }
 
     self.standard_line_chart_url = function(item, opt) {
-        var options = ds.extend(opt || {}, getColors())
+        var options = ds.extend(opt || {}, item.options, getColors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -76,8 +76,8 @@ ds.charts.graphite =
             .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
             .setQuery('hideLegend', options.hideLegend || 'false')
             .setQuery('hideAxes', options.hideAxes || 'false')
-            .setQuery('colorList', ds.charts.util.get_palette(item.options.palette).join())
-            .setQuery('vtitle', item.options.yAxisLabel)
+            .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
+            .setQuery('vtitle', options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
             .href();
         return png_url;
@@ -92,7 +92,7 @@ ds.charts.graphite =
     }
 
     self.simple_area_chart_url = function(item, opt) {
-        var options = ds.extend(opt || {}, getColors())
+        var options = ds.extend(opt || {}, item.options, getColors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -105,7 +105,7 @@ ds.charts.graphite =
             .setQuery('hideAxes', 'true')
             .setQuery('areaMode', 'stacked')
             .setQuery('margin', '0')
-            .setQuery('colorList', ds.charts.util.get_palette(item.options.palette).join())
+            .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .href();
         return png_url;
     }
@@ -119,7 +119,7 @@ ds.charts.graphite =
     }
 
     self.stacked_area_chart_url = function(item, opt) {
-        var options = ds.extend(opt || {}, getColors())
+        var options = ds.extend(opt || {}, item.options, getColors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -131,8 +131,8 @@ ds.charts.graphite =
             .setQuery('hideLegend', options.hideLegend || 'false')
             .setQuery('hideAxes', options.hideAxes || 'false')
             .setQuery('areaMode', 'stacked')
-            .setQuery('colorList', ds.charts.util.get_palette(item.options.palette).join())
-            .setQuery('vtitle', item.options.yAxisLabel)
+            .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
+            .setQuery('vtitle', options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
             .href();
         return png_url;
@@ -163,8 +163,8 @@ ds.charts.graphite =
         var composer_url = URI(item.query.url())
             .filename('composer')
             .removeQuery('format')
-            .setQuery('colorList', ds.charts.util.get_palette(item.options.palette).join())
-            .setQuery('vtitle', item.options.yAxisLabel)
+            .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
+            .setQuery('vtitle', options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '');
         if (item.item_type === 'stacked_area_chart') {
             composer_url.setQuery('areaMode', 'stacked');

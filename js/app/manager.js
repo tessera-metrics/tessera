@@ -94,12 +94,9 @@ ds.manager =
     }
 
     /**
-       * Recurse through the presentation tree, giving each dashboard
-       * item an element ID, and checking to see if we have any
-       * components that require the raw data queries to be made.
-       *
-       * Use dashboard.visit() when we convert to using the model
-       * objects.
+     * Recurse through the presentation tree, giving each dashboard
+     * item an element ID, and checking to see if we have any
+     * components that require the raw data queries to be made.
      */
     self._prep_items = function(dashboard, holder, interactive) {
       dashboard.visit(function(item) {
@@ -109,6 +106,9 @@ ds.manager =
         if (item.requires_data) {
           holder.raw_data_required = true;
         }
+        // item.on('change', function(e) {
+        //   self.update_item_view(e.target)
+        // })
       });
     }
 
@@ -138,6 +138,7 @@ ds.manager =
       }
       context.url = url.href()
       context.variables = variables
+      context.params = params
 
       if (typeof(options.interactive) != 'undefined') {
         context.interactive = options.interactive
@@ -200,19 +201,30 @@ ds.manager =
           });
 
           bean.fire(self, 'ds-dashboard-rendered', dashboard);
+
+          if (context.params.mode) {
+            ds.app.switch_to_mode(context.params.mode)
+          }
         });
         return self;
     }
 
     self.update_item_view = function(item) {
       var element = $('#' + item.item_id)
+      var visible = ds.edit.details_visibility(item)
       element.replaceWith(item.render())
-      item.query.load({ fire_only: true })
+      if (visible) {
+        ds.edit.show_details(item.item_id)
+      }
+      item.visit(function(i) {
+        if (i.query) {
+          i.query.load({ fire_only: true })
+        }
+      })
       ds.app.refresh_mode()
     }
 
     self.handle_popstate = function(event) {
-      console.log(event)
       if (!event.state) {
         self.refresh()
         ds.app.switch_to_mode('standard')
@@ -262,7 +274,7 @@ ds.manager =
       $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
       dashboard.load_all()
 
-      if (transform.transform_type === 'presentation') {
+      if ((transform.transform_type === 'presentation') && (ds.app.current_mode != ds.app.Mode.EDIT)) {
         ds.app.switch_to_mode('transform')
       }
 
@@ -425,6 +437,23 @@ ds.manager =
         self.error('Error updating dashboard ' + dashboard.title + '. ' + error);
       });
     }
+
+    self.update_definition = function(dashboard, handler) {
+      $.ajax({
+        type: 'PUT',
+        url: dashboard.definition_href,
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(dashboard.definition)
+      }).done(function(data) {
+        if (handler && handler instanceof Function) {
+          handler(data);
+        }
+      }).error(function(xhr, status, error) {
+        self.error('Error updating dashboard definition ' + dashboard.title + '. ' + error);
+      });
+    }
+
 
 
     // Oh this is ugly

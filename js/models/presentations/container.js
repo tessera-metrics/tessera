@@ -24,6 +24,23 @@ ds.models.container =
 
       var self = builder.target
 
+      self.find = function(item_or_id) {
+        var id = item_or_id
+        if (item_or_id instanceof Object && item_or_id.item_id) {
+          id = item_or_id.item_id
+        }
+        for (var i in self.items) {
+          if (self.items[i].item_id === id) {
+            return Number(i)
+          }
+        }
+        return -1
+      }
+
+      self.contains = function(item_or_id) {
+        return self.find(item_or_id) > -1
+      }
+
       self.visit = function(visitor) {
         visitor(self)
         self.items.forEach(function(item) {
@@ -39,6 +56,44 @@ ds.models.container =
       self.add = function(item) {
         self.items.push(item)
         return self
+      }
+
+      self.remove = function(item) {
+        var index = self.find(item)
+        if (index < 0) {
+          return false
+        }
+        self.items.splice(index, 1)
+        return true
+      }
+
+      /**
+       * Move the position of a child item in the list, either up or
+       * down one position. The position will not wrap - if the child
+       * is a the beginning or end of the list, it will not be moved.
+       *
+       * @param item {object} A dashboard item. Must be a child of
+       *                      this container.
+       * @param increment {number} Either 1 to move the element up one
+       *                           place, or -1 to move it back one
+       *                           element.
+       */
+      self.move = function(item, increment) {
+        var index = self.find(item)
+        if (index < 0) {
+          return false
+        }
+        if (index == 0 && increment < 0) {
+          return false
+        }
+        if (index == (self.length - 1) && increment > 0) {
+          return false
+        }
+        var target_index = index + increment
+        var tmp = self.items[target_index]
+        self.items[target_index] = item
+        self.items[index] = tmp
+        return true
       }
 
       return builder

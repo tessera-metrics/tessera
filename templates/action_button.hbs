@@ -1,0 +1,12 @@
+{{#if action.divider}}
+{{else}}
+  <button class="btn {{#if action.class}}{{action.class}}{{else}}btn-default{{/if}}"
+    data-ds-action="{{action.name}}"
+    data-ds-category="{{category}}"
+    data-ds-show="{{action.show}}"
+    data-ds-hide="{{action.hide}}"
+    data-toggle="tooltip"
+    title="{{action.display}}">
+    <i class="{{action.icon}}"></i>
+  </button>
+{{/if}}

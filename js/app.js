@@ -46,7 +46,9 @@ ds.app =
      * An alias for switch_to_mode(current_mode)
      */
     self.refresh_mode = function() {
-      return self.switch_to_mode(self.current_mode)
+      self.switch_to_mode(self.current_mode, 0)
+      bean.fire(self, 'ds-refresh:' + self.current_mode)
+      return self
     }
 
     /**
@@ -61,11 +63,12 @@ ds.app =
      *
      * @param mode {string} A mode name
      */
-    self.switch_to_mode = function(mode) {
+    self.switch_to_mode = function(mode, delay) {
+      delay = typeof(delay) === 'undefined' ? ANIMATION_DELAY : delay
       if (mode === self.current_mode && mode_stack.length > 0) {
         var state = mode_stack[mode_stack.length - 1]
-        state.hidden = $('[data-ds-hide~="' + mode + '"]').hide(ANIMATION_DELAY)
-        state.shown = $('[data-ds-show~="' + mode + '"]').show(ANIMATION_DELAY)
+        state.hidden = $('[data-ds-hide~="' + mode + '"]').hide(delay)
+        state.shown = $('[data-ds-show~="' + mode + '"]').show(delay)
       } else {
         do_exit_mode(self.current_mode)
         do_enter_mode(mode)
@@ -105,6 +108,9 @@ ds.app =
       }
       if (options.exit && (options.exit instanceof Function)) {
         bean.on(self, 'ds-exit:' + mode, options.exit)
+      }
+      if (options.refresh && (options.refresh instanceof Function)) {
+        bean.on(self, 'ds-refresh:' + mode, options.refresh)
       }
       return self
     }

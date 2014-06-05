@@ -1,0 +1,11 @@
+<table class="ds-property-sheet">
+  <tbody>
+    <tr><th>Property</th><th>Value</th></tr>
+    {{#each item.interactive_properties}}
+      <tr>
+        <td>{{#if display}}{{display}}{{else}}{{name}}{{/if}}</td>
+        <td data-ds-property-name="{{name}}">{{interactive_property this ../item}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
