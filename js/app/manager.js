@@ -204,6 +204,8 @@ ds.manager =
 
           if (context.params.mode) {
             ds.app.switch_to_mode(context.params.mode)
+          } else {
+            ds.app.refresh_mode()
           }
         });
         return self;
@@ -283,7 +285,8 @@ ds.manager =
 
     self.refresh = function() {
       if (self.current) {
-        self.load(self.current.url, self.current.element);
+        self.load(self.current.url, self.current.element)
+        ds.app.refresh_mode()
       }
     }
 
@@ -322,7 +325,7 @@ ds.manager =
         bean.fire(self, cronenberg.events.RANGE_CHANGED, {
             from: from, until: until
         });
-        self.refresh();
+      self.refresh()
     }
 
     self.ranges = {
