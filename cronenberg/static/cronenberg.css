@@ -387,3 +387,7 @@ table.ds-property-sheet td {
     margin-right: .5em;
     color: rgba(75,75,75,0.25);
 }
+
+.ds-query-target {
+    font-family: Consolas, "Andale Mono", "Courier New", monospace
+}
