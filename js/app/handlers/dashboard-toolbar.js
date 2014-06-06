@@ -3,6 +3,9 @@ function update_dashboard_metadata(dashboard) {
   delete dash.definition
   ds.manager.update(dash)
 }
+/*
+ * Logic for the dashboard-toolbar.html template.
+ */
 
 ds.app.add_mode_handler('edit', {
   enter: function() {

@@ -1,3 +1,7 @@
+/*
+ * Logic for the dashboard-create.html template.
+ */
+
 $(document).ready(function() {
   $('#ds-dashboard-tags').tagsManager({
     tagsContainer: '.ds-tag-holder',

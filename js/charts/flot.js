@@ -1,5 +1,9 @@
 ds.charts = ds.charts || {}
 
+/**
+ * Chart provider for rendering dashboard chart with flot, which
+ * provides Canvas-based interactivity.
+ */
 ds.charts.flot =
   (function() {
 

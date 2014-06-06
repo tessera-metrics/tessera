@@ -1,3 +1,7 @@
+/**
+ * A simple registry for organizing and retrieving sets of actions to
+ * populate menus and toolbars in the UI.
+ */
 ds.actions =
   (function() {
     "use strict"
