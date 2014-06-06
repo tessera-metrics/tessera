@@ -15,4 +15,5 @@
       $("ul.ds-refresh-menu li[data-ds-interval]").removeClass('active');
       $("ul.ds-refresh-menu li[data-ds-interval=" + interval + "]").addClass('active');
     }
+    return false
   });
