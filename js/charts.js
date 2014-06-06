@@ -1,3 +1,17 @@
+/**
+ * ds.charts exposes the generic interface to rendering a chart for a
+ * dashboard item. It delegates all calls to the currently assigned
+ * implementation in the impl property.
+ *
+ * Chart providers must each implement the following functions:
+ *
+ *   * simple_line_chart
+ *   * standard_line_chart
+ *   * simple_area_chart
+ *   * stacked_area_chart
+ *   * donut_chart
+ *   * process_series
+ */
 ds.charts =
   (function () {
 
@@ -7,26 +21,62 @@ ds.charts =
 
     self.DEFAULT_PALETTE = 'spectrum6'
 
+    /**
+     * Render a minimal line chart into element.
+     */
     self.simple_line_chart = function(element, item, query) {
       return self.impl.simple_line_chart(element, item, query)
     }
 
+    /**
+     * Render a complete line chart into element.
+     */
     self.standard_line_chart = function(element, item, query) {
       return self.impl.standard_line_chart(element, item, query)
     }
 
+    /**
+     * Render a minimal area chart into element.
+     */
     self.simple_area_chart = function(element, item, query) {
       return self.impl.simple_area_chart(element, item, query)
     }
 
+    /**
+     * Render a complete area chart into element.
+     */
     self.stacked_area_chart = function(element, item, query) {
       return self.impl.stacked_area_chart(element, item, query)
     }
 
+    /**
+     * Render a donut/pie chart into element.
+     */
     self.donut_chart = function(element, item, query) {
       return self.impl.donut_chart(element, item, query)
     }
 
+    /**
+     * Convert the JSON data series returned from Graphite into the
+     * format used by the current chart provider.
+     *
+     * @param type {string} Override the currently configured chart
+     *                      provider.
+     */
+    self.process_series = function(series, type) {
+      if (type) {
+        return ds.charts[type].process_series(series)
+      }
+      return self.impl.process_series(series)
+    }
+
+    /**
+     * Process a data series or array of data series from Graphite's
+     * JSON format to the format expected by the charting provider.
+     *
+     * @param type {string} Override the currently configured chart
+     *                      provider.
+     */
     self.process_data = function(data, type) {
       if (data instanceof Array) {
         return data.map(function(series) {
@@ -37,17 +87,14 @@ ds.charts =
       }
     }
 
-    self.process_series = function(series, type) {
-      if (type) {
-        return ds.charts[type].process_series(series)
-      }
-      return self.impl.process_series(series)
-    }
-
     return self
 
   })()
 
+/**
+ * Utils relating to a collection of bundled color palettes for use in
+ * rendering charts.
+ */
 ds.charts.util =
   (function () {
     var self = {}

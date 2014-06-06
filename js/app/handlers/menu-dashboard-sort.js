@@ -1,3 +1,7 @@
+/**
+ * Handlers for the sort menu in the dashboard-list.html template.a
+ */
+
 $(document).on('click', 'ul.ds-dashboard-sort-menu li', function(e) {
   var column = e.target.getAttribute('data-ds-sort-col')
   var order = e.target.getAttribute('data-ds-sort-order')
