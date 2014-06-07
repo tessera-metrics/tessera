@@ -1,5 +1,5 @@
 ds.models.standard_time_series = function(data) {
-  'use strict';
+  'use strict'
 
   var self = limivorous.observable()
                        .extend(ds.models.item, {item_type: 'standard_time_series'})

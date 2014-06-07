@@ -1,5 +1,5 @@
 ds.models.tag = function(data) {
-  "use strict";
+  "use strict"
 
   var self = limivorous.observable()
                        .property('id')
@@ -9,7 +9,7 @@ ds.models.tag = function(data) {
                        .property('color')
                        .property('count')
                        .build()
-  Object.defineProperty(self, 'is_tag', {value: true});
+  Object.defineProperty(self, 'is_tag', {value: true})
 
   if (data) {
       if (data.is_tag) {
