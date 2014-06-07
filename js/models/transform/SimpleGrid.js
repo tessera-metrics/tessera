@@ -3,7 +3,7 @@
  * a regular grid.
  */
 ds.models.transform.SimpleGrid = function(data) {
-  "use strict";
+  "use strict"
 
   var self = limivorous.observable()
                        .property('columns', { init: 1,
