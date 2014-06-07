@@ -105,6 +105,13 @@ ds.models.data.Query = function(data_) {
   }
 
   /**
+   * Remove all registered event handlers.
+   */
+  self.off = function() {
+    bean.off(self, 'ds-data-ready')
+  }
+
+  /**
    * Process the results of executing the query, transforming
    * the returned structure into something consumable by the
    * charting library, and calculating sums.

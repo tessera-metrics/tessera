@@ -102,7 +102,6 @@ ds.manager =
       dashboard.visit(function(item) {
         if (!item.item_type)
           return
-        item.interactive = interactive
         if (item.requires_data) {
           holder.raw_data_required = true
         }
@@ -178,6 +177,7 @@ ds.manager =
             interactive = context.interactive
           }
           holder.raw_data_required = interactive
+          ds.charts.interactive = interactive
 
           // Build a map from the presentation elements to their
           // model objects.
@@ -272,6 +272,11 @@ ds.manager =
 
       dashboard.definition.queries = result.get_queries() // this could go in an observer
       dashboard.set_items([result])
+
+      // Disable existing query handlers
+      for (var k in dashboard.definition.queries) {
+        dashboard.definition.queries[k].off()
+      }
 
       $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
       dashboard.load_all()
