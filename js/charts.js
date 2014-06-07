@@ -16,44 +16,53 @@ ds.charts =
   (function () {
 
     var self = limivorous.observable()
-               .property('impl')
-               .build()
+                         .property('provider')
+                         .property('interactive', {init: false})
+                         .build()
 
     self.DEFAULT_PALETTE = 'spectrum6'
+
+    function get_renderer(fn_name, item) {
+      var interactive = self.interactive
+      if ((typeof(item) !== 'undefined') && (typeof(item.interactive) !== 'undefined'))
+        interactive = item.interactive
+      return interactive ? self.provider[fn_name] : ds.charts.graphite[fn_name]
+    }
 
     /**
      * Render a minimal line chart into element.
      */
     self.simple_line_chart = function(element, item, query) {
-      return self.impl.simple_line_chart(element, item, query)
+      return get_renderer('simple_line_chart', item)(element, item, query)
     }
 
     /**
      * Render a complete line chart into element.
      */
     self.standard_line_chart = function(element, item, query) {
-      return self.impl.standard_line_chart(element, item, query)
+      return get_renderer('standard_line_chart', item)(element, item, query)
     }
 
     /**
      * Render a minimal area chart into element.
      */
     self.simple_area_chart = function(element, item, query) {
-      return self.impl.simple_area_chart(element, item, query)
+      return get_renderer('simple_area_chart', item)(element, item, query)
     }
 
     /**
      * Render a complete area chart into element.
      */
     self.stacked_area_chart = function(element, item, query) {
-      return self.impl.stacked_area_chart(element, item, query)
+      return get_renderer('stacked_area_chart', item)(element, item, query)
     }
 
     /**
      * Render a donut/pie chart into element.
      */
     self.donut_chart = function(element, item, query) {
-      return self.impl.donut_chart(element, item, query)
+      // TODO: donut/pie charts don't have a graphite renderer yet
+      return self.provider.donut_chart(element, item, query)
     }
 
     /**
@@ -67,7 +76,7 @@ ds.charts =
       if (type) {
         return ds.charts[type].process_series(series)
       }
-      return self.impl.process_series(series)
+      return self.provider.process_series(series)
     }
 
     /**

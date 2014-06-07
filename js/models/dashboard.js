@@ -55,7 +55,6 @@ ds.models.dashboard = function(data) {
     })
   }
 
-
   self.update_index = function() {
     var index = self.index = {}
     self.visit(function(item) {
