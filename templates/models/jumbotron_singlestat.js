@@ -5,6 +5,5 @@ ds.templates.models.jumbotron_singlestat.dataHandler =
         if (item.index) {
             value = query.data[item.index].summation[item.transform];
         }
-        cronenberg.check_thresholds(item, value, '#' + item.item_id);
         $(element).text(d3.format(item.format)(value));
     };

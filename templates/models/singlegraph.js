@@ -16,8 +16,6 @@ ds.templates.models.singlegraph.dataHandler =
         if (item.index) {
             value = query.data[item.index].summation[item.transform];
         }
-        // TODO - the thresholding will probably mess up this one
-        cronenberg.check_thresholds(item, value, '#' + item.item_id);
         $('#' + item.item_id + ' span.value').text(d3.format(item.format)(value));
         $('#' + item.item_id + ' span.ds-label').text(label);
     };
