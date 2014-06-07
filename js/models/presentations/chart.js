@@ -3,10 +3,10 @@
  */
 ds.models.chart =
   (function() {
-    'use strict';
+    'use strict'
 
     function extend(builder) {
-      Object.defineProperty(builder.target, 'is_chart', {value: true});
+      Object.defineProperty(builder.target, 'is_chart', {value: true})
       return builder.property('title')
                     .property('options', { init: {} })
     }

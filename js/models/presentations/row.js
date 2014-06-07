@@ -1,5 +1,5 @@
 ds.models.row = function(data) {
-  "use strict";
+  'use strict'
 
   var self = limivorous.observable()
                        .extend(ds.models.item, {item_type: 'row'})
@@ -21,5 +21,5 @@ ds.models.row = function(data) {
     return ds.models.container.json(self, ds.models.item.json(self))
   }
 
-  return self;
-};
+  return self
+}

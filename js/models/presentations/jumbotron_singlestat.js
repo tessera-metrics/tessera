@@ -1,5 +1,5 @@
 ds.models.jumbotron_singlestat = function(data) {
-  "use strict";
+  'use strict'
 
   var self = limivorous.observable()
                        .property('title')
@@ -9,14 +9,14 @@ ds.models.jumbotron_singlestat = function(data) {
                        .property('transform', {init: 'mean'})
                        .extend(ds.models.item, {item_type: 'jumbotron_singlestat'})
                        .build()
-  Object.defineProperty(self, 'requires_data', {value: true});
+  Object.defineProperty(self, 'requires_data', {value: true})
 
   if (data) {
-    self.title = data.title;
-    self.units = data.units;
-    self.format = data.format || self.format;
-    self.index = data.index;
-    self.transform = data.transform || self.transform;
+    self.title = data.title
+    self.units = data.units
+    self.format = data.format || self.format
+    self.index = data.index
+    self.transform = data.transform || self.transform
   }
   ds.models.item.init(self, data)
 
@@ -41,5 +41,5 @@ ds.models.jumbotron_singlestat = function(data) {
    return data
  }
 
-  return self;
+  return self
 }

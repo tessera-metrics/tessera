@@ -3,18 +3,18 @@
  */
 ds.models.container =
   (function() {
-    'use strict';
+    'use strict'
 
     function init(target, data) {
       if (data && data.items) {
         target.items = data.items.map(function(i) {
-                         return ds.models.factory(i);
-                       });
+                         return ds.models.factory(i)
+                       })
       }
     }
 
     function extend(builder, options) {
-      Object.defineProperty(builder.target, 'is_container', {value: true});
+      Object.defineProperty(builder.target, 'is_container', {value: true})
       builder.property('items', {init: []})
              .property('length', {
                get: function(context) {
