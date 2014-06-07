@@ -1,4 +1,6 @@
-ds.templates.edit.properties.heading_text.editHandler =
+ds.templates.edit.properties.heading_text = {
+  display: 'text',
+  editHandler:
     function(property, item) {
         $('#' + item.item_id + property.name).editable({
             type: 'text',
@@ -9,3 +11,4 @@ ds.templates.edit.properties.heading_text.editHandler =
             }
         })
     }
+}

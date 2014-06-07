@@ -1,4 +1,5 @@
-ds.templates.edit.properties.level.editHandler =
+ds.templates.edit.properties.level = {
+  editHandler:
     function(property, item) {
         $('#' + item.item_id + property.name).editable({
             type: 'number',
@@ -9,3 +10,4 @@ ds.templates.edit.properties.level.editHandler =
             }
         })
     }
+}

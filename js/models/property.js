@@ -21,10 +21,10 @@ ds.models.property = function(data) {
 
   self.render = function(item) {
     var template = self.template || ds.templates.edit.properties[self.name]
-    if (template) {
+    if (template && template instanceof Function) {
       return template({property: self, item: item})
     } else {
-      return "<p>Unimplemented property <code>" + self.name + "</code></p>"
+      return item[self.display] || ''
     }
   }
 
