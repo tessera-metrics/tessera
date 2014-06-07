@@ -78,7 +78,6 @@ module.exports = function(grunt) {
           'js/charts/graphite.js',
           'js/charts/nvd3.js',
           'js/charts/flot.js',
-          'js/charts/impl.js',
           'js/app/actions.js',
           'js/models/**/*.js',
           'js/extensions/**/*.js',
