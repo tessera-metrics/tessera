@@ -1,5 +1,5 @@
 ds.models.stacked_area_chart = function(data) {
-  'use strict';
+  'use strict'
 
   var self = limivorous.observable()
                        .extend(ds.models.item, {item_type: 'stacked_area_chart'})

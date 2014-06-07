@@ -1,5 +1,5 @@
 ds.models.section = function(data) {
-  "use strict";
+  'use strict'
 
   var self = limivorous.observable()
                        .property('layout', {init: 'fixed'})

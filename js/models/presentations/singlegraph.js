@@ -1,5 +1,5 @@
 ds.models.singlegraph = function(data) {
-  "use strict";
+  'use strict'
 
   var self = limivorous.observable()
                        .property('format', {init: ',.1s'})
@@ -9,8 +9,8 @@ ds.models.singlegraph = function(data) {
                        .build()
 
   if (data) {
-    self.format = data.format || self.format;
-    self.transform = data.transform || self.transform;
+    self.format = data.format || self.format
+    self.transform = data.transform || self.transform
   }
   ds.models.chart.init(self, data)
   ds.models.item.init(self, data)

@@ -1,5 +1,5 @@
 ds.models.cell = function(data) {
-  "use strict";
+  'use strict'
 
   var self = limivorous.observable()
                        .extend(ds.models.item, {item_type: 'cell'})
@@ -10,9 +10,9 @@ ds.models.cell = function(data) {
                        .build()
 
   if (data) {
-    self.span = data.span || self.span;
-    self.offset = data.offset;
-    self.align = data.align;
+    self.span = data.span || self.span
+    self.offset = data.offset
+    self.align = data.align
   }
   ds.models.item.init(self, data)
   ds.models.container.init(self, data)
@@ -39,5 +39,5 @@ ds.models.cell = function(data) {
     return data
   }
 
-  return self;
-};
+  return self
+}

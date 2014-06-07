@@ -1,11 +1,11 @@
 ds.models.donut_chart = function(data) {
-  'use strict';
+  'use strict'
 
   var self = limivorous.observable()
                        .extend(ds.models.item, {item_type: 'donut_chart'})
                        .extend(ds.models.chart)
                        .build()
-  Object.defineProperty(self, 'requires_data', {value: true});
+  Object.defineProperty(self, 'requires_data', {value: true})
 
   ds.models.chart.init(self, data)
   ds.models.item.init(self, data)

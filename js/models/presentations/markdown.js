@@ -1,5 +1,5 @@
 ds.models.markdown = function(data) {
-  "use strict";
+  'use strict'
 
   var self = limivorous.observable()
                        .property('text')

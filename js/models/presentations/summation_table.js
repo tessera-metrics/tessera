@@ -1,5 +1,5 @@
 ds.models.summation_table = function(data) {
-  "use strict"
+  'use strict'
 
   var self = limivorous.observable()
                        .property('striped', {init: false})
