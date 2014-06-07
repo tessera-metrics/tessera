@@ -17,7 +17,6 @@ ds.models.markdown = function(data) {
 
   self.interactive_properties = function() {
     return [
-      ds.models.property({name: 'title'}),
       ds.models.property({name: 'markdown_text', display: 'text'}),
       ds.models.property({name: 'style'}),
       ds.models.property({name: 'height'}),

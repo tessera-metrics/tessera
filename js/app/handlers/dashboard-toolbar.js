@@ -1,8 +1,6 @@
-function update_dashboard_metadata(dashboard) {
-  var dash = dashboard.toJSON()
-  delete dash.definition
-  ds.manager.update(dash)
-}
+/*
+ * Logic for the dashboard-toolbar.html template.
+ */
 
 ds.app.add_mode_handler('edit', {
   enter: function() {
@@ -16,7 +14,7 @@ ds.app.add_mode_handler('edit', {
         unsavedclass: null,
         success: function(ignore, newValue) {
           ds.manager.current.dashboard.title = newValue
-          update_dashboard_metadata(ds.manager.current.dashboard)
+          ds.manager.update(ds.manager.current.dashboard)
         }
       })
 
@@ -25,7 +23,7 @@ ds.app.add_mode_handler('edit', {
         unsavedclass: null,
         success: function(ignore, newValue) {
           ds.manager.current.dashboard.category = newValue
-          update_dashboard_metadata(ds.manager.current.dashboard)
+          ds.manager.update(ds.manager.current.dashboard)
         }
       })
 
@@ -33,7 +31,7 @@ ds.app.add_mode_handler('edit', {
         unsavedclass: null,
         success: function(ignore, newValue) {
           ds.manager.current.dashboard.summary = newValue
-          update_dashboard_metadata(ds.manager.current.dashboard)
+          ds.manager.update(ds.manager.current.dashboard)
         }
       })
 
@@ -42,7 +40,7 @@ ds.app.add_mode_handler('edit', {
         value: ds.manager.current.dashboard.description || '',
         success: function(ignore, newValue) {
           ds.manager.current.dashboard.description = newValue
-          update_dashboard_metadata(ds.manager.current.dashboard)
+          ds.manager.update(ds.manager.current.dashboard)
         },
         display: function(value, response) {
           $(this).html(marked(value))
@@ -79,7 +77,7 @@ $(document).ready(function() {
   $(document).on('change', '[name="ds-info-panel-edit-taglist"]', function(e) {
     var tags = $('#ds-info-panel-edit-tags').tagsManager('tags');
     ds.manager.current.dashboard.set_tags(tags);
-    update_dashboard_metadata(ds.manager.current.dashboard)
+    ds.manager.update(ds.manager.current.dashboard)
   })
 
   $(document).on('click', '#ds-toggle-interactive-button', function(e) {

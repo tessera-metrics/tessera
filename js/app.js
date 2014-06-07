@@ -13,6 +13,9 @@ ds.app =
 
     self.current_mode = 'standard'
 
+    /**
+     * Valid user interface modes.
+     */
     self.Mode = {
       EDIT:      'edit',
       TRANSFORM: 'transform',
@@ -20,8 +23,17 @@ ds.app =
       STANDARD:  'standard'
     }
 
+    self.Event = {
+      MODE_ENTER:         'ds-enter:',
+      MODE_EXIT:          'ds-exit:',
+      MODE_REFRESH:       'ds-refresh:',
+      DASHBOARD_LOADED:   'ds-dashboard-loaded',
+      DASHBOARD_RENDERED: 'ds-dashboard-rendered',
+      RANGE_CHANGED:      'ds-ranged-changed'
+    }
+
     function do_exit_mode(mode) {
-      bean.fire(self, 'ds-exit:' + mode)
+      bean.fire(self, self.Event.MODE_EXIT + mode)
       var state = mode_stack.pop()
       if (state) {
         state.hidden.show(ANIMATION_DELAY)
@@ -39,7 +51,7 @@ ds.app =
         hidden: hidden,
         shown: shown
       })
-      bean.fire(self, 'ds-enter:' + mode)
+      bean.fire(self, self.Event.MODE_ENTER + mode)
     }
 
     /**
@@ -47,7 +59,7 @@ ds.app =
      */
     self.refresh_mode = function() {
       self.switch_to_mode(self.current_mode, 0)
-      bean.fire(self, 'ds-refresh:' + self.current_mode)
+      bean.fire(self, self.Event.MODE_REFRESH + self.current_mode)
       return self
     }
 
@@ -104,42 +116,16 @@ ds.app =
      */
     self.add_mode_handler = function(mode, options) {
       if (options.enter && (options.enter instanceof Function)) {
-        bean.on(self, 'ds-enter:' + mode, options.enter)
+        bean.on(self, self.Event.MODE_ENTER + mode, options.enter)
       }
       if (options.exit && (options.exit instanceof Function)) {
-        bean.on(self, 'ds-exit:' + mode, options.exit)
+        bean.on(self, self.Event.MODE_EXIT + mode, options.exit)
       }
       if (options.refresh && (options.refresh instanceof Function)) {
-        bean.on(self, 'ds-refresh:' + mode, options.refresh)
+        bean.on(self, self.Event.MODE_REFRESH + mode, options.refresh)
       }
       return self
     }
 
     return self
   })()
-
-/**
- * TODO: this is legacy; migrate to more appropriate places.
- */
-var cronenberg = {
-
-    /**
-     * Constants for the various custom events cronenberg uses.
-     */
-    events:
-    {
-        DATA_AVAILABLE:       'ds-data-available',
-        DASHBOARD_LOADED:     'ds-dashboard-loaded',
-        RANGE_CHANGED:        'ds-range-changed'
-    },
-
-    check_thresholds: function(item, value, element) {
-        if (item.thresholds) {
-            if (value > item.thresholds.danger) {
-                $(element).addClass("dashboard-danger bs-callout bs-callout-danger");
-            } else if (value > item.thresholds.warning) {
-              $(element).addClass("dashboard-warning bs-callout bs-callout-warning");
-            }
-        }
-    }
-};

@@ -1,5 +1,8 @@
 ds.charts = ds.charts || {}
 
+/**
+ * Chart provider for rendering dashboard charts with NVD3
+ */
 ds.charts.nvd3 =
   (function() {
 
