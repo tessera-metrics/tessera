@@ -121,12 +121,11 @@
 </div> <!-- container -->
 
 <script>
-  setPref = function(key, value) {
-      window.location = URI(window.location)
-          .setQuery(key, value)
-          .href();
-  };
-
+ setPref = function(key, value) {
+   window.location = URI(window.location)
+         .setQuery(key, value)
+         .href()
+ }
 </script>
 
 {% endblock %}
