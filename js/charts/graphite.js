@@ -62,8 +62,8 @@ ds.charts.graphite =
             .setQuery('margin', '0')
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .setQuery('title', options.showTitle ? item.title : '')
-            .href();
-        return png_url;
+            .href()
+        return png_url
     }
 
     self.standard_line_chart = function(element, item, query) {
@@ -89,8 +89,8 @@ ds.charts.graphite =
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .setQuery('vtitle', options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
-            .href();
-        return png_url;
+            .href()
+        return png_url
     }
 
     self.simple_area_chart = function(element, item, query) {
@@ -116,8 +116,8 @@ ds.charts.graphite =
             .setQuery('areaMode', 'stacked')
             .setQuery('margin', '0')
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
-            .href();
-        return png_url;
+            .href()
+        return png_url
     }
 
     self.stacked_area_chart = function(element, item, query) {
@@ -144,8 +144,8 @@ ds.charts.graphite =
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .setQuery('vtitle', options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
-            .href();
-        return png_url;
+            .href()
+        return png_url
     }
 
     self.donut_chart = function(element, item, query) {
@@ -157,15 +157,15 @@ ds.charts.graphite =
         case 'simple_time_series':
             return item.filled
                 ? self.simple_area_chart_url(item, options)
-                : self.simple_line_chart_url(item, options);
+                : self.simple_line_chart_url(item, options)
         case 'standard_time_series':
-            return self.standard_line_chart_url(item, options);
+            return self.standard_line_chart_url(item, options)
         case 'stacked_area_chart':
-            return self.stacked_area_chart_url(item, options);
+            return self.stacked_area_chart_url(item, options)
         case 'singlegraph':
-            return self.simple_area_chart_url(item, options);
+            return self.simple_area_chart_url(item, options)
         }
-        return undefined;
+        return undefined
     }
 
     self.composer_url = function(item, options) {
@@ -175,11 +175,11 @@ ds.charts.graphite =
             .removeQuery('format')
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .setQuery('vtitle', options.yAxisLabel)
-            .setQuery('title', options.showTitle ? item.title : '');
+            .setQuery('title', options.showTitle ? item.title : '')
         if (item.item_type === 'stacked_area_chart') {
-            composer_url.setQuery('areaMode', 'stacked');
+            composer_url.setQuery('areaMode', 'stacked')
         }
-        return composer_url.href();
+        return composer_url.href()
     }
 
     return self

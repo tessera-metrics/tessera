@@ -1,5 +1,5 @@
 ds.models.thresholds = function(data) {
-  "use strict";
+  "use strict"
 
   var self = limivorous.observable()
                        .property('summation_type')

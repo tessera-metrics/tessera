@@ -1,35 +1,35 @@
 ds.DashboardHolder = function(url_, element_) {
-  "use strict";
+  "use strict"
 
-    this.url = url_;
-    this.dashboard = null;
-    this.element = element_;
+    this.url = url_
+    this.dashboard = null
+    this.element = element_
 
     this.setRange = function(from, until) {
-        var self = this;
-        var url = URI(self.url);
+        var self = this
+        var url = URI(self.url)
         if (from) {
-            url.setQuery('from', from);
+            url.setQuery('from', from)
         }
         if (until) {
-            url.setQuery('until', until);
+            url.setQuery('until', until)
         }
-        self.url = url.href();
-    };
-};
+        self.url = url.href()
+    }
+}
 
 ds.manager =
   (function() {
-    "use strict";
+    "use strict"
 
     var current
-      , self = {};
+      , self = {}
 
-    Object.defineProperty(self, 'current', { get: function() { return current; }});
+    Object.defineProperty(self, 'current', { get: function() { return current }})
 
     self.set_current = function(_) {
-      current = _;
-      return self;
+      current = _
+      return self
     }
 
     /**
@@ -37,8 +37,8 @@ ds.manager =
      * loaded and ready.
      */
     self.onDashboardLoaded = function(handler) {
-        bean.on(self, ds.app.Event.DASHBOARD_LOADED, handler);
-        return self;
+        bean.on(self, ds.app.Event.DASHBOARD_LOADED, handler)
+        return self
     }
 
     /**
@@ -50,17 +50,17 @@ ds.manager =
             dataType: 'json',
             url: path
         }).done(function(data) {
-            handler(data);
+            handler(data)
         }).error(function(xhr, status, error) {
-          self.error('Error listing dashboards. ' + error);
+          self.error('Error listing dashboards. ' + error)
         })
     }
 
     self.default_error_handler = function(xhr, status, error) {
-      console.log(xhr);
-      console.log(status);
-      console.log(error);
-      self.error('Oops');
+      console.log(xhr)
+      console.log(status)
+      console.log(error)
+      self.error('Oops')
     }
 
     self.error = function(message, options_) {
@@ -101,31 +101,31 @@ ds.manager =
     self._prep_items = function(dashboard, holder, interactive) {
       dashboard.visit(function(item) {
         if (!item.item_type)
-          return;
+          return
         item.interactive = interactive
         if (item.requires_data) {
-          holder.raw_data_required = true;
+          holder.raw_data_required = true
         }
         // item.on('change', function(e) {
         //   self.update_item_view(e.target)
         // })
-      });
+      })
     }
 
     /**
      * Set up us the API call.
      */
     self._prep_url = function(base_url, options) {
-      var url = URI(base_url).setQuery('rendering', true);
-      var context = url.query(true);
-      var params = URI(window.location).query(true);
-      var variables = {};
+      var url = URI(base_url).setQuery('rendering', true)
+      var context = url.query(true)
+      var params = URI(window.location).query(true)
+      var variables = {}
       context.from = context.from || params.from || options.from || '-3h'
       context.until = context.until || params.until || options.until
 
-      url.setQuery('from', context.from);
+      url.setQuery('from', context.from)
       if (context.until) {
-        url.setQuery('until', context.until);
+        url.setQuery('until', context.until)
       }
       for (var key in params) {
         /* compatibility w/gdash params */
@@ -153,14 +153,14 @@ ds.manager =
      */
     self.load = function(url, element, options_) {
       var options = options_ || {}
-        var holder = new ds.DashboardHolder(url, element);
-        var context = self._prep_url(url, options);
-        self.set_current(holder);
+        var holder = new ds.DashboardHolder(url, element)
+        var context = self._prep_url(url, options)
+        self.set_current(holder)
         $.ajax({
             dataType: "json",
             url: context.url
         }).error(function(xhr, status, error) {
-          self.error('Error loading dashboard. ' + error);
+          self.error('Error loading dashboard. ' + error)
         }).done(function(data) {
           var dashboard = ds.models.dashboard(data.dashboards[0])
           holder.dashboard = dashboard
@@ -169,28 +169,28 @@ ds.manager =
             ds.charts.impl = ds.charts[data.preferences.renderer]
           }
 
-          bean.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard);
+          bean.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)
 
           dashboard.render_templates(context.variables)
 
-          var interactive = data.preferences.interactive;
+          var interactive = data.preferences.interactive
           if (context.interactive != undefined) {
-            interactive = context.interactive;
+            interactive = context.interactive
           }
-          holder.raw_data_required = interactive;
+          holder.raw_data_required = interactive
 
           // Build a map from the presentation elements to their
           // model objects.
-          self._prep_items(dashboard, holder, interactive);
+          self._prep_items(dashboard, holder, interactive)
 
           // Render the dashboard
-          $(holder.element).html(dashboard.definition.render());
+          $(holder.element).html(dashboard.definition.render())
 
-          var currentURL = URI(holder.url);
+          var currentURL = URI(holder.url)
           bean.fire(self, ds.app.Event.RANGE_CHANGED, {
             from: currentURL.query('from'),
             until: currentURL.query('until')
-          });
+          })
 
           // Load the queries
           dashboard.definition.load_all({
@@ -198,17 +198,17 @@ ds.manager =
             from: context.from,
             until: context.until,
             fire_only: !holder.raw_data_required
-          });
+          })
 
-          bean.fire(self, ds.app.Event.DASHBOARD_RENDERED, dashboard);
+          bean.fire(self, ds.app.Event.DASHBOARD_RENDERED, dashboard)
 
           if (context.params.mode) {
             ds.app.switch_to_mode(context.params.mode)
           } else {
             ds.app.refresh_mode()
           }
-        });
-        return self;
+        })
+        return self
     }
 
     self.update_item_view = function(item) {
@@ -232,7 +232,7 @@ ds.manager =
         ds.app.switch_to_mode('standard')
       } else {
         if (event.state.transform) {
-          var item = ds.manager.current.dashboard.get_item(event.state.target.item_id);
+          var item = ds.manager.current.dashboard.get_item(event.state.target.item_id)
           var transform = ds.models.transform[event.state.transform.transform_name](event.state.transform)
           self.apply_transform(transform, item, false)
           ds.app.switch_to_mode('transform')
@@ -294,23 +294,23 @@ ds.manager =
     // here
     self.toggle_interactive_charts = function() {
         $.get('/api/preferences', function(data) {
-            var setting = !data.preferences.interactive;
-            var dashboard_url = URI(self.current.url);
-            var window_url = URI(window.location);
+            var setting = !data.preferences.interactive
+            var dashboard_url = URI(self.current.url)
+            var window_url = URI(window.location)
 
             if (window_url.hasQuery('interactive', 'true')) {
-                setting = false;
+                setting = false
             } else if (window_url.hasQuery('interactive', 'false')) {
-                setting = true;
+                setting = true
             }
 
-            dashboard_url.setQuery('interactive', setting);
-            window_url.setQuery('interactive', setting);
-            self.current.url = dashboard_url.href();
-            window.history.pushState({url: self.current.url, element:self.current.element}, '', window_url.href());
-            self.refresh();
-            return setting == 'true';
-        });
+            dashboard_url.setQuery('interactive', setting)
+            window_url.setQuery('interactive', setting)
+            self.current.url = dashboard_url.href()
+            window.history.pushState({url: self.current.url, element:self.current.element}, '', window_url.href())
+            self.refresh()
+            return setting == 'true'
+        })
     }
 
     /* -----------------------------------------------------------------------------
@@ -318,13 +318,13 @@ ds.manager =
        ----------------------------------------------------------------------------- */
 
     self.set_time_range = function(from, until) {
-        var location = URI(window.location).setQuery('from', from).href();
-        window.history.pushState({url: self.current.url, element:self.current.element}, '', location);
+        var location = URI(window.location).setQuery('from', from).href()
+        window.history.pushState({url: self.current.url, element:self.current.element}, '', location)
 
-        self.current.setRange(from, until);
+        self.current.setRange(from, until)
         bean.fire(self, ds.app.Event.RANGE_CHANGED, {
             from: from, until: until
-        });
+        })
       self.refresh()
     }
 
@@ -343,29 +343,29 @@ ds.manager =
 
     self.getRangeDescription = function(range) {
         if (range in self.ranges) {
-            return self.ranges[range];
+            return self.ranges[range]
         } else {
-            return null;
+            return null
         }
     }
 
     self.onRangeChanged = function(handler) {
-        var self = this;
-        bean.on(self, ds.app.Event.RANGE_CHANGED, handler);
+        var self = this
+        bean.on(self, ds.app.Event.RANGE_CHANGED, handler)
     }
 
-    self.autoRefreshInterval = null;
-    self.intervalId = null;
+    self.autoRefreshInterval = null
+    self.intervalId = null
 
     self.set_refresh_interval = function(value) {
-        var intervalSeconds = parseInt(value);
-        self.autoRefreshInterval = intervalSeconds;
+        var intervalSeconds = parseInt(value)
+        self.autoRefreshInterval = intervalSeconds
         if (self.intervalId) {
-            window.clearInterval(self.intervalId);
+            window.clearInterval(self.intervalId)
         }
         if (intervalSeconds > 0) {
-            self.intervalSeconds = intervalSeconds;
-            self.intervalId = window.setInterval(self.refresh, intervalSeconds * 1000);
+            self.intervalSeconds = intervalSeconds
+            self.intervalId = window.setInterval(self.refresh, intervalSeconds * 1000)
         }
     }
 
@@ -385,11 +385,11 @@ ds.manager =
                     label: "Delete",
                     className: "btn-danger",
                     callback: function() {
-                        self.delete_dashboard(href, handler);
+                        self.delete_dashboard(href, handler)
                     }
                 }
             }
-        });
+        })
     }
 
     self.delete_dashboard = function(href, done_) {
@@ -401,12 +401,12 @@ ds.manager =
             url: href,
             type: 'DELETE'
         }).done(done).error(function(xhr, status, error) {
-          self.error('Error deleting dashboard ' + href + ' ' + error);
+          self.error('Error deleting dashboard ' + href + ' ' + error)
         })
     }
 
     self.delete_current = function() {
-        self.delete_with_confirmation(self.current.dashboard.href);
+        self.delete_with_confirmation(self.current.dashboard.href)
     }
 
     self.create = function(dashboard, handler) {
@@ -418,11 +418,11 @@ ds.manager =
         data: JSON.stringify(dashboard)
       }).done(function(data) {
         if (handler && handler instanceof Function) {
-          handler(data);
+          handler(data)
         }
       }).error(function(xhr, status, error) {
-        self.error('Error creating dashboard. ' + error);
-      });
+        self.error('Error creating dashboard. ' + error)
+      })
     }
 
     self.update = function(dashboard, handler) {
@@ -434,11 +434,11 @@ ds.manager =
         data: JSON.stringify(dashboard)
       }).done(function(data) {
         if (handler && handler instanceof Function) {
-          handler(data);
+          handler(data)
         }
       }).error(function(xhr, status, error) {
-        self.error('Error updating dashboard ' + dashboard.title + '. ' + error);
-      });
+        self.error('Error updating dashboard ' + dashboard.title + '. ' + error)
+      })
     }
 
     self.update_definition = function(dashboard, handler) {
@@ -450,11 +450,11 @@ ds.manager =
         data: JSON.stringify(dashboard.definition)
       }).done(function(data) {
         if (handler && handler instanceof Function) {
-          handler(data);
+          handler(data)
         }
       }).error(function(xhr, status, error) {
-        self.error('Error updating dashboard definition ' + dashboard.title + '. ' + error);
-      });
+        self.error('Error updating dashboard definition ' + dashboard.title + '. ' + error)
+      })
     }
 
 
@@ -463,12 +463,12 @@ ds.manager =
     self.duplicate = function(href, handler) {
         // Get dashboard
         $.get(href, function(data) {
-            var dashboard = data.dashboards[0];
-            dashboard.title = 'Copy of ' + dashboard.title;
+            var dashboard = data.dashboards[0]
+            dashboard.title = 'Copy of ' + dashboard.title
 
             // Get definition
             $.get(href + '/definition', function(data) {
-                dashboard.definition = data.definition;
+                dashboard.definition = data.definition
                 // Duplicate dashboard
                 $.ajax({
                     type: 'POST',
@@ -478,15 +478,15 @@ ds.manager =
                     data: JSON.stringify(dashboard)
                 }).done(function(data) {
                     if (handler) {
-                        handler();
+                        handler()
                     }
                 }).error(function(xhr, status, error) {
-                  self.error('Error duplicating dashboard ' + href + '. ' + error);
-                });
-            });
+                  self.error('Error duplicating dashboard ' + href + '. ' + error)
+                })
+            })
         })
     }
 
 
-   return self;
-})();
+   return self
+})()

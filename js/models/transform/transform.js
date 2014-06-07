@@ -1,5 +1,5 @@
 /**
- * Mixin for transform types common fields
+  * Mixin for transform types common fields
  */
 ds.models.transform.transform =
   (function() {

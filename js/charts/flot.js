@@ -82,7 +82,7 @@ ds.charts.flot =
         display: 'none',
         top: y + 5,
         left: x + 5
-      }).appendTo("body").show();
+      }).appendTo("body").show()
     }
 
     function setup_plugins(container, context) {

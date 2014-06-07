@@ -4,7 +4,7 @@
 
 ds.app.add_mode_handler('edit', {
   enter: function() {
-    $(".ds-dashboard-info-edit-panel").html(ds.templates.edit.dashboard_panel(ds.manager.current.dashboard));
+    $(".ds-dashboard-info-edit-panel").html(ds.templates.edit.dashboard_panel(ds.manager.current.dashboard))
     $('#ds-edit-info-button').addClass('active')
 
       $.fn.editable.defaults.mode = 'inline'
@@ -75,8 +75,8 @@ $(document).ready(function() {
    * is added or removed.
    */
   $(document).on('change', '[name="ds-info-panel-edit-taglist"]', function(e) {
-    var tags = $('#ds-info-panel-edit-tags').tagsManager('tags');
-    ds.manager.current.dashboard.set_tags(tags);
+    var tags = $('#ds-info-panel-edit-tags').tagsManager('tags')
+    ds.manager.current.dashboard.set_tags(tags)
     ds.manager.update(ds.manager.current.dashboard)
   })
 
@@ -116,7 +116,7 @@ $(document).ready(function() {
 
 
   $(document).on('click', '#ds-view-dashboard-source-button', function(e) {
-    var dashboard = ds.manager.current.dashboard;
+    var dashboard = ds.manager.current.dashboard
     $.get(dashboard.href + '?definition=true', function(data) {
       var contents = '<div class="container">' + ds.templates.edit.item_source({item:data.dashboards[0]}) + '</div>'
       $(ds.manager.current.element).html(contents)
