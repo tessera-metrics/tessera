@@ -1,4 +1,5 @@
-ds.templates.edit.properties.striped.editHandler =
+ds.templates.edit.properties.striped = {
+  editHandler:
     function(property, item) {
         $('#' + item.item_id + property.name).editable({
             type: 'checklist',
@@ -12,3 +13,4 @@ ds.templates.edit.properties.striped.editHandler =
             }
         })
     }
+}

@@ -1,4 +1,5 @@
-ds.templates.edit.properties.title.editHandler =
+ds.templates.edit.properties.title = {
+  editHandler:
     function(property, item) {
         $('#' + item.item_id + property.name).editable({
             type: 'text',
@@ -8,3 +9,4 @@ ds.templates.edit.properties.title.editHandler =
             }
         })
     }
+}
