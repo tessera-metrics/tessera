@@ -55,28 +55,28 @@
   </div> <!-- container -->
 
   <script>
-    {% if tag %}
-      var path = '/api/dashboard/tagged/{{tag}}?sort={{ctx.get('sort', 'created')}}&order={{ctx.get('order', 'desc')}}';
+   {% if tag %}
+      var path = '/api/dashboard/tagged/{{tag}}?sort={{ctx.get('sort', 'created')}}&order={{ctx.get('order', 'desc')}}'
     {% else %}
-      var path = '/api/dashboard/?sort={{ctx.get('sort', 'created')}}&order={{ctx.get('order', 'desc')}}';
+      var path = '/api/dashboard/?sort={{ctx.get('sort', 'created')}}&order={{ctx.get('order', 'desc')}}'
     {% endif %}
     ds.manager.list(path, function(data) {
-      var rendered = ds.templates.listing.dashboard_list(data);
-      $("#ds-dashboard-main-listing").html(rendered);
-    });
+      var rendered = ds.templates.listing.dashboard_list(data)
+      $("#ds-dashboard-main-listing").html(rendered)
+    })
 
     $.ajax({
       dataType: 'json',
       url: '/api/tag/'
     }).done(function(data) {
-      var context = { tags: data.tags };
+      var context = { tags: data.tags }
     {% if tag %}
-      context.tag = '{{ tag }}';
+      context.tag = '{{ tag }}'
     {% endif %}
-      var rendered = ds.templates.listing.dashboard_tag_list(context);
-      $("#ds-dashboard-tag-listing").html(rendered);
-      $("[data-ds-tag={{tag}}]").addClass("active");
-    });
+      var rendered = ds.templates.listing.dashboard_tag_list(context)
+      $("#ds-dashboard-tag-listing").html(rendered)
+      $("[data-ds-tag={{tag}}]").addClass("active")
+    })
   </script>
 
 {% endblock %}

@@ -13,7 +13,7 @@ $(document).on('click', 'ul.ds-dashboard-sort-menu li', function(e) {
     url.setQuery('order', order)
   }
   window.location = url.href()
-});
+})
 
 
 $(document).ready(function() {
@@ -24,4 +24,4 @@ $(document).ready(function() {
                                     .parent()
                                     .addClass('active')
   }
-});
+})

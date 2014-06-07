@@ -12,9 +12,9 @@
   </ul>
 
 <script>
-ds.manager.onDashboardLoaded(function() {
-    var from = URI(window.location).search(true).from || '-3h';
-    $('[data-ds-range]').removeClass('active');
-    $('[data-ds-range=' + from + ']').addClass('active');
-});
+ ds.manager.onDashboardLoaded(function() {
+   var from = URI(window.location).search(true).from || '-3h'
+   $('[data-ds-range]').removeClass('active')
+   $('[data-ds-range=' + from + ']').addClass('active')
+ })
 </script>

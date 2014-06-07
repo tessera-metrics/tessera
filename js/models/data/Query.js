@@ -1,5 +1,5 @@
 ds.models.data.Query = function(data_) {
-  "use strict";
+  "use strict"
 
   var self = limivorous.observable()
                        .property('targets')
@@ -12,22 +12,22 @@ ds.models.data.Query = function(data_) {
   if (data_) {
     if (data_.targets) {
       if (data_.targets instanceof Array) {
-        self.targets = data_.targets;
+        self.targets = data_.targets
       } else {
-        self.targets = [data_.targets];
+        self.targets = [data_.targets]
       }
     }
-    self.name = data_.name;
+    self.name = data_.name
   }
 
-  self.DEFAULT_FROM_TIME = '-3h';
+  self.DEFAULT_FROM_TIME = '-3h'
 
-  Object.defineProperty(self, 'is_query', {value: true});
+  Object.defineProperty(self, 'is_query', {value: true})
 
   self.render_templates = function(context) {
     self.targets = self.targets.map(function(t) {
-                     return ds.render_template(t, context);
-                   });
+                     return ds.render_template(t, context)
+                   })
   }
 
   self.url = function(_) {
@@ -35,14 +35,14 @@ ds.models.data.Query = function(data_) {
     var url = URI(self.options.base_url)
               .path('/render')
               .setQuery('format', self.options.format || 'png')
-              .setQuery('from', self.options.from || self.DEFAULT_FROM_TIME);
+              .setQuery('from', self.options.from || self.DEFAULT_FROM_TIME)
     if (self.options.until) {
-      url.setQuery('until', self.options.until);
+      url.setQuery('until', self.options.until)
     }
     for (var i in self.targets) {
-      url.addQuery('target', self.targets[i]);
+      url.addQuery('target', self.targets[i])
     }
-    return url.href();
+    return url.href()
   }
 
   /**
@@ -72,27 +72,27 @@ ds.models.data.Query = function(data_) {
         ready = options_.ready
       }
       if (ready && (ready instanceof Function)) {
-        ready(self);
+        ready(self)
       }
-      bean.fire(self, 'ds-data-ready', self);
+      bean.fire(self, 'ds-data-ready', self)
     } else {
-      self.options.format = 'json';
-      var url = self.url(self.options);
-      bean.fire(self, 'ds-data-loading');
+      self.options.format = 'json'
+      var url = self.url(self.options)
+      bean.fire(self, 'ds-data-loading')
       $.ajax({
         dataType: 'json',
         url: url
       })
        .done(function(response_data, textStatus) {
-        self._process(response_data);
+        self._process(response_data)
         if (self.options.ready && (self.options.ready instanceof Function)) {
-          self.options.ready(self);
+          self.options.ready(self)
         }
-        bean.fire(self, 'ds-data-ready', self);
+        bean.fire(self, 'ds-data-ready', self)
       })
        .error(function(xhr, status, error) {
-        ds.manager.error('Failed to load query ' + self.name + '. ' + error);
-      });
+        ds.manager.error('Failed to load query ' + self.name + '. ' + error)
+      })
     }
   }
 
@@ -101,7 +101,7 @@ ds.models.data.Query = function(data_) {
    * loaded.
    */
   self.on_load = function(handler) {
-    bean.on(self, 'ds-data-ready', handler);
+    bean.on(self, 'ds-data-ready', handler)
   }
 
   /**
@@ -110,13 +110,13 @@ ds.models.data.Query = function(data_) {
    * charting library, and calculating sums.
    */
   self._process = function(response_data) {
-    self.summation = ds.models.data.Summation();
+    self.summation = ds.models.data.Summation()
     self.data = response_data.map(function(series) {
-                  series.summation = ds.models.data.Summation(series).toJSON();
-                  self.summation.merge(series.summation);
+                  series.summation = ds.models.data.Summation(series).toJSON()
+                  self.summation.merge(series.summation)
                   return series
-                });
-    return self;
+                })
+    return self
   }
 
   self.chart_data = function(type) {
@@ -142,5 +142,5 @@ ds.models.data.Query = function(data_) {
     return json
   }
 
-  return self;
+  return self
 }

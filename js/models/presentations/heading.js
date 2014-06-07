@@ -1,5 +1,5 @@
 ds.models.heading = function(data) {
-  "use strict";
+  'use strict'
 
   var self = limivorous.observable()
                        .property('text')
@@ -8,9 +8,9 @@ ds.models.heading = function(data) {
                        .extend(ds.models.item, {item_type: 'heading'})
                        .build()
   if (data) {
-    self.text = data.text;
-    self.level = data.level || self.level;
-    self.description = data.description;
+    self.text = data.text
+    self.level = data.level || self.level
+    self.description = data.description
   }
   ds.models.item.init(self, data)
 

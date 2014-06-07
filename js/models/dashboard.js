@@ -1,5 +1,5 @@
 ds.models.dashboard = function(data) {
-  "use strict";
+  "use strict"
 
   var self = limivorous.observable()
                        .property('id')
