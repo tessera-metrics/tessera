@@ -1,4 +1,5 @@
-ds.templates.edit.properties.style.editHandler =
+ds.templates.edit.properties.style = {
+  editHandler:
     function(property, item) {
         $('#' + item.item_id + property.name).editable({
             type: 'select',
@@ -15,3 +16,4 @@ ds.templates.edit.properties.style.editHandler =
             }
         })
     }
+}
