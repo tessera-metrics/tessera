@@ -1,4 +1,4 @@
-cronenberg.DashboardHolder = function(url_, element_) {
+ds.DashboardHolder = function(url_, element_) {
   "use strict";
 
     this.url = url_;
@@ -37,7 +37,7 @@ ds.manager =
      * loaded and ready.
      */
     self.onDashboardLoaded = function(handler) {
-        bean.on(self, cronenberg.events.DASHBOARD_LOADED, handler);
+        bean.on(self, ds.app.Event.DASHBOARD_LOADED, handler);
         return self;
     }
 
@@ -153,7 +153,7 @@ ds.manager =
      */
     self.load = function(url, element, options_) {
       var options = options_ || {}
-        var holder = new cronenberg.DashboardHolder(url, element);
+        var holder = new ds.DashboardHolder(url, element);
         var context = self._prep_url(url, options);
         self.set_current(holder);
         $.ajax({
@@ -169,7 +169,7 @@ ds.manager =
             ds.charts.impl = ds.charts[data.preferences.renderer]
           }
 
-          bean.fire(self, 'ds-dashboard-loaded', dashboard);
+          bean.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard);
 
           dashboard.render_templates(context.variables)
 
@@ -187,7 +187,7 @@ ds.manager =
           $(holder.element).html(dashboard.definition.render());
 
           var currentURL = URI(holder.url);
-          bean.fire(self, cronenberg.events.RANGE_CHANGED, {
+          bean.fire(self, ds.app.Event.RANGE_CHANGED, {
             from: currentURL.query('from'),
             until: currentURL.query('until')
           });
@@ -200,7 +200,7 @@ ds.manager =
             fire_only: !holder.raw_data_required
           });
 
-          bean.fire(self, 'ds-dashboard-rendered', dashboard);
+          bean.fire(self, ds.app.Event.DASHBOARD_RENDERED, dashboard);
 
           if (context.params.mode) {
             ds.app.switch_to_mode(context.params.mode)
@@ -322,7 +322,7 @@ ds.manager =
         window.history.pushState({url: self.current.url, element:self.current.element}, '', location);
 
         self.current.setRange(from, until);
-        bean.fire(self, cronenberg.events.RANGE_CHANGED, {
+        bean.fire(self, ds.app.Event.RANGE_CHANGED, {
             from: from, until: until
         });
       self.refresh()
@@ -351,7 +351,7 @@ ds.manager =
 
     self.onRangeChanged = function(handler) {
         var self = this;
-        bean.on(self, cronenberg.events.RANGE_CHANGED, handler);
+        bean.on(self, ds.app.Event.RANGE_CHANGED, handler);
     }
 
     self.autoRefreshInterval = null;
