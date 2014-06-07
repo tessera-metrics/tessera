@@ -1,3 +1,8 @@
+/**
+ * Actions that operate on dashboard in the listing page, and the
+ * handler to invoke them from the dashboard-list.html template.
+ */
+
 ds.actions.register('dashboard-list-actions', [
   ds.models.action({
     name:    'open',

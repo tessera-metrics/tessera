@@ -1,5 +1,10 @@
 ds.charts = ds.charts || {}
 
+/**
+ * Charts provider for Graphite's built-in static image
+ * rendering. Also provides Graphite URL formatting for a number of
+ * the UI's actions (Open in Graphite..., Export PNG..., etc...)
+ */
 ds.charts.graphite =
   (function () {
 
@@ -7,6 +12,11 @@ ds.charts.graphite =
 
     self.DEFAULT_BGCOLOR = 'ff000000'
 
+    /**
+     * Return a set of colors for rendering graphs that are tuned to
+     * the current UI color theme. Colors are derived from the
+     * background color of the 'body' element.
+     */
     function getColors() {
       var color = Color(window.getComputedStyle($('body')[0]).backgroundColor)
       if (color.dark()) {
