@@ -21,11 +21,15 @@ ds.models.property = function(data) {
 
   self.render = function(item) {
     var template = self.template || ds.templates.edit.properties[self.name]
+    var inner = undefined
     if (template && template instanceof Function) {
-      return template({property: self, item: item})
+      inner = template({property: self, item: item})
     } else {
-      return item[self.display] || ''
+      inner = item[self.display] || ''
     }
+    return '<span id="' + item.item_id + self.name + '">'
+         + inner
+         + '</span>'
   }
 
   return self

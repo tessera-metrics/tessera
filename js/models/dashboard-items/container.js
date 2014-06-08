@@ -55,6 +55,7 @@ ds.models.container =
 
       self.add = function(item) {
         self.items.push(item)
+        self.notify('items')
         return self
       }
 
@@ -64,6 +65,7 @@ ds.models.container =
           return false
         }
         self.items.splice(index, 1)
+        self.notify('items')
         return true
       }
 
@@ -93,6 +95,7 @@ ds.models.container =
         var tmp = self.items[target_index]
         self.items[target_index] = item
         self.items[index] = tmp
+        self.notify('items')
         return true
       }
 
