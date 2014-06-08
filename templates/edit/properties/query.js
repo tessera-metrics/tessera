@@ -1,5 +1,4 @@
-ds.templates.edit.properties.query = {
-  editHandler:
+ds.templates.edit.properties.query.editHandler =
     function(property, item) {
         var queries = ds.manager.current.dashboard.definition.queries
         $('#' + item.item_id + property.name).editable({
@@ -14,4 +13,3 @@ ds.templates.edit.properties.query = {
             }
         })
     }
-}
