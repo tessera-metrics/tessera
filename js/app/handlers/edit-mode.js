@@ -1,4 +1,5 @@
 ds.edit = ds.edit || {};
+ds.edit.properties = ds.edit.properties || {};
 
 
 (function () {
@@ -26,15 +27,21 @@ ds.edit = ds.edit || {};
   }
 
   ds.edit.show_details = function(item_id) {
+    // Show the edit button bar across the top of the item
     $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').show()
     var item = ds.manager.current.dashboard.get_item(item_id)
     var bar_id = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
     var details_id = '#' + item_id + '-details'
     if ($(details_id).length == 0) {
+
+      // Render the item's property sheet
       var elt = $('.ds-edit-bar[data-ds-item-id="' + item_id + '"]')
       var details = ds.templates['ds-edit-bar-item-details']({item:item})
       elt.append(details)
+
       if (item.interactive_properties) {
+        // Run the edit handlers for each property, which make them
+        // editable and set up the callbacks for their updates
         var props = item.interactive_properties()
         for (var i in props) {
           var prop = props[i]

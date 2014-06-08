@@ -82,7 +82,7 @@ ds.models.item =
             flat.push(item)
           }
         })
-        return flat
+         return flat
       }
 
       self.get_queries = function() {

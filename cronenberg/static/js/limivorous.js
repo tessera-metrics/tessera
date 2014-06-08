@@ -80,6 +80,15 @@ var limivorous =
       }
 
       /**
+       * Force the notification of observers on a property, using its
+       * current value.
+       */
+      target.notify = function(propertyName) {
+        target[propertyName] = target[propertyName]
+        return target
+      }
+
+      /**
        * Remove one or more registered observers.
        *
        * Usage:
