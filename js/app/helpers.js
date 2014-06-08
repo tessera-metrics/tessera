@@ -102,10 +102,9 @@ Handlebars.registerHelper('item', function(item) {
 })
 
 Handlebars.registerHelper('interactive_property', function(property, item) {
-  var html = '<span id="' + item.item_id + property.name + '">'
-           + property.render(item)
-           + '</span>'
-  return new Handlebars.SafeString(html)
+  if (!property)
+    return ''
+  return new Handlebars.SafeString(property.render(item))
 })
 
 
