@@ -160,7 +160,6 @@ ds.charts.nvd3 =
     }
 
     self.donut_chart = function(e, item, query) {
-      console.log('nvd3.donut_chart: ' + item.item_id + '/' + item.item_type + ': ' + query.name)
       var options = item.options || {}
       var transform = item.transform || 'sum'
       var series = query.chart_data('nvd3')

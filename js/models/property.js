@@ -4,32 +4,79 @@
 ds.models.property = function(data) {
 
   var self = limivorous.observable()
+                       .property('id')
                        .property('name')
-                       .property('display')
                        .property('type')
                        .property('template')
+                       .property('edit_options')
                        .build()
+    , default_options = { type: 'text' }
+
+  Object.defineProperty(self, 'is_property', {value: true})
 
   if (data) {
-    self.name = data.name
-    self.display = data.display
-    if (self.name && !self.display)
-      self.display = self.name
+    self.id = data.id
+    self.name = data.name || self.id
     self.type = data.type
-    self.template = data.template
+    self.edit_options = data.edit_options
+    if (typeof(data.template) === 'string') {
+      self.template = Handlebars.compile(data.template)
+    } else if (data.template && (data.template instanceof Function)) {
+      self.template = data.template
+    }
   }
 
   self.render = function(item) {
-    var template = self.template || ds.templates.edit.properties[self.name]
     var inner = undefined
-    if (template && template instanceof Function) {
-      inner = template({property: self, item: item})
+    if (self.template && (self.template instanceof Function)) {
+      inner = self.template({property: self, item: item})
     } else {
-      inner = item[self.display] || ''
+      inner = item[self.name] || ''
     }
     return '<span id="' + item.item_id + self.name + '">'
          + inner
          + '</span>'
+  }
+
+  self.edit = function(item) {
+    var options = {
+        type: 'text',
+        value: item[self.name] || '',
+        success: function(ignore, newValue) {
+          item[self.name] = newValue
+          ds.manager.update_item_view(item)
+        }
+    }
+
+    if (self.type === 'boolean') {
+      console.log('property.edit(): ' + self.name + ' is boolean')
+      options.type = 'checklist'
+      options.source = [
+        { value: true, text: self.name }
+      ]
+      options.success = function(ignore, newValue) {
+        item[self.name] = newValue.length > 0
+        ds.manager.update_item_view(item)
+      }
+    } else if (self.type) {
+      options.type = self.type
+    }
+
+    if (self.edit_options) {
+      options = ds.extend(options, self.edit_options)
+    }
+
+    if (options.source && (options.source instanceof Function)) {
+      options.source = options.source()
+    }
+
+    if (options.value && (options.value instanceof Function)) {
+      options.value = options.value(item)
+    }
+
+    $('#' + item.item_id + self.name).editable(options)
+
+    return self
   }
 
   return self

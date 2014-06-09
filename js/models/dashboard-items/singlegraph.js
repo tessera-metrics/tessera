@@ -19,9 +19,8 @@ ds.models.singlegraph = function(data) {
   }
 
   self.interactive_properties = function() {
-    return ['format', 'transform'].map(function(name) {
-             return ds.models.property({name: name})
-           }).concat(ds.models.chart.interactive_properties(),
+    return ['format', 'transform']
+             .concat(ds.models.chart.interactive_properties(),
                      ds.models.item.interactive_properties())
   }
 
