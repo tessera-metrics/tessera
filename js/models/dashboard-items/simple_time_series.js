@@ -14,10 +14,9 @@ ds.models.simple_time_series = function(data) {
   ds.models.item.init(self, data)
 
   self.interactive_properties = function() {
-    return [
-      ds.models.property({name: 'filled'})
-    ].concat(ds.models.chart.interactive_properties(),
-             ds.models.item.interactive_properties())
+    return [ 'filled' ]
+             .concat(ds.models.chart.interactive_properties(),
+                     ds.models.item.interactive_properties())
   }
 
   self.toJSON = function() {
