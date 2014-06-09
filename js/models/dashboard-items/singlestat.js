@@ -21,9 +21,8 @@ ds.models.singlestat = function(data) {
   ds.models.item.init(self, data)
 
   self.interactive_properties = function() {
-    return ['title', 'units', 'format', 'index', 'transform'].map(function(name) {
-             return ds.models.property({name: name})
-           }).concat(ds.models.item.interactive_properties())
+    return ['title', 'units', 'format', 'index', 'transform']
+             .concat(ds.models.item.interactive_properties())
   }
 
  self.toJSON = function() {

@@ -1,26 +1,33 @@
-
 (function () {
+
+  ds.edit.register_property = function(property) {
+    if (property instanceof Array) {
+      for (var i in property) {
+        ds.edit.register_property(property[i])
+      }
+    } else {
+      if (property.is_property) {
+        ds.edit.properties[property.id] = property
+      } else {
+        ds.edit.register_property(ds.models.property(property))
+      }
+    }
+  }
+
+  ds.edit.get_property = function(id) {
+    var prop = ds.edit.properties[id]
+    return prop || ds.models.property({id: id})
+  }
 
   /**
    * Helper functions to show & hide the action bar & property sheet
    * for dashboard items.
    */
-
   ds.edit.hide_details = function(item_id) {
     var details = $('#' + item_id + '-details')
     details.remove()
     $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').hide()
     $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .badge').removeClass('ds-badge-highlight')
-  }
-
-  function get_edit_handler(property) {
-    if (property.editHandler && property.editHandler instanceof Function) {
-      return property.editHandler
-    }
-
-    return ds.templates.edit.properties[property.name]
-         ? ds.templates.edit.properties[property.name].editHandler
-         : undefined
   }
 
   ds.edit.show_details = function(item_id) {
@@ -41,10 +48,11 @@
         // editable and set up the callbacks for their updates
         var props = item.interactive_properties()
         for (var i in props) {
-          var prop = props[i]
-          var handler = get_edit_handler(prop)
-          if (handler) {
-            handler(prop, item)
+          var prop = ds.edit.get_property(props[i])
+          if (prop) {
+            prop.edit(item)
+          } else {
+            console.log('Unknown property ' + props[i])
           }
         }
       }
