@@ -4,9 +4,6 @@ ds.models.data = ds.models.data || {}
 ds.models.transform = ds.models.transform || {}
 ds.edit = ds.edit || {}
 ds.edit.properties = ds.edit.properties || {}
-ds.templates = ds.templates || {}
-ds.templates.edit = ds.templates.edit || {}
-ds.templates.edit.properties = ds.templates.edit.properties || {}
 
 /**
  * Helper function to (potentially) render a template with a given
