@@ -16,11 +16,19 @@ ds.models.property = function(data) {
     if (self.name && !self.display)
       self.display = self.name
     self.type = data.type
-    self.template = data.template
+
+    if (typeof(data.template) === 'string') {
+      self.template = Handlebars.compile(data.template)
+    } else if (data.template && (data.template instanceof Function)) {
+      self.template = data.template
+    }
   }
 
   self.render = function(item) {
-    var template = self.template || ds.templates.edit.properties[self.name]
+    var template = self.template
+    if (typeof(template) === 'undefined' && ds.templates.edit.properties[self.display]) {
+      template = ds.templates.edit.properties[self.display].template
+    }
     var inner = undefined
     if (template && template instanceof Function) {
       inner = template({property: self, item: item})

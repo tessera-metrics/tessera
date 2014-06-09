@@ -1,5 +1,6 @@
-ds.templates.edit.properties.query.editHandler =
-    function(property, item) {
+ds.templates.edit.properties.query = {
+    template: Handlebars.compile('{{item.query.name}}'),
+    editHandler: function(property, item) {
         var queries = ds.manager.current.dashboard.definition.queries
         $('#' + item.item_id + property.name).editable({
             type: 'select',
@@ -13,3 +14,4 @@ ds.templates.edit.properties.query.editHandler =
             }
         })
     }
+}

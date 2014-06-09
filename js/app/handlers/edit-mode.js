@@ -1,6 +1,3 @@
-ds.edit = ds.edit || {};
-ds.edit.properties = ds.edit.properties || {};
-
 
 (function () {
 
