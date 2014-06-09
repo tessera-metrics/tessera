@@ -49,7 +49,6 @@ ds.models.property = function(data) {
     }
 
     if (self.type === 'boolean') {
-      console.log('property.edit(): ' + self.name + ' is boolean')
       options.type = 'checklist'
       options.source = [
         { value: true, text: self.name }
