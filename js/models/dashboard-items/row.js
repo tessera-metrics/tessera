@@ -10,11 +10,7 @@ ds.models.row = function(data) {
   ds.models.container.init(self, data)
 
   self.interactive_properties = function() {
-    return [
-      ds.models.property({name: 'style'}),
-      ds.models.property({name: 'css_class'}),
-      ds.models.property({name: 'height'})
-    ]
+    return [ 'style', 'css_class' ]
   }
 
   self.toJSON = function() {

@@ -82,6 +82,7 @@ module.exports = function(grunt) {
           'js/models/**/*.js',
           'js/extensions/**/*.js',
           'js/app/handlers/*.js',
+          'js/app/properties.js',
           'cronenberg/static/templates.js',
           'templates/**/*.js'
         ],

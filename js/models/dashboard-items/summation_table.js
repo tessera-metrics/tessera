@@ -16,9 +16,8 @@ ds.models.summation_table = function(data) {
   ds.models.item.init(self, data)
 
   self.interactive_properties = function() {
-    return ['striped', 'format'].map(function(name) {
-             return ds.models.property({name: name})
-           }).concat(ds.models.item.interactive_properties())
+    return ['striped', 'format']
+             .concat(ds.models.item.interactive_properties())
   }
 
   self.toJSON = function() {

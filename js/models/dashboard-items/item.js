@@ -142,7 +142,5 @@ ds.models.item.Transform = {
 }
 
 ds.models.item.interactive_properties = function() {
-  return ['query', 'css_class', 'height'].map(function(name) {
-           return ds.models.property({name: name})
-         })
+    return ['query', 'css_class', 'height']
 }
