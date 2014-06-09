@@ -54,11 +54,14 @@ ds.models.item =
       var self = builder.target
 
       self.render = function() {
-        var template = ds.templates.models[self.item_type]
+        var template = ds.models[self.item_type].template
+                    || ds.templates.models[self.item_type]
+        var dataHandler = ds.models[self.item_type].data_handler
+                       || ds.templates.models[self.item_type].dataHandler
         if (template) {
-          if (template.dataHandler && self.query) {
+          if (dataHandler && self.query) {
             self.query.on_load(function(q) {
-              template.dataHandler(q, self)
+              dataHandler(q, self)
             })
           }
           return template({item: self})
