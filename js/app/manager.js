@@ -165,7 +165,7 @@ ds.manager =
           holder.dashboard = dashboard
 
           if (data.preferences.renderer && ds.charts[data.preferences.renderer]) {
-            ds.charts.impl = ds.charts[data.preferences.renderer]
+            ds.charts.provider = ds.charts[data.preferences.renderer]
           }
 
           bean.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)
