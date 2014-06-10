@@ -80,6 +80,7 @@ module.exports = function(grunt) {
           'js/charts/nvd3.js',
           'js/charts/flot.js',
           'js/app/actions.js',
+          'js/action.js',
           'js/property.js',
           'js/factory.js',
           'js/app/properties.js',
