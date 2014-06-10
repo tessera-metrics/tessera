@@ -39,7 +39,6 @@ ds.property = function(data) {
   }
 
   self.edit = function(item) {
-    console.log('property.edit(): ' + self.id)
     var options = {
         type: 'text',
         value: item[self.name] || '',
@@ -85,7 +84,6 @@ ds.property = function(data) {
 ds.property.registry = {}
 
 ds.property.register = function(property) {
-  console.log('ds.property.register(): ' + JSON.stringify(property))
    if (property instanceof Array) {
      for (var i in property) {
        ds.property.register(property[i])
