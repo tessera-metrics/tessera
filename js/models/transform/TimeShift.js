@@ -12,11 +12,11 @@ ds.models.transform.TimeShift = function(options) {
               .property('comparison_table', {init: false}) /** TODO: include a comparison summation table in the expansion */
               .property('shifts', {
                 init: [
-                  { shift:  '-1h', title: 'Back One Hour' },
-                  { shift: '-12h', title: 'Back 12 Hours' },
-                  { shift:  '-1d', title: 'Back One Day'  },
-                  { shift:  '-2d', title: 'Back Two Days' },
-                  { shift:  '-1w', title: 'Back One Week' }
+                  { shift:  '-1h', title: 'One Hour Ago' },
+                  { shift: '-12h', title: '12 Hours Ago' },
+                  { shift:  '-1d', title: 'One Day Ago'  },
+                  { shift:  '-2d', title: 'Two Days Ago' },
+                  { shift:  '-1w', title: 'One Week Ago' }
                 ]
               })
               .extend(ds.models.transform.transform, {
@@ -29,11 +29,12 @@ ds.models.transform.TimeShift = function(options) {
   self.transform = function(item) {
     var query   = item.query
     var colspan = 12 / self.columns
-    var section = ds.models.section()
-                    .add(ds.models.heading({ level: 2, text: item.title
-                                                 ? 'Time shift - ' + item.title
-                                                 : 'Time shift' }))
-                    .add(ds.models.separator())
+    var section = ds.models.make('section')
+                    .add(ds.models.make({ item_type: 'heading',
+                                             level: 2, text: item.title
+                                                           ? 'Time shift - ' + item.title
+                                                           : 'Time shift' }))
+                    .add(ds.models.make('separator'))
                     .add(item)     /* Include the original */
 
     for (var i in self.shifts) {
@@ -45,12 +46,12 @@ ds.models.transform.TimeShift = function(options) {
                                             return 'timeShift(' + target + ', "' + shift.shift + '")'
                                           }))
 
-      var modified_item = ds.models.factory(item.toJSON())
+      var modified_item = ds.models.make(item.toJSON())
                             .set_item_id(undefined)
                             .set_query(modified_query)
                             .set_title(shift.title)
 
-      section.add(ds.models.cell()
+      section.add(ds.models.make('cell')
                   .set_span(colspan)
                   .add(modified_item))
     }

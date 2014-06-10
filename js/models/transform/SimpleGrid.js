@@ -33,8 +33,8 @@ ds.models.transform.SimpleGrid = function(data) {
 
   self.transform = function(item) {
     var items       = item.flatten()
-    var section     = ds.models.section().set_layout(self.section_type)
-    var current_row = ds.models.row()
+    var section     = ds.models.make('section').set_layout(self.section_type)
+    var current_row = ds.models.make('row')
 
     items.forEach( function(item) {
       if (   item.item_type === 'dashboard_definition'
@@ -44,13 +44,13 @@ ds.models.transform.SimpleGrid = function(data) {
           || (self.charts_only && !item.is_chart)) {
         return
       }
-      var cell = ds.models.cell()
+      var cell = ds.models.make('cell')
                    .set_span(self.span)
                    .add(item)
 
       if (current_row.add(cell).length == self.columns) {
         section.add(current_row)
-        current_row = ds.models.row()
+        current_row = ds.models.make('row')
       }
     } )
 
