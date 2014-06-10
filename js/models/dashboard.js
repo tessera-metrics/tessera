@@ -51,7 +51,6 @@ ds.models.dashboard = function(data) {
     next_id = 0
     self.visit(function(item) {
       item.item_id = self.next_id()
-      console.log(item.item_id + ' / ' + item.item_type)
     })
   }
 
