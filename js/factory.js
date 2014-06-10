@@ -3,6 +3,18 @@ ds.register_dashboard_item = function(item_type, descriptor) {
   if (descriptor.template && (typeof(descriptor.template) === 'string')) {
     descriptor.template = Handlebars.compile(descriptor.template)
   }
+
+  var props = (descriptor.interactive_properties || []).map(function(p) {
+                if (typeof(p) === 'string') {
+                  return ds.property({id: p})
+                } else if (p.is_property) {
+                  return p
+                } else {
+                  return ds.property(p)
+                }
+              })
+  descriptor.interactive_properties = props
+
   return ds
 }
 

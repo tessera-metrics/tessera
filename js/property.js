@@ -1,7 +1,7 @@
 /**
  * A property descriptor for building editor property sheets.
  */
-ds.models.property = function(data) {
+ds.property = function(data) {
 
   var self = limivorous.observable()
                        .property('id')
