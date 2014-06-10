@@ -110,7 +110,7 @@
     }
   })
 
-  var item_properties_action = ds.models.action({
+  var item_properties_action = ds.action({
     name:    'properties',
     display: 'Properties',
     icon:    'fa fa-edit',
@@ -119,7 +119,7 @@
     }
   })
 
-  var duplicate_item_action = ds.models.action({
+  var duplicate_item_action = ds.action({
     name:    'duplicate',
     display: 'Duplicate Item',
     icon:    'fa fa-copy',
@@ -136,7 +136,7 @@
     }
   })
 
-  var delete_action = ds.models.action({
+  var delete_action = ds.action({
     name:    'delete',
     display: 'Delete item',
     icon:    'fa fa-trash-o',
@@ -151,7 +151,7 @@
     }
   })
 
-  var move_back_action = ds.models.action({
+  var move_back_action = ds.action({
     name:    'move-back',
     display: 'Move item back one place',
     icon:    'fa fa-caret-left',
@@ -163,7 +163,7 @@
     }
   })
 
-  var move_forward_action = ds.models.action({
+  var move_forward_action = ds.action({
     name:    'move-forward',
     display: 'Move item forward one place',
     icon:    'fa fa-caret-right',
@@ -175,7 +175,7 @@
     }
   })
 
-  var view_definition_action = ds.models.action({
+  var view_definition_action = ds.action({
     name:    'view-definition',
     display: 'View definition...',
     icon:    'fa fa-code',
@@ -195,7 +195,7 @@
     ds.manager.update_item_view(container)
   }
 
-  var new_heading_action = ds.models.action({
+  var new_heading_action = ds.action({
     name: 'new-heading',
     display: 'Add new Heading',
     icon: 'fa fa-header',
@@ -204,7 +204,7 @@
     }
   })
 
-  var new_separator_action = ds.models.action({
+  var new_separator_action = ds.action({
     name: 'new-separator',
     display: 'Add new Separator',
     icon: 'fa fa-arrows-h',
@@ -213,7 +213,7 @@
     }
   })
 
-  var new_section_action = ds.models.action({
+  var new_section_action = ds.action({
     name: 'new-section',
     display: 'Add new Section',
     handler: function(action, container) {
@@ -221,7 +221,7 @@
     }
   })
 
-  var new_row_action = ds.models.action({
+  var new_row_action = ds.action({
     name: 'new-row',
     display: 'Add new Row',
     handler: function(action, container) {
@@ -229,7 +229,7 @@
     }
   })
 
-  var new_cell_action = ds.models.action({
+  var new_cell_action = ds.action({
     name: 'new-cell',
     display: 'Add new Cell',
     icon: 'fa fa-plus',
@@ -238,7 +238,7 @@
     }
   })
 
-  var new_markdown_action = ds.models.action({
+  var new_markdown_action = ds.action({
     name: 'new-markdown',
     display: 'Add new Markdown',
     icon: 'fa fa-code',
@@ -247,7 +247,7 @@
     }
   })
 
-  var new_singlestat_action = ds.models.action({
+  var new_singlestat_action = ds.action({
     name: 'new-singlestat',
     display: 'Add new Singlestat',
     handler: function(action, container) {
@@ -255,7 +255,7 @@
     }
   })
 
-  var new_jumbotron_singlestat_action = ds.models.action({
+  var new_jumbotron_singlestat_action = ds.action({
     name: 'new-jumbotron_singlestat',
     display: 'Add new Jumbotron Singlestat',
     handler: function(action, container) {
@@ -263,7 +263,7 @@
     }
   })
 
-  var new_summation_table_action = ds.models.action({
+  var new_summation_table_action = ds.action({
     name: 'new-summation_table',
     display: 'Add new Summation Table',
     icon: 'fa fa-table',
@@ -272,7 +272,7 @@
     }
   })
 
-  var new_simple_time_series_action = ds.models.action({
+  var new_simple_time_series_action = ds.action({
     name: 'new-simple_time_series',
     display: 'Add new Simple Time Series',
     icon: 'fa fa-image',
@@ -281,7 +281,7 @@
     }
   })
 
-  var new_standard_time_series_action = ds.models.action({
+  var new_standard_time_series_action = ds.action({
     name: 'new-standard_time_series',
     display: 'Add new Standard Time Series',
     icon: 'fa fa-image',
@@ -290,7 +290,7 @@
     }
   })
 
-  var new_stacked_area_chart_action = ds.models.action({
+  var new_stacked_area_chart_action = ds.action({
     name: 'new-stacked_area_chart',
     display: 'Add new Stacked Area Chart',
     icon: 'fa fa-image',
@@ -299,7 +299,7 @@
     }
   })
 
-  var new_singlegraph_action = ds.models.action({
+  var new_singlegraph_action = ds.action({
     name: 'new-singlegraph',
     display: 'Add new Singlegraph',
     icon: 'fa fa-image',
@@ -312,15 +312,15 @@
     new_section_action,
     new_row_action,
     new_cell_action,
-    ds.models.action.divider,
+    ds.action.divider,
     new_markdown_action,
     new_heading_action,
     new_separator_action,
-    ds.models.action.divider,
+    ds.action.divider,
     new_singlestat_action,
     new_jumbotron_singlestat_action,
     new_summation_table_action,
-    ds.models.action.divider,
+    ds.action.divider,
     new_simple_time_series_action,
     new_standard_time_series_action,
     new_stacked_area_chart_action,
@@ -332,7 +332,7 @@
                         return !action.divider
                       }))
 
-  var new_item_action_for_cell = ds.models.action({
+  var new_item_action_for_cell = ds.action({
     name: 'new-item',
     category: 'new-item',
     class: 'ds-new-item',
@@ -343,7 +343,7 @@
              })
   })
 
-  var new_item_action_for_section = ds.models.action({
+  var new_item_action_for_section = ds.action({
     name: 'new-item',
     category: 'new-item',
     class: 'ds-new-item',
@@ -352,7 +352,7 @@
     actions: [
       new_section_action,
       new_row_action,
-      ds.models.action.divider,
+      ds.action.divider,
       new_heading_action,
       new_separator_action,
       new_markdown_action
@@ -378,10 +378,10 @@
   ds.actions.register('edit-bar-section', [
     new_item_action_for_section,
     duplicate_item_action,
-    ds.models.action.divider,
+    ds.action.divider,
     move_back_action,
     move_forward_action,
-    ds.models.action.divider,
+    ds.action.divider,
     delete_action
   ])
 
@@ -390,7 +390,7 @@
      ----------------------------------------------------------------------------- */
 
   ds.actions.register('edit-bar-row', [
-    ds.models.action({
+    ds.action({
       name: 'new-cell',
       display: 'Add new Cell',
       icon: 'fa fa-plus',
@@ -399,10 +399,10 @@
       }
     }),
     duplicate_item_action,
-    ds.models.action.divider,
+    ds.action.divider,
     move_back_action,
     move_forward_action,
-    ds.models.action.divider,
+    ds.action.divider,
     delete_action
   ])
 
@@ -413,10 +413,10 @@
   ds.actions.register('edit-bar-cell', [
     new_item_action_for_cell,
     duplicate_item_action,
-    ds.models.action.divider,
+    ds.action.divider,
     move_back_action,
     move_forward_action,
-    ds.models.action({
+    ds.action({
       name:    'increase-span',
       display: 'Increase cell span by one',
       icon:    'fa fa-expand',
@@ -428,7 +428,7 @@
         }
       }
     }),
-    ds.models.action({
+    ds.action({
       name:    'decrease-span',
       display: 'Decrease cell span by one',
       icon:    'fa fa-compress',
@@ -440,7 +440,7 @@
         }
       }
     }),
-    ds.models.action.divider,
+    ds.action.divider,
     delete_action
   ])
 
@@ -450,11 +450,11 @@
 
   ds.actions.register('edit-bar-item', [
     duplicate_item_action,
-    ds.models.action.divider,
+    ds.action.divider,
     move_back_action,
     move_forward_action,
     view_definition_action,
-    ds.models.action.divider,
+    ds.action.divider,
     delete_action
   ])
 
@@ -514,7 +514,7 @@
   }
 
   ds.actions.register('dashboard-queries', [
-    ds.models.action({
+    ds.action({
       name:    'new-query',
       display: 'New Query...',
       icon:    'fa fa-plus',
