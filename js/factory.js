@@ -37,7 +37,9 @@ ds.models.factory = function(data) {
     }
   }
   if (item) {
-    item.interactive_properties = item_type.interactive_properties
+    if (item_type) {
+      item.interactive_properties = item_type.interactive_properties
+    }
     return item
   }
   console.log('Unknown type');
