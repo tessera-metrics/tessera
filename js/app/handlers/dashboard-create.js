@@ -31,7 +31,7 @@ $(document).on('click', '#ds-new-dashboard-create', function(e) {
     summary: summary,
     description: description,
     tags: tags,
-    definition: ds.models.dashboard_definition()
+    definition: ds.models.factory('dashboard_definition')
   })
   ds.manager.create(dashboard, function(data) {
     window.location = data.view_href
