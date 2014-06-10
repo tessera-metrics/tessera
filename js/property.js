@@ -26,6 +26,9 @@ ds.property = function(data) {
     }
   }
 
+  /**
+   * Render the basic display of the property's value.
+   */
   self.render = function(item) {
     var inner = undefined
     if (self.template && (self.template instanceof Function)) {
@@ -38,6 +41,10 @@ ds.property = function(data) {
          + '</span>'
   }
 
+  /**
+   * Make the property editable by transforming its value display into
+   * an in-line edit widget.
+   */
   self.edit = function(item) {
     var options = {
         type: 'text',
@@ -81,23 +88,38 @@ ds.property = function(data) {
   return self
 }
 
+/**
+ * An object to allow lookup of properties by id, for easy sharing of
+ * property definitions.
+ */
 ds.property.registry = {}
 
+/**
+ * Registry a property or array of properties in the global registry.
+ */
 ds.property.register = function(property) {
    if (property instanceof Array) {
      for (var i in property) {
        ds.property.register(property[i])
      }
    } else {
-       ds.property.registry[property.id] = property.is_property
-                                         ? property
-                                         : ds.property(property)
+     ds.property.registry[property.id] = property.is_property
+                                       ? property
+                                       : ds.property(property)
    }
 }
 
-ds.property.get = function(id) {
-  if (id.is_property)
-    return id
-  return ds.property.registry[id]
-      || ds.property({id: id})
+/**
+ * Normalize a property object or string ID.
+ *
+ * @param property_or_id A string ID of a property, or a property
+ *                       object
+ * @return A ds.property object. If the argument was already a
+ *         property instance, it is returned unmodified.
+ */
+ds.property.get = function(property_or_id) {
+  if (property_or_id.is_property)
+    return property_or_id
+  return ds.property.registry[property_or_id]
+      || ds.property({id: property_or_id})
 }
