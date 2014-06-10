@@ -46,3 +46,5 @@ ds.models.factory = function(data) {
   console.log(data);
   return null;
 }
+
+ds.models.make = ds.models.factory
