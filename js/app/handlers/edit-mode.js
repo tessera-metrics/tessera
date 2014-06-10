@@ -190,7 +190,7 @@
      ----------------------------------------------------------------------------- */
 
   function add_new_item(container, type) {
-    container.add(ds.models[type]())
+    container.add(ds.models.factory(type))
     ds.manager.current.dashboard.update_index()
     ds.manager.update_item_view(container)
   }
