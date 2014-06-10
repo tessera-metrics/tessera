@@ -20,16 +20,23 @@ ds.register_dashboard_item = function(item_type, descriptor) {
 }
 
 ds.models.factory = function(data) {
-  if (data.is_dashboard_item) {
-    return data;
+  var item_type = null
+    , item = null
+
+  if (typeof(data) === 'string' && ds.models[data]) {
+    item_type = ds.models[data]
+    item = ( item_type.constructor ) ? item_type.constructor() : item_type()
+  } else if (data.is_dashboard_item) {
+    item = data;
   } else if (data.item_type && ds.models[data.item_type]) {
-    var item_type = ds.models[data.item_type]
-    var item = null
+    item_type = ds.models[data.item_type]
     if (item_type instanceof Function) {
       item = item_type(data)
     } else if (item_type.constructor) {
       item = item_type.constructor(data)
     }
+  }
+  if (item) {
     item.interactive_properties = item_type.interactive_properties
     return item
   }
