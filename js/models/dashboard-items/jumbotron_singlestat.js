@@ -1,4 +1,5 @@
 ds.register_dashboard_item('jumbotron_singlestat', {
+
   constructor: function(data) {
     'use strict'
 
@@ -20,11 +21,6 @@ ds.register_dashboard_item('jumbotron_singlestat', {
       self.transform = data.transform || self.transform
     }
     ds.models.item.init(self, data)
-
-    self.interactive_properties = function() {
-      return ['title', 'units', 'format', 'index', 'transform']
-               .concat(ds.models.item.interactive_properties())
-    }
 
     self.toJSON = function() {
       var data = ds.models.item.json(self)
@@ -53,6 +49,13 @@ ds.register_dashboard_item('jumbotron_singlestat', {
     $(element).text(d3.format(item.format)(value))
   },
 
-  template: ds.templates.models.jumbotron_singlestat
+  template: ds.templates.models.jumbotron_singlestat,
+
+  interactive_properties: [ 'title',
+                            'units',
+                            'format',
+                            { id: 'index', type: 'number' },
+                            'transform'
+                          ].concat(ds.models.item.interactive_properties)
 
 })

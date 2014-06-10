@@ -25,11 +25,12 @@
       var details = ds.templates['ds-edit-bar-item-details']({item:item})
       elt.append(details)
 
+      console.log('ds.edit.show_details(): ' + item_id + ' / ' + item_type.interactive_properties.length)
       if (item_type.interactive_properties) {
         // Run the edit handlers for each property, which make them
         // editable and set up the callbacks for their updates
-        for (var i in item.interactive_properties) {
-          item.interactive_properties[i].edit(item)
+        for (var i in item_type.interactive_properties) {
+          item_type.interactive_properties[i].edit(item)
         }
       }
     }

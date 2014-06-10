@@ -1,34 +1,43 @@
-ds.models.section = function(data) {
-  'use strict'
+ds.register_dashboard_item('section', {
 
-  var self = limivorous.observable()
-                       .property('layout', {init: 'fixed'})
-                       .extend(ds.models.item, {item_type: 'section'})
-                       .extend(ds.models.container)
+  constructor: function(data) {
+    'use strict'
+
+    var self = limivorous.observable()
+                         .property('layout', {init: 'fixed'})
+                         .extend(ds.models.item, {item_type: 'section'})
+                         .extend(ds.models.container)
                        .build()
 
-  if (data) {
-    self.layout = data.layout || layout
-  }
-  ds.models.item.init(self, data)
-  ds.models.container.init(self, data)
+    if (data) {
+      self.layout = data.layout || layout
+    }
+    ds.models.item.init(self, data)
+    ds.models.container.init(self, data)
 
-  self.interactive_properties = function() {
-    return [ 'layout', 'style', 'css_class' ]
-  }
+    self.toJSON = function() {
+      var data = ds.models.container.json(self, ds.models.item.json(self))
+      if (self.layout)
+        data.layout = self.layout
+      return data
+    }
 
-  self.toJSON = function() {
-    var data = ds.models.container.json(self, ds.models.item.json(self))
-    if (self.layout)
-      data.layout = self.layout
-    return data
-  }
+    return self
+  },
 
-  return self
-}
+  template: ds.templates.models.section,
 
-ds.models.section.Layout = {
-  FIXED: 'fixed',
-  FLUID: 'fluid',
-  NONE:  'none'
-}
+  interactive_properties: [ { id: 'layout',
+                              type: 'select',
+                              edit_options: {
+                                source: [
+                                  { value: 'fixed', text: 'fixed' },
+                                  { value: 'fluid', text: 'fluid' },
+                                  { value: 'none', text: 'none' }
+                                ]
+                              }
+                            },
+                            'style',
+                            'css_class'
+                          ]
+})

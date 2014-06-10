@@ -6,7 +6,8 @@ ds.register_dashboard_item = function(item_type, descriptor) {
 
   var props = (descriptor.interactive_properties || []).map(function(p) {
                 if (typeof(p) === 'string') {
-                  return ds.property({id: p})
+                  var prop = ds.property.get(p)
+                  return prop || ds.property({id: p})
                 } else if (p.is_property) {
                   return p
                 } else {
@@ -23,11 +24,14 @@ ds.models.factory = function(data) {
     return data;
   } else if (data.item_type && ds.models[data.item_type]) {
     var item_type = ds.models[data.item_type]
+    var item = null
     if (item_type instanceof Function) {
-      return item_type(data)
+      item = item_type(data)
     } else if (item_type.constructor) {
-      return item_type.constructor(data)
+      item = item_type.constructor(data)
     }
+    item.interactive_properties = item_type.interactive_properties
+    return item
   }
   console.log('Unknown type');
   console.log(data);

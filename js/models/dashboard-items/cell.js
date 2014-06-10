@@ -1,36 +1,57 @@
-ds.models.cell = function(data) {
-  'use strict'
+ds.register_dashboard_item('cell', {
 
-  var self = limivorous.observable()
-                       .extend(ds.models.item, {item_type: 'cell'})
-                       .extend(ds.models.container)
-                       .property('span', { init: 3 })
-                       .property('offset')
-                       .property('align')
-                       .build()
+  constructor: function(data) {
+    'use strict'
 
-  if (data) {
-    self.span = data.span || self.span
-    self.offset = data.offset
-    self.align = data.align
-  }
-  ds.models.item.init(self, data)
-  ds.models.container.init(self, data)
+    var self = limivorous.observable()
+                         .extend(ds.models.item, {item_type: 'cell'})
+                         .extend(ds.models.container)
+                         .property('span', { init: 3 })
+                         .property('offset')
+                         .property('align')
+                         .build()
 
-  self.interactive_properties = function() {
-    return [ 'style', 'css_class', 'span', 'offset', 'align' ]
-  }
+    if (data) {
+      self.span = data.span || self.span
+      self.offset = data.offset
+      self.align = data.align
+    }
+    ds.models.item.init(self, data)
+    ds.models.container.init(self, data)
 
-  self.toJSON = function() {
-    var data = ds.models.container.json(self, ds.models.item.json(self))
-    if (self.span)
-      data.span = self.span
-    if (self.offset)
-      data.offset = self.offset
-    if (self.align)
+    self.toJSON = function() {
+      var data = ds.models.container.json(self, ds.models.item.json(self))
+      if (self.span)
+        data.span = self.span
+      if (self.offset)
+        data.offset = self.offset
+      if (self.align)
       data.align = self.align
-    return data
-  }
+      return data
+    }
 
-  return self
-}
+    return self
+  },
+
+  template: ds.templates.models.cell,
+
+  interactive_properties: [
+    'style',
+    'css_class',
+    { id: 'span', type: 'number' },
+    { id: 'offset', type: 'number' },
+    {
+      id: 'align',
+      type: 'select',
+      edit_options: {
+        source: [
+          { value: undefined, text: 'none' },
+          { value: 'left', text: 'left' },
+          { value: 'center', text: 'center' },
+          { value: 'right', text: 'right' }
+        ]
+      }
+    }
+  ]
+
+})

@@ -17,11 +17,6 @@ ds.register_dashboard_item('summation_table', {
     }
     ds.models.item.init(self, data)
 
-    self.interactive_properties = function() {
-      return ['striped', 'format']
-               .concat(ds.models.item.interactive_properties())
-    }
-
     self.toJSON = function() {
       var data = ds.models.item.json(self)
       if (self.format)
@@ -44,6 +39,10 @@ ds.register_dashboard_item('summation_table', {
     })
   },
 
-  template: ds.templates.models.summation_table
+  template: ds.templates.models.summation_table,
 
+  interactive_properties: [
+    { id: 'striped', type: 'boolean' },
+    'format'
+  ].concat(ds.models.item.interactive_properties)
 })
