@@ -1,4 +1,5 @@
 ds.register_dashboard_item('singlegraph', {
+
   constructor: function(data) {
     'use strict'
 
@@ -17,12 +18,6 @@ ds.register_dashboard_item('singlegraph', {
     ds.models.item.init(self, data)
     if (!self.height) {
       self.height = 1
-    }
-
-    self.interactive_properties = function() {
-      return ['format', 'transform']
-               .concat(ds.models.chart.interactive_properties(),
-                       ds.models.item.interactive_properties())
     }
 
     self.toJSON = function() {
@@ -46,6 +41,10 @@ ds.register_dashboard_item('singlegraph', {
     $('#' + item.item_id + ' span.ds-label').text(label)
   },
 
-  template: ds.templates.models.singlegraph
+  template: ds.templates.models.singlegraph,
+
+  interactive_properties: [ 'format', 'transform' ]
+                            .concat(ds.models.chart.interactive_properties,
+                                    ds.models.item.interactive_properties)
 
 })

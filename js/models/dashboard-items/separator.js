@@ -1,19 +1,23 @@
-ds.models.separator = function(data) {
-  'use strict'
+ds.register_dashboard_item('separator', {
 
-  var self = limivorous.observable()
-                       .extend(ds.models.item, {item_type: 'separator'})
-                       .build()
+  constructor: function(data) {
+    'use strict'
 
-  ds.models.item.init(self, data)
+    var self = limivorous.observable()
+                         .extend(ds.models.item, {item_type: 'separator'})
+                         .build()
 
-  self.interactive_properties = function() {
-    return [ 'css_class' ]
-  }
+    ds.models.item.init(self, data)
 
-  self.toJSON = function() {
-    return ds.models.item.json(self)
-  }
+    self.toJSON = function() {
+      return ds.models.item.json(self)
+    }
 
-  return self
-}
+    return self
+  },
+
+  template: ds.templates.models.separator,
+
+  interactive_properties: [ 'css_class' ]
+
+})

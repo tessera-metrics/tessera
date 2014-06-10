@@ -54,17 +54,14 @@ ds.models.item =
       var self = builder.target
 
       self.render = function() {
-        var template = ds.models[self.item_type].template
-                    || ds.templates.models[self.item_type]
-        var dataHandler = ds.models[self.item_type].data_handler
-                       || ds.templates.models[self.item_type].dataHandler
-        if (template) {
-          if (dataHandler && self.query) {
+        var item_type = ds.models[self.item_type]
+        if (item_type.template) {
+          if (item_type.data_handler && self.query) {
             self.query.on_load(function(q) {
-              dataHandler(q, self)
+              item_type.data_handler(q, self)
             })
           }
-          return template({item: self})
+          return item_type.template({item: self})
         } else {
           return "<p>Unknown item type <code>" + self.item_type + "</code></p>"
         }
@@ -144,6 +141,23 @@ ds.models.item.Transform = {
   MEAN: 'mean'
 }
 
-ds.models.item.interactive_properties = function() {
-    return ['query', 'css_class', 'height']
-}
+ds.models.item.interactive_properties = [
+  ds.property({
+    id: 'query',
+    template: '{{item.query.name}}',
+    edit_options: {
+      type: 'select',
+      source: function() {
+        var queries = ds.manager.current.dashboard.definition.queries
+        return Object.keys(queries).map(function(k) {
+                 return { value: k, text: k }
+               })
+      },
+      value: function(item) {
+        return item.query ? item.query.name : undefined
+      }
+    }
+  }),
+  'css_class',
+  { id: 'height', type: 'number' }
+]

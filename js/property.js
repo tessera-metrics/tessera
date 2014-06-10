@@ -39,6 +39,7 @@ ds.property = function(data) {
   }
 
   self.edit = function(item) {
+    console.log('property.edit(): ' + self.id)
     var options = {
         type: 'text',
         value: item[self.name] || '',
@@ -84,20 +85,21 @@ ds.property = function(data) {
 ds.property.registry = {}
 
 ds.property.register = function(property) {
+  console.log('ds.property.register(): ' + JSON.stringify(property))
    if (property instanceof Array) {
      for (var i in property) {
        ds.property.register(property[i])
      }
    } else {
-     if (property.is_property) {
-       ds.property.registry[property.id] = property
-     } else {
-       ds.property.registry(ds.property(property))
-     }
+       ds.property.registry[property.id] = property.is_property
+                                         ? property
+                                         : ds.property(property)
    }
 }
 
 ds.property.get = function(id) {
-  var prop = ds.property.registry[id]
-  return prop || ds.property({id: id})
+  if (id.is_property)
+    return id
+  return ds.property.registry[id]
+      || ds.property({id: id})
 }

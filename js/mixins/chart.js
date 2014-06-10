@@ -35,6 +35,4 @@ ds.models.chart =
     }
   })()
 
-ds.models.chart.interactive_properties = function() {
-  return [ 'title' ]
-}
+ds.models.chart.interactive_properties = [ 'title' ]

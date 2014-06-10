@@ -15,12 +15,6 @@ ds.register_dashboard_item('simple_time_series', {
     ds.models.chart.init(self, data)
     ds.models.item.init(self, data)
 
-    self.interactive_properties = function() {
-      return [ 'filled' ]
-               .concat(ds.models.chart.interactive_properties(),
-                       ds.models.item.interactive_properties())
-    }
-
     self.toJSON = function() {
       return ds.models.chart.json(self, ds.models.item.json(self, {
         filled: self.filled
@@ -38,6 +32,9 @@ ds.register_dashboard_item('simple_time_series', {
     }
   },
 
-  template: ds.templates.models.simple_time_series
+  template: ds.templates.models.simple_time_series,
 
+  interactive_properties: [ { id: 'filled', type: 'boolean' } ]
+                            .concat(ds.models.chart.interactive_properties,
+                                    ds.models.item.interactive_properties)
 })
