@@ -176,6 +176,8 @@ ds.charts.graphite =
             return self.stacked_area_chart_url(item, options)
         case 'singlegraph':
             return self.simple_area_chart_url(item, options)
+        case 'donut_chart':
+            return self.donut_chart_url(item, options)
         }
         return undefined
     }
