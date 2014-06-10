@@ -74,17 +74,19 @@ module.exports = function(grunt) {
           'js/app.js',
           'js/app/manager.js',
           'js/app/helpers.js',
+          'cronenberg/static/templates.js',
           'js/charts.js',
           'js/charts/graphite.js',
           'js/charts/nvd3.js',
           'js/charts/flot.js',
           'js/app/actions.js',
+          'js/property.js',
+          'js/factory.js',
+          'js/app/properties.js',
+          'js/mixins/**/*.js',
           'js/models/**/*.js',
           'js/extensions/**/*.js',
-          'js/app/handlers/*.js',
-          'js/app/properties.js',
-          'cronenberg/static/templates.js',
-          'templates/**/*.js'
+          'js/app/handlers/*.js'
         ],
         dest: 'cronenberg/static/app.js'
       }
@@ -93,7 +95,6 @@ module.exports = function(grunt) {
       files: [
         'js/**/*.js',
         'templates/**/*.hbs',
-        'templates/**/*.js',
         'cronenberg/static/js/**/*.js',
         'cronenberg/static/cronenberg.css'
       ],

@@ -51,7 +51,6 @@ ds.models.dashboard = function(data) {
     next_id = 0
     self.visit(function(item) {
       item.item_id = self.next_id()
-      console.log(item.item_id + ' / ' + item.item_type)
     })
   }
 
@@ -83,7 +82,7 @@ ds.models.dashboard = function(data) {
         .set_view_href(data.view_href)
         .set_definition_href(data.definition_href)
     if (data.definition) {
-        self.set_definition(ds.models.dashboard_definition(data.definition))
+        self.set_definition(ds.models.factory(data.definition))
     }
     if (data.tags && data.tags.length) {
       self.tags = data.tags.map(function(t) {

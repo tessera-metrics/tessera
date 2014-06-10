@@ -109,7 +109,7 @@ $(document).ready(function() {
 
   $(document).on('click', '#ds-new-section-button', function(e) {
     var dash = ds.manager.current.dashboard
-    dash.definition.add(ds.models.section())
+    dash.definition.add(ds.models.factory('section'))
     dash.update_index()
     ds.manager.update_item_view(dash.definition)
   })

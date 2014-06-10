@@ -102,7 +102,7 @@ Handlebars.registerHelper('item', function(item) {
 })
 
 Handlebars.registerHelper('interactive_property', function(property, item) {
-  property = ds.edit.get_property(property)
+  property = ds.property.get(property)
   if (!property)
     return ''
   return new Handlebars.SafeString(property.render(item))

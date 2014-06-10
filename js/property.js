@@ -1,7 +1,7 @@
 /**
  * A property descriptor for building editor property sheets.
  */
-ds.models.property = function(data) {
+ds.property = function(data) {
 
   var self = limivorous.observable()
                        .property('id')
@@ -79,4 +79,25 @@ ds.models.property = function(data) {
   }
 
   return self
+}
+
+ds.property.registry = {}
+
+ds.property.register = function(property) {
+   if (property instanceof Array) {
+     for (var i in property) {
+       ds.property.register(property[i])
+     }
+   } else {
+       ds.property.registry[property.id] = property.is_property
+                                         ? property
+                                         : ds.property(property)
+   }
+}
+
+ds.property.get = function(id) {
+  if (id.is_property)
+    return id
+  return ds.property.registry[id]
+      || ds.property({id: id})
 }
