@@ -80,3 +80,24 @@ ds.property = function(data) {
 
   return self
 }
+
+ds.property.registry = {}
+
+ds.property.register = function(property) {
+   if (property instanceof Array) {
+     for (var i in property) {
+       ds.property.register(property[i])
+     }
+   } else {
+     if (property.is_property) {
+       ds.property.registry[property.id] = property
+     } else {
+       ds.property.registry(ds.property(property))
+     }
+   }
+}
+
+ds.property.get = function(id) {
+  var prop = ds.property.registry[id]
+  return prop || ds.property({id: id})
+}
