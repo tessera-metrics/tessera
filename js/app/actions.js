@@ -42,6 +42,10 @@ ds.actions =
       return get_actions(category).index[name]
     }
 
+    self.categories = function() {
+      return Object.keys(actions)
+    }
+
     return self
 
   })()
