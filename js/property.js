@@ -73,6 +73,13 @@ ds.property = function(data) {
       options.value = options.value(item)
     }
 
+    if (options.update && (options.update instanceof Function)) {
+      options.success = function(ignore, newValue) {
+        options.update(item, newValue)
+        ds.manager.update_item_view(item)
+      }
+    }
+
     $('#' + item.item_id + self.name).editable(options)
 
     return self
