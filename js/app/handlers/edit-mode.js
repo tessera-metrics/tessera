@@ -242,6 +242,11 @@
       chart.options.yAxisLabel = data.vtitle
     }
 
+    if (data.template) {
+      chart.options = chart.options || {}
+      chart.options.palette = data.template
+    }
+
     chart.height = Math.min(8, Math.floor(((data.height || 400) / 80)))
 
     console.log(chart.toJSON())
