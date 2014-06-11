@@ -78,6 +78,39 @@
   }
 
   /**
+   * Rename a query and update the UI to reflect the change.
+   */
+  function rename_query(dashboard, old_name, new_name) {
+    var query = dashboard.definition.queries[old_name]
+    var updated_items = dashboard.definition.rename_query(old_name, new_name)
+    $('[data-ds-query-name="' + old_name + '"]').replaceWith(
+      ds.templates.edit['dashboard-query-row'](query)
+    )
+    if (updated_items && (updated_items.length > 0)) {
+      for (var i in updated_items) {
+        ds.manager.update_item_view(updated_items[i])
+      }
+    }
+    ds.edit.edit_queries()
+    ds.app.refresh_mode()
+  }
+
+  function add_query(dashboard, name, target) {
+    var query = ds.models.data.Query({name: name, targets: target})
+    dashboard.definition.add_query(query)
+    $("#ds-query-panel table").append(ds.templates.edit['dashboard-query-row'](query))
+    delete query.options.fire_only
+    query.load()
+    ds.edit.edit_queries()
+    return query
+  }
+
+  function new_query(dashboard, targets) {
+    var name = "query" + Object.keys(dashboard.definition.queries).length
+    return add_query(dashboard, name, targets || 'randomWalkFunction("' + name + '")')
+  }
+
+  /**
    * Event handlers to show & hide the action bar & property sheet for
    * dashboard items.
    */
@@ -182,6 +215,55 @@
     handler: function(action, item) {
       var contents = ds.templates.edit.item_source({item:item})
       bootbox.alert(contents)
+    }
+  })
+
+
+  /* -----------------------------------------------------------------------------
+     New from Graphite URL
+     ----------------------------------------------------------------------------- */
+
+  function new_chart_from_graphite_url(url_string) {
+    var dash  = ds.manager.current.dashboard
+    var url   = URI(url_string)
+    var data  = url.search(true)
+
+    console.log(data)
+
+    var query = new_query(dash, data.target)
+    var chart = ds.models.make((data.areaMode && data.areaMode === 'stacked')
+                              ? 'stacked_area_chart'
+                              : 'standard_time_series')
+    chart.query = query.name
+    chart.dashboard = dash
+    chart.title = data.title
+    if (data.vtitle) {
+      chart.options = chart.options || {}
+      chart.options.yAxisLabel = data.vtitle
+    }
+
+    chart.height = Math.min(8, Math.floor(((data.height || 400) / 80)))
+
+    console.log(chart.toJSON())
+
+    return chart
+  }
+
+  var new_from_url_action = ds.action({
+    name: 'new-chart-from-url',
+    display: 'Add new chart from Graphite URL',
+    icon: 'fa fa-image',
+    handler: function(action, container) {
+      bootbox.prompt("Enter a Graphite chart URL", function(result) {
+        if (result) {
+          var item = new_chart_from_graphite_url(result)
+          if (item) {
+            container.add(item)
+            ds.manager.current.dashboard.update_index()
+            ds.manager.update_item_view(container)
+          }
+        }
+      })
     }
   })
 
@@ -321,6 +403,7 @@
     new_jumbotron_singlestat_action,
     new_summation_table_action,
     ds.action.divider,
+    new_from_url_action,
     new_simple_time_series_action,
     new_standard_time_series_action,
     new_stacked_area_chart_action,
@@ -480,38 +563,6 @@
   /* -----------------------------------------------------------------------------
      Dashboard Query Panel
      ----------------------------------------------------------------------------- */
-
-  /**
-   * Rename a query and update the UI to reflect the change.
-   */
-  function rename_query(dashboard, old_name, new_name) {
-    var query = dashboard.definition.queries[old_name]
-    var updated_items = dashboard.definition.rename_query(old_name, new_name)
-    $('[data-ds-query-name="' + old_name + '"]').replaceWith(
-      ds.templates.edit['dashboard-query-row'](query)
-    )
-    if (updated_items && (updated_items.length > 0)) {
-      for (var i in updated_items) {
-        ds.manager.update_item_view(updated_items[i])
-      }
-    }
-    ds.edit.edit_queries()
-    ds.app.refresh_mode()
-  }
-
-  function add_query(dashboard, name, target) {
-    var query = ds.models.data.Query({name: name, targets: target})
-    dashboard.definition.add_query(query)
-    $("#ds-query-panel table").append(ds.templates.edit['dashboard-query-row'](query))
-    delete query.options.fire_only
-    query.load()
-    ds.edit.edit_queries()
-  }
-
-  function new_query(dashboard) {
-    var name = "query" + Object.keys(dashboard.definition.queries).length
-    add_query(dashboard, name, 'randomWalkFunction("' + name + '")')
-  }
 
   ds.actions.register('dashboard-queries', [
     ds.action({
