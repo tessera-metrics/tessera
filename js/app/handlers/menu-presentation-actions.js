@@ -1,5 +1,5 @@
 ds.actions.register('presentation-actions', [
-  ds.models.action({
+  ds.action({
     name:    'time-spans',
     display: 'View across time spans...',
     icon:    'fa fa-clock-o',
@@ -8,7 +8,7 @@ ds.actions.register('presentation-actions', [
       ds.manager.apply_transform(ds.models.transform.TimeSpans(), item)
     }
   }),
-  ds.models.action({
+  ds.action({
     name:    'time-shifts',
     display: 'Time shift...',
     icon:    'fa fa-clock-o',
@@ -17,7 +17,7 @@ ds.actions.register('presentation-actions', [
       ds.manager.apply_transform(ds.models.transform.TimeShift(), item)
     }
   }),
-  ds.models.action({
+  ds.action({
     name:    'isolate',
     display: 'Isolate...',
     icon:    'fa fa-eye',
@@ -26,11 +26,11 @@ ds.actions.register('presentation-actions', [
       ds.manager.apply_transform(ds.models.transform.Isolate(), item)
     }
   }),
-  ds.models.action({
+  ds.action({
     hide: ds.app.Mode.TRANSFORM,
     divider: true
   }),
-  ds.models.action({
+  ds.action({
     name:    'open-in-graphite',
     display: 'Open in Graphite...',
     icon:    'fa fa-bar-chart-o',
@@ -39,7 +39,7 @@ ds.actions.register('presentation-actions', [
       window.open(composer_url)
     }
   }),
-  ds.models.action({
+  ds.action({
     name:    'export-png',
     display: 'Export PNG...',
     icon:    'fa fa-file-image-o',
@@ -48,7 +48,7 @@ ds.actions.register('presentation-actions', [
       window.open(image_url)
     }
   }),
-  ds.models.action({
+  ds.action({
     name:    'export-svg',
     display: 'Export SVG...',
     icon:    'fa fa-file-code-o',
@@ -57,7 +57,7 @@ ds.actions.register('presentation-actions', [
       window.open(image_url)
     }
   }),
-  ds.models.action({
+  ds.action({
     name:    'export-csv',
     display: 'Export CSV...',
     icon:    'fa fa-file-excel-o',

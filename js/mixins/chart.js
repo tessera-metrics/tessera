@@ -35,4 +35,34 @@ ds.models.chart =
     }
   })()
 
-ds.models.chart.interactive_properties = [ 'title' ]
+ds.models.chart.interactive_properties = [
+  'title',
+  {
+    id: 'chart.palette',
+    name: 'palette',
+
+    edit_options: {
+      type: 'select',
+
+      value: function(item) {
+        if (item.options && item.options.palette) {
+          return item.options.palette
+        } else {
+          return undefined
+        }
+      },
+
+      source: [ { text: 'None', value: undefined } ]
+                .concat(Object.keys(ds.charts.util.colors).map(function(value, index) {
+                          return { text: value, value: value }
+                        })),
+
+      update: function(item, newValue) {
+        if (!item.options) {
+          item.options = {}
+        }
+        item.options.palette = newValue
+      }
+    }
+  }
+]
