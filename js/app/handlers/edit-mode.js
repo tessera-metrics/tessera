@@ -227,16 +227,21 @@
     var dash  = ds.manager.current.dashboard
     var url   = URI(url_string)
     var data  = url.search(true)
-
-    console.log(data)
-
     var query = new_query(dash, data.target)
-    var chart = ds.models.make((data.areaMode && data.areaMode === 'stacked')
-                              ? 'stacked_area_chart'
-                              : 'standard_time_series')
-    chart.query = query.name
-    chart.dashboard = dash
-    chart.title = data.title
+    var type  = 'standard_time_series'
+
+    if (data.areaMode && data.areaMode === 'stacked') {
+      type = 'stacked_area_chart'
+    } else if (data.graphType && data.graphType === 'pie') {
+      type = 'donut_chart'
+    }
+
+    var chart = ds.models.make(type)
+                  .set_query(query.name)
+                  .set_dashboard(dash)
+                  .set_height(Math.min(8, Math.floor(((data.height || 400) / 80))))
+                  .set_title(data.title)
+
     if (data.vtitle) {
       chart.options = chart.options || {}
       chart.options.yAxisLabel = data.vtitle
@@ -246,10 +251,6 @@
       chart.options = chart.options || {}
       chart.options.palette = data.template
     }
-
-    chart.height = Math.min(8, Math.floor(((data.height || 400) / 80)))
-
-    console.log(chart.toJSON())
 
     return chart
   }
