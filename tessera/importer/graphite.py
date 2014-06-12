@@ -3,8 +3,8 @@ import logging
 import json
 import inflection
 import urllib
-from cronenberg.model import *
-from cronenberg import app, db
+from tessera.model import *
+from tessera import app, db
 
 log = logging.getLogger(__name__)
 mgr = database.DatabaseManager(db)
