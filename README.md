@@ -1,11 +1,8 @@
 # Spectra
 
-A dashboard front-end for Graphite.
-
-## Overview
-
-Words. Words about pictures.
-
+Spectra is a front-end interface for Graphite, which provides a large
+selection of presentations, layout, and interactivity options for
+building dashboards.
 
 ## Getting Started
 
