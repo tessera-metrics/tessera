@@ -11,8 +11,8 @@ dist/
 .Python
 bower_components/
 node_modules/
-cronenberg/static/*.js
-cronenberg/static/css/bundle.css
-cronenberg/cronenberg.db
+tessera/static/*.js
+tessera/static/css/bundle.css
+tessera/tessera.db
 experimental/
 js/demo/

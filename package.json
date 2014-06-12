@@ -1,5 +1,5 @@
 {
-  "name": "cronenberg",
+  "name": "tessera",
   "version": "0.0.0",
   "description": "A dashboard front-end for Graphite.",
   "main": "index.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/urbanairship/cronenberg"
+    "url": "git://github.com/urbanairship/tessera"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/urbanairship/cronenberg/issues"
+    "url": "https://github.com/urbanairship/tessera/issues"
   },
-  "homepage": "https://github.com/urbanairship/cronenberg",
+  "homepage": "https://github.com/urbanairship/tessera",
   "devDependencies": {
     "grunt-contrib-concat": "^0.4.0",
     "grunt-contrib-watch": "^0.6.1",
