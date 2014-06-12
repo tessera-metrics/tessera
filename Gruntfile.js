@@ -18,52 +18,52 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'cronenberg/static/templates.js' : [ 'templates/**/*.hbs']
+          'tessera/static/templates.js' : [ 'templates/**/*.hbs']
         }
       }
     },
     concat: {
       bundle_css: {
         src: [
-          'cronenberg/static/css/bootstrap.css',
-          'cronenberg/static/css/bootstrap-callouts.css',
-          'cronenberg/static/css/bootstrap-editable.css',
-          'cronenberg/static/css/bootstrapValidator.min.css',
-          'cronenberg/static/css/font-awesome.css',
-          'cronenberg/static/css/nv.d3.css'
+          'tessera/static/css/bootstrap.css',
+          'tessera/static/css/bootstrap-callouts.css',
+          'tessera/static/css/bootstrap-editable.css',
+          'tessera/static/css/bootstrapValidator.min.css',
+          'tessera/static/css/font-awesome.css',
+          'tessera/static/css/nv.d3.css'
         ],
-        dest: 'cronenberg/static/css/bundle.css'
+        dest: 'tessera/static/css/bundle.css'
       },
       bundle: {
         options: {
           separator: ';'
         },
         src: [
-          'cronenberg/static/js/jquery-1.11.0.min.js',
-          'cronenberg/static/js/moment.min.js',
-          'cronenberg/static/js/marked.min.js',
-          'cronenberg/static/js/highlight.pack.js',
-          'cronenberg/static/js/bean.min.js',
-          'cronenberg/static/js/URI.min.js',
-          'cronenberg/static/js/handlebars.min.js',
-          'cronenberg/static/js/bootstrap.min.js',
-          'cronenberg/static/js/bootbox.min.js',
-          'cronenberg/static/js/d3.min.js',
-          'cronenberg/static/js/nv.d3.min.js',
-          'cronenberg/static/js/tagmanager.js',
-          'cronenberg/static/js/bootstrap-editable.min.js',
-          'cronenberg/static/js/bootstrap-growl.min.js',
-          'cronenberg/static/js/bootstrapValidator.min.js',
-          'cronenberg/static/js/limivorous.js',
-          'cronenberg/static/js/color-0.5.0.js',
-          'cronenberg/static/js/flot/jquery.flot.js',
-          'cronenberg/static/js/flot/jquery.flot.time.js',
-          'cronenberg/static/js/flot/jquery.flot.multihighlight.js',
-          'cronenberg/static/js/flot/jquery.flot.tooltip.js',
-          'cronenberg/static/js/flot/jquery.flot.stack.js',
-          'cronenberg/static/js/flot/jquery.flot.crosshair.js'
+          'tessera/static/js/jquery-1.11.0.min.js',
+          'tessera/static/js/moment.min.js',
+          'tessera/static/js/marked.min.js',
+          'tessera/static/js/highlight.pack.js',
+          'tessera/static/js/bean.min.js',
+          'tessera/static/js/URI.min.js',
+          'tessera/static/js/handlebars.min.js',
+          'tessera/static/js/bootstrap.min.js',
+          'tessera/static/js/bootbox.min.js',
+          'tessera/static/js/d3.min.js',
+          'tessera/static/js/nv.d3.min.js',
+          'tessera/static/js/tagmanager.js',
+          'tessera/static/js/bootstrap-editable.min.js',
+          'tessera/static/js/bootstrap-growl.min.js',
+          'tessera/static/js/bootstrapValidator.min.js',
+          'tessera/static/js/limivorous.js',
+          'tessera/static/js/color-0.5.0.js',
+          'tessera/static/js/flot/jquery.flot.js',
+          'tessera/static/js/flot/jquery.flot.time.js',
+          'tessera/static/js/flot/jquery.flot.multihighlight.js',
+          'tessera/static/js/flot/jquery.flot.tooltip.js',
+          'tessera/static/js/flot/jquery.flot.stack.js',
+          'tessera/static/js/flot/jquery.flot.crosshair.js'
         ],
-        dest: 'cronenberg/static/bundle.js'
+        dest: 'tessera/static/bundle.js'
       },
       app: {
         options: {
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
           'js/app.js',
           'js/app/manager.js',
           'js/app/helpers.js',
-          'cronenberg/static/templates.js',
+          'tessera/static/templates.js',
           'js/charts.js',
           'js/charts/graphite.js',
           'js/charts/nvd3.js',
@@ -89,15 +89,15 @@ module.exports = function(grunt) {
           'js/extensions/**/*.js',
           'js/app/handlers/*.js'
         ],
-        dest: 'cronenberg/static/app.js'
+        dest: 'tessera/static/app.js'
       }
     },
     watch: {
       files: [
         'js/**/*.js',
         'templates/**/*.hbs',
-        'cronenberg/static/js/**/*.js',
-        'cronenberg/static/cronenberg.css'
+        'tessera/static/js/**/*.js',
+        'tessera/static/tessera.css'
       ],
       tasks: ['handlebars', 'concat']
     }
