@@ -4,7 +4,7 @@
  */
 
 ds.actions.register('dashboard-list-actions', [
-  ds.models.action({
+  ds.action({
     name:    'open',
     display: 'Open',
     icon:    'fa fa-external-link',
@@ -12,7 +12,7 @@ ds.actions.register('dashboard-list-actions', [
       window.location = context.view_href
     }
   }),
-  ds.models.action({
+  ds.action({
     name:    'edit',
     display: 'Edit...',
     icon:    'fa fa-edit',
@@ -21,7 +21,7 @@ ds.actions.register('dashboard-list-actions', [
       window.location = url
     }
   }),
-  ds.models.action({
+  ds.action({
     name:    'duplicate',
     display: 'Duplicate...',
     icon:    'fa fa-copy',
@@ -31,10 +31,10 @@ ds.actions.register('dashboard-list-actions', [
       })
     }
   }),
-  ds.models.action({
+  ds.action({
     divider: true
   }),
-  ds.models.action({
+  ds.action({
     name:    'delete',
     display: 'Delete...',
     icon:    'fa fa-trash-o',
