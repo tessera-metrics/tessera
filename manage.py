@@ -3,11 +3,11 @@
 import json
 from flask.ext.script import Manager
 import logging
-from cronenberg import app, db
-from cronenberg.demo import *
-from cronenberg.model import DashboardDefinition
-from cronenberg.model.web import Section
-from cronenberg.importer.graphite import GraphiteDashboardImporter
+from tessera import app, db
+from tessera.demo import *
+from tessera.model import DashboardDefinition
+from tessera.model.web import Section
+from tessera.importer.graphite import GraphiteDashboardImporter
 
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO,
