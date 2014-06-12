@@ -1,6 +1,7 @@
-flask
-flask-script
-flask-sqlalchemy
-requests
-simplejson
-inflection
+flask==0.10.1
+flask-script==2.0.5
+flask-sqlalchemy==1.0
+sqlalchemy==0.9.4
+requests==2.3.0
+simplejson==3.5.2
+inflection==0.2.0
