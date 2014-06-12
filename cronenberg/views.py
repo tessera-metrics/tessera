@@ -8,7 +8,8 @@ from datetime import datetime
 import inflection
 import urllib
 
-from flask import render_template, request, redirect, jsonify, abort, session
+from flask import render_template, request, jsonify, session
+from werkzeug.exceptions import HTTPException
 
 from .model import *
 from .model import database
@@ -30,6 +31,13 @@ def _jsonify(data, status=200, headers=None):
         for key, value in headers.items():
             response.headers[key] = str(value)
     return response
+
+def _set_exception_response(http_exception):
+    http_exception.response = _jsonify( {
+        'ok' : False,
+        'error_message' : http_exception.description
+    }, status=http_exception.code)
+    return http_exception
 
 def _get_param(name, default=None, store_in_session=False):
     """Retrieve a named parameter from the request, falling back to the
@@ -187,13 +195,15 @@ def api_dashboard_list_all_dashboard_categories():
         'categories' : categories
     })
 
-
 @app.route('/api/dashboard/<id>')
 def api_dashboard_get(id):
     """Get the metadata for a single dashboard.
 
     """
-    dashboard = database.Dashboard.query.get_or_404(id)
+    try:
+        dashboard = database.Dashboard.query.get_or_404(id)
+    except HTTPException as e:
+        raise _set_exception_response(e)
     dash = _set_dashboard_hrefs(dashboard.to_json())
     response = {
         'ok' : True,
@@ -232,7 +242,10 @@ def api_dashboard_update(id):
 
     """
     body = json.loads(request.data)
-    dashboard = database.Dashboard.query.get_or_404(id)
+    try:
+        dashboard = database.Dashboard.query.get_or_404(id)
+    except HTTPException as e:
+        raise _set_exception_response(e)
     dashboard.merge_from_json(body)
     mgr.store_dashboard(dashboard)
     return _jsonify({ 'ok' : True })
@@ -242,7 +255,10 @@ def api_dashboard_delete(id):
     """Delete a dashboard. Use with caution.
 
     """
-    dashboard = database.Dashboard.query.get_or_404(id)
+    try:
+        dashboard = database.Dashboard.query.get_or_404(id)
+    except HTTPException as e:
+        raise _set_exception_response(e)
     db.session.delete(dashboard)
     db.session.commit()
     return _jsonify({ 'ok' : True },
@@ -255,7 +271,10 @@ def api_dashboard_get_definition(id):
 
     """
     dashboard = database.Dashboard.query.filter_by(id=id)[0]
-    definition = database.Dashboard.query.get_or_404(id).definition.to_json()
+    try:
+        definition = database.Dashboard.query.get_or_404(id).definition.to_json()
+    except HTTPException as e:
+        raise _set_exception_response(e)
     definition['href'] = '/api/dashboard/{0}/definition'.format(id)
     definition['dashboard_href'] = '/api/dashboard/{0}'.format(id)
     return _jsonify({
@@ -271,7 +290,10 @@ def api_dashboard_update_definition(id):
     have complete graphite URLs in the queries.
 
     """
-    dashboard = database.Dashboard.query.get_or_404(id)
+    try:
+        dashboard = database.Dashboard.query.get_or_404(id)
+    except HTTPException as e:
+        raise _set_exception_response(e)
 
     # Validate the payload
     definition = DashboardDefinition.from_json(json.loads(request.data))
@@ -311,8 +333,12 @@ def api_tag_list():
 
 @app.route('/api/tag/<id>')
 def api_tag_get(id):
-    tag = database.Tag.query.get_or_404(id)
-    return _tags_response(tag)
+    try:
+        tag = database.Tag.query.get_or_404(id)
+        return _tags_response(tag)
+    except HTTPException as e:
+        raise _set_exception_response(e)
+
 
 #
 # Miscellany
@@ -423,5 +449,8 @@ def ui_dashboard_with_slug(id, slug, path):
 
 @app.route('/dashboards/<id>/')
 def ui_dashboard(id):
-    dashboard = database.Dashboard.query.get_or_404(id)
-    return _render_client_side_dashboard(dashboard)
+    try:
+        dashboard = database.Dashboard.query.get_or_404(id)
+        return _render_client_side_dashboard(dashboard)
+    except HTTPException as e:
+        raise _set_exception_response(e)
