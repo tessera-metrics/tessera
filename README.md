@@ -1,6 +1,6 @@
-# Spectra
+# Tessera
 
-Spectra is a front-end interface for Graphite, which provides a large
+Tessera is a front-end interface for Graphite, which provides a large
 selection of presentations, layout, and interactivity options for
 building dashboards.
 
@@ -13,8 +13,8 @@ for building the web assets, but is not used for running the server.
 ### Setting up the Python Environment
 
 ```shell
-git clone git@github.com:urbanairship/cronenberg.git
-cd cronenberg
+git clone git@github.com:urbanairship/tessera.git
+cd tessera
 virtualenv .
 . bin/activate
 
@@ -47,7 +47,7 @@ grunt watch &
 
 ### Create the database and run
 
-Cronenberg is configured by default to run off of a sqlite backing
+Tessera is configured by default to run off of a sqlite backing
 store, which has to be initialized, and can be populated with a bunch
 of demo dashboards. To initialize the database and generate the demo
 dashboards:
