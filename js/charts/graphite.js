@@ -148,8 +148,20 @@ ds.charts.graphite =
         return png_url
     }
 
-    self.donut_chart = function(element, item, query) {
+    self.donut_chart_url = function(item, opt) {
+      var png_url = URI(self.standard_line_chart_url(item, opt))
+                            .setQuery('graphType', 'pie')
+                            .href()
+        return png_url
+    }
 
+
+    self.donut_chart = function(element, item, query) {
+      var url = self.donut_chart_url(item, {
+        height: element.height(),
+        width: element.width()
+      })
+      img(element, url)
     }
 
     self.chart_url = function(item, options) {
@@ -164,6 +176,8 @@ ds.charts.graphite =
             return self.stacked_area_chart_url(item, options)
         case 'singlegraph':
             return self.simple_area_chart_url(item, options)
+        case 'donut_chart':
+            return self.donut_chart_url(item, options)
         }
         return undefined
     }

@@ -298,7 +298,8 @@ def api_tag_list():
     + ' FROM tag' \
     + ' INNER JOIN dashboard_tags' \
     + ' ON dashboard_tags.tag_id = tag.id' \
-    + ' GROUP BY tag.id'
+    + ' GROUP BY tag.id' \
+    + ' ORDER BY tag.name'
 
     tags = []
     for row in db.engine.execute(sql):

@@ -61,8 +61,7 @@ ds.charts =
      * Render a donut/pie chart into element.
      */
     self.donut_chart = function(element, item, query) {
-      // TODO: donut/pie charts don't have a graphite renderer yet
-      return self.provider.donut_chart(element, item, query)
+      return get_renderer('donut_chart', item)(element, item, query)
     }
 
     /**

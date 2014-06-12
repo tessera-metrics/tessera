@@ -61,13 +61,13 @@ ds.charts.nvd3 =
                     y: function(d) { return d[0] }
                 })
                 .color(ds.charts.util._color_function(options.palette || ds.charts.DEFAULT_PALETTE))
-                .margin(options.margin || { top: 12, right: 16, bottom: 16, left: 40 })
+                //.margin(options.margin || { top: 12, right: 16, bottom: 16, left: 40 })
                 .width(width)
                 .height(height)
             chart.yAxis
                 .axisLabelDistance(options.yAxisLabelDistance || 30)
                 .axisLabel(options.yAxisLabel || null)
-                .tickFormat(d3.format(options.yAxisFormat || ',.2f'))
+                .tickFormat(d3.format(options.yAxisFormat || ',.3s'))
             chart.xAxis
                 .tickFormat(function(d) { return moment.unix(d).format('h:mm A') })
                 .axisLabel(options.xAxisLabel || null)
@@ -140,11 +140,11 @@ ds.charts.nvd3 =
                 .style(options.style || 'stack')
                 .width(width)
                 .height(height)
-                .margin(options.margin || { top: 12, right: 16, bottom: 16, left: 40 })
+            // .margin(options.margin || { top: 12, right: 16, bottom: 16, left: 40 })
             chart.yAxis
                 .axisLabel(options.yAxisLabel || null)
                 .axisLabelDistance(options.yAxisLabelDistance || 30)
-                .tickFormat(d3.format(options.yAxisFormat || ',.2f'))
+                .tickFormat(d3.format(options.yAxisFormat || ',.3s'))
             chart.xAxis
                 .axisLabel(options.xAxisLabel || null)
                 .tickFormat(function(d) { return moment.unix(d).format('h:mm A') })

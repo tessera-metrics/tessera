@@ -1,4 +1,4 @@
-ds.models.action = function(data) {
+ds.action = function(data) {
 
   var self = limivorous.observable()
                        .property('name')
@@ -31,4 +31,4 @@ ds.models.action = function(data) {
   return self
 }
 
-ds.models.action.divider = ds.models.action({divider:true})
+ds.action.divider = ds.action({divider:true})
