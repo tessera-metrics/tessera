@@ -1,4 +1,4 @@
-# Cronenberg
+# Spectra
 
 A dashboard front-end for Graphite.
 
@@ -9,9 +9,9 @@ Words. Words about pictures.
 
 ## Getting Started
 
-In order to get this project running from source, you will need to have python,
-node.js, and a C compiler installed. node.js is used for building the web assets,
-but is not used for running the server.
+In order to get this project running from source, you will need to
+have Python 2.7, node.js, and a C compiler installed. node.js is used
+for building the web assets, but is not used for running the server.
 
 ### Setting up the Python Environment
 
@@ -23,7 +23,7 @@ virtualenv .
 
 # If you are on a Mac and have XCode 5.1 installed, you'll need this
 # set before installing the dependencies from requirements.txt for
-# SQLAlchemy's C extensions to compile.  export
+# SQLAlchemy's C extensions to compile.
 export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
 
 # Install dependencies
@@ -41,8 +41,8 @@ npm install
 grunt
 ```
 
-If you're going to edit the javascript files and wish to automatically
-regenerate the bundled files as they're edited, run
+If you're going to edit the javascript, .css, or .hbs files and wish
+to automatically regenerate the bundled files as they're edited, run
 
 ```
 grunt watch &
@@ -50,9 +50,10 @@ grunt watch &
 
 ### Create the database and run
 
-Cronenberg runs off of a sqlite backing store, which has to be
-initialized, and can be populated with a bunch of demo dashboards. To
-initialize the database and generate the demo dashboards:
+Cronenberg is configured by default to run off of a sqlite backing
+store, which has to be initialized, and can be populated with a bunch
+of demo dashboards. To initialize the database and generate the demo
+dashboards:
 
 ```shell
 ./manage.py initdb
@@ -140,3 +141,23 @@ Client Side:
 ### Screenshot
 
 ![screenshot](docs/screenshot-single-node-light.png)
+
+
+## Copyright & License
+
+Copyright &copy; 2014, Urban Airship and Contributors
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Third-party software libraries included with this project are
+distributed under their respective licenses.
