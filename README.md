@@ -36,6 +36,8 @@ export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
 pip install -r requirements.txt
 ```
 
+Don't forget to edit ``tessera/config.py`` to set ``GRAPHITE_URL`` to point to your Graphite installation.
+
 ### Setting up the Javascript Environment
 
 Javascript code is bundled using [Grunt](http://gruntjs.com/). To set
