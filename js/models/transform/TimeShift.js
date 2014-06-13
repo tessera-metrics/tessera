@@ -8,7 +8,6 @@ ds.models.transform.TimeShift = function(options) {
 
   var self =
     limivorous.observable()
-              .property('columns', {init: 1})
               .property('comparison_table', {init: false}) /** TODO: include a comparison summation table in the expansion */
               .property('shifts', {
                 init: [
@@ -26,16 +25,42 @@ ds.models.transform.TimeShift = function(options) {
               })
               .build()
 
+  function make_row(query, item, style) {
+    var row = ds.models.make('row')
+                .set_style(style)
+    row.add(ds.models.make('cell')
+              .set_span(10)
+              .add(item))
+    row.add(ds.models.make('cell')
+              .set_span(1)
+              .set_align('right')
+              .add(ds.models.make('singlestat')
+                     .set_query(query)
+                     .set_transform('sum')
+                     .set_format(',.2s')
+                     .set_title('Total')))
+    row.add(ds.models.make('cell')
+              .set_span(1)
+              .set_align('left')
+              .add(ds.models.make('singlestat')
+                     .set_query(query)
+                     .set_transform('mean')
+                     .set_format(',.2s')
+                     .set_title('Average')))
+    return row
+  }
+
   self.transform = function(item) {
     var query   = item.query
-    var colspan = 12 / self.columns
+    // var colspan = 12 / self.columns
     var section = ds.models.make('section')
                     .add(ds.models.make({ item_type: 'heading',
                                              level: 2, text: item.title
                                                            ? 'Time shift - ' + item.title
                                                            : 'Time shift' }))
                     .add(ds.models.make('separator'))
-                    .add(item)     /* Include the original */
+                    .add(make_row(item.query, item, 'well'))
+                    .add(ds.models.make('separator'))
 
     for (var i in self.shifts) {
       var shift = self.shifts[i]
@@ -51,9 +76,8 @@ ds.models.transform.TimeShift = function(options) {
                             .set_query(modified_query)
                             .set_title(shift.title)
 
-      section.add(ds.models.make('cell')
-                  .set_span(colspan)
-                  .add(modified_item))
+
+      section.add(make_row(modified_query, modified_item))
     }
 
     return section
