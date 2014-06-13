@@ -1,4 +1,5 @@
 *.pyc
+*.db
 *~
 *#
 #*#
@@ -13,6 +14,3 @@ bower_components/
 node_modules/
 tessera/static/*.js
 tessera/static/css/bundle.css
-tessera/tessera.db
-experimental/
-js/demo/
