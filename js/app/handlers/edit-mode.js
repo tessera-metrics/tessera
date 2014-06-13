@@ -69,8 +69,9 @@
           type: 'textarea',
           value: element.text() || '',
           success: function(ignore, newValue) {
+            var target = newValue.trim().replace(new RegExp('\r?\n','g'), '')
             var query = ds.manager.current.dashboard.definition.queries[query_name]
-            query.targets = [newValue]
+            query.targets = [target]
             query.load()
           }
         })
