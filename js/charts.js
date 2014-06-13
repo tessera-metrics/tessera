@@ -72,10 +72,15 @@ ds.charts =
      *                      provider.
      */
     self.process_series = function(series, type) {
+      var processed = null
       if (type) {
-        return ds.charts[type].process_series(series)
+        processed = ds.charts[type].process_series(series)
+      } else {
+        processed = self.provider.process_series(series)
       }
-      return self.provider.process_series(series)
+      /* Ensure that a common target variable is always there for non-chart presentations to use */
+      processed.target = series.target
+      return processed
     }
 
     /**
