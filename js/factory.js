@@ -14,6 +14,15 @@ ds.register_dashboard_item = function(item_type, descriptor) {
                   return ds.property(p)
                 }
               })
+
+  props.sort(function(p1, p2) {
+    if (p1.category === p2.category) {
+      return p1.name.localeCompare(p2.name)
+    } else {
+      return (p1.category || '').localeCompare(p2.category || '')
+    }
+  })
+
   descriptor.interactive_properties = props
 
   return ds

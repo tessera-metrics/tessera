@@ -6,6 +6,7 @@ ds.property = function(data) {
   var self = limivorous.observable()
                        .property('id')
                        .property('name')
+                       .property('category')
                        .property('type')
                        .property('template')
                        .property('edit_options')
@@ -17,6 +18,7 @@ ds.property = function(data) {
   if (data) {
     self.id = data.id
     self.name = data.name || self.id
+    self.category = data.category
     self.type = data.type
     self.edit_options = data.edit_options
     if (typeof(data.template) === 'string') {
@@ -46,7 +48,7 @@ ds.property = function(data) {
    * an in-line edit widget.
    */
   self.edit = function(item) {
-    var options = {
+    var default_options = {
         type: 'text',
         value: item[self.name] || '',
         success: function(ignore, newValue) {
@@ -54,6 +56,7 @@ ds.property = function(data) {
           ds.manager.update_item_view(item)
         }
     }
+    var options = ds.extend(default_options, self.edit_options)
 
     if (self.type === 'boolean') {
       options.type = 'checklist'
@@ -68,8 +71,16 @@ ds.property = function(data) {
       options.type = self.type
     }
 
-    if (self.edit_options) {
-      options = ds.extend(options, self.edit_options)
+    if (self.type === 'select' && (options.source instanceof Array)) {
+      options.source = options.source.map(function(value) {
+                         if ( value instanceof String ) {
+                           return { value: value, text: value }
+                         } else if (typeof(value) === 'undefined') {
+                           return { value: undefined, text: 'none' }
+                         } else {
+                           return value
+                         }
+                       })
     }
 
     if (options.source && (options.source instanceof Function)) {
