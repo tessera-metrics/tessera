@@ -46,7 +46,7 @@ ds.property = function(data) {
    * an in-line edit widget.
    */
   self.edit = function(item) {
-    var options = {
+    var default_options = {
         type: 'text',
         value: item[self.name] || '',
         success: function(ignore, newValue) {
@@ -54,6 +54,7 @@ ds.property = function(data) {
           ds.manager.update_item_view(item)
         }
     }
+    var options = ds.extend(default_options, self.options)
 
     if (self.type === 'boolean') {
       options.type = 'checklist'
@@ -71,17 +72,13 @@ ds.property = function(data) {
     if (self.type === 'select' && (options.source instanceof Array)) {
       options.source = options.source.map(function(value) {
                          if ( value instanceof String ) {
-                                return { value: value, text: value }
+                           return { value: value, text: value }
                          } else if (typeof(value) === 'undefined') {
                            return { value: undefined, text: 'none' }
                          } else {
                            return value
                          }
                        })
-    }
-
-    if (self.edit_options) {
-      options = ds.extend(options, self.edit_options)
     }
 
     if (options.source && (options.source instanceof Function)) {
