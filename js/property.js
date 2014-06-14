@@ -54,7 +54,7 @@ ds.property = function(data) {
           ds.manager.update_item_view(item)
         }
     }
-    var options = ds.extend(default_options, self.options)
+    var options = ds.extend(default_options, self.edit_options)
 
     if (self.type === 'boolean') {
       options.type = 'checklist'
