@@ -31,9 +31,9 @@ ds.register_dashboard_item('section', {
                               type: 'select',
                               edit_options: {
                                 source: [
-                                  { value: 'fixed', text: 'fixed' },
-                                  { value: 'fluid', text: 'fluid' },
-                                  { value: 'none', text: 'none' }
+                                  'fixed',
+                                  'fluid',
+                                  'none'
                                 ]
                               }
                             },

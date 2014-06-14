@@ -144,6 +144,8 @@ ds.models.item.Transform = {
 ds.models.item.interactive_properties = [
   ds.property({
     id: 'query',
+    name: 'query',
+    category: 'base',
     template: '{{item.query.name}}',
     edit_options: {
       type: 'select',
@@ -158,6 +160,6 @@ ds.models.item.interactive_properties = [
       }
     }
   }),
-  'css_class',
-  { id: 'height', type: 'number' }
+  { id: 'css_class', category: 'base'} ,
+  { id: 'height', type: 'number', category: 'base' }
 ]
