@@ -82,6 +82,50 @@ h1 .ds-secondary-title {
    3rd Party Tweaks
    ============================================================================= */
 
+.alert-neutral {
+    border-color: #9E9E9E;
+    background-color: rgba(114, 114, 114, 0.32);
+}
+
+.alert-neutral h1, .alert-neutral h2, .alert-neutral h3, .alert-neutral h4, .alert-neutral h5, .alert-neutral h6 {
+  color: #888;
+}
+
+.alert-info {
+    border-color: #438EB6;
+    background-color: rgba(1, 139, 207, 0.27);
+}
+
+.alert-info h1, .alert-info h2, .alert-info h3, .alert-info h4, .alert-info h5, .alert-info h6 {
+  color: #6A9AB3;
+}
+
+.alert-success {
+    background-color: rgba(79, 160, 79, 0.19);
+}
+
+.alert-success h1, .alert-success h2, .alert-success h3, .alert-success h4, .alert-success h5, .alert-success h6 {
+    color: #86B186;
+}
+
+.alert-warning {
+    background-color: #6F3701;
+    border-color: #A25103;
+}
+
+.alert-warning h1, .alert-warning h2, .alert-warning h3, .alert-warning h4, .alert-warning h5, .alert-warning h6 {
+    color: #FF9E3F;
+}
+
+.alert-danger {
+    border-color: #B60F0F;
+    background-color: rgba(255, 0, 5, 0.22);
+}
+
+.alert-danger h1, .alert-danger h2, .alert-danger h3, .alert-danger h4, .alert-danger h5, .alert-danger h6 {
+    color: #E22424;
+}
+
 /* nvd3 tweaks for darkstrap */
 
 .nvtooltip {

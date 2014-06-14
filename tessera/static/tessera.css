@@ -59,13 +59,6 @@ table.table thead .sorting_desc_disabled { background: url('/static/img/datatabl
   font-weight: 400;
 }
 
-.bg-neutral {
-    background-color: #f0f0f0;
-}
-.alert-neutral {
-    background-color: #f0f0f0;
-}
-
 /* x-editable's textarea in dashboard info edit panel comes out too
 narrow unless we override */
 .ds-dashboard-info-edit-panel span.editable-container textarea {

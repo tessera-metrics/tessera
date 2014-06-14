@@ -88,6 +88,13 @@ h1 .ds-secondary-title {
     stroke: lightgray;
 }
 
+.bg-neutral {
+    background-color: #f0f0f0;
+}
+
+.alert-neutral {
+    background-color: #f0f0f0;
+}
 
 /* -----------------------------------------------------------------------------
    Edit mode headers
