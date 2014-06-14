@@ -8,9 +8,9 @@ building dashboards.
 
 ## Overview
 
-Tessera consists of a small python webserver written with Flask with a SQL backing store. The server manages storing and searching for dashboards (with tags), serving the basic UI assets, and providing a ReST API for the front-end to use. 
+Tessera consists of a small python webserver written with Flask with a SQL backing store. The server manages storing and searching for dashboards (with tags), serving the basic UI assets, and providing a ReST API for the front-end to use.
 
-Dashboards are big lumps of JSON data describing the queries, presentations, and layout, wrapped in a small shell of SQL metadata. Most of the heavy lifting is done by the javascript front-end, which is responsible for all rendering, data fetching from graphite, and editing of dashboards. 
+Dashboards are big lumps of JSON data describing the queries, presentations, and layout, wrapped in a small shell of SQL metadata. Most of the heavy lifting is done by the javascript front-end, which is responsible for all rendering, data fetching from graphite, and editing of dashboards.
 
 
 ## Getting Started
@@ -65,6 +65,7 @@ dashboards:
 
 ```shell
 ./manage.py initdb
+./manage.py import_json 'demo/*'
 ```
 
 And to run it from source:
