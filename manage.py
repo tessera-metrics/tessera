@@ -18,32 +18,14 @@ logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(logging.W
 logging.getLogger('sqlalchemy.engine').setLevel(logging.WARN)
 
 manager = Manager(app)
-dbmgr = database.DatabaseManager(db)
 
 @manager.command
 def run():
     app.run(host='0.0.0.0')
 
 @manager.command
-def generate():
-    log.info('Generating demo dashboards')
-    dashboards = [
-        demo_gallery_dashboard(),
-        demo_random_data_dashboard()
-    ]
-    for d in dashboards:
-        log.info('Storing dashboard {0} {1}'.format(d.category, d.title))
-        dbmgr.store_dashboard(d)
-    log.info('Done')
-
-@manager.command
-def createdb():
-    db.create_all()
-
-@manager.command
 def initdb():
-    createdb()
-    generate()
+    db.create_all()
 
 @manager.command
 def import_graphite_dashboards(query='', layout=Section.Layout.FLUID, columns=4, overwrite=False):

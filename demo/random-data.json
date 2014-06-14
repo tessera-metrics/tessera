@@ -1,0 +1,709 @@
+{
+  "category": "Demo", 
+  "definition": {
+    "style": null, 
+    "items": [
+      {
+        "style": null, 
+        "layout": "fixed", 
+        "items": [
+          {
+            "style": null, 
+            "description": "Followed by a separator", 
+            "level": 1, 
+            "text": "A Heading", 
+            "height": null, 
+            "item_type": "heading", 
+            "css_class": null, 
+            "item_id": null
+          }, 
+          {
+            "item_id": null, 
+            "item_type": "separator", 
+            "style": null, 
+            "height": null, 
+            "css_class": null
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 4, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "frobs", 
+                    "title": "Jumbotron Singlestat", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "jumbotron_singlestat", 
+                    "item_id": null, 
+                    "query": "cpu_usage"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }, 
+              {
+                "style": "well", 
+                "span": 8, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": "stacked_area_chart", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": 3, 
+                    "item_type": "stacked_area_chart", 
+                    "item_id": null, 
+                    "query": "cpu_usage", 
+                    "options": {}, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": null
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": "well", 
+                "span": 3, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "frobs/kg", 
+                    "title": "Max. Frob Density", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.0f", 
+                    "transform": "max", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": null, 
+                    "query": "cpu_usage"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": 4, 
+                "item_id": null, 
+                "css_class": null
+              }, 
+              {
+                "style": "well", 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "/sec", 
+                    "title": "Average Rate", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.2f", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": null, 
+                    "query": "cpu_usage"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }, 
+              {
+                "style": "well", 
+                "span": 3, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "frobs", 
+                    "title": "Total Frobs", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.0f", 
+                    "transform": "sum", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": null, 
+                    "query": "cpu_usage"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": null
+          }, 
+          {
+            "style": null, 
+            "description": "Very Important Metrics for Determining Things and Stuff", 
+            "level": 2, 
+            "text": "Cluster Health", 
+            "height": null, 
+            "item_type": "heading", 
+            "css_class": null, 
+            "item_id": null
+          }, 
+          {
+            "item_id": null, 
+            "item_type": "separator", 
+            "style": null, 
+            "height": null, 
+            "css_class": null
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 12, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": null, 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": 4, 
+                    "item_type": "standard_time_series", 
+                    "item_id": null, 
+                    "query": "cluster", 
+                    "options": {
+                      "margin": {
+                        "top": 0, 
+                        "right": 0, 
+                        "left": 80, 
+                        "bottom": 16
+                      }, 
+                      "yAxisLabel": "frobs per second"
+                    }, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": null
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 4, 
+                "items": [
+                  {
+                    "style": null, 
+                    "item_type": "markdown", 
+                    "text": "### An Explanatory Box\n\nContaining text in [Markdown](https://daringfireball.net/projects/markdown/) format. You can use this to include explanatory text about your metrics. The table to the right is a ``summation_table`` presentation linked to the same query as the ``standard_time_series`` presentation displayed above.", 
+                    "height": null, 
+                    "raw": false, 
+                    "css_class": null, 
+                    "item_id": null
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 4, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": null, 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.4f", 
+                    "height": null, 
+                    "item_type": "summation_table", 
+                    "item_id": null, 
+                    "query": "cluster", 
+                    "striped": false
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 4, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": "Distribution of Frobs", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": null, 
+                    "item_type": "donut_chart", 
+                    "item_id": null, 
+                    "query": "cluster", 
+                    "options": {}, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": null
+          }, 
+          {
+            "style": null, 
+            "description": null, 
+            "level": 1, 
+            "text": "Summaries", 
+            "height": null, 
+            "item_type": "heading", 
+            "css_class": null, 
+            "item_id": null
+          }, 
+          {
+            "item_id": null, 
+            "item_type": "separator", 
+            "style": null, 
+            "height": null, 
+            "css_class": null
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "things", 
+                    "title": "Max", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.1f", 
+                    "transform": "max", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": null, 
+                    "query": "thing1"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "things", 
+                    "title": "Average", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.1f", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": null, 
+                    "query": "thing1"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 8, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": null, 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": null, 
+                    "item_type": "simple_time_series", 
+                    "item_id": null, 
+                    "query": "thing1", 
+                    "options": {}, 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": null
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "things", 
+                    "title": "Max", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.1f", 
+                    "transform": "max", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": null, 
+                    "query": "thing2"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "things", 
+                    "title": "Average", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.1f", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": null, 
+                    "query": "thing2"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 8, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": null, 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": null, 
+                    "item_type": "simple_time_series", 
+                    "item_id": null, 
+                    "query": "thing2", 
+                    "options": {}, 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": null
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "things", 
+                    "title": "Max", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.1f", 
+                    "transform": "max", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": null, 
+                    "query": "thing3"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "things", 
+                    "title": "Average", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.1f", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": null, 
+                    "query": "thing3"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 8, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": null, 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": null, 
+                    "item_type": "simple_time_series", 
+                    "item_id": null, 
+                    "query": "thing3", 
+                    "options": {}, 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": null
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "things", 
+                    "title": "Max", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.1f", 
+                    "transform": "max", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": null, 
+                    "query": "thing4"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "things", 
+                    "title": "Average", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.1f", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": null, 
+                    "query": "thing4"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 8, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": null, 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": null, 
+                    "item_type": "simple_time_series", 
+                    "item_id": null, 
+                    "query": "thing4", 
+                    "options": {}, 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": null, 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": null
+          }
+        ], 
+        "height": null, 
+        "item_type": "section", 
+        "css_class": null, 
+        "item_id": null
+      }
+    ], 
+    "queries": {
+      "cpu_usage": "absolute(group(randomWalkFunction(\"system\"),randomWalkFunction(\"user\"),randomWalkFunction(\"wait\")))", 
+      "thing2": "randomWalkFunction(thing2)", 
+      "thing3": "randomWalkFunction(thing3)", 
+      "thing1": "randomWalkFunction(thing1)", 
+      "thing4": "randomWalkFunction(thing4)", 
+      "cluster": "aliasByNode(absolute(group(randomWalkFunction(\"s001\"),randomWalkFunction(\"s002\"),randomWalkFunction(\"s003\"),randomWalkFunction(\"s004\"),randomWalkFunction(\"s005\"))), 0)"
+    }, 
+    "height": null, 
+    "item_type": "dashboard_definition", 
+    "css_class": null, 
+    "item_id": null
+  }, 
+  "last_modified_date": "2014-06-14T20:46:32.941496Z", 
+  "description": null, 
+  "title": "Random Data", 
+  "tags": [
+    {
+      "bgcolor": "#ddd", 
+      "id": 1, 
+      "fgcolor": "#333", 
+      "name": "demo"
+    }, 
+    {
+      "id": 2, 
+      "name": "random"
+    }
+  ], 
+  "creation_date": "2014-06-14T20:46:32.938030Z", 
+  "id": 2, 
+  "imported_from": null, 
+  "summary": null
+}
