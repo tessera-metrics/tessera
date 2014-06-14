@@ -40,6 +40,7 @@ ds.models.chart.interactive_properties = [
   {
     id: 'chart.palette',
     name: 'palette',
+    category: 'chart',
 
     edit_options: {
       type: 'select',

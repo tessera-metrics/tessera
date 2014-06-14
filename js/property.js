@@ -6,6 +6,7 @@ ds.property = function(data) {
   var self = limivorous.observable()
                        .property('id')
                        .property('name')
+                       .property('category')
                        .property('type')
                        .property('template')
                        .property('edit_options')
@@ -17,6 +18,7 @@ ds.property = function(data) {
   if (data) {
     self.id = data.id
     self.name = data.name || self.id
+    self.category = data.category
     self.type = data.type
     self.edit_options = data.edit_options
     if (typeof(data.template) === 'string') {
