@@ -45,10 +45,10 @@ ds.register_dashboard_item('cell', {
       type: 'select',
       edit_options: {
         source: [
-          { value: undefined, text: 'none' },
-          { value: 'left', text: 'left' },
-          { value: 'center', text: 'center' },
-          { value: 'right', text: 'right' }
+          undefined,
+          'left',
+          'center',
+          'right'
         ]
       }
     }

@@ -68,6 +68,18 @@ ds.property = function(data) {
       options.type = self.type
     }
 
+    if (self.type === 'select' && (options.source instanceof Array)) {
+      options.source = options.source.map(function(value) {
+                         if ( value instanceof String ) {
+                                return { value: value, text: value }
+                         } else if (typeof(value) === 'undefined') {
+                           return { value: undefined, text: 'none' }
+                         } else {
+                           return value
+                         }
+                       })
+    }
+
     if (self.edit_options) {
       options = ds.extend(options, self.edit_options)
     }
