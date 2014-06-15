@@ -42,6 +42,7 @@ module.exports = function(grunt) {
           'tessera/static/js/jquery-1.11.0.min.js',
           'tessera/static/js/moment.min.js',
           'tessera/static/js/marked.min.js',
+          'tessera/static/js/mousetrap.min.js',
           'tessera/static/js/highlight.pack.js',
           'tessera/static/js/bean.min.js',
           'tessera/static/js/URI.min.js',
