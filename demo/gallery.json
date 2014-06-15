@@ -15,7 +15,7 @@
             "height": null, 
             "item_type": "heading", 
             "css_class": null, 
-            "item_id": "d2"
+            "item_id": "d80"
           }, 
           {
             "style": null, 
@@ -24,10 +24,10 @@
             "height": null, 
             "raw": false, 
             "css_class": null, 
-            "item_id": "d3"
+            "item_id": "d100"
           }, 
           {
-            "item_id": "d4", 
+            "item_id": "d101", 
             "item_type": "separator", 
             "style": null, 
             "height": null, 
@@ -47,14 +47,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d7"
+                    "item_id": "d104"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d6", 
+                "item_id": "d103", 
                 "css_class": null
               }, 
               {
@@ -68,7 +68,7 @@
                     "thresholds": null, 
                     "height": null, 
                     "item_type": "simple_time_series", 
-                    "item_id": "d9", 
+                    "item_id": "d106", 
                     "query": "single1", 
                     "options": {}, 
                     "filled": false, 
@@ -81,7 +81,7 @@
                     "thresholds": null, 
                     "height": null, 
                     "item_type": "simple_time_series", 
-                    "item_id": "d10", 
+                    "item_id": "d107", 
                     "query": "single1", 
                     "options": {}, 
                     "filled": true, 
@@ -92,14 +92,14 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d8", 
+                "item_id": "d105", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d5"
+            "item_id": "d102"
           }, 
           {
             "style": null, 
@@ -115,14 +115,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d13"
+                    "item_id": "d129"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d12", 
+                "item_id": "d128", 
                 "css_class": null
               }, 
               {
@@ -136,7 +136,7 @@
                     "thresholds": null, 
                     "height": null, 
                     "item_type": "standard_time_series", 
-                    "item_id": "d15", 
+                    "item_id": "d131", 
                     "query": "positive", 
                     "options": {
                       "yAxisFormat": ",.1s", 
@@ -154,14 +154,14 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d14", 
+                "item_id": "d130", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d11"
+            "item_id": "d117"
           }, 
           {
             "style": null, 
@@ -177,14 +177,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d18"
+                    "item_id": "d134"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d17", 
+                "item_id": "d133", 
                 "css_class": null
               }, 
               {
@@ -198,7 +198,7 @@
                     "thresholds": null, 
                     "height": null, 
                     "item_type": "stacked_area_chart", 
-                    "item_id": "d20", 
+                    "item_id": "d136", 
                     "query": "positive", 
                     "options": {
                       "yAxisFormat": ",.1s", 
@@ -212,7 +212,7 @@
                     "interactive": true
                   }, 
                   {
-                    "item_id": "d21", 
+                    "item_id": "d137", 
                     "item_type": "separator", 
                     "style": null, 
                     "height": null, 
@@ -225,7 +225,7 @@
                     "thresholds": null, 
                     "height": 3, 
                     "item_type": "stacked_area_chart", 
-                    "item_id": "d22", 
+                    "item_id": "d138", 
                     "query": "multiple", 
                     "options": {
                       "yAxisFormat": ",.1s", 
@@ -244,14 +244,14 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d19", 
+                "item_id": "d135", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d16"
+            "item_id": "d132"
           }, 
           {
             "style": null, 
@@ -267,14 +267,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d25"
+                    "item_id": "d141"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d24", 
+                "item_id": "d140", 
                 "css_class": null
               }, 
               {
@@ -290,7 +290,7 @@
                     "transform": "mean", 
                     "height": 1, 
                     "item_type": "singlegraph", 
-                    "item_id": "d27", 
+                    "item_id": "d143", 
                     "query": "single1", 
                     "options": {
                       "margin": {
@@ -307,7 +307,7 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d26", 
+                "item_id": "d142", 
                 "css_class": null
               }, 
               {
@@ -323,7 +323,7 @@
                     "transform": "mean", 
                     "height": 1, 
                     "item_type": "singlegraph", 
-                    "item_id": "d29", 
+                    "item_id": "d145", 
                     "query": "single2", 
                     "options": {
                       "margin": {
@@ -340,7 +340,7 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d28", 
+                "item_id": "d144", 
                 "css_class": null
               }, 
               {
@@ -356,7 +356,7 @@
                     "transform": "mean", 
                     "height": 1, 
                     "item_type": "singlegraph", 
-                    "item_id": "d31", 
+                    "item_id": "d147", 
                     "query": "multiple", 
                     "options": {
                       "margin": {
@@ -373,20 +373,20 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d30", 
+                "item_id": "d146", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d23"
+            "item_id": "d139"
           }
         ], 
         "height": null, 
         "item_type": "section", 
         "css_class": null, 
-        "item_id": "d1"
+        "item_id": "d79"
       }, 
       {
         "style": "callout_neutral", 
@@ -400,10 +400,10 @@
             "height": null, 
             "item_type": "heading", 
             "css_class": null, 
-            "item_id": "d33"
+            "item_id": "d149"
           }, 
           {
-            "item_id": "d34", 
+            "item_id": "d150", 
             "item_type": "separator", 
             "style": null, 
             "height": null, 
@@ -416,7 +416,7 @@
             "thresholds": null, 
             "height": 5, 
             "item_type": "stacked_area_chart", 
-            "item_id": "d35", 
+            "item_id": "d151", 
             "query": "positive2", 
             "options": {
               "yAxisFormat": ",.1s", 
@@ -434,14 +434,14 @@
         "height": null, 
         "item_type": "section", 
         "css_class": null, 
-        "item_id": "d32"
+        "item_id": "d148"
       }, 
       {
         "style": null, 
         "layout": "fixed", 
         "items": [
           {
-            "item_id": "d37", 
+            "item_id": "d153", 
             "item_type": "separator", 
             "style": null, 
             "height": null, 
@@ -455,10 +455,10 @@
             "height": null, 
             "item_type": "heading", 
             "css_class": null, 
-            "item_id": "d38"
+            "item_id": "d154"
           }, 
           {
-            "item_id": "d39", 
+            "item_id": "d155", 
             "item_type": "separator", 
             "style": null, 
             "height": null, 
@@ -478,14 +478,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d42"
+                    "item_id": "d158"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d41", 
+                "item_id": "d157", 
                 "css_class": null
               }, 
               {
@@ -503,7 +503,7 @@
                     "transform": "sum", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d44", 
+                    "item_id": "d160", 
                     "query": "single1"
                   }
                 ], 
@@ -511,7 +511,7 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d43", 
+                "item_id": "d159", 
                 "css_class": null
               }, 
               {
@@ -529,7 +529,7 @@
                     "transform": "min", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d46", 
+                    "item_id": "d162", 
                     "query": "single1"
                   }
                 ], 
@@ -537,7 +537,7 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d45", 
+                "item_id": "d161", 
                 "css_class": null
               }, 
               {
@@ -555,7 +555,7 @@
                     "transform": "max", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d48", 
+                    "item_id": "d164", 
                     "query": "single1"
                   }
                 ], 
@@ -563,14 +563,14 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d47", 
+                "item_id": "d163", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d40"
+            "item_id": "d156"
           }, 
           {
             "style": null, 
@@ -586,14 +586,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d51"
+                    "item_id": "d167"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d50", 
+                "item_id": "d166", 
                 "css_class": null
               }, 
               {
@@ -611,7 +611,7 @@
                     "transform": "sum", 
                     "height": 3, 
                     "item_type": "jumbotron_singlestat", 
-                    "item_id": "d53", 
+                    "item_id": "d169", 
                     "query": "single1"
                   }
                 ], 
@@ -619,14 +619,14 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d52", 
+                "item_id": "d168", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d49"
+            "item_id": "d165"
           }, 
           {
             "style": null, 
@@ -642,14 +642,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d56"
+                    "item_id": "d172"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d55", 
+                "item_id": "d171", 
                 "css_class": null
               }, 
               {
@@ -664,7 +664,7 @@
                     "format": ",.3f", 
                     "height": null, 
                     "item_type": "summation_table", 
-                    "item_id": "d58", 
+                    "item_id": "d174", 
                     "query": "positive", 
                     "striped": false
                   }
@@ -673,7 +673,7 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d57", 
+                "item_id": "d173", 
                 "css_class": null
               }, 
               {
@@ -688,7 +688,7 @@
                     "format": ",.3f", 
                     "height": null, 
                     "item_type": "summation_table", 
-                    "item_id": "d202", 
+                    "item_id": "d176", 
                     "query": "positive", 
                     "striped": true
                   }
@@ -697,14 +697,14 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d201", 
+                "item_id": "d175", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d54"
+            "item_id": "d170"
           }, 
           {
             "style": null, 
@@ -720,14 +720,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d61"
+                    "item_id": "d179"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d60", 
+                "item_id": "d178", 
                 "css_class": null
               }, 
               {
@@ -741,14 +741,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d63"
+                    "item_id": "d181"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d62", 
+                "item_id": "d180", 
                 "css_class": null
               }, 
               {
@@ -762,24 +762,24 @@
                     "height": null, 
                     "raw": true, 
                     "css_class": null, 
-                    "item_id": "d65"
+                    "item_id": "d183"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d64", 
+                "item_id": "d182", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d59"
+            "item_id": "d177"
           }, 
           {
-            "item_id": "d66", 
+            "item_id": "d184", 
             "item_type": "separator", 
             "style": null, 
             "height": null, 
@@ -787,16 +787,25 @@
           }, 
           {
             "style": null, 
-            "description": "Some visual variations that can be applied to all presentations", 
+            "description": null, 
             "level": 1, 
             "text": "Presentation Options", 
             "height": null, 
             "item_type": "heading", 
             "css_class": null, 
-            "item_id": "d67"
+            "item_id": "d185"
           }, 
           {
-            "item_id": "d68", 
+            "style": null, 
+            "item_type": "markdown", 
+            "text": "A variety of visual styles can be applied to structural elements (sections, rows, and cells) for visual emphasis.", 
+            "height": null, 
+            "raw": false, 
+            "css_class": null, 
+            "item_id": "d186"
+          }, 
+          {
+            "item_id": "d187", 
             "item_type": "separator", 
             "style": null, 
             "height": null, 
@@ -806,29 +815,8 @@
             "style": null, 
             "items": [
               {
-                "style": null, 
-                "span": 3, 
-                "items": [
-                  {
-                    "style": null, 
-                    "item_type": "markdown", 
-                    "text": "Key metrics can be **emphasized** for attention in a variety of styles.", 
-                    "height": null, 
-                    "raw": false, 
-                    "css_class": null, 
-                    "item_id": "d71"
-                  }
-                ], 
-                "align": null, 
-                "height": null, 
-                "item_type": "cell", 
-                "offset": null, 
-                "item_id": "d70", 
-                "css_class": null
-              }, 
-              {
                 "style": "well", 
-                "span": 3, 
+                "span": 2, 
                 "items": [
                   {
                     "index": false, 
@@ -837,11 +825,11 @@
                     "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "Emphasized, Well", 
+                    "title": "well", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d73", 
+                    "item_id": "d190", 
                     "query": "single1"
                   }
                 ], 
@@ -849,12 +837,151 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d72", 
+                "item_id": "d189", 
                 "css_class": null
               }, 
               {
+                "style": "alert_neutral", 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": null, 
+                    "format": ",.3f", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "NEUTRAL", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": "d192", 
+                    "query": "single1"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d191", 
+                "css_class": null
+              }, 
+              {
+                "style": "alert_info", 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": null, 
+                    "format": ",.3f", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "Info Alert", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": "d194", 
+                    "query": "single1"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d193", 
+                "css_class": null
+              }, 
+              {
+                "style": "alert_success", 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": null, 
+                    "format": ",.3f", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "Success Alert", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": "d196", 
+                    "query": "single1"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d195", 
+                "css_class": null
+              }, 
+              {
+                "style": "alert_warning", 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": null, 
+                    "format": ",.3f", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "Warning Alert", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": "d198", 
+                    "query": "single1"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d197", 
+                "css_class": null
+              }, 
+              {
+                "style": "alert_danger", 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": null, 
+                    "format": ",.3f", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "Danger Alert", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": "d200", 
+                    "query": "single1"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d199", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d188"
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
                 "style": "callout_neutral", 
-                "span": 3, 
+                "span": 2, 
                 "items": [
                   {
                     "index": false, 
@@ -867,20 +994,20 @@
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d75", 
+                    "item_id": "d207", 
                     "query": "single1"
                   }
                 ], 
                 "align": "center", 
                 "height": null, 
                 "item_type": "cell", 
-                "offset": null, 
-                "item_id": "d74", 
+                "offset": "2", 
+                "item_id": "d206", 
                 "css_class": null
               }, 
               {
                 "style": "callout_info", 
-                "span": 3, 
+                "span": 2, 
                 "items": [
                   {
                     "index": false, 
@@ -893,7 +1020,7 @@
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d77", 
+                    "item_id": "d209", 
                     "query": "single1"
                   }
                 ], 
@@ -901,21 +1028,12 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d76", 
+                "item_id": "d208", 
                 "css_class": null
-              }
-            ], 
-            "height": null, 
-            "item_type": "row", 
-            "css_class": null, 
-            "item_id": "d69"
-          }, 
-          {
-            "style": null, 
-            "items": [
+              }, 
               {
                 "style": "callout_success", 
-                "span": 3, 
+                "span": 2, 
                 "items": [
                   {
                     "index": false, 
@@ -928,20 +1046,81 @@
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d80", 
+                    "item_id": "d211", 
                     "query": "single1"
                   }
                 ], 
                 "align": "center", 
                 "height": null, 
                 "item_type": "cell", 
-                "offset": 3, 
-                "item_id": "d79", 
+                "offset": null, 
+                "item_id": "d210", 
                 "css_class": null
               }, 
               {
+                "style": "callout_warning", 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": null, 
+                    "format": ",.3f", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "Warning Callout", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": "d213", 
+                    "query": "single1"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d212", 
+                "css_class": null
+              }, 
+              {
+                "style": "callout_danger", 
+                "span": 2, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": null, 
+                    "format": ",.3f", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "Danger Callout", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": "d215", 
+                    "query": "single1"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d214", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d203"
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
                 "style": null, 
-                "span": 3, 
+                "span": 2, 
                 "items": [
                   {
                     "index": false, 
@@ -954,20 +1133,20 @@
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d82", 
+                    "item_id": "d218", 
                     "query": "single2"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
-                "offset": null, 
-                "item_id": "d81", 
+                "offset": "8", 
+                "item_id": "d217", 
                 "css_class": null
               }, 
               {
                 "style": null, 
-                "span": 3, 
+                "span": 2, 
                 "items": [
                   {
                     "index": false, 
@@ -980,7 +1159,7 @@
                     "transform": "max", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d84", 
+                    "item_id": "d220", 
                     "query": "single2"
                   }
                 ], 
@@ -988,14 +1167,14 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d83", 
+                "item_id": "d219", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d78"
+            "item_id": "d216"
           }, 
           {
             "style": null, 
@@ -1011,14 +1190,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d87"
+                    "item_id": "d223"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d86", 
+                "item_id": "d222", 
                 "css_class": null
               }, 
               {
@@ -1036,7 +1215,7 @@
                     "transform": "sum", 
                     "height": 2, 
                     "item_type": "jumbotron_singlestat", 
-                    "item_id": "d89", 
+                    "item_id": "d225", 
                     "query": "single1"
                   }
                 ], 
@@ -1044,17 +1223,17 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d88", 
+                "item_id": "d224", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d85"
+            "item_id": "d221"
           }, 
           {
-            "item_id": "d90", 
+            "item_id": "d226", 
             "item_type": "separator", 
             "style": null, 
             "height": null, 
@@ -1068,10 +1247,10 @@
             "height": null, 
             "item_type": "heading", 
             "css_class": null, 
-            "item_id": "d91"
+            "item_id": "d227"
           }, 
           {
-            "item_id": "d92", 
+            "item_id": "d228", 
             "item_type": "separator", 
             "style": null, 
             "height": null, 
@@ -1091,14 +1270,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d95"
+                    "item_id": "d231"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d94", 
+                "item_id": "d230", 
                 "css_class": null
               }, 
               {
@@ -1112,7 +1291,7 @@
                     "thresholds": null, 
                     "height": 3, 
                     "item_type": "donut_chart", 
-                    "item_id": "d97", 
+                    "item_id": "d233", 
                     "query": "positive", 
                     "options": {
                       "margin": {
@@ -1129,7 +1308,7 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d96", 
+                "item_id": "d232", 
                 "css_class": null
               }, 
               {
@@ -1143,7 +1322,7 @@
                     "thresholds": null, 
                     "height": 3, 
                     "item_type": "donut_chart", 
-                    "item_id": "d99", 
+                    "item_id": "d235", 
                     "query": "positive", 
                     "options": {
                       "donut": false, 
@@ -1157,20 +1336,20 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d98", 
+                "item_id": "d234", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d93"
+            "item_id": "d229"
           }
         ], 
         "height": null, 
         "item_type": "section", 
         "css_class": null, 
-        "item_id": "d36"
+        "item_id": "d152"
       }
     ], 
     "queries": {
@@ -1196,9 +1375,9 @@
     "height": null, 
     "item_type": "dashboard_definition", 
     "css_class": null, 
-    "item_id": "d0"
+    "item_id": "d71"
   }, 
-  "last_modified_date": "2014-06-14T20:47:19.218017Z", 
+  "last_modified_date": "2014-06-15T18:36:02.324056Z", 
   "description": "Dashboard descriptions can be longer and more detailed. \n### Markdown Formatted \nPlus, they can be _formatted_ in **Markdown** format for rendering to HTML.", 
   "title": "Gallery", 
   "tags": [
@@ -1209,16 +1388,12 @@
       "name": "demo"
     }, 
     {
-      "id": 2, 
-      "name": "random"
-    }, 
-    {
       "bgcolor": "green", 
       "id": 3, 
       "name": "featured"
     }
   ], 
-  "creation_date": "2014-06-14T20:46:32.921540Z", 
+  "creation_date": "2014-06-14T22:16:22.179563Z", 
   "id": 1, 
   "imported_from": null, 
   "summary": "A gallery of all the supported presentations"
