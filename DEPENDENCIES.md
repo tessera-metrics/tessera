@@ -39,3 +39,4 @@ built with as many "off-the-shelf" components as possible.
 * [tagmanager](https://github.com/max-favilli/tagmanager)
 * [x-editable](http://vitalets.github.io/x-editable/)
 * [color](https://github.com/harthur/color)
+* [mousetrap](https://github.com/ccampbell/mousetrap)
