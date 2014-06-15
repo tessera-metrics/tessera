@@ -89,7 +89,17 @@ Handlebars.registerHelper('style_class', function(item) {
         return 'bs-callout bs-callout-warning'
       case 'callout_danger':
         return 'bs-callout bs-callout-danger'
-    }
+      case 'alert_neutral':
+        return 'alert alert-neutral'
+      case 'alert_info':
+        return 'alert alert-info'
+      case 'alert_success':
+        return 'alert alert-success'
+      case 'alert_warning':
+        return 'alert alert-warning'
+      case 'alert_danger':
+        return 'alert alert-danger'
+     }
   }  else {
     return ''
   }

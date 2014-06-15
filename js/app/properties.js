@@ -10,7 +10,12 @@ ds.property.register([
         'callout_info',
         'callout_success',
         'callout_warning',
-        'callout_danger'
+        'callout_danger',
+        'alert_neutral',
+        'alert_info',
+        'alert_success',
+        'alert_warning',
+        'alert_danger'
       ]
     }
   },

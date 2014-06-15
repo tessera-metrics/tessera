@@ -131,7 +131,12 @@ ds.models.item.Style = {
   CALLOUT_INFO:    'callout_info',
   CALLOUT_SUCCESS: 'callout_success',
   CALLOUT_WARNING: 'callout_warning',
-  CALLOUT_DANGER:  'callout_danger'
+  CALLOUT_DANGER:  'callout_danger',
+  ALERT_NEUTRAL:   'alert_neutral',
+  ALERT_INFO:      'alert_info',
+  ALERT_SUCCESS:   'alert_success',
+  ALERT_WARNING:   'alert_warning',
+  ALERT_DANGER:    'alert_danger',
 }
 
 ds.models.item.Transform = {

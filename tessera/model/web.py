@@ -46,16 +46,7 @@ class DashboardItem(object):
 
     JS class: ds.models.item
     """
-    class Style:
-        PLAIN           = None
-        WELL            = 'well'
-        CALLOUT_NEUTRAL = 'callout_neutral'
-        CALLOUT_INFO    = 'callout_info'
-        CALLOUT_SUCCESS = 'callout_success'
-        CALLOUT_WARNING = 'callout_warning'
-        CALLOUT_DANGER  = 'callout_danger'
-
-    def __init__(self, item_type, css_class=None, style=Style.PLAIN, height=None, item_id=None, **kwargs):
+    def __init__(self, item_type, css_class=None, style=None, height=None, item_id=None, **kwargs):
         self.item_type = item_type
         self.item_id = item_id
         self.css_class = css_class
