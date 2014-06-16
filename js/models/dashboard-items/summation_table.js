@@ -6,6 +6,7 @@ ds.register_dashboard_item('summation_table', {
     var self = limivorous.observable()
                          .property('striped', {init: false})
                          .property('format', {init: ',.3f'})
+                         .property('title')
                          .extend(ds.models.item, {item_type: 'summation_table'})
                          .build()
     Object.defineProperty(self, 'requires_data', {value: true})
@@ -43,6 +44,7 @@ ds.register_dashboard_item('summation_table', {
 
   interactive_properties: [
     { id: 'striped', type: 'boolean' },
-    'format'
+    'format',
+    'title',
   ].concat(ds.models.item.interactive_properties)
 })
