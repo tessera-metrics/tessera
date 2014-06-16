@@ -7,6 +7,9 @@
   border-color: #D6D0BC;
 }
 
+.ds-dashboard .well {
+  background-color: rgba(0,0,0,0.07)
+}
 
 /* -----------------------------------------------------------------------------
    Edit mode headers
