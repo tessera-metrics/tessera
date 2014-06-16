@@ -66,7 +66,7 @@
                     "title": null, 
                     "css_class": null, 
                     "thresholds": null, 
-                    "height": null, 
+                    "height": "1", 
                     "item_type": "simple_time_series", 
                     "item_id": "d106", 
                     "query": "single1", 
@@ -88,7 +88,7 @@
                     "interactive": true
                   }
                 ], 
-                "align": null, 
+                "align": "left", 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
@@ -1377,7 +1377,7 @@
     "css_class": null, 
     "item_id": "d71"
   }, 
-  "last_modified_date": "2014-06-15T18:36:02.324056Z", 
+  "last_modified_date": "2014-06-15T21:17:33.956031Z", 
   "description": "Dashboard descriptions can be longer and more detailed. \n### Markdown Formatted \nPlus, they can be _formatted_ in **Markdown** format for rendering to HTML.", 
   "title": "Gallery", 
   "tags": [
