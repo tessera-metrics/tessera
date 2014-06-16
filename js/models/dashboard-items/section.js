@@ -4,6 +4,7 @@ ds.register_dashboard_item('section', {
     'use strict'
 
     var self = limivorous.observable()
+                         .property('title')
                          .property('layout', {init: 'fixed'})
                          .extend(ds.models.item, {item_type: 'section'})
                          .extend(ds.models.container)
@@ -11,6 +12,7 @@ ds.register_dashboard_item('section', {
 
     if (data) {
       self.layout = data.layout || layout
+      self.title = data.title
     }
     ds.models.item.init(self, data)
     ds.models.container.init(self, data)
@@ -19,6 +21,8 @@ ds.register_dashboard_item('section', {
       var data = ds.models.container.json(self, ds.models.item.json(self))
       if (self.layout)
         data.layout = self.layout
+      if (self.title)
+        data.title = self.title
       return data
     }
 
@@ -38,6 +42,7 @@ ds.register_dashboard_item('section', {
                               }
                             },
                             'style',
-                            'css_class'
+                            'css_class',
+                            'title'
                           ]
 })
