@@ -200,11 +200,6 @@ h1 .ds-secondary-title {
     font-size:30px;
 }
 
-.ds-simple-time-series svg,
-.ds-simple-time-series .ds-graph-holder {
-    height: 90px;
-}
-
 .ds-graph-holder {
     margin-bottom: 2em;
 }

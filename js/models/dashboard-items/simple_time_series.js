@@ -13,7 +13,7 @@ ds.register_dashboard_item('simple_time_series', {
       self.filled = data.filled !== false
     }
     ds.models.chart.init(self, data)
-    ds.models.item.init(self, data)
+    ds.models.item.init(self, ds.extend({ height: 1 }, data))
 
     self.toJSON = function() {
       return ds.models.chart.json(self, ds.models.item.json(self, {
