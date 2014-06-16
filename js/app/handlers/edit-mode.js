@@ -388,6 +388,16 @@
     }
   })
 
+  var new_donut_chart_action = ds.action({
+    name: 'new-donut_area_chart',
+    display: 'Add new Donut Chart',
+    icon: 'fa fa-image',
+    handler: function(action, container) {
+      add_new_item(container, 'donut_chart')
+    }
+  })
+
+
   var new_singlegraph_action = ds.action({
     name: 'new-singlegraph',
     display: 'Add new Singlegraph',
@@ -414,6 +424,7 @@
     new_simple_time_series_action,
     new_standard_time_series_action,
     new_stacked_area_chart_action,
+    new_donut_chart_action,
     new_singlegraph_action
   ].map(function(action) { return action.set_class('new-item').set_category('new-item') })
 
