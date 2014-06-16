@@ -108,7 +108,7 @@
 
   function new_query(dashboard, targets) {
     var name = "query" + Object.keys(dashboard.definition.queries).length
-    return add_query(dashboard, name, targets || 'randomWalkFunction("' + name + '")')
+    return add_query(dashboard, name, targets || 'absolute(randomWalkFunction("' + name + '"))')
   }
 
   /**
