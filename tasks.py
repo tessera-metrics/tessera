@@ -1,11 +1,9 @@
-import json
 import glob
 import logging
 
 from invoke import task
 
 from tessera import app, db
-from tessera.model import DashboardDefinition
 from tessera.model.web import Section
 from tessera.importer.graphite import GraphiteDashboardImporter
 from tessera.importer.json import JsonImporter, JsonExporter
@@ -55,6 +53,3 @@ def import_json(pattern):
     files = glob.glob(pattern)
     log.info('Found {0} files to import'.format(len(files)))
     JsonImporter.import_files(files)
-
-if __name__ == '__main__':
-    manager.run()
