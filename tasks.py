@@ -1,7 +1,7 @@
 import glob
 import logging
 
-from invoke import task
+from invoke import task, Collection
 
 from tessera import app, db
 from tessera.model.web import Section
@@ -27,7 +27,7 @@ def run():
 def initdb():
     db.create_all()
 
-@task
+@task(name='import')
 def import_graphite_dashboards(
     query='', layout=Section.Layout.FLUID, columns=4, overwrite=False
 ):
@@ -37,21 +37,32 @@ def import_graphite_dashboards(
         query, overwrite=overwrite, layout=layout, columns=int(columns)
     )
 
-@task
+@task(name='dump')
 def dump_graphite_dashboards(query=''):
     log.info('Importing dashboards from graphite')
     importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'])
     importer.dump_dashboards(query)
 
-@task
+@task(name='export')
 def export_json(dir, tag=None):
     msg = 'Exporting dashboards (tagged: {0}) as JSON to directory {1}'
     log.info(msg.format(tag, dir))
     JsonExporter.export(dir, tag)
 
-@task
+@task(name='import')
 def import_json(pattern):
     log.info('Import dashboards from {0})'.format(pattern))
     files = glob.glob(pattern)
     log.info('Found {0} files to import'.format(len(files)))
     JsonImporter.import_files(files)
+
+
+ns = Collection(
+    run,
+    initdb,
+    Collection('json', import_json, export_json),
+    Collection('graphite',
+        import_graphite_dashboards,
+        dump_graphite_dashboards,
+    ),
+)
