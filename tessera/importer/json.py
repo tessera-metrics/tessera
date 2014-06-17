@@ -48,7 +48,7 @@ class JsonExporter(object):
     def export_dashboard(dashboard, directory):
         dash = dashboard.to_json()
         dash['definition'] = json.loads(dashboard.definition.definition)
-        filepath = '{0}/{1}.json'.format(directory, inflection.parameterize(dashboard.title))
+        filepath = '{0}/{1}.json'.format(directory, inflection.parameterize(dashboard.category + ' ' + dashboard.title))
         log.info('Exporting to {0}'.format(filepath))
         f = open(filepath, 'w')
         try:
