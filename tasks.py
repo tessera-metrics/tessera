@@ -1,11 +1,9 @@
-#!/usr/bin/env python
-
 import json
 import glob
-from flask.ext.script import Manager
 import logging
+from invoke import task
 from tessera import app, db
-from tessera.demo import *
+#from tessera.demo import *
 from tessera.model import DashboardDefinition
 from tessera.model.web import Section
 from tessera.importer.graphite import GraphiteDashboardImporter
@@ -17,34 +15,32 @@ logging.basicConfig(level=logging.INFO,
 logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(logging.WARN)
 logging.getLogger('sqlalchemy.engine').setLevel(logging.WARN)
 
-manager = Manager(app)
-
-@manager.command
+@task
 def run():
     app.run(host='0.0.0.0')
 
-@manager.command
+@task
 def initdb():
     db.create_all()
 
-@manager.command
+@task
 def import_graphite_dashboards(query='', layout=Section.Layout.FLUID, columns=4, overwrite=False):
     log.info('Importing dashboards from graphite')
     importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'])
     importer.import_dashboards(query, overwrite=overwrite, layout=layout, columns=int(columns))
 
-@manager.command
+@task
 def dump_graphite_dashboards(query=''):
     log.info('Importing dashboards from graphite')
     importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'])
     importer.dump_dashboards(query)
 
-@manager.command
+@task
 def export_json(dir, tag=None):
     log.info('Exporting dashboards (tagged: {0}) as JSON to directory {1}'.format(tag, dir))
     JsonExporter.export(dir, tag)
 
-@manager.command
+@task
 def import_json(pattern):
     log.info('Import dashboards from {0})'.format(pattern))
     files = glob.glob(pattern)

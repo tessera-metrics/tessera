@@ -34,6 +34,7 @@ export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
 
 # Install dependencies
 pip install -r requirements.txt
+pip install -r dev-requirements.txt
 ```
 
 Don't forget to edit ``tessera/config.py`` to set ``GRAPHITE_URL`` to point to your Graphite installation.
