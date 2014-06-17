@@ -112,20 +112,16 @@ ds.manager =
     }
 
     /**
-     * Set up us the API call.
+     * Return a context object based on the current URL.
      */
-    self._prep_url = function(base_url, options) {
-      var url = URI(base_url).setQuery('rendering', true)
-      var context = url.query(true)
+    self.location_context = function(context) {
+      var context = context || {}
       var params = URI(window.location).query(true)
       var variables = {}
-      context.from = context.from || params.from || options.from || '-3h'
-      context.until = context.until || params.until || options.until
 
-      url.setQuery('from', context.from)
-      if (context.until) {
-        url.setQuery('until', context.until)
-      }
+      context.from = params.from || '-3h'
+      context.until = params.until
+
       for (var key in params) {
         /* compatibility w/gdash params */
         if (key.indexOf('p[') == 0) {
@@ -135,15 +131,35 @@ ds.manager =
           variables[key] = params[key]
         }
       }
-      context.url = url.href()
       context.variables = variables
       context.params = params
 
+      return context
+    }
+
+    /**
+     * Set up us the API call.
+     */
+    self._prep_url = function(base_url, options) {
+      var url = URI(base_url).setQuery('rendering', true)
+      var context = self.location_context(url.query(true))
+
+      context.from = options.from || context.from
+      context.until = context.until || options.until
+
+      url.setQuery('from', context.from)
+      if (context.until) {
+        url.setQuery('until', context.until)
+      }
+
+      context.url = url.href()
+
       if (typeof(options.interactive) != 'undefined') {
         context.interactive = options.interactive
-      } else if (params.interactive) {
-        context.interactive = params.interactive != 'false'
+      } else if (context.params.interactive) {
+        context.interactive = context.params.interactive != 'false'
       }
+
       return context
     }
 
