@@ -126,7 +126,23 @@ h1.page-title {
 }
 
 .ds-grid .ds-row {
-    margin-bottom: 1.0em;
+    // margin-bottom: 1.0em;
+}
+
+.ds-row .well {
+  margin-bottom: 1em;
+  padding-bottom: 0px;
+}
+
+.ds-section {
+  margin-top: 1em;
+}
+
+.ds-section-heading {
+    margin-top: 0px;
+}
+.bs-callout {
+    margin-bottom: 1em;
 }
 
 .ds-grid hr {
