@@ -3,7 +3,6 @@ import glob
 import logging
 from invoke import task
 from tessera import app, db
-#from tessera.demo import *
 from tessera.model import DashboardDefinition
 from tessera.model.web import Section
 from tessera.importer.graphite import GraphiteDashboardImporter
