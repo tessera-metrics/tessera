@@ -14,13 +14,13 @@
     color: #747470;
 }
 
-.ds-markdown h1,
-.ds-markdown h2,
-.ds-markdown h3,
-.ds-markdown h4,
-.ds-markdown h5,
-.ds-markdown h6 {
-    color: white;
+.ds-item h1,
+.ds-item h2,
+.ds-item h3,
+.ds-item h4,
+.ds-item h5,
+.ds-item h6 {
+    color: #BBB;
 }
 
 .ds-singlestat h3 {
