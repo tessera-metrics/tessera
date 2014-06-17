@@ -3,6 +3,7 @@ ds.models.data.Query = function(data_) {
 
   var self = limivorous.observable()
                        .property('targets')
+                       .property('expanded_targets')
                        .property('name')
                        .property('data')
                        .property('summation')
@@ -25,9 +26,9 @@ ds.models.data.Query = function(data_) {
   Object.defineProperty(self, 'is_query', {value: true})
 
   self.render_templates = function(context) {
-    self.targets = self.targets.map(function(t) {
-                     return ds.render_template(t, context)
-                   })
+    self.expanded_targets = self.targets.map(function(t) {
+                              return ds.render_template(t, context)
+                            })
   }
 
   self.url = function(_) {
@@ -39,8 +40,9 @@ ds.models.data.Query = function(data_) {
     if (self.options.until) {
       url.setQuery('until', self.options.until)
     }
-    for (var i in self.targets) {
-      url.addQuery('target', self.targets[i])
+    var targets = self.expanded_targets || self.targets
+    for (var i in targets) {
+      url.addQuery('target', targets[i])
     }
     return url.href()
   }
