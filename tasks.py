@@ -1,18 +1,25 @@
 import json
 import glob
 import logging
+
 from invoke import task
+
 from tessera import app, db
 from tessera.model import DashboardDefinition
 from tessera.model.web import Section
 from tessera.importer.graphite import GraphiteDashboardImporter
 from tessera.importer.json import JsonImporter, JsonExporter
 
+
+warn = logging.WARN
 log = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s %(levelname)-8s [%(name)s] %(message)s')
-logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(logging.WARN)
-logging.getLogger('sqlalchemy.engine').setLevel(logging.WARN)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)-8s [%(name)s] %(message)s'
+)
+logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(warn)
+logging.getLogger('sqlalchemy.engine').setLevel(warn)
+
 
 @task
 def run():
@@ -26,7 +33,9 @@ def initdb():
 def import_graphite_dashboards(query='', layout=Section.Layout.FLUID, columns=4, overwrite=False):
     log.info('Importing dashboards from graphite')
     importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'])
-    importer.import_dashboards(query, overwrite=overwrite, layout=layout, columns=int(columns))
+    importer.import_dashboards(
+        query, overwrite=overwrite, layout=layout, columns=int(columns)
+    )
 
 @task
 def dump_graphite_dashboards(query=''):
@@ -36,7 +45,8 @@ def dump_graphite_dashboards(query=''):
 
 @task
 def export_json(dir, tag=None):
-    log.info('Exporting dashboards (tagged: {0}) as JSON to directory {1}'.format(tag, dir))
+    msg = 'Exporting dashboards (tagged: {0}) as JSON to directory {1}'
+    log.info(msg.format(tag, dir))
     JsonExporter.export(dir, tag)
 
 @task
