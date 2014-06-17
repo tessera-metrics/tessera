@@ -28,7 +28,9 @@ def initdb():
     db.create_all()
 
 @task
-def import_graphite_dashboards(query='', layout=Section.Layout.FLUID, columns=4, overwrite=False):
+def import_graphite_dashboards(
+    query='', layout=Section.Layout.FLUID, columns=4, overwrite=False
+):
     log.info('Importing dashboards from graphite')
     importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'])
     importer.import_dashboards(
