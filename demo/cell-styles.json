@@ -2458,9 +2458,9 @@
     "css_class": null, 
     "item_id": "d0"
   }, 
-  "last_modified_date": "2014-06-17T02:52:43.548395Z", 
+  "last_modified_date": "2014-06-17T03:11:29.046444Z", 
   "description": "", 
-  "title": "Rendering", 
+  "title": "Cell Styles", 
   "tags": [
     {
       "id": 3, 
@@ -2470,5 +2470,5 @@
   "creation_date": "2014-06-17T02:30:12.994510Z", 
   "id": 3, 
   "imported_from": null, 
-  "summary": "All the combos"
+  "summary": "Rendering combinations of cell styles"
 }
