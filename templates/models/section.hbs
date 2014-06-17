@@ -1,4 +1,4 @@
-<div class="ds-section {{container_class item}}" id="{{item.item_id}}">
+<div class="ds-section {{container_class item}} {{css_class item}}" id="{{item.item_id}}">
   {{> ds-edit-bar}}
   {{#if item.style}}<div class="{{style_class item}}">{{/if}}
     {{#if item.title}}
@@ -7,10 +7,10 @@
         <hr/>
       </div>
     {{/if}}
-    <div class="{{css_class item}}">
-      {{#each item.items}}
-        {{item this}}
-      {{/each}}
-    </div>
+
+    {{#each item.items}}
+      {{item this}}
+    {{/each}}
+
     {{#if item.style}}</div>{{/if}}
 </div>

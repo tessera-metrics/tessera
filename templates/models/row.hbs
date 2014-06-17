@@ -1,11 +1,11 @@
 <div class="ds-row" id="{{item.item_id}}">
-{{#if item.style}}<div class="{{style_class item}}">{{/if}}
+  {{#if item.style}}<div class="{{style_class item}}">{{/if}}
 
-  {{> ds-edit-bar}}
+    {{> ds-edit-bar}}
     <div class="row {{css_class item}}">
-    {{#each item.items}}
-      {{item this}}
-    {{/each}}
+      {{#each item.items}}
+        {{item this}}
+      {{/each}}
     </div>
-  {{#if item.style}}</div>{{/if}}
+    {{#if item.style}}</div>{{/if}}
 </div>

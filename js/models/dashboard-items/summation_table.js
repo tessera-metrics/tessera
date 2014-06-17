@@ -5,7 +5,7 @@ ds.register_dashboard_item('summation_table', {
 
     var self = limivorous.observable()
                          .property('striped', {init: false})
-                         .property('format', {init: ',.3f'})
+                         .property('format', {init: ',.3s'})
                          .property('title')
                          .extend(ds.models.item, {item_type: 'summation_table'})
                          .build()

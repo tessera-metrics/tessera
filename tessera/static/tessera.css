@@ -234,12 +234,12 @@ h1 .ds-secondary-title {
     margin-left: .5em;
 }
 
-.ds-presentation h1,
-.ds-presentation h2,
-.ds-presentation h3,
-.ds-presentation h4,
-.ds-presentation h5,
-.ds-presentation h6 {
+.ds-item h1,
+.ds-item h2,
+.ds-item h3,
+.ds-item h4,
+.ds-item h5,
+.ds-item h6 {
     line-height:1;
     margin-top: 0;
 }
