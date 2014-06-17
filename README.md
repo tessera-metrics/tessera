@@ -65,15 +65,15 @@ of demo dashboards. To initialize the database and generate the demo
 dashboards:
 
 ```shell
-./manage.py initdb
-./manage.py import_json 'demo/*'
+inv initdb
+inv json.import 'demo/*'
 ```
 
 And to run it from source:
 
 ```
 # Run it (defaults to http://localhost:5000)
-./manage.py run
+inv run
 ```
 
 ### Importing Dashboards from Graphite-Web
@@ -92,20 +92,20 @@ To import everything with default settings, which will create a 4
 column fluid layout:
 
 ```shell
-$ manage.py import_graphite_dashboards
+$ inv graphite.import
 ```
 
 You can import a subset of dashboards with the ``--query`` parameter.
 
 ```shell
-$ manage.py import_graphite_dashboards --query=hbase
+$ inv graphite.import --query=hbase
 ```
 
 The importer also allows specify the basic layout type (``fluid`` or
 ``fixed``), and the number of columns.
 
 ```shell
-$ manage.py import_graphite_dashboards --query=api --layout=fixed --columns=1
+$ inv graphite.import --query=api --layout=fixed --columns=1
 ```
 
 ## Copyright & License
