@@ -38,6 +38,12 @@
           <th>Last Modified</th><td>{{moment 'MMMM Do YYYY, h:mm:ss a' last_modified_date}}</td>
         </tr>
 
+        {{#if imported_from}}
+          <tr>
+            <th>Imported From</th><td class="ds-editable" id=ds-info-panel-edit-imported-from" data-type="text"><a href="{{imported_from}}" target="_blank">Link</a></td>
+          </tr>
+        {{/if}}
+
       </tbody>
     </table>
   </div> <!-- column -->

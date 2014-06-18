@@ -67,7 +67,7 @@ class GraphiteDashboardImporter(object):
             dashboard = database.Dashboard(title=inflection.parameterize(name),
                                            category='Graphite',
                                            tags=[database.Tag('imported')],
-                                           imported_from = '{0}/dashboard/{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
+                                           imported_from = '{0}/dashboard/#{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
         definition = DashboardDefinition()
         section = Section(layout=layout)
         definition.items.append(section)
