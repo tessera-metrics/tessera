@@ -69,13 +69,26 @@ inv json.import 'demo/*'
 
 ### Configure
 
-Tessera provides a default configuration in `tessera/config.py`, and will load
-a custom config file pointed to by the shell env var `TESSERA_CONFIG` (if set)
-to allow easy per-site overrides. For example, you'll need to specify your
-Graphite server in `GRAPHITE_URL`, may want to change `SQLALCHEMY_DATABASE_URI`
-to change where the database is stored, or set `DEBUG` to `False` in
-production.
+Tessera provides a short but flexible configuration hierarchy:
 
+* Application defaults are stored in `tessera/config.py`
+* If a file `etc/config.py` exists, relative to the app process' working
+  directory, it will be loaded next, overriding settings from the above
+  defaults file.
+* If the environment variable `TESSERA_CONFIG` is set, the file it points to
+  will be loaded last, overriding settings from either of the above two.
+
+The two settings you will most likely need to change from the get-go are:
+
+* `SQLALCHEMY_DATABASE_URI`: A [database URI
+  string](http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html#database-urls)
+  telling SQLAlchemy where to find your database, e.g. `sqlite:///tessera.db`
+  to load a file relative to the Tessera app code,
+  `sqlite:////var/data/tessera/app.db` to load a DB from a systemwide
+  `/var/data/` hierarchy, or `postgresql://localhost/tessera` to load the
+  `tessera` Postgres db from a local default Postgres install.
+* `GRAPHITE_URL`: The URL to your Graphite webapp, e.g.
+  `http://graphite.example.com/`.
 
 ### Run
 
@@ -90,7 +103,7 @@ In production we recommend using [gunicorn](http://gunicorn.org/) or your WSGI
 server of choice, e.g.:
 
 ```
-TESSERA_CONFIG=/my/local/config.py gunicorn [gunicorn opts here] tessera:app
+gunicorn [gunicorn opts here] tessera:app
 ```
 
 ### Importing Dashboards from Graphite-Web
