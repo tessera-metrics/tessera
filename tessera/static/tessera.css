@@ -95,15 +95,9 @@ narrow unless we override */
     font-family: Consolas, "Andale Mono", "Courier New", monospace
 }
 
-/*
-.ds-dashboard .well {
-    padding-bottom: 0px;
-}
-
-.well .ds-singlestat {
+.well .ds-item {
     padding-bottom: 1em;
 }
-*/
 
 .ds-height1 { height: 80px; }
 .ds-height2 { height: 140px; }
