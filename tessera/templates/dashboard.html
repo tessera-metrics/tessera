@@ -3,7 +3,7 @@
 
 {% block pagetitle %}
   <span class="ds-primary-title">{{dashboard.category}}</span> <span class="ds-secondary-title">{{dashboard.title}}</span>
-  <small class="ds-summary">{{dashboard.summary}}</small>
+  <small class="ds-summary">{% if dashboard.summary %}{{dashboard.summary}}{% endif %}</small>
 {% endblock %}
 
 {% block content %}
@@ -80,9 +80,9 @@
 
     ds.manager.onDashboardLoaded(function(dashboard) {
       dashboard.on('change', function(e) {
-        $(".ds-primary-title").text(e.target.category)
-        $(".ds-secondary-title").text(e.target.title)
-        $(".ds-summary").text(e.target.summary)
+        $(".ds-primary-title").text(e.target.category || '')
+        $(".ds-secondary-title").text(e.target.title || '')
+        $(".ds-summary").text(e.target.summary || '')
       })
     })
 
