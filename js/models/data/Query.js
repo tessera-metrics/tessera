@@ -1,4 +1,4 @@
-ds.models.data.Query = function(data_) {
+ds.models.data.Query = function(data) {
   "use strict"
 
   var self = limivorous.observable()
@@ -10,15 +10,15 @@ ds.models.data.Query = function(data_) {
                        .property('options')
                        .build()
 
-  if (data_) {
-    if (data_.targets) {
-      if (data_.targets instanceof Array) {
-        self.targets = data_.targets
+  if (data) {
+    if (data.targets) {
+      if (data.targets instanceof Array) {
+        self.targets = data.targets
       } else {
-        self.targets = [data_.targets]
+        self.targets = [data.targets]
       }
     }
-    self.name = data_.name
+    self.name = data.name
   }
 
   self.DEFAULT_FROM_TIME = '-3h'
@@ -27,7 +27,7 @@ ds.models.data.Query = function(data_) {
 
   self.render_templates = function(context) {
     self.expanded_targets = self.targets.map(function(t) {
-                              return ds.render_template(t, context)
+                                return ds.render_template(t, context)
                             })
   }
 

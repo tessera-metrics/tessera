@@ -383,7 +383,9 @@ class DashboardDefinition(DashboardContainer):
         for name in self.queries.keys():
             query = self.queries[name]
             if isinstance(query, dict):
-                self.queries[name] = query.get('targets', [])
+                for key in query.keys():
+                    if key not in [ 'targets', 'name' ]:
+                        del query[key]
 
     @classmethod
     def from_json(cls, data):
