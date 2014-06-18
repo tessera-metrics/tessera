@@ -272,14 +272,19 @@ h1 .ds-secondary-title {
     width: 75%;
     text-shadow: 1px 1px #dfdfff;
 }
+.ds-singlegraph h3 {
+    font-size: 1.4em;
+
+}
 
 .ds-singlegraph span.value {
     display: block;
     position: absolute;
     z-index: 10000;
-    font-size: 4.5em;
-    top: -20px;
+    font-size: 4em;
     right: 20px;
+    bottom: 20px;
+    text-shadow: 1px 1px black;
 }
 
 .ds-editable {
