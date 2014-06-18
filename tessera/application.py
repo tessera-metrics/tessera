@@ -15,9 +15,6 @@ local = os.path.join(os.getcwd(), 'etc', 'config.py')
 app.config.from_pyfile(local, silent=True)
 # Final wholly configurable config file location
 app.config.from_envvar('TESSERA_CONFIG', silent=True)
-# TODO: shouldn't this come out of the config file so it can be different for
-# each installation?
-app.secret_key = 'e688f6cb-fc11-65fa-c091-aba197c56c66'
 
 db = SQLAlchemy(app)
 

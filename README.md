@@ -78,7 +78,7 @@ Tessera provides a short but flexible configuration hierarchy:
 * If the environment variable `TESSERA_CONFIG` is set, the file it points to
   will be loaded last, overriding settings from either of the above two.
 
-The two settings you will most likely need to change from the get-go are:
+The settings you will most likely need to change from the get-go are:
 
 * `SQLALCHEMY_DATABASE_URI`: A [database URI
   string](http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html#database-urls)
@@ -89,6 +89,7 @@ The two settings you will most likely need to change from the get-go are:
   `tessera` Postgres db from a local default Postgres install.
 * `GRAPHITE_URL`: The URL to your Graphite webapp, e.g.
   `http://graphite.example.com/`.
+* `SECRET_KEY`: Key used to secure sessions.
 
 ### Run
 
