@@ -300,6 +300,7 @@ h1 .ds-secondary-title {
 }
 .ds-dashboard-listing-title {
     font-weight: 600;
+    font-size: 1.25em;
 }
 .ds-dashboard-listing-last-modified {
   color: #aaa;
