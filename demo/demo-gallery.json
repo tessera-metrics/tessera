@@ -6,6 +6,7 @@
       {
         "style": null, 
         "layout": "fixed", 
+        "title": null, 
         "items": [
           {
             "style": null, 
@@ -283,11 +284,11 @@
                 "items": [
                   {
                     "style": null, 
-                    "title": null, 
+                    "title": "some.metric.for.stuff", 
                     "css_class": null, 
                     "thresholds": null, 
                     "format": ",.1s", 
-                    "transform": "mean", 
+                    "transform": "sum", 
                     "height": 1, 
                     "item_type": "singlegraph", 
                     "item_id": "d143", 
@@ -316,15 +317,15 @@
                 "items": [
                   {
                     "style": null, 
-                    "title": null, 
+                    "title": "some.other.metric", 
                     "css_class": null, 
                     "thresholds": null, 
                     "format": ",.1s", 
-                    "transform": "mean", 
+                    "transform": "max", 
                     "height": 1, 
                     "item_type": "singlegraph", 
                     "item_id": "d145", 
-                    "query": "single2", 
+                    "query": "positive2", 
                     "options": {
                       "margin": {
                         "top": 0, 
@@ -349,7 +350,7 @@
                 "items": [
                   {
                     "style": null, 
-                    "title": null, 
+                    "title": "what.is.this.i.don't.even", 
                     "css_class": null, 
                     "thresholds": null, 
                     "format": ",.1s", 
@@ -391,6 +392,7 @@
       {
         "style": "callout_neutral", 
         "layout": "none", 
+        "title": null, 
         "items": [
           {
             "style": null, 
@@ -439,6 +441,7 @@
       {
         "style": null, 
         "layout": "fixed", 
+        "title": null, 
         "items": [
           {
             "item_id": "d153", 
@@ -496,10 +499,10 @@
                     "index": false, 
                     "style": null, 
                     "units": null, 
-                    "title": "Sum, Left Justified", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Sum, Left Justified", 
                     "transform": "sum", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -522,10 +525,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "units", 
-                    "title": "Min, Right Justified", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Min, Right Justified", 
                     "transform": "min", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -548,10 +551,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/min", 
-                    "title": "Max, Centered", 
+                    "format": ",.0f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.0f", 
+                    "title": "Max, Centered", 
                     "transform": "max", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -604,10 +607,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/sec", 
-                    "title": "Hey this number is important", 
+                    "format": ",.2f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.2f", 
+                    "title": "Hey this number is important", 
                     "transform": "sum", 
                     "height": 3, 
                     "item_type": "jumbotron_singlestat", 
@@ -822,10 +825,10 @@
                     "index": false, 
                     "style": null, 
                     "units": null, 
-                    "title": "well", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "well", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -848,10 +851,10 @@
                     "index": false, 
                     "style": null, 
                     "units": null, 
-                    "title": "NEUTRAL", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "NEUTRAL", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -874,10 +877,10 @@
                     "index": false, 
                     "style": null, 
                     "units": null, 
-                    "title": "Info Alert", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Info Alert", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -900,10 +903,10 @@
                     "index": false, 
                     "style": null, 
                     "units": null, 
-                    "title": "Success Alert", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Success Alert", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -926,10 +929,10 @@
                     "index": false, 
                     "style": null, 
                     "units": null, 
-                    "title": "Warning Alert", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Warning Alert", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -952,10 +955,10 @@
                     "index": false, 
                     "style": null, 
                     "units": null, 
-                    "title": "Danger Alert", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Danger Alert", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -987,10 +990,10 @@
                     "index": false, 
                     "style": null, 
                     "units": null, 
-                    "title": "Neutral Callout", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Neutral Callout", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -1013,10 +1016,10 @@
                     "index": false, 
                     "style": null, 
                     "units": null, 
-                    "title": "Information Callout", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Information Callout", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -1039,10 +1042,10 @@
                     "index": false, 
                     "style": null, 
                     "units": null, 
-                    "title": "Success Callout", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Success Callout", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -1065,10 +1068,10 @@
                     "index": false, 
                     "style": null, 
                     "units": null, 
-                    "title": "Warning Callout", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Warning Callout", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -1091,10 +1094,10 @@
                     "index": false, 
                     "style": null, 
                     "units": null, 
-                    "title": "Danger Callout", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Danger Callout", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -1126,10 +1129,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/sec", 
-                    "title": "Warning Threshold", 
+                    "format": ",.2f", 
                     "css_class": "ds-warning bs-callout bs-callout-warning", 
                     "thresholds": null, 
-                    "format": ",.2f", 
+                    "title": "Warning Threshold", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -1152,10 +1155,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "ms", 
-                    "title": "Danger Threshold", 
+                    "format": ",.2f", 
                     "css_class": "ds-danger bs-callout bs-callout-danger", 
                     "thresholds": null, 
-                    "format": ",.2f", 
+                    "title": "Danger Threshold", 
                     "transform": "max", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -1208,10 +1211,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/sec", 
-                    "title": "Hey, this looks really bad...", 
+                    "format": ",.2f", 
                     "css_class": "ds-danger", 
                     "thresholds": null, 
-                    "format": ",.2f", 
+                    "title": "Hey, this looks really bad...", 
                     "transform": "sum", 
                     "height": 2, 
                     "item_type": "jumbotron_singlestat", 
@@ -1353,48 +1356,66 @@
       }
     ], 
     "queries": {
-      "comparison": [
-        "aliasByNode(group(randomWalkFunction(\"today\"), randomWalkFunction(\"yesterday\")), 0)"
-      ], 
-      "multiple": [
-        "absolute(group(randomWalkFunction(\"a\"),randomWalkFunction(\"b\"),randomWalkFunction(\"c\")))"
-      ], 
-      "single2": [
-        "randomWalkFunction(\"thing2\")"
-      ], 
-      "single1": [
-        "absolute(randomWalkFunction(\"thing1\"))"
-      ], 
-      "positive": [
-        "aliasByNode(absolute(group(randomWalkFunction(\"system\"),randomWalkFunction(\"user\"),randomWalkFunction(\"wait\"), randomWalkFunction(\"io\"))), 0)"
-      ], 
-      "positive2": [
-        "aliasByNode(absolute(group(randomWalkFunction(\"cpu1\"),randomWalkFunction(\"cpu2\"),randomWalkFunction(\"cpu3\"), randomWalkFunction(\"cpu4\"), randomWalkFunction(\"cpu5\"), randomWalkFunction(\"cpu6\"), randomWalkFunction(\"cpu7\"), randomWalkFunction(\"cpu8\"))), 0)"
-      ]
+      "comparison": {
+        "name": "comparison", 
+        "targets": [
+          "aliasByNode(group(randomWalkFunction(\"today\"), randomWalkFunction(\"yesterday\")), 0)"
+        ]
+      }, 
+      "multiple": {
+        "name": "multiple", 
+        "targets": [
+          "absolute(group(randomWalkFunction(\"a\"),randomWalkFunction(\"b\"),randomWalkFunction(\"c\")))"
+        ]
+      }, 
+      "single2": {
+        "name": "single2", 
+        "targets": [
+          "randomWalkFunction(\"thing2\")"
+        ]
+      }, 
+      "single1": {
+        "name": "single1", 
+        "targets": [
+          "absolute(randomWalkFunction(\"thing1\"))"
+        ]
+      }, 
+      "positive": {
+        "name": "positive", 
+        "targets": [
+          "aliasByNode(absolute(group(randomWalkFunction(\"system\"),randomWalkFunction(\"user\"),randomWalkFunction(\"wait\"), randomWalkFunction(\"io\"))), 0)"
+        ]
+      }, 
+      "positive2": {
+        "name": "positive2", 
+        "targets": [
+          "aliasByNode(absolute(group(randomWalkFunction(\"cpu1\"),randomWalkFunction(\"cpu2\"),randomWalkFunction(\"cpu3\"), randomWalkFunction(\"cpu4\"), randomWalkFunction(\"cpu5\"), randomWalkFunction(\"cpu6\"), randomWalkFunction(\"cpu7\"), randomWalkFunction(\"cpu8\"))), 0)"
+        ]
+      }
     }, 
     "height": null, 
     "item_type": "dashboard_definition", 
     "css_class": null, 
     "item_id": "d71"
   }, 
-  "last_modified_date": "2014-06-17T02:30:12.966057Z", 
+  "last_modified_date": "2014-06-18T23:11:02.101455Z", 
   "description": "Dashboard descriptions can be longer and more detailed. \n### Markdown Formatted \nPlus, they can be _formatted_ in **Markdown** format for rendering to HTML.", 
   "title": "Gallery", 
   "tags": [
     {
       "bgcolor": "#ddd", 
-      "id": 1, 
+      "id": 17, 
       "fgcolor": "#333", 
       "name": "demo"
     }, 
     {
       "bgcolor": "green", 
-      "id": 2, 
+      "id": 18, 
       "name": "featured"
     }
   ], 
-  "creation_date": "2014-06-17T02:30:12.958961Z", 
-  "id": 1, 
+  "creation_date": "2014-06-18T22:49:12.435330Z", 
+  "id": 38, 
   "imported_from": null, 
   "summary": "A gallery of all the supported presentations"
 }
