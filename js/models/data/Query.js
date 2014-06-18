@@ -3,15 +3,15 @@ ds.models.data.Query = function(data) {
 
   var self = limivorous.observable()
                        .property('targets')
-                       .property('expanded_targets')
                        .property('name')
                        .property('data')
                        .property('summation')
                        .property('options')
+                       .property('expanded_targets')
+                       .property('local_options')
                        .build()
 
   if (data) {
-    console.log(data)
     if (data instanceof Array) {
       self.targets = data
     } else if (typeof(data) === 'string') {
@@ -22,6 +22,9 @@ ds.models.data.Query = function(data) {
       } else {
         self.targets = [data.targets]
       }
+    }
+    if (data.options) {
+      self.options = data.options
     }
     self.name = data.name
   }
@@ -36,14 +39,14 @@ ds.models.data.Query = function(data) {
                             })
   }
 
-  self.url = function(_) {
-    self.options = self.options || _ || {}
-    var url = URI(self.options.base_url)
+  self.url = function(opt) {
+    var options = ds.extend(self.options, self.local_options, opt)
+    var url = URI(options.base_url)
               .path('/render')
-              .setQuery('format', self.options.format || 'png')
-              .setQuery('from', self.options.from || self.DEFAULT_FROM_TIME)
-    if (self.options.until) {
-      url.setQuery('until', self.options.until)
+              .setQuery('format', options.format || 'png')
+              .setQuery('from', options.from || self.DEFAULT_FROM_TIME)
+    if (options.until) {
+      url.setQuery('until', options.until)
     }
     var targets = self.expanded_targets || self.targets
     for (var i in targets) {
@@ -65,26 +68,23 @@ ds.models.data.Query = function(data) {
    *   * ready
    *   * fire_only
    */
-  self.load = function(options_) {
-    self.options = self.options || options_ || {}
-    // Ugh this default overriding is geting ugly. I need an options
-    // merge() function
-    if ((options_ && options_.fire_only) || self.options.fire_only) {
+  self.load = function(opt) {
+    self.local_options = ds.extend(self.local_options, opt)
+    var options = ds.extend(self.options, self.local_options, opt)
+
+    if (options.fire_only) {
       // This is a bit of a hack for optimization, to fire the query
       // events when if we don't need the raw data because we're
       // rendering non-interactive graphs only. Would like a more
       // elegant way to handle the case.
-      var ready = self.options.ready
-      if (options_ && options_.ready) {
-        ready = options_.ready
-      }
+      var ready = options.ready
       if (ready && (ready instanceof Function)) {
         ready(self)
       }
       bean.fire(self, 'ds-data-ready', self)
     } else {
-      self.options.format = 'json'
-      var url = self.url(self.options)
+      options.format = 'json'
+      var url = self.url(options)
       bean.fire(self, 'ds-data-loading')
       $.ajax({
         dataType: 'json',
@@ -92,8 +92,8 @@ ds.models.data.Query = function(data) {
       })
        .done(function(response_data, textStatus) {
         self._process(response_data)
-        if (self.options.ready && (self.options.ready instanceof Function)) {
-          self.options.ready(self)
+        if (options.ready && (options.ready instanceof Function)) {
+          options.ready(self)
         }
         bean.fire(self, 'ds-data-ready', self)
       })
@@ -153,6 +153,7 @@ ds.models.data.Query = function(data) {
       json.summation = self.summation.toJSON()
     if (self.options)
       json.options = self.options
+
     return json
   }
 

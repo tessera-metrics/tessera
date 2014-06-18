@@ -29,7 +29,7 @@ ds.render_template = function(str, context) {
 ds.extend = function() {
   var target = {}
   for (var i in arguments) {
-    var source = arguments[i]
+    var source = arguments[i] || {}
     for (var key in source) {
       if (source.hasOwnProperty(key)) {
         target[key] = source[key]
