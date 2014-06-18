@@ -1,0 +1,7 @@
+include README.md
+include requirements.txt
+
+global-exclude *.pyc *.pyo ._*
+
+recursive-include tessera/templates *
+recursive-include tessera/static *

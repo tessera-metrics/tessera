@@ -41,7 +41,7 @@
     </div> <!-- row -->
 
 
-    <div class="row">
+    <div class="row" id="ds-featured-dashboards" style="display:none;">
       <div class="col-md-12">
         <h3>Featured Dashboards</h3>
         <div id="ds-dashboard-featured-listing"></div>
@@ -54,7 +54,10 @@
   <script>
    /* Load featured dashboard list */
    ds.manager.list('/api/dashboard/tagged/featured', function(data) {
-     $("#ds-dashboard-featured-listing").html(ds.templates.listing.dashboard_list(data))
+     if (data.dashboards && data.dashboards.length) {
+       $("#ds-featured-dashboards").show()
+       $("#ds-dashboard-featured-listing").html(ds.templates.listing.dashboard_list(data))
+     }
    })
 
    /* Load the dashboards tagged with 'featured-billboard', and

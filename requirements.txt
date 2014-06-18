@@ -1,5 +1,4 @@
 flask==0.10.1
-flask-script==2.0.5
 flask-sqlalchemy==1.0
 sqlalchemy==0.9.4
 requests==2.3.0
