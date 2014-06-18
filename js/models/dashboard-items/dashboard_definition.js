@@ -15,8 +15,10 @@ ds.register_dashboard_item('dashboard_definition', {
       // it will be come string/object as we move thresholds into the
       // queries instead of presentations.
       for (var key in data.queries) {
-        var query = ds.models.data.Query({name: key, targets: data.queries[key]})
-        self.queries[key] = query
+        var query = data.queries[key]
+        self.queries[key] = typeof(query) === 'string'
+                          ? ds.models.data.Query({name: key, targets: query})
+                          : ds.models.data.Query(query)
       }
     }
     ds.models.item.init(self, data)
