@@ -16,7 +16,7 @@ ds.register_dashboard_item('dashboard_definition', {
       // queries instead of presentations.
       for (var key in data.queries) {
         var query = data.queries[key]
-        self.queries[key] = typeof(query) === 'string'
+        self.queries[key] = (typeof(query) === 'string' || query instanceof Array)
                           ? ds.models.data.Query({name: key, targets: query})
                           : ds.models.data.Query(query)
       }
