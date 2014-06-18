@@ -11,7 +11,12 @@ ds.models.data.Query = function(data) {
                        .build()
 
   if (data) {
-    if (data.targets) {
+    console.log(data)
+    if (data instanceof Array) {
+      self.targets = data
+    } else if (typeof(data) === 'string') {
+      self.targets = [data]
+    } else if (data.targets) {
       if (data.targets instanceof Array) {
         self.targets = data.targets
       } else {
