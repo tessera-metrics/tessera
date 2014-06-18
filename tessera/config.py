@@ -1,4 +1,5 @@
 DEBUG                      = True
+SECRET_KEY                 = 'REPLACE ME'
 DEFAULT_FROM_TIME          = '-3h'
 DEFAULT_THEME              = 'light'
 DASHBOARD_APPNAME          = 'Tessera'

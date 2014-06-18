@@ -37,8 +37,6 @@ pip install -r requirements.txt
 pip install -r dev-requirements.txt
 ```
 
-Don't forget to edit ``tessera/config.py`` to set ``GRAPHITE_URL`` to point to your Graphite installation.
-
 ### Setting up the Javascript Environment
 
 Javascript code is bundled using [Grunt](http://gruntjs.com/). To set
@@ -57,7 +55,7 @@ to automatically regenerate the bundled files as they're edited, run
 grunt watch &
 ```
 
-### Create the database and run
+### Create the database
 
 Tessera is configured by default to run off of a sqlite backing
 store, which has to be initialized, and can be populated with a bunch
@@ -69,11 +67,44 @@ inv initdb
 inv json.import 'demo/*'
 ```
 
-And to run it from source:
+### Configure
+
+Tessera provides a short but flexible configuration hierarchy:
+
+* Application defaults are stored in `tessera/config.py`
+* If a file `etc/config.py` exists, relative to the app process' working
+  directory, it will be loaded next, overriding settings from the above
+  defaults file.
+* If the environment variable `TESSERA_CONFIG` is set, the file it points to
+  will be loaded last, overriding settings from either of the above two.
+
+The settings you will most likely need to change from the get-go are:
+
+* `SQLALCHEMY_DATABASE_URI`: A [database URI
+  string](http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html#database-urls)
+  telling SQLAlchemy where to find your database, e.g. `sqlite:///tessera.db`
+  to load a file relative to the Tessera app code,
+  `sqlite:////var/data/tessera/app.db` to load a DB from a systemwide
+  `/var/data/` hierarchy, or `postgresql://localhost/tessera` to load the
+  `tessera` Postgres db from a local default Postgres install.
+* `GRAPHITE_URL`: The URL to your Graphite webapp, e.g.
+  `http://graphite.example.com/`.
+* `SECRET_KEY`: Key used to secure sessions.
+
+### Run
+
+In development environments, running Tessera is as simple as:
 
 ```
 # Run it (defaults to http://localhost:5000)
 inv run
+```
+
+In production we recommend using [gunicorn](http://gunicorn.org/) or your WSGI
+server of choice, e.g.:
+
+```
+gunicorn [gunicorn opts here] tessera:app
 ```
 
 ### Importing Dashboards from Graphite-Web
