@@ -37,8 +37,6 @@ pip install -r requirements.txt
 pip install -r dev-requirements.txt
 ```
 
-Don't forget to edit ``tessera/config.py`` to set ``GRAPHITE_URL`` to point to your Graphite installation.
-
 ### Setting up the Javascript Environment
 
 Javascript code is bundled using [Grunt](http://gruntjs.com/). To set
@@ -57,7 +55,7 @@ to automatically regenerate the bundled files as they're edited, run
 grunt watch &
 ```
 
-### Create the database and run
+### Create the database
 
 Tessera is configured by default to run off of a sqlite backing
 store, which has to be initialized, and can be populated with a bunch
@@ -69,11 +67,30 @@ inv initdb
 inv json.import 'demo/*'
 ```
 
-And to run it from source:
+### Configure
+
+Tessera provides a default configuration in `tessera/config.py`, and will load
+a custom config file pointed to by the shell env var `TESSERA_CONFIG` (if set)
+to allow easy per-site overrides. For example, you'll need to specify your
+Graphite server in `GRAPHITE_URL`, may want to change `SQLALCHEMY_DATABASE_URI`
+to change where the database is stored, or set `DEBUG` to `False` in
+production.
+
+
+### Run
+
+In development environments, running Tessera is as simple as:
 
 ```
 # Run it (defaults to http://localhost:5000)
 inv run
+```
+
+In production we recommend using [gunicorn](http://gunicorn.org/) or your WSGI
+server of choice, e.g.:
+
+```
+TESSERA_CONFIG=/my/local/config.py gunicorn [gunicorn opts here] tessera:app
 ```
 
 ### Importing Dashboards from Graphite-Web
