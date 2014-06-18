@@ -26,9 +26,16 @@ Handlebars.registerHelper('moment', function(format, value) {
 })
 
 Handlebars.registerHelper('format', function(format, value) {
-  if (!value)
+  if (typeof(value) === 'undefined')
     return ''
-  return d3.format(format)(value)
+  if (!format)
+    return value
+  try {
+    return d3.format(format)(value)
+  } catch ( e ) {
+    console.log('Error formatting ' + format + ' / ' + value + ': ' + e.message)
+    return value
+  }
 })
 
 Handlebars.registerHelper('height', function(item) {
