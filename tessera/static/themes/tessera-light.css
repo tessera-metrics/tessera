@@ -83,6 +83,10 @@ h1 .ds-secondary-title {
     border: 1px solid black;
 }
 
+.ds-singlegraph span.value {
+    text-shadow: 1px 1px white;
+}
+
 
 /* =============================================================================
    3rd Party Tweaks

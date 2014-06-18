@@ -274,7 +274,6 @@ h1 .ds-secondary-title {
 }
 .ds-singlegraph h3 {
     font-size: 1.4em;
-
 }
 
 .ds-singlegraph span.value {
@@ -284,7 +283,6 @@ h1 .ds-secondary-title {
     font-size: 4em;
     right: 20px;
     bottom: 20px;
-    text-shadow: 1px 1px black;
 }
 
 .ds-editable {
