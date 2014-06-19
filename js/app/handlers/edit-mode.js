@@ -143,8 +143,8 @@
     var id   = $elt.attr('data-ds-item-id')
     var timeout_id = window.setTimeout(function() {
                        ds.edit.hide_details(id)
-                     }, 5000)
-    $elt.attr('data-ds-timeout-id', PROPERTY_SHEET_TIMEOUT)
+                     }, PROPERTY_SHEET_TIMEOUT)
+    $elt.attr('data-ds-timeout-id', timeout_id)
   })
 
   /**
