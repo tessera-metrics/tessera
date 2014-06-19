@@ -295,6 +295,7 @@ ds.manager =
       }
 
       $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
+      dashboard.render_templates(self.location_context().variables)
       dashboard.load_all()
 
       if ((transform.transform_type === 'presentation') && (ds.app.current_mode != ds.app.Mode.EDIT)) {
