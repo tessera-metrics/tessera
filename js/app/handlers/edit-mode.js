@@ -39,8 +39,10 @@
     var details = $('#' + item_id + '-details')
     if (details.is(':visible')) {
       ds.edit.hide_details(item_id)
+      return false
     } else {
       ds.edit.show_details(item_id)
+      return true
     }
   }
 
@@ -117,15 +119,32 @@
    * dashboard items.
    */
 
-  $(document).on('mouseenter', '.ds-edit-bar .badge', function(event) {
-    $(this).addClass('ds-badge-highlight')
-    var id = $(this).attr('data-ds-item-id')
-    ds.edit.show_details(id)
+  var PROPERTY_SHEET_TIMEOUT = 3000
+
+  $(document).on('click', '.ds-edit-bar .badge', function(event) {
+    var $elt = $(this)
+    var id   = $elt.attr('data-ds-item-id')
+    if (ds.edit.toggle_details(id)) {
+      $elt.addClass('ds-badge-highlight')
+    } else {
+      $elt.removeClass('ds-badge-highlight')
+    }
+  })
+
+  $(document).on('mouseenter', '.ds-edit-bar', function(event) {
+    var timeout_id = $(this).attr('data-ds-timeout-id')
+    if (timeout_id) {
+      window.clearTimeout(timeout_id)
+    }
   })
 
   $(document).on('mouseleave', '.ds-edit-bar', function(event) {
-    var id = $(this).attr('data-ds-item-id')
-    ds.edit.hide_details(id)
+    var $elt = $(this)
+    var id   = $elt.attr('data-ds-item-id')
+    var timeout_id = window.setTimeout(function() {
+                       ds.edit.hide_details(id)
+                     }, 5000)
+    $elt.attr('data-ds-timeout-id', PROPERTY_SHEET_TIMEOUT)
   })
 
   /**
