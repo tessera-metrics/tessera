@@ -103,7 +103,6 @@
     var query = ds.models.data.Query({name: name, targets: target})
     dashboard.definition.add_query(query)
     $("#ds-query-panel table").append(ds.templates.edit['dashboard-query-row'](query))
-    delete query.options.fire_only
     query.load()
     ds.edit.edit_queries()
     return query

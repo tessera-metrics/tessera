@@ -41,6 +41,8 @@ ds.register_dashboard_item('singlestat',  {
   },
 
   data_handler: function(query, item) {
+    if (!query.summation)
+      return
     var element = $('#' + item.item_id + ' span.value')
     var value = query.summation[item.transform]
     if (item.index) {

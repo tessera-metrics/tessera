@@ -66,13 +66,14 @@ ds.models.data.Query = function(data) {
    *   * from
    *   * until
    *   * ready
-   *   * fire_only
+   * @param {boolean} fire_only Just raise the event, without fetching
+   *                            data.
    */
-  self.load = function(opt) {
+  self.load = function(opt, fire_only) {
     self.local_options = ds.extend(self.local_options, opt)
     var options = ds.extend(self.local_options, opt, self.options)
 
-    if (options.fire_only) {
+    if (typeof(fire_only) === 'boolean' && fire_only) {
       // This is a bit of a hack for optimization, to fire the query
       // events when if we don't need the raw data because we're
       // rendering non-interactive graphs only. Would like a more

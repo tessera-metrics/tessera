@@ -91,12 +91,14 @@ ds.charts =
      *                      provider.
      */
     self.process_data = function(data, type) {
+      if (!data)
+        return []
       if (data instanceof Array) {
         return data.map(function(series) {
                  return self.process_series(series, type)
                })
       } else {
-        return self.process_series(data)
+        return [ self.process_series(data) ]
       }
     }
 

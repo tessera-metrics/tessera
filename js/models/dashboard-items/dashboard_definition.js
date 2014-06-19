@@ -47,10 +47,10 @@ ds.register_dashboard_item('dashboard_definition', {
       return self
     }
 
-    self.load_all = function(options_) {
-      self.options = options_ || self.options
+    self.load_all = function(options, fire_only) {
+      self.options = options || self.options
       for (var key in self.queries) {
-        self.queries[key].load(self.options)
+        self.queries[key].load(self.options, fire_only)
       }
       return self
     }

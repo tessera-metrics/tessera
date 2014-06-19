@@ -122,8 +122,8 @@ ds.models.dashboard = function(data) {
     return self.definition.render()
   }
 
-  self.load_all = function() {
-    self.definition.load_all()
+  self.load_all = function(options, fire_only) {
+    self.definition.load_all(options, fire_only)
     return self
   }
 

@@ -212,9 +212,8 @@ ds.manager =
           dashboard.definition.load_all({
             base_url: data.config.GRAPHITE_URL,
             from: context.from,
-            until: context.until,
-            fire_only: !holder.raw_data_required
-          })
+            until: context.until
+          }, !holder.raw_data_required)
 
           bean.fire(self, ds.app.Event.DASHBOARD_RENDERED, dashboard)
 
@@ -236,7 +235,7 @@ ds.manager =
       }
       item.visit(function(i) {
         if (i.query) {
-          i.query.load({ fire_only: true })
+          i.query.load({}, true)
         }
       })
       ds.app.refresh_mode()
