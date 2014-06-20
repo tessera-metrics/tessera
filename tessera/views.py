@@ -3,12 +3,10 @@
 import flask
 import json
 import logging
-import copy
 from datetime import datetime
 import inflection
-import urllib
 
-from flask import render_template, request, jsonify, session
+from flask import render_template, request, session
 from werkzeug.exceptions import HTTPException
 
 from .model import *
@@ -33,7 +31,7 @@ def _jsonify(data, status=200, headers=None):
     return response
 
 def _set_exception_response(http_exception):
-    http_exception.response = _jsonify( {
+    http_exception.response = _jsonify({
         'ok' : False,
         'error_message' : http_exception.description
     }, status=http_exception.code)
