@@ -1,50 +1,32 @@
-from contextlib import contextmanager
 import os
-from shutil import rmtree
-from tempfile import mkdtemp
+import sys
 
 from spec import Spec, skip
+from invoke import run
 
 
-@contextmanager
-def _tmp():
-    try:
-        tempdir = mkdtemp()
-        yield tempdir
-    finally:
-        rmtree(tempdir)
+class Integration(Spec):
+    def setup(self):
+        from tessera.application import db
+        # Ensure we have a clean db target.
+        self.dbpath = db.engine.url.database
+        msg = "You seem to have a db in the default location ({0}) - please (re)move it before running tests to avoid collisions."
+        assert not os.path.exists(self.dbpath), msg.format(self.dbpath)
 
-@contextmanager
-def _db():
-    with _tmp() as tempdir:
-        from tessera import app, db
-        # Temp db location
-        path = os.path.join(tempdir, 'tessera.db')
-        dbfile = 'sqlite:///{0}'.format(path)
-        # Inform app of that location & setup
-        app.config.from_object(_config(SQLALCHEMY_DATABASE_URI=dbfile))
-        db.create_all()
-        # Let test have its way with that temp db
-        yield db
+    def teardown(self):
+        # Teardown only runs if setup completed, so the below will not nuke
+        # pre-existing dbs that cause setup's check to fail.
+        if os.path.exists(self.dbpath):
+            os.remove(self.dbpath)
 
-
-class Config(object):
-    pass
-
-def _config(**options):
-    config = Config()
-    for key, value in options.iteritems():
-        setattr(config, key, value)
-
-
-class Tessera(Spec):
     def is_importable(self):
         import tessera
         assert tessera.app
         assert tessera.db
 
-    def creates_a_nonempty_database_schema(self):
-        with _db() as db:
-            meta = db.MetaData()
-            meta.reflect(db.engine)
-            assert len(meta.tables) > 0
+    def can_initdb(self):
+        from tessera.application import db
+        from tessera.model.database import Dashboard
+        # Make sure we can create and look at the DB
+        db.create_all()
+        assert len(Dashboard.query.all()) == 0
