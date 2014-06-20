@@ -21,7 +21,7 @@ try:
 except IOError as e:
     # It's fine to not have this file, just log for debugging.
     log.debug("Local override config {0!r} not found, skipping".format(local))
-# Final wholly configurable config file location
+# Wholly configurable config file location via env var.
 # Only load if set, and then let it explode on its own if target not found.
 if os.environ.get('TESSERA_CONFIG', False):
     app.config.from_envvar('TESSERA_CONFIG')
