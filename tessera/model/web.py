@@ -1,6 +1,4 @@
 import json
-import uuid
-import base64
 
 class EntityEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -85,7 +83,7 @@ class DashboardItem(object):
             return SimpleTimeSeries.from_json(d)
         elif item_type == 'singlegraph':
             return SingleGraph.from_json(d)
-        elif item_type =='standard_time_series':
+        elif item_type == 'standard_time_series':
             return StandardTimeSeries.from_json(d)
         elif item_type == 'stacked_area_chart':
             return StackedAreaChart.from_json(d)
