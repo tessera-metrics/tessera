@@ -2,6 +2,7 @@ import glob
 import logging
 
 from invoke import ctask as task, Collection
+from invocations.testing import test
 
 from tessera import app, db
 from tessera.model.web import Section
@@ -56,10 +57,23 @@ def import_json(c, pattern):
     log.info('Found {0} files to import'.format(len(files)))
     JsonImporter.import_files(files)
 
+@task
+def integration(c):
+    """
+    Run high level integration test suite.
+    """
+    return test(c, opts="--tests=integration")
+
+
+tests = Collection('test')
+tests.add_task(test, name='unit', default=True)
+tests.add_task(integration)
+
 
 ns = Collection(
     run,
     initdb,
+    tests,
     Collection('json', import_json, export_json),
     Collection('graphite',
         import_graphite_dashboards,
