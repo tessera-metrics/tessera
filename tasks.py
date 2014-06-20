@@ -1,7 +1,7 @@
 import glob
 import logging
 
-from invoke import task, Collection
+from invoke import ctask as task, Collection
 
 from tessera import app, db
 from tessera.model.web import Section
@@ -20,16 +20,16 @@ logging.getLogger('sqlalchemy.engine').setLevel(warn)
 
 
 @task
-def run():
+def run(c):
     app.run(host='0.0.0.0')
 
 @task
-def initdb():
+def initdb(c):
     db.create_all()
 
 @task(name='import')
 def import_graphite_dashboards(
-    query='', layout=Section.Layout.FLUID, columns=4, overwrite=False
+    c, query='', layout=Section.Layout.FLUID, columns=4, overwrite=False
 ):
     log.info('Importing dashboards from graphite')
     importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'])
@@ -38,19 +38,19 @@ def import_graphite_dashboards(
     )
 
 @task(name='dump')
-def dump_graphite_dashboards(query=''):
+def dump_graphite_dashboards(c, query=''):
     log.info('Importing dashboards from graphite')
     importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'])
     importer.dump_dashboards(query)
 
 @task(name='export')
-def export_json(dir, tag=None):
+def export_json(c, dir, tag=None):
     msg = 'Exporting dashboards (tagged: {0}) as JSON to directory {1}'
     log.info(msg.format(tag, dir))
     JsonExporter.export(dir, tag)
 
 @task(name='import')
-def import_json(pattern):
+def import_json(c, pattern):
     log.info('Import dashboards from {0})'.format(pattern))
     files = glob.glob(pattern)
     log.info('Found {0} files to import'.format(len(files)))
