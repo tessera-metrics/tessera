@@ -28,7 +28,10 @@ ds.property.register([
         'sum',
         'min',
         'max',
-        'mean'
+        'mean',
+        'first',
+        'last',
+        'count'
       ]
     }
   }

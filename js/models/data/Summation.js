@@ -27,7 +27,8 @@ ds.models.data.Summation = function(series) {
       self.first = 0
     }
     series.datapoints.forEach(function(point) {
-      var value = point[0] == null ? 0 : point[0]
+      var value = point[0] || 0
+      self.last = value
       self.sum = self.sum + value
       if (value > self.max) {
         self.max = value
@@ -35,7 +36,6 @@ ds.models.data.Summation = function(series) {
       if (value < self.min) {
         self.min = value
       }
-      self.last = value
     })
     self.mean = self.sum / self.count
   }
@@ -45,15 +45,19 @@ ds.models.data.Summation = function(series) {
    * queries with multiple data series.
    */
   self.merge = function(other) {
-    self.sum += other.sum
-    self.count += other.count
+    self.sum += other.sum || 0
+    self.count = other.count /* assuming series are from the same query */
     self.mean = self.sum / self.count
+
     if (other.min < self.min) {
       self.min = other.min
     }
     if (other.max > self.max) {
       self.max = other.max
     }
+
+    self.first += other.first || 0
+    self.last += other.last || 0
     return self
   }
 
