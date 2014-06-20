@@ -15,6 +15,7 @@ from .model import *
 from .model import database
 from .application import app
 from .application import db
+from ._version import __version__
 
 mgr = database.DatabaseManager(db)
 log = logging.getLogger(__name__)
@@ -376,6 +377,7 @@ class RenderContext:
     def __init__(self):
         self.now = datetime.now()
         self.prefs = _get_preferences()
+        self.version = __version__
 
     def get(self, key, default=None, store_in_session=False):
         return _get_param(key, default=default, store_in_session=store_in_session)

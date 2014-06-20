@@ -307,6 +307,10 @@ h1 .ds-secondary-title {
     margin-bottom: 2em;
 }
 
+.ds-footer-container {
+    margin-bottom: 2em;
+}
+
 #ds-tooltip {
     opacity: 1.0;
     background-color: #333;
