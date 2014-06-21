@@ -382,7 +382,7 @@ class DashboardDefinition(DashboardContainer):
             query = self.queries[name]
             if isinstance(query, dict):
                 for key in query.keys():
-                    if key not in [ 'targets', 'name', 'options' ]:
+                    if key not in [ 'targets', 'name' ]:
                         del query[key]
 
     @classmethod
