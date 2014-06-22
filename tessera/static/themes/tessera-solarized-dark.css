@@ -30,13 +30,13 @@ hr {
 .ds-grid h1,
 .ds-grid h2
 {
-//    color: #848480;
+    color: #eee8d5;
 }
 
 .ds-grid h1 small,
 .ds-grid h2 small
 {
-//    color: #747470;
+    color: #586e75;
 }
 
 .ds-item h1,
