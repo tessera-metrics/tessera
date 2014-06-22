@@ -1,0 +1,140 @@
+
+/* Bootstrap tweaks */
+
+.well,
+.breadcrumb {
+  -webkit-box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset;
+  box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset;
+  background: #202020;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 0;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#88000000,endColorstr=#88000000);
+}
+
+hr {
+  -webkit-box-shadow: rgba(255, 255, 255, 0.07) 0 1px 0;
+  -moz-box-shadow: rgba(255, 255, 255, 0.07) 0 1px 0;
+  box-shadow: rgba(255, 255, 255, 0.07) 0 1px 0;
+  border-bottom: 1px solid #121212;
+  border-top: none;
+}
+
+.page-header {
+  box-shadow: rgba(255, 255, 255, 0.07) 0 1px 0;
+  border-bottom: 1px solid #121212;
+}
+
+/* Application Styles */
+
+.ds-grid h1,
+.ds-grid h2
+{
+//    color: #848480;
+}
+
+.ds-grid h1 small,
+.ds-grid h2 small
+{
+//    color: #747470;
+}
+
+.ds-item h1,
+.ds-item h2,
+.ds-item h3,
+.ds-item h4,
+.ds-item h5,
+.ds-item h6 {
+    color: #93a1a1;
+}
+
+.ds-singlestat h3 {
+    color: #959588;
+}
+
+.well .ds-singlestat h3 {
+  color: #b58900;
+}
+
+.ds-singlestat p {
+    color:white;
+}
+
+.ds-singlestat .unit,
+.ds-jumbotron-singlestat .unit {
+    color: 586e75;
+}
+
+.ds-jumbotron-singlestat .value {
+    color: white;
+}
+
+.ds-jumbotron-singlestat h3 {
+    color: #a6a699;
+}
+
+h1 .ds-primary-title {
+  color: #657b83;
+}
+
+h1 .ds-secondary-title {
+  color: #93a1a1;
+}
+
+.ds-time-container h2 {
+    color: #ddd;
+}
+
+.ds-warning,
+.ds-warning h3,
+.ds-warning .value,
+.ds-warning .unit {
+    color: #FF9E3F;
+}
+
+.ds-danger,
+.ds-danger h3,
+.ds-danger .value,
+.ds-danger .unit {
+    color: #FF0000;
+}
+
+.badge-neutral {
+  color: #222;
+}
+
+.ds-singlegraph span.value {
+    text-shadow: 1px 1px black;
+}
+
+/* Alerts */
+
+.alert-neutral,
+.bs-callout-neutral {
+    background-color: #494949;
+    border-color: #686868;
+}
+
+.alert-info,
+.bs-callout-info {
+    background-color: #0F3941;
+    border-color: #145561;
+}
+
+.alert-success,
+.bs-callout-success {
+    background-color: #35492C;
+    border-color: #436824;
+}
+
+.alert-warning,
+.bs-callout-warning {
+    background-color: #6F3701;
+    border-color: #A25103;
+}
+
+.alert-danger,
+.bs-callout-danger {
+    background-color: #661615;
+    border-color: #9C2927;
+}
