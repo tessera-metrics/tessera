@@ -105,6 +105,12 @@
                     Solarized Light
                 </label>
               </div>
+              <div class="radio">
+                <label for="themeRadios-solarized-dark">
+                  <input type="radio" name="themeRadios" id="themeRadios-solarized-dark" {% if ctx.prefs.theme=='solarized-dark' %} checked="checked" {% endif %} onclick="setPref('theme', 'solarized-dark')" value="Solarized Dark">
+                    Solarized Dark
+                </label>
+              </div>
             </div>
           </div>
         </fieldset>
