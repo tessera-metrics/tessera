@@ -55,6 +55,17 @@ ds.app.add_mode_handler('edit', {
                      return tag.name
                    })
       })
+
+    /**
+     * Handler for tag changes. This gets run each time a complete tag
+     * is added or removed.
+     */
+    $('[name="ds-info-panel-edit-taglist"]').on('change', function(e) {
+      var tags = $('#ds-info-panel-edit-tags').tagsManager('tags')
+      ds.manager.current.dashboard.set_tags(tags)
+      ds.manager.update(ds.manager.current.dashboard)
+    })
+
   },
   exit: function() {
     $('#ds-edit-info-button').removeClass('active')
@@ -68,16 +79,6 @@ $(document).ready(function() {
    */
   $(document).on('click', '#ds-edit-info-button', function(e) {
     ds.app.toggle_mode(ds.app.Mode.EDIT)
-  })
-
-  /**
-   * Handler for tag changes. This gets run each time a complete tag
-   * is added or removed.
-   */
-  $(document).on('change', '[name="ds-info-panel-edit-taglist"]', function(e) {
-    var tags = $('#ds-info-panel-edit-tags').tagsManager('tags')
-    ds.manager.current.dashboard.set_tags(tags)
-    ds.manager.update(ds.manager.current.dashboard)
   })
 
   $(document).on('click', '#ds-toggle-interactive-button', function(e) {
