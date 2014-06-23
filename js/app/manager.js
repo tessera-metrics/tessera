@@ -1,9 +1,8 @@
-ds.DashboardHolder = function(url_, element_) {
+ds.DashboardHolder = function(url_) {
   "use strict"
 
     this.url = url_
     this.dashboard = null
-    this.element = element_
 
     this.setRange = function(from, until) {
         var self = this
@@ -168,7 +167,7 @@ ds.manager =
      */
     self.load = function(url, element, options_) {
       var options = options_ || {}
-        var holder = new ds.DashboardHolder(url, element)
+        var holder = new ds.DashboardHolder(url)
         var context = self._prep_url(url, options)
         self.set_current(holder)
         $.ajax({
@@ -200,7 +199,7 @@ ds.manager =
           self._prep_items(dashboard, holder, interactive)
 
           // Render the dashboard
-          $(holder.element).html(dashboard.definition.render())
+          $(element).html(dashboard.definition.render())
 
           var currentURL = URI(holder.url)
           bean.fire(self, ds.app.Event.RANGE_CHANGED, {

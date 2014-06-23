@@ -102,11 +102,20 @@ hr {
 }
 
 h1 .ds-primary-title {
-  color: #657b83;
+    color: #586e75;
+
 }
 
 h1 .ds-secondary-title {
-  color: #93a1a1;
+    color: #eee8d5;
+}
+
+.breadcrumb .active {
+    color: #586e75;
+}
+
+h1.page-title .ds-summary {
+    color: #93a1a1;
 }
 
 .ds-time-container h2 {

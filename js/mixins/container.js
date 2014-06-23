@@ -59,6 +59,17 @@ ds.models.container =
         return self
       }
 
+      self.add_after = function(item, new_item) {
+        var index = self.find(item)
+        if ((index === -1) || index === (self.length - 1)) {
+          self.items.push(new_item)
+        } else {
+          self.items.splice(index + 1, 0, new_item)
+        }
+        self.notify('items')
+        return self
+      }
+
       self.remove = function(item) {
         var index = self.find(item)
         if (index < 0) {
