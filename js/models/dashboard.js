@@ -30,6 +30,8 @@ ds.models.dashboard = function(data) {
                        .build()
   , next_id = 0
 
+  self.index = {}
+
   self.visit = function(visitor) {
     visitor(self)
     if (self.definition) {
@@ -61,6 +63,9 @@ ds.models.dashboard = function(data) {
         if ( !item.item_id ) {
           item.item_id = self.next_id()
         }
+        if (self.index[item.item_id]) {
+          console.log('ERROR: item_id + ' + item.item_id + ' is already indexed.')
+        }
         index[item.item_id] = item
         item.set_dashboard(self)
       }
@@ -68,7 +73,7 @@ ds.models.dashboard = function(data) {
     return self
   }
 
-  self.index = {}
+
   if (data) {
     self.set_id(data.id)
         .set_title(data.title)
@@ -92,6 +97,7 @@ ds.models.dashboard = function(data) {
     self.visit(function(item) {
       next_id++
     })
+    self.next_id()
   }
 
   /**
