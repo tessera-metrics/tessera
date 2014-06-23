@@ -125,10 +125,9 @@ ds.models.data.Query = function(data) {
    * charting library, and calculating sums.
    */
   self._process = function(response_data) {
-    self.summation = ds.models.data.Summation()
+    self.summation = ds.models.data.Summation(response_data)
     self.data = response_data.map(function(series) {
                   series.summation = ds.models.data.Summation(series).toJSON()
-                  self.summation.merge(series.summation)
                   return series
                 })
     return self

@@ -6,7 +6,7 @@
  * The input format is assumed to be the JSON representation returned
  * by graphite-web.
  */
-ds.models.data.Summation = function(series) {
+ds.models.data.Summation = function(initial_data) {
   "use strict"
 
   var self = limivorous.observable()
@@ -20,13 +20,33 @@ ds.models.data.Summation = function(series) {
                        .build()
   Object.defineProperty(self, 'is_summation', {value: true})
 
-  if (series) {
-    self.first = series.datapoints[0][0]
-    self.count = series.datapoints.length
+  /**
+   * Initialize the summation
+   */
+  var datapoints = []
+
+  if (initial_data && (initial_data instanceof Array)) {
+    /* This assumes that all input series have the same number of data points */
+    var length = initial_data[0].datapoints.length
+    var summed_datapoints = []
+    for (var i = 0; i < length; i++) {
+      var x = 0
+      for (var n in initial_data) {
+        x += initial_data[n].datapoints[i][0]
+      }
+      datapoints.push([x, initial_data[0].datapoints[i][1]])
+    }
+  } else if (initial_data) {
+    datapoints = initial_data.datapoints
+  }
+
+  if (datapoints.length > 0 ) {
+    self.first = datapoints[0][0]
+    self.count = datapoints.length
     if (self.first == null) {
       self.first = 0
     }
-    series.datapoints.forEach(function(point) {
+    datapoints.forEach(function(point) {
       var value = point[0] || 0
       self.last = value
       self.sum = self.sum + value
