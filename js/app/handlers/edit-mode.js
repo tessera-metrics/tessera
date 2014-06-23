@@ -183,7 +183,7 @@
       dup.visit(function(item) {
         item.item_id = undefined
       })
-      parent.add(dup) /** TODO: adding immediately after the source item would be nice */
+      parent.add_after(item, dup)
       dashboard.update_index()
       ds.manager.update_item_view(parent)
     }
