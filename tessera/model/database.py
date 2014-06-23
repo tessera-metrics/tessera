@@ -18,7 +18,7 @@ class Dashboard(db.Model):
     definition = db.relationship('DashboardDef', uselist=False, backref='dashboard')
     tags = db.relationship('Tag',
                            secondary=lambda: dashboard_tags,
-                           backref=db.backref('dashboards', lazy='dynamic'),
+                           backref=db.backref('dashboards', lazy='dynamic', viewonly=True),
                            lazy='joined')
 
     def __init__(self, title, category=None, summary=None,
