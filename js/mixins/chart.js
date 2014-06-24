@@ -15,6 +15,12 @@ ds.models.chart =
       if (data) {
         target.title = data.title
         target.options = data.options || {}
+        if (target.options.y1) {
+          target.options.y1 = ds.models.Axis(target.options.y1)
+        }
+        if (target.options.y2) {
+          target.options.y2 = ds.models.Axis(target.options.y2)
+        }
       }
       return target
     }
@@ -23,8 +29,15 @@ ds.models.chart =
       data = data || {}
       if (target.title)
         data.title = target.title
-      if (target.options)
+      if (target.options) {
         data.options = target.options
+        if (target.options.y1) {
+          data.options.y1 = target.options.y1.toJSON()
+        }
+        if (target.options.y2) {
+          data.options.y2 = target.options.y2.toJSON()
+        }
+      }
       return data
     }
 
@@ -35,8 +48,83 @@ ds.models.chart =
     }
   })()
 
+/**
+ * Clearly, a bunch of this should be refactored into a common
+ * model. Should probably make chart.options a property model object.
+ */
 ds.models.chart.interactive_properties = [
   'title',
+  {
+    id: 'chart.y-axis-label',
+    name: 'y-axis-label',
+    category: 'chart',
+    edit_options: {
+      type: 'text',
+      value: function(item) {
+        if (item.options && item.options.y1) {
+          return item.options.y1.label
+        } else if (item.options) {
+          /* legacy */
+          return item.options.yAxisLabel
+        } else {
+          return undefined
+        }
+      },
+      update: function(item, newValue) {
+        if (!item.options) {
+          item.options = {}
+        }
+        if (!item.options.y1) {
+          item.options.y1 = ds.models.Axis()
+        }
+        item.options.y1.label = newValue
+      }
+    }
+  },
+  {
+    id: 'chart.y-axis-min',
+    name: 'y-axis-min',
+    category: 'chart',
+    edit_options: {
+      type: 'text',
+      value: function(item) {
+        return item.options && item.options.y1
+             ? item.options.y1.min
+             : undefined
+      },
+      update: function(item, newValue) {
+        if (!item.options) {
+          item.options = {}
+        }
+        if (!item.options.y1) {
+          item.options.y1 = ds.models.Axis()
+        }
+        item.options.y1.min = newValue
+      }
+    }
+  },
+  {
+    id: 'chart.y-axis-max',
+    name: 'y-axis-max',
+    category: 'chart',
+    edit_options: {
+      type: 'text',
+      value: function(item) {
+        return item.options && item.options.y1
+             ? item.options.y1.max
+             : undefined
+      },
+      update: function(item, newValue) {
+        if (!item.options) {
+          item.options = {}
+        }
+        if (!item.options.y1) {
+          item.options.y1 = ds.models.Axis()
+        }
+        item.options.y1.max = newValue
+      }
+    }
+  },
   {
     id: 'chart.palette',
     name: 'palette',
