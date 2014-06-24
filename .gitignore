@@ -17,3 +17,4 @@ tessera/static/css/bundle.css
 tessera/tessera.db
 experimental/
 js/demo/
+tmp/
