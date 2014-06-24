@@ -147,24 +147,7 @@ ds.models.item.Transform = {
 }
 
 ds.models.item.interactive_properties = [
-  ds.property({
-    id: 'query',
-    name: 'query',
-    category: 'base',
-    template: '{{item.query.name}}',
-    edit_options: {
-      type: 'select',
-      source: function() {
-        var queries = ds.manager.current.dashboard.definition.queries
-        return Object.keys(queries).map(function(k) {
-                 return { value: k, text: k }
-               })
-      },
-      value: function(item) {
-        return item.query ? item.query.name : undefined
-      }
-    }
-  }),
+  'query',
   { id: 'css_class', category: 'base'} ,
   { id: 'height', type: 'number', category: 'base' }
 ]
