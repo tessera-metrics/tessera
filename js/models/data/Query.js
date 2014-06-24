@@ -50,7 +50,7 @@ ds.models.data.Query = function(data) {
     }
     var targets = self.expanded_targets || self.targets
     for (var i in targets) {
-      url.addQuery('target', targets[i])
+      url.addQuery('target', targets[i].replace(/(\r\n|\n|\r)/gm,""))
     }
     return url.href()
   }
