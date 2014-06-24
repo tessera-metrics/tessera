@@ -50,6 +50,38 @@
     return $('#' + item.item_id + '-details').is(':visible')
   }
 
+  /* Query delete buttons */
+  $(document).on('click', 'button.ds-delete-query-button', function(e) {
+    var $elt = $(this)
+    var query_name   = $elt.attr('data-ds-query-name')
+    var dashboard = ds.manager.current.dashboard
+    if (!dashboard.definition.queries[query_name])
+      return true
+    var queries_in_use = dashboard.definition.get_queries()
+    if (queries_in_use[query_name]) {
+      bootbox.dialog({
+        message: 'Query ' + query_name + ' is in use. Are you sure you want to delete it?',
+        title: 'Confirm query delete',
+        buttons: {
+          cancel: {
+            label: 'Cancel',
+            className: 'btn-default'
+          },
+          confirm: {
+            label: 'Delete',
+            className: 'btn-danger',
+            callback: function() {
+              delete_query(dashboard, query_name)
+            }
+          }
+        }
+      })
+    } else {
+      delete_query(dashboard, query_name)
+    }
+    return true
+  })
+
   ds.edit.edit_queries = function() {
     /* Query names */
     $('th.ds-query-name').each(function(index, e) {
@@ -62,24 +94,24 @@
           rename_query(ds.manager.current.dashboard, query_name, newValue)
         }
       })
-    })
-      /* Query targets */
-      $('td.ds-query-target').each(function(index, e) {
-        var element = $(e)
-        var query_name = e.getAttribute('data-ds-query-name')
-        element.editable({
-          type: 'textarea',
-          inputclass: 'ds-source',
-          value: element.text() || '',
-          success: function(ignore, newValue) {
-            var target = newValue.trim()
-            var query = ds.manager.current.dashboard.definition.queries[query_name]
-            query.targets = [target]
-            query.render_templates(ds.manager.location_context())
-            query.load()
-          }
-        })
+    });
+    /* Query targets */
+    $('td.ds-query-target').each(function(index, e) {
+      var element = $(e)
+      var query_name = e.getAttribute('data-ds-query-name')
+      element.editable({
+        type: 'textarea',
+        inputclass: 'ds-source',
+        value: element.text() || '',
+        success: function(ignore, newValue) {
+          var target = newValue.trim()
+          var query = ds.manager.current.dashboard.definition.queries[query_name]
+          query.targets = [target]
+          query.render_templates(ds.manager.location_context())
+          query.load()
+        }
       })
+    });
   }
 
   /**
@@ -96,6 +128,14 @@
         ds.manager.update_item_view(updated_items[i])
       }
     }
+    ds.edit.edit_queries()
+    ds.app.refresh_mode()
+  }
+
+  function delete_query(dashboard, query_name) {
+    console.log('delete_query: ' + query_name)
+    dashboard.definition.delete_query(query_name)
+    $('tr[data-ds-query-name="' + query_name + '"]').remove()
     ds.edit.edit_queries()
     ds.app.refresh_mode()
   }

@@ -88,7 +88,7 @@ ds.models.item =
       self.get_queries = function() {
         var queries = {}
         self.visit(function(i) {
-          if (typeof(i.query) !== 'undefined') {
+          if (i.query) {
             queries[i.query.name] = i.query
           }
         })
