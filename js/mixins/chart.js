@@ -21,6 +21,9 @@ ds.models.chart =
         if (target.options.y2) {
           target.options.y2 = ds.models.Axis(target.options.y2)
         }
+        if (target.options.x) {
+          target.options.x = ds.models.Axis(target.options.x)
+        }
       }
       return target
     }
@@ -36,6 +39,9 @@ ds.models.chart =
         }
         if (target.options.y2) {
           data.options.y2 = target.options.y2.toJSON()
+        }
+        if (target.options.x) {
+          data.options.x = target.options.x.toJSON()
         }
       }
       return data
