@@ -25,7 +25,7 @@ ds.models.data.Summation = function(initial_data) {
    */
   var datapoints = []
 
-  if (initial_data && (initial_data instanceof Array)) {
+  if (initial_data && (initial_data instanceof Array) && (initial_data.length)) {
     /* This assumes that all input series have the same number of data points */
     var length = initial_data[0].datapoints.length
     var summed_datapoints = []
@@ -36,11 +36,11 @@ ds.models.data.Summation = function(initial_data) {
       }
       datapoints.push([x, initial_data[0].datapoints[i][1]])
     }
-  } else if (initial_data) {
+  } else if (initial_data && initial_data.datapoints) {
     datapoints = initial_data.datapoints
   }
 
-  if (datapoints.length > 0 ) {
+  if (datapoints && datapoints.length) {
     self.first = datapoints[0][0]
     self.count = datapoints.length
     if (self.first == null) {
