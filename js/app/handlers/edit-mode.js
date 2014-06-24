@@ -133,7 +133,6 @@
   }
 
   function delete_query(dashboard, query_name) {
-    console.log('delete_query: ' + query_name)
     dashboard.definition.delete_query(query_name)
     $('tr[data-ds-query-name="' + query_name + '"]').remove()
     ds.edit.edit_queries()
