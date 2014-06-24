@@ -30,7 +30,7 @@ ds.charts.nvd3 =
                 .margin(options.margin || { top: 0, right: 16, bottom: 0, left: 40 })
                 .width(width)
                 .height(height)
-            chart.yAxis.tickFormat(d3.format(options.yAxisFormat || ',.2f'))
+            chart.yAxis.tickFormat(d3.format((options.y1 ? options.y1.format : options.yAxisFormat) || ',.3s'))
             chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow() })
             d3.select(e.selector + ' svg')
                 .attr('width', width)
@@ -65,12 +65,12 @@ ds.charts.nvd3 =
                 .width(width)
                 .height(height)
             chart.yAxis
-                .axisLabelDistance(options.yAxisLabelDistance || 30)
-                .axisLabel(options.yAxisLabel || null)
-                .tickFormat(d3.format(options.yAxisFormat || ',.3s'))
+                .axisLabelDistance((options.y1 ? options.y1.label_distance : options.yAxisLabelDistance) || 30)
+                .axisLabel(options.y1 ? options.y1.label : options.yAxisLabel)
+                .tickFormat(d3.format((options.y1 ? options.y1.format : options.yAxisFormat) || ',.3s'))
             chart.xAxis
                 .tickFormat(function(d) { return moment.unix(d).format('h:mm A') })
-                .axisLabel(options.xAxisLabel || null)
+                .axisLabel(options.x ? options.x.label : options.xAxisLabel)
             d3.select(e.selector + ' svg')
                 .attr('width', width)
                 .attr('height', height)
@@ -102,7 +102,7 @@ ds.charts.nvd3 =
                 .height(height)
                 .margin(options.margin || { top: 0, right: 0, bottom: 0, left: 0 })
             chart.yAxis
-                .tickFormat(d3.format(options.yAxisFormat || ',.2f'))
+                .tickFormat(d3.format((options.y1 ? options.y1.format : options.yAxisFormat) || ',.3s'))
             chart.xAxis
             // .tickFormat(function(d) { return moment.unix(d).format('h:mm A') })
                 .tickFormat(function(d) { return moment.unix(d).fromNow() })
@@ -115,7 +115,6 @@ ds.charts.nvd3 =
             return chart
         })
     }
-
 
     self.stacked_area_chart = function(e, item, query) {
         var options = item.options || {}
@@ -142,11 +141,11 @@ ds.charts.nvd3 =
                 .height(height)
             // .margin(options.margin || { top: 12, right: 16, bottom: 16, left: 40 })
             chart.yAxis
-                .axisLabel(options.yAxisLabel || null)
-                .axisLabelDistance(options.yAxisLabelDistance || 30)
-                .tickFormat(d3.format(options.yAxisFormat || ',.3s'))
+                .axisLabel(options.y1 ? options.y1.label : options.yAxisLabel)
+                .axisLabelDistance((options.y1 ? options.y1.label_distance : options.yAxisLabelDistance) || 30)
+                .tickFormat(d3.format((options.y1 ? options.y1.format : options.yAxisFormat) || ',.3s'))
             chart.xAxis
-                .axisLabel(options.xAxisLabel || null)
+                .axisLabel(options.x ? options.x.label : options.xAxisLabel)
                 .tickFormat(function(d) { return moment.unix(d).format('h:mm A') })
             // .tickFormat(function(d) { return moment.unix(d).fromNow() })
             d3.select(e.selector + ' svg')

@@ -16,6 +16,16 @@ ds.charts.graphite =
      * Return a set of colors for rendering graphs that are tuned to
      * the current UI color theme. Colors are derived from the
      * background color of the 'body' element.
+     *
+     * TODO: cache the results keyed by background color.
+     *
+     * TODO: if the model had back links to containers, we could walk
+     * up the containment hierarchy to see if the chart is contained
+     * in something that has a background style set (i.e. well, alert,
+     * etc...) and get the colors based on that.
+     *
+     * Or we could just pre-compute them all based on the background
+     * colors from the CSS.
      */
     function getColors() {
       var color = Color(window.getComputedStyle($('body')[0]).backgroundColor)
@@ -62,8 +72,13 @@ ds.charts.graphite =
             .setQuery('margin', '0')
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .setQuery('title', options.showTitle ? item.title : '')
-            .href()
-        return png_url
+
+        if (options.y1 && options.y1.min)
+            png_url.setQuery('yMin', options.y1.min )
+        if (options.y1 && options.y1.max)
+            png_url.setQuery('yMax', options.y1.max )
+
+        return png_url.href()
     }
 
     self.standard_line_chart = function(element, item, query) {
@@ -87,10 +102,15 @@ ds.charts.graphite =
             .setQuery('hideLegend', options.hideLegend || 'false')
             .setQuery('hideAxes', options.hideAxes || 'false')
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
-            .setQuery('vtitle', options.yAxisLabel)
+            .setQuery('vtitle', options.y1 ? options.y1.label : options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
-            .href()
-        return png_url
+
+        if (options.y1 && options.y1.min)
+            png_url.setQuery('yMin', options.y1.min )
+        if (options.y1 && options.y1.max)
+            png_url.setQuery('yMax', options.y1.max )
+
+        return png_url.href()
     }
 
     self.simple_area_chart = function(element, item, query) {
@@ -116,8 +136,13 @@ ds.charts.graphite =
             .setQuery('areaMode', 'stacked')
             .setQuery('margin', '0')
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
-            .href()
-        return png_url
+
+        if (options.y1 && options.y1.min)
+            png_url.setQuery('yMin', options.y1.min )
+        if (options.y1 && options.y1.max)
+            png_url.setQuery('yMax', options.y1.max )
+
+        return png_url.href()
     }
 
     self.stacked_area_chart = function(element, item, query) {
@@ -142,17 +167,22 @@ ds.charts.graphite =
             .setQuery('hideAxes', options.hideAxes || 'false')
             .setQuery('areaMode', 'stacked')
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
-            .setQuery('vtitle', options.yAxisLabel)
+            .setQuery('vtitle', options.y1 ? options.y1.label : options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
-            .href()
-        return png_url
+
+        if (options.y1 && options.y1.min)
+            png_url.setQuery('yMin', options.y1.min )
+        if (options.y1 && options.y1.max)
+            png_url.setQuery('yMax', options.y1.max )
+
+        return png_url.href()
     }
 
     self.donut_chart_url = function(item, opt) {
       var png_url = URI(self.standard_line_chart_url(item, opt))
-                            .setQuery('graphType', 'pie')
-                            .href()
-        return png_url
+            .setQuery('graphType', 'pie')
+
+        return png_url.href()
     }
 
 
