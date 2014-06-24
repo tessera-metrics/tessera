@@ -69,6 +69,7 @@
         var query_name = e.getAttribute('data-ds-query-name')
         element.editable({
           type: 'textarea',
+          inputclass: 'ds-source',
           value: element.text() || '',
           success: function(ignore, newValue) {
             var target = newValue.trim()
