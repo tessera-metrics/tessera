@@ -107,7 +107,7 @@ class Presentation(DashboardItem):
         LAST   = 'last'
         FIRST  = 'first'
 
-    def __init__(self, query, thresholds=None, **kwargs):
+    def __init__(self, query=None, thresholds=None, **kwargs):
         super(Presentation, self).__init__(**kwargs)
         self.query = query
         self.thresholds = thresholds
