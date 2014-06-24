@@ -65,14 +65,11 @@ ds.register_dashboard_item('dashboard_definition', {
      * Delete a query and null out any references to it.
      */
     self.delete_query = function(query_name) {
-      console.log('dashboard_definition.delete_query(): ' + query_name)
       self.visit(function(item) {
         if (item.query && (item.query.name === query_name)) {
-          console.log('   found item ' + item.item_id + ' using query')
           item.query = undefined
         }
       })
-      console.log('    removing from query map')
       delete self.queries[query_name]
       return self
     }
