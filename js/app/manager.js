@@ -1,8 +1,9 @@
-ds.DashboardHolder = function(url_) {
+ds.DashboardHolder = function(url, element) {
   "use strict"
 
-    this.url = url_
-    this.dashboard = null
+  this.url = url
+  this.element = element
+  this.dashboard = null
 
     this.setRange = function(from, until) {
         var self = this
@@ -167,7 +168,7 @@ ds.manager =
      */
     self.load = function(url, element, options_) {
       var options = options_ || {}
-        var holder = new ds.DashboardHolder(url)
+        var holder = new ds.DashboardHolder(url, element)
         var context = self._prep_url(url, options)
         self.set_current(holder)
         $.ajax({
