@@ -50,5 +50,7 @@ ds.register_dashboard_item('comparison_summation_table', {
     { id: 'striped', type: 'boolean' },
     'format',
     'title',
-  ].concat(ds.models.item.interactive_properties)
+    'query',
+    { id: 'css_class', category: 'base' }
+  ]
 })
