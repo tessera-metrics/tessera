@@ -313,17 +313,13 @@ h1 .ds-secondary-title {
 
 #ds-tooltip {
     opacity: 1.0;
-    background-color: #333;
-    color: #cdF;
-    border: 2px solid #666;
-    border-radius: 6px;
-    -moz-border-radius: 6px;
     padding: 12px;
-    margin-left: 12px;
+    margin-left: 40px;
+    padding-bottom: 0;
 }
-#ds-tooltip hr {
-    margin-bottom: 4px;
-    margin-top: 4px;
+
+td.ds-tooltip-label span.badge {
+    height: 1.1em;
 }
 td.ds-tooltip-value {
     padding-right: 8px;

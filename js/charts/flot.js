@@ -92,20 +92,26 @@ ds.charts.flot =
         var series = context.plot.getData()
         var item = items[0]
         var point = series[item.serieIndex].data[item.dataIndex]
-        var contents = "<span class='ds-tooltip-time'>"
-                     + new Date(point[0]).toString()
-                     + '</span><table class="table table-condensed table-striped"><tbody>'
+        /* TODO: can do all this with templates; this is left over from looong ago */
+        var contents
+              = '<table class="table table-condensed"><tbody>'
+              + '<tr><span class="ds-tooltip-time">'
+              + moment(point[0]).format('dd, h:mm:ss A UTC')
+              + '</span></tr>'
         $.each(items, function(index, item) {
           var ser = series[item.serieIndex]
           var pair = ser.data[item.dataIndex]
-
+          /* TODO: get a formatter from the item's options */
+          var format = d3.format(',.3s')
           contents += ( "<tr>"
-                        // Value
-                      + "<td class='ds-tooltip-value'>" + pair[1] + "</td>"
                         // Badge + name
                       + "<td class='ds-tooltip-label'><span class='badge' style='background-color: "
-                      + ser.color + "'><i class='fa fa-lg fa-bolt'></i> "
-                      + ser.label + "</span></td>"
+                      + ser.color + "'><i></i></span> "
+                      + ser.label + "</td>"
+                        // Value
+                      + "<td class='ds-tooltip-value'>"
+                      + format(pair[1])
+                      + "</td>"
                       + "</tr>"
                       )
         })
