@@ -332,6 +332,28 @@ td.ds-tooltip-value {
     text-align: right;
 }
 
+td.ds-diff-plus::before
+{
+    content: "+";
+    color: green;
+}
+
+td.ds-diff-plus
+{
+    color: green;
+    font-weight: bold;
+}
+
+td.ds-diff-minus::before
+{
+    content: "-";
+}
+
+td.ds-diff-minus
+{
+    color: red;
+}
+
 /* -----------------------------------------------------------------------------
  Edit mode headers
  ----------------------------------------------------------------------------- */
