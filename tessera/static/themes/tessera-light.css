@@ -79,6 +79,7 @@ h1 .ds-secondary-title {
 }
 
 #ds-tooltip {
+    color: black;
     background-color: white;
     border: 1px solid black;
 }

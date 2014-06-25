@@ -8,7 +8,12 @@ ds.charts.flot =
   (function() {
 
     var self = {}
-      , default_options = {
+
+    self.CHART_IMPL_TYPE = 'flot'
+
+    function get_default_options() {
+      var theme_colors = ds.charts.util.get_colors()
+      var default_options = {
         colors: ds.charts.util.get_palette(),
         series: {
           lines: { show: true, lineWidth: 1, fill: false},
@@ -19,17 +24,16 @@ ds.charts.flot =
         xaxis: {
           mode: "time",
           twelveHourClock: true,
-          color: '#ccc',
-          tickColor:'#333'
+          // timeformat: '',
+          tickColor: theme_colors.minorGridLineColor
           // axisLabel: 'Time'
         },
         yaxes: [
           {
-            // tickFormatter: opendash.format_kmbt,
+            tickFormatter: d3.format(',3s'), /* TODO: get from item options */
             reserveSpace: 30,
             labelWidth: 30,
-            color: '#ccc',
-            tickColor: '#333'
+            tickColor: theme_colors.minorGridLineColor
             // axisLabel: 'Things'
           },
           {
@@ -52,13 +56,12 @@ ds.charts.flot =
         },
         grid: {
           borderWidth: 0,
-          borderColor: "#AAAAAA",
           hoverable: true,
           clickable: true,
           autoHighlight: false,
           /* grid.color actually sets the color of the legend
            * text. WTH? */
-          color: '#ccc'
+          color: theme_colors.fgcolor
         },
         selection: {
           mode: "x",
@@ -73,8 +76,8 @@ ds.charts.flot =
           lineWidth: 1
         }
       }
-
-    self.CHART_IMPL_TYPE = 'flot'
+      return default_options
+    }
 
     function show_tooltip(x, y, contents) {
       $('<div id="ds-tooltip">' + contents + '</div>').css( {
@@ -92,20 +95,27 @@ ds.charts.flot =
         var series = context.plot.getData()
         var item = items[0]
         var point = series[item.serieIndex].data[item.dataIndex]
-        var contents = "<span class='ds-tooltip-time'>"
-                     + new Date(point[0]).toString()
-                     + '</span><table class="table table-condensed table-striped"><tbody>'
+        /* TODO: should do all this with handlebars templates; this is
+         * left over from looong ago */
+        var contents
+              = '<table class="table table-condensed"><tbody>'
+              + '<tr><span class="ds-tooltip-time">'
+              + moment(point[0]).format('dd, h:mm:ss A UTC')
+              + '</span></tr>'
         $.each(items, function(index, item) {
           var ser = series[item.serieIndex]
           var pair = ser.data[item.dataIndex]
-
+          /* TODO: get a formatter from the item's options */
+          var format = d3.format(',.3s')
           contents += ( "<tr>"
-                        // Value
-                      + "<td class='ds-tooltip-value'>" + pair[1] + "</td>"
                         // Badge + name
                       + "<td class='ds-tooltip-label'><span class='badge' style='background-color: "
-                      + ser.color + "'><i class='fa fa-lg fa-bolt'></i> "
-                      + ser.label + "</span></td>"
+                      + ser.color + "'><i></i></span> "
+                      + ser.label + "</td>"
+                        // Value
+                      + "<td class='ds-tooltip-value'>"
+                      + format(pair[1])
+                      + "</td>"
                       + "</tr>"
                       )
         })
@@ -126,7 +136,7 @@ ds.charts.flot =
           plot: null
       }
       setup_plugins(e, context)
-      context.plot = $.plot($(e), [query.chart_data('flot')[0]], ds.extend(default_options, {
+      context.plot = $.plot($(e), [query.chart_data('flot')[0]], ds.extend(get_default_options(), {
         grid: {
           show: false
         },
@@ -142,7 +152,7 @@ ds.charts.flot =
           plot: null
       }
       setup_plugins(e, context)
-      context.plot = $.plot($(e), query.chart_data('flot'), ds.extend(default_options, {
+      context.plot = $.plot($(e), query.chart_data('flot'), ds.extend(get_default_options(), {
         grid: {
           borderWidth: 0,
           hoverable: true,
@@ -162,7 +172,7 @@ ds.charts.flot =
           plot: null
       }
       setup_plugins(e, context)
-      context.plot = $.plot($(e), [query.chart_data('flot')[0]], ds.extend(default_options, {
+      context.plot = $.plot($(e), [query.chart_data('flot')[0]], ds.extend(get_default_options(), {
         grid: {
           show: false
         },
@@ -184,7 +194,7 @@ ds.charts.flot =
           plot: null
       }
       setup_plugins(e, context)
-      context.plot = $.plot($(e), query.chart_data('flot'), ds.extend(default_options, {
+      context.plot = $.plot($(e), query.chart_data('flot'), ds.extend(get_default_options(), {
         series: {
           lines: { show: true, lineWidth: 1, fill: true},
           stack: true,

@@ -238,3 +238,9 @@ h1.page-title .ds-summary {
     background-color: #555;
     border: 1px solid #777;
 }
+
+#ds-tooltip {
+    color: #93a1a1;
+    background-color: #073642;
+    border: 1px solid #657b83;
+}
