@@ -38,10 +38,7 @@ class Thresholds(object):
         self.danger = danger
 
 class DashboardItem(object):
-    """Layout elements are class that define how presentations are
-    arrange in the dashboard. The base class provides common CSS class
-    overriding.
-
+    """
     JS class: ds.models.item
     """
     def __init__(self, item_type, css_class=None, style=None, height=None, item_id=None, **kwargs):
@@ -69,6 +66,8 @@ class DashboardItem(object):
             return Markdown.from_json(d)
         elif item_type == 'row':
             return Row.from_json(d)
+        elif item_type == 'cell':
+            return Cell.from_json(d)
         elif item_type == 'section':
             return Section.from_json(d)
         elif item_type == 'dashboard_definition':
@@ -92,7 +91,26 @@ class DashboardItem(object):
         elif item_type == 'donut_chart':
             return DonutChart.from_json(d)
         else:
-            return Cell.from_json(d)
+            return GenericDashboardItem(item_type, **d)
+
+class GenericDashboardItem(DashboardItem):
+    def __init__(self, item_type, css_class=None, style=None, height=None, item_id=None, **kwargs):
+        super(GenericDashboardItem, self).__init__(item_type, css_class=css_class,
+                                                   style=style, height=height, item_id=item_id)
+        self.other = kwargs
+
+    def to_json(self):
+        data = {
+            'item_type' : self.item_type,
+            'item_id' : self.item_id,
+            'css_class' : self.css_class,
+            'style' : self.style,
+            'height' : self.height
+        }
+        if self.other:
+            for k, v in self.other.items():
+                data[k] = v
+        return data
 
 # -----------------------------------------------------------------------------
 # Presentations

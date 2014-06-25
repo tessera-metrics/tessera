@@ -56,8 +56,9 @@ ds.models.item =
       self.render = function() {
         var item_type = ds.models[self.item_type]
         if (item_type.template) {
-          if (item_type.data_handler && self.query) {
-            self.query.on_load(function(q) {
+          if (item_type.data_handler && (self.query || self.query_override)) {
+            var query = self.query_override || self.query
+            query.on_load(function(q) {
               item_type.data_handler(q, self)
             })
           }
@@ -147,24 +148,7 @@ ds.models.item.Transform = {
 }
 
 ds.models.item.interactive_properties = [
-  ds.property({
-    id: 'query',
-    name: 'query',
-    category: 'base',
-    template: '{{item.query.name}}',
-    edit_options: {
-      type: 'select',
-      source: function() {
-        var queries = ds.manager.current.dashboard.definition.queries
-        return Object.keys(queries).map(function(k) {
-                 return { value: k, text: k }
-               })
-      },
-      value: function(item) {
-        return item.query ? item.query.name : undefined
-      }
-    }
-  }),
+  'query',
   { id: 'css_class', category: 'base'} ,
   { id: 'height', type: 'number', category: 'base' }
 ]

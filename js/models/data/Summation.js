@@ -58,27 +58,31 @@ ds.models.data.Summation = function(initial_data) {
       }
     })
     self.mean = self.sum / self.count
+  } else if (typeof(initial_data) === 'object') {
+    self.sum = initial_data.sum || self.sum
+    self.min = initial_data.min || self.min
+    if (0.01 > self.min > -0.01)
+      self.min = 0
+    self.max = initial_data.max || self.max
+    self.first = initial_data.first || self.first
+    self.last = initial_data.last || self.last
+    self.mean = initial_data.mean || self.mean
+    self.count = initial_data.count || self.count
   }
 
   /**
-   * Merge another summation into this one. For summarizing
-   * queries with multiple data series.
+   * Subtract other from self
    */
-  self.merge = function(other) {
-    self.sum += other.sum || 0
-    self.count = other.count /* assuming series are from the same query */
-    self.mean = self.sum / self.count
-
-    if (other.min < self.min) {
-      self.min = other.min
-    }
-    if (other.max > self.max) {
-      self.max = other.max
-    }
-
-    self.first += other.first || 0
-    self.last += other.last || 0
-    return self
+  self.subtract = function(other) {
+    return ds.models.data.Summation({
+      sum: self.sum - other.sum,
+      min: self.min - other.min,
+      max: self.max - other.max,
+      mean: self.mean- other.mean,
+      first: self.first - other.first,
+      last: self.last - other.last,
+      count: self.count
+    })
   }
 
   self.toJSON = function() {
