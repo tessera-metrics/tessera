@@ -11,9 +11,6 @@ ds.register_dashboard_item('dashboard_definition', {
                          .build()
 
     if (data && data.queries) {
-      // For now the on-the-wire query map is string/string. Eventually
-      // it will be come string/object as we move thresholds into the
-      // queries instead of presentations.
       for (var key in data.queries) {
         var query = data.queries[key]
         self.queries[key] = (typeof(query) === 'string' || query instanceof Array)
@@ -44,6 +41,11 @@ ds.register_dashboard_item('dashboard_definition', {
       for (var key in self.queries) {
         self.queries[key].render_templates(context)
       }
+      self.visit(function(item) {
+        if (item.query_override) {
+          item.query_override.render_templates(context)
+        }
+      })
       return self
     }
 
@@ -52,6 +54,11 @@ ds.register_dashboard_item('dashboard_definition', {
       for (var key in self.queries) {
         self.queries[key].load(self.options, fire_only)
       }
+      self.visit(function(item) {
+        if (item.query_override) {
+          item.query_override.load(self.options, fire_only)
+        }
+      })
       return self
     }
 

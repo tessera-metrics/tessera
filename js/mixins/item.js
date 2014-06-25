@@ -56,8 +56,9 @@ ds.models.item =
       self.render = function() {
         var item_type = ds.models[self.item_type]
         if (item_type.template) {
-          if (item_type.data_handler && self.query) {
-            self.query.on_load(function(q) {
+          if (item_type.data_handler && (self.query || self.query_override)) {
+            var query = self.query_override || self.query
+            query.on_load(function(q) {
               item_type.data_handler(q, self)
             })
           }
