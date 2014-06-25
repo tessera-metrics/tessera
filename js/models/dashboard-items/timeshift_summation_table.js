@@ -75,7 +75,7 @@ ds.register_dashboard_item('timeshift_summation_table', {
     var then = query.data[1].summation
     var diff = ds.models.data.Summation(now).subtract(then);
     ['mean', 'min', 'max', 'sum'].forEach(function(prop) {
-      diff[prop + '_positive'] = (diff[prop] > 0.01)
+      diff[prop + '_positive'] = (diff[prop] > 0.0)
 
       var pct = (now[prop] / then[prop]) - 1
       pct = isNaN(pct) ? 0.0 : pct
