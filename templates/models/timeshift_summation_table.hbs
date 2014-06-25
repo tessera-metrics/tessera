@@ -1,6 +1,6 @@
 <div class="ds-item" id="{{item.item_id}}">
   {{> ds-title-bar}}
-  <table class="table table-condensed ds-comparison-summation-table {{height item}} {{css_class item}}
+  <table class="table table-condensed ds-timeshift-summation-table {{height item}} {{css_class item}}
                 {{#if item.striped}}table-striped{{/if}}">
     <thead>
       <tr>
@@ -8,6 +8,7 @@
         <th>Now</th>
         <th>{{item.shift}} Ago</th>
         <th>Delta</th>
+        <th>%</th>
       </tr>
     </thead>
     <tbody/>

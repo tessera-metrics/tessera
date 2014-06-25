@@ -61,6 +61,8 @@ ds.models.data.Summation = function(initial_data) {
   } else if (typeof(initial_data) === 'object') {
     self.sum = initial_data.sum || self.sum
     self.min = initial_data.min || self.min
+    if (0.01 > self.min > -0.01)
+      self.min = 0
     self.max = initial_data.max || self.max
     self.first = initial_data.first || self.first
     self.last = initial_data.last || self.last
@@ -76,6 +78,7 @@ ds.models.data.Summation = function(initial_data) {
       sum: self.sum - other.sum,
       min: self.min - other.min,
       max: self.max - other.max,
+      mean: self.mean- other.mean,
       first: self.first - other.first,
       last: self.last - other.last,
       count: self.count

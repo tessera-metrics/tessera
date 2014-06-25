@@ -1,0 +1,45 @@
+<!-- TODO: configure which rows to include. Sum doesnt make sense for rates -->
+<tr>
+  <th>Average</th>
+  <td>{{format item.format now.mean}}</td>
+  <td>{{format item.format then.mean}}</td>
+  <td class="{{#if diff.mean_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+    {{format item.format diff.mean}}
+  </td>
+  <td class="{{#if diff.mean_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+    {{diff.mean_pct}}
+  </td>
+</tr>
+<tr>
+  <th>Min</th>
+  <td>{{format item.format now.min}}</td>
+  <td>{{format item.format then.min}}</td>
+  <td class="{{#if diff.min_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+    {{format item.format diff.min}}
+  </td>
+  <td class="{{#if diff.min_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+    {{diff.min_pct}}
+  </td>
+</tr>
+<tr>
+  <th>Max</th>
+  <td>{{format item.format now.max}}</td>
+  <td>{{format item.format then.max}}</td>
+  <td class="{{#if diff.max_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+    {{format item.format diff.max}}
+  </td>
+  <td class="{{#if diff.max_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+    {{diff.max_pct}}
+  </td>
+</tr>
+<tr>
+  <th>Sum</th>
+  <td>{{format item.format now.sum}}</td>
+  <td>{{format item.format then.sum}}</td>
+  <td class="{{#if diff.sum_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+    {{format item.format diff.sum}}
+  </td>
+  <td class="{{#if diff.sum_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+    {{diff.sum_pct}}
+  </td>
+</tr>

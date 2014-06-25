@@ -1,15 +1,13 @@
 /**
- * This iteration of comparison_summation_table takes a single query
+ * This iteration of timeshift_summation_table takes a single query
  * and applies a timeShift() value to it. Another approach is to take
  * two arbitrary queries and compare them (so it's not strictly a
  * time-based comparison).
  *
  * This version is slightly simpler to implement, because we don't
  * need to join on two asynchronously fetched queries.
- *
- * maybe this item should be renamed timeshift_summation_table
  */
-ds.register_dashboard_item('comparison_summation_table', {
+ds.register_dashboard_item('timeshift_summation_table', {
 
   constructor: function(data) {
     'use strict'
@@ -20,7 +18,7 @@ ds.register_dashboard_item('comparison_summation_table', {
                          .property('title')
                          .property('shift', {init: "1d"})
                          .property('query_override')
-                         .extend(ds.models.item, {item_type: 'comparison_summation_table'})
+                         .extend(ds.models.item, {item_type: 'timeshift_summation_table'})
                          .build()
     Object.defineProperty(self, 'requires_data', {value: true})
 
@@ -29,7 +27,8 @@ ds.register_dashboard_item('comparison_summation_table', {
     }
 
     if (data) {
-      self.striped = data.striped
+      if (typeof(data.striped) !== 'undefined')
+        self.striped = data.striped
       self.title = data.title
       self.format = data.format || self.format
       self.shift = data.shift || self.shift
@@ -74,9 +73,16 @@ ds.register_dashboard_item('comparison_summation_table', {
     var body = $('#' + item.item_id + ' tbody')
     var now  = query.data[0].summation
     var then = query.data[1].summation
-    var diff = ds.models.data.Summation(now).subtract(then)
+    var diff = ds.models.data.Summation(now).subtract(then);
+    ['mean', 'min', 'max', 'sum'].forEach(function(prop) {
+      diff[prop + '_positive'] = (diff[prop] > 0.01)
+
+      var pct = (now[prop] / then[prop]) - 1
+      pct = isNaN(pct) ? 0.0 : pct
+      diff[prop + '_pct'] = d3.format(',.2%')(pct)
+    })
     body.empty()
-    body.append(ds.templates.models.comparison_summation_table_body({
+    body.append(ds.templates.models.timeshift_summation_table_body({
       now:  now,
       then: then,
       diff: diff,
@@ -84,7 +90,7 @@ ds.register_dashboard_item('comparison_summation_table', {
     }))
   },
 
-  template: ds.templates.models.comparison_summation_table,
+  template: ds.templates.models.timeshift_summation_table,
 
   interactive_properties: [
     { id: 'striped', type: 'boolean' },

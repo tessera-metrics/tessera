@@ -420,12 +420,12 @@
     }
   })
 
-  var new_comparison_summation_table_action = ds.action({
-    name: 'new-comparison-summation_table',
-    display: 'Add new Comparison Summation Table',
+  var new_timeshift_summation_table_action = ds.action({
+    name: 'new-timeshift-summation_table',
+    display: 'Add new Timeshift Summation Table',
     icon: 'fa fa-table',
     handler: function(action, container) {
-      add_new_item(container, 'comparison_summation_table')
+      add_new_item(container, 'timeshift_summation_table')
     }
   })
 
@@ -487,7 +487,7 @@
     new_singlestat_action,
     new_jumbotron_singlestat_action,
     new_summation_table_action,
-    new_comparison_summation_table_action,
+    new_timeshift_summation_table_action,
     ds.action.divider,
     new_from_url_action,
     new_simple_time_series_action,
@@ -593,7 +593,6 @@
       handler:  function(action, item) {
         if (item.span) {
           item.span += 1
-          // ds.manager.update_item_view(ds.manager.current.dashboard.find_parent(item))
           ds.manager.update_item_view(item)
         }
       }
@@ -605,7 +604,6 @@
       handler:  function(action, item) {
         if (item.span) {
           item.span -= 1
-          // ds.manager.update_item_view(ds.manager.current.dashboard.find_parent(item))
           ds.manager.update_item_view(item)
         }
       }
