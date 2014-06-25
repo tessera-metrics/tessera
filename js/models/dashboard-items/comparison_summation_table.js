@@ -29,7 +29,7 @@ ds.register_dashboard_item('comparison_summation_table', {
     }
 
     if (data) {
-      self.striped = data.striped !== false
+      self.striped = data.striped
       self.title = data.title
       self.format = data.format || self.format
       self.shift = data.shift || self.shift
@@ -60,14 +60,10 @@ ds.register_dashboard_item('comparison_summation_table', {
 
     self.toJSON = function() {
       var data = ds.models.item.json(self)
-      if (self.format)
-        data.format = self.format
-      if (self.striped)
-        data.striped = self.striped
-      if (self.title)
-        data.title = self.title
-      if (self.shift)
-        data.shift = self.shift
+      data.format = self.format
+      data.striped = self.striped
+      data.title = self.title
+      data.shift = self.shift
       return data
     }
 
@@ -79,6 +75,7 @@ ds.register_dashboard_item('comparison_summation_table', {
     var now  = query.data[0].summation
     var then = query.data[1].summation
     var diff = ds.models.data.Summation(now).subtract(then)
+    body.empty()
     body.append(ds.templates.models.comparison_summation_table_body({
       now:  now,
       then: then,
