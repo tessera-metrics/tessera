@@ -217,7 +217,7 @@ ds.charts.flot =
       }
       result.label = series.target
       result.data = series.datapoints.map(function(point) {
-                      return [point[1], point[0]]
+                      return [point[1] * 1000, point[0]]
                     })
       return result
     }
