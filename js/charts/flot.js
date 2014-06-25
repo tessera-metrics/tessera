@@ -132,76 +132,87 @@ ds.charts.flot =
     }
 
     self.simple_line_chart = function(e, item, query) {
+      var options = item.options || {}
       var context = {
           plot: null
       }
       setup_plugins(e, context)
-      context.plot = $.plot($(e), [query.chart_data('flot')[0]], ds.extend(get_default_options(), {
-        grid: {
-          show: false
-        },
-        legend: {
-          show: false
-        }
-      }))
+      context.plot = $.plot($(e), [query.chart_data('flot')[0]],
+                            ds.extend(get_default_options(), {
+                              colors: ds.charts.util.get_palette(options.palette),
+                              grid: {
+                                show: false
+                              },
+                              legend: {
+                                show: false
+                              }
+                            }))
       return self
     }
 
     self.standard_line_chart = function(e, item, query) {
+      var options = item.options || {}
       var context = {
           plot: null
       }
       setup_plugins(e, context)
-      context.plot = $.plot($(e), query.chart_data('flot'), ds.extend(get_default_options(), {
-        grid: {
-          borderWidth: 0,
-          hoverable: true,
-          clickable: true,
-          autoHighlight: false
-        },
-        multihighlight: {
-          mode: "x"
-        },
-
-      }))
+      context.plot = $.plot($(e), query.chart_data('flot'),
+                            ds.extend(get_default_options(), {
+                              colors: ds.charts.util.get_palette(options.palette),
+                              grid: {
+                                borderWidth: 0,
+                                hoverable: true,
+                                clickable: true,
+                                autoHighlight: false
+                              },
+                              multihighlight: {
+                                mode: "x"
+                              }
+                            }))
       return self
     }
 
     self.simple_area_chart = function(e, item, query) {
+      var options = item.options || {}
       var context = {
           plot: null
       }
       setup_plugins(e, context)
-      context.plot = $.plot($(e), [query.chart_data('flot')[0]], ds.extend(get_default_options(), {
-        grid: {
-          show: false
-        },
-        legend: {
-          show: false
-        },
-        series: {
-          lines: {
-            show: true,
-            fill: true
-          }
-        }
-      }))
+      context.plot = $.plot($(e), [query.chart_data('flot')[0]],
+                            ds.extend(get_default_options(), {
+                              colors: ds.charts.util.get_palette(options.palette),
+                              grid: {
+                                show: false
+                              },
+                              legend: {
+                                show: false
+                              },
+                              series: {
+                                lines: {
+                                  show: true,
+                                  fill: 1
+                                }
+                              }
+                            }))
       return self
     }
 
     self.stacked_area_chart = function(e, item, query) {
+      var options = item.options || {}
       var context = {
           plot: null
       }
       setup_plugins(e, context)
-      context.plot = $.plot($(e), query.chart_data('flot'), ds.extend(get_default_options(), {
-        series: {
-          lines: { show: true, lineWidth: 1, fill: true},
-          stack: true,
-          points: { show: false },
-          bars: { show: false }
-        }
-      }))
+      context.plot = $.plot($(e), query.chart_data('flot'),
+                            ds.extend(get_default_options(), {
+                              colors: ds.charts.util.get_palette(options.palette),
+                              series: {
+                                lines: { show: true, lineWidth: 1, fill: 1},
+                                stack: true,
+                                points: { show: false },
+                                bars: { show: false }
+                              }
+                            }))
       return self
     }
 
