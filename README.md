@@ -13,6 +13,13 @@ Dashboards are big lumps of JSON data describing the queries, presentations, and
 
 ![screenshot](docs/screenshot-single-node-light.png)
 
+# Documentation
+
+There is some basic documentation in the github repo right now.
+
+* [Tutorial](docs/Tutorial.md) for creating the most basic possible dashboard.
+* [API](docs/API.md)
+
 # Development
 
 ## Getting Started
