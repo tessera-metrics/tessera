@@ -19,6 +19,7 @@ There is some basic documentation in the github repo right now.
 
 * [Tutorial](docs/Tutorial.md) for creating the most basic possible dashboard.
 * [API](docs/API.md)
+* [Extending Tessera](docs/Extension.md)
 
 # Development
 
