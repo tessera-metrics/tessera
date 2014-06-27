@@ -19,23 +19,6 @@ ds.charts.graphite =
                      .width(element.width()))
     }
 
-    /**
-     * Return true if the item's query has the graphite stacked()
-     * function anywhere in it. If you have stacked() in the query and
-     * areaMode=stack in the URL, bad shit will happen to your graph.
-     */
-    function is_query_stacked(item) {
-      console.log('is_query_stacked(): ' + item.query.name)
-      item.query.targets.forEach(function(target) {
-        if (target.indexOf('stacked') > -1) {
-          console.log('  yes')
-          return true
-        }
-      })
-      return false
-    }
-
-
     self.simple_line_chart = function(element, item, query) {
       var url = self.simple_line_chart_url(item, {
         height: element.height(),
@@ -118,12 +101,11 @@ ds.charts.graphite =
             .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
             .setQuery('hideLegend', 'true')
             .setQuery('hideAxes', 'true')
-            .setQuery('areaMode', 'stacked')
             .setQuery('margin', '0')
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
 
-        if (is_query_stacked(item))
-            png_url.removeQuery('areaMode')
+        if (!item.query.is_stacked())
+            png_url.setQuery('areaMode', 'stacked')
 
         if (options.y1 && options.y1.min)
             png_url.setQuery('yMin', options.y1.min )
@@ -153,13 +135,12 @@ ds.charts.graphite =
             .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
             .setQuery('hideLegend', options.hideLegend || 'false')
             .setQuery('hideAxes', options.hideAxes || 'false')
-            .setQuery('areaMode', 'stacked')
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .setQuery('vtitle', options.y1 ? options.y1.label : options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
 
-        if (is_query_stacked(item))
-            png_url.removeQuery('areaMode')
+        if (!item.query.is_stacked())
+            png_url.setQuery('areaMode', 'stacked')
 
         if (options.y1 && options.y1.min)
             png_url.setQuery('yMin', options.y1.min )
@@ -210,7 +191,7 @@ ds.charts.graphite =
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .setQuery('vtitle', options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
-        if (item.item_type === 'stacked_area_chart' && !(is_query_stacked(item))) {
+        if (item.item_type === 'stacked_area_chart' && !(item.query.is_stacked())) {
             composer_url.setQuery('areaMode', 'stacked')
         }
         return composer_url.href()
