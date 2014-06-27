@@ -56,6 +56,24 @@ ds.models.data.Query = function(data) {
   }
 
   /**
+   * Return true if the item's query has the graphite stacked()
+   * function anywhere in it. If you have stacked() in the query and
+   * areaMode=stack in the URL, bad shit will happen to your graph.
+   */
+  self.is_stacked = function() {
+    var targets = self.expanded_targets || self.targets
+    if (typeof(targets) === 'undefined')
+      return false
+    var stacked = false
+    self.targets.forEach(function(target) {
+      if (target.indexOf('stacked') > -1) {
+        stacked = true
+      }
+    })
+    return stacked
+  }
+
+  /**
    * Asynchronously load the data for this query from the graphite
    * server, notifying any listening consumers when the data is
    * available.
