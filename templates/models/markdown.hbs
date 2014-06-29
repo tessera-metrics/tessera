@@ -3,6 +3,6 @@
   {{#if item.raw}}
     <pre>{{item.text}}</pre>
   {{else}}
-    {{markdown item.text}}
+   {{#if item.expanded_text}}{{markdown item.expanded_text}}{{else}}{{markdown item.text}}{{/if}}
   {{/if}}
 </div>
