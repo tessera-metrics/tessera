@@ -45,6 +45,9 @@ ds.register_dashboard_item('dashboard_definition', {
         if (item.query_override) {
           item.query_override.render_templates(context)
         }
+        if ((item !== self) && item.render_templates) {
+          item.render_templates(context)
+        }
       })
       return self
     }
