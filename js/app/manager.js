@@ -233,8 +233,9 @@ ds.manager =
         ds.edit.show_details(item.item_id)
       }
       item.visit(function(i) {
-        if (i.query) {
-          i.query.load({}, true)
+        var query = item.query_override || item.query
+        if (query && query.is_query) {
+          query.load({}, true)
         }
       })
       ds.app.refresh_mode()
