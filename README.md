@@ -18,7 +18,7 @@ Dashboards are big lumps of JSON data describing the queries, presentations, and
 There is some basic documentation in the github repo right now.
 
 * [Overview](docs/Overview.md)
-* [Build](docs/Build.md) for getting started and running from source.
+* [Build](docs/Build.md) for getting started and running from source and importing the demo dashboards. 
 * [Tutorial](docs/Tutorial.md) for creating the most basic possible
   dashboard.
 * [API](docs/API.md) for accessing Tessera via the HTTP REST API

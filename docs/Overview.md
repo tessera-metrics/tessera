@@ -2,7 +2,22 @@
 
 ## The Front Page
 
+There are two sections of the front page that are dynamically populated. Above the three big section icons is a section which can be populated by a small dashboard. If any dashboards are tagged with the tag `featured-billboard`, one of them will be randomly selected. Obviously, it should be a very compact dashboard. A single graph with `span=12`, for example - showing the rate of metrics ingress. 
+
+![](overview-images/front-page-small.png)
+
+At the bottom, the **Featured Dashboards** list will be populated by all dashboards tagged with the tag `featured`. 
+
 ## Dashboard List
+
+The dashboard list page, at `/dashboards/` lists all dashboards (there is no paging support yet), with a variety of sorting options, allows you to create a new dashboard, and allows filtering by tag. 
+
+To list dashboards with a specific tag, click on the tag in the list on the right, or link to `/dashboards/tagged/:tagname`. 
+
+![](overview-images/dashboard-list-small.png)
+
+## Dashboard Display
+
 
 ## Dashboard URLs
 
