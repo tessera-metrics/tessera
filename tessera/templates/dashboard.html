@@ -91,7 +91,10 @@
           var item = ds.manager.current.dashboard.get_item('{{transform.element}}')
           // TODO: need a registry for transforms like the action registry
           var transform = ds.models.transform['{{transform.name}}']()
-          ds.manager.apply_transform(transform, item, false)
+          ds.manager.current_transform = {
+              transform: transform,
+              target: item
+          }
       })
     {% endif %}
 
