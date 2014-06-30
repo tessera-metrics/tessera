@@ -1,8 +1,6 @@
 # Tessera
 
-Tessera is a front-end interface for Graphite, which provides a large
-selection of presentations, layout, and interactivity options for
-building dashboards.
+Tessera is a front-end interface for Graphite, which provides a large selection of presentations, layout, and interactivity options for building dashboards.
 
 ## Overview
 
@@ -10,21 +8,19 @@ Tessera consists of a small python webserver written with Flask with a SQL backi
 
 Dashboards are big lumps of JSON data describing the queries, presentations, and layout, wrapped in a small shell of SQL metadata. Most of the heavy lifting is done by the javascript front-end, which is responsible for all rendering, data fetching from graphite, and editing of dashboards.
 
-
-![screenshot](docs/screenshots/single-node-light.png)
-
-# Documentation
+## Documentation
 
 There is some basic documentation in the github repo right now.
 
 * [Overview](docs/Overview.md)
-* [Build](docs/Build.md) for getting started and running from source and importing the demo dashboards. 
+* [Build](docs/Build.md) for getting started and running from source and importing the demo dashboards.
 * [Tutorial](docs/Tutorial.md) for creating the most basic possible
   dashboard.
 * [API](docs/API.md) for accessing Tessera via the HTTP REST API
 * [Extending Tessera](docs/Extension.md), for adding new dashboard
   items, transformations, and actions.
 
+![screenshot](docs/screenshots/color-themes-small.png)
 
 ## Copyright & License
 
