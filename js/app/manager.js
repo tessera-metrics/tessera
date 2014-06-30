@@ -216,6 +216,10 @@ ds.manager =
 
           bean.fire(self, ds.app.Event.DASHBOARD_RENDERED, dashboard)
 
+          if (self.current_transform) {
+            self.apply_transform(self.current_transform.transform, self.current_transform.target, false)
+          }
+
           if (context.params.mode) {
             ds.app.switch_to_mode(context.params.mode)
           } else {
@@ -265,6 +269,7 @@ ds.manager =
       window.location = URI(window.location)
                         .path(self.current.dashboard.view_href)
                         .href()
+      self.current_transform = undefined
     }
 
     self.apply_transform = function(transform, target, set_location) {
@@ -306,6 +311,10 @@ ds.manager =
 
       if ((transform.transform_type === 'presentation') && (ds.app.current_mode != ds.app.Mode.EDIT)) {
         ds.app.switch_to_mode('transform')
+        self.current_transform =  {
+          transform: transform,
+          target: target
+        }
       }
 
       return self
@@ -314,7 +323,6 @@ ds.manager =
     self.refresh = function() {
       if (self.current) {
         self.load(self.current.url, self.current.element)
-        ds.app.refresh_mode()
       }
     }
 
