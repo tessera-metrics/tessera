@@ -101,6 +101,10 @@ $(document).ready(function() {
     ds.manager.delete_current()
   })
 
+  $(document).on('click', '#ds-remove-transform-button', function(e) {
+    ds.manager.remove_transform()
+  })
+
   $(document).on('click', '#ds-save-dashboard-button', function(e) {
     ds.manager.update_definition(ds.manager.current.dashboard, function() {
       ds.manager.success('Dashboard saved')

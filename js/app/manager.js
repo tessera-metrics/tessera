@@ -260,6 +260,11 @@ ds.manager =
 
     window.addEventListener('popstate', self.handle_popstate)
 
+    self.remove_transform = function() {
+      // TODO: set any additional URL parameters
+      window.location = self.current.dashboard.view_href
+    }
+
     self.apply_transform = function(transform, target, set_location) {
       var dashboard = self.current.dashboard
       if (typeof(set_location) === 'undefined')
