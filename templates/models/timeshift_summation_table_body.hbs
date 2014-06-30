@@ -3,10 +3,10 @@
   <th>Average</th>
   <td>{{format item.format now.mean}}</td>
   <td>{{format item.format then.mean}}</td>
-  <td class="{{#if diff.mean_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+  <td class="{{diff.mean_class}}">
     {{format item.format diff.mean}}
   </td>
-  <td class="{{#if diff.mean_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+  <td class="{{diff.mean_class}}">
     {{diff.mean_pct}}
   </td>
 </tr>
@@ -14,10 +14,10 @@
   <th>Min</th>
   <td>{{format item.format now.min}}</td>
   <td>{{format item.format then.min}}</td>
-  <td class="{{#if diff.min_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+  <td class="{{diff.min_class}}">
     {{format item.format diff.min}}
   </td>
-  <td class="{{#if diff.min_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+  <td class="{{diff.min_class}}">
     {{diff.min_pct}}
   </td>
 </tr>
@@ -25,10 +25,10 @@
   <th>Max</th>
   <td>{{format item.format now.max}}</td>
   <td>{{format item.format then.max}}</td>
-  <td class="{{#if diff.max_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+  <td class="{{diff.max_class}}">
     {{format item.format diff.max}}
   </td>
-  <td class="{{#if diff.max_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+  <td class="{{diff.max_class}}">
     {{diff.max_pct}}
   </td>
 </tr>
@@ -36,10 +36,10 @@
   <th>Sum</th>
   <td>{{format item.format now.sum}}</td>
   <td>{{format item.format then.sum}}</td>
-  <td class="{{#if diff.sum_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+  <td class="{{diff.sum_class}}">
     {{format item.format diff.sum}}
   </td>
-  <td class="{{#if diff.sum_positive}}ds-diff-plus{{else}}ds-diff-minus{{/if}}">
+  <td class="{{diff.sum_class}}">
     {{diff.sum_pct}}
   </td>
 </tr>
