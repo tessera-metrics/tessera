@@ -328,22 +328,24 @@ td.ds-tooltip-value {
     text-align: right;
 }
 
-/*
+
 td.ds-diff-plus::before {
     content: "+";
+    font-weight: bold;
 }
 td.ds-diff-minus::before {
     content: "-";
-}
-*/
-
-td.ds-diff-plus {
-    color: green;
     font-weight: bold;
 }
-
+td.ds-diff-plus {
+    color: green;
+}
 td.ds-diff-minus {
     color: red;
+}
+.ds-timeshift-summation-table tbody td,
+.ds-timeshift-summation-table thead th {
+    text-align: right;
 }
 
 /* -----------------------------------------------------------------------------

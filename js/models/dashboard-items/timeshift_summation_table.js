@@ -19,6 +19,7 @@ ds.register_dashboard_item('timeshift_summation_table', {
                          .property('shift', {init: "1d"})
                          .extend(ds.models.item, {item_type: 'timeshift_summation_table'})
                          .build()
+      , float_margin = 0.000001
     Object.defineProperty(self, 'requires_data', {value: true})
 
     function update_query() {
@@ -75,12 +76,17 @@ ds.register_dashboard_item('timeshift_summation_table', {
     var now  = query.data[0].summation
     var then = query.data[1].summation
     var diff = ds.models.data.Summation(now).subtract(then);
-    ['mean', 'min', 'max', 'sum'].forEach(function(prop) {
-      diff[prop + '_positive'] = (diff[prop] > 0.0)
+    var properties = ['mean', 'min', 'max', 'sum']
+    properties.forEach(function(prop) {
+      if (diff[prop] > float_margin)
+        diff[prop + '_class'] = 'ds-diff-plus'
+      else if (diff[prop] < -float_margin)
+        diff[prop + '_class'] = 'ds-diff-minus'
 
       var pct = (now[prop] / then[prop]) - 1
       pct = isNaN(pct) ? 0.0 : pct
-      diff[prop + '_pct'] = d3.format(',.2%')(pct)
+      diff[prop + '_pct'] = d3.format(',.2%')(Math.abs(pct))
+      diff[prop] = Math.abs(diff[prop])
     })
     body.empty()
     body.append(ds.templates.models.timeshift_summation_table_body({
