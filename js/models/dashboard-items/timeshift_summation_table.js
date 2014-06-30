@@ -19,7 +19,7 @@ ds.register_dashboard_item('timeshift_summation_table', {
                          .property('shift', {init: "1d"})
                          .extend(ds.models.item, {item_type: 'timeshift_summation_table'})
                          .build()
-      , float_margin = 0.000001
+
     Object.defineProperty(self, 'requires_data', {value: true})
 
     function update_query() {
@@ -77,6 +77,7 @@ ds.register_dashboard_item('timeshift_summation_table', {
     var then = query.data[1].summation
     var diff = ds.models.data.Summation(now).subtract(then);
     var properties = ['mean', 'min', 'max', 'sum']
+    var float_margin = 0.000001
     properties.forEach(function(prop) {
       if (diff[prop] > float_margin)
         diff[prop + '_class'] = 'ds-diff-plus'
