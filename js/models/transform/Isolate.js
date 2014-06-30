@@ -15,17 +15,18 @@ ds.models.transform.Isolate = function(options) {
               .build()
 
   self.transform = function(item) {
-    var section = ds.models.make('section')
-                    .add(ds.models.make('row')
-                         .add(ds.models.make('cell')
-                                .set_span(12)
-                                .set_style(self.style)
-                                .add(item.set_height(6)
-                                         .set_interactive(true))))
-                    .add(ds.models.make('row')
-                         .add(ds.models.make('cell')
-                                .set_span(12)
-                                .add(ds.models.make({item_type: 'summation_table', query: item.query}))))
+    var make = ds.models.make
+    var section = make('section')
+                  .add(make('row')
+                       .add(make('cell')
+                            .set_span(12)
+                            .set_style(self.style)
+                            .add(item.set_height(6)
+                                 .set_interactive(true))))
+                  .add(make('row')
+                       .add(make('cell')
+                            .set_span(12)
+                            .add(make({item_type: 'summation_table', query: item.query}))))
     return section
   }
 

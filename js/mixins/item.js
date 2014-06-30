@@ -41,6 +41,15 @@ ds.models.item =
                  }
                }
              })
+             .property('query_override', {
+               get: function(context) {
+                 if (typeof(context.query_override) === 'string' && context.dashboard) {
+                   return context.dashboard.definition.queries[context.query_override]
+                 } else {
+                   return context.query_override
+                 }
+               }
+             })
              .property('is_immediate_query', {
                get: function(context) {
                  return typeof(context.query) !== 'string'
@@ -58,6 +67,10 @@ ds.models.item =
         if (item_type.template) {
           if (item_type.data_handler && (self.query || self.query_override)) {
             var query = self.query_override || self.query
+            if (typeof(query) === 'string') {
+              console.log('ERROR: unresolved query ' + query + ' for item ' + self.item_id)
+              return
+            }
             query.on_load(function(q) {
               item_type.data_handler(q, self)
             })
@@ -89,8 +102,9 @@ ds.models.item =
       self.get_queries = function() {
         var queries = {}
         self.visit(function(i) {
-          if (i.query) {
-            queries[i.query.name] = i.query
+          var query = i.query || i.query_override
+          if (query && query.is_query) {
+            queries[query.name] = query
           }
         })
         return queries

@@ -65,12 +65,16 @@
           <i class="fa fa-lock"></i>
         </button>
 
+        <button data-ds-show="transform" style="display:none;" class="btn btn-default" id="ds-remove-transform-button" data-toggle="tooltip" title="Back to full dashboard">
+          <i class="fa fa-arrow-left"></i>
+        </button>
+
         {% include "snippets/rejigger-button.html" %}
 
         {% include "snippets/refresh-button.html" %}
 
         <!-- Display mode button -->
-        <button type="button" id="ds-enter-fullscreen-button" class="btn btn-default" data-toggle="tooltip" title="Enter Display Mode">
+        <button data-ds-hide="transform" type="button" id="ds-enter-fullscreen-button" class="btn btn-default" data-toggle="tooltip" title="Enter Display Mode">
           <i class="fa fa-expand"></i>
         </button>
 

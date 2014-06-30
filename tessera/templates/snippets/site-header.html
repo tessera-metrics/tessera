@@ -9,3 +9,9 @@
 
 <script src="{{ url_for('static', filename='bundle.js') }}"></script>
 <script src="{{ url_for('static', filename='app.js') }}"></script>
+
+<script>
+  ds.config = ds.config || {}
+  ds.config.GRAPHITE_URL = "{{config.get('GRAPHITE_URL')}}"
+  ds.config.DEFAULT_FROM_TIME = "{{config.get('DEFAULT_FROM_TIME')}}"
+</script>

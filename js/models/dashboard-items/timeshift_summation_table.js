@@ -17,7 +17,6 @@ ds.register_dashboard_item('timeshift_summation_table', {
                          .property('format', {init: ',.3s'})
                          .property('title')
                          .property('shift', {init: "1d"})
-                         .property('query_override')
                          .extend(ds.models.item, {item_type: 'timeshift_summation_table'})
                          .build()
     Object.defineProperty(self, 'requires_data', {value: true})
@@ -37,6 +36,8 @@ ds.register_dashboard_item('timeshift_summation_table', {
       update_query()
     }).on('change:dashboard', function(e) {
       update_query()
+    }).on('change:query_override', function(e) {
+      //ds.manager.update_item_view(self)
     })
     ds.models.item.init(self, data)
 

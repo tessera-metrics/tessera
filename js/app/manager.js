@@ -210,12 +210,15 @@ ds.manager =
 
           // Load the queries
           dashboard.definition.load_all({
-            base_url: data.config.GRAPHITE_URL,
             from: context.from,
             until: context.until
           }, !holder.raw_data_required)
 
           bean.fire(self, ds.app.Event.DASHBOARD_RENDERED, dashboard)
+
+          if (self.current_transform) {
+            self.apply_transform(self.current_transform.transform, self.current_transform.target, false)
+          }
 
           if (context.params.mode) {
             ds.app.switch_to_mode(context.params.mode)
@@ -234,24 +237,29 @@ ds.manager =
         ds.edit.show_details(item.item_id)
       }
       item.visit(function(i) {
-        if (i.query) {
-          i.query.load({}, true)
+        var query = item.query_override || item.query
+        if (query && query.is_query) {
+          query.load({}, true)
         }
       })
       ds.app.refresh_mode()
     }
 
     self.handle_popstate = function(event) {
+      console.log(event)
       if (!event.state) {
+        self.current_transform = undefined
         self.refresh()
         ds.app.switch_to_mode('standard')
       } else {
         if (event.state.transform) {
           var item = ds.manager.current.dashboard.get_item(event.state.target.item_id)
+          // TODO: need a registry for transforms like the action registry
           var transform = ds.models.transform[event.state.transform.transform_name](event.state.transform)
           self.apply_transform(transform, item, false)
           ds.app.switch_to_mode('transform')
         } else if (event.state.url) {
+          self.current_transform = undefined
           self.refresh()
           ds.app.switch_to_mode('standard')
         }
@@ -259,6 +267,13 @@ ds.manager =
     }
 
     window.addEventListener('popstate', self.handle_popstate)
+
+    self.remove_transform = function() {
+      window.location = URI(window.location)
+                        .path(self.current.dashboard.view_href)
+                        .href()
+      self.current_transform = undefined
+    }
 
     self.apply_transform = function(transform, target, set_location) {
       var dashboard = self.current.dashboard
@@ -299,6 +314,10 @@ ds.manager =
 
       if ((transform.transform_type === 'presentation') && (ds.app.current_mode != ds.app.Mode.EDIT)) {
         ds.app.switch_to_mode('transform')
+        self.current_transform =  {
+          transform: transform,
+          target: target
+        }
       }
 
       return self
@@ -307,7 +326,6 @@ ds.manager =
     self.refresh = function() {
       if (self.current) {
         self.load(self.current.url, self.current.element)
-        ds.app.refresh_mode()
       }
     }
 
