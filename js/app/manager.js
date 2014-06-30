@@ -210,7 +210,6 @@ ds.manager =
 
           // Load the queries
           dashboard.definition.load_all({
-            base_url: data.config.GRAPHITE_URL,
             from: context.from,
             until: context.until
           }, !holder.raw_data_required)
@@ -248,6 +247,7 @@ ds.manager =
       } else {
         if (event.state.transform) {
           var item = ds.manager.current.dashboard.get_item(event.state.target.item_id)
+          // TODO: need a registry for transforms like the action registry
           var transform = ds.models.transform[event.state.transform.transform_name](event.state.transform)
           self.apply_transform(transform, item, false)
           ds.app.switch_to_mode('transform')

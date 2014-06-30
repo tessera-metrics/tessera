@@ -383,16 +383,18 @@ class RenderContext:
 def _render_template(template, **kwargs):
     return render_template(template, ctx=RenderContext(), **kwargs)
 
-def _render_client_side_dashboard(dashboard, template='dashboard.html'):
+def _render_client_side_dashboard(dashboard, template='dashboard.html', transform=None):
     from_time = _get_param('from', app.config['DEFAULT_FROM_TIME'])
     until_time = _get_param('until', None)
     title = '{0} {1}'.format(dashboard.category, dashboard.title)
+    print '_render_client_side_dashboard: transform={0}'.format(transform)
     return _render_template(template,
                             dashboard=dashboard,
                             definition=dashboard.definition,
                             from_time=from_time,
                             until_time=until_time,
                             title=title,
+                            transform=transform,
                             breadcrumbs=[('Home', '/'),
                                          ('Dashboards', '/dashboards'),
                                          (title, '')])
@@ -445,12 +447,20 @@ def ui_dashboard_list_tagged(tag):
 @app.route('/dashboards/<id>/<slug>', defaults={'path' : ''})
 @app.route('/dashboards/<id>/<slug>/<path:path>')
 def ui_dashboard_with_slug(id, slug, path):
-    return ui_dashboard(id)
+    return ui_dashboard(id, slug, path)
 
 @app.route('/dashboards/<id>/')
-def ui_dashboard(id):
+def ui_dashboard(id, slug=None, path=None):
+    print 'ui_dashboard(): id={0}, slug={1}, path={2}'.format(id, slug, path)
+    transform = None
+    if path and path.find('transform') > -1:
+        element, ignore, name = path.split('/')
+        transform = {
+            'element': element,
+            'name' : name
+        }
     try:
         dashboard = database.Dashboard.query.get_or_404(id)
-        return _render_client_side_dashboard(dashboard)
+        return _render_client_side_dashboard(dashboard, transform=transform)
     except HTTPException as e:
         raise _set_exception_response(e)
