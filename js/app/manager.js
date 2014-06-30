@@ -246,7 +246,9 @@ ds.manager =
     }
 
     self.handle_popstate = function(event) {
+      console.log(event)
       if (!event.state) {
+        self.current_transform = undefined
         self.refresh()
         ds.app.switch_to_mode('standard')
       } else {
@@ -257,6 +259,7 @@ ds.manager =
           self.apply_transform(transform, item, false)
           ds.app.switch_to_mode('transform')
         } else if (event.state.url) {
+          self.current_transform = undefined
           self.refresh()
           ds.app.switch_to_mode('standard')
         }
