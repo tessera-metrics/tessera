@@ -53,7 +53,7 @@ ds.models.data.Summation = function(initial_data) {
       if (value > self.max) {
         self.max = value
       }
-      if (value < self.min) {
+      if (point[0] && (value < self.min)) {
         self.min = value
       }
     })
