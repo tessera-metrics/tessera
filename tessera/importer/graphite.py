@@ -24,7 +24,7 @@ class GraphiteDashboardImporter(object):
 
     def dump_dashboards(self, query):
         names = self.get_dashboard_names(query)
-        print json.dumps([ self.get_dashboard(n) for n in names ], cls=EntityEncoder, indent=4)
+        print(json.dumps([ self.get_dashboard(n) for n in names ], cls=EntityEncoder, indent=4))
 
     def import_dashboards(self, query, overwrite=False, **kwargs):
         names = self.get_dashboard_names(query)
