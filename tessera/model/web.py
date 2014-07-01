@@ -399,7 +399,7 @@ class DashboardDefinition(DashboardContainer):
         for name in self.queries.keys():
             query = self.queries[name]
             if isinstance(query, dict):
-                for key in query.keys():
+                for key in list(query.keys()):
                     if key not in [ 'targets', 'name' ]:
                         del query[key]
 

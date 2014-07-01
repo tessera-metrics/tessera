@@ -28,4 +28,4 @@ if os.environ.get('TESSERA_CONFIG', False):
 
 db = SQLAlchemy(app)
 
-from views import *
+from .views import *
