@@ -387,7 +387,6 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html', transfor
     from_time = _get_param('from', app.config['DEFAULT_FROM_TIME'])
     until_time = _get_param('until', None)
     title = '{0} {1}'.format(dashboard.category, dashboard.title)
-    print('_render_client_side_dashboard: transform={0}'.format(transform))
     return _render_template(template,
                             dashboard=dashboard,
                             definition=dashboard.definition,
@@ -451,7 +450,6 @@ def ui_dashboard_with_slug(id, slug, path):
 
 @app.route('/dashboards/<id>/')
 def ui_dashboard(id, slug=None, path=None):
-    print('ui_dashboard(): id={0}, slug={1}, path={2}'.format(id, slug, path))
     transform = None
     if path and path.find('transform') > -1:
         element, ignore, name = path.split('/')
