@@ -20,6 +20,8 @@ There is some basic documentation in the github repo right now.
 * [Extending Tessera](docs/Extension.md), for adding new dashboard
   items, transformations, and actions.
 
+Some additional writeup of why Tessera exists can found on the UA blog - [Introducing Tessera, a Graphite Frontend](http://urbanairship.com/blog/2014/06/30/introducing-tessera-a-graphite-frontend).
+
 ![screenshot](docs/screenshots/color-themes-small.png)
 
 ## Copyright & License
