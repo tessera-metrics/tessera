@@ -2,7 +2,7 @@
 
 Tessera is a front-end interface for Graphite, which provides a large selection of presentations, layout, and interactivity options for building dashboards.
 
-The biggest key differences between Tessera and other frontends are the separation of queries from presentations, and the ability to apply arbitrary transformations to the presentations & queries, allowing for a large degree of interactivity. 
+The biggest key differences between Tessera and other frontends are the separation of queries from presentations, and the ability to apply arbitrary transformations to the presentations & queries, allowing for a large degree of interactivity. Tessera is initially focused on information presentation - it does not NOT address the areas of metric discovery or query composition (although it may in the future). 
 
 ## Overview
 
