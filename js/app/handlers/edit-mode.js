@@ -219,9 +219,9 @@
     handler: function(action, item) {
       var dashboard = ds.manager.current.dashboard
       var parent = dashboard.find_parent(item)
-      var dup = ds.models.factory(item.toJSON())
+      var dup = ds.models.factory(item.toJSON()).set_item_id(null)
       dup.visit(function(child) {
-        child.item_id = undefined
+        child.item_id = null
       })
       parent.add_after(item, dup)
       dashboard.update_index()

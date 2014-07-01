@@ -28,7 +28,7 @@ ds.models.dashboard = function(data) {
                          }
                        })
                        .build()
-  , next_id = 0
+    , next_id = 0
 
   self.index = {}
 
@@ -57,22 +57,22 @@ ds.models.dashboard = function(data) {
   }
 
   self.update_index = function() {
-    var index = self.index = {}
+    var index = {}
     self.visit(function(item) {
       if (item.is_dashboard_item) {
         if ( !item.item_id ) {
           item.item_id = self.next_id()
         }
-        if (self.index[item.item_id]) {
+        if (index[item.item_id]) {
           console.log('ERROR: item_id + ' + item.item_id + ' is already indexed.')
         }
         index[item.item_id] = item
         item.set_dashboard(self)
       }
     })
+    self.index = index
     return self
   }
-
 
   if (data) {
     self.set_id(data.id)
