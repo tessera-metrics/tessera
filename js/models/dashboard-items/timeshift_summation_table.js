@@ -79,15 +79,20 @@ ds.register_dashboard_item('timeshift_summation_table', {
     var properties = ['mean', 'min', 'max', 'sum']
     var float_margin = 0.000001
     properties.forEach(function(prop) {
-      if (diff[prop] > float_margin)
+      var value = diff[prop]
+
+      if (value > float_margin)
         diff[prop + '_class'] = 'ds-diff-plus'
-      else if (diff[prop] < -float_margin)
+      else if (value < -float_margin)
         diff[prop + '_class'] = 'ds-diff-minus'
+
+      if ((float_margin > value) && (value > -float_margin))
+        value = 0.0
 
       var pct = (now[prop] / then[prop]) - 1
       pct = isNaN(pct) ? 0.0 : pct
       diff[prop + '_pct'] = d3.format(',.2%')(Math.abs(pct))
-      diff[prop] = Math.abs(diff[prop])
+      diff[prop] = Math.abs(value)
     })
     body.empty()
     body.append(ds.templates.models.timeshift_summation_table_body({
