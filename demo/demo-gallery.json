@@ -174,7 +174,7 @@
                   {
                     "style": null, 
                     "item_type": "markdown", 
-                    "text": "### Stacked Area\nStacked graphs can be displayed in one of three modes, which can be switched interactively. Standard stacked series, [stream graphs](http://www.leebyron.com/else/streamgraph/), and a percentage view.", 
+                    "text": "### Stacked Area\nStacked graphs can be displayed in one of three modes, which can be switched interactively. Standard stacked series, [stream graphs](http://www.leebyron.com/else/streamgraph/), and a percentage view.\n\nStream graphs are currently only available when using the `nvd3` renderer in interactive mode. ", 
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
@@ -583,6 +583,13 @@
             "item_id": "d41"
           }, 
           {
+            "item_id": "d134", 
+            "item_type": "separator", 
+            "style": null, 
+            "height": null, 
+            "css_class": null
+          }, 
+          {
             "style": null, 
             "items": [
               {
@@ -637,6 +644,24 @@
             "item_type": "row", 
             "css_class": null, 
             "item_id": "d50"
+          }
+        ], 
+        "height": null, 
+        "item_type": "section", 
+        "css_class": null, 
+        "item_id": "d37"
+      }, 
+      {
+        "style": null, 
+        "layout": "fixed", 
+        "title": null, 
+        "items": [
+          {
+            "item_id": "d132", 
+            "item_type": "separator", 
+            "style": null, 
+            "height": null, 
+            "css_class": null
           }, 
           {
             "style": null, 
@@ -652,14 +677,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d57"
+                    "item_id": "d151"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d56", 
+                "item_id": "d150", 
                 "css_class": null
               }, 
               {
@@ -668,37 +693,13 @@
                 "items": [
                   {
                     "style": null, 
-                    "title": null, 
+                    "title": "With stripes", 
                     "css_class": null, 
                     "thresholds": null, 
                     "format": ",.3f", 
                     "height": null, 
                     "item_type": "summation_table", 
-                    "item_id": "d59", 
-                    "query": "positive", 
-                    "striped": false
-                  }
-                ], 
-                "align": null, 
-                "height": null, 
-                "item_type": "cell", 
-                "offset": null, 
-                "item_id": "d58", 
-                "css_class": null
-              }, 
-              {
-                "style": null, 
-                "span": 4, 
-                "items": [
-                  {
-                    "style": null, 
-                    "title": null, 
-                    "css_class": null, 
-                    "thresholds": null, 
-                    "format": ",.3f", 
-                    "height": null, 
-                    "item_type": "summation_table", 
-                    "item_id": "d61", 
+                    "item_id": "d153", 
                     "query": "positive", 
                     "striped": true
                   }
@@ -707,14 +708,45 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d60", 
+                "item_id": "d152", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 4, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": "No stripes", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.3f", 
+                    "height": null, 
+                    "item_type": "summation_table", 
+                    "item_id": "d155", 
+                    "query": "positive", 
+                    "striped": false
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d154", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d55"
+            "item_id": "d149"
+          }, 
+          {
+            "item_id": "d135", 
+            "item_type": "separator", 
+            "style": null, 
+            "height": null, 
+            "css_class": null
           }, 
           {
             "style": null, 
@@ -730,14 +762,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d64"
+                    "item_id": "d158"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d63", 
+                "item_id": "d157", 
                 "css_class": null
               }, 
               {
@@ -752,7 +784,7 @@
                     "height": null, 
                     "item_type": "timeshift_summation_table", 
                     "css_class": null, 
-                    "item_id": "d68", 
+                    "item_id": "d160", 
                     "query": "collector", 
                     "striped": true
                   }, 
@@ -763,7 +795,7 @@
                     "thresholds": null, 
                     "height": "2", 
                     "item_type": "standard_time_series", 
-                    "item_id": "d128", 
+                    "item_id": "d161", 
                     "query": "collector_shifted", 
                     "options": {}, 
                     "interactive": true
@@ -773,7 +805,7 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d67", 
+                "item_id": "d159", 
                 "css_class": null
               }, 
               {
@@ -788,7 +820,7 @@
                     "height": null, 
                     "item_type": "timeshift_summation_table", 
                     "css_class": null, 
-                    "item_id": "d66", 
+                    "item_id": "d163", 
                     "query": "collector", 
                     "striped": false
                   }
@@ -797,14 +829,32 @@
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d65", 
+                "item_id": "d162", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d62"
+            "item_id": "d156"
+          }
+        ], 
+        "height": null, 
+        "item_type": "section", 
+        "css_class": null, 
+        "item_id": "d131"
+      }, 
+      {
+        "style": null, 
+        "layout": "fixed", 
+        "title": null, 
+        "items": [
+          {
+            "item_id": "d202", 
+            "item_type": "separator", 
+            "style": null, 
+            "height": null, 
+            "css_class": null
           }, 
           {
             "style": null, 
@@ -820,14 +870,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d72"
+                    "item_id": "d238"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d70", 
+                "item_id": "d237", 
                 "css_class": null
               }, 
               {
@@ -841,14 +891,14 @@
                     "height": null, 
                     "raw": false, 
                     "css_class": null, 
-                    "item_id": "d74"
+                    "item_id": "d240"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d73", 
+                "item_id": "d239", 
                 "css_class": null
               }, 
               {
@@ -862,27 +912,27 @@
                     "height": null, 
                     "raw": true, 
                     "css_class": null, 
-                    "item_id": "d76"
+                    "item_id": "d242"
                   }
                 ], 
                 "align": null, 
                 "height": null, 
                 "item_type": "cell", 
                 "offset": null, 
-                "item_id": "d75", 
+                "item_id": "d241", 
                 "css_class": null
               }
             ], 
             "height": null, 
             "item_type": "row", 
             "css_class": null, 
-            "item_id": "d69"
+            "item_id": "d236"
           }
         ], 
         "height": null, 
         "item_type": "section", 
         "css_class": null, 
-        "item_id": "d37"
+        "item_id": "d201"
       }, 
       {
         "style": null, 
@@ -1317,7 +1367,7 @@
                     "thresholds": null, 
                     "title": "Hey, this looks really bad...", 
                     "transform": "sum", 
-                    "height": 2, 
+                    "height": "3", 
                     "item_type": "jumbotron_singlestat", 
                     "item_id": "d211", 
                     "query": "single1"
@@ -1521,24 +1571,24 @@
     "css_class": null, 
     "item_id": "d1"
   }, 
-  "last_modified_date": "2014-06-25T14:16:41.782812Z", 
+  "last_modified_date": "2014-07-02T19:51:17.951795Z", 
   "description": "Dashboard descriptions can be longer and more detailed. \n### Markdown Formatted \nPlus, they can be _formatted_ in **Markdown** format for rendering to HTML.", 
   "title": "Gallery", 
   "tags": [
     {
       "bgcolor": "green", 
-      "id": 3, 
+      "id": 1, 
       "name": "featured"
     }, 
     {
       "bgcolor": "#ddd", 
-      "id": 7, 
+      "id": 2, 
       "fgcolor": "#333", 
       "name": "demo"
     }
   ], 
-  "creation_date": "2014-06-23T22:29:53.259529Z", 
-  "id": 14, 
+  "creation_date": "2014-07-02T19:44:46.222606Z", 
+  "id": 10, 
   "imported_from": null, 
   "summary": "A gallery of all the supported presentations"
 }
