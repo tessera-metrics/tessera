@@ -28,6 +28,17 @@ ds.action = function(data) {
     self.category = data.category
   }
 
+  self.toJSON = function() {
+    return {
+      name: self.name,
+      category: self.category,
+      show: self.show,
+      hide: self.hide,
+      class: self.class,
+      options: self.options
+    }
+  }
+
   return self
 }
 

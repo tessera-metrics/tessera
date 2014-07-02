@@ -125,14 +125,17 @@ Handlebars.registerHelper('interactive_property', function(property, item) {
   return new Handlebars.SafeString(property.render(item))
 })
 
-
 Handlebars.registerHelper('actions', function(category, type) {
   var template = ds.templates.action
   if (type === 'button') {
     template = ds.templates.action_button
   }
   var actions = ds.actions.list(category)
-  if (actions && (actions instanceof Array)) {
+  if (actions && (actions instanceof Array) && actions.length) {
+    if (typeof(type) === 'boolean' && type) {
+      actions = [ds.action.divider].concat(actions)
+    }
+
     var html = ''
     for (var i in actions) {
       var action = actions[i]

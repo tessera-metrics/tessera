@@ -4,6 +4,11 @@ ds.register_dashboard_item = function(item_type, descriptor) {
     descriptor.template = Handlebars.compile(descriptor.template)
   }
 
+  if (descriptor.actions && descriptor.actions.length) {
+    console.log('Registering item actions')
+    ds.actions.register(item_type, descriptor.actions)
+  }
+
   var props = (descriptor.interactive_properties || []).map(function(p) {
                 if (typeof(p) === 'string') {
                   var prop = ds.property.get(p)
