@@ -137,6 +137,41 @@ ds.models.data.Query = function(data) {
     bean.off(self, 'ds-data-ready')
   }
 
+  function group_targets(query) {
+    return (query.targets.length > 1)
+         ? 'group(' + query.targets.join(',') + ')'
+         : query.targets[0]
+  }
+
+  /**
+   * Return a new query with the targets timeshifted.
+   */
+  self.shift = function(interval) {
+    var group = group_targets(self)
+    return ds.models.data.Query({
+      name: self.name + '_shift_' + interval,
+      targets: [
+        'timeShift(' + group + ', \"' + interval + '\")'
+      ]
+    })
+  }
+
+  /**
+   * Return a new query with the targets from this query and another
+   * query joined into a 2-target array, for comparison presentations.
+   */
+  self.join = function(other) {
+    var target_self  = group_targets(self)
+    var target_other = group_targets(other)
+    return ds.models.data.Query({
+      name: self.name + '_join_' + other.name,
+      targets: [
+        target_self,
+        target_other
+      ]
+    })
+  }
+
   /**
    * Process the results of executing the query, transforming
    * the returned structure into something consumable by the
@@ -151,6 +186,11 @@ ds.models.data.Query = function(data) {
     return self
   }
 
+  /**
+   * Fetch data processed for use by a particular chart renderer, and
+   * cache it in the query object so it's not re-processed over and
+   * over.
+   */
   self.chart_data = function(type) {
     var attribute = 'chart_data_' + type
     if (typeof(self[attribute]) === 'undefined') {
