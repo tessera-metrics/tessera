@@ -72,6 +72,9 @@ module.exports = function(grunt) {
         },
         src: [
           'js/core.js',
+          'js/registry.js',
+          'js/action.js',
+          'js/transform.js',
           'js/app.js',
           'js/app/manager.js',
           'js/app/helpers.js',
@@ -81,7 +84,6 @@ module.exports = function(grunt) {
           'js/charts/nvd3.js',
           'js/charts/flot.js',
           'js/app/actions.js',
-          'js/action.js',
           'js/property.js',
           'js/factory.js',
           'js/app/properties.js',

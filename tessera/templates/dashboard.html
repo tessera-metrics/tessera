@@ -89,8 +89,7 @@
     {% if transform %}
       ds.manager.onDashboardLoaded(function(dashboard) {
           var item = ds.manager.current.dashboard.get_item('{{transform.element}}')
-          // TODO: need a registry for transforms like the action registry
-          var transform = ds.models.transform['{{transform.name}}']()
+          var transform = ds.transforms.get('{{transform.name}}')
           ds.manager.current_transform = {
               transform: transform,
               target: item
