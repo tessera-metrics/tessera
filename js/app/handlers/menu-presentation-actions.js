@@ -5,7 +5,7 @@ ds.actions.register('presentation-actions', [
     icon:    'fa fa-clock-o',
     hide: ds.app.Mode.TRANSFORM,
     handler: function(action, item) {
-      ds.manager.apply_transform(ds.models.transform.TimeSpans(), item)
+      ds.manager.apply_transform('TimeSpans', item)
     }
   }),
   ds.action({
@@ -14,7 +14,7 @@ ds.actions.register('presentation-actions', [
     icon:    'fa fa-clock-o',
     hide: ds.app.Mode.TRANSFORM,
     handler: function(action, item) {
-      ds.manager.apply_transform(ds.models.transform.TimeShift(), item)
+      ds.manager.apply_transform('TimeShift', item)
     }
   }),
   ds.action({
@@ -23,7 +23,7 @@ ds.actions.register('presentation-actions', [
     icon:    'fa fa-eye',
     hide: ds.app.Mode.TRANSFORM,
     handler: function(action, item) {
-      ds.manager.apply_transform(ds.models.transform.Isolate(), item)
+      ds.manager.apply_transform('Isolate', item)
     }
   }),
   ds.action({

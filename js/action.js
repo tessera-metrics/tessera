@@ -32,3 +32,5 @@ ds.action = function(data) {
 }
 
 ds.action.divider = ds.action({divider:true})
+
+ds.actions = ds.registry({ name: 'actions' })

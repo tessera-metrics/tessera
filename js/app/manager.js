@@ -246,7 +246,6 @@ ds.manager =
     }
 
     self.handle_popstate = function(event) {
-      console.log(event)
       if (!event.state) {
         self.current_transform = undefined
         self.refresh()
@@ -254,10 +253,7 @@ ds.manager =
       } else {
         if (event.state.transform) {
           var item = ds.manager.current.dashboard.get_item(event.state.target.item_id)
-          // TODO: need a registry for transforms like the action registry
-          var transform = ds.models.transform[event.state.transform.transform_name](event.state.transform)
-          self.apply_transform(transform, item, false)
-          ds.app.switch_to_mode('transform')
+          self.apply_transform(event.state.transform.name, item, false)
         } else if (event.state.url) {
           self.current_transform = undefined
           self.refresh()
@@ -280,6 +276,9 @@ ds.manager =
       if (typeof(set_location) === 'undefined')
         set_location = true
 
+      if (typeof(transform) === 'string')
+        transform = ds.transforms.get(transform)
+
       /**
        * Set browser URL state
        */
@@ -291,7 +290,7 @@ ds.manager =
         } else {
           path = path + '/' + target.item_id
         }
-        path = path + '/transform/' + transform.transform_name
+        path = path + '/transform/' + transform.name
         window.history.pushState({ url:self.current.url,
                                    element:self.current.element,
                                    transform:transform.toJSON(),
@@ -314,7 +313,7 @@ ds.manager =
 
       if ((transform.transform_type === 'presentation') && (ds.app.current_mode != ds.app.Mode.EDIT)) {
         ds.app.switch_to_mode('transform')
-        self.current_transform =  {
+        self.current_transform = {
           transform: transform,
           target: target
         }
