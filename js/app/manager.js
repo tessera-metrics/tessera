@@ -211,7 +211,7 @@ ds.manager =
         ds.edit.show_details(item.item_id)
       }
       item.visit(function(i) {
-        var query = item.query_override || item.query
+        var query = i.query_override || i.query
         if (query && query.is_query) {
           query.load()
         }
