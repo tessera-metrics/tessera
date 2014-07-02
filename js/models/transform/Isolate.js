@@ -26,7 +26,9 @@ ds.models.transform.Isolate = function(options) {
                   .add(make('row')
                        .add(make('cell')
                             .set_span(12)
-                            .add(make({item_type: 'summation_table', query: item.query}))))
+                              .add(make({item_type: 'summation_table',
+                                         format: ',.3f',
+                                         query: item.query}))))
     return section
   }
 

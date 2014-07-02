@@ -343,10 +343,13 @@ td.ds-diff-plus {
 td.ds-diff-minus {
     color: red;
 }
+.ds-summation-table tbody td,
+.ds-summation-table thead th,
 .ds-timeshift-summation-table tbody td,
 .ds-timeshift-summation-table thead th {
     text-align: right;
 }
+
 
 /* -----------------------------------------------------------------------------
  Edit mode headers
