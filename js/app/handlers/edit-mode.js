@@ -107,7 +107,7 @@
           var target = newValue.trim()
           var query = ds.manager.current.dashboard.definition.queries[query_name]
           query.targets = [target]
-          query.render_templates(ds.manager.location_context())
+          query.render_templates(ds.context().variables)
           query.load()
         }
       })

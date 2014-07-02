@@ -6,6 +6,33 @@ ds.edit = ds.edit || {}
 ds.edit.properties = ds.edit.properties || {}
 
 /**
+ * Return a context object based on the current URL.
+ */
+ds.context = function(context) {
+  context = context || {}
+  var params = URI(window.location).query(true)
+  var variables = {}
+
+  context.from = params.from || '-3h'
+  context.until = params.until
+
+  for (var key in params) {
+    /* compatibility w/gdash params */
+    if (key.indexOf('p[') == 0) {
+      var name = key.slice(2, -1)
+      variables[name] = params[key]
+    } else {
+      variables[key] = params[key]
+    }
+  }
+  context.variables = variables
+  context.params = params
+
+  return context
+}
+
+
+/**
  * Helper function to (potentially) render a template with a given
  * context object. If the string does not contain any handlebars tags,
  * it will be returned as-is.

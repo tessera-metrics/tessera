@@ -112,37 +112,11 @@ ds.manager =
     }
 
     /**
-     * Return a context object based on the current URL.
-     */
-    self.location_context = function(context) {
-      var context = context || {}
-      var params = URI(window.location).query(true)
-      var variables = {}
-
-      context.from = params.from || '-3h'
-      context.until = params.until
-
-      for (var key in params) {
-        /* compatibility w/gdash params */
-        if (key.indexOf('p[') == 0) {
-          var name = key.slice(2, -1)
-          variables[name] = params[key]
-        } else {
-          variables[key] = params[key]
-        }
-      }
-      context.variables = variables
-      context.params = params
-
-      return context
-    }
-
-    /**
      * Set up us the API call.
      */
     self._prep_url = function(base_url, options) {
       var url = URI(base_url).setQuery('rendering', true)
-      var context = self.location_context(url.query(true))
+      var context = ds.context(url.query(true))
 
       context.from = options.from || context.from
       context.until = context.until || options.until
@@ -239,7 +213,7 @@ ds.manager =
       item.visit(function(i) {
         var query = item.query_override || item.query
         if (query && query.is_query) {
-          query.load({}, true)
+          query.load()
         }
       })
       ds.app.refresh_mode()
@@ -308,7 +282,7 @@ ds.manager =
       }
 
       $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
-      dashboard.render_templates(self.location_context().variables)
+      dashboard.render_templates(ds.context().variables)
       dashboard.load_all()
 
       if ((transform.transform_type === 'presentation') && (ds.app.current_mode != ds.app.Mode.EDIT)) {

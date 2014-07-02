@@ -9,6 +9,9 @@
  */
 ds.register_dashboard_item('timeshift_summation_table', {
 
+  /**
+   * Definition of the model object.
+   */
   constructor: function(data) {
     'use strict'
 
@@ -26,6 +29,7 @@ ds.register_dashboard_item('timeshift_summation_table', {
       if (self.query && self.query.is_query) {
         self.query_override =
           self.query.join(self.query.shift(self.shift)).set_name(self.item_id + '_shifted')
+        self.query_override.render_templates(ds.context().variables)
       }
     }
 
@@ -39,6 +43,8 @@ ds.register_dashboard_item('timeshift_summation_table', {
     self.on('change:query', function(e) {
       update_query()
     }).on('change:dashboard', function(e) {
+      update_query()
+    }).on('change:shift', function(e) {
       update_query()
     })
     ds.models.item.init(self, data)
@@ -55,6 +61,10 @@ ds.register_dashboard_item('timeshift_summation_table', {
     return self
   },
 
+  /**
+   * Handler to update the rendered DOM once the data query has been
+   * evaluated.
+   */
   data_handler: function(query, item) {
     var body = $('#' + item.item_id + ' tbody')
     var now  = query.data[0].summation
@@ -96,5 +106,52 @@ ds.register_dashboard_item('timeshift_summation_table', {
     'query',
     'shift',
     { id: 'css_class', category: 'base' }
+  ],
+
+  /**
+   * Additional actions specific to this presentation type to be added
+   * to the presentation actions menu.
+   */
+  actions: [
+    ds.action({
+      name:    'timeshift_1h',
+      display: '1 Hour Ago',
+      icon:    'fa fa-clock-o',
+      handler: function(action, item) {
+        item.shift = '1h'
+        ds.manager.update_item_view(item)
+      }
+    }),
+    ds.action({
+      name:    'timeshift_1d',
+      display: '1 Day Ago',
+      icon:    'fa fa-clock-o',
+      handler: function(action, item) {
+        item.shift = '1d'
+        ds.manager.update_item_view(item)
+      }
+    }),
+    ds.action({
+      name:    'timeshift_1w',
+      display: '1 Week Ago',
+      icon:    'fa fa-clock-o',
+      handler: function(action, item) {
+        item.shift = '1w'
+        ds.manager.update_item_view(item)
+      }
+    }),
+    ds.action({
+      name:    'timeshift_user_input',
+      display: 'Pick interval...',
+      icon:    'fa fa-clock-o',
+      handler: function(action, item) {
+        bootbox.prompt("Enter a time shift interval", function(result) {
+          if (result) {
+            item.shift = result
+            ds.manager.update_item_view(item)
+          }
+        })
+      }
+    })
   ]
 })
