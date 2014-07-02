@@ -1,11 +1,11 @@
-ds.action.register('presentation-actions', [
+ds.actions.register('presentation-actions', [
   ds.action({
     name:    'time-spans',
     display: 'View across time spans...',
     icon:    'fa fa-clock-o',
     hide: ds.app.Mode.TRANSFORM,
     handler: function(action, item) {
-      ds.manager.apply_transform(ds.models.transform.TimeSpans(), item)
+      ds.manager.apply_transform('TimeSpans', item)
     }
   }),
   ds.action({
@@ -14,7 +14,7 @@ ds.action.register('presentation-actions', [
     icon:    'fa fa-clock-o',
     hide: ds.app.Mode.TRANSFORM,
     handler: function(action, item) {
-      ds.manager.apply_transform(ds.models.transform.TimeShift(), item)
+      ds.manager.apply_transform('TimeShift', item)
     }
   }),
   ds.action({
@@ -23,7 +23,7 @@ ds.action.register('presentation-actions', [
     icon:    'fa fa-eye',
     hide: ds.app.Mode.TRANSFORM,
     handler: function(action, item) {
-      ds.manager.apply_transform(ds.models.transform.Isolate(), item)
+      ds.manager.apply_transform('Isolate', item)
     }
   }),
   ds.action({
@@ -73,7 +73,7 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
   var presentation_id = $(this).parent().parent().parent().parent().parent()[0].id
   var item = ds.manager.current.dashboard.get_item(presentation_id)
 
-  var action = ds.action.get('presentation-actions', this.getAttribute('data-ds-action'))
+  var action = ds.actions.get('presentation-actions', this.getAttribute('data-ds-action'))
   action.handler(action, item)
 
   /* prevents resetting scroll position */

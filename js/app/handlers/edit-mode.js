@@ -497,7 +497,7 @@
     new_singlegraph_action
   ].map(function(action) { return action.set_class('new-item').set_category('new-item') })
 
-  ds.action.register('new-item',
+  ds.actions.register('new-item',
                       all_new_item_actions.filter(function(action) {
                         return !action.divider
                       }))
@@ -535,7 +535,7 @@
     var name = elt.attr('data-ds-action')
     var item_id = elt.parent().parent().parent().parent()[0].getAttribute('data-ds-item-id')
     var item = ds.manager.current.dashboard.get_item(item_id)
-    var action = ds.action.get(category, name)
+    var action = ds.actions.get(category, name)
 
     action.handler(action, item)
     return false
@@ -545,7 +545,7 @@
      Section actions
      ----------------------------------------------------------------------------- */
 
-  ds.action.register('edit-bar-section', [
+  ds.actions.register('edit-bar-section', [
     new_item_action_for_section,
     duplicate_item_action,
     ds.action.divider,
@@ -559,7 +559,7 @@
      Row actions
      ----------------------------------------------------------------------------- */
 
-  ds.action.register('edit-bar-row', [
+  ds.actions.register('edit-bar-row', [
     ds.action({
       name: 'new-cell',
       display: 'Add new Cell',
@@ -580,7 +580,7 @@
      Cell actions
      ----------------------------------------------------------------------------- */
 
-  ds.action.register('edit-bar-cell', [
+  ds.actions.register('edit-bar-cell', [
     new_item_action_for_cell,
     duplicate_item_action,
     ds.action.divider,
@@ -616,7 +616,7 @@
      Item actions
      ----------------------------------------------------------------------------- */
 
-  ds.action.register('edit-bar-item', [
+  ds.actions.register('edit-bar-item', [
     duplicate_item_action,
     ds.action.divider,
     move_back_action,
@@ -637,7 +637,7 @@
     var item_id  = parent.getAttribute('data-ds-item-id')
     var name     = element.getAttribute('data-ds-action')
     var category = element.getAttribute('data-ds-category')
-    var action   = ds.action.get(category, name)
+    var action   = ds.actions.get(category, name)
     var item     = ds.manager.current.dashboard.get_item(item_id)
 
     if (action) {
@@ -649,7 +649,7 @@
      Dashboard Query Panel
      ----------------------------------------------------------------------------- */
 
-  ds.action.register('dashboard-queries', [
+  ds.actions.register('dashboard-queries', [
     ds.action({
       name:    'new-query',
       display: 'New Query...',
@@ -663,7 +663,7 @@
   $(document).on('click', '#ds-query-panel button', function(event) {
     var element  = $(this)[0]
     var name     = element.getAttribute('data-ds-action')
-    var action   = ds.action.get('dashboard-queries', name)
+    var action   = ds.actions.get('dashboard-queries', name)
 
     if (action) {
       action.handler(action, ds.manager.current.dashboard)
