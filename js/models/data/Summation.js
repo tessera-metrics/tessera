@@ -20,6 +20,12 @@ ds.models.data.Summation = function(initial_data) {
                        .build()
   Object.defineProperty(self, 'is_summation', {value: true})
 
+  function if_defined(value, default_value) {
+    return typeof(value) === 'undefined'
+         ? default_value
+         : value
+  }
+
   /**
    * Initialize the summation
    */
@@ -59,13 +65,13 @@ ds.models.data.Summation = function(initial_data) {
     })
     self.mean = self.sum / self.count
   } else if (typeof(initial_data) === 'object') {
-    self.sum = initial_data.sum || self.sum
-    self.min = initial_data.min || self.min
-    self.max = initial_data.max || self.max
-    self.first = initial_data.first || self.first
-    self.last = initial_data.last || self.last
-    self.mean = initial_data.mean || self.mean
-    self.count = initial_data.count || self.count
+    self.sum   = if_defined(initial_data.sum,  self.sum)
+    self.min   = if_defined(initial_data.min, self.min)
+    self.max   = if_defined(initial_data.max, self.max)
+    self.first = if_defined(initial_data.first, self.first)
+    self.last  = if_defined(initial_data.last, self.last)
+    self.mean  = if_defined(initial_data.mean, self.mean)
+    self.count = if_defined(initial_data.count, self.count)
   }
 
   /**
