@@ -131,7 +131,7 @@ Handlebars.registerHelper('actions', function(category, type) {
   if (type === 'button') {
     template = ds.templates.action_button
   }
-  var actions = ds.actions.list(category)
+  var actions = ds.action.list(category)
   if (actions && (actions instanceof Array)) {
     var html = ''
     for (var i in actions) {

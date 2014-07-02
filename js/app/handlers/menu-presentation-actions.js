@@ -1,4 +1,4 @@
-ds.actions.register('presentation-actions', [
+ds.action.register('presentation-actions', [
   ds.action({
     name:    'time-spans',
     display: 'View across time spans...',
@@ -73,7 +73,7 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
   var presentation_id = $(this).parent().parent().parent().parent().parent()[0].id
   var item = ds.manager.current.dashboard.get_item(presentation_id)
 
-  var action = ds.actions.get('presentation-actions', this.getAttribute('data-ds-action'))
+  var action = ds.action.get('presentation-actions', this.getAttribute('data-ds-action'))
   action.handler(action, item)
 
   /* prevents resetting scroll position */

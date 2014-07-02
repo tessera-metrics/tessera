@@ -3,7 +3,7 @@
  * handler to invoke them from the dashboard-list.html template.
  */
 
-ds.actions.register('dashboard-list-actions', [
+ds.action.register('dashboard-list-actions', [
   ds.action({
     name:    'open',
     display: 'Open',
@@ -53,6 +53,6 @@ $(document).on('click', 'ul.ds-dashboard-action-menu li', function(event) {
     href: element.getAttribute('data-ds-href'),
     view_href: element.getAttribute('data-ds-view-href')
   }
-  var action = ds.actions.get('dashboard-list-actions', this.getAttribute('data-ds-action'))
+  var action = ds.action.get('dashboard-list-actions', this.getAttribute('data-ds-action'))
   action.handler(action, context)
 })
