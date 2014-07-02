@@ -4,8 +4,9 @@
     "style": null, 
     "items": [
       {
-        "style": "alert_info", 
+        "style": "none", 
         "layout": "fixed", 
+        "title": null, 
         "items": [
           {
             "style": null, 
@@ -35,10 +36,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "units", 
-                    "title": "jumbotron singlestat", 
+                    "format": ",.1f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.1f", 
+                    "title": "jumbotron singlestat", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "jumbotron_singlestat", 
@@ -105,10 +106,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/sec", 
-                    "title": "Average", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Average", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -131,10 +132,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/sec", 
-                    "title": "Max", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Max", 
                     "transform": "max", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -157,10 +158,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "things", 
-                    "title": "Total", 
+                    "format": ",.2s", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.2s", 
+                    "title": "Total", 
                     "transform": "sum", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -188,8 +189,9 @@
         "item_id": "d2"
       }, 
       {
-        "style": "alert_neutral", 
+        "style": "none", 
         "layout": "fixed", 
+        "title": null, 
         "items": [
           {
             "style": null, 
@@ -213,14 +215,47 @@
             "items": [
               {
                 "style": null, 
-                "span": "12", 
+                "span": 4, 
+                "items": [
+                  {
+                    "style": null, 
+                    "item_type": "markdown", 
+                    "text": "### An Explanatory Box\n\nContaining text in [Markdown](https://daringfireball.net/projects/markdown/) format. You can use this to include explanatory text about your metrics. The table to the right is a ``summation_table`` presentation linked to the same query as the ``standard_time_series`` presentation displayed above.", 
+                    "height": null, 
+                    "raw": false, 
+                    "css_class": null, 
+                    "item_id": "d71"
+                  }, 
+                  {
+                    "style": null, 
+                    "title": null, 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "format": ",.3s", 
+                    "height": null, 
+                    "item_type": "summation_table", 
+                    "item_id": "d72", 
+                    "query": "query1", 
+                    "striped": false
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d70", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 8, 
                 "items": [
                   {
                     "style": null, 
                     "title": null, 
                     "css_class": null, 
                     "thresholds": null, 
-                    "height": "4", 
+                    "height": "5", 
                     "item_type": "standard_time_series", 
                     "item_id": "d28", 
                     "query": "query1", 
@@ -244,82 +279,11 @@
             "item_id": "d26"
           }, 
           {
+            "item_id": "d73", 
+            "item_type": "separator", 
             "style": null, 
-            "items": [
-              {
-                "style": null, 
-                "span": 4, 
-                "items": [
-                  {
-                    "style": null, 
-                    "item_type": "markdown", 
-                    "text": "### An Explanatory Box\n\nContaining text in [Markdown](https://daringfireball.net/projects/markdown/) format. You can use this to include explanatory text about your metrics. The table to the right is a ``summation_table`` presentation linked to the same query as the ``standard_time_series`` presentation displayed above.", 
-                    "height": null, 
-                    "raw": false, 
-                    "css_class": null, 
-                    "item_id": "d32"
-                  }
-                ], 
-                "align": null, 
-                "height": null, 
-                "item_type": "cell", 
-                "offset": null, 
-                "item_id": "d31", 
-                "css_class": null
-              }, 
-              {
-                "style": null, 
-                "span": 4, 
-                "items": [
-                  {
-                    "style": null, 
-                    "title": "Summary", 
-                    "css_class": null, 
-                    "thresholds": null, 
-                    "format": ",.3f", 
-                    "height": null, 
-                    "item_type": "summation_table", 
-                    "item_id": "d35", 
-                    "query": "query1", 
-                    "striped": false
-                  }
-                ], 
-                "align": null, 
-                "height": null, 
-                "item_type": "cell", 
-                "offset": null, 
-                "item_id": "d33", 
-                "css_class": null
-              }, 
-              {
-                "style": null, 
-                "span": 4, 
-                "items": [
-                  {
-                    "style": null, 
-                    "title": "Distribution", 
-                    "css_class": null, 
-                    "thresholds": null, 
-                    "height": null, 
-                    "item_type": "donut_chart", 
-                    "item_id": "d37", 
-                    "query": "query1", 
-                    "options": {}, 
-                    "interactive": true
-                  }
-                ], 
-                "align": null, 
-                "height": null, 
-                "item_type": "cell", 
-                "offset": null, 
-                "item_id": "d34", 
-                "css_class": null
-              }
-            ], 
             "height": null, 
-            "item_type": "row", 
-            "css_class": null, 
-            "item_id": "d30"
+            "css_class": null
           }
         ], 
         "height": null, 
@@ -330,6 +294,7 @@
       {
         "style": null, 
         "layout": "fixed", 
+        "title": null, 
         "items": [
           {
             "style": null, 
@@ -359,10 +324,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/sec", 
-                    "title": "Average", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Average", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -385,10 +350,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/sec", 
-                    "title": "Max", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Max", 
                     "transform": "max", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -445,10 +410,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/sec", 
-                    "title": "Average", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Average", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -471,10 +436,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/sec", 
-                    "title": "Max", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Max", 
                     "transform": "max", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -531,10 +496,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/sec", 
-                    "title": "Average", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Average", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -557,10 +522,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/sec", 
-                    "title": "Max", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Max", 
                     "transform": "max", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -617,10 +582,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/sec", 
-                    "title": "Average", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Average", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -643,10 +608,10 @@
                     "index": false, 
                     "style": null, 
                     "units": "/sec", 
-                    "title": "Max", 
+                    "format": ",.3f", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "format": ",.3f", 
+                    "title": "Max", 
                     "transform": "max", 
                     "height": null, 
                     "item_type": "singlestat", 
@@ -700,48 +665,66 @@
       }
     ], 
     "queries": {
-      "query2": [
-        "absolute(randomWalkFunction(\"query2\"))"
-      ], 
-      "query3": [
-        "absolute(randomWalkFunction(\"query3\"))"
-      ], 
-      "query0": [
-        "absolute(group(randomWalkFunction(\"system\"),randomWalkFunction(\"user\"),randomWalkFunction(\"wait\")))"
-      ], 
-      "query1": [
-        "aliasByNode(absolute(group(randomWalkFunction(\"s001\"),randomWalkFunction(\"s002\"),randomWalkFunction(\"s003\"),randomWalkFunction(\"s004\"),randomWalkFunction(\"s005\"))), 0)"
-      ], 
-      "query4": [
-        "absolute(randomWalkFunction(\"query4\"))"
-      ], 
-      "query5": [
-        "absolute(randomWalkFunction(\"query5\"))"
-      ]
+      "query2": {
+        "name": "query2", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query2\"))"
+        ]
+      }, 
+      "query3": {
+        "name": "query3", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query3\"))"
+        ]
+      }, 
+      "query0": {
+        "name": "query0", 
+        "targets": [
+          "absolute(group(randomWalkFunction(\"system\"),randomWalkFunction(\"user\"),randomWalkFunction(\"wait\")))"
+        ]
+      }, 
+      "query1": {
+        "name": "query1", 
+        "targets": [
+          "aliasByNode(absolute(group(randomWalkFunction(\"s001\"),randomWalkFunction(\"s002\"),randomWalkFunction(\"s003\"),randomWalkFunction(\"s004\"),randomWalkFunction(\"s005\"))), 0)"
+        ]
+      }, 
+      "query4": {
+        "name": "query4", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query4\"))"
+        ]
+      }, 
+      "query5": {
+        "name": "query5", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query5\"))"
+        ]
+      }
     }, 
     "height": null, 
     "item_type": "dashboard_definition", 
     "css_class": null, 
     "item_id": "d0"
   }, 
-  "last_modified_date": "2014-06-17T02:30:12.982254Z", 
+  "last_modified_date": "2014-07-02T19:56:34.119234Z", 
   "description": "", 
   "title": "Random Data", 
   "tags": [
     {
-      "bgcolor": "#ddd", 
+      "bgcolor": "green", 
       "id": 1, 
-      "fgcolor": "#333", 
-      "name": "demo"
+      "name": "featured"
     }, 
     {
-      "bgcolor": "green", 
+      "bgcolor": "#ddd", 
       "id": 2, 
-      "name": "featured"
+      "fgcolor": "#333", 
+      "name": "demo"
     }
   ], 
-  "creation_date": "2014-06-17T02:30:12.978450Z", 
-  "id": 2, 
+  "creation_date": "2014-07-02T19:44:51.162317Z", 
+  "id": 11, 
   "imported_from": null, 
   "summary": "Some things and stuff"
 }
