@@ -23,7 +23,10 @@ ds.register_dashboard_item('timeshift_summation_table', {
     Object.defineProperty(self, 'requires_data', {value: true})
 
     function update_query() {
-      self.query_override = shift_query(self.query, self)
+      if (self.query && self.query.is_query) {
+        self.query_override =
+          self.query.join(self.query.shift(self.shift)).set_name(self.item_id + '_shifted')
+      }
     }
 
     if (data) {
@@ -37,27 +40,8 @@ ds.register_dashboard_item('timeshift_summation_table', {
       update_query()
     }).on('change:dashboard', function(e) {
       update_query()
-    }).on('change:query_override', function(e) {
-      //ds.manager.update_item_view(self)
     })
     ds.models.item.init(self, data)
-
-    function shift_query(input, item) {
-      if (input && input.is_query) {
-        var targets = input.targets
-        if (!targets)
-          return undefined
-        var group = 'group(' + input.targets.join(',') + ')'
-        return ds.models.data.Query()
-               .set_name(item.item_id + '_shift_' + input.name)
-               .set_targets([
-                 group,
-                 'timeShift(' + group + ', \"' + item.shift + '\")'
-               ])
-      } else {
-        return undefined
-      }
-    }
 
     self.toJSON = function() {
       var data = ds.models.item.json(self)

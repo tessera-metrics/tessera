@@ -58,16 +58,11 @@ ds.transforms.register({
 
     for (var i in shifts) {
       var shift = shifts[i]
-      var modified_query = ds.models.data.Query(query.toJSON())
-                             .set_name(query.name + '/' + shift.shift)
-                             .set_targets(query.targets.map(function(target) {
-                                            return 'timeShift(' + target + ', "' + shift.shift + '")'
-                                          }))
-
-      var modified_item = make(item.toJSON())
-                                   .set_item_id(undefined)
-                                   .set_query(modified_query)
-                                   .set_title(shift.title)
+      var modified_query = query.shift(shift.shift)
+      var modified_item  = make(item.toJSON())
+                                    .set_item_id(undefined)
+                                    .set_query(modified_query)
+                                    .set_title(shift.title)
       section.add(make_row(modified_query, modified_item))
     }
 
