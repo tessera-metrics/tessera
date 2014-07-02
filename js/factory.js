@@ -5,7 +5,6 @@ ds.register_dashboard_item = function(item_type, descriptor) {
   }
 
   if (descriptor.actions && descriptor.actions.length) {
-    console.log('Registering item actions')
     ds.actions.register(item_type, descriptor.actions)
   }
 
