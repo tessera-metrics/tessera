@@ -1,43 +1,48 @@
 /**
  * Mixin for transform types common fields
  */
-ds.transform =
-  (function() {
-    'use strict'
+ds.transform = function(data) {
 
-    function extend(builder, options) {
-      options = options || {}
-      Object.defineProperty(builder.target, 'is_transform', {value: true})
-      return builder.property('name', {init: options.name})
-                    .property('display_name', {init: options.display_name})
-                    .property('transform_type', {init: options.transform_type || 'presentation'})
-    }
+  var self = {}
 
-    function init(target, data) {
-      if (data) {
-        target.name = data.name || target.name
-        target.display_name = data.display_name || target.display_name
-        target.transform_type = data.transform_type || target.transform_type
+  if (data) {
+    self.name = data.name
+    self.display_name = data.display_name
+    self.transform_type = data.transform_type
+    self.transform = data.transform
+    self.icon = data.icon
+  }
+
+  /**
+   * Create a UI action object to invoke this transform.
+   */
+  self.action = function() {
+    return ds.action({
+      name:    self.name + '_action',
+      display: self.display_name + '...',
+      icon:    self.icon || 'fa fa-eye',
+      hide:    ds.app.Mode.TRANSFORM,
+      handler: function(action, item) {
+        ds.manager.apply_transform(self, item)
       }
-      return target
-    }
+    })
+  }
 
-    function json(target, data) {
-      data = data || {}
-      if (target.name)
-        data.name = target.name
-      if (target.transform_type)
-        data.transform_type = target.transform_type
-      if (target.display_name)
-        data.display_name = target.display_name
-      return data
-    }
-
+  self.toJSON = function() {
     return {
-      extend: extend,
-      init: init,
-      json: json
+      name: self.name
     }
-  })()
+  }
 
-ds.transforms = ds.registry({ name: 'transforms' })
+  return self
+}
+
+ds.transforms = ds.registry({
+  name: 'transforms',
+  process: function(data) {
+    var transform = ds.transform(data)
+    var action_category = transform.transform_type + '-transform-actions'
+    ds.actions.register(action_category, transform.action())
+    return transform
+  }
+})

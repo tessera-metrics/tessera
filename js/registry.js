@@ -2,15 +2,16 @@
  * A simple registry for organizing and retrieving ordered sets of
  * named things.
  */
-ds.registry = function(data) {
+ds.registry = function(init) {
   'use strict'
 
   var data = {}
     , self = {}
     , DEFAULT_CATEGORY = 'default'
 
-  if (data) {
-    self.name = data.name
+  if (init) {
+    self.name = init.name
+    self.process = init.process
   }
 
   function get_data(category) {
@@ -34,6 +35,9 @@ ds.registry = function(data) {
       }
     } else {
       var category_data = get_data(category)
+      if (self.process && self.process instanceof Function) {
+        thing = self.process(thing)
+      }
       if (typeof(category_data.index[thing.name]) === 'undefined') {
         category_data.index[thing.name] = thing
       }

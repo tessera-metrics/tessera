@@ -1,23 +1,20 @@
 /**
  * Latency - expand a single latency metric into all the percentiles,
  * based on metrics produced by Coda Hale's Metrics library for Java.
+ *
+ * This currently only works for bare metrics. Going to need to parse
+ * graphite function expressions to handle real world cases :(
  */
 ds.transforms.register({
   name: 'ExpandLatency',
   display_name: 'Expand Latency',
   transform_type: 'presentation',
 
-  toJSON: function() {
-    return { name: 'ExpandLatency' }
-  },
-
   transform: function(item) {
     'use strict'
     var make        = ds.models.make
     var root_metric = item.query.targets[0]
     root_metric = root_metric.substring(0, root_metric.lastIndexOf('.'))
-
-    console.log('ExpandLatency.transform(): root_metric = ' + root_metric)
 
     function span(width, item) {
       return make('cell').set_span(width).add(item)
