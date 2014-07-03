@@ -153,6 +153,28 @@ ds.charts.util =
       }
     }
 
+    /**
+     * Return a low contrast monochromatic color palette for
+     * transforms like HighlightAverage, which de-emphasize a mass of
+     * raw metrics in order to highlight computed series.
+     */
+    self.get_low_contrast_palette = function() {
+      /* TODO: get from options parameter */
+      var light_step = 0.1
+        , dark_step  = 0.05
+        , count      = 6
+        , bg    = Color(window.getComputedStyle($('body')[0]).backgroundColor)
+        , color = bg.dark() ? bg.clone().lighten(0.25) : bg.clone().darken(0.1)
+
+      var palette = []
+      for (var i = 0; i < count; i++) {
+        palette.push(color.hexString())
+        bg.dark() ? color.lighten(light_step) : color.darken(dark_step)
+      }
+
+      return palette
+    }
+
     self._color_function = function(palette_name) {
         var palette = self.colors[palette_name];
         if (!palette) {

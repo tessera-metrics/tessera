@@ -21,16 +21,8 @@ ds.transforms.register({
     var make    = ds.models.make
     var query   = item.query
     var group   = (query.targets.length > 1) ? 'group(' + query.targets.join(',') + ')' : query.targets[0]
-
-    /* Set up the low-contrast palette; this could move to ds.charts.util */
-    var palette = []
     var bg      = Color(window.getComputedStyle($('body')[0]).backgroundColor)
-    var color   = bg.dark() ? bg.clone().lighten(0.25) : bg.clone().darken(0.1)
-
-    for (var i = 0; i < 6; i++) {
-      palette.push(color.hexString())
-      bg.dark() ? color.lighten(0.1) : color.darken(0.05)
-    }
+    var palette = ds.charts.util.get_low_contrast_palette()
 
     /* Set up the modified queries */
     var query_averages = ds.models.data.Query({
