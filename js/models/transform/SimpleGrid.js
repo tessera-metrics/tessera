@@ -14,14 +14,12 @@ ds.models.transform.SimpleGrid = function(data) {
                        .property('span', {init: 12})
                        .property('section_type', {init: 'fixed'})
                        .property('charts_only', {init: false})
-                       .extend(ds.models.transform.transform, {
-                         display_name: 'Simple Grid',
-                         transform_name: 'SimpleGrid',
-                         transform_type: 'dashboard'
-                       })
                        .build()
 
   if (data) {
+    self.display_name   = 'Simple Grid'
+    self.name           = 'SimpleGrid'
+    self.transform_type = 'dashboard'
     self.columns = data.columns || self.columns
     self.section_type = data.section_type || self.section_type
     if (data.charts_only) {
@@ -29,7 +27,6 @@ ds.models.transform.SimpleGrid = function(data) {
     }
   }
   self.span = 12 / self.columns
-  ds.models.transform.transform.init(self, data)
 
   self.transform = function(item) {
     var items       = item.flatten()
@@ -63,12 +60,13 @@ ds.models.transform.SimpleGrid = function(data) {
 
 
   self.toJSON = function() {
-    return ds.models.transform.transform.json(self, {
+    return {
       columns: self.columns,
       span: self.span,
       section_type: self.section_type,
-      charts_only: self.charts_only
-    })
+      charts_only: self.charts_only,
+      name: self.name
+    }
   }
 
   return self

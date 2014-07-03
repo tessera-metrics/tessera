@@ -13,10 +13,6 @@ ds.transforms.register({
   display_name:   'Highlight Averages',
   transform_type: 'presentation',
 
-  toJSON: function() {
-    return { name: 'HighlightAverages' }
-  },
-
   transform: function(item) {
     var make    = ds.models.make
     var query   = item.query

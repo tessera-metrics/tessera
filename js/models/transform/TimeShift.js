@@ -7,10 +7,7 @@ ds.transforms.register({
   name: 'TimeShift',
   display_name: 'Time Shift',
   transform_type: 'presentation',
-
-  toJSON: function() {
-    return { name: 'TimeShift' }
-  },
+  icon: 'fa fa-clock-o',
 
   transform: function(item) {
     var make  = ds.models.make

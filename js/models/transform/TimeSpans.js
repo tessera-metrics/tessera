@@ -13,12 +13,10 @@
  *           immediate query objects that override the time period
  */
 ds.transforms.register({
-  name: 'TimeSpans',
-  display_name: 'View across time spans',
-
-  toJSON: function() {
-    return { name: 'TimeSpans' }
-  },
+  name:           'TimeSpans',
+  display_name:   'View across time spans',
+  transform_type: 'presentation',
+  icon: '          fa fa-clock-o',
 
   transform: function(item) {
     var make  = ds.models.make

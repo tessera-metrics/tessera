@@ -6,10 +6,6 @@ ds.transforms.register({
   display_name: 'Isolate',
   transform_type: 'presentation',
 
-  toJSON: function() {
-    return { name: 'Isolate' }
-  },
-
   transform: function(item) {
     var make = ds.models.make
     return make('section')
