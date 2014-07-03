@@ -65,3 +65,11 @@ ds.extend = function() {
   }
   return target
 }
+
+ds.json = function(thing) {
+  if (thing.toJSON && typeof(thing.toJSON) === 'function') {
+    return thing.toJSON()
+  } else {
+    return thing
+  }
+}
