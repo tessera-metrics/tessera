@@ -1,4 +1,5 @@
 ds.actions.register('presentation-actions', [
+  // TODO: generate these from the registered transforms
   ds.action({
     name:    'time-spans',
     display: 'View across time spans...',
@@ -24,6 +25,15 @@ ds.actions.register('presentation-actions', [
     hide: ds.app.Mode.TRANSFORM,
     handler: function(action, item) {
       ds.manager.apply_transform('Isolate', item)
+    }
+  }),
+  ds.action({
+    name:    'highlight_averages',
+    display: 'Highlight Averages...',
+    icon:    'fa fa-eye',
+    hide: ds.app.Mode.TRANSFORM,
+    handler: function(action, item) {
+      ds.manager.apply_transform('HighlightAverages', item)
     }
   }),
   ds.action({

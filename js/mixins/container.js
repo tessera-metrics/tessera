@@ -44,7 +44,7 @@ ds.models.container =
       self.visit = function(visitor) {
         visitor(self)
         self.items.forEach(function(item) {
-          if (item.visit && typeof(item.visit) == 'function') {
+          if (item.visit && typeof(item.visit) === 'function') {
             item.visit(visitor)
           } else {
             visitor(item)

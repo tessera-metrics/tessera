@@ -115,6 +115,8 @@ ds.charts.util =
     var self = {}
 
     self.get_palette = function(name) {
+      if (name instanceof Array)
+        return name
       var palette = self.colors[name];
       return palette || self.colors[ds.charts.DEFAULT_PALETTE];
     }
@@ -248,7 +250,16 @@ ds.charts.util =
         d3category20c: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c",
                         "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0",
                         "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#636363", "#969696",
-                        "#bdbdbd", "#d9d9d9"]
+                        "#bdbdbd", "#d9d9d9"],
+
+      // Here are a couple of intentionally low-contrast palettes
+      // which intended to allow computed series (like
+      // averageSeries(), highestAverage(), mostDeviant(), etc...) to
+      // stand out over the noise of a ton of metric instances when
+      // assigned their own color with the color() function.
+
+      low_contrast_gray : [ "#BBBBBB","#C8C8C8","#D5D5D5","#E1E1E1","#EEEEEE" ],
+      low_contrast_blue : [ "#AAAABB","#B7B7C8","#C4C4D5","#D0D0E1","#DDDDEE", "#EAEAFB" ]
 
     }
 
