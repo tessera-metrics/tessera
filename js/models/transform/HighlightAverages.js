@@ -41,6 +41,7 @@ ds.transforms.register({
 
     /* Clone and modify the original */
     var item_averages = item.clone()
+                            .set_item_type('standard_time_series')
                             .set_height(6)
                             .set_interactive(false)
                             .set_title("Average & Max Average")
@@ -48,6 +49,7 @@ ds.transforms.register({
     item_averages.options.palette = palette
 
     var item_deviant  = item.clone()
+                            .set_item_type('standard_time_series')
                             .set_height(4)
                             .set_interactive(false)
                             .set_title('Most Deviant')
