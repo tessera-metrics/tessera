@@ -37,6 +37,15 @@ ds.actions.register('presentation-actions', [
     }
   }),
   ds.action({
+    name:    'expand_latency',
+    display: 'Expand Latencies...',
+    icon:    'fa fa-eye',
+    hide: ds.app.Mode.TRANSFORM,
+    handler: function(action, item) {
+      ds.manager.apply_transform('ExpandLatency', item)
+    }
+  }),
+  ds.action({
     hide: ds.app.Mode.TRANSFORM,
     divider: true
   }),
