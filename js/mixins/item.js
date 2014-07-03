@@ -85,6 +85,10 @@ ds.models.item =
         visitor(self)
       }
 
+      self.clone = function() {
+        return ds.models.make(self.toJSON()).set_item_id(null)
+      }
+
       /**
        * Various visitors for convenience.
        */

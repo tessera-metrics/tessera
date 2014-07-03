@@ -33,7 +33,7 @@ ds.models.chart =
       if (target.title)
         data.title = target.title
       if (target.options) {
-        data.options = target.options
+        data.options = ds.extend(target.options)
         if (target.options.y1) {
           data.options.y1 = ds.json(target.options.y1)
         }
