@@ -15,14 +15,14 @@ ds.models.chart =
       if (data) {
         target.title = data.title
         target.options = data.options || {}
-        if (target.options.y1) {
-          target.options.y1 = ds.models.Axis(target.options.y1)
+        if (data.options.y1) {
+          target.options.y1 = ds.models.Axis(data.options.y1)
         }
-        if (target.options.y2) {
-          target.options.y2 = ds.models.Axis(target.options.y2)
+        if (data.options.y2) {
+          target.options.y2 = ds.models.Axis(data.options.y2)
         }
-        if (target.options.x) {
-          target.options.x = ds.models.Axis(target.options.x)
+        if (data.options.x) {
+          target.options.x = ds.models.Axis(data.options.x)
         }
       }
       return target
@@ -35,13 +35,13 @@ ds.models.chart =
       if (target.options) {
         data.options = target.options
         if (target.options.y1) {
-          data.options.y1 = target.options.y1.toJSON()
+          data.options.y1 = ds.json(target.options.y1)
         }
         if (target.options.y2) {
-          data.options.y2 = target.options.y2.toJSON()
+          data.options.y2 = ds.json(target.options.y2)
         }
         if (target.options.x) {
-          data.options.x = target.options.x.toJSON()
+          data.options.x = ds.json(target.options.x)
         }
       }
       return data
