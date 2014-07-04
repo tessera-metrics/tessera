@@ -4,13 +4,15 @@ ds.register_dashboard_item('percentage_table', {
     'use strict'
 
     var self = limivorous.observable()
-                         .property('format', {init: '%'})
+                         .property('format', {init: ',.3s'})
                          .property('title')
+                         .property('include_sums', {init: false})
                          .extend(ds.models.item, {item_type: 'percentage_table'})
                          .build()
     Object.defineProperty(self, 'requires_data', {value: true})
 
     if (data) {
+      self.include_sums = data.include_sums
       self.title = data.title
       self.format = data.format || self.format
     }
@@ -22,6 +24,7 @@ ds.register_dashboard_item('percentage_table', {
         data.format = self.format
       if (self.title)
         data.title = self.title
+      data.include_sums = self.include_sums
       return data
     }
 
@@ -44,5 +47,9 @@ ds.register_dashboard_item('percentage_table', {
   interactive_properties: [
     'format',
     'title',
+    {
+      id: 'include_sums',
+      type: 'boolean'
+    }
   ].concat(ds.models.item.interactive_properties)
 })
