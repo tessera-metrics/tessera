@@ -15,10 +15,25 @@
     text-shadow: 1px 1px white;
 }
 
+.ds-singlestat .unit,
+.ds-jumbotron-singlestat .unit {
+    color: #93a1a1;
+}
+
+.ds-singlestat h3,
+.ds-jumbotron-singlestat h3 {
+    color: #839496;
+}
+
 #ds-tooltip {
     color: #586e75;
     background-color: #FFFFED;
     border: 1px solid #586e75;
+}
+
+.alert-neutral {
+    background-color: #eee8d5;
+    border-color: #D6D0BC;
 }
 
 /* -----------------------------------------------------------------------------
