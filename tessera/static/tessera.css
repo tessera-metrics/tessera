@@ -346,7 +346,9 @@ td.ds-diff-minus {
 .ds-summation-table tbody td,
 .ds-summation-table thead th,
 .ds-timeshift-summation-table tbody td,
-.ds-timeshift-summation-table thead th {
+.ds-timeshift-summation-table thead th,
+.ds-percentage-table tbody td,
+.ds-percentage-table thead th {
     text-align: right;
 }
 

@@ -411,6 +411,15 @@
     }
   })
 
+  var new_percentage_table_action = ds.action({
+    name: 'new-percentage_table',
+    display: 'Add new Percentage Table',
+    icon: 'fa fa-table',
+    handler: function(action, container) {
+      add_new_item(container, 'percentage_table')
+    }
+  })
+
   var new_summation_table_action = ds.action({
     name: 'new-summation_table',
     display: 'Add new Summation Table',
@@ -486,6 +495,7 @@
     ds.action.divider,
     new_singlestat_action,
     new_jumbotron_singlestat_action,
+    new_percentage_table_action,
     new_summation_table_action,
     new_timeshift_summation_table_action,
     ds.action.divider,
