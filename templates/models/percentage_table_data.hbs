@@ -1,0 +1,14 @@
+<table class="table table-condensed ds-percentage-table">
+  <thead>
+    <tr>
+      {{#each query.data}}
+        <th>{{target}}</th>
+      {{/each}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#each query.data}}
+      <td>{{format ",.2%" summation.percent}}</td>
+    {{/each}}
+  </tbody>
+</table>
