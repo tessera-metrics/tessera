@@ -429,6 +429,15 @@
     }
   })
 
+  var new_comparison_summation_table_action = ds.action({
+    name: 'new-comparison-summation_table',
+    display: 'Add new Comparison Summation Table',
+    icon: 'fa fa-table',
+    handler: function(action, container) {
+      add_new_item(container, 'comparison_summation_table')
+    }
+  })
+
   var new_simple_time_series_action = ds.action({
     name: 'new-simple_time_series',
     display: 'Add new Simple Time Series',
@@ -488,6 +497,7 @@
     new_jumbotron_singlestat_action,
     new_summation_table_action,
     new_timeshift_summation_table_action,
+    new_comparison_summation_table_action,
     ds.action.divider,
     new_from_url_action,
     new_simple_time_series_action,
