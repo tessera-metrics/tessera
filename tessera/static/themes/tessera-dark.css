@@ -134,38 +134,6 @@ h1 .ds-secondary-title {
     stroke: #a6a6a6;
 }
 
-/* Select 2 tweaks for darkstrap */
-.select2-container .select2-drop {
-    background: #222;
-}
-.select2-container-multi .select2-choices .select2-search-field input {
-  color:#c6c6c6;
-  background-color: #222;
-}
-.select2-container-multi .select2-choices .select2-search-field {
-background-color: #222;
-}
-
-.select2-container-multi .select2-choices
-{
-    background: #222;
-}
-
-.select2-container-multi .select2-choices .select2-search-choice {
-    background-image: none;
-    background-color: #3A87AD;
-    -webkit-box-shadow:none;
-    -moz-box-shadow   :none;
-    box-shadow        :none;
-    color: white;
-    border: 1px solid #222;
-    line-height: 13px;
-    padding: 3px 5px 3px 18px;
-    margin: 3px 0 3px 5px;
-    position: relative;
-    cursor: default;
-}
-
 /* darkstrap tweaks */
 
 .table th, .table td {
