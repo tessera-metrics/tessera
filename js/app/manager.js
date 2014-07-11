@@ -297,7 +297,7 @@ ds.manager =
     }
 
     self.refresh = function() {
-      if (self.current) {
+      if (self.current && (ds.app.current_mode != ds.app.Mode.EDIT)) {
         self.load(self.current.url, self.current.element)
       }
     }
