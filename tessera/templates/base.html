@@ -21,8 +21,8 @@
           </div>
           <div class="col-md-3" align="right">
             <div class="ds-time-container" align="right">
-              <h2>{{ ctx.now.strftime("%I:%M") }}<small> {{ ctx.now.strftime("%p") }}</small></h2>
-              <h6>{{ ctx.now.strftime("%A") }} {{ ctx.now.strftime("%d %B %Y") }}</h6>
+              <h2><span class="time""></span><small class="ampm"></small></h2>
+              <h6 class="date"></h6>
             </div>
             <a href="/"><i class="fa fa-lg fa-home"></i></a>
             <a href="/dashboards"><i class="fa fa-lg fa-bar-chart-o"></i></a>
@@ -45,5 +45,21 @@
     <div class="container ds-footer-container">
       {% include "snippets/site-footer.html" %}
     </div>
+
+    <script>
+     function ds_display_time() {
+       var now = moment()
+       $('.ds-time-container .time').text(now.format('hh:mm'))
+       $('.ds-time-container .ampm').text(now.format('A'))
+       $('.ds-time-container .date').text(now.format('dddd D MMMM YYYY'))
+     }
+
+     ds_display_time()
+
+     ds.manager.onDashboardLoaded(function() {
+       ds_display_time()
+     })
+    </script>
+
   </body>
 </html>
