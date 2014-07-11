@@ -4,7 +4,7 @@
           class="btn btn-default ds-refresh-button"
           data-toggle="tooltip"
           data-placement="bottom"
-          title="Refresh (current: {{ctx.get_int('refresh')}}s)">
+          title="Refresh (current: {{ctx.get_int('refresh', config['DEFAULT_REFRESH_INTERVAL'])}}s)">
     <i class="fa fa-refresh"></i>
   </button>
 
