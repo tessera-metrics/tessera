@@ -46,6 +46,7 @@ ds.property.register([
         'min',
         'max',
         'mean',
+        'median',
         'first',
         'last',
         'count'

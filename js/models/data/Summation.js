@@ -14,6 +14,7 @@ ds.models.data.Summation = function(initial_data) {
                        .property('min', { init: Number.MAX_VALUE })
                        .property('max', { init: Number.MIN_VALUE })
                        .property('mean', { init: 0 })
+                       .property('median', { init: 0 })
                        .property('first', { init: 0 })
                        .property('last', { init: 0 })
                        .property('count', { init: 0 })
@@ -47,6 +48,11 @@ ds.models.data.Summation = function(initial_data) {
   }
 
   if (datapoints && datapoints.length) {
+    /* add simple-statistics methods */
+    var values = ss.mixin(datapoints.map(function(point) {
+                            return point[0]
+                          }))
+    self.median = values.median()
     self.first = datapoints[0][0]
     self.count = datapoints.length
     if (self.first == null) {
@@ -71,6 +77,7 @@ ds.models.data.Summation = function(initial_data) {
     self.first = if_defined(initial_data.first, self.first)
     self.last  = if_defined(initial_data.last, self.last)
     self.mean  = if_defined(initial_data.mean, self.mean)
+    self.mean  = if_defined(initial_data.median, self.median)
     self.count = if_defined(initial_data.count, self.count)
   }
 
@@ -79,13 +86,14 @@ ds.models.data.Summation = function(initial_data) {
    */
   self.subtract = function(other) {
     return ds.models.data.Summation({
-      sum:   self.sum   - other.sum,
-      min:   self.min   - other.min,
-      max:   self.max   - other.max,
-      mean:  self.mean  - other.mean,
-      first: self.first - other.first,
-      last:  self.last  - other.last,
-      count: self.count
+      sum:    self.sum    - other.sum,
+      min:    self.min    - other.min,
+      max:    self.max    - other.max,
+      mean:   self.mean   - other.mean,
+      median: self.median - other.median,
+      first:  self.first  - other.first,
+      last:   self.last   - other.last,
+      count:  self.count
     })
   }
 
@@ -95,6 +103,7 @@ ds.models.data.Summation = function(initial_data) {
       min: self.min,
       max: self.max,
       mean: self.mean,
+      median: self.median,
       first: self.first,
       last: self.last,
       count: self.count
