@@ -63,7 +63,8 @@ defaults.
     return {
         'interactive' : _get_param('interactive', app.config['INTERACTIVE_CHARTS_DEFAULT'], store_in_session=store_in_session) == 'true',
         'theme' : _get_param('theme', app.config['DEFAULT_THEME'], store_in_session=store_in_session),
-        'renderer' : _get_param('renderer', app.config['INTERACTIVE_CHARTS_RENDERER'], store_in_session=store_in_session)
+        'renderer' : _get_param('renderer', app.config['INTERACTIVE_CHARTS_RENDERER'], store_in_session=store_in_session),
+        'refresh' : _get_param('refresh', app.config['DEFAULT_REFRESH_INTERVAL'], store_in_session=store_in_session)
     }
 
 def _set_preferences(prefs):
@@ -379,6 +380,13 @@ class RenderContext:
 
     def get(self, key, default=None, store_in_session=False):
         return _get_param(key, default=default, store_in_session=store_in_session)
+
+    def get_int(self, key, default=None, store_in_session=False):
+        return int(self.get(key, default=default, store_in_session=store_in_session))
+
+    def get_str(self, key, default=None, store_in_session=False):
+        return str(self.get(key, default=default, store_in_session=store_in_session))
+
 
 def _render_template(template, **kwargs):
     return render_template(template, ctx=RenderContext(), **kwargs)
