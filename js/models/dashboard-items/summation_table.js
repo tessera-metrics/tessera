@@ -25,7 +25,7 @@ ds.register_dashboard_item('summation_table', {
       if (self.striped)
         data.striped = self.striped
       if (self.title)
-      data.title = self.title
+        data.title = self.title
       return data
     }
 

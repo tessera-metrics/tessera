@@ -62,7 +62,8 @@ module.exports = function(grunt) {
           'tessera/static/js/flot/jquery.flot.multihighlight.js',
           'tessera/static/js/flot/jquery.flot.tooltip.js',
           'tessera/static/js/flot/jquery.flot.stack.js',
-          'tessera/static/js/flot/jquery.flot.crosshair.js'
+          'tessera/static/js/flot/jquery.flot.crosshair.js',
+          'tessera/static/js/simple_statistics.js'
         ],
         dest: 'tessera/static/bundle.js'
       },
