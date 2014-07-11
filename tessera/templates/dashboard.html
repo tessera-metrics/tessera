@@ -104,6 +104,14 @@
      container: 'body',
      delay: { show:300, hide:100}
    })
+
+    {% if ctx.get_int('refresh', config['DEFAULT_REFRESH_INTERVAL']) != 0 %}
+      var interval = {{ctx.get_int('refresh', config['DEFAULT_REFRESH_INTERVAL'])}}
+      ds.manager.set_refresh_interval(interval)
+      $("ul.ds-refresh-menu li[data-ds-interval]").removeClass('active')
+      $("ul.ds-refresh-menu li[data-ds-interval=" + interval + "]").addClass('active')
+    {% endif %}
+
   </script>
 
 {% endblock %}
