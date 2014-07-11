@@ -45,7 +45,7 @@ ds.manager =
      * List all dashboards.
      */
     self.list = function(path, handler) {
-        var path = path || '/api/dashboard'
+        var path = path || ds.uri('/api/dashboard')
         $.ajax({
             dataType: 'json',
             url: path
@@ -305,7 +305,7 @@ ds.manager =
     // Definitely getting to the point we need some kind of reactive MVC
     // here
     self.toggle_interactive_charts = function() {
-        $.get('/api/preferences', function(data) {
+        $.get(ds.uri('/api/preferences'), function(data) {
             var setting = !data.preferences.interactive
             var dashboard_url = URI(self.current.url)
             var window_url = URI(window.location)
@@ -424,7 +424,7 @@ ds.manager =
     self.create = function(dashboard, handler) {
       $.ajax({
         type: 'POST',
-        url: '/api/dashboard/',
+        url: ds.uri('/api/dashboard/'),
         contentType: 'application/json',
         dataType: 'json',
         data: JSON.stringify(dashboard)
@@ -484,7 +484,7 @@ ds.manager =
                 // Duplicate dashboard
                 $.ajax({
                     type: 'POST',
-                    url: '/api/dashboard/',
+                    url: ds.uri('/api/dashboard/'),
                     contentType: 'application/json',
                     dataType: 'json',
                     data: JSON.stringify(dashboard)

@@ -52,7 +52,7 @@
 
   <script>
    /* Load featured dashboard list */
-   ds.manager.list('/api/dashboard/tagged/featured', function(data) {
+   ds.manager.list(ds.uri('/api/dashboard/tagged/featured'), function(data) {
      if (data.dashboards && data.dashboards.length) {
        $("#ds-featured-dashboards").show()
        $("#ds-dashboard-featured-listing").html(ds.templates.listing.dashboard_list(data))
@@ -62,7 +62,7 @@
    /* Load the dashboards tagged with 'featured-billboard', and
     * select one of them at random to display at the top of the
     * page. */
-   ds.manager.list('/api/dashboard/tagged/featured-billboard', function(data) {
+   ds.manager.list(ds.uri('/api/dashboard/tagged/featured-billboard'), function(data) {
      if (data.dashboards && data.dashboards.length > 0) {
        var dashboard = data.dashboards[Math.floor(Math.random() * data.dashboards.length)]
        ds.manager.load(dashboard.href, '.ds-featured-dashboard', {

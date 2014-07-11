@@ -7,6 +7,7 @@ SQLALCHEMY_DATABASE_URI    = 'sqlite:///tessera.db'
 GRAPHITE_URL               = 'http://localhost:8080'
 SERVER_ADDRESS             = '0.0.0.0'
 SERVER_PORT                = 5000
+APPLICATION_ROOT = '/tessera'
 INTERACTIVE_CHARTS_DEFAULT = True
 INTERACTIVE_CHARTS_RENDERER = 'nvd3'
 DASHBOARD_RANGE_PICKER = [

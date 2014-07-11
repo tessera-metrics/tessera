@@ -56,9 +56,9 @@
 
   <script>
    {% if tag %}
-      var path = '/api/dashboard/tagged/{{tag}}?sort={{ctx.get('sort', 'created')}}&order={{ctx.get('order', 'desc')}}'
+      var path = ds.uri('/api/dashboard/tagged/{{tag}}?sort={{ctx.get('sort', 'created')}}&order={{ctx.get('order', 'desc')}}')
     {% else %}
-      var path = '/api/dashboard/?sort={{ctx.get('sort', 'created')}}&order={{ctx.get('order', 'desc')}}'
+      var path = ds.uri('/api/dashboard/?sort={{ctx.get('sort', 'created')}}&order={{ctx.get('order', 'desc')}}')
     {% endif %}
     ds.manager.list(path, function(data) {
       var rendered = ds.templates.listing.dashboard_list(data)
@@ -67,7 +67,7 @@
 
     $.ajax({
       dataType: 'json',
-      url: '/api/tag/'
+      url: ds.uri('/api/tag/')
     }).done(function(data) {
       var context = { tags: data.tags }
     {% if tag %}

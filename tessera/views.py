@@ -22,6 +22,12 @@ log = logging.getLogger(__name__)
 # API Helpers
 # =============================================================================
 
+def _uri(path):
+    root = app.config['APPLICATION_ROOT']
+    if root:
+        return root + path
+    return path
+
 def _jsonify(data, status=200, headers=None):
     response = flask.Response(status=status,
                               mimetype="application/json",
@@ -99,12 +105,12 @@ representation. dash should be the dictionary for of the dashboard,
 not the model object.
     """
     id = dash['id']
-    dash['href'] = '/api/dashboard/{0}'.format(id)
-    dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
-    dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
+    dash['href'] = _uri('/api/dashboard/{0}'.format(id))
+    dash['definition_href'] = _uri('/api/dashboard/{0}/definition'.format(id))
+    dash['view_href'] = _uri('/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title'])))
     if 'definition' in dash:
         definition = dash['definition']
-        definition['href'] = '/api/dashboard/{0}/definition'.format(id)
+        definition['href'] = _uri('/api/dashboard/{0}/definition'.format(id))
     return dash
 
 def _dashboards_response(dashboards):
@@ -124,7 +130,7 @@ def _set_tag_hrefs(tag):
 representation.
     """
     id = tag['id']
-    tag['href'] = '/api/tag/{0}'.format(id)
+    tag['href'] = _uri('/api/tag/{0}'.format(id))
     return tag
 
 def _tags_response(tags):
@@ -227,7 +233,7 @@ def api_dashboard_create():
     else:
         dashboard.definition = database.DashboardDef(dumps(DashboardDefinition()))
     mgr.store_dashboard(dashboard)
-    href = '/api/dashboard/{0}'.format(dashboard.id)
+    href = _uri('/api/dashboard/{0}'.format(dashboard.id))
     return _jsonify({ 'ok' : True,
                       'dashboard_href' : href,
                       # TODO: should use normalized method for this
@@ -274,8 +280,8 @@ def api_dashboard_get_definition(id):
         definition = database.Dashboard.query.get_or_404(id).definition.to_json()
     except HTTPException as e:
         raise _set_exception_response(e)
-    definition['href'] = '/api/dashboard/{0}/definition'.format(id)
-    definition['dashboard_href'] = '/api/dashboard/{0}'.format(id)
+    definition['href'] = _uri('/api/dashboard/{0}/definition'.format(id))
+    definition['dashboard_href'] = _uri('/api/dashboard/{0}'.format(id))
     return _jsonify({
         'ok' : True,
         'definition' : definition
