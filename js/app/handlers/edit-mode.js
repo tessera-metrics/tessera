@@ -82,6 +82,18 @@
     return true
   })
 
+  /* Query duplicate buttons */
+  $(document).on('click', 'button.ds-duplicate-query-button', function(e) {
+    var $elt       = $(this)
+    var query_name = $elt.attr('data-ds-query-name')
+    var dashboard  = ds.manager.current.dashboard
+    if (!dashboard.definition.queries[query_name])
+      return true
+    duplicate_query(dashboard, query_name)
+    return true
+  })
+
+
   ds.edit.edit_queries = function() {
     /* Query names */
     $('th.ds-query-name').each(function(index, e) {
@@ -146,6 +158,12 @@
     query.load()
     ds.edit.edit_queries()
     return query
+  }
+
+  function duplicate_query(dashboard, name) {
+    var new_name = 'Copy of ' + name + ' ' + Object.keys(dashboard.definition.queries).length
+    var source   = dashboard.definition.queries[name]
+    return add_query(dashboard, new_name, source.targets.slice(0))
   }
 
   function new_query(dashboard, targets) {
