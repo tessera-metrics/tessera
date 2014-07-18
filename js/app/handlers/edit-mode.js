@@ -144,6 +144,9 @@
     ds.app.refresh_mode()
   }
 
+  /**
+   * Delete a query and remove it from the queries list in the UI.
+   */
   function delete_query(dashboard, query_name) {
     dashboard.definition.delete_query(query_name)
     $('tr[data-ds-query-name="' + query_name + '"]').remove()
@@ -151,6 +154,9 @@
     ds.app.refresh_mode()
   }
 
+  /**
+   * Add a new query to the dashboard and UI.
+   */
   function add_query(dashboard, name, target) {
     var query = ds.models.data.Query({name: name, targets: target})
     dashboard.definition.add_query(query)
@@ -166,17 +172,23 @@
     return add_query(dashboard, new_name, source.targets.slice(0))
   }
 
+  /**
+   * Add a new query object to the dashboard and UI with an
+   * auto-generated unique name, and an optional set of targets. If
+   * targets are not supplied, a function generating random data will
+   * be used as a placeholder.
+   */
   function new_query(dashboard, targets) {
     var name = "query" + Object.keys(dashboard.definition.queries).length
     return add_query(dashboard, name, targets || 'absolute(randomWalkFunction("' + name + '"))')
   }
 
+  var PROPERTY_SHEET_TIMEOUT = 3000
+
   /**
    * Event handlers to show & hide the action bar & property sheet for
    * dashboard items.
    */
-
-  var PROPERTY_SHEET_TIMEOUT = 3000
 
   $(document).on('click', '.ds-edit-bar .badge', function(event) {
     var $elt = $(this)
