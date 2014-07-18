@@ -16,8 +16,10 @@ $(document).on('click', '.ds-recent-range-picker li, .ds-recent-range-picker a, 
     $('.ds-recent-range-picker').hide()
     $('.ds-custom-range-picker').show()
 
-    // TODO - set initial values of from/until fields to something
-    // reasonable
+    var now = moment() // TODO: quantize to 15-min interval
+    $('#ds-range-picker-until').data("DateTimePicker").setDate(now)
+    // set to now -3 hours
+    // $('#ds-range-picker-from').data("DateTimePicker").setDate(moment())
 
   } else if (range === 'recent') {
     $('.ds-custom-range-picker').hide()
