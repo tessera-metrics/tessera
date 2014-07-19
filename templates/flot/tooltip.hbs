@@ -1,0 +1,20 @@
+<table class="table-condensed">
+  <tbody>
+    <tr>
+      <td>
+        <span class="ds-tooltip-time">{{moment "dd, h:mm A UTC" time}}</span>
+      </td>
+    </tr>
+    {{#each items}}
+      <tr>
+        <td class="ds-tooltip-label">
+          <span class="badge" style="background-color: {{series.color}}"><i></i></span>
+          {{series.label}}
+        </td>
+        <td class="ds-tooltip-value">
+          {{format ",.3s" value}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
