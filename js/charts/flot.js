@@ -98,10 +98,10 @@ ds.charts.flot =
         /* TODO: should do all this with handlebars templates; this is
          * left over from looong ago */
         var contents
-              = '<table class="table table-condensed"><tbody>'
-              + '<tr><span class="ds-tooltip-time">'
+              = '<table class="table-condensed"><tbody>'
+              + '<tr><td><span class="ds-tooltip-time">'
               + moment(point[0]).format('dd, h:mm:ss A UTC')
-              + '</span></tr>'
+              + '</span></td></tr>'
         $.each(items, function(index, item) {
           var ser = series[item.serieIndex]
           var pair = ser.data[item.dataIndex]

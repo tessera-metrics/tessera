@@ -292,13 +292,14 @@ h1 .ds-secondary-title {
 
 #ds-tooltip {
     opacity: 1.0;
-    padding: 12px;
+    padding: 6px;
     margin-left: 40px;
-    padding-bottom: 0;
+    font-size: 0.9em;
 }
 
 td.ds-tooltip-label span.badge {
-    height: 1.1em;
+    height: 1em;
+    border-radius: 0px;
 }
 td.ds-tooltip-value {
     padding-right: 8px;
