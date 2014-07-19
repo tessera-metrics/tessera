@@ -1,11 +1,11 @@
-$(document).on('dp.change', '#ds-range-picker-from', function(e) {
+$(document).on('dp.change', '#ds-range-picker-from, #ds-range-picker-until', function(e) {
   var from = $('#ds-range-picker-from').data("DateTimePicker").getDate()
-  console.log('set from time: ' + moment(from).fromNow())
-})
-
-$(document).on('dp.change', '#ds-range-picker-until', function(e) {
   var until = $('#ds-range-picker-until').data("DateTimePicker").getDate()
-  console.log('set until time: ' + moment(until).fromNow())
+  if (from && until) {
+    var GRAPHITE_FORMAT = 'HH:mm_YYYYMMDD'
+    // console.log('setting range to ' + from.calendar() + ' until ' + until.calendar())
+    ds.manager.set_time_range(from.format(GRAPHITE_FORMAT), until.format(GRAPHITE_FORMAT))
+  }
 })
 
 $(document).on('click', '.ds-recent-range-picker li, .ds-recent-range-picker a, .ds-custom-range-picker ul li, .ds-custom-range-picker ul li a', function(e) {
@@ -15,14 +15,15 @@ $(document).on('click', '.ds-recent-range-picker li, .ds-recent-range-picker a, 
     $('.ds-recent-range-picker').hide()
     $('.ds-custom-range-picker').show()
 
-    var now          = moment().utc().startOf('minute')
+    var now = moment().utc().startOf('minute')
     now.minute( Math.round(now.minute() / 15) * 15) // quantize to 15-min interval
+
+    var from_picker = $('#ds-range-picker-from').data("DateTimePicker")
+    from_picker.setDate(now.clone().subtract('hours', 3))
+
     var until_picker = $('#ds-range-picker-until').data("DateTimePicker")
     until_picker.setDate(now)
-    until_picker.setMaxDate(now.endOf('day'))
-
-    // set to now -3 hours
-    // $('#ds-range-picker-from').data("DateTimePicker").setDate(moment())
+    until_picker.setMaxDate(now.clone().endOf('day'))
 
   } else if (range === 'recent') {
     $('.ds-custom-range-picker').hide()
