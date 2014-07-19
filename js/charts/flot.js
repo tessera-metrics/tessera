@@ -50,7 +50,7 @@ ds.charts.flot =
         legend: {
           container: null,
           noColumns: 2,
-          position: 'nw',
+          position: 'sw',
           backgroundColor: 'transparent',
           labelBoxBorderColor: 'transparent'
         },
@@ -72,7 +72,7 @@ ds.charts.flot =
         },
         crosshair: {
           mode: "x",
-          color: "red",
+          color: "#BBB",
           lineWidth: 1
         }
       }
@@ -141,17 +141,21 @@ ds.charts.flot =
           plot: null
       }
       setup_plugins(e, context)
+      var defaults = get_default_options()
       context.plot = $.plot($(e), query.chart_data('flot'),
                             ds.extend(get_default_options(), {
                               colors: ds.charts.util.get_palette(options.palette),
-                              grid: {
+                              grid: ds.extend(defaults.grid, {
                                 borderWidth: 0,
                                 hoverable: true,
                                 clickable: true,
                                 autoHighlight: false
-                              },
-                              multihighlight: {
-                                mode: "x"
+                              }),
+                              legend: {
+                                container: '#ds-legend-' + item.item_id,
+                                labelBoxBorderColor: 'transparent',
+                                show: true,
+                                noColumns: 4
                               }
                             }))
       return self
@@ -191,6 +195,12 @@ ds.charts.flot =
       context.plot = $.plot($(e), query.chart_data('flot'),
                             ds.extend(get_default_options(), {
                               colors: ds.charts.util.get_palette(options.palette),
+                              legend: {
+                                container: '#ds-legend-' + item.item_id,
+                                labelBoxBorderColor: 'transparent',
+                                show: true,
+                                noColumns: 4
+                              },
                               series: {
                                 lines: { show: true, lineWidth: 1, fill: 1},
                                 stack: true,

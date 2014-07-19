@@ -192,7 +192,7 @@ h1 .ds-secondary-title {
     font-size:30px;
 }
 
-.ds-graph-holder {
+.ds-graph {
     margin-bottom: 2em;
 }
 
@@ -290,6 +290,8 @@ h1 .ds-secondary-title {
     margin-bottom: 2em;
 }
 
+/* Flot charts */
+
 #ds-tooltip {
     opacity: 1.0;
     padding: 6px;
@@ -308,6 +310,15 @@ td.ds-tooltip-value {
     text-align: right;
 }
 
+.ds-tooltip-time {
+    font-weight: bold;
+}
+
+.ds-legend-holder .legendLabel {
+    padding-right: 12px;
+}
+
+/* Comparison table dashboard items */
 
 td.ds-diff-plus::before {
     content: "+";
