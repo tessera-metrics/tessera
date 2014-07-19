@@ -160,6 +160,15 @@ h1 .ds-secondary-title {
     box-shadow: none;
 }
 
+.input-group-addon {
+    color: #DDD;
+    -webkit-box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset;
+    -moz-box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset;
+    box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0, rgba(0, 0, 0, 0.8) 0 1px 7px 0px inset;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 0;
+}
+
 .btn-default {
     color: #DDD;
     background-color: #555;
