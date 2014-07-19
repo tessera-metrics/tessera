@@ -27,6 +27,24 @@
           <!-- Form Name -->
           <!-- <legend>Form Name</legend> -->
 
+
+          <!-- Default Auto-Refresh Period -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="selectRefresh">Default Refresh Period</label>
+            <div class="col-md-4">
+              <select id="selectRefresh" name="selectRefresh" class="form-control"
+                      onchange="setPref('refresh', this.value)">
+                {% for item in config['DASHBOARD_REFRESH_INTERVALS'] %}
+                <option value="{{item[1]}}"
+                        {% if item[1] == ctx.get_int('refresh', config['DEFAULT_REFRESH_INTERVAL']) %}
+                  selected
+                        {% endif %}
+                        >{{item[0]}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
           <!-- Chart Style -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="chartRadios">Default Chart Style</label>

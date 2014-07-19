@@ -40,3 +40,4 @@ built with as many "off-the-shelf" components as possible.
 * [x-editable](http://vitalets.github.io/x-editable/)
 * [color](https://github.com/harthur/color)
 * [mousetrap](https://github.com/ccampbell/mousetrap)
+* [simple-statistics](https://github.com/tmcw/simple-statistics)

@@ -330,8 +330,15 @@ ds.manager =
        ----------------------------------------------------------------------------- */
 
     self.set_time_range = function(from, until) {
-        var location = URI(window.location).setQuery('from', from).href()
-        window.history.pushState({url: self.current.url, element:self.current.element}, '', location)
+        var uri = URI(window.location)
+        from
+            ? uri.setQuery('from', from)
+            : uri.removeQuery('from')
+        until
+            ? uri.setQuery('until', until)
+            : uri.removeQuery('until')
+
+        window.history.pushState({url: self.current.url, element:self.current.element}, '', uri.href())
 
         self.current.setRange(from, until)
         bean.fire(self, ds.app.Event.RANGE_CHANGED, {

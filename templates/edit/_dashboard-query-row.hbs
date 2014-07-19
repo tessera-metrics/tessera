@@ -2,8 +2,19 @@
   <th data-ds-query-name="{{name}}" class="ds-query-name">{{name}}</th>
   <td data-ds-query-name="{{name}}" class="ds-query-target">{{targets}}</td>
   <td>
-    <button class="btn btn-default btn-small ds-delete-query-button" data-ds-query-name="{{name}}">
-    <i class="fa fa-trash-o"></i>
-  </button>
+    <div class="btn-group">
+      <button class="btn btn-default btn-small ds-duplicate-query-button"
+              data-toggle="tooltip"
+              title="Duplicate this query"
+              data-ds-query-name="{{name}}">
+        <i class="fa fa-copy"></i>
+      </button>
+      <button class="btn btn-default btn-small ds-delete-query-button"
+              data-toggle="tooltip"
+              title="Delete this query"
+              data-ds-query-name="{{name}}">
+        <i class="fa fa-trash-o"></i>
+      </button>
+    </div>
   </td>
 </tr>

@@ -162,7 +162,8 @@ ds.models.item.Transform = {
   SUM: 'sum',
   MIN: 'min',
   MAX: 'max',
-  MEAN: 'mean'
+  MEAN: 'mean',
+  MEDIAN: 'median'
 }
 
 ds.models.item.interactive_properties = [

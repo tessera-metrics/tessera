@@ -331,6 +331,13 @@ td.ds-diff-minus {
     text-align: right;
 }
 
+.ds-custom-range-picker {
+    display: inline-block;
+}
+
+.ds-custom-range-picker .row {
+    margin-bottom: 0px;
+}
 
 /* -----------------------------------------------------------------------------
  Edit mode headers

@@ -4,7 +4,7 @@
           class="btn btn-default ds-refresh-button"
           data-toggle="tooltip"
           data-placement="bottom"
-          title="Refresh">
+          title="Refresh (current: {{ctx.get_int('refresh', config['DEFAULT_REFRESH_INTERVAL'])}}s)">
     <i class="fa fa-refresh"></i>
   </button>
 
@@ -26,14 +26,9 @@
     <br style="display:none" data-ds-show="display" />
     <li role="presentation" class="dropdown-header"><i class="fa fa-clock-o"></i> Auto Refresh</li>
     <li class="divider"></li>
-    <li data-ds-interval="0"><a href="#">None</a></li>
-    <li data-ds-interval="30"><a href="#">30 seconds</a></li>
-    <li data-ds-interval="60"><a href="#">1 minute</a></li>
-    <li data-ds-interval="120"><a href="#">2 minutes</a></li>
-    <li data-ds-interval="300"><a href="#">5 minutes</a></li>
-    <li data-ds-interval="600"><a href="#">10 minutes</a></li>
-    <li data-ds-interval="1800"><a href="#">30 minutes</a></li>
-    <li data-ds-interval="3600"><a href="#">1 hour</a></li>
+    {% for item in config['DASHBOARD_REFRESH_INTERVALS'] %}
+    <li data-ds-interval="{{item[1]}}"><a href="#">{{item[0]}}</a></li>
+    {% endfor %}
   </ul>
 
 </div>
