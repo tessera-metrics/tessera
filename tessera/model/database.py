@@ -47,8 +47,8 @@ class DashboardRecord(db.Model):
         self.imported_from = imported_from
         self.tags = tags or []
 
-    def to_json(self):
-        return {
+    def to_json(self, include_definition=False):
+        data = {
             'id'            : self.id,
             'title'         : self.title,
             'category'      : self.category,
@@ -59,6 +59,9 @@ class DashboardRecord(db.Model):
             'imported_from' : self.imported_from,
             'tags'          : self.tags
         }
+        if include_definition:
+            data['definition'] = json.loads(self.definition.definition)
+        return data
 
     def merge_from_json(self, d):
         for attr in ['title', 'category', 'description', 'summary', 'imported_from']:

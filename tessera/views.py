@@ -115,9 +115,11 @@ will be converted to their JSON representation.
     """
     if not isinstance(dashboards, list):
         dashboards = [dashboards]
+
+    include_definition = _get_param('definition', False)
     return _jsonify({
         'ok' : True,
-        'dashboards' : [ _set_dashboard_hrefs(d.to_json()) for d in dashboards]
+        'dashboards' : [ _set_dashboard_hrefs(d.to_json(include_definition=include_definition)) for d in dashboards]
     })
 
 def _set_tag_hrefs(tag):
@@ -204,14 +206,13 @@ def api_dashboard_get(id):
         dashboard = database.DashboardRecord.query.get_or_404(id)
     except HTTPException as e:
         raise _set_exception_response(e)
-    dash = _set_dashboard_hrefs(dashboard.to_json())
+    rendering = _get_param('rendering', False)
+    include_definition = _get_param('definition', False)
+    dash = _set_dashboard_hrefs(dashboard.to_json(rendering or include_definition))
     response = {
         'ok' : True,
         'dashboards' : [dash]
     }
-    rendering = _get_param('rendering', False)
-    if rendering or _get_param('definition', False):
-        dash['definition'] = json.loads(dashboard.definition.definition)
     if rendering:
         response['config'] = _get_config()
         response['preferences'] = _get_preferences()
