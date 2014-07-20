@@ -6,7 +6,8 @@ from ..application import db
 # Database model
 # =============================================================================
 
-class Dashboard(db.Model):
+class DashboardRecord(db.Model):
+    __tablename__ = 'dashboard'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80))
     category = db.Column(db.String(40))
@@ -15,8 +16,8 @@ class Dashboard(db.Model):
     creation_date = db.Column(db.DateTime)
     imported_from = db.Column(db.String(200))
     last_modified_date = db.Column(db.DateTime)
-    definition = db.relationship('DashboardDef', uselist=False, backref='dashboard')
-    tags = db.relationship('Tag',
+    definition = db.relationship('DefinitionRecord', uselist=False, backref='dashboard', cascade='all, delete-orphan')
+    tags = db.relationship('TagRecord',
                            secondary=lambda: dashboard_tags,
                            backref=db.backref('dashboards', lazy='dynamic', viewonly=True),
                            lazy='joined')
@@ -54,21 +55,22 @@ class Dashboard(db.Model):
             if hasattr(self, attr):
                 setattr(self, attr, d[attr])
         if 'tags' in d:
-            self.tags = [Tag.canonicalize(t) for t in d['tags']]
+            self.tags = [TagRecord.canonicalize(t) for t in d['tags']]
 
     @classmethod
     def from_json(cls, data):
         tags = []
         if 'tags' in data:
-            tags = [Tag.canonicalize(t) for t in data['tags']]
-        return Dashboard(title=data.get('title'),
-                         category=data.get('category', None),
-                         summary=data.get('summary', None),
-                         description=data.get('description', None),
-                         tags=tags,
-                         imported_from=data.get('imported_from', None))
+            tags = [TagRecord.canonicalize(t) for t in data['tags']]
+        return DashboardRecord(title=data.get('title'),
+                               category=data.get('category', None),
+                               summary=data.get('summary', None),
+                               description=data.get('description', None),
+                               tags=tags,
+                               imported_from=data.get('imported_from', None))
 
-class DashboardDef(db.Model):
+class DefinitionRecord(db.Model):
+    __tablename__ = 'dashboard_def'
     id = db.Column(db.Integer, primary_key=True)
     dashboard_id = db.Column(db.Integer, db.ForeignKey('dashboard.id'))
     definition = db.Column(db.Text)
@@ -79,7 +81,8 @@ class DashboardDef(db.Model):
     def to_json(self):
         return json.loads(self.definition)
 
-class Tag(db.Model):
+class TagRecord(db.Model):
+    __tablename__ = 'tag'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
     description = db.Column(db.Text)
@@ -112,17 +115,17 @@ class Tag(db.Model):
 
     @classmethod
     def canonicalize(cls, tag):
-        if isinstance(tag, Tag) and tag.id is not None:
+        if isinstance(tag, TagRecord) and tag.id is not None:
             return tag
         elif isinstance(tag, dict):
-            tag = Tag.from_json(tag)
+            tag = TagRecord.from_json(tag)
         elif isinstance(tag, basestring):
-            tag = Tag(name=tag)
+            tag = TagRecord(name=tag)
         return cls.query.filter_by(name=tag.name).first() or tag
 
     @classmethod
     def from_json(cls, data):
-        return Tag(**data)
+        return TagRecord(**data)
 
 dashboard_tags = db.Table('dashboard_tags',
                           db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
@@ -140,7 +143,7 @@ class DatabaseManager(object):
     def store_dashboard(self, d, commit=True):
         # There's undoubtedly a better way to do this
         if d.tags:
-            d.tags = [Tag.canonicalize(t) for t in d.tags]
+            d.tags = [TagRecord.canonicalize(t) for t in d.tags]
         d.last_modified_date = datetime.utcnow()
         db.session.add(d)
         if commit:
