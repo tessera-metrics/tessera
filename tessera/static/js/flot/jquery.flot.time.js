@@ -406,6 +406,8 @@ API.txt for details.
 							fmt = "%Y";
 						}
 
+						var offset_from_utc = moment.tz.zone(axis.options.timezone).parse(d.getTime());
+						d.setTime(d.getTime() - offset_from_utc * 60 * 1000);
 						var rt = formatDate(d, fmt, opts.monthNames, opts.dayNames);
 
 						return rt;

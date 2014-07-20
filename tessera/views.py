@@ -52,6 +52,7 @@ def _get_config():
     """Retrieve a dictionary containing all UI-relevant config settings."""
     return {
         'GRAPHITE_URL' : app.config['GRAPHITE_URL'],
+        'DISPLAY_TIMEZONE' : app.config.get('DISPLAY_TIMEZONE', 'UTC'),
         'DEFAULT_FROM_TIME' : app.config['DEFAULT_FROM_TIME']
     }
 

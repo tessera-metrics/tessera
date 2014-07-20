@@ -5,6 +5,7 @@ DEFAULT_THEME              = 'light'
 DASHBOARD_APPNAME          = 'Tessera'
 SQLALCHEMY_DATABASE_URI    = 'sqlite:///tessera.db'
 GRAPHITE_URL               = 'http://localhost:8080'
+DISPLAY_TIMEZONE           = 'UTC'
 SERVER_ADDRESS             = '0.0.0.0'
 SERVER_PORT                = 5000
 INTERACTIVE_CHARTS_DEFAULT = True
