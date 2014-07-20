@@ -40,10 +40,15 @@ class Thresholds(object):
         self.warning        = warning
         self.danger         = danger
 
+
+
 class DashboardItem(object):
     """
     JS class: ds.models.item
     """
+
+    CLASS_MAP = {}
+
     def __init__(self,
                  item_type,
                  css_class = None,
@@ -59,48 +64,22 @@ class DashboardItem(object):
 
     @classmethod
     def from_json(cls, d):
-
-        # TODO - this can be handled more cleanly and more
-        # pythonically. E.g. with a dict, or some decorators, or a
-        # metaclass.
         item_type = d['item_type']
         _delattr(d, 'item_type')
 
-        # Layouts
-        if item_type == 'separator':
-            return Separator.from_json(d)
-        elif item_type == 'heading':
-            return Heading.from_json(d)
-        elif item_type == 'markdown':
-            return Markdown.from_json(d)
-        elif item_type == 'row':
-            return Row.from_json(d)
-        elif item_type == 'cell':
-            return Cell.from_json(d)
-        elif item_type == 'section':
-            return Section.from_json(d)
-        elif item_type == 'dashboard_definition':
-            return DashboardDefinition.from_json(d)
-
-            # Presentations
-        elif item_type == 'singlestat':
-            return SingleStat.from_json(d)
-        elif item_type == 'jumbotron_singlestat':
-            return JumbotronSingleStat.from_json(d)
-        elif item_type == 'simple_time_series':
-            return SimpleTimeSeries.from_json(d)
-        elif item_type == 'singlegraph':
-            return SingleGraph.from_json(d)
-        elif item_type == 'standard_time_series':
-            return StandardTimeSeries.from_json(d)
-        elif item_type == 'stacked_area_chart':
-            return StackedAreaChart.from_json(d)
-        elif item_type == 'summation_table':
-            return SummationTable.from_json(d)
-        elif item_type == 'donut_chart':
-            return DonutChart.from_json(d)
+        if item_type in cls.CLASS_MAP:
+            return cls.CLASS_MAP[item_type].from_json(d)
         else:
             return GenericDashboardItem(item_type, **d)
+
+    @classmethod
+    def model(cls, item_type):
+        def process(model_cls):
+            model_cls.dashboard_item_type = item_type
+            cls.CLASS_MAP[item_type] = model_cls
+            return model_cls
+        return process
+
 
 class GenericDashboardItem(DashboardItem):
     def __init__(self,
@@ -156,6 +135,7 @@ class Presentation(DashboardItem):
 # Text Presentations
 # -----------------------------------------------------------------------------
 
+@DashboardItem.model('singlestat')
 class SingleStat(Presentation):
     """
     JS class: ds.models.singlestat
@@ -182,6 +162,7 @@ class SingleStat(Presentation):
         _delattr(d, 'item_type')
         return cls(**d)
 
+@DashboardItem.model('jumbotron_singlestat')
 class JumbotronSingleStat(SingleStat):
     """
     JS class: ds.models.jumbotron_singlestat
@@ -200,6 +181,7 @@ class TablePresentation(Presentation):
     def __init__(self, **kwargs):
         super(TablePresentation, self).__init__(**kwargs)
 
+@DashboardItem.model('summation_table')
 class SummationTable(TablePresentation):
     """
     JS class: ds.models.summation_table
@@ -241,6 +223,7 @@ class ChartPresentation(Presentation):
         self.options     = options or {}
         self.interactive = interactive
 
+@DashboardItem.model('donut_chart')
 class DonutChart(ChartPresentation):
     """
     JS class: ds.models.donut_chart
@@ -253,6 +236,7 @@ class DonutChart(ChartPresentation):
         _delattr(d, 'item_type')
         return cls(**d)
 
+@DashboardItem.model('simple_time_series')
 class SimpleTimeSeries(ChartPresentation):
     """A simple, somewhat abstracted view of a single time series,
     presented without a lot of chart extras, for high level
@@ -274,6 +258,7 @@ class SimpleTimeSeries(ChartPresentation):
         _delattr(d, 'item_type')
         return cls(**d)
 
+@DashboardItem.model('singlegraph')
 class SingleGraph(ChartPresentation):
     """A combination of SingleStat and SimpleTimeSeries - displays a
     single metric as a line graph, with a summation value overlayed
@@ -297,6 +282,7 @@ class SingleGraph(ChartPresentation):
         _delattr(d, 'item_type')
         return cls(**d)
 
+@DashboardItem.model('standard_time_series')
 class StandardTimeSeries(ChartPresentation):
     """A multi-series time series line chart, with all the bells and
     whistles.
@@ -312,6 +298,7 @@ class StandardTimeSeries(ChartPresentation):
         _delattr(d, 'item_type')
         return cls(**d)
 
+@DashboardItem.model('stacked_area_chart')
 class StackedAreaChart(ChartPresentation):
     """A multi-series stacked time series area chart, with all the bells
     and whistles and a few extras to boot.
@@ -349,6 +336,7 @@ class DashboardContainer(DashboardItem):
         data['items'] = [DashboardItem.from_json(i) for i in data['items']]
 
 
+@DashboardItem.model('cell')
 class Cell(DashboardContainer):
     """Cell defines how to position and size a presentation on the
     grid. Cells should be contained in Rows.
@@ -371,7 +359,7 @@ class Cell(DashboardContainer):
         return Cell(**d)
 
 
-
+@DashboardItem.model('row')
 class Row(DashboardContainer):
     """A row holds one or more Cells, which span a single row in the
     rendered layout grid. An instance of Row maps directly to a <div
@@ -387,6 +375,7 @@ class Row(DashboardContainer):
         return Row(**d)
 
 
+@DashboardItem.model('section')
 class Section(DashboardContainer):
     class Layout:
         FIXED = 'fixed'
@@ -410,6 +399,8 @@ class Section(DashboardContainer):
         _delattr(d, 'item_type')
         return Section(**d)
 
+
+@DashboardItem.model('separator')
 class Separator(DashboardItem):
     """A visual element to separate groups of elements.
     """
@@ -421,6 +412,7 @@ class Separator(DashboardItem):
         return Separator(**d)
 
 
+@DashboardItem.model('heading')
 class Heading(DashboardItem):
     """A large text label."""
     def __init__(self,
@@ -437,6 +429,7 @@ class Heading(DashboardItem):
     def from_json(cls, d):
         return Heading(**d)
 
+@DashboardItem.model('markdown')
 class Markdown(DashboardItem):
     def __init__(self,
                  text = None,
@@ -451,6 +444,7 @@ class Markdown(DashboardItem):
         return Markdown(**d)
 
 
+@DashboardItem.model('dashboard_definition')
 class DashboardDefinition(DashboardContainer):
     def __init__(self,
                  queries   = None,
