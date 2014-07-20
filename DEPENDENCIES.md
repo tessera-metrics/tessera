@@ -30,6 +30,7 @@ built with as many "off-the-shelf" components as possible.
 * [flot](http://www.flotcharts.org/) for alternative interactive chart
   rendering.
 * [moment.js](http://momentjs.com/) for time parsing & formatting.
+  * [moment-timezone.js](http://momentjs.com/timezone/)
 * [bean.js](https://github.com/fat/bean) for events.
 * [handlebars.js](http://handlebarsjs.com/) for client side templating.
 * [marked](https://github.com/chjj/marked) for Markdown support.
