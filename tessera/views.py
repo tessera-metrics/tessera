@@ -77,15 +77,15 @@ def _dashboard_sort_column():
 the 'sort' and 'order' request parameters.
     """
     columns = {
-        'created' : database.Dashboard.creation_date,
-        'modified' : database.Dashboard.last_modified_date,
-        'category' : database.Dashboard.category,
-        'id' : database.Dashboard.id,
-        'title' : database.Dashboard.title
+        'created' : database.DashboardRecord.creation_date,
+        'modified' : database.DashboardRecord.last_modified_date,
+        'category' : database.DashboardRecord.category,
+        'id' : database.DashboardRecord.id,
+        'title' : database.DashboardRecord.title
     }
     colname = _get_param('sort', 'created')
     order   = _get_param('order')
-    column  = database.Dashboard.creation_date
+    column  = database.DashboardRecord.creation_date
     if colname in columns:
         column = columns[colname]
 
@@ -154,7 +154,7 @@ def api_dashboard_list():
     definitions.
 
     """
-    dashboards = [d for d in database.Dashboard.query.order_by(_dashboard_sort_column()).all()]
+    dashboards = [d for d in database.DashboardRecord.query.order_by(_dashboard_sort_column()).all()]
     return _dashboards_response(dashboards)
 
 @app.route('/api/dashboard/tagged/<tag>')
@@ -163,7 +163,7 @@ def api_dashboard_list_tagged(tag):
     the metadata, not the definitions.
 
     """
-    tag = database.Tag.query.filter_by(name=tag).first()
+    tag = database.TagRecord.query.filter_by(name=tag).first()
     if not tag:
         return _dashboards_response([])
     dashboards = [d for d in tag.dashboards.order_by(_dashboard_sort_column()) if tag]
@@ -175,7 +175,7 @@ def api_dashboard_list_dashboards_in_category(category):
     just the metadata, not the definitions.
 
     """
-    dashboards = [d for d in database.Dashboard.query
+    dashboards = [d for d in database.DashboardRecord.query
                   .filter_by(category=category)
                   .order_by(_dashboard_sort_column()) ]
     return _dashboards_response(dashboards)
@@ -201,7 +201,7 @@ def api_dashboard_get(id):
 
     """
     try:
-        dashboard = database.Dashboard.query.get_or_404(id)
+        dashboard = database.DashboardRecord.query.get_or_404(id)
     except HTTPException as e:
         raise _set_exception_response(e)
     dash = _set_dashboard_hrefs(dashboard.to_json())
@@ -222,11 +222,11 @@ def api_dashboard_create():
     """Create a new dashboard with an empty definition.
 
     """
-    dashboard = database.Dashboard.from_json(request.json)
+    dashboard = database.DashboardRecord.from_json(request.json)
     if 'definition' in request.json:
-        dashboard.definition = database.DashboardDef(dumps(request.json['definition']))
+        dashboard.definition = database.DefinitionRecord(dumps(request.json['definition']))
     else:
-        dashboard.definition = database.DashboardDef(dumps(DashboardDefinition()))
+        dashboard.definition = database.DefinitionRecord(dumps(DashboardDefinition()))
     mgr.store_dashboard(dashboard)
     href = '/api/dashboard/{0}'.format(dashboard.id)
     return _jsonify({ 'ok' : True,
@@ -243,7 +243,7 @@ def api_dashboard_update(id):
     """
     body = json.loads(request.data)
     try:
-        dashboard = database.Dashboard.query.get_or_404(id)
+        dashboard = database.DashboardRecord.query.get_or_404(id)
     except HTTPException as e:
         raise _set_exception_response(e)
     dashboard.merge_from_json(body)
@@ -256,7 +256,7 @@ def api_dashboard_delete(id):
 
     """
     try:
-        dashboard = database.Dashboard.query.get_or_404(id)
+        dashboard = database.DashboardRecord.query.get_or_404(id)
     except HTTPException as e:
         raise _set_exception_response(e)
     db.session.delete(dashboard)
@@ -270,9 +270,9 @@ def api_dashboard_get_definition(id):
     representation to use when modifiying a dashboard.
 
     """
-    dashboard = database.Dashboard.query.filter_by(id=id)[0]
+    dashboard = database.DashboardRecord.query.filter_by(id=id)[0]
     try:
-        definition = database.Dashboard.query.get_or_404(id).definition.to_json()
+        definition = database.DashboardRecord.query.get_or_404(id).definition.to_json()
     except HTTPException as e:
         raise _set_exception_response(e)
     definition['href'] = '/api/dashboard/{0}/definition'.format(id)
@@ -291,7 +291,7 @@ def api_dashboard_update_definition(id):
 
     """
     try:
-        dashboard = database.Dashboard.query.get_or_404(id)
+        dashboard = database.DashboardRecord.query.get_or_404(id)
     except HTTPException as e:
         raise _set_exception_response(e)
 
@@ -301,7 +301,7 @@ def api_dashboard_update_definition(id):
     if dashboard.definition:
         dashboard.definition.definition = dumps(definition)
     else:
-        dashboard.definition = database.DashboardDef(request.data)
+        dashboard.definition = database.DashboardRecordDef(request.data)
 
     mgr.store_dashboard(dashboard)
 
@@ -325,7 +325,7 @@ def api_tag_list():
 
     tags = []
     for row in db.engine.execute(sql):
-        tag = database.Tag(name=row[1], description=row[2], fgcolor=row[3], bgcolor=row[4], count=row[5])
+        tag = database.TagRecord(name=row[1], description=row[2], fgcolor=row[3], bgcolor=row[4], count=row[5])
         tag.id = row[0]
         tags.append(tag)
 
@@ -334,7 +334,7 @@ def api_tag_list():
 @app.route('/api/tag/<id>')
 def api_tag_get(id):
     try:
-        tag = database.Tag.query.get_or_404(id)
+        tag = database.TagRecord.query.get_or_404(id)
         return _tags_response(tag)
     except HTTPException as e:
         raise _set_exception_response(e)
@@ -466,7 +466,7 @@ def ui_dashboard(id, slug=None, path=None):
             'name' : name
         }
     try:
-        dashboard = database.Dashboard.query.get_or_404(id)
+        dashboard = database.DashboardRecord.query.get_or_404(id)
         return _render_client_side_dashboard(dashboard, transform=transform)
     except HTTPException as e:
         raise _set_exception_response(e)
