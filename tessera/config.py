@@ -1,10 +1,12 @@
+from os import getenv
+
 DEBUG                      = True
 SECRET_KEY                 = 'REPLACE ME'
 DEFAULT_FROM_TIME          = '-3h'
 DEFAULT_THEME              = 'light'
 DASHBOARD_APPNAME          = 'Tessera'
 SQLALCHEMY_DATABASE_URI    = 'sqlite:///tessera.db'
-GRAPHITE_URL               = 'http://localhost:8080'
+GRAPHITE_URL               = getenv('GRAPHITE_URL', 'http://localhost:8080')
 SERVER_ADDRESS             = '0.0.0.0'
 SERVER_PORT                = 5000
 INTERACTIVE_CHARTS_DEFAULT = True
