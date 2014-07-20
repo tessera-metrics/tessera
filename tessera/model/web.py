@@ -21,6 +21,83 @@ def dumps(obj):
     return json.dumps(obj, cls=EntityEncoder, indent=0)
 
 # -----------------------------------------------------------------------------
+# Dashboard & Tag
+# -----------------------------------------------------------------------------
+
+class Dashboard(object):
+    def __init__(self,
+                 id                 = None,
+                 title              = None,
+                 category           = None,
+                 description        = None,
+                 summary            = None,
+                 creation_date      = None,
+                 last_modified_date = None,
+                 imported_from      = None,
+                 definition_href    = None,
+                 view_href          = None,
+                 href               = None,
+                 tags               = [],
+                 definition         = None):
+        self.id              = id
+        self.title           = title
+        self.category        = category
+        self.description     = description
+        self.summary         = summary
+        self.imported_from   = imported_from
+        self.definition_href = definition_href
+        self.view_href       = view_href
+        self.href            = href
+        self.tags            = [ Tag.from_json(t) for t in tags ]
+        self.definition      = DashboardDefinition.from_json(definition)
+
+    @classmethod
+    def from_json(cls, d):
+        if isinstance(d, cls):
+            return d
+        return cls(**d)
+
+class Tag(object):
+    def __init__(self,
+                 id          = None,
+                 name        = None,
+                 description = None,
+                 bgcolor     = None,
+                 fgcolor     = None,
+                 count       = None):
+        self.id          = id
+        self.name        = name
+        self.description = description
+        self.bgcolor     = bgcolor
+        self.fgcolor     = fgcolor
+        self.count       = count
+
+    @classmethod
+    def from_json(cls, d):
+        if isinstance(d, cls):
+            return d
+        elif isinstance(d, basestring):
+            return cls(name=d)
+        else:
+            return cls(**d)
+
+    def to_json(self):
+        json = {}
+        if (self.id):
+            json['id'] = self.id
+        if (self.name):
+            json['name'] = self.name
+        if (self.description):
+            json['description'] = self.description
+        if (self.bgcolor):
+            json['bgcolor'] = self.bgcolor
+        if (self.fgcolor):
+            json['fgcolor'] = self.fgcolor
+        if (self.count):
+            json['count'] = self.count
+        return json
+
+# -----------------------------------------------------------------------------
 # Dashboard Items
 # -----------------------------------------------------------------------------
 
