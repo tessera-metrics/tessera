@@ -50,13 +50,16 @@ class DashboardItem(object):
     CLASS_MAP = {}
 
     def __init__(self,
-                 item_type,
+                 item_type = None,
                  css_class = None,
                  style     = None,
                  height    = None,
                  item_id   = None,
                  **kwargs):
-        self.item_type = item_type
+        try:
+            self.item_type = self.__class__.item_type
+        except AttributeError:
+            self.item_type = item_type
         self.item_id   = item_id
         self.css_class = css_class
         self.height    = height
@@ -64,6 +67,9 @@ class DashboardItem(object):
 
     @classmethod
     def from_json(cls, d):
+        if isinstance(d, DashboardItem):
+            return d
+
         item_type = d['item_type']
         _delattr(d, 'item_type')
 
@@ -75,7 +81,7 @@ class DashboardItem(object):
     @classmethod
     def model(cls, item_type):
         def process(model_cls):
-            model_cls.dashboard_item_type = item_type
+            model_cls.item_type = item_type
             cls.CLASS_MAP[item_type] = model_cls
             return model_cls
         return process
@@ -149,7 +155,6 @@ class SingleStat(Presentation):
                  transform = Presentation.Transform.MEAN,
                  **kwargs):
         super(SingleStat, self).__init__(query=query,
-                                         item_type=kwargs.get('item_type', 'singlestat'),
                                          **kwargs)
         self.title     = title
         self.transform = transform
@@ -169,7 +174,6 @@ class JumbotronSingleStat(SingleStat):
     """
     def __init__(self, **kwargs):
         super(JumbotronSingleStat, self).__init__(**kwargs)
-        self.item_type='jumbotron_singlestat'
 
     @classmethod
     def from_json(cls, d):
@@ -229,7 +233,7 @@ class DonutChart(ChartPresentation):
     JS class: ds.models.donut_chart
     """
     def __init__(self, **kwargs):
-        super(DonutChart, self).__init__(item_type='donut_chart', **kwargs)
+        super(DonutChart, self).__init__(**kwargs)
 
     @classmethod
     def from_json(cls, d):
@@ -347,7 +351,7 @@ class Cell(DashboardContainer):
                  offset = None,
                  align  = None,
                  **kwargs):
-        super(Cell, self).__init__(items=items, item_type='cell', **kwargs)
+        super(Cell, self).__init__(items=items, **kwargs)
         self.span   = span
         self.offset = offset
         self.align  = align
@@ -366,7 +370,7 @@ class Row(DashboardContainer):
     class="row">...</div>.
     """
     def __init__(self, items=None, **kwargs):
-        super(Row, self).__init__(items=items, item_type='row', **kwargs)
+        super(Row, self).__init__(items=items, **kwargs)
 
     @classmethod
     def from_json(cls, d):
@@ -387,7 +391,7 @@ class Section(DashboardContainer):
                  items  = None,
                  title  = None,
                  **kwargs):
-        super(Section, self).__init__(items=items, item_type='section', **kwargs)
+        super(Section, self).__init__(items=items, **kwargs)
         self.layout = layout
         self.title  = title
 
@@ -405,7 +409,7 @@ class Separator(DashboardItem):
     """A visual element to separate groups of elements.
     """
     def __init__(self, **kwargs):
-        super(Separator, self).__init__(item_type='separator', **kwargs)
+        super(Separator, self).__init__(**kwargs)
 
     @classmethod
     def from_json(cls, d):
@@ -420,7 +424,7 @@ class Heading(DashboardItem):
                  level       = 1,
                  description = None,
                  **kwargs):
-        super(Heading, self).__init__(item_type='heading', **kwargs)
+        super(Heading, self).__init__(**kwargs)
         self.text        = text
         self.level       = level
         self.description = description
@@ -435,7 +439,7 @@ class Markdown(DashboardItem):
                  text = None,
                  raw  = False,
                  **kwargs):
-        super(Markdown, self).__init__(item_type='markdown', **kwargs)
+        super(Markdown, self).__init__(**kwargs)
         self.text = text
         self.raw  = raw
 
@@ -464,5 +468,7 @@ class DashboardDefinition(DashboardContainer):
 
     @classmethod
     def from_json(cls, data):
+        if isinstance(data, DashboardDefinition) or data is None:
+            return data
         DashboardContainer._process_items(data)
         return DashboardDefinition(**data)
