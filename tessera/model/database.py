@@ -8,22 +8,32 @@ from ..application import db
 
 class DashboardRecord(db.Model):
     __tablename__ = 'dashboard'
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80))
-    category = db.Column(db.String(40))
-    summary = db.Column(db.String(60))
-    description = db.Column(db.Text)
+    id            = db.Column(db.Integer, primary_key=True)
+    title         = db.Column(db.String(80))
+    category      = db.Column(db.String(40))
+    summary       = db.Column(db.String(60))
+    description   = db.Column(db.Text)
     creation_date = db.Column(db.DateTime)
     imported_from = db.Column(db.String(200))
     last_modified_date = db.Column(db.DateTime)
-    definition = db.relationship('DefinitionRecord', uselist=False, backref='dashboard', cascade='all, delete-orphan')
-    tags = db.relationship('TagRecord',
-                           secondary=lambda: dashboard_tags,
-                           backref=db.backref('dashboards', lazy='dynamic', viewonly=True),
-                           lazy='joined')
+    definition    = db.relationship('DefinitionRecord',
+                                    uselist=False,
+                                    backref='dashboard',
+                                    cascade='all, delete-orphan')
+    tags          = db.relationship('TagRecord',
+                                    secondary=lambda: dashboard_tags,
+                                    backref=db.backref('dashboards',
+                                                       lazy='dynamic',
+                                                       viewonly=True),
+                                    lazy='joined')
 
-    def __init__(self, title, category=None, summary=None,
-                 description=None, creation_date=None, last_modified_date=None, imported_from=None,
+    def __init__(self, title,
+                 category=None,
+                 summary=None,
+                 description=None,
+                 creation_date=None,
+                 last_modified_date=None,
+                 imported_from=None,
                  definition=None,
                  tags=None):
         now = datetime.utcnow()
@@ -39,15 +49,15 @@ class DashboardRecord(db.Model):
 
     def to_json(self):
         return {
-            'id' : self.id,
-            'title' : self.title,
-            'category' : self.category,
-            'summary' : self.summary,
-            'description' : self.description,
+            'id'            : self.id,
+            'title'         : self.title,
+            'category'      : self.category,
+            'summary'       : self.summary,
+            'description'   : self.description,
             'creation_date' : self.creation_date.isoformat() + 'Z',
             'last_modified_date' : self.last_modified_date.isoformat() + 'Z',
             'imported_from' : self.imported_from,
-            'tags' : self.tags
+            'tags'          : self.tags
         }
 
     def merge_from_json(self, d):
@@ -62,18 +72,18 @@ class DashboardRecord(db.Model):
         tags = []
         if 'tags' in data:
             tags = [TagRecord.canonicalize(t) for t in data['tags']]
-        return DashboardRecord(title=data.get('title'),
-                               category=data.get('category', None),
-                               summary=data.get('summary', None),
-                               description=data.get('description', None),
-                               tags=tags,
-                               imported_from=data.get('imported_from', None))
+        return DashboardRecord(title         = data.get('title'),
+                               category      = data.get('category',      None),
+                               summary       = data.get('summary',       None),
+                               description   = data.get('description',   None),
+                               tags          = tags,
+                               imported_from = data.get('imported_from', None))
 
 class DefinitionRecord(db.Model):
     __tablename__ = 'dashboard_def'
-    id = db.Column(db.Integer, primary_key=True)
-    dashboard_id = db.Column(db.Integer, db.ForeignKey('dashboard.id'))
-    definition = db.Column(db.Text)
+    id            = db.Column(db.Integer, primary_key=True)
+    dashboard_id  = db.Column(db.Integer, db.ForeignKey('dashboard.id'))
+    definition    = db.Column(db.Text)
 
     def __init__(self, definition):
         self.definition = definition
@@ -83,12 +93,12 @@ class DefinitionRecord(db.Model):
 
 class TagRecord(db.Model):
     __tablename__ = 'tag'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True, nullable=False)
-    description = db.Column(db.Text)
-    bgcolor = db.Column(db.String(24))
-    fgcolor = db.Column(db.String(24))
-    count = None
+    id            = db.Column(db.Integer, primary_key=True)
+    name          = db.Column(db.String(50), unique=True, nullable=False)
+    description   = db.Column(db.Text)
+    bgcolor       = db.Column(db.String(24))
+    fgcolor       = db.Column(db.String(24))
+    count         = None
 
     def __init__(self, name, description=None, bgcolor=None, fgcolor=None, count=None, **kwargs):
         self.name = name
