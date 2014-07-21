@@ -3,8 +3,8 @@ import logging
 import json
 import inflection
 import urllib
-from tessera.model import *
-from tessera import app, db
+from tessera.api.model import *
+from tessera import app, db, database
 
 log = logging.getLogger(__name__)
 mgr = database.DatabaseManager(db)

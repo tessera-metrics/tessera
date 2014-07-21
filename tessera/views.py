@@ -9,8 +9,8 @@ import inflection
 from flask import render_template, request, session
 from werkzeug.exceptions import HTTPException
 
-from .model import *
-from .model import database
+from .api.model import *
+from . import database
 from .application import app
 from .application import db
 from ._version import __version__
