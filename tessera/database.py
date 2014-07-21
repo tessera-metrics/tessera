@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from ..application import db
+from .application import db
 
 # =============================================================================
 # Database model

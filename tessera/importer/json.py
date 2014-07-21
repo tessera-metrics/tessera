@@ -1,8 +1,8 @@
 import json
 import logging
 import inflection
-from tessera.model import *
-from tessera import db
+from tessera.api.model import *
+from tessera import db, database
 
 log = logging.getLogger(__name__)
 mgr = database.DatabaseManager(db)
