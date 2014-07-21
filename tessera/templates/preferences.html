@@ -45,6 +45,17 @@
             </div>
           </div>
 
+          <!-- Time Zone -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="selectTimeZone">Display Time Zone</label>
+            <div class="col-md-4">
+              <input type="hidden" id="selectTimeZone" name="selectTimeZone" class="form-control"
+                      onchange="setPref('timezone', this.value)">
+              </input>
+            </div>
+          </div>
+
+
           <!-- Chart Style -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="chartRadios">Default Chart Style</label>
@@ -150,6 +161,17 @@
          .setQuery(key, value)
          .href()
  }
+ $('#selectRefresh').select2()
+ $('#selectTimeZone').select2({
+   data: Object.keys(moment.tz._zones).map(function(key) {
+     var tz = moment.tz._zones[key]
+     return {
+       id: tz.name,
+       text: tz.name
+     }
+   })
+ })
+
 </script>
 
 {% endblock %}
