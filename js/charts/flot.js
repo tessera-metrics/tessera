@@ -24,6 +24,7 @@ ds.charts.flot =
         xaxis: {
           mode: "time",
           twelveHourClock: true,
+          timezone: ds.config.DISPLAY_TIMEZONE,
           // timeformat: '',
           tickColor: theme_colors.minorGridLineColor
           // axisLabel: 'Time'
