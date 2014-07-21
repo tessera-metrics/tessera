@@ -45,6 +45,7 @@ ds.models.data.Query = function(data) {
               .path('/render')
               .setQuery('format', options.format || 'png')
               .setQuery('from', options.from || ds.config.DEFAULT_FROM_TIME || self.DEFAULT_FROM_TIME)
+              .setQuery('tz', ds.config.DISPLAY_TIMEZONE)
     if (options.until) {
       url.setQuery('until', options.until)
     }

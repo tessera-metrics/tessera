@@ -31,7 +31,7 @@ ds.charts.nvd3 =
                 .width(width)
                 .height(height)
             chart.yAxis.tickFormat(d3.format((options.y1 ? options.y1.format : options.yAxisFormat) || ',.3s'))
-            chart.xAxis.tickFormat(function(d) { return moment.unix(d).fromNow() })
+            chart.xAxis.tickFormat(function(d) { return moment.unix(d).tz(ds.config.DISPLAY_TIMEZONE).fromNow() })
             d3.select(e.selector + ' svg')
                 .attr('width', width)
                 .attr('height', height)
@@ -69,7 +69,7 @@ ds.charts.nvd3 =
                 .axisLabel(options.y1 ? options.y1.label : options.yAxisLabel)
                 .tickFormat(d3.format((options.y1 ? options.y1.format : options.yAxisFormat) || ',.3s'))
             chart.xAxis
-                .tickFormat(function(d) { return moment.unix(d).format('h:mm A') })
+                .tickFormat(function(d) { return moment.unix(d).tz(ds.config.DISPLAY_TIMEZONE).format('h:mm A') })
                 .axisLabel(options.x ? options.x.label : options.xAxisLabel)
             d3.select(e.selector + ' svg')
                 .attr('width', width)
@@ -104,8 +104,7 @@ ds.charts.nvd3 =
             chart.yAxis
                 .tickFormat(d3.format((options.y1 ? options.y1.format : options.yAxisFormat) || ',.3s'))
             chart.xAxis
-            // .tickFormat(function(d) { return moment.unix(d).format('h:mm A') })
-                .tickFormat(function(d) { return moment.unix(d).fromNow() })
+                .tickFormat(function(d) { return moment.unix(d).tz(ds.config.DISPLAY_TIMEZONE).fromNow() })
             d3.select(e.selector + ' svg')
                 .attr('width', width)
                 .attr('height', height)
@@ -139,15 +138,13 @@ ds.charts.nvd3 =
                 .style(options.style || 'stack')
                 .width(width)
                 .height(height)
-            // .margin(options.margin || { top: 12, right: 16, bottom: 16, left: 40 })
             chart.yAxis
                 .axisLabel(options.y1 ? options.y1.label : options.yAxisLabel)
                 .axisLabelDistance((options.y1 ? options.y1.label_distance : options.yAxisLabelDistance) || 30)
                 .tickFormat(d3.format((options.y1 ? options.y1.format : options.yAxisFormat) || ',.3s'))
             chart.xAxis
                 .axisLabel(options.x ? options.x.label : options.xAxisLabel)
-                .tickFormat(function(d) { return moment.unix(d).format('h:mm A') })
-            // .tickFormat(function(d) { return moment.unix(d).fromNow() })
+                .tickFormat(function(d) { return moment.unix(d).tz(ds.config.DISPLAY_TIMEZONE).format('h:mm A') })
             d3.select(e.selector + ' svg')
                 .attr('width', width)
                 .attr('height', height)

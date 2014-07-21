@@ -81,7 +81,7 @@ h1 .ds-secondary-title {
 #ds-tooltip {
     color: black;
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid #888;
 }
 
 .ds-singlegraph span.value {

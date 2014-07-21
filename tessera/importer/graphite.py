@@ -3,8 +3,8 @@ import logging
 import json
 import inflection
 import urllib
-from tessera.model import *
-from tessera import app, db
+from tessera.api.model import *
+from tessera import app, db, database
 
 log = logging.getLogger(__name__)
 mgr = database.DatabaseManager(db)
@@ -37,7 +37,7 @@ class GraphiteDashboardImporter(object):
 
         for name in names:
             href = self.__graphite_href(name)
-            dashboard = database.Dashboard.query.filter_by(imported_from=href).first()
+            dashboard = database.DashboardRecord.query.filter_by(imported_from=href).first()
             if dashboard and (not overwrite):
                 log.info('Skipping {0}'.format(name))
                 skipped += 1
@@ -64,10 +64,10 @@ class GraphiteDashboardImporter(object):
         name = graphite_dashboard['name']
         dashboard = dash
         if dashboard is None:
-            dashboard = database.Dashboard(title=inflection.parameterize(name),
-                                           category='Graphite',
-                                           tags=[database.Tag('imported')],
-                                           imported_from = '{0}/dashboard/#{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
+            dashboard = database.DashboardRecord(title=inflection.parameterize(name),
+                                                 category='Graphite',
+                                                 tags=[database.Tag('imported')],
+                                                 imported_from = '{0}/dashboard/#{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
         definition = DashboardDefinition()
         section = Section(layout=layout)
         definition.items.append(section)
@@ -120,5 +120,5 @@ class GraphiteDashboardImporter(object):
         if graph_count == 0:
             log.warn('Failed to convert any graphs for dashboard {0}'.format(name))
 
-        dashboard.definition = database.DashboardDef(definition=dumps(definition))
+        dashboard.definition = database.DefinitionRecord(definition=dumps(definition))
         return dashboard
