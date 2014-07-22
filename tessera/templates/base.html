@@ -21,7 +21,7 @@
           </div>
           <div class="col-md-3" align="right">
             <div class="ds-time-container" align="right">
-              <h2><span class="time"></span><small class="ampm"></small></h2>
+              <h2><span class="time"></span><span class="ampm"></span></h2>
               <h6 class="date"></h6>
             </div>
             <a href="/"><i class="fa fa-lg fa-home"></i></a>
@@ -52,6 +52,9 @@
        $('.ds-time-container .time').text(now.tz(ds.config.DISPLAY_TIMEZONE).format('hh:mm'))
        $('.ds-time-container .ampm').text(now.tz(ds.config.DISPLAY_TIMEZONE).format('A z'))
        $('.ds-time-container .date').text(now.tz(ds.config.DISPLAY_TIMEZONE).format('dddd D MMMM YYYY'))
+       $('.ds-time-container h2').text(now.tz(ds.config.DISPLAY_TIMEZONE).format('hh:mm'))
+       $('.ds-time-container .ampm').text(now.tz(ds.config.DISPLAY_TIMEZONE).format('a'))
+       $('.ds-time-container h6').text(now.tz(ds.config.DISPLAY_TIMEZONE).format('A z'))
      }
 
      ds_display_time()
