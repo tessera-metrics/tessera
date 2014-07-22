@@ -1,0 +1,58 @@
+<div style="display:none;" class="ds-custom-range-picker">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="input-group date ds-custom-range-entry" id="ds-range-picker-from">
+          <input type="text" class="form-control" />
+          <span class="input-group-addon"><span class="fa fa-lg fa-calendar-o"></span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="input-group date ds-custom-range-entry" id="ds-range-picker-until">
+          <input type="text" class="form-control" />
+          <span class="input-group-addon"><span class="fa fa-lg fa-calendar-o"></span>
+          </span>
+        </div>
+      </div>
+        <ul class="nav nav-pills">
+          <li data-ds-range="recent" style="margin-top:-.5em">
+            <a data-ds-range="recent"><i data-ds-range="recent" class="fa fa-2x fa-clock-o"></i></a>
+          </li>
+        </ul>
+    </div>
+</div>
+
+<ul class="nav nav-pills ds-recent-range-picker">
+  {% for item in config['DASHBOARD_RANGE_PICKER'] %}
+  <li data-ds-range="{{item[1]}}">
+    <a data-ds-range="{{item[1]}}">
+      {{item[0]}}
+    </a>
+  </li>
+  {% endfor %}
+  <li data-ds-range="custom">
+    <a data-ds-range="custom"><i data-ds-range="custom" class="fa fa-lg fa-calendar-o"></i></a>
+  </li>
+</ul>
+
+<script>
+ ds.manager.onDashboardLoaded(function() {
+   var from = URI(window.location).search(true).from || '-3h'
+   $('[data-ds-range]').removeClass('active')
+   if (from[0] === '-') {
+     $('[data-ds-range=' + from + ']').addClass('active')
+   }
+   $('.ds-custom-range-entry').datetimepicker({
+     // TODO - set maximum date to end of today?
+     useSeconds: false,
+     sideBySide: true,
+     minuteStepping: 15,
+     icons: {
+       time: 'fa fa-clock-o',
+       date: 'fa fa-calendar-o',
+       up:   'fa fa-chevron-up',
+       down: 'fa fa-chevron-down'
+     }
+   });
+ })
+</script>

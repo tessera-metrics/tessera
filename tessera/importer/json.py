@@ -1,8 +1,8 @@
 import json
 import logging
 import inflection
-from tessera.model import *
-from tessera import db
+from tessera.api.model import *
+from tessera import db, database
 
 log = logging.getLogger(__name__)
 mgr = database.DatabaseManager(db)
@@ -22,11 +22,11 @@ class JsonImporter(object):
             data = json.load(f)
             # This is basically the same as api_dashboard_create() in
             # views.py; could consolidate the two in DatabaseManager
-            dashboard = database.Dashboard.from_json(data)
+            dashboard = database.DashboardRecord.from_json(data)
             if 'definition' in data:
-                dashboard.definition = database.DashboardDef(dumps(data['definition']))
+                dashboard.definition = database.DefinitionRecord(dumps(data['definition']))
             else:
-                dashboard.definition = database.DashboardDef(dumps(DashboardDefinition()))
+                dashboard.definition = database.DefinitionRecord(dumps(DashboardDefinition()))
             mgr.store_dashboard(dashboard)
             log.info('Succesfully imported dashboard {0}: {1}'.format(dashboard.id, dashboard.title))
         finally:
@@ -35,9 +35,9 @@ class JsonImporter(object):
 class JsonExporter(object):
     @staticmethod
     def export(directory, tag=None):
-        tag = database.Tag.query.filter_by(name=tag).first()
+        tag = database.TagRecord.query.filter_by(name=tag).first()
         if not tag:
-            dashboards = [d for d in database.Dashboard.query.all()]
+            dashboards = [d for d in database.DashboardRecord.query.all()]
         else:
             dashboards = [d for d in tag.dashboards]
         log.info('Found {0} dashboards to export to {1}'.format(len(dashboards), directory))
@@ -52,6 +52,6 @@ class JsonExporter(object):
         log.info('Exporting to {0}'.format(filepath))
         f = open(filepath, 'w')
         try:
-            json.dump(dash, f, indent=2, cls=web.EntityEncoder)
+            json.dump(dash, f, indent=2, cls=EntityEncoder)
         finally:
             f.close()

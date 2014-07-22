@@ -82,6 +82,18 @@
     return true
   })
 
+  /* Query duplicate buttons */
+  $(document).on('click', 'button.ds-duplicate-query-button', function(e) {
+    var $elt       = $(this)
+    var query_name = $elt.attr('data-ds-query-name')
+    var dashboard  = ds.manager.current.dashboard
+    if (!dashboard.definition.queries[query_name])
+      return true
+    duplicate_query(dashboard, query_name)
+    return true
+  })
+
+
   ds.edit.edit_queries = function() {
     /* Query names */
     $('th.ds-query-name').each(function(index, e) {
@@ -132,6 +144,9 @@
     ds.app.refresh_mode()
   }
 
+  /**
+   * Delete a query and remove it from the queries list in the UI.
+   */
   function delete_query(dashboard, query_name) {
     dashboard.definition.delete_query(query_name)
     $('tr[data-ds-query-name="' + query_name + '"]').remove()
@@ -139,6 +154,9 @@
     ds.app.refresh_mode()
   }
 
+  /**
+   * Add a new query to the dashboard and UI.
+   */
   function add_query(dashboard, name, target) {
     var query = ds.models.data.Query({name: name, targets: target})
     dashboard.definition.add_query(query)
@@ -148,17 +166,29 @@
     return query
   }
 
+  function duplicate_query(dashboard, name) {
+    var new_name = 'Copy of ' + name + ' ' + Object.keys(dashboard.definition.queries).length
+    var source   = dashboard.definition.queries[name]
+    return add_query(dashboard, new_name, source.targets.slice(0))
+  }
+
+  /**
+   * Add a new query object to the dashboard and UI with an
+   * auto-generated unique name, and an optional set of targets. If
+   * targets are not supplied, a function generating random data will
+   * be used as a placeholder.
+   */
   function new_query(dashboard, targets) {
     var name = "query" + Object.keys(dashboard.definition.queries).length
     return add_query(dashboard, name, targets || 'absolute(randomWalkFunction("' + name + '"))')
   }
 
+  var PROPERTY_SHEET_TIMEOUT = 3000
+
   /**
    * Event handlers to show & hide the action bar & property sheet for
    * dashboard items.
    */
-
-  var PROPERTY_SHEET_TIMEOUT = 3000
 
   $(document).on('click', '.ds-edit-bar .badge', function(event) {
     var $elt = $(this)
@@ -411,6 +441,15 @@
     }
   })
 
+  var new_percentage_table_action = ds.action({
+    name: 'new-percentage_table',
+    display: 'Add new Percentage Table',
+    icon: 'fa fa-table',
+    handler: function(action, container) {
+      add_new_item(container, 'percentage_table')
+    }
+  })
+
   var new_summation_table_action = ds.action({
     name: 'new-summation_table',
     display: 'Add new Summation Table',
@@ -495,6 +534,7 @@
     ds.action.divider,
     new_singlestat_action,
     new_jumbotron_singlestat_action,
+    new_percentage_table_action,
     new_summation_table_action,
     new_timeshift_summation_table_action,
     new_comparison_summation_table_action,

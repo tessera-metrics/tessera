@@ -19,9 +19,9 @@ Handlebars.registerHelper('moment', function(format, value) {
   if (!value)
     return ''
   if (format == 'fromNow') {
-    return moment(value).fromNow()
+    return moment(value).tz(ds.config.DISPLAY_TIMEZONE).fromNow()
   } else {
-    return moment(value).format(format)
+    return moment(value).tz(ds.config.DISPLAY_TIMEZONE).format(format)
   }
 })
 

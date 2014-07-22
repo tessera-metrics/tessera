@@ -1,0 +1,38 @@
+<table class="table table-condensed ds-percentage-table">
+
+  <thead>
+    <tr>
+      {{#if item.include_sums}}
+        <th></th>
+        <th>Total</th>
+      {{/if}}
+      {{#each query.data}}
+        <th>{{target}}</th>
+      {{/each}}
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      {{#if item.include_sums}}
+        <th>%</th>
+        <th></th>
+      {{/if}}
+      {{#each query.data}}
+        <td>{{format ",.2%" summation.percent}}</td>
+      {{/each}}
+    </tr>
+
+    {{#if item.include_sums}}
+      <tr>
+        <th>Total</th>
+        <td>{{format item.format query.summation.sum}}</td>
+        {{#each query.data}}
+          <td>{{format ../../item.format summation.sum}}</td>
+        {{/each}}
+      </tr>
+    {{/if}}
+
+  </tbody>
+
+</table>

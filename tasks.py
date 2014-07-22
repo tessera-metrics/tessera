@@ -5,7 +5,7 @@ from invoke import ctask as task, Collection
 from invocations.testing import test
 
 from tessera import app, db
-from tessera.model.web import Section
+from tessera.api.model import Section
 from tessera.importer.graphite import GraphiteDashboardImporter
 from tessera.importer.json import JsonImporter, JsonExporter
 

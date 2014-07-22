@@ -28,6 +28,7 @@ module.exports = function(grunt) {
           'tessera/static/css/bootstrap.css',
           'tessera/static/css/bootstrap-callouts.css',
           'tessera/static/css/bootstrap-editable.css',
+          'tessera/static/css/bootstrap-datetimepicker.css',
           'tessera/static/css/bootstrapValidator.min.css',
           'tessera/static/css/font-awesome.css',
           'tessera/static/css/nv.d3.css'
@@ -41,6 +42,7 @@ module.exports = function(grunt) {
         src: [
           'tessera/static/js/jquery-1.11.0.min.js',
           'tessera/static/js/moment.min.js',
+          'tessera/static/js/moment-timezone-with-data.min.js',
           'tessera/static/js/marked.min.js',
           'tessera/static/js/mousetrap.min.js',
           'tessera/static/js/highlight.pack.js',
@@ -54,6 +56,7 @@ module.exports = function(grunt) {
           'tessera/static/js/tagmanager.js',
           'tessera/static/js/bootstrap-editable.min.js',
           'tessera/static/js/bootstrap-growl.min.js',
+          'tessera/static/js/bootstrap-datetimepicker.min.js',
           'tessera/static/js/bootstrapValidator.min.js',
           'tessera/static/js/limivorous.js',
           'tessera/static/js/color-0.5.0.js',
@@ -62,7 +65,8 @@ module.exports = function(grunt) {
           'tessera/static/js/flot/jquery.flot.multihighlight.js',
           'tessera/static/js/flot/jquery.flot.tooltip.js',
           'tessera/static/js/flot/jquery.flot.stack.js',
-          'tessera/static/js/flot/jquery.flot.crosshair.js'
+          'tessera/static/js/flot/jquery.flot.crosshair.js',
+          'tessera/static/js/simple_statistics.js'
         ],
         dest: 'tessera/static/bundle.js'
       },
@@ -100,6 +104,7 @@ module.exports = function(grunt) {
         'js/**/*.js',
         'templates/**/*.hbs',
         'tessera/static/js/**/*.js',
+        'tessera/static/css/**/*.css',
         'tessera/static/tessera.css'
       ],
       tasks: ['handlebars', 'concat']
