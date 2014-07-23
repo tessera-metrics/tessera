@@ -164,11 +164,10 @@
  $('#selectRefresh').select2()
  $('#selectTimeZone').attr('value', ds.config.DISPLAY_TIMEZONE)
  $('#selectTimeZone').select2({
-   data: Object.keys(moment.tz._zones).map(function(key) {
-     var tz = moment.tz._zones[key]
+   data: moment.tz.names().map(function(name) {
      return {
-       id: tz.name,
-       text: tz.name
+       id: name,
+       text: name
      }
    })
  })
