@@ -31,7 +31,7 @@
           <!-- Default Auto-Refresh Period -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="selectRefresh">Default Refresh Period</label>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <select id="selectRefresh" name="selectRefresh" class="form-control"
                       onchange="setPref('refresh', this.value)">
                 {% for item in config['DASHBOARD_REFRESH_INTERVALS'] %}
@@ -48,7 +48,7 @@
           <!-- Time Zone -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="selectTimeZone">Display Time Zone</label>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <input type="hidden" id="selectTimeZone" name="selectTimeZone" class="form-control"
                       onchange="setPref('timezone', this.value)">
               </input>
@@ -162,6 +162,7 @@
          .href()
  }
  $('#selectRefresh').select2()
+ $('#selectTimeZone').attr('value', ds.config.DISPLAY_TIMEZONE)
  $('#selectTimeZone').select2({
    data: Object.keys(moment.tz._zones).map(function(key) {
      var tz = moment.tz._zones[key]
