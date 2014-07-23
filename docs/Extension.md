@@ -1,5 +1,11 @@
 # Extending Tessera
 
+Extensions are Javascript code that extend the UI of Tessera, by
+defining new dashboard items, transformations, or toolbar/context menu
+actions. Extensions can be added to a build of Tessera by simply
+dropping a `.js` file in the `js/extensions` folder and running
+`grunt`.
+
 ## Dashboard Items
 
 ### `ds.register_dashboard_item(type, descriptor)`
@@ -83,6 +89,23 @@ various places in the UI.
 
 An action can specify its display text, an icon, its callback
 function, and a variety of other display-related properties.
+
+Here's an example which adds a "View Source..." menu item to the
+dashboard list, opening the dashboard's API representation in a new
+browser window.
+
+```javascript
+ds.actions.register('dashboard-list-actions',
+                    ds.action({
+                      name: 'view-source',
+                      display: 'View Source...',
+                      icon: 'fa fa-code',
+                      handler: function(action, context) {
+                        window.open(context.href + '?definition=true')
+                      }
+                    })
+                   )
+```
 
 ### Action Registry
 
