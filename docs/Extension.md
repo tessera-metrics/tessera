@@ -90,23 +90,6 @@ various places in the UI.
 An action can specify its display text, an icon, its callback
 function, and a variety of other display-related properties.
 
-Here's an example which adds a "View Source..." menu item to the
-dashboard list, opening the dashboard's API representation in a new
-browser window.
-
-```javascript
-ds.actions.register('dashboard-list-actions',
-                    ds.action({
-                      name: 'view-source',
-                      display: 'View Source...',
-                      icon: 'fa fa-code',
-                      handler: function(action, context) {
-                        window.open(context.href + '?definition=true')
-                      }
-                    })
-                   )
-```
-
 ### Action Registry
 
 The global action registry is accessed through `ds.actions`, which
@@ -128,3 +111,22 @@ bars in the UI:
 * `'dashboard-queries'`
 * `'dashboard-list-actions'`
 * `'presentation-actions'`
+
+### Example
+
+Here's an example which adds a "View Source..." menu item to the
+dashboard list, opening the dashboard's API representation in a new
+browser window.
+
+```javascript
+ds.actions.register('dashboard-list-actions',
+                    ds.action({
+                      name: 'view-source',
+                      display: 'View Source...',
+                      icon: 'fa fa-code',
+                      handler: function(action, context) {
+                        window.open(context.href + '?definition=true')
+                      }
+                    })
+                   )
+```
