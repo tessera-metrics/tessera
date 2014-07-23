@@ -31,7 +31,9 @@ module.exports = function(grunt) {
           'tessera/static/css/bootstrap-datetimepicker.css',
           'tessera/static/css/bootstrapValidator.min.css',
           'tessera/static/css/font-awesome.css',
-          'tessera/static/css/nv.d3.css'
+          'tessera/static/css/nv.d3.css',
+          'tessera/static/css/select2.css',
+          'tessera/static/css/select2-bootstrap.css'
         ],
         dest: 'tessera/static/css/bundle.css'
       },
@@ -54,6 +56,7 @@ module.exports = function(grunt) {
           'tessera/static/js/d3.min.js',
           'tessera/static/js/nv.d3.min.js',
           'tessera/static/js/tagmanager.js',
+          'tessera/static/js/select2.min.js',
           'tessera/static/js/bootstrap-editable.min.js',
           'tessera/static/js/bootstrap-growl.min.js',
           'tessera/static/js/bootstrap-datetimepicker.min.js',
