@@ -98,3 +98,16 @@
     background-color: #FAFAFA;
     border: 1px solid #649EB9;
 }
+
+/* -----------------------------------------------------------------------------
+   Select2
+   ----------------------------------------------------------------------------- */
+
+.select2-container .select2-choices .select2-search-field input,
+.select2-container .select2-choice,
+.select2-container .select2-choices,
+.select2-search input,
+.select2-drop
+{
+    background: #FEFCF6;
+}
