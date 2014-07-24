@@ -9,7 +9,7 @@ import inflection
 from flask import render_template, request, session
 from werkzeug.exceptions import HTTPException
 
-from .api.model import *
+from tessera_client.api.model import *
 from . import database
 from .application import app
 from .application import db
