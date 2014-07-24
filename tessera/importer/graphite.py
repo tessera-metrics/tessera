@@ -3,7 +3,7 @@ import logging
 import json
 import inflection
 import urllib
-from tessera.api.model import *
+from tessera_client.api.model import *
 from tessera import app, db, database
 
 log = logging.getLogger(__name__)

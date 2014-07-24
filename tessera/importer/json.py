@@ -1,7 +1,7 @@
 import json
 import logging
 import inflection
-from tessera.api.model import *
+from tessera_client.api.model import *
 from tessera import db, database
 
 log = logging.getLogger(__name__)
