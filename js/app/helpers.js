@@ -153,3 +153,29 @@ Handlebars.registerHelper('actions', function(category, type) {
     return ''
   }
 })
+
+Handlebars.registerHelper('dashboards-tagged', function(tag) {
+  var markdown = ''
+  $.ajax({
+    url: '/api/dashboard/tagged/' + tag,
+    type: 'GET',
+    async: false,
+    success: function(data) {
+      for (var i in data.dashboards) {
+        var d = data.dashboards[i]
+        markdown += '  * ['
+        if (d.category && d.category !== '') {
+          markdown += d.category + ': '
+        }
+        markdown += d.title + ']('
+        markdown += d.view_href + ')\n'
+      }
+    },
+    error: function() {
+      var error = 'Unable to retrieve list of dashboards tagged "' + tag + '"'
+      ds.manager.warning(error)
+      markdown = error
+    }
+  })
+  return new Handlebars.SafeString(markdown)
+})
