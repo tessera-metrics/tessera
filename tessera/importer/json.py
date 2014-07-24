@@ -1,7 +1,7 @@
 import json
 import logging
 import inflection
-from tessera.api.model import *
+from tessera_client.api.model import *
 from tessera import db, database
 
 log = logging.getLogger(__name__)
@@ -35,7 +35,7 @@ class JsonImporter(object):
 class JsonExporter(object):
     @staticmethod
     def export(directory, tag=None):
-        tag = database.Tag.query.filter_by(name=tag).first()
+        tag = database.TagRecord.query.filter_by(name=tag).first()
         if not tag:
             dashboards = [d for d in database.DashboardRecord.query.all()]
         else:
@@ -52,6 +52,6 @@ class JsonExporter(object):
         log.info('Exporting to {0}'.format(filepath))
         f = open(filepath, 'w')
         try:
-            json.dump(dash, f, indent=2, cls=web.EntityEncoder)
+            json.dump(dash, f, indent=2, cls=EntityEncoder)
         finally:
             f.close()

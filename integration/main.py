@@ -30,18 +30,18 @@ class Integration(Spec):
 
     def can_initdb(self):
         from tessera.application import db
-        from tessera.model.database import Dashboard
+        from tessera.database import DashboardRecord
         # Make sure we can create and look at the DB
         db.create_all()
-        eq_(len(Dashboard.query.all()), 0)
+        eq_(len(DashboardRecord.query.all()), 0)
 
     def can_import_fixtures(self):
         from tessera.application import db
         from tessera.importer.json import JsonImporter
-        from tessera.model.database import Dashboard
+        from tessera.database import DashboardRecord
         db.create_all()
         path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), '..', 'demo', 'demo-gallery.json'
         ))
         JsonImporter.import_file(path)
-        eq_(len(Dashboard.query.all()), 1)
+        eq_(len(DashboardRecord.query.all()), 1)

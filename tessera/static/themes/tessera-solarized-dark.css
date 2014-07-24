@@ -244,3 +244,23 @@ h1.page-title .ds-summary {
     background-color: #073642;
     border: 1px solid #657b83;
 }
+
+
+/* -----------------------------------------------------------------------------
+   Select2
+   ----------------------------------------------------------------------------- */
+
+.select2-container .select2-choices .select2-search-field input,
+.select2-container .select2-choice,
+.select2-container .select2-choices,
+.select2-search input,
+.select2-drop
+{
+    background: #073642;
+    border-color: #586E75;
+    color: #EEE8D5;
+}
+
+.select2-arrow {
+    border-left: 1px solid #586E75;
+}

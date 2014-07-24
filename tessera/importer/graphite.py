@@ -3,7 +3,7 @@ import logging
 import json
 import inflection
 import urllib
-from tessera.api.model import *
+from tessera_client.api.model import *
 from tessera import app, db, database
 
 log = logging.getLogger(__name__)
@@ -66,7 +66,7 @@ class GraphiteDashboardImporter(object):
         if dashboard is None:
             dashboard = database.DashboardRecord(title=inflection.parameterize(name),
                                                  category='Graphite',
-                                                 tags=[database.Tag('imported')],
+                                                 tags=[database.TagRecord('imported')],
                                                  imported_from = '{0}/dashboard/#{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
         definition = DashboardDefinition()
         section = Section(layout=layout)

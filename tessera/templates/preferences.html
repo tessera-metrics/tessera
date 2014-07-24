@@ -31,7 +31,7 @@
           <!-- Default Auto-Refresh Period -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="selectRefresh">Default Refresh Period</label>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <select id="selectRefresh" name="selectRefresh" class="form-control"
                       onchange="setPref('refresh', this.value)">
                 {% for item in config['DASHBOARD_REFRESH_INTERVALS'] %}
@@ -42,6 +42,51 @@
                         >{{item[0]}}</option>
                 {% endfor %}
               </select>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-default"
+                      id="ds-reset-auto-refresh-button"
+                      data-toggle="tooltip"
+                      title="Reset to Default">
+                <i class="fa fa-angle-double-down"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Time Zone -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="selectTimeZone">Display Time Zone</label>
+            <div class="col-md-6">
+              <input type="hidden" id="selectTimeZone" name="selectTimeZone" class="form-control"
+                      onchange="setPref('timezone', this.value)">
+              </input>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-default"
+                      id="ds-reset-time-zone-button"
+                      data-toggle="tooltip"
+                      title="Reset to Default">
+                <i class="fa fa-angle-double-down"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Graphite URL -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="textGraphiteURL">Graphite URL</label>
+            <div class="col-md-6">
+              <input type="text" id="textGraphiteURL" name="textGraphiteURL" class="form-control"
+                     value="{{ctx.get_str('graphite_url', config.get('GRAPHITE_URL'))}}"
+                     onchange="setPref('graphite_url', this.value)">
+              </input>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-default"
+                      id="ds-reset-graphite-url-button"
+                      data-toggle="tooltip"
+                      title="Reset to Default">
+                <i class="fa fa-angle-double-down"></i>
+              </button>
             </div>
           </div>
 
@@ -95,7 +140,7 @@
                 target="_blank">flot</a> renders interactive charts
                 using HTML canvas. It does not support stream graphs,
                 but can be a better choice for rendering large numbers
-                of graphs or length time periods.</small></p>
+                of graphs or lengthy time periods.</small></p>
 	          </div>
             </div>
           </div>
@@ -147,9 +192,47 @@
 <script>
  setPref = function(key, value) {
    window.location = URI(window.location)
+         .query('')
          .setQuery(key, value)
          .href()
  }
+
+ $('#selectRefresh').select2()
+
+ $('#selectTimeZone').attr('value', ds.config.DISPLAY_TIMEZONE)
+
+ $('#selectTimeZone').select2({
+   data: moment.tz.names().map(function(name) {
+     return {
+       id: name,
+       text: name
+     }
+   })
+ })
+
+ $("[data-toggle=tooltip]").tooltip({
+   animation:false,
+   container: 'body',
+   delay: { show:300, hide:100}
+ })
+
+ $(document).on('click', '#ds-reset-auto-refresh-button', function(e) {
+   $('#selectRefresh').select2('val', '{{config['DEFAULT_REFRESH_INTERVAL']}}', true)
+   return false
+ })
+
+ $(document).on('click', '#ds-reset-time-zone-button', function(e) {
+   $('#selectTimeZone').select2('val', '{{config['DISPLAY_TIMEZONE']}}', true)
+   return false
+ })
+
+ $(document).on('click', '#ds-reset-graphite-url-button', function(e) {
+   var e = $('#textGraphiteURL')[0]
+   e.value = '{{config['GRAPHITE_URL']}}'
+   setPref('graphite_url', e.value)
+   return false
+ })
+
 </script>
 
 {% endblock %}

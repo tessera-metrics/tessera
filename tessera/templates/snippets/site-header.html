@@ -1,3 +1,4 @@
+
 <title>{{config.get('DASHBOARD_APPNAME')}}: {{title}}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -10,8 +11,8 @@
 <script>
   ds = window.ds || {}
   ds.config = ds.config || {}
-  ds.config.GRAPHITE_URL = "{{config.get('GRAPHITE_URL')}}"
-  ds.config.DISPLAY_TIMEZONE = "{{config.get('DISPLAY_TIMEZONE','UTC')}}"
+  ds.config.GRAPHITE_URL = "{{ctx.get_str('graphite_url', config.get('GRAPHITE_URL'))}}"
+  ds.config.DISPLAY_TIMEZONE = "{{ctx.get_str('timezone', config.get('DISPLAY_TIMEZONE','UTC'))}}"
   ds.config.DEFAULT_FROM_TIME = "{{config.get('DEFAULT_FROM_TIME')}}"
   {% if config.get('APPLICATION_ROOT') %}
   ds.config.APPLICATION_ROOT = "{{config.get('APPLICATION_ROOT')}}"
