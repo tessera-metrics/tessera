@@ -1,0 +1,33 @@
+<header class="ds-index-nav ds-page-nav">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 title">
+
+
+
+<div class="ds-logo">
+  <a href="/">
+  <span class="fa-stack fa-2x">
+    <i class="fa fa-circle fa-stack-2x"></i>
+    <i class="fa fa-cube fa-stack-1x fa-inverse"></i>
+  </span>
+  <h1 class="ds-site-title">
+    {{site.title}}
+  </h1>
+  </a>
+        {% if page.category %}
+        <h1 class="ds-page-category"> {{page.category}} </h1>
+        {% endif %}
+</div> <!-- ds-logo -->
+
+
+      </div>
+      <div class="col-md-4 links">
+        <ul>
+          <li><a href="https://github.com/urbanairship/tessera">github</a></li>
+          <li><a href="/doc/">documentation</a></li>
+          <li><a href="/blog/">blog</a></li>
+        </ul>
+      </div>
+    </div>
+</header>

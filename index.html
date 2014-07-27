@@ -1,104 +1,97 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Tessera by urbanairship</title>
+---
+layout: blank
+---
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Tessera</h1>
-        <p>A dashboard front-end for graphite. </p>
-
-        <p class="view"><a href="https://github.com/urbanairship/tessera">View the Project on GitHub <small>urbanairship/tessera</small></a></p>
-
-
+<header class="ds-index-nav">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 title">
+      </div>
+      <div class="col-md-8 links">
         <ul>
-          <li><a href="https://github.com/urbanairship/tessera/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/urbanairship/tessera/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/urbanairship/tessera">View On <strong>GitHub</strong></a></li>
+          <li><a href="https://github.com/urbanairship/tessera">github</a></li>
+          <li><a href="#">documentation</a></li>
+          <li><a href="#">blog</a></li>
         </ul>
-      </header>
-      <section>
-        <h1>
-<a name="tessera" class="anchor" href="#tessera"><span class="octicon octicon-link"></span></a>Tessera</h1>
-
-<p>Tessera is a front-end interface for Graphite, which provides a large selection of presentations, layout, and interactivity options for building dashboards.</p>
-
-<p>The biggest key differences between Tessera and other frontends are the separation of queries from presentations, and the ability to apply arbitrary transformations to the presentations &amp; queries, allowing for a large degree of interactivity. Tessera is initially focused on information presentation - it does not NOT address the areas of metric discovery or query composition (although it may in the future). </p>
-
-<h2>
-<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
-
-<p>Tessera consists of a small python webserver written with Flask with a SQL backing store. The server manages storing and searching for dashboards, managing tags for organization, serving the basic UI assets, and providing a ReST API for the front-end to use.</p>
-
-<p>Dashboards are big lumps of JSON data describing the queries, presentations, and layout, wrapped in a small shell of SQL metadata. Most of the heavy lifting is done by the javascript front-end, which is responsible for all rendering, data fetching from graphite, and editing of dashboards.</p>
-
-<h2>
-<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
-
-<p>There is some basic documentation in the github repo right now.</p>
-
-<ul>
-<li><a href="docs/Overview.md">Overview</a></li>
-<li>
-<a href="docs/Build.md">Build</a> for getting started and running from source and importing the demo dashboards.</li>
-<li>
-<a href="docs/Tutorial.md">Tutorial</a> for creating the most basic possible
-dashboard.</li>
-<li>
-<a href="docs/API.md">API</a> for accessing Tessera via the HTTP REST API</li>
-<li>
-<a href="docs/Extension.md">Extending Tessera</a>, for adding new dashboard
-items, transformations, and actions.</li>
-</ul><p>Some additional writeup of why Tessera exists can found on the UA blog - <a href="http://urbanairship.com/blog/2014/06/30/introducing-tessera-a-graphite-frontend">Introducing Tessera, a Graphite Frontend</a>.</p>
-
-<p><img src="docs/screenshots/color-themes-small.png" alt="screenshot"></p>
-
-<h2>
-<a name="copyright--license" class="anchor" href="#copyright--license"><span class="octicon octicon-link"></span></a>Copyright &amp; License</h2>
-
-<p>Copyright © 2014, Urban Airship and Contributors</p>
-
-<p>Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at</p>
-
-<ul>
-<li><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></li>
-</ul><p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.</p>
-
-<p>Third-party software libraries included with this project are
-distributed under their respective licenses.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/urbanairship">urbanairship</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+      </div>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-345459-9");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
+</header>
 
-  </body>
-</html>
+<header class="ds-index-banner">
+  <div class="bg">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="ds-logo">
+            <span class="fa-stack fa-3x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-cube fa-stack-1x fa-inverse"></i>
+            </span>
+            <h1>
+              {{site.title}}
+            </h1>
+          </div> <!-- ds-logo -->
+          <p class="lead">
+            A web application for constructing elegant, interactive presentations of data from Graphite.
+          </p>
+          <p class="lead">
+
+            <!--
+            <button class="ds-button btn btn-default btn-lg">
+              <a target="_blank" href="https://github.com/urbanairship/tessera/releases">
+                <i class="fa fa-lg fa-download"></i>
+                Download
+              </a>
+            </button>
+            -->
+
+            <button class="ds-button btn btn-default btn-lg">
+              <a target="_blank" href="https://github.com/urbanairship/tessera">
+                <i class="fa fa-lg fa-github"></i>
+                Project on Github
+              </a>
+            </button>
+
+
+          </p>
+        </div> <!-- col -->
+
+        <div class="col-md-4 col-md-offset-2 screenshot">
+          <img src="/assets/example-carbon-t.png"/>
+        </div>
+      </div> <!-- row -->
+    </div>  <!-- container -->
+  </div>
+</header>
+
+<article>
+
+<div class="container ds-section">
+
+  <div class="row">
+    <div class="col-md-7">
+      <h2 class="featurette-heading"></h2>
+      <p class="lead">
+      </p>
+    </div>
+    <div class="col-md-5">
+    </div>
+  </div> <!-- row -->
+
+  <div class="row">
+    <div class="col-md-5">
+    </div>
+    <div class="col-md-7">
+      <h2 class="featurette-heading"></h2>
+      <p class="lead">
+      </p>
+    </div>
+
+  </div> <!-- row -->
+
+
+</div>
+
+</article>
+
+{% include footer.html %}

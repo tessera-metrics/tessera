@@ -1,0 +1,11 @@
+# Site settings
+title: Tessera
+email:
+description: "Tessera - a flexible dashboard front-end for Graphite."
+baseurl: ""
+github_username: "urbanairship/tessera"
+url: "http://urbanairship.github.io/tessera/"
+
+# Build settings
+markdown: kramdown
+permalink: pretty

@@ -1,0 +1,138 @@
+header.ds-index-nav {
+    background-color: #FAFAFA;
+    border-bottom: 2px solid #627E96;
+}
+
+header.ds-index-nav .title {
+
+}
+
+header.ds-index-nav .links {
+    text-align: right;
+    margin-bottom: 12px;
+}
+
+header.ds-index-nav ul {
+    margin-top: 26px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: right;
+}
+
+header.ds-index-nav ul li {
+    display: inline-block;
+    margin-left: 1em;
+}
+
+.ds-logo {
+    display: inline;
+    vertical-align: super;
+}
+
+header.ds-index-nav .ds-logo .fa-stack {
+    color: #627E96;
+    vertical-align: bottom;
+}
+
+header.ds-index-nav .ds-logo h1 {
+    display: inline-block;
+    margin-top: .5em;
+    vertical-align: sub;
+}
+
+h1.ds-site-title {
+    color: #627E96;
+}
+
+/* ============================================================================= */
+
+h1.ds-page-category {
+    color: black;
+}
+
+header.ds-page-banner {
+    height: 20px;
+    background-image: url("/assets/Large-Banner.jpg");
+    background-position: center;
+    border-bottom: 1px solid #EDEDED;
+}
+
+.post-header h1 {
+    font-size: 4em;
+    margin-top: 2em;
+}
+
+.post {
+    margin-bottom: 6em;
+}
+
+
+/* ============================================================================= */
+
+header.ds-index-banner {
+    background-image: url("/assets/Large-Banner.jpg");
+    background-position: center;
+    border-bottom: 1px solid #EDEDED;
+}
+
+header.ds-index-banner .bg {
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+header.ds-index-banner .ds-logo {
+    display: block;
+    margin-top: 80px;
+}
+
+header.ds-index-banner h1 {
+    display: inline;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 5em;
+    color: #627E96;
+}
+
+header.ds-index-banner p.lead {
+    margin-top: 1em;
+    margin-left: 4.5em;
+}
+
+header.ds-index-banner .screenshot img {
+    margin: 20px;
+    padding-top: 8px;
+    background: white;
+    border: 1px solid #BABABA;
+}
+
+header.ds-index-banner .fa-circle {
+    color: #627E96;
+}
+
+.ds-button,
+.ds-button a {
+    color: #627E96;
+}
+
+/* ============================================================================= */
+
+.ds-section {
+    margin-top: 2em;
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+
+/* ============================================================================= */
+
+footer.ds-index {
+    border-top: 1px solid #EDEDED;
+    text-align: center;
+    background-color: #FAFAFA;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
