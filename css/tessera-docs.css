@@ -52,7 +52,6 @@ h1.ds-page-category {
 
 header.ds-page-banner {
     height: 20px;
-    background-image: url("/assets/Large-Banner.jpg");
     background-position: center;
     border-bottom: 1px solid #EDEDED;
 }
@@ -70,7 +69,6 @@ header.ds-page-banner {
 /* ============================================================================= */
 
 header.ds-index-banner {
-    background-image: url("/assets/Large-Banner.jpg");
     background-position: center;
     border-bottom: 1px solid #EDEDED;
 }
