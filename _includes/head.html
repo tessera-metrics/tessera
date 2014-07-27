@@ -4,16 +4,16 @@
     <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="{{ site.description }}">
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ 'feed.xml' | prepend:site.baseurl | prepend: site.url }}" />
 
-    <script src="{{"/js/holder.js" | prepend: site.baseurl }}"></script>
-    <link rel="stylesheet" href="{{ "/css/bootstrap.min.css" | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="stylesheet" href="{{ "/css/carousel.css" | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="stylesheet" href="{{ "/css/bootstrap-callouts.css" | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="stylesheet" href="{{ "/css/font-awesome.min.css" | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="stylesheet" href="{{ "/css/tessera.css" | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="stylesheet" href="{{ "/css/tessera-light.css" | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="stylesheet" href="{{ "/css/tessera-docs.css" | prepend: site.baseurl | prepend: site.url }}">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ 'feed.xml' | prepend:site.baseurl }}" />
+
+    <link rel="stylesheet" href="{{site.baseurl}}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{site.baseurl}}/css/carousel.css">
+    <link rel="stylesheet" href="{{site.baseurl}}/css/bootstrap-callouts.css">
+    <link rel="stylesheet" href="{{site.baseurl}}/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{site.baseurl}}/css/tessera.css">
+    <link rel="stylesheet" href="{{site.baseurl}}/css/tessera-light.css">
+    <link rel="stylesheet" href="{{site.baseurl}}/css/tessera-docs.css">
 
 </head>

@@ -2,7 +2,7 @@
 title: Tessera
 email:
 description: "Tessera - a flexible dashboard front-end for Graphite."
-baseurl: ""
+baseurl: /tessera
 github_username: "urbanairship/tessera"
 url: "http://urbanairship.github.io/tessera/"
 
