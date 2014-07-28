@@ -9,3 +9,4 @@ url: "http://urbanairship.github.io/tessera/"
 # Build settings
 markdown: kramdown
 permalink: pretty
+pygments: true
