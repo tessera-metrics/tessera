@@ -38,44 +38,12 @@ i[class*='icon-'] {
   font-weight: 400;
 }
 
-/* x-editable's textarea in dashboard info edit panel comes out too
-narrow unless we override */
-.ds-dashboard-info-edit-panel span.editable-container textarea {
-    width: 30em;
-}
-
-.ds-dashboard-info-edit-panel .tab-pane {
-    margin-top: 20px;
-}
-
-/* text boxes get formatted a little oddly by x-editable without resetting this */
-.editable-pre-wrapped {
-    white-space: normal;
-}
-
-/* Tag Manager */
-.tm-tag {
-    margin-left: 2px;
-    margin-right: 2px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 8px;
-}
-.tm-tag-remove {
-    color: lightgray;
-    margin-left: 4px;
-}
-
 /* =============================================================================
    Application Styles
    ============================================================================= */
 
 .ds-source {
     font-family: Consolas, "Andale Mono", "Courier New", monospace
-}
-
-.well .ds-item {
-    padding-bottom: 1em;
 }
 
 .ds-height1 { height: 80px; }
@@ -288,134 +256,4 @@ h1 .ds-secondary-title {
 
 .ds-footer-container {
     margin-bottom: 2em;
-}
-
-/* Flot charts */
-
-#ds-tooltip {
-    opacity: 1.0;
-    padding: 6px;
-    margin-left: 40px;
-    font-size: 0.9em;
-}
-
-td.ds-tooltip-label span.badge {
-    height: 1em;
-    border-radius: 0px;
-}
-td.ds-tooltip-value {
-    padding-right: 8px;
-    padding-left: 8px;
-    font-weight: bold;
-    text-align: right;
-}
-
-.ds-tooltip-time {
-    font-weight: bold;
-}
-
-.ds-legend-holder .legendLabel {
-    padding-right: 12px;
-}
-
-/* Comparison table dashboard items */
-
-td.ds-diff-plus::before {
-    content: "+";
-    font-weight: bold;
-}
-td.ds-diff-minus::before {
-    content: "-";
-    font-weight: bold;
-}
-td.ds-diff-plus {
-    color: green;
-}
-td.ds-diff-minus {
-    color: red;
-}
-.ds-summation-table tbody td,
-.ds-summation-table thead th,
-.ds-timeshift-summation-table tbody td,
-.ds-timeshift-summation-table thead th,
-.ds-percentage-table tbody td,
-.ds-percentage-table thead th {
-    text-align: right;
-}
-
-.ds-custom-range-picker {
-    display: inline-block;
-}
-
-.ds-custom-range-picker .row {
-    margin-bottom: 0px;
-}
-
-/* -----------------------------------------------------------------------------
- Edit mode headers
- ----------------------------------------------------------------------------- */
-
-.ds-edit-bar {
-    padding: 4px;
-    margin-bottom: .5em;
-    border-radius: 4px;
-}
-
-.ds-edit-bar .table {
-    margin-bottom: .25em;
-}
-
-table.ds-property-sheet td {
-    padding: 4px;
-}
-
-/*
- * Row
- */
-
-.ds-edit-bar-row {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-}
-
-.ds-row.ds-edit {
-    border-radius: 4px;
-}
-
-/*
- * Cell
- */
-
-.ds-cell.ds-edit {
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-/*
- * Item
- */
-
-.ds-badge-highlight {
-    border-width: 3px;
-}
-
-.ds-drag-handle {
-    display: none;
-    margin-top: 8px;
-    margin-right: .5em;
-    color: rgba(75,75,75,0.25);
-}
-
-.ds-resize-handle {
-    display: none;
-    margin-bottom: .5em;
-    margin-right: .5em;
-    color: rgba(75,75,75,0.25);
-}
-
-.ds-query-target {
-    font-family: Consolas, "Andale Mono", "Courier New", monospace
 }
