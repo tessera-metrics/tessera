@@ -56,37 +56,97 @@ layout: blank
           </p>
         </div> <!-- col -->
 
-        <div class="col-md-4 col-md-offset-2 screenshot">
-          <img src="{{site.baseurl}}/assets/example-carbon-t.png"/>
+        <div class="col-md-4 col-md-offset-2">
+          <img class="img-responsive img-bordered" src="{{site.baseurl}}/assets/index/example-carbon-t.png"/>
         </div>
       </div> <!-- row -->
     </div>  <!-- container -->
   </div>
 </header>
 
-<article>
+<div>
 
-<div class="container ds-section">
+<article class="container">
 
-  <div class="row">
+  <div class="row featurette">
+    <div class="col-md-5">
+      <img class="img-responsive img-bordered" src="{{site.baseurl}}/assets/index/actions-menu.png"/>
+    </div>
     <div class="col-md-7">
-      <h2 class="featurette-heading"></h2>
+      <h2 class="featurette-heading">Actions & Transforms</h2>
       <p class="lead">
+        Easily extensible actions and transformations can interactively
+        drill-down into data queries on the fly, or even completely
+        transform them.
       </p>
     </div>
+  </div> <!-- row -->
+
+
+  <div class="row featurette">
     <div class="col-md-5">
+{% highlight bash %}
+# Duplicate a dashboard with curl
+curl -G '$TESSERA/api/dashboard/15?definition=true' |
+curl -X POST -H "Content-Type: application/json" \
+    '$TESSERA/api/dashboard/' --data @-
+{% endhighlight %}
+
+    </div>
+
+    <div class="col-md-7">
+      <h2 class="featurette-heading">Full REST API</h2>
+      <p class="lead">
+        A REST-ful HTTP API provides access to everything, and allows
+        easy management with HTTP tools like <code>curl</code>.
+      </p>
+    </div>
+  </div> <!-- row -->
+
+
+
+
+  <div class="row featurette">
+    <div class="col-md-5">
+      <img class="img-responsive img-bordered" src="{{site.baseurl}}/assets/index/tables.png"/>
+    </div>
+
+    <div class="col-md-7">
+      <h2 class="featurette-heading">Text-Based Presentations</h2>
+      <p class="lead">
+        Data from Graphite can be presented in a wide variety of
+        textual formats &mdash; not just
+        graphs. <code>summation_table</code>, <code>timeshift_summation_table</code>, <code>percentage_table</code>, <code>singlestat</code>,
+        and <code>jumbotron_singlestat</code> all provides additional
+        ways to present meaningful analyses of your metrics data.
+      </p>
+    </div>
+  </div> <!-- row -->
+
+  <div class="row featurette">
+    <div class="col-md-5">
+      <a href="{{site.baseurl}}/assets/index/color-themes-four.jpg" target="_blank">
+        <img class="img-responsive" src="{{site.baseurl}}/assets/index/color-themes-small.png"/>
+      </a>
+    </div>
+    <div class="col-md-7">
+      <h2 class="featurette-heading">Color Themes</h2>
+      <p class="lead">
+        Tessera includes 4 color themes out of the box &mdash; two light
+        and two dark &mdash; including themes based on the popular
+        <a target="_blank" href="http://ethanschoonover.com/solarized">Solarized</a> color palette.
+      </p>
     </div>
   </div> <!-- row -->
 
   <div class="row">
-    <div class="col-md-5">
-    </div>
     <div class="col-md-7">
       <h2 class="featurette-heading"></h2>
       <p class="lead">
       </p>
     </div>
-
+    <div class="col-md-5">
+    </div>
   </div> <!-- row -->
 
 

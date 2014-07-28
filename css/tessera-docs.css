@@ -71,10 +71,13 @@ header.ds-page-banner {
 header.ds-index-banner {
     background-position: center;
     border-bottom: 1px solid #EDEDED;
+    margin-bottom: 60px;
 }
 
 header.ds-index-banner .bg {
-    background-color: rgba(255, 255, 255, 0.85);
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 header.ds-index-banner .ds-logo {
@@ -95,8 +98,7 @@ header.ds-index-banner p.lead {
     margin-left: 4.5em;
 }
 
-header.ds-index-banner .screenshot img {
-    margin: 20px;
+.img-bordered {
     padding-top: 8px;
     background: white;
     border: 1px solid #BABABA;
@@ -113,15 +115,26 @@ header.ds-index-banner .fa-circle {
 
 /* ============================================================================= */
 
-.ds-section {
-    margin-top: 2em;
+.featurette {
+    margin-top: 40px;
 }
 
-/* Thin out the marketing headings */
-.featurette-heading {
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -1px;
+.featurette h1,
+.featurette h2,
+.featurette h3,
+.featurette h4,
+.featurette h5 {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.featurette h2 {
+    font-size: 42px;
+}
+
+.featurette p.lead {
+    font-size: 20px;
 }
 
 
@@ -133,4 +146,5 @@ footer.ds-index {
     background-color: #FAFAFA;
     padding-top: 20px;
     padding-bottom: 40px;
+    margin-top: 40px;
 }
