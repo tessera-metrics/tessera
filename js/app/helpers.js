@@ -161,8 +161,8 @@ Handlebars.registerHelper('dashboards-tagged', function(tag) {
     type: 'GET',
     async: false,
     success: function(data) {
-      for (var i in data.dashboards) {
-        var d = data.dashboards[i]
+      for (var i in data) {
+        var d = data[i]
         markdown += '  * ['
         if (d.category && d.category !== '') {
           markdown += d.category + ': '
