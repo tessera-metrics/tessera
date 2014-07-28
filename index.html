@@ -73,7 +73,7 @@ layout: blank
       <img class="img-responsive img-bordered" src="{{site.baseurl}}/assets/index/actions-menu.png"/>
     </div>
     <div class="col-md-7">
-      <h2 class="featurette-heading">Actions & Transforms</h2>
+      <h1>Actions & Transforms</h1>
       <p class="lead">
         Easily extensible actions and transformations can interactively
         drill-down into data queries on the fly, or even completely
@@ -87,19 +87,24 @@ layout: blank
     <div class="col-md-5">
 {% highlight bash %}
 # Duplicate a dashboard with curl
-curl -G '$TESSERA/api/dashboard/15?definition=true' |
-curl -X POST -H "Content-Type: application/json" \
-    '$TESSERA/api/dashboard/' --data @-
+curl -G
+  $TESSERA/api/dashboard/15
+  -d 'definition=true'
+|
+curl -X POST
+  $TESSERA/api/dashboard/
+  -H 'Content-Type: application/json'
+  -d @-
 {% endhighlight %}
-
     </div>
 
     <div class="col-md-7">
-      <h2 class="featurette-heading">Full REST API</h2>
+      <h1>Full REST API</h1>
       <p class="lead">
         A REST-ful HTTP API provides access to everything, and allows
         easy management with HTTP tools like <code>curl</code>.
       </p>
+
     </div>
   </div> <!-- row -->
 
@@ -110,7 +115,7 @@ curl -X POST -H "Content-Type: application/json" \
     </div>
 
     <div class="col-md-7">
-      <h2 class="featurette-heading">Multiple Chart Renderers</h2>
+      <h1>Multiple Chart Renderers</h1>
       <p class="lead">
         View standard Graphite static PNG charts, or interactive
         charts rendered by <a target="_blank" href="http://nvd3.org/">NVD3.js</a>
@@ -126,7 +131,7 @@ curl -X POST -H "Content-Type: application/json" \
     </div>
 
     <div class="col-md-7">
-      <h2 class="featurette-heading">Text-Based Presentations</h2>
+      <h1>Text-Based Presentations</h1>
       <p class="lead">
         Data from Graphite can be presented in a wide variety of
         textual formats &mdash; not just
@@ -144,7 +149,7 @@ curl -X POST -H "Content-Type: application/json" \
       </a>
     </div>
     <div class="col-md-7">
-      <h2 class="featurette-heading">Color Themes</h2>
+      <h1>Color Themes</h1>
       <p class="lead">
         Tessera includes 4 color themes out of the box &mdash; two light
         and two dark &mdash; including themes based on the popular
@@ -155,7 +160,7 @@ curl -X POST -H "Content-Type: application/json" \
 
   <div class="row">
     <div class="col-md-7">
-      <h2 class="featurette-heading"></h2>
+      <h1></h1>
       <p class="lead">
       </p>
     </div>

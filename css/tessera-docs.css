@@ -1,3 +1,10 @@
+.container {
+    margin: 0 auto;
+    max-width: 970px;
+}
+
+/* ============================================================================= */
+
 header.ds-index-nav {
     background-color: #FAFAFA;
     border-bottom: 2px solid #627E96;
@@ -128,15 +135,6 @@ header.ds-index-banner .fa-circle {
     line-height: 1;
     letter-spacing: -1px;
 }
-
-.featurette h2 {
-    font-size: 42px;
-}
-
-.featurette p.lead {
-    font-size: 20px;
-}
-
 
 /* ============================================================================= */
 
