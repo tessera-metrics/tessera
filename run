@@ -1,0 +1,3 @@
+#!/bin/sh
+
+uwsgi -s /tmp/uwsgi.sock --module tessera --callable app

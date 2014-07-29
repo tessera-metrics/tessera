@@ -39,7 +39,6 @@ def _jsonify(data, status=200, headers=None):
 
 def _set_exception_response(http_exception):
     http_exception.response = _jsonify({
-        'ok' : False,
         'error_message' : http_exception.description
     }, status=http_exception.code)
     return http_exception
@@ -126,10 +125,7 @@ will be converted to their JSON representation.
         dashboards = [dashboards]
 
     include_definition = _get_param('definition', False)
-    return _jsonify({
-        'ok' : True,
-        'dashboards' : [ _set_dashboard_hrefs(d.to_json(include_definition=include_definition)) for d in dashboards]
-    })
+    return _jsonify([ _set_dashboard_hrefs(d.to_json(include_definition=include_definition)) for d in dashboards])
 
 def _set_tag_hrefs(tag):
     """Add ReSTful href attributes to a tag's dictionary
@@ -146,10 +142,7 @@ will be converted to their JSON representation.
 """
     if not isinstance(tags, list):
         tags = [tags]
-    return _jsonify({
-        'ok' : True,
-        'tags' : [_set_tag_hrefs(t.to_json()) for t in tags]
-    })
+    return _jsonify([_set_tag_hrefs(t.to_json()) for t in tags])
 
 # =============================================================================
 # API Endpoints
@@ -201,10 +194,7 @@ def api_dashboard_list_all_dashboard_categories():
             'name' : row[0],
             'count' : row[1]
         })
-    return _jsonify({
-        'ok' : True,
-        'categories' : categories
-    })
+    return _jsonify(categories)
 
 @app.route('/api/dashboard/<id>')
 def api_dashboard_get(id):
@@ -218,14 +208,9 @@ def api_dashboard_get(id):
     rendering = _get_param('rendering', False)
     include_definition = _get_param('definition', False)
     dash = _set_dashboard_hrefs(dashboard.to_json(rendering or include_definition))
-    response = {
-        'ok' : True,
-        'dashboards' : [dash]
-    }
     if rendering:
-        response['config'] = _get_config()
-        response['preferences'] = _get_preferences()
-    return _jsonify(response)
+        dash['preferences'] = _get_preferences()
+    return _jsonify(dash)
 
 @app.route('/api/dashboard/', methods=['POST'])
 def api_dashboard_create():
@@ -239,12 +224,11 @@ def api_dashboard_create():
         dashboard.definition = database.DefinitionRecord(dumps(DashboardDefinition()))
     mgr.store_dashboard(dashboard)
     href = _uri('/api/dashboard/{0}'.format(dashboard.id))
-    return _jsonify({ 'ok' : True,
-                      'dashboard_href' : href,
-                      # TODO: should use normalized method for this
-                      'view_href' : '/dashboards/{0}/{1}'.format(dashboard.id, inflection.parameterize(dashboard.title)) },
-                    status=201,
-                    headers = { 'Location' : href })
+    return _jsonify({
+        'dashboard_href' : href,
+        # TODO: should use normalized method for this
+        'view_href' : '/dashboards/{0}/{1}'.format(dashboard.id, inflection.parameterize(dashboard.title))
+    }, status=201, headers = { 'Location' : href })
 
 @app.route('/api/dashboard/<id>', methods=['PUT'])
 def api_dashboard_update(id):
@@ -258,7 +242,8 @@ def api_dashboard_update(id):
         raise _set_exception_response(e)
     dashboard.merge_from_json(body)
     mgr.store_dashboard(dashboard)
-    return _jsonify({ 'ok' : True })
+    # TODO - return similar to create, above
+    return _jsonify({})
 
 @app.route('/api/dashboard/<id>', methods=['DELETE'])
 def api_dashboard_delete(id):
@@ -271,7 +256,7 @@ def api_dashboard_delete(id):
         raise _set_exception_response(e)
     db.session.delete(dashboard)
     db.session.commit()
-    return _jsonify({ 'ok' : True },
+    return _jsonify({},
                     status=204)
 
 @app.route('/api/dashboard/<id>/definition')
@@ -287,10 +272,7 @@ def api_dashboard_get_definition(id):
         raise _set_exception_response(e)
     definition['href'] = _uri('/api/dashboard/{0}/definition'.format(id))
     definition['dashboard_href'] = _uri('/api/dashboard/{0}'.format(id))
-    return _jsonify({
-        'ok' : True,
-        'definition' : definition
-    })
+    return _jsonify(definition)
 
 @app.route('/api/dashboard/<id>/definition', methods=['PUT'])
 def api_dashboard_update_definition(id):
@@ -315,7 +297,7 @@ def api_dashboard_update_definition(id):
 
     mgr.store_dashboard(dashboard)
 
-    return _jsonify({ 'ok' : True })
+    return _jsonify({})
 
 #
 # Tags
@@ -356,23 +338,16 @@ def api_tag_get(id):
 
 @app.route('/api/config')
 def api_config_get():
-    return _jsonify({
-        'ok' : True,
-        'config' : _get_config()
-    })
+    return _jsonify(_get_config())
 
 @app.route('/api/preferences/')
 def api_preferences_get():
-    return _jsonify({
-        'ok' : True,
-        'preferences' : _get_preferences()
-    })
+    return _jsonify(_get_preferences())
 
 @app.route('/api/preferences/', methods=['PUT'])
 def api_preferences_put():
     _set_preferences(request.json)
-    return _jsonify({ 'ok' : True })
-
+    return _jsonify(_get_preferences())
 
 # =============================================================================
 # UI
