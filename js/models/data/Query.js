@@ -35,7 +35,12 @@ ds.models.data.Query = function(data) {
 
   self.render_templates = function(context) {
     self.expanded_targets = self.targets.map(function(t) {
+                              try {
                                 return ds.render_template(t, context)
+                              } catch ( e ) {
+                                ds.manager.error('Failed to expand query ' + self.name + ': ' + e)
+                                return t
+                              }
                             })
   }
 

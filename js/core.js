@@ -49,6 +49,15 @@ ds.render_template = function(str, context) {
   }
 }
 
+ds.safe_render_template = function(str, context) {
+  try {
+    return ds.render_template(str, context)
+  } catch (e) {
+    console.log('ds.safe_render_template(): ' + e)
+    return str
+  }
+}
+
 /**
  * Yo dawg, I heard you like objects, so I put some objects in your
  * objects...
