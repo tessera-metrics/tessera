@@ -64,6 +64,15 @@ layout: blank
   </div>
 </header>
 
+<article class="container">
+  {% for post in site.posts limit:1 %}
+  {% include blogpreview.html %}
+  {% endfor %}
+  <a href="/blog/">See more...</a>
+</article>
+
+<hr/>
+
 <div>
 
 <article class="container">
