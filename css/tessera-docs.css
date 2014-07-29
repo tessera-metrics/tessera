@@ -104,6 +104,10 @@ header.ds-index-banner h1 {
     color: #627E96;
 }
 
+header.ds-index-banner img {
+    margin-top: 20px;
+}
+
 header.ds-index-banner p.lead {
     margin-top: 1em;
     margin-left: 4.5em;
