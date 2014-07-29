@@ -10,8 +10,8 @@ header.ds-index-nav {
     border-bottom: 2px solid #627E96;
 }
 
-header.ds-index-nav .title {
-
+header.ds-index-nav  {
+    padding-bottom: 0.5em;
 }
 
 header.ds-index-nav .links {
@@ -58,9 +58,13 @@ h1.ds-page-category {
 }
 
 header.ds-page-banner {
-    height: 20px;
     background-position: center;
     border-bottom: 1px solid #EDEDED;
+}
+
+header.ds-page-banner .bg {
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .post-header h1 {
@@ -145,4 +149,35 @@ footer.ds-index {
     padding-top: 20px;
     padding-bottom: 40px;
     margin-top: 40px;
+}
+
+/* ============================================================================= */
+
+.doc-index {
+    text-align: right;
+}
+
+.doc-index ul {
+    padding-left: 0px;
+}
+
+.doc-index ul li {
+    list-style-type: none;
+    font-size: 1.1em;
+}
+
+.doc-index li.active {
+    font-weight: bold;
+}
+
+.doc h1 {
+    border-bottom: 1px solid #dadada;
+    margin-top: 1em;
+}
+
+.doc img {
+    border: 1px solid #dedede;
+    padding: 8px;
+    border-radius: 8px;
+    max-width: 100%;
 }

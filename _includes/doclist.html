@@ -1,0 +1,14 @@
+<h3>{{include.section}}</h3>
+<ul>
+  {% for doc in site.pages %}
+  {% if doc.doc_section == include.section %}
+  <li
+    {% if doc.url == page.url %}
+    class="active"
+    {% endif %}
+    >
+    <a href="{{doc.url}}">{{doc.title}}</a>
+  </li>
+  {% endif %}
+  {% endfor %}
+</ul>

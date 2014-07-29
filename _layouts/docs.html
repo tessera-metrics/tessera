@@ -1,0 +1,40 @@
+---
+layout: default
+---
+<div class="post">
+
+  <div class="container">
+
+    <div class="row">
+
+
+
+      <div class="col-md-2">
+
+        <div class="doc-index">
+          {% include doclist.html section="General" %}
+          {% include doclist.html section="Guides" %}
+          {% include doclist.html section="Development" %}
+          {% include doclist.html section="API" %}
+        </div> <!-- doc-index -->
+
+      </div> <!-- 3-col -->
+
+      <div class="col-md-10">
+        <article class="doc">
+          <h1>
+            {% if page.doc_title %}
+            {{page.doc_title}}
+            {% else %}
+            {{page.title}}
+            {% endif %}
+          </h1>
+          {{ content }}
+        </article>
+      </div>
+
+    </div> <!-- row -->
+
+  </div>
+
+</div>
