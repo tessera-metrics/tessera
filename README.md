@@ -2,7 +2,7 @@
 
 Tessera is a front-end interface for Graphite, which provides a large selection of presentations, layout, and interactivity options for building dashboards.
 
-The biggest key differences between Tessera and other frontends are the separation of queries from presentations, and the ability to apply arbitrary transformations to the presentations & queries, allowing for a large degree of interactivity. Tessera is initially focused on information presentation - it does not NOT address the areas of metric discovery or query composition (although it may in the future). 
+The biggest key differences between Tessera and other frontends are the separation of queries from presentations, and the ability to apply arbitrary transformations to the presentations & queries, allowing for a large degree of interactivity. Tessera is initially focused on information presentation - it does not NOT address the areas of metric discovery or query composition (although it may in the future).
 
 ## Overview
 
@@ -12,14 +12,14 @@ Dashboards are big lumps of JSON data describing the queries, presentations, and
 
 ## Documentation
 
-There is some basic documentation in the github repo right now.
+Documentation is hosted on GitHub Pages at
+[urbanairship.github.io/tessera/docs](http://urbanairship.github.io/tessera/docs/).
 
-* [Overview](docs/Overview.md)
-* [Build](docs/Build.md) for getting started and running from source and importing the demo dashboards.
-* [Tutorial](docs/Tutorial.md) for creating the most basic possible
+* [Getting Started](http://urbanairship.github.io/tessera/docs/) for getting started and running from source and importing the demo dashboards.
+* [Tutorial](http://urbanairship.github.io/tessera/docs/guides/tutorial/) for creating the most basic possible
   dashboard.
-* [API](docs/API.md) for accessing Tessera via the HTTP REST API
-* [Extending Tessera](docs/Extension.md), for adding new dashboard
+* API [endpoints](http://urbanairship.github.io/tessera/docs/api/endpoints/) and [data format](http://urbanairship.github.io/tessera/docs/api/data-format/) for accessing Tessera via the HTTP REST API
+* [Extending Tessera](http://urbanairship.github.io/tessera/docs/development/extension/), for adding new dashboard
   items, transformations, and actions.
 
 Some additional writeup of why Tessera exists can found on the UA blog - [Introducing Tessera, a Graphite Frontend](http://urbanairship.com/blog/2014/06/30/introducing-tessera-a-graphite-frontend).
