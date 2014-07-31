@@ -31,14 +31,13 @@ ds.charts.flot =
         },
         yaxes: [
           {
-            tickFormatter: d3.format(',3s'), /* TODO: get from item options */
+            tickFormatter: d3.format(',.3s'),
             reserveSpace: 30,
             labelWidth: 30,
             tickColor: theme_colors.minorGridLineColor
-            // axisLabel: 'Things'
           },
           {
-            // tickFormatter: opendash.format_kmbt,
+            tickFormatter: d3.format(',.3s'),
             color: '#ccc'
           }
         ],
