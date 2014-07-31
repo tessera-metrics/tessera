@@ -23,8 +23,9 @@ ds.charts.flot =
         },
         xaxis: {
           mode: "time",
-          twelveHourClock: true,
-          timezone: ds.config.DISPLAY_TIMEZONE,
+          tickFormatter: function(value) {
+            return moment(value).tz(ds.config.DISPLAY_TIMEZONE).format('h:mm A')
+          },
           tickColor: theme_colors.minorGridLineColor,
           font: {
             color: theme_colors.fgcolor,
