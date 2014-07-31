@@ -314,6 +314,10 @@ td.ds-tooltip-value {
     font-weight: bold;
 }
 
+.ds-legend-holder {
+  margin-top: 1em;
+}
+
 .ds-legend-holder .legendLabel {
     padding-right: 12px;
 }
