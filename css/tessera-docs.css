@@ -179,7 +179,8 @@ footer.ds-index {
     margin-top: 1em;
 }
 
-.doc img {
+.doc img,
+.img-bordered {
     border: 1px solid #dedede;
     padding: 8px;
     border-radius: 8px;
