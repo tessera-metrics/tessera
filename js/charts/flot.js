@@ -25,20 +25,29 @@ ds.charts.flot =
           mode: "time",
           twelveHourClock: true,
           timezone: ds.config.DISPLAY_TIMEZONE,
-          // timeformat: '',
-          tickColor: theme_colors.minorGridLineColor
-          // axisLabel: 'Time'
+          tickColor: theme_colors.minorGridLineColor,
+          font: {
+            color: theme_colors.fgcolor,
+            size: 12
+          }
         },
         yaxes: [
           {
             tickFormatter: d3.format(',.3s'),
             reserveSpace: 30,
             labelWidth: 30,
-            tickColor: theme_colors.minorGridLineColor
+            tickColor: theme_colors.minorGridLineColor,
+            font: {
+              color: theme_colors.fgcolor,
+              size: 12
+            }
           },
           {
             tickFormatter: d3.format(',.3s'),
-            color: '#ccc'
+            font: {
+              color: theme_colors.fgcolor,
+              size: 12
+            }
           }
         ],
         points: {
