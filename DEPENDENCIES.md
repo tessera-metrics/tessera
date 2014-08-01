@@ -42,3 +42,4 @@ built with as many "off-the-shelf" components as possible.
 * [color](https://github.com/harthur/color)
 * [mousetrap](https://github.com/ccampbell/mousetrap)
 * [simple-statistics](https://github.com/tmcw/simple-statistics)
+* [equalize.js](https://github.com/tsvensen/equalize.js/)

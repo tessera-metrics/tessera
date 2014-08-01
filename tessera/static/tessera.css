@@ -423,3 +423,22 @@ table.ds-property-sheet td {
 .ds-query-target {
     font-family: Consolas, "Andale Mono", "Courier New", monospace
 }
+
+/* Flot legends */
+
+.ds-legend-cell {
+  display: inline-block;
+}
+
+.ds-legend-cell .color {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+}
+
+.ds-legend-cell .label {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 13px;
+}

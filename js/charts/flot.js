@@ -16,7 +16,12 @@ ds.charts.flot =
       var default_options = {
         colors: ds.charts.util.get_palette(),
         series: {
-          lines: { show: true, lineWidth: 1, fill: false},
+          lines: {
+            show: true,
+            lineWidth: 1,
+            steps: false,
+            fill: false
+          },
           stack: null,
           points: { show: false },
           bars: { show: false }
@@ -124,8 +129,28 @@ ds.charts.flot =
       $(container).bind("unmultihighlighted", function(event) {
         $("#ds-tooltip").remove()
       })
-
     }
+
+    function render_legend(item, query, palette, flot_options) {
+      var legend_id = '#ds-legend-' + item.item_id
+      var legend = ''
+      var data = query.chart_data('flot')
+      for (var i in data) {
+        var series = data[i]
+        var label = series.label
+        var color = palette[i % palette.length]
+
+        var cell = '<div class="ds-legend-cell">'
+                 + '<span class="color" style="background-color:' + color + '"></span>'
+                 + '<span class="label" style="color:' + flot_options.xaxis.font.color +  '">' + label + '</span>'
+                 + '</div>'
+        legend += cell
+      }
+      var elt = $(legend_id)
+      elt.html(legend)
+      elt.equalize({equalize: 'outerWidth', reset: true })
+    }
+
 
     self.simple_line_chart = function(e, item, query) {
       var options = item.options || {}
@@ -152,22 +177,23 @@ ds.charts.flot =
           plot: null
       }
       setup_plugins(e, context)
-      var defaults = get_default_options()
-      context.plot = $.plot($(e), query.chart_data('flot'),
-                            ds.extend(get_default_options(), {
-                              colors: ds.charts.util.get_palette(options.palette),
-                              grid: ds.extend(defaults.grid, {
-                                hoverable: true,
-                                clickable: true,
-                                autoHighlight: false
-                              }),
-                              legend: {
-                                container: '#ds-legend-' + item.item_id,
-                                labelBoxBorderColor: 'transparent',
-                                show: true,
-                                noColumns: 4
-                              }
-                            }))
+      var defaults  = get_default_options()
+      var palette   = ds.charts.util.get_palette(options.palette)
+      var flot_options = ds.extend(get_default_options(), {
+        colors: palette,
+        grid: ds.extend(defaults.grid, {
+          hoverable: true,
+          clickable: true,
+          autoHighlight: false
+        }),
+        legend: {
+          show: false
+        }
+      })
+
+      context.plot = $.plot($(e), query.chart_data('flot'), flot_options)
+      render_legend(item, query, palette, flot_options)
+
       return self
     }
 
@@ -201,23 +227,28 @@ ds.charts.flot =
       var context = {
           plot: null
       }
+      var legend_id = '#ds-legend-' + item.item_id
+      var palette = ds.charts.util.get_palette(options.palette)
+      var flot_options = ds.extend(get_default_options(), {
+        colors: palette,
+        legend: {
+          container: legend_id,
+          labelBoxBorderColor: 'transparent',
+          show: true,
+          noColumns: 4
+        },
+        series: {
+          lines: { show: true, lineWidth: 1, fill: 1},
+          stack: true,
+          points: { show: false },
+          bars: { show: false }
+        }
+      })
+
       setup_plugins(e, context)
-      context.plot = $.plot($(e), query.chart_data('flot'),
-                            ds.extend(get_default_options(), {
-                              colors: ds.charts.util.get_palette(options.palette),
-                              legend: {
-                                container: '#ds-legend-' + item.item_id,
-                                labelBoxBorderColor: 'transparent',
-                                show: true,
-                                noColumns: 4
-                              },
-                              series: {
-                                lines: { show: true, lineWidth: 1, fill: 1},
-                                stack: true,
-                                points: { show: false },
-                                bars: { show: false }
-                              }
-                            }))
+      context.plot = $.plot($(e), query.chart_data('flot'), flot_options)
+
+      render_legend(item, query, palette, flot_options)
       return self
     }
 
