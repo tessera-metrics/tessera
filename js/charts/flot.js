@@ -65,13 +65,14 @@ ds.charts.flot =
           labelBoxBorderColor: 'transparent'
         },
         grid: {
-          borderWidth: 0,
+          borderWidth: 1,
           hoverable: true,
           clickable: true,
           autoHighlight: false,
           /* grid.color actually sets the color of the legend
            * text. WTH? */
-          color: theme_colors.fgcolor
+          color: theme_colors.fgcolor,
+          borderColor: theme_colors.minorGridLineColor
         },
         selection: {
           mode: "x",
@@ -156,7 +157,6 @@ ds.charts.flot =
                             ds.extend(get_default_options(), {
                               colors: ds.charts.util.get_palette(options.palette),
                               grid: ds.extend(defaults.grid, {
-                                borderWidth: 0,
                                 hoverable: true,
                                 clickable: true,
                                 autoHighlight: false
