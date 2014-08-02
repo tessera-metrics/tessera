@@ -233,14 +233,6 @@
     }
   })
 
-  var item_properties_action = ds.action({
-    name:    'properties',
-    display: 'Properties',
-    icon:    'fa fa-edit',
-    handler: function(action, item) {
-      ds.edit.toggle_details(item_id)
-    }
-  })
 
   var duplicate_item_action = ds.action({
     name:    'duplicate',
