@@ -367,18 +367,12 @@
      New item handling
      ----------------------------------------------------------------------------- */
 
-  function add_new_item(container, type) {
-    container.add(ds.models.factory(type))
-    ds.manager.current.dashboard.update_index()
-    ds.manager.update_item_view(container)
-  }
-
   var new_heading_action = ds.action({
     name: 'new-heading',
     display: 'Add new Heading',
     icon: 'fa fa-header',
     handler: function(action, container) {
-      add_new_item(container, 'heading')
+      container.add('heading')
     }
   })
 
@@ -387,7 +381,7 @@
     display: 'Add new Separator',
     icon: 'fa fa-arrows-h',
     handler: function(action, container) {
-      add_new_item(container, 'separator')
+      container.add('separator')
     }
   })
 
@@ -395,7 +389,7 @@
     name: 'new-section',
     display: 'Add new Section',
     handler: function(action, container) {
-      add_new_item(container, 'section')
+      container.add('section')
     }
   })
 
@@ -403,7 +397,7 @@
     name: 'new-row',
     display: 'Add new Row',
     handler: function(action, container) {
-      add_new_item(container, 'row')
+      container.add('row')
     }
   })
 
@@ -412,7 +406,7 @@
     display: 'Add new Cell',
     icon: 'fa fa-plus',
     handler: function(action, container) {
-      add_new_item(container, 'cell')
+      container.add('cell')
     }
   })
 
@@ -421,7 +415,7 @@
     display: 'Add new Markdown',
     icon: 'fa fa-code',
     handler: function(action, container) {
-      add_new_item(container, 'markdown')
+      container.add('markdown')
     }
   })
 
@@ -429,7 +423,7 @@
     name: 'new-singlestat',
     display: 'Add new Singlestat',
     handler: function(action, container) {
-      add_new_item(container, 'singlestat')
+      container.add('singlestat')
     }
   })
 
@@ -437,7 +431,7 @@
     name: 'new-jumbotron_singlestat',
     display: 'Add new Jumbotron Singlestat',
     handler: function(action, container) {
-      add_new_item(container, 'jumbotron_singlestat')
+      container.add('jumbotron_singlestat')
     }
   })
 
@@ -446,7 +440,7 @@
     display: 'Add new Percentage Table',
     icon: 'fa fa-table',
     handler: function(action, container) {
-      add_new_item(container, 'percentage_table')
+      container.add('percentage_table')
     }
   })
 
@@ -455,7 +449,7 @@
     display: 'Add new Summation Table',
     icon: 'fa fa-table',
     handler: function(action, container) {
-      add_new_item(container, 'summation_table')
+      container.add('summation_table')
     }
   })
 
@@ -464,7 +458,7 @@
     display: 'Add new Timeshift Summation Table',
     icon: 'fa fa-table',
     handler: function(action, container) {
-      add_new_item(container, 'timeshift_summation_table')
+      container.add('timeshift_summation_table')
     }
   })
 
@@ -473,7 +467,7 @@
     display: 'Add new Comparison Summation Table',
     icon: 'fa fa-table',
     handler: function(action, container) {
-      add_new_item(container, 'comparison_summation_table')
+      container.add('comparison_summation_table')
     }
   })
 
@@ -482,7 +476,7 @@
     display: 'Add new Simple Time Series',
     icon: 'fa fa-image',
     handler: function(action, container) {
-      add_new_item(container, 'simple_time_series')
+      container.add('simple_time_series')
     }
   })
 
@@ -491,7 +485,7 @@
     display: 'Add new Standard Time Series',
     icon: 'fa fa-image',
     handler: function(action, container) {
-      add_new_item(container, 'standard_time_series')
+      container.add('standard_time_series')
     }
   })
 
@@ -500,7 +494,7 @@
     display: 'Add new Stacked Area Chart',
     icon: 'fa fa-image',
     handler: function(action, container) {
-      add_new_item(container, 'stacked_area_chart')
+      container.add('stacked_area_chart')
     }
   })
 
@@ -509,7 +503,7 @@
     display: 'Add new Donut Chart',
     icon: 'fa fa-image',
     handler: function(action, container) {
-      add_new_item(container, 'donut_chart')
+      container.add('donut_chart')
     }
   })
 
@@ -519,7 +513,7 @@
     display: 'Add new Singlegraph',
     icon: 'fa fa-image',
     handler: function(action, container) {
-      add_new_item(container, 'singlegraph')
+      container.add('singlegraph')
     }
   })
 
@@ -615,7 +609,7 @@
       display: 'Add new Cell',
       icon: 'fa fa-plus',
       handler: function(action, container) {
-        add_new_item(container, 'cell')
+        container.add('cell')
       }
     }),
     duplicate_item_action,
