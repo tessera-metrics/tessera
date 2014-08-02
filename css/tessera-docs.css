@@ -186,3 +186,12 @@ footer.ds-index {
     border-radius: 8px;
     max-width: 100%;
 }
+
+.toc-container {
+    float: right;
+    margin-left: 2em;
+}
+
+.toc-container .well {
+    padding-left: 0px;
+}

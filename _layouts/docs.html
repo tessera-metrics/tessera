@@ -22,6 +22,13 @@ layout: default
 
       <div class="col-md-10">
         <article class="doc">
+
+          <div class="toc-container">
+            <div class="well">
+              <div class="toc"></div>
+            </div>
+          </div>
+
           <h1>
             {% if page.doc_title %}
             {{page.doc_title}}
@@ -38,3 +45,6 @@ layout: default
   </div>
 
 </div>
+<script>
+$('.toc').toc({listType: 'ul', title: '', showSpeed: 0})
+</script>
