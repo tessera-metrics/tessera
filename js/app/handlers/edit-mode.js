@@ -1,54 +1,8 @@
 (function () {
 
-  /**
-   * Helper functions to show & hide the action bar & property sheet
-   * for dashboard items.
-   */
-  ds.edit.hide_details = function(item_id) {
-    var details = $('#' + item_id + '-details')
-    details.remove()
-    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').hide()
-    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .badge').removeClass('ds-badge-highlight')
-  }
-
-  ds.edit.show_details = function(item_id) {
-    // Show the edit button bar across the top of the item
-    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').show()
-    var item = ds.manager.current.dashboard.get_item(item_id)
-    var item_type = ds.models[item.item_type]
-    var bar_id = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
-    var details_id = '#' + item_id + '-details'
-    if ($(details_id).length == 0) {
-
-      // Render the item's property sheet
-      var elt = $('.ds-edit-bar[data-ds-item-id="' + item_id + '"]')
-      var details = ds.templates['ds-edit-bar-item-details']({item:item})
-      elt.append(details)
-
-      if (item_type.interactive_properties) {
-        // Run the edit handlers for each property, which make them
-        // editable and set up the callbacks for their updates
-        for (var i in item_type.interactive_properties) {
-          item_type.interactive_properties[i].edit(item)
-        }
-      }
-    }
-  }
-
-  ds.edit.toggle_details = function(item_id) {
-    var details = $('#' + item_id + '-details')
-    if (details.is(':visible')) {
-      ds.edit.hide_details(item_id)
-      return false
-    } else {
-      ds.edit.show_details(item_id)
-      return true
-    }
-  }
-
-  ds.edit.details_visibility = function(item) {
-    return $('#' + item.item_id + '-details').is(':visible')
-  }
+  /* -----------------------------------------------------------------------------
+     Queries
+     ----------------------------------------------------------------------------- */
 
   /* Query delete buttons */
   $(document).on('click', 'button.ds-delete-query-button', function(e) {
@@ -183,6 +137,60 @@
     return add_query(dashboard, name, targets || 'absolute(randomWalkFunction("' + name + '"))')
   }
 
+  /* -----------------------------------------------------------------------------
+     Property Sheets
+     ----------------------------------------------------------------------------- */
+
+  /**
+   * Helper functions to show & hide the action bar & property sheet
+   * for dashboard items.
+   */
+  ds.edit.hide_details = function(item_id) {
+    var details = $('#' + item_id + '-details')
+    details.remove()
+    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').hide()
+    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .badge').removeClass('ds-badge-highlight')
+  }
+
+  ds.edit.show_details = function(item_id) {
+    // Show the edit button bar across the top of the item
+    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').show()
+    var item = ds.manager.current.dashboard.get_item(item_id)
+    var item_type = ds.models[item.item_type]
+    var bar_id = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
+    var details_id = '#' + item_id + '-details'
+    if ($(details_id).length == 0) {
+
+      // Render the item's property sheet
+      var elt = $('.ds-edit-bar[data-ds-item-id="' + item_id + '"]')
+      var details = ds.templates['ds-edit-bar-item-details']({item:item})
+      elt.append(details)
+
+      if (item_type.interactive_properties) {
+        // Run the edit handlers for each property, which make them
+        // editable and set up the callbacks for their updates
+        for (var i in item_type.interactive_properties) {
+          item_type.interactive_properties[i].edit(item)
+        }
+      }
+    }
+  }
+
+  ds.edit.toggle_details = function(item_id) {
+    var details = $('#' + item_id + '-details')
+    if (details.is(':visible')) {
+      ds.edit.hide_details(item_id)
+      return false
+    } else {
+      ds.edit.show_details(item_id)
+      return true
+    }
+  }
+
+  ds.edit.details_visibility = function(item) {
+    return $('#' + item.item_id + '-details').is(':visible')
+  }
+
   var PROPERTY_SHEET_TIMEOUT = 3000
 
   /**
@@ -233,6 +241,9 @@
     }
   })
 
+  /* -----------------------------------------------------------------------------
+     Item Actions
+     ----------------------------------------------------------------------------- */
 
   var duplicate_item_action = ds.action({
     name:    'duplicate',
@@ -300,9 +311,8 @@
     }
   })
 
-
   /* -----------------------------------------------------------------------------
-     New from Graphite URL
+     New from Graphite URL Action
      ----------------------------------------------------------------------------- */
 
   function new_chart_from_graphite_url(url_string) {
