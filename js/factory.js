@@ -1,3 +1,13 @@
+/**
+ * Descriptor may have the following attributes:
+ *   - constructor
+ *   - template
+ *   - interactive_properties
+ *   - data_handler
+ *   - icon
+ *   - display_name
+ *   - category
+ */
 ds.register_dashboard_item = function(item_type, descriptor) {
   ds.models[item_type] = descriptor
   if (descriptor.template && (typeof(descriptor.template) === 'string')) {
@@ -28,6 +38,18 @@ ds.register_dashboard_item = function(item_type, descriptor) {
   })
 
   descriptor.interactive_properties = props
+
+  var new_item_action = ds.action({
+    name:     item_type,
+    display:  'Add new ' + (descriptor.display_name || item_type),
+    icon:     descriptor.icon || '',
+    category: descriptor.category ? 'new-item-' + descriptor.category : 'new-item',
+    handler:  function(action, container) {
+      container.add(item_type)
+    }
+  })
+
+  ds.actions.register(new_item_action.category, new_item_action)
 
   return ds
 }
