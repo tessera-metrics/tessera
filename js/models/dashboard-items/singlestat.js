@@ -10,7 +10,7 @@ ds.register_dashboard_item('singlestat',  {
     var self = limivorous.observable()
                          .property('title')
                          .property('units')
-                         .property('format', {init: ',.3f'})
+                         .property('format', {init: ',.3s'})
                          .property('index')
                          .property('transform', {init: 'mean'})
                          .extend(ds.models.item, {item_type: 'singlestat'})
