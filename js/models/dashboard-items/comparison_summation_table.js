@@ -3,6 +3,10 @@
  */
 ds.register_dashboard_item('comparison_summation_table', {
 
+  display_name: 'Comparison Summation Table',
+  icon: 'fa fa-table',
+  category: 'data-table',
+
   /**
    * Definition of the model object.
    */

@@ -1,5 +1,9 @@
 ds.register_dashboard_item('stacked_area_chart', {
 
+  display_name: 'Stacked Area Chart',
+  icon: 'fa fa-image',
+  category: 'chart',
+
   constructor: function(data) {
     'use strict'
 

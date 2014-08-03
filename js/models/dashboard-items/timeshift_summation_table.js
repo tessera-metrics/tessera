@@ -9,6 +9,10 @@
  */
 ds.register_dashboard_item('timeshift_summation_table', {
 
+  display_name: 'Timeshift Summation Table',
+  icon: 'fa fa-table',
+  category: 'data-table',
+
   /**
    * Definition of the model object.
    */

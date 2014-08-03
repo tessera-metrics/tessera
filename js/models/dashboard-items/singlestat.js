@@ -1,5 +1,9 @@
 ds.register_dashboard_item('singlestat',  {
 
+  display_name: 'Singlestat',
+  icon: 'fa fa-subscript',
+  category: 'data-table',
+
   constructor: function(data) {
     'use strict'
 

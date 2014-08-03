@@ -1,5 +1,9 @@
 ds.register_dashboard_item('separator', {
 
+  display_name: 'Separator',
+  icon: 'fa fa-arrows-h',
+  category: 'display',
+
   constructor: function(data) {
     'use strict'
 

@@ -1,5 +1,9 @@
 ds.register_dashboard_item('singlegraph', {
 
+  display_name: 'Singlegraph',
+  icon: 'fa fa-image',
+  category: 'chart',
+
   constructor: function(data) {
     'use strict'
 

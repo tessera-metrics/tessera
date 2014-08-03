@@ -1,4 +1,9 @@
 ds.register_dashboard_item('donut_chart', {
+
+  display_name: 'Donut Chart',
+  icon: 'fa fa-image',
+  category: 'chart',
+
   constructor: function(data) {
     'use strict'
 

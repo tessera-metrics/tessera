@@ -1,5 +1,9 @@
 ds.register_dashboard_item('percentage_table', {
 
+  display_name: 'Percentage Table',
+  icon: 'fa fa-table',
+  category: 'data-table',
+
   constructor: function(data) {
     'use strict'
 

@@ -1,4 +1,8 @@
 ds.register_dashboard_item('row', {
+
+  display_name: 'Row',
+  category: 'structural',
+
   constructor: function(data) {
     'use strict'
 
