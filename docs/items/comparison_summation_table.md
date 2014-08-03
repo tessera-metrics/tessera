@@ -15,20 +15,21 @@ doc_section: Item Types
 | `format` | `,.3s` | |
 | `shift` | `1d` | |
 | `striped` | `false` | |
-| `include_sums` | `false` | If `true`, the raw sum of each data series will be include in the table.  |
 | `query` | | |
+| `query_other` | | |
 {: .table .attributes }
 
-### Example 1
+### Example
 
-![](1day-striped.png){: .img-bordered}
-
-{% highlight json %}
-{% endhighlight %}
-
-### Example 2
-
-![](1week-plain.png){: .img-bordered}
+![](example.png){: .img-bordered}
 
 {% highlight json %}
+{
+  "item_type": "comparison_summation_table",
+  "item_id": "d166",
+  "format": ",.3s",
+  "striped": true,
+  "query": "comp1",
+  "query_other": "comp2"
+}
 {% endhighlight %}

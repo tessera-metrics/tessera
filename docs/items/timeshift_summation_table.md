@@ -5,6 +5,10 @@ category: Documentation
 doc_section: Item Types
 ---
 
+The `timeshift_summation_table` dashboard item displays a query's
+summation alongside the summation of the same query shifted back in
+time with Graphite's `timeShift()` function, calculating and
+displaying the delta.
 
 ### Attributes
 
