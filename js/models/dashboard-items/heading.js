@@ -1,4 +1,9 @@
 ds.register_dashboard_item('heading', {
+
+  display_name: 'Heading',
+  icon: 'fa fa-header',
+  category: 'display',
+
   constructor: function(data) {
     'use strict'
 

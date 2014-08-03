@@ -1,5 +1,9 @@
 ds.register_dashboard_item('jumbotron_singlestat', {
 
+  display_name: 'Jumbotron Singlestat',
+  icon: 'fa fa-subscript',
+  category: 'data-table',
+
   constructor: function(data) {
     'use strict'
 

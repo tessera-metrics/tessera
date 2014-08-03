@@ -1,5 +1,8 @@
 ds.register_dashboard_item('cell', {
 
+  display_name: 'Cell',
+  category: 'structural',
+
   constructor: function(data) {
     'use strict'
 

@@ -1,5 +1,7 @@
 ds.register_dashboard_item('dashboard_definition', {
 
+  category: false,
+
   constructor: function(data) {
     "use strict"
 

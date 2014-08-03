@@ -54,8 +54,14 @@ ds.models.container =
       }
 
       self.add = function(item) {
+        if (typeof(item) === 'string') {
+          item = ds.models.factory(item)
+        }
         self.items.push(item)
         self.notify('items')
+        /* This should go in an event handler */
+        ds.manager.current.dashboard.update_index()
+        ds.manager.update_item_view(self)
         return self
       }
 

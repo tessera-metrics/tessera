@@ -1,5 +1,9 @@
 ds.register_dashboard_item('simple_time_series', {
 
+  display_name: 'Simple Time Series',
+  icon: 'fa fa-image',
+  category: 'chart',
+
   constructor: function(data) {
     'use strict'
 

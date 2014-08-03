@@ -1,5 +1,9 @@
 ds.register_dashboard_item('summation_table', {
 
+  display_name: 'Summation Table',
+  icon: 'fa fa-table',
+  category: 'data-table',
+
   constructor: function(data) {
     'use strict'
 

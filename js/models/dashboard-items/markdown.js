@@ -1,4 +1,9 @@
 ds.register_dashboard_item('markdown', {
+
+  display_name: 'Markdown',
+  icon: 'fa fa-code',
+  category: 'display',
+
   constructor: function(data) {
     'use strict'
 

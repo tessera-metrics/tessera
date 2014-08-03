@@ -1,5 +1,8 @@
 ds.register_dashboard_item('section', {
 
+  display_name: 'Section',
+  category: 'structural',
+
   constructor: function(data) {
     'use strict'
 
