@@ -827,6 +827,82 @@
             "item_id": "d156"
           }, 
           {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "item_type": "markdown", 
+                    "text": "### Comparison Summation Tables\n\nLike the timeshift summation table, this table compares the\ndifference between two queries. Instead of time-shifting one\nquery, however, this version comparse any two arbitrary queries.\n", 
+                    "height": null, 
+                    "raw": false, 
+                    "css_class": null, 
+                    "item_id": "d147"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d146", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 4, 
+                "items": [
+                  {
+                    "query_other": "comp2", 
+                    "style": null, 
+                    "format": ",.3s", 
+                    "css_class": null, 
+                    "height": null, 
+                    "item_type": "comparison_summation_table", 
+                    "item_id": "d166", 
+                    "query": "comp1", 
+                    "striped": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d148", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 4, 
+                "items": [
+                  {
+                    "query_other": "comp2", 
+                    "style": null, 
+                    "format": ",.3s", 
+                    "css_class": null, 
+                    "height": null, 
+                    "item_type": "comparison_summation_table", 
+                    "item_id": "d168", 
+                    "query": "comp1", 
+                    "striped": false
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d167", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d145"
+          }, 
+          {
             "item_id": "d136", 
             "item_type": "separator", 
             "style": null, 
@@ -1617,6 +1693,18 @@
           "absolute(randomWalkFunction(\"thing1\"))"
         ]
       }, 
+      "comp2": {
+        "name": "comp2", 
+        "targets": [
+          "scale(absolute(randomWalkFunction(\"comp2\")), 1000)"
+        ]
+      }, 
+      "comp1": {
+        "name": "comp1", 
+        "targets": [
+          "scale(absolute(randomWalkFunction(\"comp1\")), 1000)"
+        ]
+      }, 
       "collector_shifted": {
         "name": "collector_shifted", 
         "targets": [
@@ -1647,7 +1735,7 @@
     "css_class": null, 
     "item_id": "d1"
   }, 
-  "last_modified_date": "2014-07-04T20:06:20.705603Z", 
+  "last_modified_date": "2014-08-03T21:41:15.162669Z", 
   "description": "Dashboard descriptions can be longer and more detailed. \n### Markdown Formatted \nPlus, they can be _formatted_ in **Markdown** format for rendering to HTML.", 
   "title": "Gallery", 
   "tags": [
@@ -1663,8 +1751,8 @@
       "name": "demo"
     }
   ], 
-  "creation_date": "2014-07-02T19:44:46.222606Z", 
-  "id": 10, 
+  "creation_date": "2014-07-19T21:34:02.941135Z", 
+  "id": 24, 
   "imported_from": null, 
   "summary": "A gallery of all the supported presentations"
 }
