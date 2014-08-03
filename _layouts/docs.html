@@ -7,14 +7,13 @@ layout: default
 
     <div class="row">
 
-
-
       <div class="col-md-2">
 
         <div class="doc-index">
           {% include doclist.html section="General" %}
           {% include doclist.html section="Guides" %}
           {% include doclist.html section="Development" %}
+          {% include doclist.html section="Item Types" %}
           {% include doclist.html section="API" %}
         </div> <!-- doc-index -->
 
@@ -43,5 +42,11 @@ layout: default
 
 </div>
 <script>
-$('.toc').toc({listType: 'ul', title: '', showSpeed: 0})
+$(function() {
+   var e = $('.toc')
+   e.toc({listType: 'ul', title: '', showSpeed: 0})
+   if (e.children().length === 0) {
+     e.remove()
+   }
+})()
 </script>
