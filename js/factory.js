@@ -48,7 +48,6 @@ ds.register_dashboard_item = function(item_type, descriptor) {
     category: category,
     class:   'new-item',
     handler:  function(action, container) {
-      console.log('Add new ' + item_type)
       container.add(item_type)
     }
   })
