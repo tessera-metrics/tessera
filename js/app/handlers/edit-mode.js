@@ -347,7 +347,7 @@
     return chart
   }
 
-  var new_from_url_action = ds.action({
+  ds.actions.register('new-item-chart', {
     name: 'new-chart-from-url',
     display: 'Add new chart from Graphite URL',
     icon: 'fa fa-image',
@@ -369,184 +369,26 @@
      New item handling
      ----------------------------------------------------------------------------- */
 
-  var new_heading_action = ds.action({
-    name: 'new-heading',
-    display: 'Add new Heading',
-    icon: 'fa fa-header',
-    handler: function(action, container) {
-      container.add('heading')
-    }
-  })
-
-  var new_separator_action = ds.action({
-    name: 'new-separator',
-    display: 'Add new Separator',
-    icon: 'fa fa-arrows-h',
-    handler: function(action, container) {
-      container.add('separator')
-    }
-  })
-
-  var new_section_action = ds.action({
-    name: 'new-section',
-    display: 'Add new Section',
-    handler: function(action, container) {
-      container.add('section')
-    }
-  })
-
-  var new_row_action = ds.action({
-    name: 'new-row',
-    display: 'Add new Row',
-    handler: function(action, container) {
-      container.add('row')
-    }
-  })
-
-  var new_cell_action = ds.action({
-    name: 'new-cell',
-    display: 'Add new Cell',
-    icon: 'fa fa-plus',
-    handler: function(action, container) {
-      container.add('cell')
-    }
-  })
-
-  var new_markdown_action = ds.action({
-    name: 'new-markdown',
-    display: 'Add new Markdown',
-    icon: 'fa fa-code',
-    handler: function(action, container) {
-      container.add('markdown')
-    }
-  })
-
-  var new_singlestat_action = ds.action({
-    name: 'new-singlestat',
-    display: 'Add new Singlestat',
-    handler: function(action, container) {
-      container.add('singlestat')
-    }
-  })
-
-  var new_jumbotron_singlestat_action = ds.action({
-    name: 'new-jumbotron_singlestat',
-    display: 'Add new Jumbotron Singlestat',
-    handler: function(action, container) {
-      container.add('jumbotron_singlestat')
-    }
-  })
-
-  var new_percentage_table_action = ds.action({
-    name: 'new-percentage_table',
-    display: 'Add new Percentage Table',
-    icon: 'fa fa-table',
-    handler: function(action, container) {
-      container.add('percentage_table')
-    }
-  })
-
-  var new_summation_table_action = ds.action({
-    name: 'new-summation_table',
-    display: 'Add new Summation Table',
-    icon: 'fa fa-table',
-    handler: function(action, container) {
-      container.add('summation_table')
-    }
-  })
-
-  var new_timeshift_summation_table_action = ds.action({
-    name: 'new-timeshift-summation_table',
-    display: 'Add new Timeshift Summation Table',
-    icon: 'fa fa-table',
-    handler: function(action, container) {
-      container.add('timeshift_summation_table')
-    }
-  })
-
-  var new_comparison_summation_table_action = ds.action({
-    name: 'new-comparison-summation_table',
-    display: 'Add new Comparison Summation Table',
-    icon: 'fa fa-table',
-    handler: function(action, container) {
-      container.add('comparison_summation_table')
-    }
-  })
-
-  var new_simple_time_series_action = ds.action({
-    name: 'new-simple_time_series',
-    display: 'Add new Simple Time Series',
-    icon: 'fa fa-image',
-    handler: function(action, container) {
-      container.add('simple_time_series')
-    }
-  })
-
-  var new_standard_time_series_action = ds.action({
-    name: 'new-standard_time_series',
-    display: 'Add new Standard Time Series',
-    icon: 'fa fa-image',
-    handler: function(action, container) {
-      container.add('standard_time_series')
-    }
-  })
-
-  var new_stacked_area_chart_action = ds.action({
-    name: 'new-stacked_area_chart',
-    display: 'Add new Stacked Area Chart',
-    icon: 'fa fa-image',
-    handler: function(action, container) {
-      container.add('stacked_area_chart')
-    }
-  })
-
-  var new_donut_chart_action = ds.action({
-    name: 'new-donut_area_chart',
-    display: 'Add new Donut Chart',
-    icon: 'fa fa-image',
-    handler: function(action, container) {
-      container.add('donut_chart')
-    }
-  })
-
-
-  var new_singlegraph_action = ds.action({
-    name: 'new-singlegraph',
-    display: 'Add new Singlegraph',
-    icon: 'fa fa-image',
-    handler: function(action, container) {
-      container.add('singlegraph')
-    }
-  })
-
-  var all_new_item_actions = [
-    new_section_action,
-    new_row_action,
-    new_cell_action,
-    ds.action.divider,
-    new_markdown_action,
-    new_heading_action,
-    new_separator_action,
-    ds.action.divider,
-    new_singlestat_action,
-    new_jumbotron_singlestat_action,
-    new_percentage_table_action,
-    new_summation_table_action,
-    new_timeshift_summation_table_action,
-    new_comparison_summation_table_action,
-    ds.action.divider,
-    new_from_url_action,
-    new_simple_time_series_action,
-    new_standard_time_series_action,
-    new_stacked_area_chart_action,
-    new_donut_chart_action,
-    new_singlegraph_action
-  ].map(function(action) { return action.set_class('new-item').set_category('new-item') })
-
-  ds.actions.register('new-item',
-                      all_new_item_actions.filter(function(action) {
-                        return !action.divider
-                      }))
+  var new_item_actions = [].concat(ds.actions.get('new-item-structural', 'row'),
+                                   ds.action.divider,
+                                   ds.actions.list('new-item-display').sort(function(a, b) {
+                                     return a.icon.localeCompare(b.icon)
+                                   }),
+                                   ds.action.divider,
+                                   ds.actions.list('new-item-data-table').sort(function(a, b) {
+                                     return a.icon.localeCompare(b.icon)
+                                   }),
+                                   ds.action.divider,
+                                   ds.actions.list('new-item-chart').sort(function(a, b) {
+                                     return a.icon.localeCompare(b.icon)
+                                   })
+                                  )
+  var other = ds.actions.list('new-item')
+  if (other && other.length) {
+    new_item_actions.concat(other.sort(function(a, b) {
+                              return a.icon.localeCompare(b.icon)
+                            }))
+  }
 
   var new_item_action_for_cell = ds.action({
     name: 'new-item',
@@ -554,9 +396,7 @@
     class: 'ds-new-item',
     display: 'Add new dashboard item...',
     icon: 'fa fa-plus',
-    actions: all_new_item_actions.filter(function(action) {
-               return action != new_section_action && action != new_cell_action
-             })
+    actions: new_item_actions
   })
 
   var new_item_action_for_section = ds.action({
@@ -565,14 +405,13 @@
     class: 'ds-new-item',
     display: 'Add new dashboard item...',
     icon: 'fa fa-plus',
-    actions: [
-      new_section_action,
-      new_row_action,
-      ds.action.divider,
-      new_heading_action,
-      new_separator_action,
-      new_markdown_action
-    ]
+    actions: [].concat(ds.actions.get('new-item-structural', 'section'),
+                       ds.actions.get('new-item-structural', 'row'),
+                       ds.action.divider,
+                       ds.actions.list('new-item-display').sort(function(a, b) {
+                         return a.icon.localeCompare(b.icon)
+                       })
+                      )
   })
 
   $(document).on('click', 'li.new-item', function(event) {
