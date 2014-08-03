@@ -10,7 +10,7 @@ doc_title: A Brief Tour of Tessera
 
 There are two sections of the front page that are dynamically populated. Above the three big section icons is a section which can be populated by a small dashboard. If any dashboards are tagged with the tag `featured-billboard`, one of them will be randomly selected. Obviously, it should be a very compact dashboard. A single graph with `span=12`, for example - showing the rate of metrics ingress.
 
-![](front-page-small.png)
+![](front-page-small.png){: .img-bordered}
 
 At the bottom, the **Featured Dashboards** list will be populated by all dashboards tagged with the tag `featured`.
 
@@ -20,7 +20,7 @@ The dashboard list page, at `/dashboards/` lists all dashboards (there is no pag
 
 To list dashboards with a specific tag, click on the tag in the list on the right, or link to `/dashboards/tagged/:tagname`.
 
-![](dashboard-list-small.png)
+![](dashboard-list-small.png){: .img-bordered}
 
 ## Dashboard Display
 

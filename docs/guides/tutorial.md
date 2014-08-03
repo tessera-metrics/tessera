@@ -11,21 +11,21 @@ This tutorial introduces the editing user interface by walking through creating 
 
 Once you've got Tessera running, launch a browser and load up the front page. If you're running with the default config from source, it will be at [localhost:5000](http://localhost:5000).
 
-![](home-screen.png)
+![](home-screen.png){: .img-bordered}
 
 Click on the _Dashboards_ icon to go to the dashboard listing page, which is where you can create a new dashboard from.
 
-![](dashboards-list.png)
+![](dashboards-list.png){: .img-bordered}
 
 Click on _New dashboard..._, then fill in some data in the form. The only required field is the title.
 
-![](new-dashboard.png)
+![](new-dashboard.png){: .img-bordered}
 
 ## Open the Editor
 
 From the blank new dashboard that results, click on the _Edit_ button in the main toolbar.
 
-![](empty-dashboard.png)
+![](empty-dashboard.png){: .img-bordered}
 
 ## Create a Data Query
 
@@ -42,7 +42,7 @@ That will create a new query with a placeholder Graphite expression to generate 
 
 In order to add anything to the dashboard, you have to start with a _section_ at the top level. Click the _+_ button in the main toolbar to add a new section.
 
-![](new-section.png)
+![](new-section.png){: .img-bordered}
 
 In edit mode, all items have a shaded title bar, with a badge in the upper left corner indicating the item's type and ID. Clicking on the badge will open a property sheet allowing you to edit that item.
 
@@ -70,10 +70,10 @@ Once you've set the query, the time series chart will immediately render.
 
 At this point it would be a good idea to save the edits - go back up to the main toolbar and click the _Save_ button. Alternatively, you can save instantly with the `ctrl-shift-s` keyboard shortcut.
 
-![](save-dashboard.png)
+![](save-dashboard.png){: .img-bordered}
 
 Exit edit mode by click on the edit button again, or with the `ctrl-shift-e` keyboard shortcut.
 
-![](almost-final.png)
+![](almost-final.png){: .img-bordered}
 
 Congratulations, it's a dashboard!

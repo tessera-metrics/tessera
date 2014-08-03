@@ -19,10 +19,11 @@
     <script src="{{site.baseurl}}/js/toc.js"></script>
 
     <style>
-     /* I hate putting this here, but it needs template expansion */
-     header.ds-page-banner,
-     header.ds-index-banner {
-       background-image: url("{{site.baseurl}}/images/index/Large-Banner.jpg");
+     {% if page.category != 'Documentation' %}
+     .container {
+       margin: 0 auto;
+       max-width: 970px;
      }
+     {% endif %}
     </style>
 </head>

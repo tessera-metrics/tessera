@@ -1,7 +1,5 @@
-.container {
-    margin: 0 auto;
-    max-width: 970px;
-}
+---
+---
 
 /* ============================================================================= */
 
@@ -60,6 +58,11 @@ h1.ds-page-category {
 header.ds-page-banner {
     background-position: center;
     border-bottom: 1px solid #EDEDED;
+}
+
+header.ds-page-banner,
+header.ds-index-banner {
+    background-image: url("{{site.baseurl}}/images/index/Large-Banner.jpg");
 }
 
 header.ds-page-banner .bg {
@@ -157,8 +160,25 @@ footer.ds-index {
 
 /* ============================================================================= */
 
+.doc-index,
+.doc .toc {
+    background-color: #fafafa;
+    border: 1px solid #f0f0f0;
+    border-radius: 4px;
+    padding: 8px;
+}
+
 .doc-index {
     text-align: right;
+    padding-top: 0px;
+    margin-top: 3em;
+}
+
+.doc .toc {
+    float: right;
+    margin-top: .5em;
+    padding-left: 0px;
+    margin-left: 2em;
 }
 
 .doc-index ul {
@@ -175,23 +195,15 @@ footer.ds-index {
 }
 
 .doc h1 {
-    border-bottom: 1px solid #dadada;
     margin-top: 1em;
 }
 
-.doc img,
+.doc img {
+    max-width: 100%;
+}
+
 .img-bordered {
     border: 1px solid #dedede;
     padding: 8px;
     border-radius: 8px;
-    max-width: 100%;
-}
-
-.toc-container {
-    float: right;
-    margin-left: 2em;
-}
-
-.toc-container .well {
-    padding-left: 0px;
 }

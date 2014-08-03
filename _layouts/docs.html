@@ -23,11 +23,7 @@ layout: default
       <div class="col-md-10">
         <article class="doc">
 
-          <div class="toc-container">
-            <div class="well">
-              <div class="toc"></div>
-            </div>
-          </div>
+          <div class="toc"></div>
 
           <h1>
             {% if page.doc_title %}
@@ -36,6 +32,7 @@ layout: default
             {{page.title}}
             {% endif %}
           </h1>
+          <hr/>
           {{ content }}
         </article>
       </div>
