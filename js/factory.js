@@ -39,17 +39,19 @@ ds.register_dashboard_item = function(item_type, descriptor) {
 
   descriptor.interactive_properties = props
 
-  var new_item_action = ds.action({
+  var category = descriptor.category ? 'new-item-' + descriptor.category : 'new-item'
+
+  ds.actions.register(category, {
     name:     item_type,
     display:  'Add new ' + (descriptor.display_name || item_type),
     icon:     descriptor.icon || '',
-    category: descriptor.category ? 'new-item-' + descriptor.category : 'new-item',
+    category: category,
+    class:   'new-item',
     handler:  function(action, container) {
+      console.log('Add new ' + item_type)
       container.add(item_type)
     }
   })
-
-  ds.actions.register(new_item_action.category, new_item_action)
 
   return ds
 }
