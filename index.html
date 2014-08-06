@@ -152,19 +152,30 @@ curl -X POST
   </div> <!-- row -->
 
   <div class="row featurette">
-    <div class="col-md-5">
-      <a href="{{site.baseurl}}/images/index/color-themes-four.jpg" target="_blank">
-        <img class="img-responsive" src="{{site.baseurl}}/images/index/color-themes-small.png"/>
-      </a>
-    </div>
-    <div class="col-md-7">
-      <h1>Color Themes</h1>
+    <h1>Color Themes</h1>
       <p class="lead">
-        Tessera includes 4 color themes out of the box &mdash; two light
+        Tessera includes 5 color themes out of the box &mdash; three light
         and two dark &mdash; including themes based on the popular
         <a target="_blank" href="http://ethanschoonover.com/solarized">Solarized</a> color palette.
       </p>
-    </div>
+
+    <div id="ds-themes-carousel">
+      <div>
+        <img src="{{site.baseurl}}/images/index/demo-overview-light.png" class="img-responsive"/>
+      </div>
+      <div>
+        <img src="{{site.baseurl}}/images/index/demo-overview-snow.png" class="img-responsive"/>
+      </div>
+      <div>
+        <img src="{{site.baseurl}}/images/index/demo-overview-solarized-light.png" class="img-responsive"/>
+      </div>
+      <div>
+        <img src="{{site.baseurl}}/images/index/demo-overview-dark.png" class="img-responsive"/>
+      </div>
+      <div>
+        <img src="{{site.baseurl}}/images/index/demo-overview-solarized-dark.png" class="img-responsive"/>
+      </div>
+    </div> <!-- carousel -->
   </div> <!-- row -->
 
   <div class="row">
@@ -183,3 +194,15 @@ curl -X POST
 </article>
 
 {% include footer.html %}
+<style>
+ .slick-prev:before, .slick-next:before {
+   color: black;
+   font-size: 36px;
+ }
+</style>
+<script>
+ $('#ds-themes-carousel').slick({
+   arrows: true,
+   dots: true
+})
+</script>
