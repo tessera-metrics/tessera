@@ -17,6 +17,7 @@ lucky than good.
 | Attribute | Default Value | |
 |-:|:-|
 | `title` | | |
+| `filled` | `false` | |
 | `query` | | |
 {: .table .attributes }
 
