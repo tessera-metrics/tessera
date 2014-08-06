@@ -1,0 +1,17 @@
+body {
+    background-color: #fafafa;
+}
+
+h1 .ds-primary-title {
+    color: gray;
+}
+
+.well,
+.ds-grid .well,
+.breadcrumb {
+    background-color: white;
+}
+
+.well .ds-singlestat h3 {
+    color: #666;
+}
