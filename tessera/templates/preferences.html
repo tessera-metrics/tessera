@@ -150,30 +150,42 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="themeRadios">Theme</label>
             <div class="col-md-8">
+
               <div class="radio">
-                <label for="themeRadios-dark">
-                  <input type="radio" name="themeRadios" id="themeRadios-dark" {% if ctx.prefs.theme=='dark' %} checked="checked" {% endif %} onclick="dsSetPref('theme', 'dark')" value="Dark">
-                    Dark
+                <label for="themeRadios-snow">
+                  <input type="radio" name="themeRadios" id="themeRadios-snow" {% if ctx.prefs.theme=='snow' %} checked="checked" {% endif %} onclick="dsSetPref('theme', 'snow')" value="Snow">
+                    Snow
                 </label>
               </div>
+
               <div class="radio">
                 <label for="themeRadios-light">
                   <input type="radio" name="themeRadios" id="themeRadios-light" {% if ctx.prefs.theme=='light' %} checked="checked" {% endif %} onclick="dsSetPref('theme', 'light')" value="Light">
                     Light
                 </label>
               </div>
+
+              <div class="radio">
+                <label for="themeRadios-dark">
+                  <input type="radio" name="themeRadios" id="themeRadios-dark" {% if ctx.prefs.theme=='dark' %} checked="checked" {% endif %} onclick="dsSetPref('theme', 'dark')" value="Dark">
+                    Dark
+                </label>
+              </div>
+
               <div class="radio">
                 <label for="themeRadios-solarized-light">
                   <input type="radio" name="themeRadios" id="themeRadios-solarized-light" {% if ctx.prefs.theme=='solarized-light' %} checked="checked" {% endif %} onclick="dsSetPref('theme', 'solarized-light')" value="Solarized Light">
                     Solarized Light
                 </label>
               </div>
+
               <div class="radio">
                 <label for="themeRadios-solarized-dark">
                   <input type="radio" name="themeRadios" id="themeRadios-solarized-dark" {% if ctx.prefs.theme=='solarized-dark' %} checked="checked" {% endif %} onclick="dsSetPref('theme', 'solarized-dark')" value="Solarized Dark">
                     Solarized Dark
                 </label>
               </div>
+
             </div>
           </div>
         </fieldset>
