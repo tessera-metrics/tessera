@@ -152,7 +152,13 @@ def api_dashboard_list():
     definitions.
 
     """
-    dashboards = [d for d in database.DashboardRecord.query.order_by(_dashboard_sort_column()).all()]
+    imported_from = request.args.get('imported_from')
+    if imported_from:
+        query = database.DashboardRecord.query.filter_by(imported_from=imported_from) \
+                                              .order_by(_dashboard_sort_column())
+    else:
+        query = database.DashboardRecord.query.order_by(_dashboard_sort_column())
+    dashboards = [d for d in query.all()]
     return _dashboards_response(dashboards)
 
 @app.route('/api/dashboard/tagged/<tag>')
