@@ -2,56 +2,46 @@ import json
 import logging
 import inflection
 from tessera_client.api.model import *
-from tessera import db, database
+from tessera_client.api.client import TesseraClient
 
 log = logging.getLogger(__name__)
-mgr = database.DatabaseManager(db)
 
 class JsonImporter(object):
+    def __init__(self, graphite_url, tessera_url):
+        self.graphite_url = graphite_url
+        self.client = TesseraClient(tessera_url)
 
-    @staticmethod
-    def import_files(files):
+    def import_files(self, files):
         for f in files:
-            JsonImporter.import_file(f)
+            self.import_file(f)
 
-    @staticmethod
-    def import_file(filepath):
+    def import_file(self, filepath):
         log.info('Importing from file {0}'.format(filepath))
         f = open(filepath, 'r')
         try:
             data = json.load(f)
-            # This is basically the same as api_dashboard_create() in
-            # views.py; could consolidate the two in DatabaseManager
-            dashboard = database.DashboardRecord.from_json(data)
-            if 'definition' in data:
-                dashboard.definition = database.DefinitionRecord(dumps(data['definition']))
-            else:
-                dashboard.definition = database.DefinitionRecord(dumps(DashboardDefinition()))
-            mgr.store_dashboard(dashboard)
+            dashboard = Dashboard.from_json(data)
+            self.client.create_dashboard(dashboard)
             log.info('Succesfully imported dashboard {0}: {1}'.format(dashboard.id, dashboard.title))
         finally:
             f.close()
 
 class JsonExporter(object):
-    @staticmethod
-    def export(directory, tag=None):
-        tag = database.TagRecord.query.filter_by(name=tag).first()
-        if not tag:
-            dashboards = [d for d in database.DashboardRecord.query.all()]
-        else:
-            dashboards = [d for d in tag.dashboards]
+    def __init__(self, graphite_url, tessera_url):
+        self.graphite_url = graphite_url
+        self.client = TesseraClient(tessera_url)
+
+    def export(self, directory, tag=None):
+        dashboards = self.client.list_dashboards(tag=tag, definition=True)
         log.info('Found {0} dashboards to export to {1}'.format(len(dashboards), directory))
         for d in dashboards:
-            JsonExporter.export_dashboard(d, directory)
+            self.export_dashboard(d, directory)
 
-    @staticmethod
-    def export_dashboard(dashboard, directory):
-        dash = dashboard.to_json()
-        dash['definition'] = json.loads(dashboard.definition.definition)
+    def export_dashboard(self, dashboard, directory):
         filepath = '{0}/{1}.json'.format(directory, inflection.parameterize(dashboard.category + ' ' + dashboard.title))
         log.info('Exporting to {0}'.format(filepath))
         f = open(filepath, 'w')
         try:
-            json.dump(dash, f, indent=2, cls=EntityEncoder)
+            json.dump(dashboard, f, indent=2, cls=EntityEncoder)
         finally:
             f.close()

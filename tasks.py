@@ -48,17 +48,19 @@ def dump_graphite_dashboards(c, query='', graphite=DEFAULT_GRAPHITE_URL, tessera
     importer.dump_dashboards(query)
 
 @task(name='export')
-def export_json(c, dir, tag=None):
+def export_json(c, dir, tag=None, graphite=DEFAULT_GRAPHITE_URL, tessera=DEFAULT_TESSERA_URL):
     msg = 'Exporting dashboards (tagged: {0}) as JSON to directory {1}'
     log.info(msg.format(tag, dir))
-    JsonExporter.export(dir, tag)
+    exporter = JsonExporter(graphite, tessera)
+    exporter.export(dir, tag)
 
 @task(name='import')
-def import_json(c, pattern):
+def import_json(c, pattern, graphite=DEFAULT_GRAPHITE_URL, tessera=DEFAULT_TESSERA_URL):
     log.info('Import dashboards from {0})'.format(pattern))
     files = glob.glob(pattern)
     log.info('Found {0} files to import'.format(len(files)))
-    JsonImporter.import_files(files)
+    importer = JsonImporter(graphite, tessera)
+    importer.import_files(files)
 
 @task
 def integration(c):
