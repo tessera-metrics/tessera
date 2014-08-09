@@ -385,11 +385,18 @@ ds.manager =
         var intervalSeconds = parseInt(value)
         self.autoRefreshInterval = intervalSeconds
         if (self.intervalId) {
-            window.clearInterval(self.intervalId)
+          if (log.is_enabled(ds.log.Level.DEBUG)) {
+            log.debug('clearing auto-refresh interval; intervalId: ' + self.intervalId)
+          }
+          window.clearInterval(self.intervalId)
+          self.intervalId = undefined
         }
         if (intervalSeconds > 0) {
             self.intervalSeconds = intervalSeconds
             self.intervalId = window.setInterval(self.refresh, intervalSeconds * 1000)
+          if (log.is_enabled(ds.log.Level.DEBUG)) {
+            log.debug('set auto-refresh interval; intervalId: ' + self.intervalId + '; seconds: ' + intervalSeconds)
+          }
         }
     }
 
