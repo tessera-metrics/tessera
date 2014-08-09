@@ -47,6 +47,11 @@ session.
         session[name] = value
     return value
 
+def _get_param_boolean(name, default=None):
+    value = _get_param(name, default)
+    return value == 'True' \
+        or value == 'true'
+
 def _get_config():
     """Retrieve a dictionary containing all UI-relevant config settings."""
     return {
@@ -118,7 +123,7 @@ will be converted to their JSON representation.
     if not isinstance(dashboards, list):
         dashboards = [dashboards]
 
-    include_definition = _get_param('definition', False)
+    include_definition = _get_param_boolean('definition', False)
     return _jsonify([ _set_dashboard_hrefs(d.to_json(include_definition=include_definition)) for d in dashboards])
 
 def _set_tag_hrefs(tag):
@@ -206,7 +211,7 @@ def api_dashboard_get(id):
     except HTTPException as e:
         raise _set_exception_response(e)
     rendering = _get_param('rendering', False)
-    include_definition = _get_param('definition', False)
+    include_definition = _get_param_boolean('definition', False)
     dash = _set_dashboard_hrefs(dashboard.to_json(rendering or include_definition))
     if rendering:
         dash['preferences'] = _get_preferences()
