@@ -24,6 +24,7 @@ ds.manager =
 
     var current
       , self = {}
+      , log = ds.log.logger('tessera.app.manager')
 
     Object.defineProperty(self, 'current', { get: function() { return current }})
 
@@ -299,6 +300,10 @@ ds.manager =
     self.refresh = function() {
       if (self.current && (ds.app.current_mode != ds.app.Mode.EDIT)) {
         self.load(self.current.url, self.current.element)
+      } else {
+        if (log.is_enabled(ds.log.Level.DEBUG)) {
+          log.debug('skipping reload; current mode: ' + ds.app.current_mode)
+        }
       }
     }
 

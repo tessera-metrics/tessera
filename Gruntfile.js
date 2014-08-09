@@ -80,6 +80,7 @@ module.exports = function(grunt) {
         },
         src: [
           'js/core.js',
+          'js/log.js',
           'js/registry.js',
           'js/action.js',
           'js/transform.js',
