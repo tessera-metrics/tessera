@@ -4,22 +4,22 @@ import json
 import inflection
 import urllib
 from tessera_client.api.model import *
-from tessera import app, db, database
+from tessera_client.api.client import TesseraClient
 
 log = logging.getLogger(__name__)
-mgr = database.DatabaseManager(db)
 
 class GraphiteDashboardImporter(object):
-    def __init__(self, url):
-        self.url = url
+    def __init__(self, graphite_url, tessera_url):
+        self.graphite_url = graphite_url
+        self.client = TesseraClient(tessera_url)
 
     def get_dashboard_names(self, query=''):
-        response = requests.post('{0}/dashboard/find/'.format(self.url),
+        response = requests.post('{0}/dashboard/find/'.format(self.graphite_url),
                                  params={'query':query})
         return [ d['name'] for d in response.json()['dashboards'] ]
 
     def get_dashboard(self, name):
-        response = requests.get('{0}/dashboard/load/{1}'.format(self.url, name))
+        response = requests.get('{0}/dashboard/load/{1}'.format(self.graphite_url, name))
         return response.json()['state']
 
     def dump_dashboards(self, query):
@@ -36,8 +36,9 @@ class GraphiteDashboardImporter(object):
         updated = 0
 
         for name in names:
-            href = self.__graphite_href(name)
-            dashboard = database.DashboardRecord.query.filter_by(imported_from=href).first()
+            href  = self.__graphite_href(name)
+            found = self.client.list_dashboards(imported_from=href, definition=True)
+            dashboard = found[0] if len(found) > 0 else None
             if dashboard and (not overwrite):
                 log.info('Skipping {0}'.format(name))
                 skipped += 1
@@ -49,12 +50,16 @@ class GraphiteDashboardImporter(object):
                 log.info('Importing {0}'.format(name))
                 imported += 1
             dash = self.import_dashboard(name, dash=dashboard, **kwargs)
-            mgr.store_dashboard(dash)
+
+            if dashboard:
+                self.client.update_dashboard(dash)
+            else:
+                self.client.create_dashboard(dash)
 
         log.info('Imported {0} new dashboards; updated {1}; skipped {2}'.format(imported, updated, skipped))
 
     def __graphite_href(self, name):
-        return '{0}/dashboard/{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name))
+        return '{0}/dashboard/#{1}'.format(self.graphite_url, urllib.quote(name))
 
     def import_dashboard(self, name, **kwargs):
         return self.__convert(self.get_dashboard(name), **kwargs)
@@ -64,10 +69,10 @@ class GraphiteDashboardImporter(object):
         name = graphite_dashboard['name']
         dashboard = dash
         if dashboard is None:
-            dashboard = database.DashboardRecord(title=inflection.parameterize(name),
-                                                 category='Graphite',
-                                                 tags=[database.TagRecord('imported')],
-                                                 imported_from = '{0}/dashboard/#{1}'.format(app.config['GRAPHITE_URL'], urllib.quote(name)))
+            dashboard = Dashboard(title=inflection.parameterize(name),
+                                  category='Graphite',
+                                  tags=['imported'],
+                                  imported_from=self.__graphite_href(name))
         definition = DashboardDefinition()
         section = Section(layout=layout)
         definition.items.append(section)
@@ -120,5 +125,5 @@ class GraphiteDashboardImporter(object):
         if graph_count == 0:
             log.warn('Failed to convert any graphs for dashboard {0}'.format(name))
 
-        dashboard.definition = database.DefinitionRecord(definition=dumps(definition))
+        dashboard.definition = definition
         return dashboard
