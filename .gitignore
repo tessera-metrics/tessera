@@ -3,7 +3,7 @@
 *~
 *#
 #*#
-toolbox.egg-info/
+*.egg-info/
 bin/
 lib/
 include/

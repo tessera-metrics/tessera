@@ -19,6 +19,8 @@ logging.basicConfig(
 logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(warn)
 logging.getLogger('sqlalchemy.engine').setLevel(warn)
 
+DEFAULT_TESSERA_URL  = 'http://{0}:{1}'.format(app.config['SERVER_ADDRESS'], app.config['SERVER_PORT'])
+DEFAULT_GRAPHITE_URL = app.config['GRAPHITE_URL']
 
 @task
 def run(c):
@@ -30,32 +32,35 @@ def initdb(c):
 
 @task(name='import')
 def import_graphite_dashboards(
-    c, query='', layout=Section.Layout.FLUID, columns=4, overwrite=False
+    c, query='', layout=Section.Layout.FLUID, columns=4, overwrite=False,
+    graphite=DEFAULT_GRAPHITE_URL, tessera=DEFAULT_TESSERA_URL
 ):
     log.info('Importing dashboards from graphite')
-    importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'])
+    importer = GraphiteDashboardImporter(graphite, tessera)
     importer.import_dashboards(
         query, overwrite=overwrite, layout=layout, columns=int(columns)
     )
 
 @task(name='dump')
-def dump_graphite_dashboards(c, query=''):
+def dump_graphite_dashboards(c, query='', graphite=DEFAULT_GRAPHITE_URL, tessera=DEFAULT_TESSERA_URL):
     log.info('Importing dashboards from graphite')
-    importer = GraphiteDashboardImporter(app.config['GRAPHITE_URL'])
+    importer = GraphiteDashboardImporter(graphite, tessera)
     importer.dump_dashboards(query)
 
 @task(name='export')
-def export_json(c, dir, tag=None):
+def export_json(c, dir, tag=None, graphite=DEFAULT_GRAPHITE_URL, tessera=DEFAULT_TESSERA_URL):
     msg = 'Exporting dashboards (tagged: {0}) as JSON to directory {1}'
     log.info(msg.format(tag, dir))
-    JsonExporter.export(dir, tag)
+    exporter = JsonExporter(graphite, tessera)
+    exporter.export(dir, tag)
 
 @task(name='import')
-def import_json(c, pattern):
+def import_json(c, pattern, graphite=DEFAULT_GRAPHITE_URL, tessera=DEFAULT_TESSERA_URL):
     log.info('Import dashboards from {0})'.format(pattern))
     files = glob.glob(pattern)
     log.info('Found {0} files to import'.format(len(files)))
-    JsonImporter.import_files(files)
+    importer = JsonImporter(graphite, tessera)
+    importer.import_files(files)
 
 @task
 def integration(c):
