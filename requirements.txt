@@ -1,5 +1,6 @@
 flask==0.10.1
 flask-sqlalchemy==1.0
+flask-migrate==1.2
 sqlalchemy==0.9.4
 requests==2.3.0
 simplejson==3.5.2

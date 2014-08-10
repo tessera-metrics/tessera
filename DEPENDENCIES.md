@@ -6,11 +6,12 @@ built with as many "off-the-shelf" components as possible.
 **Server Side**
 
 * [Flask](http://flask.pocoo.org/)
-* [Flask-Script](http://packages.python.org/Flask-Script/)
 * [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/)
+* [Flask-Migrate](https://github.com/miguelgrinberg/Flask-Migrate)
 * [SLQAlchemy](http://www.sqlalchemy.org/)
 * [requests](https://github.com/kennethreitz/requests)
 * [inflection](https://github.com/jpvanhal/inflection)
+* [invoke](https://github.com/pyinvoke/invoke)
 
 **Client Side**
 
