@@ -21,8 +21,9 @@ logging.basicConfig(
 logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(warn)
 logging.getLogger('sqlalchemy.engine').setLevel(warn)
 
-DEFAULT_TESSERA_URL  = 'http://{0}:{1}'.format(app.config['SERVER_ADDRESS'], app.config['SERVER_PORT'])
-DEFAULT_GRAPHITE_URL = app.config['GRAPHITE_URL']
+DEFAULT_TESSERA_URL   = 'http://{0}:{1}'.format(app.config['SERVER_ADDRESS'], app.config['SERVER_PORT'])
+DEFAULT_GRAPHITE_URL  = app.config['GRAPHITE_URL']
+DEFAULT_MIGRATION_DIR = app.config['MIGRATION_DIR']
 
 @task
 def run(c):
@@ -49,39 +50,39 @@ def db_init_migrations(c, dir=None):
         migrate.init(dir)
 
 @task(name='current')
-def db_current(c):
+def db_current(c, dir=DEFAULT_MIGRATION_DIR):
     with app.app_context():
-        migrate.current()
+        migrate.current(directory=dir)
 
 @task(name='revision')
-def db_revision(c):
+def db_revision(c, dir=DEFAULT_MIGRATION_DIR):
     with app.app_context():
-        migrate.revision()
+        migrate.revision(directory=dir)
 
 @task(name='migrate')
-def db_migrate(c):
+def db_migrate(c, dir=DEFAULT_MIGRATION_DIR):
     with app.app_context():
-        migrate.migrate()
+        migrate.migrate(directory=dir)
 
 @task(name='upgrade')
-def db_upgrade(c):
+def db_upgrade(c, dir=DEFAULT_MIGRATION_DIR):
     with app.app_context():
-        migrate.upgrade()
+        migrate.upgrade(directory=dir)
 
 @task(name='downgrade')
-def db_downgrade(c):
+def db_downgrade(c, dir=DEFAULT_MIGRATION_DIR):
     with app.app_context():
-        migrate.downgrade()
+        migrate.downgrade(directory=dir)
 
 @task(name='stamp')
-def db_stamp(c):
-    with app.app_context():
+def db_stamp(c, dir=DEFAULT_MIGRATION_DIR):
+    with app.app_context(directory=dir):
         pass
 
 @task(name='history')
-def db_history(c):
+def db_history(c, dir=DEFAULT_MIGRATION_DIR):
     with app.app_context():
-        migrate.history()
+        migrate.history(directory=dir)
 
 # =============================================================================
 # graphite tasks
