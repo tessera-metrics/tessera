@@ -109,7 +109,8 @@ module.exports = function(grunt) {
         'templates/**/*.hbs',
         'tessera/static/js/**/*.js',
         'tessera/static/css/**/*.css',
-        'tessera/static/tessera.css'
+        'tessera/static/tessera.css',
+        'tessera/static/tessera-typography.css'
       ],
       tasks: ['handlebars', 'concat']
     }
