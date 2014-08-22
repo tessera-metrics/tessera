@@ -103,10 +103,9 @@ class TagRecord(db.Model):
     bgcolor       = db.Column(db.String(24))
     fgcolor       = db.Column(db.String(24))
 
-    def __init__(self, name, description=None, bgcolor=None, fgcolor=None, count=None, **kwargs):
+    def __init__(self, name, description=None, bgcolor=None, fgcolor=None, **kwargs):
         self.name = name
         self.description = description
-        self.count = count
         self.fgcolor = fgcolor
         self.bgcolor = bgcolor
 
@@ -122,8 +121,7 @@ class TagRecord(db.Model):
             json['bgcolor'] = self.bgcolor
         if (self.fgcolor):
             json['fgcolor'] = self.fgcolor
-        if (self.count):
-            json['count'] = self.count
+        json['count'] = self.count
         return json
 
     @classmethod
