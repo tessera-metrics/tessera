@@ -192,12 +192,15 @@ def api_dashboard_list_dashboards_in_category(category):
 
 @app.route('/api/dashboard/category/')
 def api_dashboard_list_all_dashboard_categories():
-    sql = 'SELECT category, count(category) FROM dashboard GROUP BY category'
+    result = db.session.query(
+        database.DashboardRecord.category,
+        db.func.count(database.DashboardRecord.category)
+    ).group_by(database.DashboardRecord.category).all()
     categories = []
-    for row in db.engine.execute(sql):
+    for (name, count) in result:
         categories.append({
-            'name' : row[0],
-            'count' : row[1]
+            'name' : name,
+            'count' : count,
         })
     return _jsonify(categories)
 
@@ -313,19 +316,7 @@ def api_tag_list():
     """Listing for all tags.
 
     """
-    sql = 'SELECT tag.id, tag.name, tag.description, tag.fgcolor, tag.bgcolor, count(*)' \
-    + ' FROM tag' \
-    + ' INNER JOIN dashboard_tags' \
-    + ' ON dashboard_tags.tag_id = tag.id' \
-    + ' GROUP BY tag.id' \
-    + ' ORDER BY tag.name'
-
-    tags = []
-    for row in db.engine.execute(sql):
-        tag = database.TagRecord(name=row[1], description=row[2], fgcolor=row[3], bgcolor=row[4], count=row[5])
-        tag.id = row[0]
-        tags.append(tag)
-
+    tags = db.session.query(database.TagRecord).all()
     return _tags_response(tags)
 
 @app.route('/api/tag/<id>')
