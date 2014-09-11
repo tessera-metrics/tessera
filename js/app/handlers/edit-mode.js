@@ -351,6 +351,8 @@
     name: 'new-chart-from-url',
     display: 'Add new chart from Graphite URL',
     icon: 'fa fa-image',
+    class: 'new-item',
+    category: 'new-item-chart',
     handler: function(action, container) {
       bootbox.prompt("Enter a Graphite chart URL", function(result) {
         if (result) {
