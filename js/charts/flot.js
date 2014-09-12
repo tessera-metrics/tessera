@@ -39,6 +39,7 @@ ds.charts.flot =
         },
         yaxes: [
           {
+            position: 'left',
             tickFormatter: d3.format(',.3s'),
             reserveSpace: 30,
             labelWidth: 30,
@@ -49,6 +50,7 @@ ds.charts.flot =
             }
           },
           {
+            position: 'right',
             tickFormatter: d3.format(',.3s'),
             font: {
               color: theme_colors.fgcolor,
@@ -111,6 +113,11 @@ ds.charts.flot =
         flot_options.yaxes[0].max = options.y1.max
       if (options.y2 && options.y2.max)
         flot_options.yaxes[1].max = options.y2.max
+
+      if (options.y1 && options.y1.label)
+        flot_options.yaxes[0].axisLabel = options.y1.label
+      if (options.y2 && options.y2.label)
+        flot_options.yaxes[1].axisLabel = options.y2.label
 
       return flot_options
     }
