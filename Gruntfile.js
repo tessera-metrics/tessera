@@ -69,6 +69,7 @@ module.exports = function(grunt) {
           'tessera/static/js/flot/jquery.flot.tooltip.js',
           'tessera/static/js/flot/jquery.flot.stack.js',
           'tessera/static/js/flot/jquery.flot.crosshair.js',
+          'tessera/static/js/flot/jquery.flot.axislabels.js',
           'tessera/static/js/simple_statistics.js',
           'tessera/static/js/equalize.min.js'
         ],
@@ -80,6 +81,7 @@ module.exports = function(grunt) {
         },
         src: [
           'js/core.js',
+          'js/log.js',
           'js/registry.js',
           'js/action.js',
           'js/transform.js',
@@ -109,7 +111,8 @@ module.exports = function(grunt) {
         'templates/**/*.hbs',
         'tessera/static/js/**/*.js',
         'tessera/static/css/**/*.css',
-        'tessera/static/tessera.css'
+        'tessera/static/tessera.css',
+        'tessera/static/tessera-typography.css'
       ],
       tasks: ['handlebars', 'concat']
     }

@@ -15,3 +15,9 @@ h1 .ds-primary-title {
 .well .ds-singlestat h3 {
     color: #666;
 }
+
+#ds-tooltip {
+    color: black;
+    background-color: white;
+    border: 1px solid #888;
+}

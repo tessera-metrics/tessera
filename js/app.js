@@ -10,6 +10,7 @@ ds.app =
     var mode_stack = []
       , ANIMATION_DELAY = 300
       , self = {}
+      , log = ds.log.logger('tessera.app')
 
     self.current_mode = 'standard'
 
@@ -33,6 +34,9 @@ ds.app =
     }
 
     function do_exit_mode(mode) {
+      if (log.is_enabled(ds.log.Level.DEBUG)) {
+        log.debug('mode <- ' + mode)
+      }
       bean.fire(self, self.Event.MODE_EXIT + mode)
       var state = mode_stack.pop()
       if (state) {
@@ -42,6 +46,9 @@ ds.app =
     }
 
     function do_enter_mode(mode) {
+      if (log.is_enabled(ds.log.Level.DEBUG)) {
+        log.debug('mode -> ' + mode)
+      }
       var hidden = $('[data-ds-hide~="' + mode + '"]').hide(ANIMATION_DELAY)
       var shown = $('[data-ds-show~="' + mode + '"]').show(ANIMATION_DELAY)
 
