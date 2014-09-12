@@ -29,6 +29,7 @@ built with as many "off-the-shelf" components as possible.
   formatting in text.
 * [flot](http://www.flotcharts.org/) for alternative interactive chart
   rendering.
+  * [flot-axislabels](https://github.com/mikeslim7/flot-axislabels)
 * [moment.js](http://momentjs.com/) for time parsing & formatting.
   * [moment-timezone.js](http://momentjs.com/timezone/)
 * [bean.js](https://github.com/fat/bean) for events.

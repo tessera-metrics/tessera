@@ -39,6 +39,7 @@ ds.charts.flot =
         },
         yaxes: [
           {
+            position: 'left',
             tickFormatter: d3.format(',.3s'),
             reserveSpace: 30,
             labelWidth: 30,
@@ -49,6 +50,7 @@ ds.charts.flot =
             }
           },
           {
+            position: 'right',
             tickFormatter: d3.format(',.3s'),
             font: {
               color: theme_colors.fgcolor,
@@ -95,6 +97,30 @@ ds.charts.flot =
       return default_options
     }
 
+    function get_flot_options(item, base) {
+      var options      = item.options || {}
+      var flot_options = ds.extend(get_default_options(), base)
+
+      flot_options.colors = ds.charts.util.get_palette(options.palette)
+
+      if (options.y1 && options.y1.min)
+        flot_options.yaxes[0].min = options.y1.min
+      if (options.y2 && options.y2.min)
+        flot_options.yaxes[1].min = options.y2.min
+
+      if (options.y1 && options.y1.max)
+        flot_options.yaxes[0].max = options.y1.max
+      if (options.y2 && options.y2.max)
+        flot_options.yaxes[1].max = options.y2.max
+
+      if (options.y1 && options.y1.label)
+        flot_options.yaxes[0].axisLabel = options.y1.label
+      if (options.y2 && options.y2.label)
+        flot_options.yaxes[1].axisLabel = options.y2.label
+
+      return flot_options
+    }
+
     function show_tooltip(x, y, contents) {
       $('<div id="ds-tooltip">' + contents + '</div>').css( {
         position: 'absolute',
@@ -131,14 +157,14 @@ ds.charts.flot =
       })
     }
 
-    function render_legend(item, query, palette, flot_options) {
+    function render_legend(item, query, flot_options) {
       var legend_id = '#ds-legend-' + item.item_id
       var legend = ''
       var data = query.chart_data('flot')
       for (var i in data) {
         var series = data[i]
         var label = series.label
-        var color = palette[i % palette.length]
+        var color = flot_options.colors[i % flot_options.colors.length]
 
         var cell = '<div class="ds-legend-cell">'
                  + '<span class="color" style="background-color:' + color + '"></span>'
@@ -153,35 +179,32 @@ ds.charts.flot =
 
 
     self.simple_line_chart = function(e, item, query) {
-      var options = item.options || {}
       var context = {
           plot: null
       }
       setup_plugins(e, context)
+
+      var flot_options = get_flot_options(item, {
+        grid: {
+          show: false
+        },
+        legend: {
+          show: false
+        }
+      })
+
       context.plot = $.plot($(e), [query.chart_data('flot')[0]],
-                            ds.extend(get_default_options(), {
-                              colors: ds.charts.util.get_palette(options.palette),
-                              grid: {
-                                show: false
-                              },
-                              legend: {
-                                show: false
-                              }
-                            }))
+                            flot_options)
       return self
     }
 
     self.standard_line_chart = function(e, item, query) {
-      var options = item.options || {}
       var context = {
           plot: null
       }
       setup_plugins(e, context)
-      var defaults  = get_default_options()
-      var palette   = ds.charts.util.get_palette(options.palette)
-      var flot_options = ds.extend(get_default_options(), {
-        colors: palette,
-        grid: ds.extend(defaults.grid, {
+      var flot_options = get_flot_options(item, {
+        grid: ds.extend(get_default_options().grid, {
           hoverable: true,
           clickable: true,
           autoHighlight: false
@@ -192,7 +215,7 @@ ds.charts.flot =
       })
 
       context.plot = $.plot($(e), query.chart_data('flot'), flot_options)
-      render_legend(item, query, palette, flot_options)
+      render_legend(item, query, flot_options)
 
       return self
     }
@@ -203,34 +226,34 @@ ds.charts.flot =
           plot: null
       }
       setup_plugins(e, context)
+      var flot_options = ds.extend(get_default_options(), {
+        colors: ds.charts.util.get_palette(options.palette),
+        grid: {
+          show: false
+        },
+        legend: {
+          show: false
+        },
+        series: {
+          lines: {
+            show: true,
+            fill: 1
+          }
+        }
+      })
+
       context.plot = $.plot($(e), [query.chart_data('flot')[0]],
-                            ds.extend(get_default_options(), {
-                              colors: ds.charts.util.get_palette(options.palette),
-                              grid: {
-                                show: false
-                              },
-                              legend: {
-                                show: false
-                              },
-                              series: {
-                                lines: {
-                                  show: true,
-                                  fill: 1
-                                }
-                              }
-                            }))
+                            flot_options)
       return self
     }
 
+
     self.stacked_area_chart = function(e, item, query) {
-      var options = item.options || {}
       var context = {
           plot: null
       }
       var legend_id = '#ds-legend-' + item.item_id
-      var palette = ds.charts.util.get_palette(options.palette)
-      var flot_options = ds.extend(get_default_options(), {
-        colors: palette,
+      var flot_options = get_flot_options(item, {
         legend: {
           container: legend_id,
           labelBoxBorderColor: 'transparent',
@@ -248,7 +271,7 @@ ds.charts.flot =
       setup_plugins(e, context)
       context.plot = $.plot($(e), query.chart_data('flot'), flot_options)
 
-      render_legend(item, query, palette, flot_options)
+      render_legend(item, query, flot_options)
       return self
     }
 
