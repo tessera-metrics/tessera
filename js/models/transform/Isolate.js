@@ -8,6 +8,7 @@ ds.transforms.register({
 
   transform: function(item) {
     var make = ds.models.make
+    var options = item.options || {}
     return make('section')
              .add(make('row')
                     .add(make('cell')
@@ -19,6 +20,10 @@ ds.transforms.register({
                     .add(make('cell')
                            .set_span(12)
                            .add(make({item_type: 'summation_table',
+                                      options: {
+                                        palette: options.palette
+                                      },
+                                      show_color: true,
                                       format: ',.3f',
                                       query: item.query}))))
   }
