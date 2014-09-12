@@ -32,7 +32,15 @@ def run(c):
 
 # =============================================================================
 # db collection
-#  inv db init
+#  inv db.init
+#  inv db.init_migrations
+#  inv db.current
+#  inv db.revisions
+#  inv db.migrate
+#  inv db.upgrade
+#  inv db.downgrade
+#  inv db.stamp
+#  inv db.history
 # =============================================================================
 
 @task
@@ -86,8 +94,8 @@ def db_history(c, dir=DEFAULT_MIGRATION_DIR):
 
 # =============================================================================
 # graphite tasks
-#   inv graphite import
-#   inv graphite export
+#   inv graphite.import
+#   inv graphite.export
 # =============================================================================
 
 @task(name='import')
@@ -109,8 +117,8 @@ def dump_graphite_dashboards(c, query='', graphite=DEFAULT_GRAPHITE_URL, tessera
 
 # =============================================================================
 # json tasks
-#  inv json import
-#  inv json export
+#  inv json.import
+#  inv json.export
 # =============================================================================
 
 @task(name='export')
@@ -130,8 +138,8 @@ def import_json(c, pattern, graphite=DEFAULT_GRAPHITE_URL, tessera=DEFAULT_TESSE
 
 # =============================================================================
 # test tasks
-#  inv test unit
-#  inv test integration
+#  inv test.unit
+#  inv test.integration
 # =============================================================================
 
 @task
