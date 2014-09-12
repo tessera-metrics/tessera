@@ -101,8 +101,7 @@ ds.charts.flot =
       var options      = item.options || {}
       var flot_options = ds.extend(get_default_options(), base)
 
-      if (options.palette)
-        flot_options.colors = ds.charts.util.get_palette(options.palette)
+      flot_options.colors = ds.charts.util.get_palette(options.palette)
 
       if (options.y1 && options.y1.min)
         flot_options.yaxes[0].min = options.y1.min
