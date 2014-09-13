@@ -10,6 +10,7 @@ ds.models.data.Query = function(data) {
                        .property('expanded_targets')
                        .property('local_options')
                        .build()
+    , log = ds.log.logger('tessera.query')
 
   if (data) {
     if (data instanceof Array) {
@@ -94,6 +95,7 @@ ds.models.data.Query = function(data) {
    *                            data.
    */
   self.load = function(opt, fire_only) {
+    log.debug('load(): ' + self.name)
     self.local_options = ds.extend(self.local_options, opt)
     var options = ds.extend(self.local_options, opt, self.options)
 
@@ -141,6 +143,7 @@ ds.models.data.Query = function(data) {
    * Remove all registered event handlers.
    */
   self.off = function() {
+    log.debug('off(): ' + self.name)
     ds.event.off(self, 'ds-data-ready')
   }
 
