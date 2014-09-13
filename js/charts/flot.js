@@ -294,3 +294,8 @@ ds.charts.flot =
 
     return self
   })()
+
+/**
+ * Set flot as the default interactive chart provider.
+ */
+ds.charts.provider = ds.charts.flot
