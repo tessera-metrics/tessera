@@ -38,7 +38,7 @@ ds.manager =
      * loaded and ready.
      */
     self.onDashboardLoaded = function(handler) {
-        bean.on(self, ds.app.Event.DASHBOARD_LOADED, handler)
+        ds.event.on(self, ds.app.Event.DASHBOARD_LOADED, handler)
         return self
     }
 
@@ -106,9 +106,6 @@ ds.manager =
         if (item.requires_data) {
           holder.raw_data_required = true
         }
-        // item.on('change', function(e) {
-        //   self.update_item_view(e.target)
-        // })
       })
     }
 
@@ -143,23 +140,23 @@ ds.manager =
      */
     self.load = function(url, element, options_) {
       var options = options_ || {}
-        var holder = new ds.DashboardHolder(url, element)
-        var context = self._prep_url(url, options)
-        self.set_current(holder)
-        $.ajax({
-            dataType: "json",
-            url: context.url
-        }).error(function(xhr, status, error) {
-          self.error('Error loading dashboard. ' + error)
-        }).done(function(data) {
-          var dashboard = ds.models.dashboard(data)
-          holder.dashboard = dashboard
+      var holder = new ds.DashboardHolder(url, element)
+      var context = self._prep_url(url, options)
+      self.set_current(holder)
+      $.ajax({
+        dataType: "json",
+        url: context.url
+      }).error(function(xhr, status, error) {
+        self.error('Error loading dashboard. ' + error)
+      }).done(function(data) {
+        var dashboard = ds.models.dashboard(data)
+        holder.dashboard = dashboard
 
-          if (data.preferences.renderer && ds.charts[data.preferences.renderer]) {
-            ds.charts.provider = ds.charts[data.preferences.renderer]
-          }
+        if (data.preferences.renderer && ds.charts[data.preferences.renderer]) {
+          ds.charts.provider = ds.charts[data.preferences.renderer]
+        }
 
-          bean.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)
+          ds.event.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)
 
           dashboard.render_templates(context.variables)
 
@@ -178,22 +175,22 @@ ds.manager =
           $(element).html(dashboard.definition.render())
 
           var currentURL = URI(holder.url)
-          bean.fire(self, ds.app.Event.RANGE_CHANGED, {
+          ds.event.fire(self, ds.app.Event.RANGE_CHANGED, {
             from: currentURL.query('from'),
             until: currentURL.query('until')
           })
 
-          // Load the queries
-          dashboard.definition.load_all({
-            from: context.from,
-            until: context.until
-          }, !holder.raw_data_required)
-
-          bean.fire(self, ds.app.Event.DASHBOARD_RENDERED, dashboard)
-
           if (self.current_transform) {
-            self.apply_transform(self.current_transform.transform, self.current_transform.target, false)
+            self.apply_transform(self.current_transform.transform, self.current_transform.target, false, context)
+          } else {
+            // Load the queries
+            dashboard.definition.load_all({
+              from: context.from,
+              until: context.until
+            }, !holder.raw_data_required)
           }
+
+          ds.event.fire(self, ds.app.Event.DASHBOARD_RENDERED, dashboard)
 
           if (context.params.mode) {
             ds.app.switch_to_mode(context.params.mode)
@@ -214,6 +211,7 @@ ds.manager =
       item.visit(function(i) {
         var query = i.query_override || i.query
         if (query && query.is_query) {
+          log.debug('update_item_view(): reloading query ' + query.name)
           query.load()
         }
       })
@@ -246,13 +244,15 @@ ds.manager =
       self.current_transform = undefined
     }
 
-    self.apply_transform = function(transform, target, set_location) {
+    self.apply_transform = function(transform, target, set_location, context) {
       var dashboard = self.current.dashboard
       if (typeof(set_location) === 'undefined')
         set_location = true
 
       if (typeof(transform) === 'string')
         transform = ds.transforms.get(transform)
+
+      log.debug('apply_transform(' + transform.name + ')')
 
       /**
        * Set browser URL state
@@ -272,19 +272,37 @@ ds.manager =
                                    target:target.toJSON() }, '', url.path(path).href())
       }
 
+      // Disable existing query handlers
+      log.debug('Disabling original query handlers')
+      console.log(dashboard.definition.queries)
+      for (var key in dashboard.definition.queries) {
+        dashboard.definition.queries[key].off()
+      }
+
+      /**
+       * update_item_view() reloads queries, which we don't want to do
+       * while processing the transform.
+       */
+      var fn = self.update_item_view
+      self.update_item_view = function() { }
+
       var result = transform.transform(target)
 
       dashboard.definition.queries = result.get_queries() // this could go in an observer
       dashboard.set_items([result])
 
-      // Disable existing query handlers
-      for (var k = 0; k < dashboard.definition.queries.length; k++) {
-        dashboard.definition.queries[k].off()
-      }
+      self.update_item_view = fn
 
       $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
       dashboard.render_templates(ds.context().variables)
-      dashboard.load_all()
+      if (context) {
+        dashboard.load_all({
+          from: context.from,
+          until: context.until
+        })
+      } else {
+        dashboard.load_all()
+      }
 
       if ((transform.transform_type === 'presentation') && (ds.app.current_mode != ds.app.Mode.EDIT)) {
         ds.app.switch_to_mode('transform')
@@ -298,6 +316,7 @@ ds.manager =
     }
 
     self.refresh = function() {
+      log.debug('refresh()')
       if (self.current && (ds.app.current_mode != ds.app.Mode.EDIT)) {
         self.load(self.current.url, self.current.element)
       } else {
@@ -346,7 +365,7 @@ ds.manager =
         window.history.pushState({url: self.current.url, element:self.current.element}, '', uri.href())
 
         self.current.setRange(from, until)
-        bean.fire(self, ds.app.Event.RANGE_CHANGED, {
+        ds.event.fire(self, ds.app.Event.RANGE_CHANGED, {
             from: from, until: until
         })
       self.refresh()
@@ -375,7 +394,7 @@ ds.manager =
 
     self.onRangeChanged = function(handler) {
         var self = this
-        bean.on(self, ds.app.Event.RANGE_CHANGED, handler)
+        ds.event.on(self, ds.app.Event.RANGE_CHANGED, handler)
     }
 
     self.autoRefreshInterval = null

@@ -388,3 +388,10 @@ table.ds-property-sheet td {
     font-weight: 400;
     font-size: 13px;
 }
+
+.ds-summation-color-cell {
+  height: 1em;
+  width: 1em;
+  display: inline-block;
+  margin-right: 0.5em;
+}
