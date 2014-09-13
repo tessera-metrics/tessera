@@ -24,6 +24,7 @@ ds.transforms.register({
                                         palette: options.palette
                                       },
                                       show_color: true,
+                                      sortable: true,
                                       format: ',.3f',
                                       query: item.query}))))
   }
