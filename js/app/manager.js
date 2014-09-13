@@ -38,7 +38,7 @@ ds.manager =
      * loaded and ready.
      */
     self.onDashboardLoaded = function(handler) {
-        bean.on(self, ds.app.Event.DASHBOARD_LOADED, handler)
+        ds.event.on(self, ds.app.Event.DASHBOARD_LOADED, handler)
         return self
     }
 
@@ -159,7 +159,7 @@ ds.manager =
             ds.charts.provider = ds.charts[data.preferences.renderer]
           }
 
-          bean.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)
+          ds.event.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)
 
           dashboard.render_templates(context.variables)
 
@@ -178,7 +178,7 @@ ds.manager =
           $(element).html(dashboard.definition.render())
 
           var currentURL = URI(holder.url)
-          bean.fire(self, ds.app.Event.RANGE_CHANGED, {
+          ds.event.fire(self, ds.app.Event.RANGE_CHANGED, {
             from: currentURL.query('from'),
             until: currentURL.query('until')
           })
@@ -346,7 +346,7 @@ ds.manager =
         window.history.pushState({url: self.current.url, element:self.current.element}, '', uri.href())
 
         self.current.setRange(from, until)
-        bean.fire(self, ds.app.Event.RANGE_CHANGED, {
+        ds.event.fire(self, ds.app.Event.RANGE_CHANGED, {
             from: from, until: until
         })
       self.refresh()
@@ -375,7 +375,7 @@ ds.manager =
 
     self.onRangeChanged = function(handler) {
         var self = this
-        bean.on(self, ds.app.Event.RANGE_CHANGED, handler)
+        ds.event.on(self, ds.app.Event.RANGE_CHANGED, handler)
     }
 
     self.autoRefreshInterval = null

@@ -106,11 +106,12 @@ ds.models.data.Query = function(data) {
       if (ready && (ready instanceof Function)) {
         ready(self)
       }
-      bean.fire(self, 'ds-data-ready', self)
+
+      ds.event.fire(self, 'ds-data-ready', self)
     } else {
       options.format = 'json'
       var url = self.url(options)
-      bean.fire(self, 'ds-data-loading')
+      ds.event.fire(self, 'ds-data-loading')
       $.ajax({
         dataType: 'json',
         url: url
@@ -120,7 +121,7 @@ ds.models.data.Query = function(data) {
         if (options.ready && (options.ready instanceof Function)) {
           options.ready(self)
         }
-        bean.fire(self, 'ds-data-ready', self)
+        ds.event.fire(self, 'ds-data-ready', self)
       })
        .error(function(xhr, status, error) {
         ds.manager.error('Failed to load query ' + self.name + '. ' + error)
@@ -133,14 +134,14 @@ ds.models.data.Query = function(data) {
    * loaded.
    */
   self.on_load = function(handler) {
-    bean.on(self, 'ds-data-ready', handler)
+    ds.event.on(self, 'ds-data-ready', handler)
   }
 
   /**
    * Remove all registered event handlers.
    */
   self.off = function() {
-    bean.off(self, 'ds-data-ready')
+    ds.event.off(self, 'ds-data-ready')
   }
 
   function group_targets(query) {
