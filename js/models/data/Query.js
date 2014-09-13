@@ -55,7 +55,7 @@ ds.models.data.Query = function(data) {
       url.setQuery('until', options.until)
     }
     var targets = self.expanded_targets || self.targets
-    for (var i in targets) {
+    for (var i = 0; i < targets.length; i++) {
       url.addQuery('target', targets[i].replace(/(\r\n|\n|\r)/gm,""))
     }
     return url.href()

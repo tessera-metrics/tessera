@@ -64,7 +64,7 @@ ds.safe_render_template = function(str, context) {
  */
 ds.extend = function() {
   var target = {}
-  for (var i in arguments) {
+  for (var i = 0; i < arguments.length; i++) {
     var source = arguments[i] || {}
     for (var key in source) {
       if (source.hasOwnProperty(key)) {
