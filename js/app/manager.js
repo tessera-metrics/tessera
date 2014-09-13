@@ -353,6 +353,14 @@ ds.manager =
        Time range and auto-refresh
        ----------------------------------------------------------------------------- */
 
+    self.get_time_range = function() {
+      var context = ds.context(URI(window.location).query(true))
+      return {
+        from: context.from || ds.config.DEFAULT_FROM_TIME,
+        until: context.until
+      }
+    }
+
     self.set_time_range = function(from, until) {
         var uri = URI(window.location)
         from
