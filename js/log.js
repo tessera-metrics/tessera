@@ -28,7 +28,7 @@ ds.log.logger = function(options) {
 
   var self = {}
     , time_format = ds.log.default_log_time_format
-    , level = ds.log.Level.INFO
+    , level = ds.log.default_level
     , name = 'default'
 
   if (options) {
