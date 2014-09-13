@@ -1,8 +1,9 @@
 <tr>
+    <th>
     {{#if item.show_color}}
-      <th class="ds-summation-color-cell" style="background:{{color}}"></th>
+      <span class="ds-summation-color-cell" style="background:{{color}}"></span>
     {{/if}}
-    <th>{{series.target}}</th>
+      {{series.target}}</th>
     <td>{{format item.format series.summation.last}}</td>
     <td>{{format item.format series.summation.min}}</td>
     <td>{{format item.format series.summation.max}}</td>
