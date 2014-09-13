@@ -33,7 +33,8 @@ module.exports = function(grunt) {
           'tessera/static/css/font-awesome.css',
           'tessera/static/css/nv.d3.css',
           'tessera/static/css/select2.css',
-          'tessera/static/css/select2-bootstrap.css'
+          'tessera/static/css/select2-bootstrap.css',
+          'tessera/static/css/dataTables.bootstrap.css'
         ],
         dest: 'tessera/static/css/bundle.css'
       },
@@ -43,6 +44,7 @@ module.exports = function(grunt) {
         },
         src: [
           'tessera/static/js/jquery-1.11.0.min.js',
+          'tessera/static/js/jquery.dataTables.js',
           'tessera/static/js/moment.min.js',
           'tessera/static/js/moment-timezone-with-data.min.js',
           'tessera/static/js/marked.min.js',
