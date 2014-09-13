@@ -278,7 +278,7 @@ ds.manager =
       dashboard.set_items([result])
 
       // Disable existing query handlers
-      for (var k in dashboard.definition.queries) {
+      for (var k = 0; k < dashboard.definition.queries.length; k++) {
         dashboard.definition.queries[k].off()
       }
 

@@ -90,7 +90,7 @@
       ds.templates.edit['dashboard-query-row'](query)
     )
     if (updated_items && (updated_items.length > 0)) {
-      for (var i in updated_items) {
+      for (var i = 0; i < updated_items.length; i++) {
         ds.manager.update_item_view(updated_items[i])
       }
     }
@@ -169,7 +169,7 @@
       if (item_type.interactive_properties) {
         // Run the edit handlers for each property, which make them
         // editable and set up the callbacks for their updates
-        for (var i in item_type.interactive_properties) {
+        for (var i = 0; i < item_type.interactive_properties.length; i++) {
           item_type.interactive_properties[i].edit(item)
         }
       }

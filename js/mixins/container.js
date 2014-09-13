@@ -29,7 +29,7 @@ ds.models.container =
         if (item_or_id instanceof Object && item_or_id.item_id) {
           id = item_or_id.item_id
         }
-        for (var i in self.items) {
+        for (var i = 0; i < self.items.length; i++) {
           if (self.items[i].item_id === id) {
             return Number(i)
           }

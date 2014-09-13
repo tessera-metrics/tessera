@@ -68,7 +68,7 @@ ua.clusto =
         clearLocal = arguments[0]
       if (clearLocal) {
         var localKeys = Object.keys(localStorage)
-        for (var i in localKeys) {
+        for (var i = 0; i < localKeys.length; i++) {
           var key = localKeys[i]
           if (key.search('ua.clusto') == 0) {
             localStorage.removeItem(key)
@@ -118,7 +118,7 @@ ua.clusto =
       /* If called as a block template */
       if (options && options.fn) {
         var out = ''
-        for (var i in nodes) {
+        for (var i = 0; i < nodes.length; i++) {
           out = out + options.fn(nodes[i])
         }
         return out

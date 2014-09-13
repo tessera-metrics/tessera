@@ -117,7 +117,7 @@ ds.property.registry = {}
  */
 ds.property.register = function(property) {
    if (property instanceof Array) {
-     for (var i in property) {
+     for (var i = 0; i < property.length; i++) {
        ds.property.register(property[i])
      }
    } else {

@@ -161,7 +161,7 @@ ds.charts.flot =
       var legend_id = '#ds-legend-' + item.item_id
       var legend = ''
       var data = query.chart_data('flot')
-      for (var i in data) {
+      for (var i = 0; i < data.length; i++) {
         var series = data[i]
         var label = series.label
         var color = flot_options.colors[i % flot_options.colors.length]
