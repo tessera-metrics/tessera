@@ -139,6 +139,10 @@ ds.manager =
      * Load and render a dashboard.
      */
     self.load = function(url, element, options_) {
+      log.debug('load(): ' + url)
+      if (self.current && self.current.dashboard) {
+        self.current.dashboard.cleanup()
+      }
       var options = options_ || {}
       var holder = new ds.DashboardHolder(url, element)
       var context = self._prep_url(url, options)
