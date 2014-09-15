@@ -13,7 +13,7 @@ ds.context = function(context) {
   var params = URI(window.location).query(true)
   var variables = {}
 
-  context.from = params.from || '-3h'
+  context.from = params.from || ds.config.DEFAULT_FROM_TIME
   context.until = params.until
 
   for (var key in params) {
