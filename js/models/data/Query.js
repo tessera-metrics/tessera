@@ -136,6 +136,7 @@ ds.models.data.Query = function(data) {
    * loaded.
    */
   self.on_load = function(handler) {
+    log.debug('on(): ' + self.name)
     ds.event.on(self, 'ds-data-ready', handler)
   }
 

@@ -5,7 +5,7 @@ ds.event =
       , log = ds.log.logger('tessera.events')
 
     self.on = function(target, event, handler) {
-      // log.debug('on(): ' + event)
+      log.debug('on(): ' + event)
       bean.on(target, event, handler)
     }
 
