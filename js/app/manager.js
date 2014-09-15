@@ -205,6 +205,9 @@ ds.manager =
         return self
     }
 
+    /**
+     * Re-render a dashboard item and update its DOM representation.
+     */
     self.update_item_view = function(item) {
       var element = $('#' + item.item_id)
       var visible = ds.edit.details_visibility(item)
@@ -220,6 +223,20 @@ ds.manager =
         }
       })
       ds.app.refresh_mode()
+    }
+
+    /**
+     * Execute a function with re-rendering of the DOM for dashboard
+     * items disabled.
+     */
+    self.without_updates = function(handler) {
+      var fn = self.update_item_view
+      self.update_item_view = function() { }
+      try {
+        return handler()
+      } finally {
+        self.update_item_view = fn
+      }
     }
 
     self.handle_popstate = function(event) {
@@ -276,26 +293,16 @@ ds.manager =
                                    target:target.toJSON() }, '', url.path(path).href())
       }
 
-      // Disable existing query handlers
-      log.debug('Disabling original query handlers')
-      console.log(dashboard.definition.queries)
-      for (var key in dashboard.definition.queries) {
-        dashboard.definition.queries[key].off()
-      }
-
       /**
        * update_item_view() reloads queries, which we don't want to do
        * while processing the transform.
        */
-      var fn = self.update_item_view
-      self.update_item_view = function() { }
-
-      var result = transform.transform(target)
+      var result = self.without_updates(function() {
+                     return transform.transform(target)
+                   })
 
       dashboard.definition.queries = result.get_queries() // this could go in an observer
       dashboard.set_items([result])
-
-      self.update_item_view = fn
 
       $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
       dashboard.render_templates(ds.context().variables)
