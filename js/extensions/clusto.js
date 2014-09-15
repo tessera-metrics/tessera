@@ -68,11 +68,7 @@ ua.clusto =
         clearLocal = arguments[0]
       if (clearLocal) {
         var localKeys = Object.keys(localStorage)
-<<<<<<< HEAD
-        for (var i in localKeys) {
-=======
         for (var i = 0; i < localKeys.length; i++) {
->>>>>>> c141c31aaf681904e34cd372e1d7abe46b15a76f
           var key = localKeys[i]
           if (key.search('ua.clusto') == 0) {
             localStorage.removeItem(key)
@@ -103,23 +99,14 @@ ua.clusto =
           async: false,
           success: function(data) {
             if (!data || (data.length == 0)) {
-<<<<<<< HEAD
-              result = [ role ]
-=======
               result = []
->>>>>>> c141c31aaf681904e34cd372e1d7abe46b15a76f
             } else {
               result = data
             }
           },
           error: function() {
-<<<<<<< HEAD
-            ds.manager.warning('Unable to retrieve role ' + role + ' from clusto')
-            return [ role ]
-=======
             ds.manager.error('Unable to retrieve role ' + role + ' from clusto')
             return null
->>>>>>> c141c31aaf681904e34cd372e1d7abe46b15a76f
           }
         })
         return cache.putItem(role, result)
@@ -131,11 +118,7 @@ ua.clusto =
       /* If called as a block template */
       if (options && options.fn) {
         var out = ''
-<<<<<<< HEAD
-        for (var i in nodes) {
-=======
         for (var i = 0; i < nodes.length; i++) {
->>>>>>> c141c31aaf681904e34cd372e1d7abe46b15a76f
           out = out + options.fn(nodes[i])
         }
         return out
