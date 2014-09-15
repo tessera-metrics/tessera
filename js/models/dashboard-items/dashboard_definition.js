@@ -55,6 +55,13 @@ ds.register_dashboard_item('dashboard_definition', {
       return self
     }
 
+    self.cleanup = function() {
+      log.debug('cleanup()')
+      for (var key in self.queries) {
+        self.queries[key].off()
+      }
+    }
+
     self.load_all = function(options, fire_only) {
       log.debug('load_all()')
       self.options = options || self.options
@@ -63,6 +70,7 @@ ds.register_dashboard_item('dashboard_definition', {
       }
       self.visit(function(item) {
         if (item.query_override) {
+          log.debug('load_all(): loading query override ' + item.query_override.name)
           item.query_override.load(self.options, fire_only)
         }
       })

@@ -133,6 +133,10 @@ ds.models.dashboard = function(data) {
     return self
   }
 
+  self.cleanup = function() {
+    self.definition.cleanup()
+  }
+
   self.render_templates = function(context) {
     self.description = ds.safe_render_template(self.description, context)
     self.title       = ds.safe_render_template(self.title, context)

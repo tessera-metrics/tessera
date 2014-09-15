@@ -23,6 +23,8 @@ ds.register_dashboard_item('stacked_area_chart', {
   },
 
   data_handler: function(query, item) {
+    ds.log.logger('tessera.items.stacked_area_chart').debug('data_handler(): '
+                                                           + query.name + '/' + item.item_id)
     ds.charts.stacked_area_chart($('#' + item.item_id + ' .ds-graph-holder'), item, query)
   },
 
