@@ -1,54 +1,8 @@
 (function () {
 
-  /**
-   * Helper functions to show & hide the action bar & property sheet
-   * for dashboard items.
-   */
-  ds.edit.hide_details = function(item_id) {
-    var details = $('#' + item_id + '-details')
-    details.remove()
-    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').hide()
-    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .badge').removeClass('ds-badge-highlight')
-  }
-
-  ds.edit.show_details = function(item_id) {
-    // Show the edit button bar across the top of the item
-    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').show()
-    var item = ds.manager.current.dashboard.get_item(item_id)
-    var item_type = ds.models[item.item_type]
-    var bar_id = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
-    var details_id = '#' + item_id + '-details'
-    if ($(details_id).length == 0) {
-
-      // Render the item's property sheet
-      var elt = $('.ds-edit-bar[data-ds-item-id="' + item_id + '"]')
-      var details = ds.templates['ds-edit-bar-item-details']({item:item})
-      elt.append(details)
-
-      if (item_type.interactive_properties) {
-        // Run the edit handlers for each property, which make them
-        // editable and set up the callbacks for their updates
-        for (var i in item_type.interactive_properties) {
-          item_type.interactive_properties[i].edit(item)
-        }
-      }
-    }
-  }
-
-  ds.edit.toggle_details = function(item_id) {
-    var details = $('#' + item_id + '-details')
-    if (details.is(':visible')) {
-      ds.edit.hide_details(item_id)
-      return false
-    } else {
-      ds.edit.show_details(item_id)
-      return true
-    }
-  }
-
-  ds.edit.details_visibility = function(item) {
-    return $('#' + item.item_id + '-details').is(':visible')
-  }
+  /* -----------------------------------------------------------------------------
+     Queries
+     ----------------------------------------------------------------------------- */
 
   /* Query delete buttons */
   $(document).on('click', 'button.ds-delete-query-button', function(e) {
@@ -136,7 +90,7 @@
       ds.templates.edit['dashboard-query-row'](query)
     )
     if (updated_items && (updated_items.length > 0)) {
-      for (var i in updated_items) {
+      for (var i = 0; i < updated_items.length; i++) {
         ds.manager.update_item_view(updated_items[i])
       }
     }
@@ -181,6 +135,60 @@
   function new_query(dashboard, targets) {
     var name = "query" + Object.keys(dashboard.definition.queries).length
     return add_query(dashboard, name, targets || 'absolute(randomWalkFunction("' + name + '"))')
+  }
+
+  /* -----------------------------------------------------------------------------
+     Property Sheets
+     ----------------------------------------------------------------------------- */
+
+  /**
+   * Helper functions to show & hide the action bar & property sheet
+   * for dashboard items.
+   */
+  ds.edit.hide_details = function(item_id) {
+    var details = $('#' + item_id + '-details')
+    details.remove()
+    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').hide()
+    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .badge').removeClass('ds-badge-highlight')
+  }
+
+  ds.edit.show_details = function(item_id) {
+    // Show the edit button bar across the top of the item
+    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').show()
+    var item = ds.manager.current.dashboard.get_item(item_id)
+    var item_type = ds.models[item.item_type]
+    var bar_id = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
+    var details_id = '#' + item_id + '-details'
+    if ($(details_id).length == 0) {
+
+      // Render the item's property sheet
+      var elt = $('.ds-edit-bar[data-ds-item-id="' + item_id + '"]')
+      var details = ds.templates['ds-edit-bar-item-details']({item:item})
+      elt.append(details)
+
+      if (item_type.interactive_properties) {
+        // Run the edit handlers for each property, which make them
+        // editable and set up the callbacks for their updates
+        for (var i = 0; i < item_type.interactive_properties.length; i++) {
+          item_type.interactive_properties[i].edit(item)
+        }
+      }
+    }
+  }
+
+  ds.edit.toggle_details = function(item_id) {
+    var details = $('#' + item_id + '-details')
+    if (details.is(':visible')) {
+      ds.edit.hide_details(item_id)
+      return false
+    } else {
+      ds.edit.show_details(item_id)
+      return true
+    }
+  }
+
+  ds.edit.details_visibility = function(item) {
+    return $('#' + item.item_id + '-details').is(':visible')
   }
 
   var PROPERTY_SHEET_TIMEOUT = 3000
@@ -233,14 +241,9 @@
     }
   })
 
-  var item_properties_action = ds.action({
-    name:    'properties',
-    display: 'Properties',
-    icon:    'fa fa-edit',
-    handler: function(action, item) {
-      ds.edit.toggle_details(item_id)
-    }
-  })
+  /* -----------------------------------------------------------------------------
+     Item Actions
+     ----------------------------------------------------------------------------- */
 
   var duplicate_item_action = ds.action({
     name:    'duplicate',
@@ -308,9 +311,8 @@
     }
   })
 
-
   /* -----------------------------------------------------------------------------
-     New from Graphite URL
+     New from Graphite URL Action
      ----------------------------------------------------------------------------- */
 
   function new_chart_from_graphite_url(url_string) {
@@ -345,10 +347,12 @@
     return chart
   }
 
-  var new_from_url_action = ds.action({
+  ds.actions.register('new-item-chart', {
     name: 'new-chart-from-url',
     display: 'Add new chart from Graphite URL',
     icon: 'fa fa-image',
+    class: 'new-item',
+    category: 'new-item-chart',
     handler: function(action, container) {
       bootbox.prompt("Enter a Graphite chart URL", function(result) {
         if (result) {
@@ -367,190 +371,26 @@
      New item handling
      ----------------------------------------------------------------------------- */
 
-  function add_new_item(container, type) {
-    container.add(ds.models.factory(type))
-    ds.manager.current.dashboard.update_index()
-    ds.manager.update_item_view(container)
+  var new_item_actions = [].concat(ds.actions.get('new-item-structural', 'row'),
+                                   ds.action.divider,
+                                   ds.actions.list('new-item-display').sort(function(a, b) {
+                                     return a.icon.localeCompare(b.icon)
+                                   }),
+                                   ds.action.divider,
+                                   ds.actions.list('new-item-data-table').sort(function(a, b) {
+                                     return a.icon.localeCompare(b.icon)
+                                   }),
+                                   ds.action.divider,
+                                   ds.actions.list('new-item-chart').sort(function(a, b) {
+                                     return a.icon.localeCompare(b.icon)
+                                   })
+                                  )
+  var other = ds.actions.list('new-item')
+  if (other && other.length) {
+    new_item_actions.concat(other.sort(function(a, b) {
+                              return a.icon.localeCompare(b.icon)
+                            }))
   }
-
-  var new_heading_action = ds.action({
-    name: 'new-heading',
-    display: 'Add new Heading',
-    icon: 'fa fa-header',
-    handler: function(action, container) {
-      add_new_item(container, 'heading')
-    }
-  })
-
-  var new_separator_action = ds.action({
-    name: 'new-separator',
-    display: 'Add new Separator',
-    icon: 'fa fa-arrows-h',
-    handler: function(action, container) {
-      add_new_item(container, 'separator')
-    }
-  })
-
-  var new_section_action = ds.action({
-    name: 'new-section',
-    display: 'Add new Section',
-    handler: function(action, container) {
-      add_new_item(container, 'section')
-    }
-  })
-
-  var new_row_action = ds.action({
-    name: 'new-row',
-    display: 'Add new Row',
-    handler: function(action, container) {
-      add_new_item(container, 'row')
-    }
-  })
-
-  var new_cell_action = ds.action({
-    name: 'new-cell',
-    display: 'Add new Cell',
-    icon: 'fa fa-plus',
-    handler: function(action, container) {
-      add_new_item(container, 'cell')
-    }
-  })
-
-  var new_markdown_action = ds.action({
-    name: 'new-markdown',
-    display: 'Add new Markdown',
-    icon: 'fa fa-code',
-    handler: function(action, container) {
-      add_new_item(container, 'markdown')
-    }
-  })
-
-  var new_singlestat_action = ds.action({
-    name: 'new-singlestat',
-    display: 'Add new Singlestat',
-    handler: function(action, container) {
-      add_new_item(container, 'singlestat')
-    }
-  })
-
-  var new_jumbotron_singlestat_action = ds.action({
-    name: 'new-jumbotron_singlestat',
-    display: 'Add new Jumbotron Singlestat',
-    handler: function(action, container) {
-      add_new_item(container, 'jumbotron_singlestat')
-    }
-  })
-
-  var new_percentage_table_action = ds.action({
-    name: 'new-percentage_table',
-    display: 'Add new Percentage Table',
-    icon: 'fa fa-table',
-    handler: function(action, container) {
-      add_new_item(container, 'percentage_table')
-    }
-  })
-
-  var new_summation_table_action = ds.action({
-    name: 'new-summation_table',
-    display: 'Add new Summation Table',
-    icon: 'fa fa-table',
-    handler: function(action, container) {
-      add_new_item(container, 'summation_table')
-    }
-  })
-
-  var new_timeshift_summation_table_action = ds.action({
-    name: 'new-timeshift-summation_table',
-    display: 'Add new Timeshift Summation Table',
-    icon: 'fa fa-table',
-    handler: function(action, container) {
-      add_new_item(container, 'timeshift_summation_table')
-    }
-  })
-
-  var new_comparison_summation_table_action = ds.action({
-    name: 'new-comparison-summation_table',
-    display: 'Add new Comparison Summation Table',
-    icon: 'fa fa-table',
-    handler: function(action, container) {
-      add_new_item(container, 'comparison_summation_table')
-    }
-  })
-
-  var new_simple_time_series_action = ds.action({
-    name: 'new-simple_time_series',
-    display: 'Add new Simple Time Series',
-    icon: 'fa fa-image',
-    handler: function(action, container) {
-      add_new_item(container, 'simple_time_series')
-    }
-  })
-
-  var new_standard_time_series_action = ds.action({
-    name: 'new-standard_time_series',
-    display: 'Add new Standard Time Series',
-    icon: 'fa fa-image',
-    handler: function(action, container) {
-      add_new_item(container, 'standard_time_series')
-    }
-  })
-
-  var new_stacked_area_chart_action = ds.action({
-    name: 'new-stacked_area_chart',
-    display: 'Add new Stacked Area Chart',
-    icon: 'fa fa-image',
-    handler: function(action, container) {
-      add_new_item(container, 'stacked_area_chart')
-    }
-  })
-
-  var new_donut_chart_action = ds.action({
-    name: 'new-donut_area_chart',
-    display: 'Add new Donut Chart',
-    icon: 'fa fa-image',
-    handler: function(action, container) {
-      add_new_item(container, 'donut_chart')
-    }
-  })
-
-
-  var new_singlegraph_action = ds.action({
-    name: 'new-singlegraph',
-    display: 'Add new Singlegraph',
-    icon: 'fa fa-image',
-    handler: function(action, container) {
-      add_new_item(container, 'singlegraph')
-    }
-  })
-
-  var all_new_item_actions = [
-    new_section_action,
-    new_row_action,
-    new_cell_action,
-    ds.action.divider,
-    new_markdown_action,
-    new_heading_action,
-    new_separator_action,
-    ds.action.divider,
-    new_singlestat_action,
-    new_jumbotron_singlestat_action,
-    new_percentage_table_action,
-    new_summation_table_action,
-    new_timeshift_summation_table_action,
-    new_comparison_summation_table_action,
-    ds.action.divider,
-    new_from_url_action,
-    new_simple_time_series_action,
-    new_standard_time_series_action,
-    new_stacked_area_chart_action,
-    new_donut_chart_action,
-    new_singlegraph_action
-  ].map(function(action) { return action.set_class('new-item').set_category('new-item') })
-
-  ds.actions.register('new-item',
-                      all_new_item_actions.filter(function(action) {
-                        return !action.divider
-                      }))
 
   var new_item_action_for_cell = ds.action({
     name: 'new-item',
@@ -558,9 +398,7 @@
     class: 'ds-new-item',
     display: 'Add new dashboard item...',
     icon: 'fa fa-plus',
-    actions: all_new_item_actions.filter(function(action) {
-               return action != new_section_action && action != new_cell_action
-             })
+    actions: new_item_actions
   })
 
   var new_item_action_for_section = ds.action({
@@ -569,14 +407,13 @@
     class: 'ds-new-item',
     display: 'Add new dashboard item...',
     icon: 'fa fa-plus',
-    actions: [
-      new_section_action,
-      new_row_action,
-      ds.action.divider,
-      new_heading_action,
-      new_separator_action,
-      new_markdown_action
-    ]
+    actions: [].concat(ds.actions.get('new-item-structural', 'section'),
+                       ds.actions.get('new-item-structural', 'row'),
+                       ds.action.divider,
+                       ds.actions.list('new-item-display').sort(function(a, b) {
+                         return a.icon.localeCompare(b.icon)
+                       })
+                      )
   })
 
   $(document).on('click', 'li.new-item', function(event) {
@@ -615,7 +452,7 @@
       display: 'Add new Cell',
       icon: 'fa fa-plus',
       handler: function(action, container) {
-        add_new_item(container, 'cell')
+        container.add('cell')
       }
     }),
     duplicate_item_action,

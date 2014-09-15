@@ -1,5 +1,7 @@
 ds.register_dashboard_item('dashboard_definition', {
 
+  category: false,
+
   constructor: function(data) {
     "use strict"
 
@@ -9,6 +11,7 @@ ds.register_dashboard_item('dashboard_definition', {
                          .extend(ds.models.item, {item_type: 'dashboard_definition'})
                          .extend(ds.models.container)
                          .build()
+      , log = ds.log.logger('tessera.item.definition')
 
     if (data && data.queries) {
       for (var key in data.queries) {
@@ -52,13 +55,22 @@ ds.register_dashboard_item('dashboard_definition', {
       return self
     }
 
+    self.cleanup = function() {
+      log.debug('cleanup()')
+      for (var key in self.queries) {
+        self.queries[key].off()
+      }
+    }
+
     self.load_all = function(options, fire_only) {
+      log.debug('load_all()')
       self.options = options || self.options
       for (var key in self.queries) {
         self.queries[key].load(self.options, fire_only)
       }
       self.visit(function(item) {
         if (item.query_override) {
+          log.debug('load_all(): loading query override ' + item.query_override.name)
           item.query_override.load(self.options, fire_only)
         }
       })

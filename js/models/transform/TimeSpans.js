@@ -36,7 +36,7 @@ ds.transforms.register({
                                     : 'Time Spans' }))
                     .add(make('separator'))
 
-    for (var i in spans) {
+    for (var i = 0; i < spans.length; i++) {
       var span = spans[i]
       var modified_query = ds.models.data.Query(query.toJSON())
                              .set_name(query.name + '/' + span.from + '/' + span.until)

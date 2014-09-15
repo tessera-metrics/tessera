@@ -10,6 +10,7 @@ ds.app =
     var mode_stack = []
       , ANIMATION_DELAY = 300
       , self = {}
+      , log = ds.log.logger('tessera.app')
 
     self.current_mode = 'standard'
 
@@ -33,7 +34,10 @@ ds.app =
     }
 
     function do_exit_mode(mode) {
-      bean.fire(self, self.Event.MODE_EXIT + mode)
+      if (log.is_enabled(ds.log.Level.DEBUG)) {
+        log.debug('mode <- ' + mode)
+      }
+      ds.event.fire(self, self.Event.MODE_EXIT + mode)
       var state = mode_stack.pop()
       if (state) {
         state.hidden.show(ANIMATION_DELAY)
@@ -42,6 +46,9 @@ ds.app =
     }
 
     function do_enter_mode(mode) {
+      if (log.is_enabled(ds.log.Level.DEBUG)) {
+        log.debug('mode -> ' + mode)
+      }
       var hidden = $('[data-ds-hide~="' + mode + '"]').hide(ANIMATION_DELAY)
       var shown = $('[data-ds-show~="' + mode + '"]').show(ANIMATION_DELAY)
 
@@ -51,7 +58,7 @@ ds.app =
         hidden: hidden,
         shown: shown
       })
-      bean.fire(self, self.Event.MODE_ENTER + mode)
+      ds.event.fire(self, self.Event.MODE_ENTER + mode)
     }
 
     /**
@@ -59,7 +66,7 @@ ds.app =
      */
     self.refresh_mode = function() {
       self.switch_to_mode(self.current_mode, 0)
-      bean.fire(self, self.Event.MODE_REFRESH + self.current_mode)
+      ds.event.fire(self, self.Event.MODE_REFRESH + self.current_mode)
       return self
     }
 
@@ -116,13 +123,13 @@ ds.app =
      */
     self.add_mode_handler = function(mode, options) {
       if (options.enter && (options.enter instanceof Function)) {
-        bean.on(self, self.Event.MODE_ENTER + mode, options.enter)
+        ds.event.on(self, self.Event.MODE_ENTER + mode, options.enter)
       }
       if (options.exit && (options.exit instanceof Function)) {
-        bean.on(self, self.Event.MODE_EXIT + mode, options.exit)
+        ds.event.on(self, self.Event.MODE_EXIT + mode, options.exit)
       }
       if (options.refresh && (options.refresh instanceof Function)) {
-        bean.on(self, self.Event.MODE_REFRESH + mode, options.refresh)
+        ds.event.on(self, self.Event.MODE_REFRESH + mode, options.refresh)
       }
       return self
     }

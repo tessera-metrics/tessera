@@ -1,4 +1,9 @@
 ds.register_dashboard_item('markdown', {
+
+  display_name: 'Markdown',
+  icon: 'fa fa-code',
+  category: 'display',
+
   constructor: function(data) {
     'use strict'
 
@@ -18,7 +23,11 @@ ds.register_dashboard_item('markdown', {
     ds.models.item.init(self, data)
 
     self.render_templates = function(context) {
-      self.expanded_text = ds.render_template(self.text, context)
+      try {
+        self.expanded_text = ds.render_template(self.text, context)
+      } catch (e) {
+        self.expanded_text = e.toString()
+      }
     }
 
     self.toJSON = function() {

@@ -210,8 +210,3 @@ ds.charts.nvd3 =
 
     return self
 })()
-
-/**
- * Set NVD3 as the default chart provider.
- */
-ds.charts.provider = ds.charts.nvd3

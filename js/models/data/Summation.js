@@ -38,7 +38,7 @@ ds.models.data.Summation = function(initial_data) {
     var summed_datapoints = []
     for (var i = 0; i < length; i++) {
       var x = 0
-      for (var n in initial_data) {
+      for (var n = 0; n < initial_data.length; n++) {
         x += initial_data[n].datapoints[i][0]
       }
       datapoints.push([x, initial_data[0].datapoints[i][1]])

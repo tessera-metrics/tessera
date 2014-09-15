@@ -10,6 +10,7 @@ ds.models.data.Query = function(data) {
                        .property('expanded_targets')
                        .property('local_options')
                        .build()
+    , log = ds.log.logger('tessera.query')
 
   if (data) {
     if (data instanceof Array) {
@@ -35,7 +36,12 @@ ds.models.data.Query = function(data) {
 
   self.render_templates = function(context) {
     self.expanded_targets = self.targets.map(function(t) {
+                              try {
                                 return ds.render_template(t, context)
+                              } catch ( e ) {
+                                ds.manager.error('Failed to expand query ' + self.name + ': ' + e)
+                                return t
+                              }
                             })
   }
 
@@ -50,7 +56,7 @@ ds.models.data.Query = function(data) {
       url.setQuery('until', options.until)
     }
     var targets = self.expanded_targets || self.targets
-    for (var i in targets) {
+    for (var i = 0; i < targets.length; i++) {
       url.addQuery('target', targets[i].replace(/(\r\n|\n|\r)/gm,""))
     }
     return url.href()
@@ -89,6 +95,7 @@ ds.models.data.Query = function(data) {
    *                            data.
    */
   self.load = function(opt, fire_only) {
+    log.debug('load(): ' + self.name)
     self.local_options = ds.extend(self.local_options, opt)
     var options = ds.extend(self.local_options, opt, self.options)
 
@@ -101,11 +108,12 @@ ds.models.data.Query = function(data) {
       if (ready && (ready instanceof Function)) {
         ready(self)
       }
-      bean.fire(self, 'ds-data-ready', self)
+
+      ds.event.fire(self, 'ds-data-ready', self)
     } else {
       options.format = 'json'
       var url = self.url(options)
-      bean.fire(self, 'ds-data-loading')
+      ds.event.fire(self, 'ds-data-loading')
       $.ajax({
         dataType: 'json',
         url: url
@@ -115,7 +123,7 @@ ds.models.data.Query = function(data) {
         if (options.ready && (options.ready instanceof Function)) {
           options.ready(self)
         }
-        bean.fire(self, 'ds-data-ready', self)
+        ds.event.fire(self, 'ds-data-ready', self)
       })
        .error(function(xhr, status, error) {
         ds.manager.error('Failed to load query ' + self.name + '. ' + error)
@@ -128,14 +136,16 @@ ds.models.data.Query = function(data) {
    * loaded.
    */
   self.on_load = function(handler) {
-    bean.on(self, 'ds-data-ready', handler)
+    log.debug('on(): ' + self.name)
+    ds.event.on(self, 'ds-data-ready', handler)
   }
 
   /**
    * Remove all registered event handlers.
    */
   self.off = function() {
-    bean.off(self, 'ds-data-ready')
+    log.debug('off(): ' + self.name)
+    ds.event.off(self, 'ds-data-ready')
   }
 
   function group_targets(query) {

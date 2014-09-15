@@ -35,13 +35,13 @@ class Integration(Spec):
         db.create_all()
         eq_(len(DashboardRecord.query.all()), 0)
 
-    def can_import_fixtures(self):
-        from tessera.application import db
-        from tessera.importer.json import JsonImporter
-        from tessera.database import DashboardRecord
-        db.create_all()
-        path = os.path.abspath(os.path.join(
-            os.path.dirname(__file__), '..', 'demo', 'demo-gallery.json'
-        ))
-        JsonImporter.import_file(path)
-        eq_(len(DashboardRecord.query.all()), 1)
+#    def can_import_fixtures(self):
+#        from tessera.application import db
+#        from tessera.importer.json import JsonImporter
+#        from tessera.database import DashboardRecord
+#        db.create_all()
+#        path = os.path.abspath(os.path.join(
+#            os.path.dirname(__file__), '..', 'demo', 'demo-gallery.json'
+#        ))
+#        JsonImporter.import_file(path)
+#        eq_(len(DashboardRecord.query.all()), 1)

@@ -33,10 +33,6 @@ i[class*='icon-'] {
 .badge-danger {
   background-color: #d9534f;
 }
-/* Badges are just more readable when slightly less bold */
-.badge {
-  font-weight: 400;
-}
 
 /* x-editable's textarea in dashboard info edit panel comes out too
 narrow unless we override */
@@ -70,11 +66,7 @@ narrow unless we override */
    Application Styles
    ============================================================================= */
 
-.ds-source {
-    font-family: Consolas, "Andale Mono", "Courier New", monospace
-}
-
-.well .ds-item {
+.ds-grid .well {
     padding-bottom: 1em;
 }
 
@@ -87,9 +79,6 @@ narrow unless we override */
 .ds-height7 { height: 540px; }
 .ds-height8 { height: 600px; }
 
-h1, h2, h3, h4 {
-    font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;
-}
 h1.page-title {
     font-size: 3em;
 }
@@ -123,32 +112,18 @@ h1.page-title {
 }
 
 .ds-singlestat h3 {
-    font-stretch: condensed;
-    font-size: 1.2em;
-    font-weight: normal;
-    text-transform:uppercase;
     margin: 0px;
 }
 
-.well .ds-singlestat h3 {
-}
-
 .ds-singlestat p {
-    font-size: 3em;
-    font-weight: bold;
     margin-bottom: 0px;
 }
 
 .ds-singlestat .unit {
-    font-size: .5em;
-    text-transform: lowercase;
     margin-left: .25em;
 }
 
 .ds-jumbotron-singlestat .unit {
-    text-transform: lowercase;
-    font-size: 2em;
-    font-weight: bold;
     margin-left: .25em;
 }
 
@@ -158,17 +133,9 @@ h1.page-title {
 }
 
 .ds-jumbotron-singlestat h3 {
-    text-transform: lowercase;
-    font-size: 2.5em;
     position: relative;
     top: -1em;
     right: -1em;
-}
-
-h1 .ds-primary-title {
-}
-
-h1 .ds-secondary-title {
 }
 
 .ds-simple-chart {
@@ -179,9 +146,6 @@ h1 .ds-secondary-title {
     position:absolute;
     bottom:0px;
     left:4px;
-}
-.name-overlay h5 {
-    font-size:12px;
 }
 .value-overlay {
     position:absolute;
@@ -228,10 +192,6 @@ h1 .ds-secondary-title {
     margin-top: 0;
 }
 
-.ds-singlegraph {
-    font-weight: bold;
-}
-
 .ds-singlegraph svg {
     height: 90px;
 }
@@ -240,21 +200,16 @@ h1 .ds-secondary-title {
     display: block;
     position: absolute;
     z-index: 10000;
-    font-size: 1.2em;
     left: 20px;
     bottom: 1.5em;
     width: 75%;
     text-shadow: 1px 1px #dfdfff;
-}
-.ds-singlegraph h3 {
-    font-size: 1.4em;
 }
 
 .ds-singlegraph span.value {
     display: block;
     position: absolute;
     z-index: 10000;
-    font-size: 4em;
     right: 20px;
     bottom: 20px;
 }
@@ -269,15 +224,10 @@ h1 .ds-secondary-title {
 
 
 .ds-dashboard-listing-category {
-    font-weight: 600;
     margin-right: 4px;
     color: #777;
     width:120px;
     display:inline-block;
-}
-.ds-dashboard-listing-title {
-    font-weight: 600;
-    font-size: 1.25em;
 }
 .ds-dashboard-listing-last-modified {
   color: #aaa;
@@ -312,6 +262,10 @@ td.ds-tooltip-value {
 
 .ds-tooltip-time {
     font-weight: bold;
+}
+
+.ds-legend-holder {
+  margin-top: 1em;
 }
 
 .ds-legend-holder .legendLabel {
@@ -416,6 +370,28 @@ table.ds-property-sheet td {
     color: rgba(75,75,75,0.25);
 }
 
-.ds-query-target {
-    font-family: Consolas, "Andale Mono", "Courier New", monospace
+/* Flot legends */
+
+.ds-legend-cell {
+  display: inline-block;
+}
+
+.ds-legend-cell .color {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+}
+
+.ds-legend-cell .label {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.ds-summation-color-cell {
+  height: 1em;
+  width: 1em;
+  display: inline-block;
+  margin-right: 0.5em;
 }

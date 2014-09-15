@@ -13,7 +13,7 @@ ds.context = function(context) {
   var params = URI(window.location).query(true)
   var variables = {}
 
-  context.from = params.from || '-3h'
+  context.from = params.from || ds.config.DEFAULT_FROM_TIME
   context.until = params.until
 
   for (var key in params) {
@@ -49,13 +49,22 @@ ds.render_template = function(str, context) {
   }
 }
 
+ds.safe_render_template = function(str, context) {
+  try {
+    return ds.render_template(str, context)
+  } catch (e) {
+    console.log('ds.safe_render_template(): ' + e)
+    return str
+  }
+}
+
 /**
  * Yo dawg, I heard you like objects, so I put some objects in your
  * objects...
  */
 ds.extend = function() {
   var target = {}
-  for (var i in arguments) {
+  for (var i = 0; i < arguments.length; i++) {
     var source = arguments[i] || {}
     for (var key in source) {
       if (source.hasOwnProperty(key)) {

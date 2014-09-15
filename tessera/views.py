@@ -53,6 +53,11 @@ session.
         session[name] = value
     return value
 
+def _get_param_boolean(name, default=None):
+    value = _get_param(name, default)
+    return value == 'True' \
+        or value == 'true'
+
 def _get_config():
     """Retrieve a dictionary containing all UI-relevant config settings."""
     return {
@@ -124,7 +129,7 @@ will be converted to their JSON representation.
     if not isinstance(dashboards, list):
         dashboards = [dashboards]
 
-    include_definition = _get_param('definition', False)
+    include_definition = _get_param_boolean('definition', False)
     return _jsonify([ _set_dashboard_hrefs(d.to_json(include_definition=include_definition)) for d in dashboards])
 
 def _set_tag_hrefs(tag):
@@ -158,7 +163,13 @@ def api_dashboard_list():
     definitions.
 
     """
-    dashboards = [d for d in database.DashboardRecord.query.order_by(_dashboard_sort_column()).all()]
+    imported_from = request.args.get('imported_from')
+    if imported_from:
+        query = database.DashboardRecord.query.filter_by(imported_from=imported_from) \
+                                              .order_by(_dashboard_sort_column())
+    else:
+        query = database.DashboardRecord.query.order_by(_dashboard_sort_column())
+    dashboards = [d for d in query.all()]
     return _dashboards_response(dashboards)
 
 @app.route('/api/dashboard/tagged/<tag>')
@@ -187,12 +198,15 @@ def api_dashboard_list_dashboards_in_category(category):
 
 @app.route('/api/dashboard/category/')
 def api_dashboard_list_all_dashboard_categories():
-    sql = 'SELECT category, count(category) FROM dashboard GROUP BY category'
+    result = db.session.query(
+        database.DashboardRecord.category,
+        db.func.count(database.DashboardRecord.category)
+    ).group_by(database.DashboardRecord.category).all()
     categories = []
-    for row in db.engine.execute(sql):
+    for (name, count) in result:
         categories.append({
-            'name' : row[0],
-            'count' : row[1]
+            'name' : name,
+            'count' : count,
         })
     return _jsonify(categories)
 
@@ -206,7 +220,7 @@ def api_dashboard_get(id):
     except HTTPException as e:
         raise _set_exception_response(e)
     rendering = _get_param('rendering', False)
-    include_definition = _get_param('definition', False)
+    include_definition = _get_param_boolean('definition', False)
     dash = _set_dashboard_hrefs(dashboard.to_json(rendering or include_definition))
     if rendering:
         dash['preferences'] = _get_preferences()
@@ -308,19 +322,7 @@ def api_tag_list():
     """Listing for all tags.
 
     """
-    sql = 'SELECT tag.id, tag.name, tag.description, tag.fgcolor, tag.bgcolor, count(*)' \
-    + ' FROM tag' \
-    + ' INNER JOIN dashboard_tags' \
-    + ' ON dashboard_tags.tag_id = tag.id' \
-    + ' GROUP BY tag.id' \
-    + ' ORDER BY tag.name'
-
-    tags = []
-    for row in db.engine.execute(sql):
-        tag = database.TagRecord(name=row[1], description=row[2], fgcolor=row[3], bgcolor=row[4], count=row[5])
-        tag.id = row[0]
-        tags.append(tag)
-
+    tags = db.session.query(database.TagRecord).all()
     return _tags_response(tags)
 
 @app.route('/api/tag/<id>')

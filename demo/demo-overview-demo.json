@@ -1,0 +1,337 @@
+{
+  "category": "Demo", 
+  "definition": {
+    "style": null, 
+    "items": [
+      {
+        "style": "none", 
+        "layout": "fixed", 
+        "title": null, 
+        "items": [
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": "well", 
+                "span": 3, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "/sec", 
+                    "format": ",.3f", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "Average", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": "d17", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d14", 
+                "css_class": null
+              }, 
+              {
+                "style": "well", 
+                "span": 3, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "/sec", 
+                    "format": ",.3f", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "Max", 
+                    "transform": "max", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": "d21", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d20", 
+                "css_class": null
+              }, 
+              {
+                "style": "well", 
+                "span": 3, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "/sec", 
+                    "format": ",.3f", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "Median", 
+                    "transform": "median", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": "d77", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d76", 
+                "css_class": null
+              }, 
+              {
+                "style": "well", 
+                "span": 3, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "things", 
+                    "format": ",.2s", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "Total", 
+                    "transform": "sum", 
+                    "height": null, 
+                    "item_type": "singlestat", 
+                    "item_id": "d23", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d22", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d7"
+          }, 
+          {
+            "style": null, 
+            "items": [], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d75"
+          }
+        ], 
+        "height": null, 
+        "item_type": "section", 
+        "css_class": null, 
+        "item_id": "d2"
+      }, 
+      {
+        "style": "none", 
+        "layout": "fixed", 
+        "title": null, 
+        "items": [
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": "well", 
+                "span": 8, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": "Total Request Traffic", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "item_id": "d91", 
+                    "query": "query0", 
+                    "options": {
+                      "palette": "d3category20"
+                    }, 
+                    "interactive": true
+                  }, 
+                  {
+                    "style": null, 
+                    "format": ",.3s", 
+                    "css_class": null, 
+                    "height": null, 
+                    "item_type": "percentage_table", 
+                    "include_sums": true, 
+                    "item_id": "d92", 
+                    "query": "query0"
+                  }, 
+                  {
+                    "style": null, 
+                    "title": "Network Traffic", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": null, 
+                    "item_type": "standard_time_series", 
+                    "item_id": "d98", 
+                    "query": "Copy of query1 6", 
+                    "options": {
+                      "palette": "spectrum14"
+                    }, 
+                    "interactive": true
+                  }, 
+                  {
+                    "style": null, 
+                    "format": ",.3s", 
+                    "css_class": null, 
+                    "height": null, 
+                    "item_type": "percentage_table", 
+                    "include_sums": true, 
+                    "item_id": "d99", 
+                    "query": "Copy of query1 6"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d90", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 4, 
+                "items": [
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "/sec", 
+                    "format": ",.1f", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "peak rate", 
+                    "transform": "mean", 
+                    "height": null, 
+                    "item_type": "jumbotron_singlestat", 
+                    "item_id": "d94", 
+                    "query": "query5"
+                  }, 
+                  {
+                    "index": false, 
+                    "style": null, 
+                    "units": "ms", 
+                    "format": ",.1f", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "Latency, 95th Percentile", 
+                    "transform": "max", 
+                    "height": null, 
+                    "item_type": "jumbotron_singlestat", 
+                    "item_id": "d95", 
+                    "query": "query0"
+                  }, 
+                  {
+                    "style": null, 
+                    "item_type": "markdown", 
+                    "text": "#### Related Dashboards\n\n{{dashboards-tagged \"demo\"}}\n\n{{dashboards-tagged \"test\"}}", 
+                    "height": null, 
+                    "raw": false, 
+                    "css_class": null, 
+                    "item_id": "d100"
+                  }
+                ], 
+                "align": "none", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d93", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d89"
+          }
+        ], 
+        "height": null, 
+        "item_type": "section", 
+        "css_class": null, 
+        "item_id": "d79"
+      }
+    ], 
+    "queries": {
+      "query2": {
+        "name": "query2", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query2\"))"
+        ]
+      }, 
+      "query3": {
+        "name": "query3", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query3\"))"
+        ]
+      }, 
+      "query0": {
+        "name": "query0", 
+        "targets": [
+          "absolute(group(randomWalkFunction(\"squares\"),randomWalkFunction(\"rectangles\"),randomWalkFunction(\"circles\"), randomWalkFunction(\"ellipses\")))"
+        ]
+      }, 
+      "query1": {
+        "name": "query1", 
+        "targets": [
+          "aliasByNode(absolute(group(randomWalkFunction(\"s001\"),\nrandomWalkFunction(\"s002\"),\nrandomWalkFunction(\"s003\"),\nrandomWalkFunction(\"s004\"),\nrandomWalkFunction(\"s005\"),\nrandomWalkFunction(\"s006\"),\nrandomWalkFunction(\"s007\"),\nrandomWalkFunction(\"s008\"),\nrandomWalkFunction(\"s009\"),\nrandomWalkFunction(\"s010\"))),\n 0)"
+        ]
+      }, 
+      "query4": {
+        "name": "query4", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query4\"))"
+        ]
+      }, 
+      "query5": {
+        "name": "query5", 
+        "targets": [
+          "multiplySeries(absolute(randomWalkFunction(\"query5\")), absolute(randomWalkFunction(\"query5\")), absolute(randomWalkFunction(\"query5\")), absolute(randomWalkFunction(\"query5\")))"
+        ]
+      }, 
+      "Copy of query1 6": {
+        "name": "Copy of query1 6", 
+        "targets": [
+          "aliasByNode(absolute(group(randomWalkFunction(\"s001\"),\nrandomWalkFunction(\"s002\"),\nrandomWalkFunction(\"s003\"),\nrandomWalkFunction(\"s004\"),\nrandomWalkFunction(\"s005\"),\nrandomWalkFunction(\"s006\"),\nrandomWalkFunction(\"s007\"),\nrandomWalkFunction(\"s008\"),\nrandomWalkFunction(\"s009\"),\nrandomWalkFunction(\"s010\"))),\n 0)"
+        ]
+      }
+    }, 
+    "height": null, 
+    "item_type": "dashboard_definition", 
+    "css_class": null, 
+    "item_id": "d0"
+  }, 
+  "last_modified_date": "2014-07-31T18:50:04.084585Z", 
+  "description": "", 
+  "title": "Overview Demo", 
+  "tags": [
+    {
+      "bgcolor": "green", 
+      "id": 1, 
+      "name": "featured"
+    }, 
+    {
+      "bgcolor": "#ddd", 
+      "id": 2, 
+      "fgcolor": "#333", 
+      "name": "demo"
+    }
+  ], 
+  "creation_date": "2014-07-02T19:44:51.162317Z", 
+  "id": 11, 
+  "imported_from": null, 
+  "summary": "Some things and stuff"
+}

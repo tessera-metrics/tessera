@@ -1,4 +1,9 @@
 ds.register_dashboard_item('standard_time_series', {
+
+  display_name: 'Standard Time Series',
+  icon: 'fa fa-line-chart',
+  category: 'chart',
+
   constructor: function(data) {
     'use strict'
 

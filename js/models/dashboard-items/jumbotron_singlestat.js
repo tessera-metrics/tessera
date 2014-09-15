@@ -1,12 +1,16 @@
 ds.register_dashboard_item('jumbotron_singlestat', {
 
+  display_name: 'Jumbotron Singlestat',
+  icon: 'fa fa-subscript',
+  category: 'data-table',
+
   constructor: function(data) {
     'use strict'
 
     var self = limivorous.observable()
                          .property('title')
                          .property('units')
-                         .property('format', {init: ',.3f'})
+                         .property('format', {init: ',.3s'})
                          .property('index')
                          .property('transform', {init: 'mean'})
                          .extend(ds.models.item, {item_type: 'jumbotron_singlestat'})

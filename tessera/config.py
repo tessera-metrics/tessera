@@ -4,13 +4,14 @@ DEFAULT_FROM_TIME          = '-3h'
 DEFAULT_THEME              = 'light'
 DASHBOARD_APPNAME          = 'Tessera'
 SQLALCHEMY_DATABASE_URI    = 'sqlite:///tessera.db'
+MIGRATION_DIR              = 'migrations'
 GRAPHITE_URL               = 'http://localhost:8080'
 DISPLAY_TIMEZONE           = 'Etc/UTC'
 SERVER_ADDRESS             = '0.0.0.0'
 SERVER_PORT                = 5000
 APPLICATION_ROOT = '/tessera'
 INTERACTIVE_CHARTS_DEFAULT = True
-INTERACTIVE_CHARTS_RENDERER = 'nvd3'
+INTERACTIVE_CHARTS_RENDERER = 'flot'
 
 DASHBOARD_RANGE_PICKER = [
       ('Past Hour',   '-1h'),

@@ -33,7 +33,8 @@ module.exports = function(grunt) {
           'tessera/static/css/font-awesome.css',
           'tessera/static/css/nv.d3.css',
           'tessera/static/css/select2.css',
-          'tessera/static/css/select2-bootstrap.css'
+          'tessera/static/css/select2-bootstrap.css',
+          'tessera/static/css/dataTables.bootstrap.css'
         ],
         dest: 'tessera/static/css/bundle.css'
       },
@@ -43,6 +44,7 @@ module.exports = function(grunt) {
         },
         src: [
           'tessera/static/js/jquery-1.11.0.min.js',
+          'tessera/static/js/jquery.dataTables.js',
           'tessera/static/js/moment.min.js',
           'tessera/static/js/moment-timezone-with-data.min.js',
           'tessera/static/js/marked.min.js',
@@ -69,7 +71,9 @@ module.exports = function(grunt) {
           'tessera/static/js/flot/jquery.flot.tooltip.js',
           'tessera/static/js/flot/jquery.flot.stack.js',
           'tessera/static/js/flot/jquery.flot.crosshair.js',
-          'tessera/static/js/simple_statistics.js'
+          'tessera/static/js/flot/jquery.flot.axislabels.js',
+          'tessera/static/js/simple_statistics.js',
+          'tessera/static/js/equalize.min.js'
         ],
         dest: 'tessera/static/bundle.js'
       },
@@ -79,6 +83,8 @@ module.exports = function(grunt) {
         },
         src: [
           'js/core.js',
+          'js/log.js',
+          'js/event.js',
           'js/registry.js',
           'js/action.js',
           'js/transform.js',
@@ -108,7 +114,8 @@ module.exports = function(grunt) {
         'templates/**/*.hbs',
         'tessera/static/js/**/*.js',
         'tessera/static/css/**/*.css',
-        'tessera/static/tessera.css'
+        'tessera/static/tessera.css',
+        'tessera/static/tessera-typography.css'
       ],
       tasks: ['handlebars', 'concat']
     }

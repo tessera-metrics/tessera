@@ -133,10 +133,14 @@ ds.models.dashboard = function(data) {
     return self
   }
 
+  self.cleanup = function() {
+    self.definition.cleanup()
+  }
+
   self.render_templates = function(context) {
-    self.description = ds.render_template(self.description, context)
-    self.title       = ds.render_template(self.title, context)
-    self.summary     = ds.render_template(self.summary, context)
+    self.description = ds.safe_render_template(self.description, context)
+    self.title       = ds.safe_render_template(self.title, context)
+    self.summary     = ds.safe_render_template(self.summary, context)
     if (self.definition) {
       self.definition.render_templates(context)
     }

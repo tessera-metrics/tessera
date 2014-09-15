@@ -30,7 +30,7 @@ ds.registry = function(init) {
       category = DEFAULT_CATEGORY
     }
     if (thing instanceof Array) {
-      for (var i in thing) {
+      for (var i = 0; i < thing.length; i++) {
         self.register(category, thing[i])
       }
     } else {

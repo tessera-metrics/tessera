@@ -46,7 +46,7 @@ var limivorous =
       context.notifyObservers = function(event, data) {
         var observers = observer_registry[event]
         if (observers) {
-          for (var i in observers) {
+          for (var i = 0; i < observers.length; i++) {
             observers[i](data)
           }
         }

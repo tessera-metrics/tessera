@@ -6,11 +6,12 @@ built with as many "off-the-shelf" components as possible.
 **Server Side**
 
 * [Flask](http://flask.pocoo.org/)
-* [Flask-Script](http://packages.python.org/Flask-Script/)
 * [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/)
+* [Flask-Migrate](https://github.com/miguelgrinberg/Flask-Migrate)
 * [SLQAlchemy](http://www.sqlalchemy.org/)
 * [requests](https://github.com/kennethreitz/requests)
 * [inflection](https://github.com/jpvanhal/inflection)
+* [invoke](https://github.com/pyinvoke/invoke)
 
 **Client Side**
 
@@ -29,6 +30,8 @@ built with as many "off-the-shelf" components as possible.
   formatting in text.
 * [flot](http://www.flotcharts.org/) for alternative interactive chart
   rendering.
+  * [flot-axislabels](https://github.com/mikeslim7/flot-axislabels)
+* [DataTables](http://datatables.net/)
 * [moment.js](http://momentjs.com/) for time parsing & formatting.
   * [moment-timezone.js](http://momentjs.com/timezone/)
 * [bean.js](https://github.com/fat/bean) for events.
@@ -42,3 +45,4 @@ built with as many "off-the-shelf" components as possible.
 * [color](https://github.com/harthur/color)
 * [mousetrap](https://github.com/ccampbell/mousetrap)
 * [simple-statistics](https://github.com/tmcw/simple-statistics)
+* [equalize.js](https://github.com/tsvensen/equalize.js/)

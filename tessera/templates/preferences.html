@@ -33,7 +33,7 @@
             <label class="col-md-4 control-label" for="selectRefresh">Default Refresh Period</label>
             <div class="col-md-6">
               <select id="selectRefresh" name="selectRefresh" class="form-control"
-                      onchange="setPref('refresh', this.value)">
+                      onchange="dsSetPref('refresh', this.value)">
                 {% for item in config['DASHBOARD_REFRESH_INTERVALS'] %}
                 <option value="{{item[1]}}"
                         {% if item[1] == ctx.get_int('refresh', config['DEFAULT_REFRESH_INTERVAL']) %}
@@ -58,7 +58,7 @@
             <label class="col-md-4 control-label" for="selectTimeZone">Display Time Zone</label>
             <div class="col-md-6">
               <input type="hidden" id="selectTimeZone" name="selectTimeZone" class="form-control"
-                      onchange="setPref('timezone', this.value)">
+                      onchange="dsSetPref('timezone', this.value)">
               </input>
             </div>
             <div class="col-md-2">
@@ -77,7 +77,7 @@
             <div class="col-md-6">
               <input type="text" id="textGraphiteURL" name="textGraphiteURL" class="form-control"
                      value="{{ctx.get_str('graphite_url', config.get('GRAPHITE_URL'))}}"
-                     onchange="setPref('graphite_url', this.value)">
+                     onchange="dsSetPref('graphite_url', this.value)">
               </input>
             </div>
             <div class="col-md-2">
@@ -97,14 +97,14 @@
               <div class="radio">
                 <label for="chartRadios-0">
                   <!-- Static -->
-                  <input type="radio" name="chartRadios" id="chartRadios-0" value="static" {% if not ctx.prefs.interactive %} checked="checked"{% endif %} onclick="setPref('interactive', 'false')">
+                  <input type="radio" name="chartRadios" id="chartRadios-0" value="static" {% if not ctx.prefs.interactive %} checked="checked"{% endif %} onclick="dsSetPref('interactive', 'false')">
                     Static
                 </label>
 	          </div>
               <div class="radio">
                 <label for="chartRadios-1">
                   <!-- Interactive -->
-                  <input type="radio" name="chartRadios" id="chartRadios-1" value="interactive" {% if ctx.prefs.interactive %} checked="checked"{% endif %} onclick="setPref('interactive', 'true')">
+                  <input type="radio" name="chartRadios" id="chartRadios-1" value="interactive" {% if ctx.prefs.interactive %} checked="checked"{% endif %} onclick="dsSetPref('interactive', 'true')">
                     Interactive
                 </label>
 	          </div>
@@ -118,7 +118,7 @@
               <div class="radio">
                 <label for="chartRenderRadios-0">
                   <!-- Static -->
-                  <input type="radio" name="chartRenderRadios" id="chartRenderRadios-0" value="static" {% if ctx.prefs.renderer=='nvd3' %} checked="checked"{% endif %} onclick="setPref('renderer', 'nvd3')">
+                  <input type="radio" name="chartRenderRadios" id="chartRenderRadios-0" value="static" {% if ctx.prefs.renderer=='nvd3' %} checked="checked"{% endif %} onclick="dsSetPref('renderer', 'nvd3')">
                     nvd3
                 </label>
                 <p><small><a href="http://nvd3.org/" target="_blank">nvd3</a>
@@ -133,7 +133,7 @@
               <div class="radio">
                 <label for="chartRenderRadios-1">
                   <!-- Interactive -->
-                  <input type="radio" name="chartRenderRadios" id="chartRenderRadios-1" value="interactive" {% if ctx.prefs.renderer=='flot' %} checked="checked"{% endif %} onclick="setPref('renderer', 'flot')">
+                  <input type="radio" name="chartRenderRadios" id="chartRenderRadios-1" value="interactive" {% if ctx.prefs.renderer=='flot' %} checked="checked"{% endif %} onclick="dsSetPref('renderer', 'flot')">
                     flot
                 </label>
                 <p><small><a href="http://www.flotcharts.org/"
@@ -150,30 +150,42 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="themeRadios">Theme</label>
             <div class="col-md-8">
+
               <div class="radio">
-                <label for="themeRadios-dark">
-                  <input type="radio" name="themeRadios" id="themeRadios-dark" {% if ctx.prefs.theme=='dark' %} checked="checked" {% endif %} onclick="setPref('theme', 'dark')" value="Dark">
-                    Dark
+                <label for="themeRadios-snow">
+                  <input type="radio" name="themeRadios" id="themeRadios-snow" {% if ctx.prefs.theme=='snow' %} checked="checked" {% endif %} onclick="dsSetPref('theme', 'snow')" value="Snow">
+                    Snow
                 </label>
               </div>
+
               <div class="radio">
                 <label for="themeRadios-light">
-                  <input type="radio" name="themeRadios" id="themeRadios-light" {% if ctx.prefs.theme=='light' %} checked="checked" {% endif %} onclick="setPref('theme', 'light')" value="Light">
+                  <input type="radio" name="themeRadios" id="themeRadios-light" {% if ctx.prefs.theme=='light' %} checked="checked" {% endif %} onclick="dsSetPref('theme', 'light')" value="Light">
                     Light
                 </label>
               </div>
+
+              <div class="radio">
+                <label for="themeRadios-dark">
+                  <input type="radio" name="themeRadios" id="themeRadios-dark" {% if ctx.prefs.theme=='dark' %} checked="checked" {% endif %} onclick="dsSetPref('theme', 'dark')" value="Dark">
+                    Dark
+                </label>
+              </div>
+
               <div class="radio">
                 <label for="themeRadios-solarized-light">
-                  <input type="radio" name="themeRadios" id="themeRadios-solarized-light" {% if ctx.prefs.theme=='solarized-light' %} checked="checked" {% endif %} onclick="setPref('theme', 'solarized-light')" value="Solarized Light">
+                  <input type="radio" name="themeRadios" id="themeRadios-solarized-light" {% if ctx.prefs.theme=='solarized-light' %} checked="checked" {% endif %} onclick="dsSetPref('theme', 'solarized-light')" value="Solarized Light">
                     Solarized Light
                 </label>
               </div>
+
               <div class="radio">
                 <label for="themeRadios-solarized-dark">
-                  <input type="radio" name="themeRadios" id="themeRadios-solarized-dark" {% if ctx.prefs.theme=='solarized-dark' %} checked="checked" {% endif %} onclick="setPref('theme', 'solarized-dark')" value="Solarized Dark">
+                  <input type="radio" name="themeRadios" id="themeRadios-solarized-dark" {% if ctx.prefs.theme=='solarized-dark' %} checked="checked" {% endif %} onclick="dsSetPref('theme', 'solarized-dark')" value="Solarized Dark">
                     Solarized Dark
                 </label>
               </div>
+
             </div>
           </div>
         </fieldset>
@@ -190,7 +202,7 @@
 </div> <!-- container -->
 
 <script>
- setPref = function(key, value) {
+ dsSetPref = function(key, value) {
    window.location = URI(window.location)
          .query('')
          .setQuery(key, value)
@@ -229,7 +241,7 @@
  $(document).on('click', '#ds-reset-graphite-url-button', function(e) {
    var e = $('#textGraphiteURL')[0]
    e.value = '{{config['GRAPHITE_URL']}}'
-   setPref('graphite_url', e.value)
+   dsSetPref('graphite_url', e.value)
    return false
  })
 

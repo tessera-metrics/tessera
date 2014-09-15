@@ -26,6 +26,7 @@ ds.action = function(data) {
     self.class = data.class
     self.actions = data.actions
     self.category = data.category
+    self.is_action = true
   }
 
   self.toJSON = function() {
@@ -44,4 +45,11 @@ ds.action = function(data) {
 
 ds.action.divider = ds.action({divider:true})
 
-ds.actions = ds.registry({ name: 'actions' })
+ds.actions = ds.registry({
+  name: 'actions',
+  process: function(data) {
+    if (data.is_action)
+      return data
+    return ds.action(data)
+  }
+})

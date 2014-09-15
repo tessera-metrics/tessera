@@ -137,7 +137,7 @@ Handlebars.registerHelper('actions', function(category, type) {
     }
 
     var html = ''
-    for (var i in actions) {
+    for (var i = 0; i < actions.length; i++) {
       var action = actions[i]
       var tmpl = template
       if (action.actions) {
@@ -161,7 +161,7 @@ Handlebars.registerHelper('dashboards-tagged', function(tag) {
     type: 'GET',
     async: false,
     success: function(data) {
-      for (var i in data) {
+      for (var i = 0; i < data.length; i++) {
         var d = data[i]
         markdown += '  * ['
         if (d.category && d.category !== '') {

@@ -53,7 +53,7 @@ ds.transforms.register({
                     .add(make_row(item.query, item, 'well'))
                     .add(make('separator'))
 
-    for (var i in shifts) {
+    for (var i = 0; i < shifts.length; i++) {
       var shift = shifts[i]
       var modified_query = query.shift(shift.shift)
       var modified_item  = make(item.toJSON())
