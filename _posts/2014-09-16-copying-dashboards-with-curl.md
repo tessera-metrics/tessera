@@ -15,7 +15,8 @@ I frequently prototype new dashboards in an instance of Tessera
 running from my local development tree, then copy them to the staging
 or production server when they're ready.
 
-Because the UI is powered entirely by a REST API, it's a simple matter
+Because the UI is powered entirely by a
+[REST API]({{site.baseurl}}/docs/api/endpoints), it's a simple matter
 to do this with your favorite command line HTTP tool, such as
 [`curl`](http://curl.haxx.se).
 
