@@ -10,6 +10,38 @@ Tessera consists of a small python webserver written with Flask with a SQL backi
 
 Dashboards are big lumps of JSON data describing the queries, presentations, and layout, wrapped in a small shell of SQL metadata. Most of the heavy lifting is done by the javascript front-end, which is responsible for all rendering, data fetching from graphite, and editing of dashboards.
 
+## Quick Start
+
+Tessera can be installed easily from
+[PyPi](https://pypi.python.org/pypi) with `pip` or
+`easy_install`. This method of installation is only recommended for
+casual use.
+
+```
+pip install tessera
+```
+
+After installation, create a `config.py` script for your local
+settings.
+
+Example `config.py`:
+
+```
+GRAPHITE_URL="http://graphite.example.com"
+SECRET_KEY="adf71812-9d57-88d3-dfe8-1e9860d2b7ab"
+```
+
+Then launch the service:
+
+```
+TESSERA_CONFIG=/path/to/config.py tessera
+```
+
+The service will be available on
+[localhost:5000](http://localhost:5000) by default, with the demo
+dashoards loaded.
+
+
 ## Documentation
 
 Documentation is hosted on GitHub Pages at
