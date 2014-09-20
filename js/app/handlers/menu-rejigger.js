@@ -8,7 +8,7 @@
       columns: cols
     })
 
-    ds.manager.apply_transform(layout, ds.manager.current.dashboard, ds.app.current_mode != ds.app.Mode.EDIT)
+    ds.manager.apply_transform(layout, ds.manager.current.dashboard, false)
     ds.app.refresh_mode()
     return false
   })
