@@ -24,6 +24,7 @@ setup(
 
     entry_points = {
         'console_scripts': [
+            'tessera-init = tessera.main:init',
             'tessera = tessera.main:run'
         ]
     },
