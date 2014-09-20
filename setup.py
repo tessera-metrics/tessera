@@ -22,6 +22,12 @@ setup(
         if x and not x.startswith('#')
     ],
 
+    entry_points = {
+        'console_scripts': [
+            'tessera = tessera.main:run'
+        ]
+    },
+
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: No Input/Output (Daemon)',
