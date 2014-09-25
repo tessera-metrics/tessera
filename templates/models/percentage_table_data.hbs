@@ -25,10 +25,10 @@
 
     {{#if item.include_sums}}
       <tr>
-        <th>Total</th>
-        <td>{{format item.format query.summation[item.transform]}}</td>
+        <th>{{item.transform}}</th>
+        <td>{{format item.format query.summation.percent_value}}</td>
         {{#each query.data}}
-          <td>{{format ../../item.format summation[item.transform]}}</td>
+          <td>{{format ../../item.format summation.percent_value}}</td>
         {{/each}}
       </tr>
     {{/if}}

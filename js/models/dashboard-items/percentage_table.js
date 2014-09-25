@@ -41,8 +41,11 @@ ds.register_dashboard_item('percentage_table', {
 
   data_handler: function(query, item) {
 
+    query.summation.percent_value = query.summation[item.transform]
+
     query.data.forEach(function(series) {
       series.summation.percent = 1 / (query.summation[item.transform] / series.summation[item.transform])
+      series.summation.percent_value = series.summation[item.transform]
     })
 
     var holder = $('#' + item.item_id + ' .ds-percentage-table-holder')
