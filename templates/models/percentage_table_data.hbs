@@ -26,9 +26,9 @@
     {{#if item.include_sums}}
       <tr>
         <th>Total</th>
-        <td>{{format item.format query.summation.sum}}</td>
+        <td>{{format item.format query.summation[item.transform]}}</td>
         {{#each query.data}}
-          <td>{{format ../../item.format summation.sum}}</td>
+          <td>{{format ../../item.format summation[item.transform]}}</td>
         {{/each}}
       </tr>
     {{/if}}
