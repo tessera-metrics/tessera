@@ -186,7 +186,8 @@ ds.charts.flot =
 
       var flot_options = get_flot_options(item, {
         grid: {
-          show: false
+          show: false,
+          hoverable: true
         },
         legend: {
           show: false
@@ -229,7 +230,8 @@ ds.charts.flot =
       var flot_options = ds.extend(get_default_options(), {
         colors: ds.charts.util.get_palette(options.palette),
         grid: {
-          show: false
+          show: false,
+          hoverable: true
         },
         legend: {
           show: false
