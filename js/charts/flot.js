@@ -29,6 +29,15 @@ ds.charts.flot =
         xaxis: {
           mode: "time",
           tickFormatter: function(value) {
+            // Take care of time series axis
+            if(axis.tickSize && axis.tickSize.length === 2) {
+              if(axis.tickSize[1] === 'year' && axis.tickSize[0] >= 1)
+                return moment(value).tz(ds.config.DISPLAY_TIMEZONE).format('YYYY')
+              if(axis.tickSize[1] === 'month' && axis.tickSize[0] >= 1 || axis.tickSize[1] === 'year')
+                return moment(value).tz(ds.config.DISPLAY_TIMEZONE).format('MM-\'YY')
+              if(axis.tickSize[1] === 'day' && axis.tickSize[0] >= 1 || axis.tickSize[1] === 'month')
+                return moment(value).tz(ds.config.DISPLAY_TIMEZONE).format('MM/DD')
+            }
             return moment(value).tz(ds.config.DISPLAY_TIMEZONE).format('h:mm A')
           },
           tickColor: theme_colors.minorGridLineColor,
