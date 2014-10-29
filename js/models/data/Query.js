@@ -47,8 +47,9 @@ ds.models.data.Query = function(data) {
 
   self.url = function(opt) {
     var options = ds.extend(self.local_options, opt, self.options)
-    var url = URI(options.base_url || ds.config.GRAPHITE_URL)
-              .path('/render')
+    var url = URI(options.base_url || ds.config.GRAPHITE_URL);
+    var path = url.path();
+    url = url.path(path + '/render')
               .setQuery('format', options.format || 'png')
               .setQuery('from', options.from || ds.config.DEFAULT_FROM_TIME || self.DEFAULT_FROM_TIME)
               .setQuery('tz', ds.config.DISPLAY_TIMEZONE)
