@@ -71,7 +71,8 @@ defaults.
         'renderer' : _get_param('renderer', app.config['INTERACTIVE_CHARTS_RENDERER'], store_in_session=store_in_session),
         'refresh' : _get_param('refresh', app.config['DEFAULT_REFRESH_INTERVAL'], store_in_session=store_in_session),
         'timezone' : _get_param('timezone', app.config['DISPLAY_TIMEZONE'], store_in_session=store_in_session),
-        'graphite_url' : _get_param('graphite_url', app.config['GRAPHITE_URL'], store_in_session=store_in_session)
+        'graphite_url' : _get_param('graphite_url', app.config['GRAPHITE_URL'], store_in_session=store_in_session),
+        'graphite_auth' : _get_param('graphite_auth', app.config['GRAPHITE_AUTH'], store_in_session=store_in_session)
     }
 
 def _set_preferences(prefs):

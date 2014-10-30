@@ -6,6 +6,7 @@ DASHBOARD_APPNAME          = 'Tessera'
 SQLALCHEMY_DATABASE_URI    = 'sqlite:///tessera.db'
 MIGRATION_DIR              = 'migrations'
 GRAPHITE_URL               = 'http://localhost:8080'
+GRAPHITE_AUTH              = ''
 DISPLAY_TIMEZONE           = 'Etc/UTC'
 SERVER_ADDRESS             = '0.0.0.0'
 SERVER_PORT                = 5000
