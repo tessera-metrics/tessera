@@ -37,6 +37,8 @@ ds.charts.flot =
                 return moment(value).tz(ds.config.DISPLAY_TIMEZONE).format('MM-\'YY')
               if (axis.tickSize[1] === 'day' && axis.tickSize[0] >= 1 || axis.tickSize[1] === 'month')
                 return moment(value).tz(ds.config.DISPLAY_TIMEZONE).format('MM/DD')
+              if (axis.tickSize[1] === 'hour' && axis.tickSize[0] >= 12)
+                return moment(value).tz(ds.config.DISPLAY_TIMEZONE).format('MM/DD hA')
             }
             return moment(value).tz(ds.config.DISPLAY_TIMEZONE).format('h:mm A')
           },
