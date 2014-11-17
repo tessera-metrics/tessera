@@ -63,6 +63,23 @@ ds.models.data.Query = function(data) {
     return url.href()
   }
 
+
+  self.basicAuth = function() {
+    var url = self.url();
+    var passwordEnd = url.indexOf('@');
+    var basicAuth = false;
+
+    if (passwordEnd > 0) {
+      var userStart = url.indexOf('//') + 2;
+      var userAndPassword = decodeURIComponent(url.substring(userStart, passwordEnd));
+      var bytes = Crypto.charenc.Binary.stringToBytes(userAndPassword); 
+      basicAuth = Crypto.util.bytesToBase64(bytes);
+    }
+
+    return basicAuth;
+  }
+
+
   /**
    * Return true if the item's query has the graphite stacked()
    * function anywhere in it. If you have stacked() in the query and
@@ -115,10 +132,19 @@ ds.models.data.Query = function(data) {
       options.format = 'json'
       var url = self.url(options)
       ds.event.fire(self, 'ds-data-loading')
-      $.ajax({
+
+      opt = {
         dataType: 'json',
         url: url
-      })
+      };
+      
+      if (self.basicAuth) {
+        opt.withCredentials = true;
+        opt.headers = opt.headers || {};
+        opt.headers.Authorization = 'Basic ' + self.basicAuth();
+      }
+
+      $.ajax(opt)
        .done(function(response_data, textStatus) {
         self._process(response_data)
         if (options.ready && (options.ready instanceof Function)) {
