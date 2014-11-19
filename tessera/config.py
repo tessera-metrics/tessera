@@ -10,7 +10,6 @@ GRAPHITE_AUTH              = ''
 DISPLAY_TIMEZONE           = 'Etc/UTC'
 SERVER_ADDRESS             = '0.0.0.0'
 SERVER_PORT                = 5000
-APPLICATION_ROOT = '/tessera'
 INTERACTIVE_CHARTS_DEFAULT = True
 INTERACTIVE_CHARTS_RENDERER = 'flot'
 
