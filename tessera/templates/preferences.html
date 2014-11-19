@@ -90,6 +90,25 @@
             </div>
           </div>
 
+          <!-- Graphite Auth Settings -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="textGraphiteURL">Graphite HTTP Authentication</label>
+            <div class="col-md-6">
+              <input type="text" id="textGraphiteAUTH" name="textGraphiteAUTH" class="form-control"
+                     value="{{ctx.get_str('graphite_auth', config.get('GRAPHITE_AUTH'))}}"
+                     onchange="dsSetPref('graphite_auth', this.value)">
+              </input>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-default"
+                      id="ds-reset-graphite-url-button"
+                      data-toggle="tooltip"
+                      title="Reset to Default">
+                <i class="fa fa-angle-double-down"></i>
+              </button>
+            </div>
+          </div>
+
           <!-- Chart Style -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="chartRadios">Default Chart Style</label>
