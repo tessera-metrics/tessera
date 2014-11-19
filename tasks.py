@@ -219,10 +219,6 @@ def copy(c, source_id, source_uri=None, destination_uri=None):
         Destination base URI, similar to ``source_uri``. Will pull default
         value from ``TESSERA_DESTINATION_URI`` if not given.
     """
-    # curl --get 'http://localhost:5000/api/dashboard/15?definition=true' \
-    # | curl -X POST -H "Content-Type: application/json" \
-    # 'http://localhost:5000/api/dashboard/' --data @-
-
     # Arg handling junk
     missing = []
     if source_uri is None:
