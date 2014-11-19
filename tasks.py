@@ -241,15 +241,13 @@ def copy(c, source_id, source_uri=None, destination_uri=None):
     try:
         original = requests.get(source, params={'definition': 'true'})
     except ConnectionError as e:
-        print("Unable to connect to {0}: {1}".format(source, e))
-        return
+        sys.exit("Unable to connect to {0}: {1}".format(source, e))
     dest = urljoin(destination_uri, endpoint)
     try:
         response = requests.post(dest, data=original.content,
             headers={'Content-Type': 'application/json'})
     except ConnectionError as e:
-        print("Unable to connect to {0}: {1}".format(dest, e))
-        return
+        sys.exit("Unable to connect to {0}: {1}".format(dest, e))
     new_uri = urljoin(dest, response.json()['view_href'])
     print("{0} -> {1}".format(source, new_uri))
 
