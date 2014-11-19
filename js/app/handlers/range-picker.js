@@ -34,3 +34,17 @@ $(document).on('click', '.ds-recent-range-picker li, .ds-recent-range-picker a, 
   }
     return false
 })
+
+$(document).ready(function() {
+  ds.manager.onDashboardLoaded(function() {
+    var params = URI(window.location).search(true)
+    if (params.from && params.until) {
+      // Initialise the range date pickers with the values from the URL query parameters
+      var GRAPHITE_FORMAT = 'HH:mm_YYYYMMDD' // XXX This should a a scoped global in the ds object
+      $('#ds-range-picker-from').data("DateTimePicker").setDate(moment(params.from, GRAPHITE_FORMAT));
+      $('#ds-range-picker-until').data("DateTimePicker").setDate(moment(params.until, GRAPHITE_FORMAT));
+      $('.ds-recent-range-picker').hide()
+      $('.ds-custom-range-picker').show()
+    }
+  });
+});

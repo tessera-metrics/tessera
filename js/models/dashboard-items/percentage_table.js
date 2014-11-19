@@ -11,6 +11,7 @@ ds.register_dashboard_item('percentage_table', {
                          .property('format', {init: ',.3s'})
                          .property('title')
                          .property('include_sums', {init: false})
+                         .property('transform', {init: 'sum'})
                          .extend(ds.models.item, {item_type: 'percentage_table'})
                          .build()
     Object.defineProperty(self, 'requires_data', {value: true})
@@ -19,6 +20,7 @@ ds.register_dashboard_item('percentage_table', {
       self.include_sums = data.include_sums
       self.title = data.title
       self.format = data.format || self.format
+      self.transform = data.transform || self.transform
     }
     ds.models.item.init(self, data)
 
@@ -28,6 +30,8 @@ ds.register_dashboard_item('percentage_table', {
         data.format = self.format
       if (self.title)
         data.title = self.title
+      if (self.transform)
+        data.transform = self.transform
       data.include_sums = self.include_sums
       return data
     }
@@ -37,8 +41,11 @@ ds.register_dashboard_item('percentage_table', {
 
   data_handler: function(query, item) {
 
+    query.summation.percent_value = query.summation[item.transform]
+
     query.data.forEach(function(series) {
-      series.summation.percent = 1 / (query.summation.sum / series.summation.sum)
+      series.summation.percent = 1 / (query.summation[item.transform] / series.summation[item.transform])
+      series.summation.percent_value = series.summation[item.transform]
     })
 
     var holder = $('#' + item.item_id + ' .ds-percentage-table-holder')
@@ -54,6 +61,7 @@ ds.register_dashboard_item('percentage_table', {
     {
       id: 'include_sums',
       type: 'boolean'
-    }
+    },
+    'transform'
   ].concat(ds.models.item.interactive_properties)
 })

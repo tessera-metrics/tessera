@@ -275,15 +275,17 @@ ds.manager =
 
       log.debug('apply_transform(' + transform.name + ')')
 
+      if (transform.transform_type == 'dashboard' && typeof(target) === 'undefined') {
+          target = dashboard.definition
+      }
+
       /**
        * Set browser URL state
        */
       if (set_location) {
         var url = URI(window.location)
         var path = url.path()
-        if (transform.transform_type == 'dashboard' && typeof(target) === 'undefined') {
-          target = dashboard.definition
-        } else {
+        if (target.item_type != 'dashboard_definition') {
           path = path + '/' + target.item_id
         }
         path = path + '/transform/' + transform.name
