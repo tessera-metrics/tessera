@@ -80,8 +80,8 @@
     ds.manager.onDashboardLoaded(function(dashboard) {
       dashboard.on('change', function(e) {
         $(".ds-primary-title").text(e.target.category || '')
-        $(".ds-secondary-title").text(e.target.title || '')
-        $(".ds-summary").text(e.target.summary || '')
+        $(".ds-secondary-title").text(e.target.expanded_title || e.target.title || '')
+        $(".ds-summary").text(e.target.expanded_summary || e.target.summary || '')
       })
     })
 

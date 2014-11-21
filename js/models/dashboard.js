@@ -11,9 +11,12 @@ ds.models.dashboard = function(data) {
                        .property('imported_from')
                        .property('index')
                        .property('title')
+                       .property('expanded_title')
                        .property('category')
                        .property('summary')
+                       .property('expanded_summary')
                        .property('description')
+                       .property('expanded_description')
                        .property('definition', {
                          update: function() {
                            self.update_index()
@@ -138,9 +141,9 @@ ds.models.dashboard = function(data) {
   }
 
   self.render_templates = function(context) {
-    self.description = ds.safe_render_template(self.description, context)
-    self.title       = ds.safe_render_template(self.title, context)
-    self.summary     = ds.safe_render_template(self.summary, context)
+    self.expanded_description = ds.safe_render_template(self.description, context)
+    self.expanded_title       = ds.safe_render_template(self.title, context)
+    self.expanded_summary     = ds.safe_render_template(self.summary, context)
     if (self.definition) {
       self.definition.render_templates(context)
     }
