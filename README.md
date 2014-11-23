@@ -12,6 +12,17 @@ Dashboards are big lumps of JSON data describing the queries, presentations, and
 
 ## Quick Start
 
+### From Docker
+
+If you're familiar with [docker](http://www.docker.com) and already have a Graphite instance running, you can boot up an instance of tessera with the demo dashboards preloaded and easily point it at your existing Graphite installation using the [`aalpern/tessera-simple`](https://registry.hub.docker.com/u/aalpern/tessera-simple/) image. If you don't have a Graphite installation handy, a Docker image like [`nickstenning/graphite`](https://registry.hub.docker.com/u/nickstenning/graphite/) can get that up and running quickly. 
+
+```
+docker run -P -e GRAPHITE_URL=http://graphite.host -it aalpern/tessera-simple
+```
+
+
+### From Source
+
 Tessera can be installed easily from
 [PyPi](https://pypi.python.org/pypi) with `pip` or
 `easy_install`. This method of installation is only recommended for
