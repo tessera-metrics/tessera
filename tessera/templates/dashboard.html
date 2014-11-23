@@ -96,7 +96,7 @@
       })
     {% endif %}
 
-    var url = ds.uri('/api/dashboard/{{dashboard.id}}')
+    var url = '{{url_for('api_dashboard_get', id=dashboard.id)|safe}}'
     ds.manager.load(url, "#dashboard")
     $("[data-toggle=tooltip]").tooltip({
      animation:false,
