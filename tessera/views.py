@@ -6,7 +6,7 @@ import logging
 from datetime import datetime
 import inflection
 
-from flask import render_template, request, session
+from flask import render_template, request, session, url_for
 from werkzeug.exceptions import HTTPException
 
 from tessera_client.api.model import *
@@ -390,8 +390,8 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html', transfor
                             until_time=until_time,
                             title=title,
                             transform=transform,
-                            breadcrumbs=[('Home', '/'),
-                                         ('Dashboards', '/dashboards'),
+                            breadcrumbs=[('Home', url_for('ui_root')),
+                                         ('Dashboards', url_for('ui_dashboard_list')),
                                          (title, '')])
 
 #
@@ -400,7 +400,7 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html', transfor
 
 @app.route('/')
 def ui_root():
-    return _render_template('index.html', breadcrumbs=[('Home', '/')])
+    return _render_template('index.html', breadcrumbs=[('Home', url_for('ui_root'))])
 
 @app.route('/preferences/')
 def ui_preferences():
@@ -408,7 +408,7 @@ def ui_preferences():
     title = 'User Preferences'
     return _render_template('preferences.html',
                             title=title,
-                            breadcrumbs=[('Home', '/'),
+                            breadcrumbs=[('Home', url_for('ui_root')),
                                          (title, '')])
 
 @app.route('/dashboards/')
@@ -416,7 +416,7 @@ def ui_dashboard_list():
     title = 'Dashboards'
     return _render_template('dashboard-list.html',
                             title=title,
-                            breadcrumbs=[('Home', '/'),
+                            breadcrumbs=[('Home', url_for('ui_root')),
                                          (title, '')])
 
 @app.route('/dashboards/create/')
@@ -424,8 +424,8 @@ def ui_dashboard_create():
     title = 'New Dashboard'
     return _render_template('dashboard-create.html',
                             title=title,
-                            breadcrumbs=[('Home', '/'),
-                                         ('Dashboards', '/dashboards'),
+                            breadcrumbs=[('Home', url_for('ui_root')),
+                                         ('Dashboards', url_for('ui_dashboard_list')),
                                          (title, '')])
 
 
@@ -435,7 +435,7 @@ def ui_dashboard_list_tagged(tag):
     return _render_template('dashboard-list.html',
                             tag=tag,
                             title=title,
-                            breadcrumbs=[('Home', '/'),
+                            breadcrumbs=[('Home', url_for('ui_root')),
                                          (title, '')])
 
 
