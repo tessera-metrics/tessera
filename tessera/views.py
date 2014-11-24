@@ -6,7 +6,7 @@ import logging
 from datetime import datetime
 import inflection
 
-from flask import render_template, request, session
+from flask import render_template, request, session, url_for
 from werkzeug.exceptions import HTTPException
 
 from tessera_client.api.model import *
@@ -108,12 +108,14 @@ representation. dash should be the dictionary for of the dashboard,
 not the model object.
     """
     id = dash['id']
-    dash['href'] = '/api/dashboard/{0}'.format(id)
-    dash['definition_href'] = '/api/dashboard/{0}/definition'.format(id)
-    dash['view_href'] = '/dashboards/{0}/{1}'.format(id, inflection.parameterize(dash['title']))
+    dash['href']            = url_for('api_dashboard_get', id=id)
+    dash['definition_href'] = url_for('api_dashboard_get_definition', id=id)
+    dash['view_href']       = url_for('ui_dashboard_with_slug',
+                                      id=id,
+                                      slug=inflection.parameterize(dash['title']))
     if 'definition' in dash:
         definition = dash['definition']
-        definition['href'] = '/api/dashboard/{0}/definition'.format(id)
+        definition['href'] = url_for('api_dashboard_get_definition', id=id)
     return dash
 
 def _dashboards_response(dashboards):
@@ -132,7 +134,7 @@ def _set_tag_hrefs(tag):
 representation.
     """
     id = tag['id']
-    tag['href'] = '/api/tag/{0}'.format(id)
+    tag['href'] = url_for('api_tag_get', id=id)
     return tag
 
 def _tags_response(tags):
@@ -232,11 +234,12 @@ def api_dashboard_create():
     else:
         dashboard.definition = database.DefinitionRecord(dumps(DashboardDefinition()))
     mgr.store_dashboard(dashboard)
-    href = '/api/dashboard/{0}'.format(dashboard.id)
+    href = url_for('api_dashboard_get', id=dashboard.id)
     return _jsonify({
         'dashboard_href' : href,
-        # TODO: should use normalized method for this
-        'view_href' : '/dashboards/{0}/{1}'.format(dashboard.id, inflection.parameterize(dashboard.title))
+        'view_href' : url_for('ui_dashboard_with_slug',
+                              id=dashboard.id,
+                              slug=inflection.parameterize(dashboard.title))
     }, status=201, headers = { 'Location' : href })
 
 @app.route('/api/dashboard/<id>', methods=['PUT'])
@@ -279,8 +282,8 @@ def api_dashboard_get_definition(id):
         definition = database.DashboardRecord.query.get_or_404(id).definition.to_json()
     except HTTPException as e:
         raise _set_exception_response(e)
-    definition['href'] = '/api/dashboard/{0}/definition'.format(id)
-    definition['dashboard_href'] = '/api/dashboard/{0}'.format(id)
+    definition['href'] = url_for('api_dashboard_get_definition', id=id)
+    definition['dashboard_href'] = url_for('api_dashboard_get', id=id)
     return _jsonify(definition)
 
 @app.route('/api/dashboard/<id>/definition', methods=['PUT'])
@@ -384,8 +387,8 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html', transfor
                             until_time=until_time,
                             title=title,
                             transform=transform,
-                            breadcrumbs=[('Home', '/'),
-                                         ('Dashboards', '/dashboards'),
+                            breadcrumbs=[('Home', url_for('ui_root')),
+                                         ('Dashboards', url_for('ui_dashboard_list')),
                                          (title, '')])
 
 #
@@ -394,7 +397,7 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html', transfor
 
 @app.route('/')
 def ui_root():
-    return _render_template('index.html', breadcrumbs=[('Home', '/')])
+    return _render_template('index.html', breadcrumbs=[('Home', url_for('ui_root'))])
 
 @app.route('/preferences/')
 def ui_preferences():
@@ -402,7 +405,7 @@ def ui_preferences():
     title = 'User Preferences'
     return _render_template('preferences.html',
                             title=title,
-                            breadcrumbs=[('Home', '/'),
+                            breadcrumbs=[('Home', url_for('ui_root')),
                                          (title, '')])
 
 @app.route('/dashboards/')
@@ -410,7 +413,7 @@ def ui_dashboard_list():
     title = 'Dashboards'
     return _render_template('dashboard-list.html',
                             title=title,
-                            breadcrumbs=[('Home', '/'),
+                            breadcrumbs=[('Home', url_for('ui_root')),
                                          (title, '')])
 
 @app.route('/dashboards/create/')
@@ -418,8 +421,8 @@ def ui_dashboard_create():
     title = 'New Dashboard'
     return _render_template('dashboard-create.html',
                             title=title,
-                            breadcrumbs=[('Home', '/'),
-                                         ('Dashboards', '/dashboards'),
+                            breadcrumbs=[('Home', url_for('ui_root')),
+                                         ('Dashboards', url_for('ui_dashboard_list')),
                                          (title, '')])
 
 
@@ -429,7 +432,7 @@ def ui_dashboard_list_tagged(tag):
     return _render_template('dashboard-list.html',
                             tag=tag,
                             title=title,
-                            breadcrumbs=[('Home', '/'),
+                            breadcrumbs=[('Home', url_for('ui_root')),
                                          (title, '')])
 
 

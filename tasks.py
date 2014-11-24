@@ -10,10 +10,11 @@ from requests.exceptions import ConnectionError
 from invoke import ctask as task, Collection
 from invocations.testing import test
 
-from tessera import app, db
+from tessera import app, db, config
 from tessera_client.api.model import Section
 from tessera.importer.graphite import GraphiteDashboardImporter
 from tessera.importer.json import JsonImporter, JsonExporter
+from werkzeug.serving import run_simple
 
 import flask
 from flask.ext import migrate
@@ -27,14 +28,14 @@ logging.basicConfig(
 logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(warn)
 logging.getLogger('sqlalchemy.engine').setLevel(warn)
 
-DEFAULT_TESSERA_URL   = 'http://{0}:{1}'.format(app.config['SERVER_ADDRESS'], app.config['SERVER_PORT'])
-DEFAULT_GRAPHITE_URL  = app.config['GRAPHITE_URL']
-DEFAULT_MIGRATION_DIR = app.config['MIGRATION_DIR']
+DEFAULT_TESSERA_URL   = 'http://{0}:{1}'.format(config['SERVER_ADDRESS'], config['SERVER_PORT'])
+DEFAULT_GRAPHITE_URL  = config['GRAPHITE_URL']
+DEFAULT_MIGRATION_DIR = config['MIGRATION_DIR']
 
 @task
 def run(c):
     """Launch the server."""
-    app.run(host='0.0.0.0')
+    run_simple(config['SERVER_ADDRESS'], config['SERVER_PORT'], app, use_reloader=True)
 
 # =============================================================================
 # db collection

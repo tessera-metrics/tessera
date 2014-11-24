@@ -9,10 +9,6 @@
       <div class="page-header" data-ds-hide="display">
         <div class="row">
           <div class="col-md-9">
-            <!--
-            <a href="/"><i class="icon-home icon-large"></i></a>
-            <a href="/dashboards"><i class="icon-dashboard icon-large"></i></a>
-            -->
             <br/>
             <h1 class="page-title">
               {% block pagetitle %}
@@ -24,9 +20,9 @@
               <h2><span class="time"></span><small class="ampm"></small></h2>
               <h6 class="date"></h6>
             </div>
-            <a href="/"><i class="fa fa-lg fa-home"></i></a>
-            <a href="/dashboards"><i class="fa fa-lg fa-bar-chart-o"></i></a>
-            <a href="/preferences"><i class="fa fa-lg fa-cog"></i></a>
+            <a href="{{url_for('ui_root')}}"><i class="fa fa-lg fa-home"></i></a>
+            <a href="{{url_for('ui_dashboard_list')}}"><i class="fa fa-lg fa-bar-chart-o"></i></a>
+            <a href="{{url_for('ui_preferences')}}"><i class="fa fa-lg fa-cog"></i></a>
           </div>
         </div>
       </div> <!-- page-header -->

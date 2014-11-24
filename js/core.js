@@ -82,3 +82,9 @@ ds.json = function(thing) {
     return thing
   }
 }
+
+ds.uri = function(path) {
+  return ds.config.APPLICATION_ROOT
+       ? ds.config.APPLICATION_ROOT + path
+       : path
+}
