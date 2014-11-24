@@ -157,7 +157,7 @@ Handlebars.registerHelper('actions', function(category, type) {
 Handlebars.registerHelper('dashboards-tagged', function(tag) {
   var markdown = ''
   $.ajax({
-    url: '/api/dashboard/tagged/' + tag,
+    url: ds.uri('/api/dashboard/tagged/' + tag),
     type: 'GET',
     async: false,
     success: function(data) {
