@@ -182,7 +182,7 @@ ds.models.data.Query = function(data) {
         jsonp: 'jsonp',
         beforeSend: function(xhr) {
           if (ds.config.GRAPHITE_AUTH !== '') {
-            xhr.setRequestHeader('Authorization', btoa(ds.config.GRAPHITE_AUTH))
+            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(ds.config.GRAPHITE_AUTH))
           }
         }
       })
