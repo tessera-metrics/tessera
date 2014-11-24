@@ -82,14 +82,6 @@ ds.models.data.Query = function(data) {
   }
 
   /**
-   * Simply generate jsonp callback function name
-   * @returns {string}
-   */
-  function callback_gen() {
-    return 'ts' + (new Date().getTime() * 1000)
-  }
-
-  /**
    * Encode string to base64
    * @param {string} input
    * @returns {string}
@@ -182,14 +174,11 @@ ds.models.data.Query = function(data) {
       ds.event.fire(self, 'ds-data-ready', self)
     } else {
       options.format = 'json'
-      options.jsonp = callback_gen()
-
       var url = self.url(options)
       ds.event.fire(self, 'ds-data-loading')
       $.ajax({
         dataType: 'jsonp',
         url: url,
-        jsonpCallback: options.jsonp,
         jsonp: 'jsonp',
         beforeSend: function(xhr) {
           if (ds.config.GRAPHITE_AUTH !== '') {
