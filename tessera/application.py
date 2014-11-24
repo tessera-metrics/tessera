@@ -6,6 +6,7 @@ import os
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate
+from werkzeug.wsgi import DispatcherMiddleware
 
 log = logging.getLogger(__name__)
 
@@ -29,5 +30,12 @@ def configure(app):
 app     = configure(Flask(__name__))
 db      = SQLAlchemy(app)
 migrate = Migrate(app, db)
+config  = app.config
 
 from .views import *
+
+app_root = app.config.get('APPLICATION_ROOT', None)
+if app_root:
+    app = DispatcherMiddleware(Flask('root'), {
+        app_root : app
+    })
