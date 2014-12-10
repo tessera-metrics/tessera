@@ -2,37 +2,32 @@
 
   <thead>
     <tr>
+      <th></th>
+      <th>%</th>
       {{#if item.include_sums}}
-        <th></th>
-        <th>Total</th>
+        <th>{{item.transform}}</th>
       {{/if}}
-      {{#each query.data}}
-        <th>{{target}}</th>
-      {{/each}}
     </tr>
   </thead>
 
   <tbody>
-    <tr>
-      {{#if item.include_sums}}
-        <th>%</th>
-        <th></th>
-      {{/if}}
-      {{#each query.data}}
+    {{#each query.data}}
+      <tr>
+        <th>{{target}}</th>
         <td>{{format ",.2%" summation.percent}}</td>
-      {{/each}}
-    </tr>
+        {{#if ../item.include_sums}}
+          <td>{{format ../item.format summation.percent_value}}</td>
+      {{/if}}
+      </tr>
+    {{/each}}
 
     {{#if item.include_sums}}
       <tr>
-        <th>{{item.transform}}</th>
+        <th>Total</th>
+        <td></td>
         <td>{{format item.format query.summation.percent_value}}</td>
-        {{#each query.data}}
-          <td>{{format ../../item.format summation.percent_value}}</td>
-        {{/each}}
       </tr>
     {{/if}}
-
   </tbody>
 
 </table>
