@@ -53,9 +53,13 @@ of demo dashboards. To initialize the database and generate the demo
 dashboards:
 
 {% highlight bash %}
-inv initdb
+inv db.init
+inv run &
 inv json.import 'demo/*'
 {% endhighlight %}
+
+The importer uses Tessera's ReST API to do the import, so the server
+must be running.
 
 ### Configure
 
