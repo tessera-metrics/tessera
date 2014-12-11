@@ -1,33 +1,69 @@
 <table class="table table-condensed ds-percentage-table">
 
-  <thead>
-    <tr>
-      <th></th>
-      <th>%</th>
+  {{#if item.groups_as_rows}}
+    <thead>
+      <tr>
+        <th></th>
+        <th>%</th>
+        {{#if item.include_sums}}
+          <th>{{item.transform}}</th>
+        {{/if}}
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each query.data}}
+        <tr>
+          <th>{{target}}</th>
+          <td>{{format ",.2%" summation.percent}}</td>
+          {{#if ../item.include_sums}}
+            <td>{{format ../item.format summation.percent_value}}</td>
+        {{/if}}
+        </tr>
+      {{/each}}
+
       {{#if item.include_sums}}
-        <th>{{item.transform}}</th>
+        <tr>
+          <th>Total</th>
+          <td></td>
+          <td>{{format item.format query.summation.percent_value}}</td>
+        </tr>
       {{/if}}
-    </tr>
-  </thead>
-
-  <tbody>
-    {{#each query.data}}
+    </tbody>
+  {{else}}
+    <thead>
       <tr>
-        <th>{{target}}</th>
-        <td>{{format ",.2%" summation.percent}}</td>
-        {{#if ../item.include_sums}}
-          <td>{{format ../item.format summation.percent_value}}</td>
+        {{#if item.include_sums}}
+          <th></th>
+          <th>Total</th>
+        {{/if}}
+        {{#each query.data}}
+          <th>{{target}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        {{#if item.include_sums}}
+          <th>%</th>
+          <th></th>
+        {{/if}}
+        {{#each query.data}}
+          <td>{{format ",.2%" summation.percent}}</td>
+        {{/each}}
+      </tr>
+
+      {{#if item.include_sums}}
+        <tr>
+          <th>{{item.transform}}</th>
+          <td>{{format item.format query.summation.percent_value}}</td>
+          {{#each query.data}}
+            <td>{{format ../../item.format summation.percent_value}}</td>
+          {{/each}}
+        </tr>
       {{/if}}
-      </tr>
-    {{/each}}
-
-    {{#if item.include_sums}}
-      <tr>
-        <th>Total</th>
-        <td></td>
-        <td>{{format item.format query.summation.percent_value}}</td>
-      </tr>
-    {{/if}}
-  </tbody>
+    </tbody>
+  {{/if}}
 
 </table>

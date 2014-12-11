@@ -11,6 +11,7 @@ ds.register_dashboard_item('percentage_table', {
                          .property('format', {init: ',.3s'})
                          .property('title')
                          .property('include_sums', {init: false})
+                         .property('groups_as_rows', {init: false})
                          .property('transform', {init: 'sum'})
                          .extend(ds.models.item, {item_type: 'percentage_table'})
                          .build()
@@ -18,6 +19,7 @@ ds.register_dashboard_item('percentage_table', {
 
     if (data) {
       self.include_sums = data.include_sums
+      self.groups_as_rows = data.groups_as_rows
       self.title = data.title
       self.format = data.format || self.format
       self.transform = data.transform || self.transform
@@ -32,7 +34,7 @@ ds.register_dashboard_item('percentage_table', {
         data.title = self.title
       if (self.transform)
         data.transform = self.transform
-      data.include_sums = self.include_sums
+        data.include_sums = self.include_sums
       return data
     }
 
@@ -60,6 +62,10 @@ ds.register_dashboard_item('percentage_table', {
     'title',
     {
       id: 'include_sums',
+      type: 'boolean'
+    },
+    {
+      id: 'groups_as_rows',
       type: 'boolean'
     },
     'transform'
