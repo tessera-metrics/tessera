@@ -143,7 +143,7 @@ def import_graphite_dashboards(
     Import dashboards from a Graphite vanilla dashboard.
     """
     log.info('Importing dashboards from graphite')
-    importer = GraphiteDashboardImporter(graphite, tessera)
+    importer = GraphiteDashboardImporter(graphite, tessera, config['GRAPHITE_AUTH'])
     importer.import_dashboards(
         query, overwrite=overwrite, layout=layout, columns=int(columns)
     )

@@ -3,23 +3,26 @@ import logging
 import json
 import inflection
 import urllib
+import base64
 from tessera_client.api.model import *
 from tessera_client.api.client import TesseraClient
 
 log = logging.getLogger(__name__)
 
 class GraphiteDashboardImporter(object):
-    def __init__(self, graphite_url, tessera_url):
+    def __init__(self, graphite_url, tessera_url, auth):
         self.graphite_url = graphite_url
         self.client = TesseraClient(tessera_url)
+        self.auth = auth
 
     def get_dashboard_names(self, query=''):
-        response = requests.post('{0}/dashboard/find/'.format(self.graphite_url),
-                                 params={'query':query})
+        response = self.__do_post('{0}/dashboard/find/'.format(self.graphite_url),
+                                 params={'query':query}
+        )
         return [ d['name'] for d in response.json()['dashboards'] ]
 
     def get_dashboard(self, name):
-        response = requests.get('{0}/dashboard/load/{1}'.format(self.graphite_url, name))
+        response = self.__do_get('{0}/dashboard/load/{1}'.format(self.graphite_url, name))
         return response.json()['state']
 
     def dump_dashboards(self, query):
@@ -127,3 +130,22 @@ class GraphiteDashboardImporter(object):
 
         dashboard.definition = definition
         return dashboard
+
+    def __do_get(self, url, headers = {}):
+        response = requests.get(url, headers=self.__headers_with_auth(headers))
+        response.raise_for_status()
+        return response
+
+    def __do_post(self, url, params = {}, headers = {}):
+        response = requests.post(url, params=params, headers=self.__headers_with_auth(headers))
+        response.raise_for_status()
+        return response
+
+    def __headers_with_auth(self, headers):
+        if self.auth != '':
+            if ':' in self.auth:
+                auth_value = base64.b64encode(self.auth)
+            else:
+                auth_value = self.auth
+            headers['Authorization'] = 'Basic %s' % auth_value
+        return headers
