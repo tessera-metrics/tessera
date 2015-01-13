@@ -165,7 +165,7 @@ ds.charts.nvd3 =
            } */
         var data = series.map(function(series) {
             return {
-                label: series.key,
+                x: series.key,
                 y: series.summation[transform]
             }
         })
