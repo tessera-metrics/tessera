@@ -30,6 +30,8 @@ ds.register_dashboard_item('percentage_table', {
       var data = ds.models.item.json(self)
       if (self.format)
         data.format = self.format
+      if (self.groups_as_rows)
+        data.groups_as_rows = self.groups_as_rows
       if (self.title)
         data.title = self.title
       if (self.transform)
