@@ -18,16 +18,16 @@
           <th>{{target}}</th>
           <td>{{format ",.2%" summation.percent}}</td>
           {{#if ../item.include_sums}}
-            <td>{{format ../item.format summation.percent_value}}</td>
+            <td>{{format ",.0f" summation.percent_value}}</td>
         {{/if}}
         </tr>
       {{/each}}
 
       {{#if item.include_sums}}
         <tr>
-          <th>Total</th>
+          <th>TOTAL</th>
           <td></td>
-          <td>{{format item.format query.summation.percent_value}}</td>
+          <td>{{format ",.0f" query.summation.percent_value}}</td>
         </tr>
       {{/if}}
     </tbody>
