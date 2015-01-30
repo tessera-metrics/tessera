@@ -66,7 +66,7 @@ ds.register_dashboard_item('percentage_table', {
     var table = $('#' + item.item_id + ' .ds-percentage-table-holder table')
     if (item.sortable) {
       table.DataTable({
-        order: [[ 2, "desc" ]],
+        order: [[ 1, "desc" ]],
         paging: false,
         searching: true,
         oLanguage: { sSearch: "" },
