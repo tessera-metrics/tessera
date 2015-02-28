@@ -64,7 +64,7 @@ module.exports = function(grunt) {
           'tessera/static/js/bootstrap-datetimepicker.min.js',
           'tessera/static/js/bootstrapValidator.min.js',
           'tessera/static/js/limivorous.js',
-          'tessera/static/js/color-0.5.0.js',
+          'tessera/static/js/color-0.7.1.js',
           'tessera/static/js/flot/jquery.flot.js',
           'tessera/static/js/flot/jquery.flot.time.js',
           'tessera/static/js/flot/jquery.flot.multihighlight.js',
