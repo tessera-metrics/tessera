@@ -85,6 +85,18 @@ The settings you will most likely need to change from the get-go are:
   `http://graphite.example.com/`.
 * `SECRET_KEY`: Key used to secure sessions.
 
+#### Graphite-Web Configuration
+
+Tessera makes requests to `graphite-web` directly from the browser, so
+it requires configuration of the `Access-Control-Allow-Origin` header
+on your graphite web server.
+
+For example, in nginx:
+
+```
+add_header Access-Control-Allow-Origin $http_origin;
+```
+
 ### Run
 
 In development environments, running Tessera is as simple as:
