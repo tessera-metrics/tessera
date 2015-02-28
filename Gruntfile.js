@@ -43,7 +43,7 @@ module.exports = function(grunt) {
           separator: ';'
         },
         src: [
-          'tessera/static/js/jquery-1.11.0.min.js',
+          'tessera/static/js/jquery-1.11.2.min.js',
           'tessera/static/js/jquery.dataTables.js',
           'tessera/static/js/moment.min.js',
           'tessera/static/js/moment-timezone-with-data.min.js',
