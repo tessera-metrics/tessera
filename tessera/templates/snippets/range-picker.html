@@ -36,22 +36,13 @@
 </ul>
 
 <script>
- ds.manager.onDashboardLoaded(function() {
-   var from = URI(window.location).search(true).from || '-3h'
-   $('[data-ds-range]').removeClass('active')
-   if (from[0] === '-') {
-     $('[data-ds-range=' + from + ']').addClass('active')
-   }
-   $('.ds-custom-range-entry').datetimepicker({
-     // TODO - set maximum date to end of today?
-     sideBySide: true,
-     stepping: 15,
-     icons: {
-       time: 'fa fa-clock-o',
-       date: 'fa fa-calendar-o',
-       up:   'fa fa-chevron-up',
-       down: 'fa fa-chevron-down'
+ $(document).ready(function() {
+   ds.manager.onDashboardLoaded(function() {
+     var from = URI(window.location).search(true).from || '-3h'
+     $('[data-ds-range]').removeClass('active')
+     if (from[0] === '-') {
+       $('[data-ds-range=' + from + ']').addClass('active')
      }
-   });
+   })
  })
 </script>
