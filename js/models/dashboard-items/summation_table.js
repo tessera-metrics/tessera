@@ -62,6 +62,7 @@ ds.register_dashboard_item('summation_table', {
     })
     if (item.sortable) {
       body.parent().DataTable({
+        autoWidth: false,
         paging: false,
         searching: false,
         info: false
