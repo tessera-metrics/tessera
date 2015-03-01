@@ -22,7 +22,10 @@ built with as many "off-the-shelf" components as possible.
     [callouts](https://gist.github.com/matthiasg/6153853) from
     bootstrap's documentation site.
   * [bootbox](http://bootboxjs.com/) simplifies modal dialog interactions.
-  * [bootstrap-validator](http://bootstrapvalidator.com/)
+  * [bootstrap-validator](http://bootstrapvalidator.com/). This is now
+    [formvalidation.io](https://github.com/formvalidation/), and
+    appears to no longer have an OSS compatible license (the version
+    included here is MIT licensed).
   * [bootstrap-growl](https://github.com/mouse0270/bootstrap-growl)
 * [jQuery](http://jquery.com/)
 * [nvd3](https://github.com/novus/nvd3) for interactive charts build
