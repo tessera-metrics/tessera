@@ -15,6 +15,7 @@ ds.register_dashboard_item('comparison_summation_table', {
 
     var self = limivorous.observable()
                          .property('striped', {init: false})
+                         .property('sortable', {init: false})
                          .property('format', {init: ',.3s'})
                          .property('title')
                          .property('query_other', {
@@ -40,8 +41,8 @@ ds.register_dashboard_item('comparison_summation_table', {
     }
 
     if (data) {
-      if (typeof(data.striped) !== 'undefined')
-        self.striped = data.striped
+      self.striped = Boolean(data.striped)
+      self.sortable = Boolean(data.sortable)
       self.title = data.title
       self.format = data.format || self.format
       self.query_other = data.query_other
@@ -60,6 +61,7 @@ ds.register_dashboard_item('comparison_summation_table', {
       var data = ds.models.item.json(self)
       data.format = self.format
       data.striped = self.striped
+      data.sortable = self.sortable
       data.title = self.title
       if (self.query_other) {
         data.query_other = self.query_other.name
@@ -104,14 +106,21 @@ ds.register_dashboard_item('comparison_summation_table', {
       diff: diff,
       item: item
     }))
+    if (item.sortable) {
+      body.parent().DataTable({
+        autoWidth: false,
+        paging: false,
+        searching: false,
+        info: false
+      })
+    }
   },
 
   template: ds.templates.models.comparison_summation_table,
 
   interactive_properties: [
-    {
-      id: 'striped', type: 'boolean'
-    },
+    { id: 'striped', type: 'boolean' },
+    { id: 'sortable', type: 'boolean' },
     'format',
     'title',
     'query',

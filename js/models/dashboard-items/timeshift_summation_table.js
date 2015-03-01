@@ -21,6 +21,7 @@ ds.register_dashboard_item('timeshift_summation_table', {
 
     var self = limivorous.observable()
                          .property('striped', {init: false})
+                         .property('sortable', {init: false})
                          .property('format', {init: ',.3s'})
                          .property('title')
                          .property('shift', {init: "1d"})
@@ -38,8 +39,8 @@ ds.register_dashboard_item('timeshift_summation_table', {
     }
 
     if (data) {
-      if (typeof(data.striped) !== 'undefined')
-        self.striped = data.striped
+      self.striped = Boolean(data.striped)
+      self.sortable = Boolean(data.sortable)
       self.title = data.title
       self.format = data.format || self.format
       self.shift = data.shift || self.shift
@@ -57,6 +58,7 @@ ds.register_dashboard_item('timeshift_summation_table', {
       var data = ds.models.item.json(self)
       data.format = self.format
       data.striped = self.striped
+      data.sortable = self.sortable
       data.title = self.title
       data.shift = self.shift
       return data
@@ -99,12 +101,21 @@ ds.register_dashboard_item('timeshift_summation_table', {
       diff: diff,
       item: item
     }))
+    if (item.sortable) {
+      body.parent().DataTable({
+        autoWidth: false,
+        paging: false,
+        searching: false,
+        info: false
+      })
+    }
   },
 
   template: ds.templates.models.timeshift_summation_table,
 
   interactive_properties: [
     { id: 'striped', type: 'boolean' },
+    { id: 'sortable', type: 'boolean' },
     'format',
     'title',
     'query',
