@@ -30,7 +30,7 @@ ds.app =
       MODE_REFRESH:       'ds-refresh:',
       DASHBOARD_LOADED:   'ds-dashboard-loaded',
       DASHBOARD_RENDERED: 'ds-dashboard-rendered',
-      RANGE_CHANGED:      'ds-ranged-changed'
+      RANGE_CHANGED:      'ds-range-changed'
     }
 
     function do_exit_mode(mode) {
