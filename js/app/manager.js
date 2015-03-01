@@ -286,9 +286,9 @@ ds.manager =
         var url = URI(window.location)
         var path = url.path()
         if (target.item_type != 'dashboard_definition') {
-          path = path + '/' + target.item_id
+          path.segment(target.item_id.toString())
         }
-        path = path + '/transform/' + transform.name
+        path.segment('transform').segment(transform.name)
         window.history.pushState({ url:self.current.url,
                                    element:self.current.element,
                                    transform:transform.toJSON(),
