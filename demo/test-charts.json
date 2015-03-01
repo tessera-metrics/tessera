@@ -265,8 +265,8 @@
             "item_id": "d29", 
             "item_type": "separator", 
             "style": null, 
-            "height": null, 
-            "css_class": null
+            "css_class": null, 
+            "height": null
           }, 
           {
             "style": null, 
@@ -395,8 +395,8 @@
             "item_id": "d44", 
             "item_type": "separator", 
             "style": null, 
-            "height": null, 
-            "css_class": null
+            "css_class": null, 
+            "height": null
           }, 
           {
             "style": null, 
@@ -791,35 +791,49 @@
       }
     ], 
     "queries": {
-      "query2": [
-        "group(absolute(randomWalkFunction(\"A\")), absolute(randomWalkFunction(\"B\")), absolute(randomWalkFunction(\"C\")), absolute(randomWalkFunction(\"D\")), absolute(randomWalkFunction(\"E\")))"
-      ], 
-      "query3": [
-        "group(absolute(randomWalkFunction(\"query3\")),absolute(randomWalkFunction(\"query3\")),absolute(randomWalkFunction(\"query3\")),absolute(randomWalkFunction(\"query3\")),absolute(randomWalkFunction(\"query3\")),absolute(randomWalkFunction(\"query3\")),absolute(randomWalkFunction(\"query3\")),absolute(randomWalkFunction(\"query3\")),absolute(randomWalkFunction(\"query3\")),absolute(randomWalkFunction(\"query3\")),absolute(randomWalkFunction(\"query3\")),absolute(randomWalkFunction(\"query3\")),absolute(randomWalkFunction(\"query3\")))"
-      ], 
-      "query0": [
-        "absolute(randomWalkFunction(\"query0\"))"
-      ], 
-      "query1": [
-        "group(absolute(randomWalkFunction(\"query1\")), absolute(randomWalkFunction(\"query2\")), absolute(randomWalkFunction(\"query3\")))"
-      ]
+      "query2": {
+        "name": "query2", 
+        "targets": [
+          "group(absolute(randomWalkFunction(\"A\")), absolute(randomWalkFunction(\"B\")), absolute(randomWalkFunction(\"C\")), absolute(randomWalkFunction(\"D\")), absolute(randomWalkFunction(\"E\")))"
+        ]
+      }, 
+      "query3": {
+        "name": "query3", 
+        "targets": [
+          "group(absolute(randomWalkFunction(\"queryA\")),absolute(randomWalkFunction(\"queryB\")),absolute(randomWalkFunction(\"queryC\")),absolute(randomWalkFunction(\"queryD\")),absolute(randomWalkFunction(\"queryE\")),absolute(randomWalkFunction(\"queryF\")),absolute(randomWalkFunction(\"queryG\")),absolute(randomWalkFunction(\"queryH\")),absolute(randomWalkFunction(\"queryI\")),absolute(randomWalkFunction(\"queryJ\")),absolute(randomWalkFunction(\"queryK\")),absolute(randomWalkFunction(\"queryL\")),absolute(randomWalkFunction(\"queryM\")))"
+        ]
+      }, 
+      "query0": {
+        "name": "query0", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query0\"))"
+        ]
+      }, 
+      "query1": {
+        "name": "query1", 
+        "targets": [
+          "group(absolute(randomWalkFunction(\"query1\")), absolute(randomWalkFunction(\"query2\")), absolute(randomWalkFunction(\"query3\")))"
+        ]
+      }
     }, 
     "height": null, 
     "item_type": "dashboard_definition", 
     "css_class": null, 
     "item_id": "d1"
   }, 
-  "last_modified_date": "2014-06-17T05:30:09.579311Z", 
+  "view_href": "/dashboards/5/charts", 
   "description": "", 
-  "title": "Charts", 
   "tags": [
     {
+      "count": 3, 
       "id": 3, 
       "name": "test"
     }
   ], 
-  "creation_date": "2014-06-17T03:32:47.120466Z", 
+  "title": "Charts", 
+  "summary": "All the chart options", 
+  "definition_href": "/api/dashboard/5/definition", 
+  "href": "/api/dashboard/5", 
   "id": 5, 
-  "imported_from": null, 
-  "summary": "All the chart options"
+  "imported_from": null
 }

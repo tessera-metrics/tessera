@@ -1,0 +1,672 @@
+{
+  "category": "Demo", 
+  "definition": {
+    "style": null, 
+    "items": [
+      {
+        "style": null, 
+        "layout": "fixed", 
+        "title": null, 
+        "items": [
+          {
+            "style": null, 
+            "description": "A variety of time series charts rendered by nvd3", 
+            "level": 1, 
+            "text": "Time Series Charts", 
+            "height": null, 
+            "item_type": "heading", 
+            "css_class": null, 
+            "item_id": "d3"
+          }, 
+          {
+            "style": null, 
+            "item_type": "markdown", 
+            "css_class": null, 
+            "height": null, 
+            "raw": false, 
+            "text": "The [nvd3](http://nvd3.org/) javascript library provides an good set of standard, reusable charts built on top of [d3](http://d3js.org/).", 
+            "item_id": "d4"
+          }, 
+          {
+            "item_id": "d5", 
+            "item_type": "separator", 
+            "style": null, 
+            "css_class": null, 
+            "height": null
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "item_type": "markdown", 
+                    "css_class": null, 
+                    "height": null, 
+                    "raw": false, 
+                    "text": "### Simple Time Series\nUse like a [sparkline](http://en.wikipedia.org/wiki/Sparkline), for displaying overall trends in a high level view.", 
+                    "item_id": "d8"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d7", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 9, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": null, 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": "1", 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d10", 
+                    "query": "single1", 
+                    "options": {}, 
+                    "filled": false, 
+                    "interactive": true
+                  }, 
+                  {
+                    "style": null, 
+                    "title": "Filled", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": null, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d11", 
+                    "query": "single1", 
+                    "options": {}, 
+                    "filled": true, 
+                    "interactive": true
+                  }
+                ], 
+                "align": "left", 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d9", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d6"
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "item_type": "markdown", 
+                    "css_class": null, 
+                    "height": null, 
+                    "raw": false, 
+                    "text": "### Standard Time Series\nYour basic multi-series line chart, with some nice interactive features.", 
+                    "item_id": "d14"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d13", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 9, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": null, 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": null, 
+                    "item_type": "standard_time_series", 
+                    "item_id": "d16", 
+                    "query": "positive", 
+                    "options": {
+                      "margin": {
+                        "top": 12, 
+                        "right": 20, 
+                        "bottom": 20, 
+                        "left": 40
+                      }, 
+                      "yAxisFormat": ",.1s"
+                    }, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d15", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d12"
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "item_type": "markdown", 
+                    "css_class": null, 
+                    "height": null, 
+                    "raw": false, 
+                    "text": "### Stacked Area\nStacked graphs can be displayed in one of three modes, which can be switched interactively. Standard stacked series, [stream graphs](http://www.leebyron.com/else/streamgraph/), and a percentage view.\n\nStream graphs are currently only available when using the `nvd3` renderer in interactive mode. ", 
+                    "item_id": "d19"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d18", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 9, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": null, 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": null, 
+                    "item_type": "stacked_area_chart", 
+                    "item_id": "d21", 
+                    "query": "positive", 
+                    "options": {
+                      "margin": {
+                        "top": 12, 
+                        "right": 20, 
+                        "bottom": 20, 
+                        "left": 40
+                      }, 
+                      "yAxisFormat": ",.1s"
+                    }, 
+                    "interactive": true
+                  }, 
+                  {
+                    "item_id": "d22", 
+                    "item_type": "separator", 
+                    "style": null, 
+                    "css_class": null, 
+                    "height": null
+                  }, 
+                  {
+                    "style": null, 
+                    "title": "Stream Graph", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": 3, 
+                    "item_type": "stacked_area_chart", 
+                    "item_id": "d23", 
+                    "query": "multiple", 
+                    "options": {
+                      "margin": {
+                        "top": 12, 
+                        "right": 20, 
+                        "bottom": 20, 
+                        "left": 40
+                      }, 
+                      "style": "stream", 
+                      "yAxisFormat": ",.1s"
+                    }, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d20", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d17"
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "item_type": "markdown", 
+                    "css_class": null, 
+                    "height": null, 
+                    "raw": false, 
+                    "text": "### Single Graph\nShamelessly stolen from [Tasseo](https://github.com/obfuscurity/tasseo).", 
+                    "item_id": "d26"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d25", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "format": ",.1s", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "some.metric.for.stuff", 
+                    "transform": "sum", 
+                    "height": 1, 
+                    "item_type": "singlegraph", 
+                    "item_id": "d28", 
+                    "query": "single1", 
+                    "options": {
+                      "margin": {
+                        "top": 0, 
+                        "right": 0, 
+                        "bottom": 0, 
+                        "left": 0
+                      }
+                    }, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d27", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "format": ",.1s", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "some.other.metric", 
+                    "transform": "max", 
+                    "height": 1, 
+                    "item_type": "singlegraph", 
+                    "item_id": "d30", 
+                    "query": "positive2", 
+                    "options": {
+                      "margin": {
+                        "top": 0, 
+                        "right": 0, 
+                        "bottom": 0, 
+                        "left": 0
+                      }
+                    }, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d29", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "format": ",.1s", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "what.is.this.i.don't.even", 
+                    "transform": "mean", 
+                    "height": 1, 
+                    "item_type": "singlegraph", 
+                    "item_id": "d32", 
+                    "query": "multiple", 
+                    "options": {
+                      "margin": {
+                        "top": 0, 
+                        "right": 0, 
+                        "bottom": 0, 
+                        "left": 0
+                      }
+                    }, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d31", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d24"
+          }, 
+          {
+            "item_id": "d127", 
+            "item_type": "separator", 
+            "style": null, 
+            "css_class": null, 
+            "height": null
+          }
+        ], 
+        "height": null, 
+        "item_type": "section", 
+        "css_class": null, 
+        "item_id": "d2"
+      }, 
+      {
+        "style": null, 
+        "layout": "fixed", 
+        "title": null, 
+        "items": [
+          {
+            "style": null, 
+            "description": "Non-time series charts, also rendered by nvd3", 
+            "level": 1, 
+            "text": "Other Charts", 
+            "height": null, 
+            "item_type": "heading", 
+            "css_class": null, 
+            "item_id": "d213"
+          }, 
+          {
+            "item_id": "d214", 
+            "item_type": "separator", 
+            "style": null, 
+            "css_class": null, 
+            "height": null
+          }, 
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "item_type": "markdown", 
+                    "css_class": null, 
+                    "height": null, 
+                    "raw": false, 
+                    "text": "### Donuts & Pies\nOften abused, occasionally useful, always tasty!", 
+                    "item_id": "d217"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d216", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 4, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": "Donut Chart", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": 3, 
+                    "item_type": "donut_chart", 
+                    "item_id": "d219", 
+                    "query": "positive", 
+                    "options": {
+                      "margin": {
+                        "top": 0, 
+                        "right": 0, 
+                        "bottom": 12, 
+                        "left": 0
+                      }
+                    }, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d218", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 5, 
+                "items": [
+                  {
+                    "style": null, 
+                    "title": "Pie Chart", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "height": 3, 
+                    "item_type": "donut_chart", 
+                    "item_id": "d221", 
+                    "query": "positive", 
+                    "options": {
+                      "donut": false, 
+                      "palette": "applegreen", 
+                      "labelType": "key"
+                    }, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d220", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d215"
+          }, 
+          {
+            "style": null, 
+            "description": null, 
+            "level": 1, 
+            "text": null, 
+            "height": null, 
+            "item_type": "heading", 
+            "css_class": null, 
+            "item_id": "d222"
+          }
+        ], 
+        "height": null, 
+        "item_type": "section", 
+        "css_class": null, 
+        "item_id": "d130"
+      }, 
+      {
+        "style": "callout_neutral", 
+        "layout": "none", 
+        "title": null, 
+        "items": [
+          {
+            "style": null, 
+            "description": "Items don't have to be confined to the fixed width grid", 
+            "level": 1, 
+            "text": "Breakout!", 
+            "height": null, 
+            "item_type": "heading", 
+            "css_class": null, 
+            "item_id": "d34"
+          }, 
+          {
+            "item_id": "d35", 
+            "item_type": "separator", 
+            "style": null, 
+            "css_class": null, 
+            "height": null
+          }, 
+          {
+            "style": null, 
+            "title": null, 
+            "css_class": null, 
+            "thresholds": null, 
+            "height": 5, 
+            "item_type": "stacked_area_chart", 
+            "item_id": "d36", 
+            "query": "positive2", 
+            "options": {
+              "margin": {
+                "top": 12, 
+                "right": 20, 
+                "bottom": 20, 
+                "left": 40
+              }, 
+              "style": "stream", 
+              "yAxisFormat": ",.1s"
+            }, 
+            "interactive": true
+          }
+        ], 
+        "height": null, 
+        "item_type": "section", 
+        "css_class": null, 
+        "item_id": "d33"
+      }
+    ], 
+    "queries": {
+      "comparison": {
+        "name": "comparison", 
+        "targets": [
+          "aliasByNode(group(randomWalkFunction(\"today\"), randomWalkFunction(\"yesterday\")), 0)"
+        ]
+      }, 
+      "multiple": {
+        "name": "multiple", 
+        "targets": [
+          "absolute(group(randomWalkFunction(\"a\"),randomWalkFunction(\"b\"),randomWalkFunction(\"c\")))"
+        ]
+      }, 
+      "percentages": {
+        "name": "percentages", 
+        "targets": [
+          "group(alias(absolute(randomWalkFunction(\"query0\")), \"A\"),\n      alias(absolute(randomWalkFunction(\"query1\")), \"B\"),\n      alias(absolute(randomWalkFunction(\"query2\")), \"C\"),\n      alias(absolute(randomWalkFunction(\"query2\")), \"D\"))"
+        ]
+      }, 
+      "positive": {
+        "name": "positive", 
+        "targets": [
+          "aliasByNode(absolute(group(randomWalkFunction(\"system\"),randomWalkFunction(\"user\"),randomWalkFunction(\"wait\"), randomWalkFunction(\"io\"))), 0)"
+        ]
+      }, 
+      "single1": {
+        "name": "single1", 
+        "targets": [
+          "absolute(randomWalkFunction(\"thing1\"))"
+        ]
+      }, 
+      "comp2": {
+        "name": "comp2", 
+        "targets": [
+          "scale(absolute(randomWalkFunction(\"comp2\")), 1000)"
+        ]
+      }, 
+      "comp1": {
+        "name": "comp1", 
+        "targets": [
+          "scale(absolute(randomWalkFunction(\"comp1\")), 1000)"
+        ]
+      }, 
+      "collector_shifted": {
+        "name": "collector_shifted", 
+        "targets": [
+          "timeShift(collector_time_ms, \"1d\")"
+        ]
+      }, 
+      "single2": {
+        "name": "single2", 
+        "targets": [
+          "randomWalkFunction(\"thing2\")"
+        ]
+      }, 
+      "positive2": {
+        "name": "positive2", 
+        "targets": [
+          "aliasByNode(absolute(group(randomWalkFunction(\"cpu1\"),randomWalkFunction(\"cpu2\"),randomWalkFunction(\"cpu3\"), randomWalkFunction(\"cpu4\"), randomWalkFunction(\"cpu5\"), randomWalkFunction(\"cpu6\"), randomWalkFunction(\"cpu7\"), randomWalkFunction(\"cpu8\"))), 0)"
+        ]
+      }, 
+      "collector": {
+        "name": "collector", 
+        "targets": [
+          "collector_time_ms"
+        ]
+      }
+    }, 
+    "height": null, 
+    "item_type": "dashboard_definition", 
+    "css_class": null, 
+    "item_id": "d1"
+  }, 
+  "view_href": "/dashboards/10/gallery-charts", 
+  "description": "", 
+  "tags": [
+    {
+      "count": 4, 
+      "bgcolor": "green", 
+      "id": 1, 
+      "name": "featured"
+    }, 
+    {
+      "count": 4, 
+      "bgcolor": "#ddd", 
+      "id": 2, 
+      "fgcolor": "#333", 
+      "name": "demo"
+    }
+  ], 
+  "title": "Gallery - Charts", 
+  "summary": "A gallery of graphical presentations", 
+  "definition_href": "/api/dashboard/10/definition", 
+  "href": "/api/dashboard/10", 
+  "id": 10, 
+  "imported_from": null
+}

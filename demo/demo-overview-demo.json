@@ -18,15 +18,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "Average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "Average", 
+                    "format": ",.3f", 
+                    "item_id": "d17", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d17", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -44,15 +44,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "Max", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "Max", 
+                    "format": ",.3f", 
+                    "item_id": "d21", 
                     "transform": "max", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d21", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -70,15 +70,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "Median", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "Median", 
+                    "format": ",.3f", 
+                    "item_id": "d77", 
                     "transform": "median", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d77", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -96,15 +96,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "things", 
-                    "format": ",.2s", 
+                    "title": "Total", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "Total", 
+                    "format": ",.2s", 
+                    "item_id": "d23", 
                     "transform": "sum", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d23", 
+                    "units": "things", 
                     "query": "query0"
                   }
                 ], 
@@ -210,38 +210,38 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.1f", 
+                    "title": "peak rate", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "peak rate", 
+                    "format": ",.1f", 
+                    "item_id": "d94", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "jumbotron_singlestat", 
-                    "item_id": "d94", 
+                    "units": "/sec", 
                     "query": "query5"
                   }, 
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "ms", 
-                    "format": ",.1f", 
+                    "title": "Latency, 95th Percentile", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "Latency, 95th Percentile", 
+                    "format": ",.1f", 
+                    "item_id": "d95", 
                     "transform": "max", 
                     "height": null, 
                     "item_type": "jumbotron_singlestat", 
-                    "item_id": "d95", 
+                    "units": "ms", 
                     "query": "query0"
                   }, 
                   {
                     "style": null, 
                     "item_type": "markdown", 
-                    "text": "#### Related Dashboards\n\n{{dashboards-tagged \"demo\"}}\n\n{{dashboards-tagged \"test\"}}", 
+                    "css_class": null, 
                     "height": null, 
                     "raw": false, 
-                    "css_class": null, 
+                    "text": "#### Related Dashboards\n\n{{dashboards-tagged \"demo\"}}\n\n{{dashboards-tagged \"test\"}}", 
                     "item_id": "d100"
                   }
                 ], 
@@ -314,24 +314,27 @@
     "css_class": null, 
     "item_id": "d0"
   }, 
-  "last_modified_date": "2014-07-31T18:50:04.084585Z", 
+  "view_href": "/dashboards/2/overview-demo", 
   "description": "", 
-  "title": "Overview Demo", 
   "tags": [
     {
+      "count": 4, 
       "bgcolor": "green", 
       "id": 1, 
       "name": "featured"
     }, 
     {
+      "count": 4, 
       "bgcolor": "#ddd", 
       "id": 2, 
       "fgcolor": "#333", 
       "name": "demo"
     }
   ], 
-  "creation_date": "2014-07-02T19:44:51.162317Z", 
-  "id": 11, 
-  "imported_from": null, 
-  "summary": "Some things and stuff"
+  "title": "Overview Demo", 
+  "summary": "Some things and stuff", 
+  "definition_href": "/api/dashboard/2/definition", 
+  "href": "/api/dashboard/2", 
+  "id": 2, 
+  "imported_from": null
 }

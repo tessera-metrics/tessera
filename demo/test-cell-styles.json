@@ -18,15 +18,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d153", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d153", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -44,15 +44,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d155", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d155", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -104,15 +104,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d160", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d160", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -130,15 +130,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d162", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d162", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -190,15 +190,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d167", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d167", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -216,15 +216,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d169", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d169", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -276,15 +276,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d174", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d174", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -302,15 +302,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d176", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d176", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -362,15 +362,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d181", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d181", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -388,15 +388,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d183", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d183", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -448,15 +448,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d188", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d188", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -474,15 +474,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d190", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d190", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -534,15 +534,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d195", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d195", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -560,15 +560,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": "/sec", 
-                    "format": ",.3f", 
+                    "title": "average", 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": "average", 
+                    "format": ",.3f", 
+                    "item_id": "d197", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d197", 
+                    "units": "/sec", 
                     "query": "query0"
                   }
                 ], 
@@ -677,10 +677,10 @@
                                           {
                                             "style": null, 
                                             "item_type": "markdown", 
-                                            "text": "#4", 
+                                            "css_class": null, 
                                             "height": null, 
                                             "raw": false, 
-                                            "css_class": null, 
+                                            "text": "#4", 
                                             "item_id": "d35"
                                           }
                                         ], 
@@ -712,10 +712,10 @@
                                   {
                                     "style": null, 
                                     "item_type": "markdown", 
-                                    "text": "# 3", 
+                                    "css_class": null, 
                                     "height": null, 
                                     "raw": false, 
-                                    "css_class": null, 
+                                    "text": "# 3", 
                                     "item_id": "d33"
                                   }
                                 ], 
@@ -747,10 +747,10 @@
                           {
                             "style": null, 
                             "item_type": "markdown", 
-                            "text": "# 2", 
+                            "css_class": null, 
                             "height": null, 
                             "raw": false, 
-                            "css_class": null, 
+                            "text": "# 2", 
                             "item_id": "d31"
                           }
                         ], 
@@ -782,10 +782,10 @@
                   {
                     "style": null, 
                     "item_type": "markdown", 
-                    "text": "# 1", 
+                    "css_class": null, 
                     "height": null, 
                     "raw": false, 
-                    "css_class": null, 
+                    "text": "# 1", 
                     "item_id": "d29"
                   }
                 ], 
@@ -858,10 +858,10 @@
                                           {
                                             "style": null, 
                                             "item_type": "markdown", 
-                                            "text": "#4", 
+                                            "css_class": null, 
                                             "height": null, 
                                             "raw": false, 
-                                            "css_class": null, 
+                                            "text": "#4", 
                                             "item_id": "d355"
                                           }
                                         ], 
@@ -893,10 +893,10 @@
                                   {
                                     "style": null, 
                                     "item_type": "markdown", 
-                                    "text": "# 3", 
+                                    "css_class": null, 
                                     "height": null, 
                                     "raw": false, 
-                                    "css_class": null, 
+                                    "text": "# 3", 
                                     "item_id": "d226"
                                   }
                                 ], 
@@ -928,10 +928,10 @@
                           {
                             "style": null, 
                             "item_type": "markdown", 
-                            "text": "# 2", 
+                            "css_class": null, 
                             "height": null, 
                             "raw": false, 
-                            "css_class": null, 
+                            "text": "# 2", 
                             "item_id": "d228"
                           }
                         ], 
@@ -963,10 +963,10 @@
                   {
                     "style": null, 
                     "item_type": "markdown", 
-                    "text": "# 1", 
+                    "css_class": null, 
                     "height": null, 
                     "raw": false, 
-                    "css_class": null, 
+                    "text": "# 1", 
                     "item_id": "d230"
                   }
                 ], 
@@ -1039,10 +1039,10 @@
                                           {
                                             "style": null, 
                                             "item_type": "markdown", 
-                                            "text": "#4", 
+                                            "css_class": null, 
                                             "height": null, 
                                             "raw": false, 
-                                            "css_class": null, 
+                                            "text": "#4", 
                                             "item_id": "d241"
                                           }
                                         ], 
@@ -1074,10 +1074,10 @@
                                   {
                                     "style": null, 
                                     "item_type": "markdown", 
-                                    "text": "# 3", 
+                                    "css_class": null, 
                                     "height": null, 
                                     "raw": false, 
-                                    "css_class": null, 
+                                    "text": "# 3", 
                                     "item_id": "d243"
                                   }
                                 ], 
@@ -1109,10 +1109,10 @@
                           {
                             "style": null, 
                             "item_type": "markdown", 
-                            "text": "# 2", 
+                            "css_class": null, 
                             "height": null, 
                             "raw": false, 
-                            "css_class": null, 
+                            "text": "# 2", 
                             "item_id": "d245"
                           }
                         ], 
@@ -1144,10 +1144,10 @@
                   {
                     "style": null, 
                     "item_type": "markdown", 
-                    "text": "# 1", 
+                    "css_class": null, 
                     "height": null, 
                     "raw": false, 
-                    "css_class": null, 
+                    "text": "# 1", 
                     "item_id": "d247"
                   }
                 ], 
@@ -1220,10 +1220,10 @@
                                           {
                                             "style": null, 
                                             "item_type": "markdown", 
-                                            "text": "#4", 
+                                            "css_class": null, 
                                             "height": null, 
                                             "raw": false, 
-                                            "css_class": null, 
+                                            "text": "#4", 
                                             "item_id": "d258"
                                           }
                                         ], 
@@ -1255,10 +1255,10 @@
                                   {
                                     "style": null, 
                                     "item_type": "markdown", 
-                                    "text": "# 3", 
+                                    "css_class": null, 
                                     "height": null, 
                                     "raw": false, 
-                                    "css_class": null, 
+                                    "text": "# 3", 
                                     "item_id": "d260"
                                   }
                                 ], 
@@ -1290,10 +1290,10 @@
                           {
                             "style": null, 
                             "item_type": "markdown", 
-                            "text": "# 2", 
+                            "css_class": null, 
                             "height": null, 
                             "raw": false, 
-                            "css_class": null, 
+                            "text": "# 2", 
                             "item_id": "d262"
                           }
                         ], 
@@ -1325,10 +1325,10 @@
                   {
                     "style": null, 
                     "item_type": "markdown", 
-                    "text": "# 1", 
+                    "css_class": null, 
                     "height": null, 
                     "raw": false, 
-                    "css_class": null, 
+                    "text": "# 1", 
                     "item_id": "d264"
                   }
                 ], 
@@ -1401,10 +1401,10 @@
                                           {
                                             "style": null, 
                                             "item_type": "markdown", 
-                                            "text": "#4", 
+                                            "css_class": null, 
                                             "height": null, 
                                             "raw": false, 
-                                            "css_class": null, 
+                                            "text": "#4", 
                                             "item_id": "d275"
                                           }
                                         ], 
@@ -1436,10 +1436,10 @@
                                   {
                                     "style": null, 
                                     "item_type": "markdown", 
-                                    "text": "# 3", 
+                                    "css_class": null, 
                                     "height": null, 
                                     "raw": false, 
-                                    "css_class": null, 
+                                    "text": "# 3", 
                                     "item_id": "d277"
                                   }
                                 ], 
@@ -1471,10 +1471,10 @@
                           {
                             "style": null, 
                             "item_type": "markdown", 
-                            "text": "# 2", 
+                            "css_class": null, 
                             "height": null, 
                             "raw": false, 
-                            "css_class": null, 
+                            "text": "# 2", 
                             "item_id": "d279"
                           }
                         ], 
@@ -1506,10 +1506,10 @@
                   {
                     "style": null, 
                     "item_type": "markdown", 
-                    "text": "# 1", 
+                    "css_class": null, 
                     "height": null, 
                     "raw": false, 
-                    "css_class": null, 
+                    "text": "# 1", 
                     "item_id": "d281"
                   }
                 ], 
@@ -2458,17 +2458,19 @@
     "css_class": null, 
     "item_id": "d0"
   }, 
-  "last_modified_date": "2014-06-17T03:11:29.046444Z", 
+  "view_href": "/dashboards/4/cell-styles", 
   "description": "", 
-  "title": "Cell Styles", 
   "tags": [
     {
+      "count": 3, 
       "id": 3, 
       "name": "test"
     }
   ], 
-  "creation_date": "2014-06-17T02:30:12.994510Z", 
-  "id": 3, 
-  "imported_from": null, 
-  "summary": "Rendering combinations of cell styles"
+  "title": "Cell Styles", 
+  "summary": "Rendering combinations of cell styles", 
+  "definition_href": "/api/dashboard/4/definition", 
+  "href": "/api/dashboard/4", 
+  "id": 4, 
+  "imported_from": null
 }

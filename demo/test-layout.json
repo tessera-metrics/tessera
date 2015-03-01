@@ -343,8 +343,8 @@
             "item_id": "d57", 
             "item_type": "separator", 
             "style": null, 
-            "height": null, 
-            "css_class": null
+            "css_class": null, 
+            "height": null
           }
         ], 
         "height": null, 
@@ -421,8 +421,8 @@
                     "item_id": "d58", 
                     "item_type": "separator", 
                     "style": null, 
-                    "height": null, 
-                    "css_class": null
+                    "css_class": null, 
+                    "height": null
                   }
                 ], 
                 "align": null, 
@@ -493,8 +493,8 @@
                     "item_id": "d59", 
                     "item_type": "separator", 
                     "style": null, 
-                    "height": null, 
-                    "css_class": null
+                    "css_class": null, 
+                    "height": null
                   }
                 ], 
                 "align": null, 
@@ -856,8 +856,8 @@
             "item_id": "d94", 
             "item_type": "separator", 
             "style": null, 
-            "height": null, 
-            "css_class": null
+            "css_class": null, 
+            "height": null
           }
         ], 
         "height": null, 
@@ -880,10 +880,10 @@
                   {
                     "style": null, 
                     "item_type": "markdown", 
-                    "text": null, 
+                    "css_class": null, 
                     "height": "1", 
                     "raw": false, 
-                    "css_class": null, 
+                    "text": null, 
                     "item_id": "d98"
                   }
                 ], 
@@ -901,10 +901,10 @@
                   {
                     "style": null, 
                     "item_type": "markdown", 
-                    "text": null, 
+                    "css_class": null, 
                     "height": "2", 
                     "raw": false, 
-                    "css_class": null, 
+                    "text": null, 
                     "item_id": "d111"
                   }
                 ], 
@@ -922,10 +922,10 @@
                   {
                     "style": null, 
                     "item_type": "markdown", 
-                    "text": null, 
+                    "css_class": null, 
                     "height": "3", 
                     "raw": false, 
-                    "css_class": null, 
+                    "text": null, 
                     "item_id": "d113"
                   }
                 ], 
@@ -943,10 +943,10 @@
                   {
                     "style": null, 
                     "item_type": "markdown", 
-                    "text": null, 
+                    "css_class": null, 
                     "height": "4", 
                     "raw": false, 
-                    "css_class": null, 
+                    "text": null, 
                     "item_id": "d115"
                   }
                 ], 
@@ -964,10 +964,10 @@
                   {
                     "style": null, 
                     "item_type": "markdown", 
-                    "text": null, 
+                    "css_class": null, 
                     "height": "5", 
                     "raw": false, 
-                    "css_class": null, 
+                    "text": null, 
                     "item_id": "d117"
                   }
                 ], 
@@ -985,10 +985,10 @@
                   {
                     "style": null, 
                     "item_type": "markdown", 
-                    "text": null, 
+                    "css_class": null, 
                     "height": "6", 
                     "raw": false, 
-                    "css_class": null, 
+                    "text": null, 
                     "item_id": "d119"
                   }
                 ], 
@@ -1084,8 +1084,8 @@
             "item_id": "d108", 
             "item_type": "separator", 
             "style": null, 
-            "height": null, 
-            "css_class": null
+            "css_class": null, 
+            "height": null
           }
         ], 
         "height": null, 
@@ -1102,8 +1102,8 @@
             "item_id": "d107", 
             "item_type": "separator", 
             "style": null, 
-            "height": null, 
-            "css_class": null
+            "css_class": null, 
+            "height": null
           }, 
           {
             "style": null, 
@@ -1115,15 +1115,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": null, 
-                    "format": ",.3f", 
+                    "title": null, 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": null, 
+                    "format": ",.3f", 
+                    "item_id": "d123", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d123", 
+                    "units": null, 
                     "query": null
                   }
                 ], 
@@ -1150,15 +1150,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": null, 
-                    "format": ",.3f", 
+                    "title": null, 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": null, 
+                    "format": ",.3f", 
+                    "item_id": "d130", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d130", 
+                    "units": null, 
                     "query": null
                   }
                 ], 
@@ -1185,15 +1185,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": null, 
-                    "format": ",.3f", 
+                    "title": null, 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": null, 
+                    "format": ",.3f", 
+                    "item_id": "d133", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d133", 
+                    "units": null, 
                     "query": null
                   }
                 ], 
@@ -1220,15 +1220,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": null, 
-                    "format": ",.3f", 
+                    "title": null, 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": null, 
+                    "format": ",.3f", 
+                    "item_id": "d136", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d136", 
+                    "units": null, 
                     "query": null
                   }
                 ], 
@@ -1255,15 +1255,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": null, 
-                    "format": ",.3f", 
+                    "title": null, 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": null, 
+                    "format": ",.3f", 
+                    "item_id": "d139", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d139", 
+                    "units": null, 
                     "query": null
                   }
                 ], 
@@ -1290,15 +1290,15 @@
                   {
                     "index": false, 
                     "style": null, 
-                    "units": null, 
-                    "format": ",.3f", 
+                    "title": null, 
                     "css_class": null, 
                     "thresholds": null, 
-                    "title": null, 
+                    "format": ",.3f", 
+                    "item_id": "d142", 
                     "transform": "mean", 
                     "height": null, 
                     "item_type": "singlestat", 
-                    "item_id": "d142", 
+                    "units": null, 
                     "query": null
                   }
                 ], 
@@ -1328,17 +1328,19 @@
     "css_class": null, 
     "item_id": "d0"
   }, 
-  "last_modified_date": "2014-06-17T03:26:25.236239Z", 
+  "view_href": "/dashboards/6/layout", 
   "description": "", 
-  "title": "Layout", 
   "tags": [
     {
+      "count": 3, 
       "id": 3, 
       "name": "test"
     }
   ], 
-  "creation_date": "2014-06-17T03:12:29.601172Z", 
-  "id": 4, 
-  "imported_from": null, 
-  "summary": "Testing layout options"
+  "title": "Layout", 
+  "summary": "Testing layout options", 
+  "definition_href": "/api/dashboard/6/definition", 
+  "href": "/api/dashboard/6", 
+  "id": 6, 
+  "imported_from": null
 }
