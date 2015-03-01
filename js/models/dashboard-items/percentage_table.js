@@ -13,7 +13,7 @@ ds.register_dashboard_item('percentage_table', {
                          .property('striped', {init: true})
                          .property('sortable', {init: true})
                          .property('include_sums', {init: false})
-                         .property('groups_as_rows', {init: false})
+                         .property('invert_axes', {init: false})
                          .property('transform', {init: 'sum'})
                          .extend(ds.models.item, {item_type: 'percentage_table'})
                          .build()
@@ -21,7 +21,7 @@ ds.register_dashboard_item('percentage_table', {
 
     if (data) {
       self.include_sums = data.include_sums
-      self.groups_as_rows = data.groups_as_rows
+      self.invert_axes = data.invert_axes
       self.striped = Boolean(data.striped)
       self.sortable = Boolean(data.sortable)
       self.title = data.title
@@ -34,8 +34,8 @@ ds.register_dashboard_item('percentage_table', {
       var data = ds.models.item.json(self)
       if (self.format)
         data.format = self.format
-      if (self.groups_as_rows)
-        data.groups_as_rows = self.groups_as_rows
+      if (self.invert_axes)
+        data.invert_axes = self.invert_axes
       if (self.striped)
         data.striped = self.striped
       if (self.sortable)
@@ -44,7 +44,7 @@ ds.register_dashboard_item('percentage_table', {
         data.title = self.title
       if (self.transform)
         data.transform = self.transform
-        data.include_sums = self.include_sums
+      data.include_sums = self.include_sums
       return data
     }
 
@@ -63,8 +63,8 @@ ds.register_dashboard_item('percentage_table', {
     var holder = $('#' + item.item_id + ' .ds-percentage-table-holder')
     holder.empty()
     holder.append(ds.templates.models.percentage_table_data({item:item, query:query}))
-    var table = $('#' + item.item_id + ' .ds-percentage-table-holder table')
     if (item.sortable) {
+      var table = $('#' + item.item_id + ' .ds-percentage-table-holder table')
       table.DataTable({
         order: [[ 2, "desc" ]],
         paging: false,
@@ -80,10 +80,13 @@ ds.register_dashboard_item('percentage_table', {
   interactive_properties: [
     { id: 'striped', type: 'boolean' },
     { id: 'sortable', type: 'boolean' },
-    { id: 'include_sums', type: 'boolean' },
-    { id: 'groups_as_rows', type: 'boolean' },
+    { id: 'invert_axes', type: 'boolean' },
     'format',
     'title',
+    {
+      id: 'include_sums',
+      type: 'boolean'
+    },
     'transform'
   ].concat(ds.models.item.interactive_properties)
 })
