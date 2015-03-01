@@ -43,8 +43,8 @@ module.exports = function(grunt) {
           separator: ';'
         },
         src: [
-          'tessera/static/js/jquery-1.11.0.min.js',
-          'tessera/static/js/jquery.dataTables.js',
+          'tessera/static/js/jquery-1.11.2.min.js',
+          'tessera/static/js/jquery.dataTables.min.js',
           'tessera/static/js/moment.min.js',
           'tessera/static/js/moment-timezone-with-data.min.js',
           'tessera/static/js/marked.min.js',
@@ -64,7 +64,7 @@ module.exports = function(grunt) {
           'tessera/static/js/bootstrap-datetimepicker.min.js',
           'tessera/static/js/bootstrapValidator.min.js',
           'tessera/static/js/limivorous.js',
-          'tessera/static/js/color-0.5.0.js',
+          'tessera/static/js/color-0.7.1.js',
           'tessera/static/js/flot/jquery.flot.js',
           'tessera/static/js/flot/jquery.flot.time.js',
           'tessera/static/js/flot/jquery.flot.multihighlight.js',

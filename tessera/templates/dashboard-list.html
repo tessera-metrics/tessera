@@ -75,7 +75,9 @@
     {% endif %}
       var rendered = ds.templates.listing.dashboard_tag_list(context)
       $("#ds-dashboard-tag-listing").html(rendered)
+    {% if tag %}
       $("[data-ds-tag={{tag}}]").addClass("active")
+    {% endif %}
     })
   </script>
 
