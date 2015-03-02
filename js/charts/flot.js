@@ -205,6 +205,14 @@ ds.charts.flot =
         }
       })
 
+      flot_options.series.valueLabels = {
+        show: true,
+        showAsHtml: true,
+        showMaxValue: true,
+        showLastValue: true,
+        labelFormatter: d3.format(',.3s')
+      }
+
       context.plot = $.plot($(e), [query.chart_data('flot')[0]],
                             flot_options)
       return self
@@ -254,6 +262,14 @@ ds.charts.flot =
           }
         }
       })
+
+      flot_options.series.valueLabels = {
+        show: true,
+        showAsHtml: true,
+        showMaxValue: true,
+        showLastValue: true,
+        labelFormatter: d3.format(',.3s')
+      }
 
       context.plot = $.plot($(e), [query.chart_data('flot')[0]],
                             flot_options)
