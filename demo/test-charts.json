@@ -76,44 +76,6 @@
             ]
           }, 
           {
-            "item_id": "d9", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d10", 
-                "item_type": "cell", 
-                "span": "6", 
-                "items": [
-                  {
-                    "title": "simple_time_series (multiple series)", 
-                    "height": 1, 
-                    "item_type": "simple_time_series", 
-                    "item_id": "d12", 
-                    "query": "query1", 
-                    "filled": false, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d15", 
-                "item_type": "cell", 
-                "span": "6", 
-                "items": [
-                  {
-                    "title": "simple_time_series (multiple series, filled)", 
-                    "height": 1, 
-                    "item_type": "simple_time_series", 
-                    "item_id": "d16", 
-                    "query": "query1", 
-                    "filled": true, 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }, 
-          {
             "item_id": "d17", 
             "item_type": "row", 
             "items": [
