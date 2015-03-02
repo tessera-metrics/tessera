@@ -146,15 +146,21 @@ ds.charts.flot =
         if ( !items )
           return
         var series = context.plot.getData()
-        var item = items[0]
-        var point = series[item.serieIndex].data[item.dataIndex]
+        var item   = items[0]
+        var point  = series[item.serieIndex].data[item.dataIndex]
+        var format = d3.format(',.3s')
+        var is_percent = context.item.stack_mode && (context.item.stack_mode === ds.charts.STACK_MODE_PERCENT)
 
         var contents = ds.templates.flot.tooltip({
           time: point[0],
           items: items.map(function(item) {
+                   var s = series[item.serieIndex]
+                   var value = is_percent
+                             ? s.percents[item.dataIndex]
+                             : s.data[item.dataIndex][1]
                    return {
-                     series: series[item.serieIndex],
-                     value: series[item.serieIndex].data[item.dataIndex][1]
+                     series: s,
+                     value: is_percent ? format(value) + '%' : format(value)
                    }
                  })
         })
@@ -191,7 +197,8 @@ ds.charts.flot =
 
     self.simple_line_chart = function(e, item, query) {
       var context = {
-          plot: null
+          plot: null,
+          item: item
       }
       setup_plugins(e, context)
 
@@ -220,7 +227,8 @@ ds.charts.flot =
 
     self.standard_line_chart = function(e, item, query) {
       var context = {
-          plot: null
+          plot: null,
+          item: item
       }
       setup_plugins(e, context)
       var flot_options = get_flot_options(item, {
@@ -243,7 +251,8 @@ ds.charts.flot =
     self.simple_area_chart = function(e, item, query) {
       var options = item.options || {}
       var context = {
-          plot: null
+          plot: null,
+          item: item
       }
       setup_plugins(e, context)
       var flot_options = ds.extend(get_default_options(), {
@@ -279,7 +288,8 @@ ds.charts.flot =
 
     self.stacked_area_chart = function(e, item, query) {
       var context = {
-          plot: null
+          plot: null,
+          item: item
       }
       var legend_id = '#ds-legend-' + item.item_id
       var flot_options = get_flot_options(item, {
@@ -297,10 +307,18 @@ ds.charts.flot =
         }
       })
 
+      if (item.stack_mode === ds.charts.STACK_MODE_PERCENT) {
+        flot_options.series.stack = false
+        flot_options.series.stackpercent = true
+        flot_options.yaxes[0].max = 100
+        flot_options.yaxes[0].min = 0
+      }
+
       setup_plugins(e, context)
       context.plot = $.plot($(e), query.chart_data('flot'), flot_options)
 
       render_legend(item, query, flot_options)
+
       return self
     }
 

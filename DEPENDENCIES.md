@@ -35,6 +35,7 @@ built with as many "off-the-shelf" components as possible.
   rendering.
   * [flot-axislabels](https://github.com/mikeslim7/flot-axislabels)
   * [flot-valuelabels](https://github.com/winne27/flot-valuelabels)
+  * [flot.stackpercent](https://github.com/skeleton9/flot.stackpercent)
 * [DataTables](http://datatables.net/)
 * [moment.js](http://momentjs.com/) for time parsing & formatting.
   * [moment-timezone.js](http://momentjs.com/timezone/)
