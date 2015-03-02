@@ -34,6 +34,7 @@ built with as many "off-the-shelf" components as possible.
 * [flot](http://www.flotcharts.org/) for alternative interactive chart
   rendering.
   * [flot-axislabels](https://github.com/mikeslim7/flot-axislabels)
+  * [flot-valuelabels](https://github.com/winne27/flot-valuelabels)
 * [DataTables](http://datatables.net/)
 * [moment.js](http://momentjs.com/) for time parsing & formatting.
   * [moment-timezone.js](http://momentjs.com/timezone/)
