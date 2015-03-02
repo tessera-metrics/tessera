@@ -122,6 +122,12 @@ ds.charts.nvd3 =
         if (data.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
             showLegend = false
         }
+      var stack_style = options.style || 'stack'
+      if ( item.stack_mode === ds.charts.STACK_MODE_PERCENT ) {
+        stack_style = 'expand'
+      } else if ( item.stack_mode === ds.charts.STACK_MODE_STREAM ) {
+        stack_style = 'stream'
+      }
         nv.addGraph(function() {
             var width  = e.width()
             var height = e.height()
@@ -135,7 +141,7 @@ ds.charts.nvd3 =
                     y: function(d) { return d[0] }
                 })
                 .color(ds.charts.util._color_function(options.palette || ds.charts.DEFAULT_PALETTE))
-                .style(options.style || 'stack')
+                .style(stack_style)
                 .width(width)
                 .height(height)
             chart.yAxis

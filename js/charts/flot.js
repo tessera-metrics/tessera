@@ -281,6 +281,13 @@ ds.charts.flot =
         }
       })
 
+      if (item.stack_mode === ds.charts.STACK_MODE_PERCENT) {
+        flot_options.series.stack = false
+        flot_options.series.stackpercent = true
+        flot_options.yaxes[0].max = 100
+        flot_options.yaxes[0].min = 0
+      }
+
       setup_plugins(e, context)
       context.plot = $.plot($(e), query.chart_data('flot'), flot_options)
 
