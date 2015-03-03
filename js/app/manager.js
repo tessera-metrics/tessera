@@ -284,15 +284,14 @@ ds.manager =
        */
       if (set_location) {
         var url = URI(window.location)
-        var path = url.path()
         if (target.item_type != 'dashboard_definition') {
-          path.segment(target.item_id.toString())
+          url.segment(target.item_id.toString())
         }
-        path.segment('transform').segment(transform.name)
+        url.segment('transform').segment(transform.name)
         window.history.pushState({ url:self.current.url,
                                    element:self.current.element,
                                    transform:transform.toJSON(),
-                                   target:target.toJSON() }, '', url.path(path).href())
+                                   target:target.toJSON() }, '', url.href())
       }
 
       /**
