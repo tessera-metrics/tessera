@@ -75,7 +75,8 @@ module.exports = function(grunt) {
           'tessera/static/js/flot/jquery.flot.crosshair.js',
           'tessera/static/js/flot/jquery.flot.axislabels.js',
           'tessera/static/js/simple_statistics.js',
-          'tessera/static/js/equalize.min.js'
+          'tessera/static/js/equalize.min.js',
+          'tessera/static/js/usertiming.js'
         ],
         dest: 'tessera/static/bundle.js'
       },
