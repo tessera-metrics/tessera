@@ -28,6 +28,7 @@ ds.models.data.Query = function(data) {
       self.options = data.options
     }
     self.name = data.name
+    self.mark_prefix = 'ds.models.data.Query/' + self.name + '/'
   }
 
   self.DEFAULT_FROM_TIME = '-3h'
@@ -172,6 +173,7 @@ ds.models.data.Query = function(data) {
 
       ds.event.fire(self, 'ds-data-ready', self)
     } else {
+      window.performance.mark(self.mark_prefix + 'load_start')
       options.format = 'json'
       var url = self.url(options)
       ds.event.fire(self, 'ds-data-loading')
@@ -186,7 +188,12 @@ ds.models.data.Query = function(data) {
         }
       })
        .done(function(response_data, textStatus) {
-        self._process(response_data)
+        window.performance.mark(self.mark_prefix + 'load_end')
+        window.performance.measure(self.mark_prefix + 'load',
+                                   self.mark_prefix + 'load_start',
+                                   self.mark_prefix + 'load_end')
+
+        self._summarize(response_data)
         if (options.ready && (options.ready instanceof Function)) {
           options.ready(self)
         }
@@ -255,12 +262,18 @@ ds.models.data.Query = function(data) {
    * the returned structure into something consumable by the
    * charting library, and calculating sums.
    */
-  self._process = function(response_data) {
+  self._summarize = function(response_data) {
+    window.performance.mark(self.mark_prefix + 'summarize_start')
     self.summation = ds.models.data.Summation(response_data)
     self.data = response_data.map(function(series) {
                   series.summation = ds.models.data.Summation(series).toJSON()
                   return series
                 })
+    window.performance.mark(self.mark_prefix + 'summarize_end')
+    window.performance.measure(self.mark_prefix + 'summarize',
+                               self.mark_prefix + 'summarize_start',
+                               self.mark_prefix + 'summarize_end')
+
     return self
   }
 
@@ -272,7 +285,14 @@ ds.models.data.Query = function(data) {
   self.chart_data = function(type) {
     var attribute = 'chart_data_' + type
     if (typeof(self[attribute]) === 'undefined') {
+      window.performance.mark(self.mark_prefix + 'convert_start')
+
       self[attribute] = ds.charts.process_data(self.data, type)
+
+      window.performance.mark(self.mark_prefix + 'convert_end')
+      window.performance.measure(self.mark_prefix + 'convert',
+                                 self.mark_prefix + 'convert_start',
+                                 self.mark_prefix + 'convert_end')
     }
     return self[attribute]
   }
