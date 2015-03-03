@@ -11,11 +11,16 @@ ds.charts.flot =
 
     self.CHART_IMPL_TYPE = 'flot'
 
+    var OPTIONS_DOWNSAMPLE_DEFAULT = {
+        threshold: 500
+    }
+
     function get_default_options() {
       var theme_colors = ds.charts.util.get_colors()
       var default_options = {
         colors: ds.charts.util.get_palette(),
         series: {
+          downsample: OPTIONS_DOWNSAMPLE_DEFAULT,
           lines: {
             show: true,
             lineWidth: 1,
@@ -257,6 +262,7 @@ ds.charts.flot =
           show: false
         },
         series: {
+          downsample: OPTIONS_DOWNSAMPLE_DEFAULT,
           lines: {
             show: true,
             fill: 1
@@ -284,6 +290,7 @@ ds.charts.flot =
           noColumns: 4
         },
         series: {
+          downsample: OPTIONS_DOWNSAMPLE_DEFAULT,
           lines: { show: true, lineWidth: 1, fill: 1},
           stack: true,
           points: { show: false },
