@@ -31,6 +31,7 @@ ds.models.data.Query = function(data) {
   }
 
   self.DEFAULT_FROM_TIME = '-3h'
+  self.perf = ds.perf('ds.models.data.Query', self.name)
 
   Object.defineProperty(self, 'is_query', {value: true})
 
@@ -172,7 +173,7 @@ ds.models.data.Query = function(data) {
 
       ds.event.fire(self, 'ds-data-ready', self)
     } else {
-      _start('load')
+      self.perf.start('load')
       options.format = 'json'
       var url = self.url(options)
       ds.event.fire(self, 'ds-data-loading')
@@ -187,7 +188,7 @@ ds.models.data.Query = function(data) {
         }
       })
        .done(function(response_data, textStatus) {
-        _end('load')
+        self.perf.end('load')
         _summarize(response_data)
         if (options.ready && (options.ready instanceof Function)) {
           options.ready(self)
@@ -258,13 +259,13 @@ ds.models.data.Query = function(data) {
    * charting library, and calculating sums.
    */
   function _summarize(response_data) {
-    _start('summarize')
+    self.perf.start('summarize')
     self.summation = ds.models.data.Summation(response_data)
     self.data = response_data.map(function(series) {
                   series.summation = ds.models.data.Summation(series).toJSON()
                   return series
                 })
-    _end('summarize')
+    self.perf.end('summarize')
     return self
   }
 
@@ -276,41 +277,18 @@ ds.models.data.Query = function(data) {
   self.chart_data = function(type) {
     var attribute = 'chart_data_' + type
     if (typeof(self[attribute]) === 'undefined') {
-      _start('convert')
+      self.perf.start('convert')
       self[attribute] = ds.charts.process_data(self.data, type)
-      _end('convert')
+      self.perf.end('convert')
     }
     return self[attribute]
   }
 
-  /*
-   * Performance measuring helpers.
-   */
-  function _mark_name(name) {
-    return 'ds.models.data.Query/' + self.name + '/' + name
-  }
-
-  function _start(name) {
-    window.performance.mark(_mark_name(name + '_start'))
-  }
-
-  function _end(name) {
-    window.performance.mark(_mark_name(name + '_end'))
-    window.performance.measure(_mark_name(name),
-                               _mark_name(name + '_start'),
-                               _mark_name(name + '_end'))
-  }
-
-  function _get_mark(name) {
-    var entries = window.performance.getEntriesByName(_mark_name(name))
-    return entries[entries.length - 1]
-  }
-
   self.performance_data = function() {
     return {
-      load: _get_mark('load'),
-      summarize: _get_mark('summarize'),
-      convert: _get_mark('convert')
+      load:      self.perf.get_measure('load'),
+      summarize: self.perf.get_measure('summarize'),
+      convert:   self.perf.get_measure('convert')
     }
   }
 

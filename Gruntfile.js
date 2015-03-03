@@ -87,6 +87,7 @@ module.exports = function(grunt) {
         src: [
           'js/core.js',
           'js/log.js',
+          'js/perf.js',
           'js/event.js',
           'js/registry.js',
           'js/action.js',
