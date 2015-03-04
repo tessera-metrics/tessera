@@ -177,7 +177,7 @@ ds.models.data.Query = function(data) {
       options.format = 'json'
       var url = self.url(options)
       ds.event.fire(self, 'ds-data-loading')
-      $.ajax({
+      return $.ajax({
         dataType: 'jsonp',
         url: url,
         jsonp: 'jsonp',
@@ -187,17 +187,17 @@ ds.models.data.Query = function(data) {
           }
         }
       })
-       .done(function(response_data, textStatus) {
+       .fail(function(xhr, status, error) {
+        self.perf.end('load')
+        ds.manager.error('Failed to load query ' + self.name + '. ' + error)
+      })
+       .then(function(response_data, textStatus) {
         self.perf.end('load')
         _summarize(response_data)
         if (options.ready && (options.ready instanceof Function)) {
           options.ready(self)
         }
         ds.event.fire(self, 'ds-data-ready', self)
-      })
-       .error(function(xhr, status, error) {
-        self.perf.end('load')
-        ds.manager.error('Failed to load query ' + self.name + '. ' + error)
       })
     }
   }
