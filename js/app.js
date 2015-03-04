@@ -142,16 +142,16 @@ ds.app =
       var query_data = Object.keys(ds.manager.current.dashboard.definition.queries).map(function(key) {
                          return queries[key].performance_data()
                        })
-      stats.query_load = ss.mixin(query_data.map(function(d) {
+      stats.query_load = ds.perf.mixin(query_data.map(function(d) {
                                     return d.load ? d.load.duration : 0
                                   }))
-      stats.query_summarize = ss.mixin(query_data.map(function(d) {
+      stats.query_summarize = ds.perf.mixin(query_data.map(function(d) {
                                          return d.summarize ? d.summarize.duration : 0
                                        }))
-      stats.query_convert = ss.mixin(query_data.map(function(d) {
+      stats.query_convert = ds.perf.mixin(query_data.map(function(d) {
                                        return d.convert ? d.convert.duration : 0
                                      }))
-      stats.query_total = ss.mixin(query_data.map(function(d) {
+      stats.query_total = ds.perf.mixin(query_data.map(function(d) {
                                      return (d.convert ? d.convert.duration : 0)
                                           + (d.summarize ? d.summarize.duration : 0)
                                           + (d.load ? d.load.duration : 0)

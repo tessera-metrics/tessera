@@ -42,10 +42,22 @@ ds.perf = function() {
 
   self.summarize_measures = function(name) {
     var measures = self.get_all_measures(name)
-    return ss.mixin(measures.map(function(measure) {
-                      return measure.duration
-                    }))
+    return ds.perf.mixin(measures.map(function(measure) {
+                           return measure.duration
+                         }))
   }
 
   return self
+}
+
+ds.perf.mixin = function(input) {
+  var array = ss.mixin(input)
+  array.stats = {
+    median: array.median(),
+    min: array.min(),
+    max: array.max(),
+    mean: array.mean(),
+    sum: array.sum()
+  }
+  return array
 }
