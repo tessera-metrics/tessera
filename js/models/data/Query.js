@@ -196,6 +196,7 @@ ds.models.data.Query = function(data) {
         ds.event.fire(self, 'ds-data-ready', self)
       })
        .error(function(xhr, status, error) {
+        self.perf.end('load')
         ds.manager.error('Failed to load query ' + self.name + '. ' + error)
       })
     }
@@ -286,9 +287,9 @@ ds.models.data.Query = function(data) {
 
   self.performance_data = function() {
     return {
-      load:      self.perf.get_measure('load'),
-      summarize: self.perf.get_measure('summarize'),
-      convert:   self.perf.get_measure('convert')
+      load:      self.perf.get_last_measure('load'),
+      summarize: self.perf.get_last_measure('summarize'),
+      convert:   self.perf.get_last_measure('convert')
     }
   }
 
