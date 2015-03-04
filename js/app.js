@@ -134,6 +134,32 @@ ds.app =
       return self
     }
 
+    self.get_perf_stats = function() {
+      var stats = new Object()
+      stats.charts_render = ds.charts.perf.summarize_measures("render")
+
+      var queries = ds.manager.current.dashboard.definition.queries
+      var query_data = Object.keys(ds.manager.current.dashboard.definition.queries).map(function(key) {
+                         return queries[key].performance_data()
+                       })
+      stats.query_load = ss.mixin(query_data.map(function(d) {
+                                    return d.load ? d.load.duration : 0
+                                  }))
+      stats.query_summarize = ss.mixin(query_data.map(function(d) {
+                                         return d.summarize ? d.summarize.duration : 0
+                                       }))
+      stats.query_convert = ss.mixin(query_data.map(function(d) {
+                                       return d.convert ? d.convert.duration : 0
+                                     }))
+      stats.query_total = ss.mixin(query_data.map(function(d) {
+                                     return (d.convert ? d.convert.duration : 0)
+                                          + (d.summarize ? d.summarize.duration : 0)
+                                          + (d.load ? d.load.duration : 0)
+                                   }))
+
+      return stats
+    }
+
     return self
   })()
 

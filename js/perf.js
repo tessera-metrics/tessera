@@ -40,5 +40,12 @@ ds.perf = function() {
     return window.performance.getEntriesByName(_munge(name))
   }
 
+  self.summarize_measures = function(name) {
+    var measures = self.get_all_measures(name)
+    return ss.mixin(measures.map(function(measure) {
+                      return measure.duration
+                    }))
+  }
+
   return self
 }
