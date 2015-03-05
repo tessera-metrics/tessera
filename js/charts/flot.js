@@ -22,6 +22,12 @@ ds.charts.flot =
             steps: false,
             fill: false
           },
+          valueLabels: {
+            show: false,
+            showAsHtml: true,
+            labelFormatter: d3.format(',.3s'),
+            yoffset: -20
+          },
           stack: null,
           points: { show: false },
           bars: { show: false }
@@ -195,6 +201,15 @@ ds.charts.flot =
     }
 
 
+    function set_value_label_options(item, flot_options) {
+      if (item.show_max_value || item.show_min_value || item.show_last_value) {
+        flot_options.series.valueLabels.show = true
+      }
+      flot_options.series.valueLabels.showMaxValue = item.show_max_value
+      flot_options.series.valueLabels.showMinValue = item.show_min_value
+      flot_options.series.valueLabels.showLastValue = item.show_last_value
+    }
+
     self.simple_line_chart = function(e, item, query) {
       var context = {
           plot: null,
@@ -212,8 +227,11 @@ ds.charts.flot =
         }
       })
 
-      context.plot = $.plot($(e), [query.chart_data('flot')[0]],
-                            flot_options)
+      set_value_label_options(item, flot_options)
+
+      var series = query.chart_data('flot')[0]
+      context.plot = $.plot($(e), [series], flot_options)
+
       return self
     }
 
@@ -255,14 +273,13 @@ ds.charts.flot =
         },
         legend: {
           show: false
-        },
-        series: {
-          lines: {
-            show: true,
-            fill: 1
-          }
         }
       })
+
+      flot_options.series.lines.show = true
+      flot_options.series.lines.fill = 1
+
+      set_value_label_options(item, flot_options)
 
       context.plot = $.plot($(e), [query.chart_data('flot')[0]],
                             flot_options)

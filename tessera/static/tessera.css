@@ -396,3 +396,19 @@ table.ds-property-sheet td {
   display: inline-block;
   margin-right: 0.5em;
 }
+
+/* flot.valuelabels */
+
+.flotValueLabelLight {
+    display: none;
+}
+
+.flotValueLabel {
+    position: relative;
+    font-stretch: condensed;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding-left: .5em;
+    border-left-style: dotted;
+    border-left-width: 1px;
+}

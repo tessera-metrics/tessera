@@ -329,3 +329,10 @@ input[type="number"]
 {
     background: #627E96;
 }
+
+/* flot.valuelabels */
+
+.flotValueLabel {
+    color: #CCC;
+    border-left-color: #b58900;
+}
