@@ -208,7 +208,48 @@ ds.charts.nvd3 =
     }
 
     self.bar_chart = function(e, item, query) {
+      var options = item.options || {}
+      var showLegend = options.showLegend !== false
+      var data = query.chart_data('nvd3')
+      if (data.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
+        showLegend = false
+      }
+      var stacked = true
+      if (item.stack_mode === ds.charts.StackMode.NONE)
+        stacked = false
 
+        nv.addGraph(function() {
+            var width  = e.width()
+            var height = e.height()
+            var chart  = nv.models.multiBarChart()
+                           .stacked(stacked)
+                .options({
+                    showLegend: showLegend,
+                    useInteractiveGuideline: options.useInteractiveGuideline !== false,
+                    showXAxis: options.showXAxis !== false,
+                    showYAxis: options.showYAxis !== false,
+                    x: function(d) { return d[1] },
+                    y: function(d) { return d[0] }
+                })
+                .color(ds.charts.util._color_function(options.palette || ds.charts.DEFAULT_PALETTE))
+
+                .width(width)
+                .height(height)
+            chart.yAxis
+                .axisLabel(options.y1 ? options.y1.label : options.yAxisLabel)
+                .axisLabelDistance((options.y1 ? options.y1.label_distance : options.yAxisLabelDistance) || 30)
+                .tickFormat(d3.format((options.y1 ? options.y1.format : options.yAxisFormat) || ',.3s'))
+            chart.xAxis
+                .axisLabel(options.x ? options.x.label : options.xAxisLabel)
+                .tickFormat(function(d) { return moment.unix(d).tz(ds.config.DISPLAY_TIMEZONE).format('h:mm A') })
+            d3.select(e.selector + ' svg')
+                .attr('width', width)
+                .attr('height', height)
+                .datum(data)
+                .transition()
+                .call(chart)
+            return chart
+        })
     }
 
     self.process_series = function(series) {
