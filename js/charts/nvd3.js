@@ -179,17 +179,17 @@ ds.charts.nvd3 =
             var width  = e.width()
             var height = e.height()
             var chart  = nv.models.pieChart()
-            /* .options({
-               showLegend: showLegend,
+           .options({
+               showLegend: item.legend,
                useInteractiveGuideline: options.useInteractiveGuideline !== false,
-               x: function(d) { return d.key },
+               x: function(d) { return d.x },
                y: function(d) { return d.y }
-               }) */
+               })
                 .color(ds.charts.util._color_function(options.palette || ds.charts.DEFAULT_PALETTE))
                 .labelType(options.labelType || "percent")
                 .donut(options.donut !== false)
-                .donutRatio(options.donutRatio || 0.3)
-                .showLabels(options.showLabels !== false)
+                .donutRatio(item.is_pie ? 0 : 0.3)
+                .showLabels(item.labels)
                 .donutLabelsOutside(options.donutLabelsOutside !== false)
                 .width(width)
                 .height(height)
