@@ -328,6 +328,34 @@ ds.charts.flot =
       return self
     }
 
+    self.bar_chart = function(e, item, query) {
+      var context = {
+          plot: null,
+          item: item
+      }
+      var options = get_flot_options(item, {
+        legend: {
+          show: false
+        },
+        series: {
+          lines: { show: false },
+          stack: true,
+          bars: {
+            show: true,
+            lineWidth: 1,
+            barWidth: 30000 // TODO - figure this out from the data
+          }
+        }
+      })
+
+      setup_plugins(e, context)
+      context.plot = $.plot($(e), query.chart_data('flot'), options)
+
+      render_legend(item, query, options)
+
+      return self
+    }
+
     self.process_series = function(series) {
       var result = {}
       if (series.summation) {

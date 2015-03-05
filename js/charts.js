@@ -64,6 +64,13 @@ ds.charts =
       return get_renderer('donut_chart', item)(element, item, query)
     }
 
+   /**
+     * Render an historical bar chart into element.
+     */
+    self.bar_chart = function(element, item, query) {
+      return get_renderer('bar_chart', item)(element, item, query)
+    }
+
     /**
      * Convert the JSON data series returned from Graphite into the
      * format used by the current chart provider.

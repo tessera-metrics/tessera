@@ -204,6 +204,10 @@ ds.charts.nvd3 =
         })
     }
 
+    self.bar_chart = function(e, item, query) {
+
+    }
+
     self.process_series = function(series) {
       var result = {}
       if (series.summation) {
