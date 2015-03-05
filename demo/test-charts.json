@@ -29,7 +29,7 @@
         ]
       }
     }, 
-    "href": "/api/dashboard/28/definition", 
+    "href": "/api/dashboard/6/definition", 
     "items": [
       {
         "item_id": "d2", 
@@ -50,6 +50,9 @@
                     "title": "simple_time_series", 
                     "height": 1, 
                     "item_type": "simple_time_series", 
+                    "show_max_value": false, 
+                    "show_min_value": false, 
+                    "show_last_value": false, 
                     "item_id": "d6", 
                     "query": "query0", 
                     "filled": false, 
@@ -66,7 +69,52 @@
                     "title": "simple_time_series (filled)", 
                     "height": 1, 
                     "item_type": "simple_time_series", 
+                    "show_max_value": false, 
+                    "show_min_value": false, 
+                    "show_last_value": false, 
                     "item_id": "d8", 
+                    "query": "query0", 
+                    "filled": true, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d90", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d91", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "show_max_value": true, 
+                    "show_min_value": false, 
+                    "show_last_value": false, 
+                    "item_id": "d92", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d93", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "show_max_value": true, 
+                    "show_min_value": false, 
+                    "show_last_value": false, 
+                    "item_id": "d94", 
                     "query": "query0", 
                     "filled": true, 
                     "interactive": true
@@ -170,18 +218,9 @@
       {
         "item_id": "d27", 
         "item_type": "section", 
+        "title": "Chart Options", 
         "layout": "fixed", 
         "items": [
-          {
-            "item_id": "d28", 
-            "item_type": "heading", 
-            "level": "3", 
-            "text": "Height setting"
-          }, 
-          {
-            "item_id": "d29", 
-            "item_type": "separator"
-          }, 
           {
             "item_id": "d30", 
             "item_type": "row", 
@@ -192,6 +231,7 @@
                 "span": 3, 
                 "items": [
                   {
+                    "title": "Height 2", 
                     "stack_mode": "stack", 
                     "height": "2", 
                     "item_type": "stacked_area_chart", 
@@ -210,6 +250,7 @@
                 "span": 3, 
                 "items": [
                   {
+                    "title": "Height 3", 
                     "stack_mode": "stack", 
                     "height": "3", 
                     "item_type": "stacked_area_chart", 
@@ -228,6 +269,7 @@
                 "span": 3, 
                 "items": [
                   {
+                    "title": "Height 4", 
                     "stack_mode": "stack", 
                     "height": "4", 
                     "item_type": "stacked_area_chart", 
@@ -246,6 +288,7 @@
                 "span": 3, 
                 "items": [
                   {
+                    "title": "Height 5", 
                     "stack_mode": "stack", 
                     "height": "5", 
                     "item_type": "stacked_area_chart", 
@@ -482,7 +525,7 @@
       {
         "item_id": "d127", 
         "item_type": "section", 
-        "title": "Mmmmmm, pie!", 
+        "title": "Donut/Pie Charts", 
         "layout": "fixed", 
         "items": [
           {
@@ -492,33 +535,20 @@
               {
                 "item_id": "d129", 
                 "item_type": "cell", 
-                "span": "4", 
+                "span": 3, 
                 "items": [
                   {
+                    "is_pie": false, 
+                    "title": "Legend", 
+                    "labels": false, 
                     "height": "6", 
                     "item_type": "donut_chart", 
-                    "item_id": "d130", 
-                    "query": "query3", 
                     "options": {
                       "palette": "None"
                     }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d131", 
-                "item_type": "cell", 
-                "span": "4", 
-                "items": [
-                  {
-                    "height": "6", 
-                    "item_type": "donut_chart", 
-                    "item_id": "d132", 
+                    "item_id": "d130", 
                     "query": "query3", 
-                    "options": {
-                      "palette": "d3category20c"
-                    }, 
+                    "legend": true, 
                     "interactive": true
                   }
                 ]
@@ -526,16 +556,152 @@
               {
                 "item_id": "d133", 
                 "item_type": "cell", 
-                "span": "4", 
+                "span": 3, 
                 "items": [
                   {
+                    "is_pie": false, 
+                    "title": "Labels", 
+                    "labels": true, 
                     "height": "6", 
                     "item_type": "donut_chart", 
-                    "item_id": "d134", 
-                    "query": "query3", 
                     "options": {
-                      "palette": "brewerdiv4"
+                      "palette": "numbers6"
                     }, 
+                    "item_id": "d134", 
+                    "query": "query2", 
+                    "legend": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d131", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": false, 
+                    "title": "Neither", 
+                    "labels": false, 
+                    "height": "6", 
+                    "item_type": "donut_chart", 
+                    "options": {
+                      "palette": "d3category20c"
+                    }, 
+                    "item_id": "d132", 
+                    "query": "query3", 
+                    "legend": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d76", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": false, 
+                    "title": "Both", 
+                    "labels": true, 
+                    "height": "6", 
+                    "item_type": "donut_chart", 
+                    "options": {
+                      "palette": "numbers6"
+                    }, 
+                    "item_id": "d77", 
+                    "query": "query2", 
+                    "legend": true, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d78", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d79", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": true, 
+                    "title": "Legend", 
+                    "labels": false, 
+                    "height": "6", 
+                    "item_type": "donut_chart", 
+                    "options": {
+                      "palette": "None"
+                    }, 
+                    "item_id": "d80", 
+                    "query": "query3", 
+                    "legend": true, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d83", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": true, 
+                    "title": "Labels", 
+                    "labels": true, 
+                    "height": "6", 
+                    "item_type": "donut_chart", 
+                    "options": {
+                      "palette": "numbers6"
+                    }, 
+                    "item_id": "d84", 
+                    "query": "query2", 
+                    "legend": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d85", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": true, 
+                    "title": "Neither", 
+                    "labels": false, 
+                    "height": "6", 
+                    "item_type": "donut_chart", 
+                    "options": {
+                      "palette": "d3category20c"
+                    }, 
+                    "item_id": "d86", 
+                    "query": "query3", 
+                    "legend": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d87", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": true, 
+                    "title": "Both", 
+                    "labels": true, 
+                    "height": "6", 
+                    "item_type": "donut_chart", 
+                    "options": {
+                      "palette": "numbers6"
+                    }, 
+                    "item_id": "d88", 
+                    "query": "query2", 
+                    "legend": true, 
                     "interactive": true
                   }
                 ]
@@ -546,7 +712,7 @@
       }
     ]
   }, 
-  "view_href": "/dashboards/28/charts", 
+  "view_href": "/dashboards/6/charts", 
   "description": "", 
   "tags": [
     {
@@ -557,8 +723,8 @@
   ], 
   "title": "Charts", 
   "summary": "All the chart options", 
-  "definition_href": "/api/dashboard/28/definition", 
-  "href": "/api/dashboard/28", 
-  "id": 28, 
+  "definition_href": "/api/dashboard/6/definition", 
+  "href": "/api/dashboard/6", 
+  "id": 6, 
   "imported_from": null
 }

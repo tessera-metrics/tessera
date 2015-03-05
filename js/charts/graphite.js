@@ -14,7 +14,7 @@ ds.charts.graphite =
 
     function img(element, url) {
       element.html($('<img/>')
-                     .attr('src', url)
+                     .attr('src', url.href())
                      .height(element.height())
                      .width(element.width()))
     }
@@ -46,7 +46,7 @@ ds.charts.graphite =
         if (options.y1 && options.y1.max)
             png_url.setQuery('yMax', options.y1.max )
 
-        return png_url.href()
+        return png_url
     }
 
     self.standard_line_chart = function(element, item, query) {
@@ -78,7 +78,7 @@ ds.charts.graphite =
         if (options.y1 && options.y1.max)
             png_url.setQuery('yMax', options.y1.max )
 
-        return png_url.href()
+        return png_url
     }
 
     self.simple_area_chart = function(element, item, query) {
@@ -112,7 +112,7 @@ ds.charts.graphite =
         if (options.y1 && options.y1.max)
             png_url.setQuery('yMax', options.y1.max )
 
-        return png_url.href()
+        return png_url
     }
 
     self.stacked_area_chart = function(element, item, query) {
@@ -147,14 +147,16 @@ ds.charts.graphite =
         if (options.y1 && options.y1.max)
             png_url.setQuery('yMax', options.y1.max )
 
-        return png_url.href()
+        return png_url
     }
 
     self.donut_chart_url = function(item, opt) {
-      var png_url = URI(self.standard_line_chart_url(item, opt))
-            .setQuery('graphType', 'pie')
+      var png_url = self.standard_line_chart_url(item, opt)
+                        .setQuery('graphType', 'pie')
+      if (!item.legend)
+        png_url.setQuery('hideLegend', 'true')
 
-        return png_url.href()
+      return png_url
     }
 
     self.donut_chart = function(element, item, query) {
@@ -198,7 +200,7 @@ ds.charts.graphite =
         if (item.item_type === 'stacked_area_chart' && !(item.query.is_stacked())) {
             composer_url.setQuery('areaMode', 'stacked')
         }
-        return composer_url.href()
+        return composer_url
     }
 
     return self
