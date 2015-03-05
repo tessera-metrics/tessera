@@ -82,6 +82,48 @@
             ]
           }, 
           {
+            "item_id": "d90", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d91", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "show_max_value": true, 
+                    "show_min_value": false, 
+                    "show_last_value": false, 
+                    "item_id": "d92", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d93", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "show_max_value": true, 
+                    "show_min_value": false, 
+                    "show_last_value": false, 
+                    "item_id": "d94", 
+                    "query": "query0", 
+                    "filled": true, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
             "item_id": "d17", 
             "item_type": "row", 
             "items": [
@@ -176,18 +218,9 @@
       {
         "item_id": "d27", 
         "item_type": "section", 
+        "title": "Chart Options", 
         "layout": "fixed", 
         "items": [
-          {
-            "item_id": "d28", 
-            "item_type": "heading", 
-            "level": "3", 
-            "text": "Height setting"
-          }, 
-          {
-            "item_id": "d29", 
-            "item_type": "separator"
-          }, 
           {
             "item_id": "d30", 
             "item_type": "row", 
@@ -198,6 +231,7 @@
                 "span": 3, 
                 "items": [
                   {
+                    "title": "Height 2", 
                     "stack_mode": "stack", 
                     "height": "2", 
                     "item_type": "stacked_area_chart", 
@@ -216,6 +250,7 @@
                 "span": 3, 
                 "items": [
                   {
+                    "title": "Height 3", 
                     "stack_mode": "stack", 
                     "height": "3", 
                     "item_type": "stacked_area_chart", 
@@ -234,6 +269,7 @@
                 "span": 3, 
                 "items": [
                   {
+                    "title": "Height 4", 
                     "stack_mode": "stack", 
                     "height": "4", 
                     "item_type": "stacked_area_chart", 
@@ -252,6 +288,7 @@
                 "span": 3, 
                 "items": [
                   {
+                    "title": "Height 5", 
                     "stack_mode": "stack", 
                     "height": "5", 
                     "item_type": "stacked_area_chart", 
