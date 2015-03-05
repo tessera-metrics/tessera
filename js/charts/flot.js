@@ -232,16 +232,6 @@ ds.charts.flot =
       var series = query.chart_data('flot')[0]
       context.plot = $.plot($(e), [series], flot_options)
 
-      // if (item.show_max_value && series.summation.max_index) {
-      //   context.plot.highlight(0, series.summation.max_index)
-      // }
-      // if (item.show_min_value && series.summation.min_index) {
-      //   context.plot.highlight(0, series.summation.min_index)
-      // }
-      // if (item.show_last_value && series.length) {
-      //   context.plot.highlight(0, series.length - 1)
-      // }
-
       return self
     }
 
