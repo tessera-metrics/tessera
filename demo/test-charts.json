@@ -709,6 +709,67 @@
             ]
           }
         ]
+      }, 
+      {
+        "item_id": "d95", 
+        "item_type": "section", 
+        "title": "Bar Charts", 
+        "layout": "fixed", 
+        "items": [
+          {
+            "item_id": "d96", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d97", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "bar_chart", 
+                    "item_id": "d98", 
+                    "query": "query1", 
+                    "options": {}
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d99", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "stack_mode": "percent", 
+                    "height": "3", 
+                    "item_type": "bar_chart", 
+                    "item_id": "d100", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "numbers6"
+                    }
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d101", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "stack_mode": "none", 
+                    "height": "3", 
+                    "item_type": "bar_chart", 
+                    "item_id": "d102", 
+                    "query": "query1", 
+                    "options": {}
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   }, 

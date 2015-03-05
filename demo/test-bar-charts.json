@@ -1,0 +1,160 @@
+{
+  "category": "Test", 
+  "definition": {
+    "item_id": "d0", 
+    "item_type": "dashboard_definition", 
+    "queries": {
+      "positive": {
+        "name": "positive", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query0\"))"
+        ]
+      }, 
+      "multi": {
+        "name": "multi", 
+        "targets": [
+          "group(\nabsolute(randomWalkFunction(\"query0\")),\nabsolute(randomWalkFunction(\"query1\")),\nabsolute(randomWalkFunction(\"query2\")),\nabsolute(randomWalkFunction(\"query3\")),\nabsolute(randomWalkFunction(\"query4\"))\n)"
+        ]
+      }, 
+      "negative": {
+        "name": "negative", 
+        "targets": [
+          "randomWalkFunction(\"query1\")"
+        ]
+      }
+    }, 
+    "href": "/api/dashboard/8/definition", 
+    "items": [
+      {
+        "item_id": "d3", 
+        "item_type": "section", 
+        "layout": "fixed", 
+        "items": [
+          {
+            "item_id": "d4", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d5", 
+                "item_type": "cell", 
+                "span": "12", 
+                "items": [
+                  {
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "bar_chart", 
+                    "item_id": "d7", 
+                    "query": "positive", 
+                    "options": {}
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d8", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d9", 
+                "item_type": "cell", 
+                "span": "12", 
+                "items": [
+                  {
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "bar_chart", 
+                    "item_id": "d10", 
+                    "query": "negative", 
+                    "options": {}
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d11", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d12", 
+                "item_type": "cell", 
+                "span": "12", 
+                "items": [
+                  {
+                    "title": "Stack - Normal", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "bar_chart", 
+                    "item_id": "d13", 
+                    "query": "multi", 
+                    "options": {}
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d15", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d16", 
+                "item_type": "cell", 
+                "span": "12", 
+                "items": [
+                  {
+                    "title": "Stack - Percent", 
+                    "stack_mode": "percent", 
+                    "height": "3", 
+                    "item_type": "bar_chart", 
+                    "item_id": "d17", 
+                    "query": "multi", 
+                    "options": {}
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d18", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d19", 
+                "item_type": "cell", 
+                "span": "12", 
+                "items": [
+                  {
+                    "title": "Stack - None", 
+                    "stack_mode": "none", 
+                    "height": "3", 
+                    "item_type": "bar_chart", 
+                    "item_id": "d20", 
+                    "query": "multi", 
+                    "options": {}
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }, 
+  "view_href": "/dashboards/8/bar-charts", 
+  "description": "", 
+  "tags": [
+    {
+      "count": 2, 
+      "id": 4, 
+      "name": "charts"
+    }
+  ], 
+  "title": "Bar Charts", 
+  "summary": "", 
+  "definition_href": "/api/dashboard/8/definition", 
+  "href": "/api/dashboard/8", 
+  "id": 8, 
+  "imported_from": null
+}
