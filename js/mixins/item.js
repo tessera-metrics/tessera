@@ -64,21 +64,27 @@ ds.models.item =
 
       self.render = function() {
         var item_type = ds.models[self.item_type]
-        if (item_type.template) {
-          if (item_type.data_handler && (self.query || self.query_override)) {
-            var query = self.query_override || self.query
-            if (typeof(query) === 'string') {
-              console.log('ERROR: unresolved query ' + query + ' for item ' + self.item_id)
-              return
-            }
-            query.on_load(function(q) {
-              item_type.data_handler(q, self)
-            })
-          }
-          return item_type.template({item: self})
-        } else {
+
+        if (!item_type) {
           return "<p>Unknown item type <code>" + self.item_type + "</code></p>"
         }
+
+        if (!item_type.template) {
+          return "<p>Item type <code>" + self.item_type + "</code> is missing a template.</p>"
+        }
+
+        if (item_type.data_handler && (self.query || self.query_override)) {
+          var query = self.query_override || self.query
+          if (typeof(query) === 'string') {
+            return '<p>ERROR: unresolved query <code>' + query
+                 + '</code> for item <code>'
+                 + self.item_id + '</code>'
+          }
+          query.on_load(function(q) {
+            item_type.data_handler(q, self)
+          })
+        }
+        return item_type.template({item: self})
       }
 
       self.visit = function(visitor) {
