@@ -396,3 +396,13 @@ table.ds-property-sheet td {
   display: inline-block;
   margin-right: 0.5em;
 }
+
+/* flot.valuelabels */
+
+.valueLabelLight {
+    display: none;
+}
+
+.valueLabel {
+    font-weight: 600;
+}

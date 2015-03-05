@@ -168,13 +168,8 @@ h1 .ds-secondary-title {
     border: 1px solid #649EB9;
 }
 
-/**
- * Flot Value Labels
- */
-.valueLabelLight {
-    display: none;
-}
+/* flot.valuelabels */
 
-.valueLabels {
-    font-weight: bold;
+.valueLabel {
+    color: gray;
 }

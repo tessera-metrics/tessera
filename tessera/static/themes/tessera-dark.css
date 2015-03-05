@@ -329,3 +329,9 @@ input[type="number"]
 {
     background: #627E96;
 }
+
+/* flot.valuelabels */
+
+.valueLabel {
+    color: #CCC;
+}

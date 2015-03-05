@@ -21,3 +21,9 @@ h1 .ds-primary-title {
     background-color: white;
     border: 1px solid #888;
 }
+
+/* flot.valuelabels */
+
+.valueLabel {
+    color: black;
+}
