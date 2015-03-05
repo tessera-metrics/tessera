@@ -10,7 +10,7 @@ ds.register_dashboard_item('stacked_area_chart', {
     var self = limivorous.observable()
                          .extend(ds.models.item, {item_type: 'stacked_area_chart'})
                          .extend(ds.models.chart)
-                         .property('stack_mode', {init: 'stack'})
+                         .property('stack_mode', {init: ds.charts.StackMode.NORMAL})
                          .build()
     if (data) {
       if (data.stack_mode) {
@@ -30,8 +30,6 @@ ds.register_dashboard_item('stacked_area_chart', {
   },
 
   data_handler: function(query, item) {
-    ds.log.logger('tessera.items.stacked_area_chart').debug('data_handler(): '
-                                                           + query.name + '/' + item.item_id)
     ds.charts.stacked_area_chart($('#' + item.item_id + ' .ds-graph-holder'), item, query)
   },
 
@@ -42,7 +40,12 @@ ds.register_dashboard_item('stacked_area_chart', {
       id: 'stack_mode',
       type: 'select',
       edit_options: {
-        source: ds.charts.STACK_MODES
+        source: [
+          ds.charts.StackMode.NONE,
+          ds.charts.StackMode.NORMAL,
+          ds.charts.StackMode.PERCENT,
+          ds.charts.StackMode.STREAM
+        ]
       }
     }
   ].concat(ds.models.chart.interactive_properties,

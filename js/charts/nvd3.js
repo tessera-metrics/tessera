@@ -116,6 +116,9 @@ ds.charts.nvd3 =
     }
 
     self.stacked_area_chart = function(e, item, query) {
+      if ( item.stack_mode && (item.stack_mode == ds.charts.StackMode.NONE) ) {
+        return self.standard_line_chart(e, item, query)
+      }
         var options = item.options || {}
         var showLegend = options.showLegend !== false
       var data = query.chart_data('nvd3')
