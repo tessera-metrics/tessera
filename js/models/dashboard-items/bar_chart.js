@@ -10,13 +10,13 @@ ds.register_dashboard_item('bar_chart', {
     var self = limivorous.observable()
                          .extend(ds.models.item, {item_type: 'bar_chart'})
                          .extend(ds.models.chart)
+                         .property('stack_mode', {init: ds.charts.StackMode.NORMAL})
                          .build()
 
-    // Properties to add:
-    //  stack_mode (none, stack, percent)
-
     if (data) {
-      // TODO
+      if (data.stack_mode) {
+        self.stack_mode = data.stack_mode
+      }
     }
 
     ds.models.chart.init(self, data)
@@ -24,7 +24,7 @@ ds.register_dashboard_item('bar_chart', {
 
     self.toJSON = function() {
       return ds.models.chart.json(self, ds.models.item.json(self, {
-        // TODO
+        stack_mode: self.stack_mode
       }))
     }
 
@@ -38,7 +38,17 @@ ds.register_dashboard_item('bar_chart', {
   template: ds.templates.models.bar_chart,
 
   interactive_properties: [
-    // TODO
+    {
+      id: 'stack_mode',
+      type: 'select',
+      edit_options: {
+        source: [
+          ds.charts.StackMode.NONE,
+          ds.charts.StackMode.NORMAL,
+          ds.charts.StackMode.PERCENT
+        ]
+      }
+    }
   ].concat(ds.models.chart.interactive_properties,
            ds.models.item.interactive_properties)
 
