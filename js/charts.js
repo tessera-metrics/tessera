@@ -109,14 +109,12 @@ ds.charts =
       }
     }
 
-    self.STACK_MODE_NORMAL  = 'stack'
-    self.STACK_MODE_PERCENT = 'percent'
-    self.STACK_MODE_STREAM  = 'stream'
-    self.STACK_MODES = [
-      self.STACK_MODE_NORMAL,
-      self.STACK_MODE_PERCENT,
-      self.STACK_MODE_STREAM
-    ]
+    self.StackMode = {
+      NONE:    'none',
+      NORMAL:  'stack',
+      PERCENT: 'percent',
+      STREAM:  'stream'
+    }
 
     return self
 

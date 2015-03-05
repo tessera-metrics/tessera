@@ -123,9 +123,9 @@ ds.charts.nvd3 =
             showLegend = false
         }
       var stack_style = options.style || 'stack'
-      if ( item.stack_mode === ds.charts.STACK_MODE_PERCENT ) {
+      if ( item.stack_mode === ds.charts.StackMode.PERCENT ) {
         stack_style = 'expand'
-      } else if ( item.stack_mode === ds.charts.STACK_MODE_STREAM ) {
+      } else if ( item.stack_mode === ds.charts.StackMode.STREAM ) {
         stack_style = 'stream'
       }
         nv.addGraph(function() {

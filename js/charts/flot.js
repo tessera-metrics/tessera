@@ -155,7 +155,7 @@ ds.charts.flot =
         var item   = items[0]
         var point  = series[item.serieIndex].data[item.dataIndex]
         var format = d3.format(',.3s')
-        var is_percent = context.item.stack_mode && (context.item.stack_mode === ds.charts.STACK_MODE_PERCENT)
+        var is_percent = context.item.stack_mode && (context.item.stack_mode === ds.charts.StackMode.PERCENT)
 
         var contents = ds.templates.flot.tooltip({
           time: point[0],
@@ -308,7 +308,7 @@ ds.charts.flot =
         }
       })
 
-      if (item.stack_mode === ds.charts.STACK_MODE_PERCENT) {
+      if (item.stack_mode === ds.charts.StackMode.PERCENT) {
         flot_options.series.stack = false
         flot_options.series.stackpercent = true
         flot_options.yaxes[0].max = 100
