@@ -374,6 +374,7 @@ table.ds-property-sheet td {
 
 .ds-legend-cell {
   display: inline-block;
+  white-space: nowrap;
 }
 
 .ds-legend-cell .color {
