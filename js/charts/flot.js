@@ -336,10 +336,28 @@ ds.charts.flot =
           lines: { show: false },
           points: { show: false },
           pie: {
-            show: true
+            show: true,
+            radius: 'auto',
+            innerRadius: 0.35,
+            label: {
+              show: false
+            }
           }
+        },
+        grid: {
+          show: false,
+          hoverable: true,
+          clickable: true
         }
       })
+
+      if (item.labels) {
+        options.series.pie.label.show = true
+      }
+      if (item.is_pie) {
+        options.series.pie.innerRadius = 0
+      }
+
       var transform = item.transform || 'sum'
       var data = query.chart_data('flot').map(function(series) {
                    return {
@@ -352,7 +370,9 @@ ds.charts.flot =
       setup_plugins(e, context)
       context.plot = $.plot($(e), data, options)
 
-      render_legend(item, query, options)
+      if (item.legend) {
+        render_legend(item, query, options)
+      }
       return self
     }
 
