@@ -267,6 +267,7 @@ h1.page-title .ds-summary {
 
 /* flot.valuelabels */
 
-.valueLabel {
+.flotValueLabel {
     color: #93a1a1;
+    border-left-color: #b58900;
 }

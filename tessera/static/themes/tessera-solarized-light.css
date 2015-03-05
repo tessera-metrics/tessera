@@ -114,6 +114,7 @@
 
 /* flot.valuelabels */
 
-.valueLabel {
-    color: #222;
+.flotValueLabel {
+    color: #586E74;
+    border-left-color: #B4881C;
 }

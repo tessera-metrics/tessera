@@ -83,7 +83,7 @@
             {
                plot.getPlaceholder().find("#valueLabels"+ii).remove();
             }
-            var html = '<div id="valueLabels' + series.seriesIndex + '" class="valueLabels">';
+            var html = '<div id="valueLabels' + series.seriesIndex + '" class="flotValueLabels">';
             var last_val = null;
             var last_x = -1000;
             var last_y = -1000;
@@ -261,7 +261,7 @@
                         xx = xx + xoffset;
                         yy = yy + 6 + yoffset;
 
-                        var head = '<div style="left:' + xx + 'px;top:' + yy + 'px;" class="valueLabel';
+                        var head = '<div style="left:' + xx + 'px;top:' + yy + 'px;" class="flotValueLabel';
                         var tail = '">' + val + '</div>';
                         html += head + "Light" + tail + head + tail;
                      }

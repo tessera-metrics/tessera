@@ -332,6 +332,7 @@ input[type="number"]
 
 /* flot.valuelabels */
 
-.valueLabel {
+.flotValueLabel {
     color: #CCC;
+    border-left-color: #b58900;
 }

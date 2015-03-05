@@ -170,6 +170,7 @@ h1 .ds-secondary-title {
 
 /* flot.valuelabels */
 
-.valueLabel {
+.flotValueLabel {
     color: gray;
+    border-left-color: #A95353;
 }

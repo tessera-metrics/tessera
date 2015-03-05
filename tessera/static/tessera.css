@@ -399,10 +399,16 @@ table.ds-property-sheet td {
 
 /* flot.valuelabels */
 
-.valueLabelLight {
+.flotValueLabelLight {
     display: none;
 }
 
-.valueLabel {
-    font-weight: 600;
+.flotValueLabel {
+    position: relative;
+    font-stretch: condensed;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding-left: .5em;
+    border-left-style: dotted;
+    border-left-width: 1px;
 }

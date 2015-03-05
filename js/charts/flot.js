@@ -26,7 +26,7 @@ ds.charts.flot =
             show: false,
             showAsHtml: true,
             labelFormatter: d3.format(',.3s'),
-            yoffset: -10
+            yoffset: -20
           },
           stack: null,
           points: { show: false },

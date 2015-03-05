@@ -1,13 +1,13 @@
-.valueLabels {
+.flotValueLabels {
 	color:black;
 }
-div.valueLabelLight {
+.flotValueLabelLight {
 	opacity:0.5;
 	background-color: white;
 	border:none;
 	position:absolute;
 }
-div.valueLabel {
+.flotValueLabel {
 	position:absolute;
 	border:none;
 }
