@@ -324,7 +324,35 @@ ds.charts.flot =
     }
 
     self.donut_chart = function(e, item, query) {
-      ds.charts.nvd3.donut_chart(e, item, query)
+      var context = {
+          plot: null,
+          item: item
+      }
+      var options = get_flot_options(item, {
+        legend: {
+          show: false
+        },
+        series: {
+          lines: { show: false },
+          points: { show: false },
+          pie: {
+            show: true
+          }
+        }
+      })
+      var transform = item.transform || 'sum'
+      var data = query.chart_data('flot').map(function(series) {
+                   return {
+                     label: series.label,
+                     summation: series.summation,
+                     data: [ series.label, series.summation[transform] ]
+                   }
+                 })
+
+      setup_plugins(e, context)
+      context.plot = $.plot($(e), data, options)
+
+      render_legend(item, query, options)
       return self
     }
 
