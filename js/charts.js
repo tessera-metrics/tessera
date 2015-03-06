@@ -71,6 +71,14 @@ ds.charts =
       return get_renderer('bar_chart', item)(element, item, query)
     }
 
+   /**
+     * Render a bar chart of the data series' summations into
+     * element. The x-axis will be the series names, rather than time.
+     */
+    self.discrete_bar_chart = function(element, item, query) {
+      return get_renderer('discrete_bar_chart', item)(element, item, query)
+    }
+
     /**
      * Convert the JSON data series returned from Graphite into the
      * format used by the current chart provider.

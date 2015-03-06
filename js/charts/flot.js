@@ -336,6 +336,12 @@ ds.charts.flot =
         legend: {
           show: false
         },
+        crosshair: {
+          mode: null
+        },
+        multihighlight: {
+          mode: null
+        },
         series: {
           lines: { show: false },
           points: { show: false },
@@ -410,8 +416,6 @@ ds.charts.flot =
         options.series.stackpercent = false
       }
 
-
-
       setup_plugins(e, context)
       context.plot = $.plot($(e), query.chart_data('flot'), options)
 
@@ -419,6 +423,77 @@ ds.charts.flot =
 
       return self
     }
+
+    self.discrete_bar_chart = function(e, item, query) {
+      console.log('ds.charts.flot.discrete_bar_chart()')
+      var is_horizontal = item.orientation === 'horizontal'
+      var context = {
+          plot: null,
+          item: item
+      }
+      var options = get_flot_options(item, {
+        legend: {
+          show: false
+        },
+        xaxis: {
+        },
+        grid: {
+          hoverable: true,
+          show: true,
+          borderWidth: 0,
+          color: 'transparent',
+          labelMargin: 10,
+        },
+        multihighlight: {
+          mode: null
+        },
+        crosshair: {
+          mode: null
+        },
+        series: {
+          lines: { show: false },
+          bars: {
+            horizontal: is_horizontal,
+            show: true,
+            barWidth: 0.8,
+            align: "center",
+            fill: 0.75
+          }
+        }
+      })
+
+      var transform = item.transform || 'sum'
+      var index = 0
+      var data = query.chart_data('flot').map(function(series) {
+                   return {
+                     label: series.label,
+                     data: [
+                       is_horizontal
+                            ? [ series.summation[transform], index]
+                            : [index, series.summation[transform]]
+                     ],
+                     color: options.colors[options.colors % index++]
+                   }
+                 })
+      index = 0
+      var ticks = data.map(function(series) {
+                              return [index++, series.label]
+                            })
+      if (is_horizontal) {
+        options.yaxes[0].ticks = ticks
+        options.xaxis.axisLabel = options.yaxes[0].axisLabel
+        options.yaxes[0].axisLabel = null
+      } else {
+        options.xaxis.ticks = ticks
+        options.xaxis.axisLabel = null
+      }
+
+      setup_plugins(e, context)
+      context.plot = $.plot($(e), data, options)
+
+      return self
+    }
+
 
     self.process_series = function(series) {
       var result = {}
