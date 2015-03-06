@@ -1,7 +1,7 @@
 ds.register_dashboard_item('bar_chart', {
 
   display_name: 'Bar Chart',
-  icon: 'fa fa-image',
+  icon: 'fa fa-bar-chart',
   category: 'chart',
 
   constructor: function(data) {
