@@ -8,6 +8,7 @@ ds.charts.flot =
   (function() {
 
     var self = {}
+    var log = ds.log.logger('ds.charts.flot')
 
     self.CHART_IMPL_TYPE = 'flot'
 
@@ -214,7 +215,12 @@ ds.charts.flot =
           query: query
       }
       setup_plugins(e, context)
-      context.plot = $.plot($(e), data, options)
+      try {
+        context.plot = $.plot($(e), data, options)
+      } catch (ex) {
+        log.error('Error rendering item ' + item.item_id
+                 + ': ' + ex.message)
+      }
       if (item.legend) {
         render_legend(item, query, options)
       }
