@@ -29,7 +29,7 @@
         ]
       }
     }, 
-    "href": "/api/dashboard/8/definition", 
+    "href": "/api/dashboard/7/definition", 
     "items": [
       {
         "item_id": "d22", 
@@ -65,7 +65,7 @@
               {
                 "item_id": "d27", 
                 "item_type": "cell", 
-                "span": 4, 
+                "span": 6, 
                 "items": [
                   {
                     "orientation": "horizontal", 
@@ -73,6 +73,7 @@
                     "transform": "sum", 
                     "height": "4", 
                     "item_type": "discrete_bar_chart", 
+                    "legend": "", 
                     "item_id": "d28", 
                     "query": "query3", 
                     "options": {
@@ -107,9 +108,10 @@
                     "stack_mode": "stack", 
                     "height": "3", 
                     "item_type": "bar_chart", 
+                    "options": {}, 
                     "item_id": "d7", 
                     "query": "positive", 
-                    "options": {}
+                    "legend": "simple"
                   }
                 ]
               }
@@ -128,9 +130,10 @@
                     "stack_mode": "stack", 
                     "height": "3", 
                     "item_type": "bar_chart", 
+                    "options": {}, 
                     "item_id": "d10", 
                     "query": "negative", 
-                    "options": {}
+                    "legend": "simple"
                   }
                 ]
               }
@@ -150,6 +153,7 @@
                     "stack_mode": "stack", 
                     "height": "3", 
                     "item_type": "bar_chart", 
+                    "legend": "simple", 
                     "item_id": "d13", 
                     "query": "multi", 
                     "options": {}
@@ -172,6 +176,7 @@
                     "stack_mode": "percent", 
                     "height": "3", 
                     "item_type": "bar_chart", 
+                    "legend": "simple", 
                     "item_id": "d17", 
                     "query": "multi", 
                     "options": {}
@@ -194,6 +199,7 @@
                     "stack_mode": "none", 
                     "height": "3", 
                     "item_type": "bar_chart", 
+                    "legend": "simple", 
                     "item_id": "d20", 
                     "query": "multi", 
                     "options": {}
@@ -206,24 +212,24 @@
       }
     ]
   }, 
-  "view_href": "/dashboards/8/bar-charts", 
+  "view_href": "/dashboards/7/charts-bar-discrete-bar", 
   "description": "", 
   "tags": [
     {
       "count": 6, 
-      "id": 3, 
+      "id": 1, 
       "name": "test"
     }, 
     {
       "count": 4, 
-      "id": 4, 
+      "id": 2, 
       "name": "charts"
     }
   ], 
-  "title": "Bar Charts", 
+  "title": "Charts - Bar & Discrete Bar", 
   "summary": "", 
-  "definition_href": "/api/dashboard/8/definition", 
-  "href": "/api/dashboard/8", 
-  "id": 8, 
+  "definition_href": "/api/dashboard/7/definition", 
+  "href": "/api/dashboard/7", 
+  "id": 7, 
   "imported_from": null
 }
