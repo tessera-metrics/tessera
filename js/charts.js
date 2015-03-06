@@ -10,6 +10,8 @@
  *   * simple_area_chart
  *   * stacked_area_chart
  *   * donut_chart
+ *   * bar_chart
+ *   * discrete_bar_chart
  *   * process_series
  */
 ds.charts =
@@ -74,6 +76,21 @@ ds.charts =
       return get_renderer('donut_chart', item)(element, item, query)
     }
 
+   /**
+     * Render an historical bar chart into element.
+     */
+    self.bar_chart = function(element, item, query) {
+      return get_renderer('bar_chart', item)(element, item, query)
+    }
+
+   /**
+     * Render a bar chart of the data series' summations into
+     * element. The x-axis will be the series names, rather than time.
+     */
+    self.discrete_bar_chart = function(element, item, query) {
+      return get_renderer('discrete_bar_chart', item)(element, item, query)
+    }
+
     /**
      * Convert the JSON data series returned from Graphite into the
      * format used by the current chart provider.
@@ -112,14 +129,12 @@ ds.charts =
       }
     }
 
-    self.STACK_MODE_NORMAL  = 'stack'
-    self.STACK_MODE_PERCENT = 'percent'
-    self.STACK_MODE_STREAM  = 'stream'
-    self.STACK_MODES = [
-      self.STACK_MODE_NORMAL,
-      self.STACK_MODE_PERCENT,
-      self.STACK_MODE_STREAM
-    ]
+    self.StackMode = {
+      NONE:    'none',
+      NORMAL:  'stack',
+      PERCENT: 'percent',
+      STREAM:  'stream'
+    }
 
     return self
 

@@ -264,3 +264,10 @@ h1.page-title .ds-summary {
 .select2-arrow {
     border-left: 1px solid #586E75;
 }
+
+/* flot.valuelabels */
+
+.flotValueLabel {
+    color: #93a1a1;
+    border-left-color: #b58900;
+}

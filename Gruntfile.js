@@ -34,7 +34,8 @@ module.exports = function(grunt) {
           'tessera/static/css/nv.d3.css',
           'tessera/static/css/select2.css',
           'tessera/static/css/select2-bootstrap.css',
-          'tessera/static/css/dataTables.bootstrap.css'
+          'tessera/static/css/dataTables.bootstrap.css',
+          'tessera/static/css/jquery.flot.valuelabels.css'
         ],
         dest: 'tessera/static/css/bundle.css'
       },
@@ -69,11 +70,12 @@ module.exports = function(grunt) {
           'tessera/static/js/flot/jquery.flot.js',
           'tessera/static/js/flot/jquery.flot.time.js',
           'tessera/static/js/flot/jquery.flot.multihighlight.js',
-          'tessera/static/js/flot/jquery.flot.tooltip.js',
           'tessera/static/js/flot/jquery.flot.stack.js',
           'tessera/static/js/flot/jquery.flot.stackpercent.js',
           'tessera/static/js/flot/jquery.flot.crosshair.js',
           'tessera/static/js/flot/jquery.flot.axislabels.js',
+          'tessera/static/js/flot/jquery.flot.valuelabels.js',
+          'tessera/static/js/flot/jquery.flot.pie.js',
           'tessera/static/js/simple_statistics.js',
           'tessera/static/js/equalize.min.js',
           'tessera/static/js/usertiming.js'

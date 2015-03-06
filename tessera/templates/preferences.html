@@ -109,6 +109,8 @@
             </div>
           </div>
 
+          <hr/>
+
           <!-- Chart Style -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="chartRadios">Default Chart Style</label>
@@ -207,6 +209,34 @@
 
             </div>
           </div>
+
+          <hr/>
+
+          <!-- Property Sheet Auto-Close Timeout -->
+          <div class="form-group">
+            <div class="col-md-4"
+                 style="text-align:right">
+              <label class="control-label" for="numberPropertySheetAutoClose">Property Sheet Auto-Close Time</label><br/>
+              <small>In seconds. Set value to 0 to disable autoclose.</small>
+            </div>
+            <div class="col-md-6">
+              <input type="number" step="1" id="numberPropertySheetAutoClose" name="numberPropertySheetAutoClose"
+                     class="form-control"
+                     value="{{ctx.get_int('propsheet_autoclose_seconds', config.get('DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS',3))}}"
+                     onchange="dsSetPref('propsheet_autoclose_seconds', this.value)">
+              </input>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-default"
+                      id="ds-reset-propertysheet-timeout-button"
+                      data-toggle="tooltip"
+                      title="Reset to Default">
+                <i class="fa fa-angle-double-down"></i>
+              </button>
+            </div>
+
+          </div>
+
         </fieldset>
       </form>
 
@@ -263,6 +293,13 @@
    dsSetPref('graphite_url', e.value)
    return false
  })
+
+ $(document).on('click', '#ds-reset-propertysheet-timeout-button', function(e) {
+   $('#numberPropertySheetAutoClose')[0].value = {{config.get('DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS',3)}}
+   dsSetPref('propsheet_autoclose_seconds', e.value)
+   return false
+ })
+
 
 </script>
 

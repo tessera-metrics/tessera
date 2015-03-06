@@ -191,8 +191,6 @@
     return $('#' + item.item_id + '-details').is(':visible')
   }
 
-  var PROPERTY_SHEET_TIMEOUT = 3000
-
   /**
    * Event handlers to show & hide the action bar & property sheet for
    * dashboard items.
@@ -218,10 +216,13 @@
   $(document).on('mouseleave', '.ds-edit-bar', function(event) {
     var $elt = $(this)
     var id   = $elt.attr('data-ds-item-id')
-    var timeout_id = window.setTimeout(function() {
-                       ds.edit.hide_details(id)
-                     }, PROPERTY_SHEET_TIMEOUT)
-    $elt.attr('data-ds-timeout-id', timeout_id)
+    var timeout = ds.config.PROPSHEET_AUTOCLOSE_SECONDS
+    if (timeout && timeout > 0) {
+      var timeout_id = window.setTimeout(function() {
+                         ds.edit.hide_details(id)
+                       }, timeout * 1000)
+      $elt.attr('data-ds-timeout-id', timeout_id)
+    }
   })
 
   /**

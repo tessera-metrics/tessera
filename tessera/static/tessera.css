@@ -374,6 +374,7 @@ table.ds-property-sheet td {
 
 .ds-legend-cell {
   display: inline-block;
+  white-space: nowrap;
 }
 
 .ds-legend-cell .color {
@@ -395,4 +396,20 @@ table.ds-property-sheet td {
   width: 1em;
   display: inline-block;
   margin-right: 0.5em;
+}
+
+/* flot.valuelabels */
+
+.flotValueLabelLight {
+    display: none;
+}
+
+.flotValueLabel {
+    position: relative;
+    font-stretch: condensed;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding-left: .5em;
+    border-left-style: dotted;
+    border-left-width: 1px;
 }
