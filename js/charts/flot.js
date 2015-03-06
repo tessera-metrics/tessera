@@ -205,6 +205,22 @@ ds.charts.flot =
       elt.equalize({equalize: 'outerWidth', reset: true })
     }
 
+    function render(e, item, query, options, data) {
+      if (typeof(data) === 'undefined')
+        data = query.chart_data('flot')
+      var context = {
+          plot: null,
+          item: item,
+          query: query
+      }
+      setup_plugins(e, context)
+      context.plot = $.plot($(e), data, options)
+      if (item.legend) {
+        render_legend(item, query, options)
+      }
+      return context
+    }
+
     /* =============================================================================
        Chart provider interface
        ============================================================================= */
@@ -222,40 +238,21 @@ ds.charts.flot =
     }
 
     self.simple_line_chart = function(e, item, query) {
-      var context = {
-          plot: null,
-          item: item
-      }
       var options = get_flot_options(item, {
         grid: { show: false }
       })
-      var data = [query.chart_data('flot')[0]]
 
-      setup_plugins(e, context)
-      context.plot = $.plot($(e), data, options)
+      render(e, item, query, options, [query.chart_data('flot')[0]])
 
       return self
     }
 
     self.standard_line_chart = function(e, item, query) {
-      var context = {
-          plot: null,
-          item: item
-      }
-      var options = get_flot_options(item)
-
-      setup_plugins(e, context)
-      context.plot = $.plot($(e), query.chart_data('flot'), options)
-      render_legend(item, query, options)
-
+      render(e, item, query, get_flot_options(item))
       return self
     }
 
     self.simple_area_chart = function(e, item, query) {
-      var context = {
-          plot: null,
-          item: item
-      }
       var options = get_flot_options(item, {
         grid: { show: false },
         series: {
@@ -263,19 +260,13 @@ ds.charts.flot =
           grid: { show: false }
         }
       })
-      var data = [query.chart_data('flot')[0]]
 
-      setup_plugins(e, context)
-      context.plot = $.plot($(e), data, options)
+      render(e, item, query, options, [query.chart_data('flot')[0]])
 
       return self
     }
 
     self.stacked_area_chart = function(e, item, query) {
-      var context = {
-          plot: null,
-          item: item
-      }
       var options = get_flot_options(item, {
         series: {
           lines: { fill: 1},
@@ -294,19 +285,13 @@ ds.charts.flot =
         options.series.lines.fill = false
       }
 
-      setup_plugins(e, context)
-      context.plot = $.plot($(e), query.chart_data('flot'), options)
-
-      render_legend(item, query, options)
+      item.legend = true
+      render(e, item, query, options)
 
       return self
     }
 
     self.donut_chart = function(e, item, query) {
-      var context = {
-          plot: null,
-          item: item
-      }
       var options = get_flot_options(item, {
         crosshair: { mode: null },
         multihighlight: { mode: null },
@@ -331,20 +316,12 @@ ds.charts.flot =
                    }
                  })
 
-      setup_plugins(e, context)
-      context.plot = $.plot($(e), data, options)
-      if (item.legend) {
-        render_legend(item, query, options)
-      }
+      render(e, item, query, options, data)
 
       return self
     }
 
     self.bar_chart = function(e, item, query) {
-      var context = {
-          plot: null,
-          item: item
-      }
       var options = get_flot_options(item, {
         series: {
           lines: { show: false },
@@ -366,21 +343,13 @@ ds.charts.flot =
         options.series.stackpercent = false
       }
 
-      setup_plugins(e, context)
-      context.plot = $.plot($(e), query.chart_data('flot'), options)
-      if (item.legend) {
-        render_legend(item, query, options)
-      }
+      render(e, item, query, options)
 
       return self
     }
 
     self.discrete_bar_chart = function(e, item, query) {
       var is_horizontal = item.orientation === 'horizontal'
-      var context = {
-          plot: null,
-          item: item
-      }
       var options = get_flot_options(item, {
         xaxis: { mode: null },
         multihighlight: { mode: null },
@@ -430,8 +399,7 @@ ds.charts.flot =
         options.xaxis.axisLabel = null
       }
 
-      setup_plugins(e, context)
-      context.plot = $.plot($(e), data, options)
+      render(e, item, query, options, data)
 
       return self
     }
