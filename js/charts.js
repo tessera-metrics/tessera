@@ -10,6 +10,8 @@
  *   * simple_area_chart
  *   * stacked_area_chart
  *   * donut_chart
+ *   * bar_chart
+ *   * discrete_bar_chart
  *   * process_series
  */
 ds.charts =

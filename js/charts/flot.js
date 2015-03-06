@@ -11,6 +11,10 @@ ds.charts.flot =
 
     self.CHART_IMPL_TYPE = 'flot'
 
+    /* =============================================================================
+       Helpers
+       ============================================================================= */
+
     function get_default_options() {
       var theme_colors = ds.charts.util.get_colors()
       var default_options = {
@@ -22,15 +26,10 @@ ds.charts.flot =
             steps: false,
             fill: false
           },
-          valueLabels: {
-            show: false,
-            showAsHtml: true,
-            labelFormatter: d3.format(',.3s'),
-            yoffset: -20
-          },
-          stack: null,
+          valueLabels: { show: false },
           points: { show: false },
-          bars: { show: false }
+          bars: { lineWidth: 1, show: false },
+          stack: null,
         },
         xaxis: {
           mode: "time",
@@ -81,13 +80,7 @@ ds.charts.flot =
           symbol: "circle"
         },
         shadowSize: 0,
-        legend: {
-          container: null,
-          noColumns: 2,
-          position: 'sw',
-          backgroundColor: 'transparent',
-          labelBoxBorderColor: 'transparent'
-        },
+        legend: { show: false },
         grid: {
           borderWidth: 1,
           hoverable: true,
@@ -116,7 +109,7 @@ ds.charts.flot =
 
     function get_flot_options(item, base) {
       var options      = item.options || {}
-      var flot_options = ds.extend(get_default_options(), base)
+      var flot_options = $.extend(true, {}, get_default_options(), base)
 
       flot_options.colors = ds.charts.util.get_palette(options.palette)
 
@@ -134,6 +127,18 @@ ds.charts.flot =
         flot_options.yaxes[0].axisLabel = options.y1.label
       if (options.y2 && options.y2.label)
         flot_options.yaxes[1].axisLabel = options.y2.label
+
+      if (item.show_max_value || item.show_min_value || item.show_last_value) {
+        flot_options.series.valueLabels = {
+          show: true,
+          showMaxValue:item.show_max_value,
+          showMinValue: item.show_min_value,
+          showLastValue: item.show_last_value,
+          showAsHtml: true,
+          labelFormatter: d3.format(',.3s'),
+          yoffset: -20
+        }
+      }
 
       return flot_options
     }
@@ -180,18 +185,18 @@ ds.charts.flot =
       })
     }
 
-    function render_legend(item, query, flot_options) {
+    function render_legend(item, query, options) {
       var legend_id = '#ds-legend-' + item.item_id
       var legend = ''
       var data = query.chart_data('flot')
       for (var i = 0; i < data.length; i++) {
         var series = data[i]
         var label = series.label
-        var color = flot_options.colors[i % flot_options.colors.length]
+        var color = options.colors[i % options.colors.length]
 
         var cell = '<div class="ds-legend-cell">'
                  + '<span class="color" style="background-color:' + color + '"></span>'
-                 + '<span class="label" style="color:' + flot_options.xaxis.font.color +  '">' + label + '</span>'
+                 + '<span class="label" style="color:' + options.xaxis.font.color +  '">' + label + '</span>'
                  + '</div>'
         legend += cell
       }
@@ -200,14 +205,20 @@ ds.charts.flot =
       elt.equalize({equalize: 'outerWidth', reset: true })
     }
 
+    /* =============================================================================
+       Chart provider interface
+       ============================================================================= */
 
-    function set_value_label_options(item, flot_options) {
-      if (item.show_max_value || item.show_min_value || item.show_last_value) {
-        flot_options.series.valueLabels.show = true
+    self.process_series = function(series) {
+      var result = {}
+      if (series.summation) {
+        result.summation = series.summation
       }
-      flot_options.series.valueLabels.showMaxValue = item.show_max_value
-      flot_options.series.valueLabels.showMinValue = item.show_min_value
-      flot_options.series.valueLabels.showLastValue = item.show_last_value
+      result.label = series.target
+      result.data = series.datapoints.map(function(point) {
+                      return [point[1] * 1000, point[0]]
+                    })
+      return result
     }
 
     self.simple_line_chart = function(e, item, query) {
@@ -215,22 +226,13 @@ ds.charts.flot =
           plot: null,
           item: item
       }
-      setup_plugins(e, context)
-
-      var flot_options = get_flot_options(item, {
-        grid: {
-          show: false,
-          hoverable: true
-        },
-        legend: {
-          show: false
-        }
+      var options = get_flot_options(item, {
+        grid: { show: false }
       })
+      var data = [query.chart_data('flot')[0]]
 
-      set_value_label_options(item, flot_options)
-
-      var series = query.chart_data('flot')[0]
-      context.plot = $.plot($(e), [series], flot_options)
+      setup_plugins(e, context)
+      context.plot = $.plot($(e), data, options)
 
       return self
     }
@@ -240,89 +242,62 @@ ds.charts.flot =
           plot: null,
           item: item
       }
-      setup_plugins(e, context)
-      var flot_options = get_flot_options(item, {
-        grid: ds.extend(get_default_options().grid, {
-          hoverable: true,
-          clickable: true,
-          autoHighlight: false
-        }),
-        legend: {
-          show: false
-        }
-      })
+      var options = get_flot_options(item)
 
-      context.plot = $.plot($(e), query.chart_data('flot'), flot_options)
-      render_legend(item, query, flot_options)
+      setup_plugins(e, context)
+      context.plot = $.plot($(e), query.chart_data('flot'), options)
+      render_legend(item, query, options)
 
       return self
     }
 
     self.simple_area_chart = function(e, item, query) {
-      var options = item.options || {}
       var context = {
           plot: null,
           item: item
       }
-      setup_plugins(e, context)
-      var flot_options = ds.extend(get_default_options(), {
-        colors: ds.charts.util.get_palette(options.palette),
-        grid: {
-          show: false,
-          hoverable: true
-        },
-        legend: {
-          show: false
+      var options = get_flot_options(item, {
+        grid: { show: false },
+        series: {
+          lines: { fill: 1.0 },
+          grid: { show: false }
         }
       })
+      var data = [query.chart_data('flot')[0]]
 
-      flot_options.series.lines.show = true
-      flot_options.series.lines.fill = 1
+      setup_plugins(e, context)
+      context.plot = $.plot($(e), data, options)
 
-      set_value_label_options(item, flot_options)
-
-      context.plot = $.plot($(e), [query.chart_data('flot')[0]],
-                            flot_options)
       return self
     }
-
 
     self.stacked_area_chart = function(e, item, query) {
       var context = {
           plot: null,
           item: item
       }
-      var legend_id = '#ds-legend-' + item.item_id
-      var flot_options = get_flot_options(item, {
-        legend: {
-          container: legend_id,
-          labelBoxBorderColor: 'transparent',
-          show: true,
-          noColumns: 4
-        },
+      var options = get_flot_options(item, {
         series: {
-          lines: { show: true, lineWidth: 1, fill: 1},
-          stack: true,
-          points: { show: false },
-          bars: { show: false }
+          lines: { fill: 1},
+          stack: true
         }
       })
 
       if (item.stack_mode === ds.charts.StackMode.PERCENT) {
-        flot_options.series.stack = false
-        flot_options.series.stackpercent = true
-        flot_options.yaxes[0].max = 100
-        flot_options.yaxes[0].min = 0
+        options.series.stack = false
+        options.series.stackpercent = true
+        options.yaxes[0].max = 100
+        options.yaxes[0].min = 0
       } else if (item.stack_mode == ds.charts.StackMode.NONE) {
-        flot_options.series.stack = false
-        flot_options.series.stackpercent = false
-        flot_options.series.lines.fill = false
+        options.series.stack = false
+        options.series.stackpercent = false
+        options.series.lines.fill = false
       }
 
       setup_plugins(e, context)
-      context.plot = $.plot($(e), query.chart_data('flot'), flot_options)
+      context.plot = $.plot($(e), query.chart_data('flot'), options)
 
-      render_legend(item, query, flot_options)
+      render_legend(item, query, options)
 
       return self
     }
@@ -333,40 +308,19 @@ ds.charts.flot =
           item: item
       }
       var options = get_flot_options(item, {
-        legend: {
-          show: false
-        },
-        crosshair: {
-          mode: null
-        },
-        multihighlight: {
-          mode: null
-        },
+        crosshair: { mode: null },
+        multihighlight: { mode: null },
         series: {
           lines: { show: false },
-          points: { show: false },
           pie: {
             show: true,
             radius: 'auto',
-            innerRadius: 0.35,
-            label: {
-              show: false
-            }
+            innerRadius: item.is_pie ? 0 : 0.35,
+            label: { show: item.labels }
           }
         },
-        grid: {
-          show: false,
-          hoverable: true,
-          clickable: true
-        }
+        grid: { show: false, hoverable: false }
       })
-
-      if (item.labels) {
-        options.series.pie.label.show = true
-      }
-      if (item.is_pie) {
-        options.series.pie.innerRadius = 0
-      }
 
       var transform = item.transform || 'sum'
       var data = query.chart_data('flot').map(function(series) {
@@ -379,10 +333,10 @@ ds.charts.flot =
 
       setup_plugins(e, context)
       context.plot = $.plot($(e), data, options)
-
       if (item.legend) {
         render_legend(item, query, options)
       }
+
       return self
     }
 
@@ -392,15 +346,11 @@ ds.charts.flot =
           item: item
       }
       var options = get_flot_options(item, {
-        legend: {
-          show: false
-        },
         series: {
           lines: { show: false },
           stack: true,
           bars: {
             show: true,
-            lineWidth: 1,
             barWidth: 30000 // TODO - figure this out from the data
           }
         }
@@ -418,8 +368,9 @@ ds.charts.flot =
 
       setup_plugins(e, context)
       context.plot = $.plot($(e), query.chart_data('flot'), options)
-
-      render_legend(item, query, options)
+      if (item.legend) {
+        render_legend(item, query, options)
+      }
 
       return self
     }
@@ -431,23 +382,13 @@ ds.charts.flot =
           item: item
       }
       var options = get_flot_options(item, {
-        legend: {
-          show: false
-        },
-        xaxis: {
-        },
+        xaxis: { mode: null },
+        multihighlight: { mode: null },
+        crosshair: { mode: null },
         grid: {
-          hoverable: true,
-          show: true,
           borderWidth: 0,
           color: 'transparent',
-          labelMargin: 10,
-        },
-        multihighlight: {
-          mode: null
-        },
-        crosshair: {
-          mode: null
+          labelMargin: 10
         },
         series: {
           lines: { show: false },
@@ -478,7 +419,9 @@ ds.charts.flot =
       var ticks = data.map(function(series) {
                               return [index++, series.label]
                             })
+
       if (is_horizontal) {
+        options.xaxis.tickFormatter = null
         options.yaxes[0].ticks = ticks
         options.xaxis.axisLabel = options.yaxes[0].axisLabel
         options.yaxes[0].axisLabel = null
@@ -491,19 +434,6 @@ ds.charts.flot =
       context.plot = $.plot($(e), data, options)
 
       return self
-    }
-
-
-    self.process_series = function(series) {
-      var result = {}
-      if (series.summation) {
-        result.summation = series.summation
-      }
-      result.label = series.target
-      result.data = series.datapoints.map(function(point) {
-                      return [point[1] * 1000, point[0]]
-                    })
-      return result
     }
 
     return self
