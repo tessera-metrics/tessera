@@ -116,12 +116,21 @@ ds.charts.nvd3 =
     }
 
     self.stacked_area_chart = function(e, item, query) {
+      if ( item.stack_mode && (item.stack_mode == ds.charts.StackMode.NONE) ) {
+        return self.standard_line_chart(e, item, query)
+      }
         var options = item.options || {}
         var showLegend = options.showLegend !== false
       var data = query.chart_data('nvd3')
         if (data.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
             showLegend = false
         }
+      var stack_style = options.style || 'stack'
+      if ( item.stack_mode === ds.charts.StackMode.PERCENT ) {
+        stack_style = 'expand'
+      } else if ( item.stack_mode === ds.charts.StackMode.STREAM ) {
+        stack_style = 'stream'
+      }
         nv.addGraph(function() {
             var width  = e.width()
             var height = e.height()
@@ -135,7 +144,7 @@ ds.charts.nvd3 =
                     y: function(d) { return d[0] }
                 })
                 .color(ds.charts.util._color_function(options.palette || ds.charts.DEFAULT_PALETTE))
-                .style(options.style || 'stack')
+                .style(stack_style)
                 .width(width)
                 .height(height)
             chart.yAxis
@@ -173,17 +182,17 @@ ds.charts.nvd3 =
             var width  = e.width()
             var height = e.height()
             var chart  = nv.models.pieChart()
-            /* .options({
-               showLegend: showLegend,
+           .options({
+               showLegend: item.legend,
                useInteractiveGuideline: options.useInteractiveGuideline !== false,
-               x: function(d) { return d.key },
+               x: function(d) { return d.x },
                y: function(d) { return d.y }
-               }) */
+               })
                 .color(ds.charts.util._color_function(options.palette || ds.charts.DEFAULT_PALETTE))
                 .labelType(options.labelType || "percent")
                 .donut(options.donut !== false)
-                .donutRatio(options.donutRatio || 0.3)
-                .showLabels(options.showLabels !== false)
+                .donutRatio(item.is_pie ? 0 : 0.3)
+                .showLabels(item.labels)
                 .donutLabelsOutside(options.donutLabelsOutside !== false)
                 .width(width)
                 .height(height)
@@ -196,6 +205,90 @@ ds.charts.nvd3 =
                 .call(chart)
             return chart
         })
+    }
+
+    self.bar_chart = function(e, item, query) {
+      var options = item.options || {}
+      var showLegend = options.showLegend !== false
+      var data = query.chart_data('nvd3')
+      if (data.length > self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD) {
+        showLegend = false
+      }
+      var stacked = true
+      if (item.stack_mode === ds.charts.StackMode.NONE)
+        stacked = false
+
+        nv.addGraph(function() {
+            var width  = e.width()
+            var height = e.height()
+            var chart  = nv.models.multiBarChart()
+                           .stacked(stacked)
+                .options({
+                    showLegend: showLegend,
+                    useInteractiveGuideline: options.useInteractiveGuideline !== false,
+                    showXAxis: options.showXAxis !== false,
+                    showYAxis: options.showYAxis !== false,
+                    x: function(d) { return d[1] },
+                    y: function(d) { return d[0] }
+                })
+                .color(ds.charts.util._color_function(options.palette || ds.charts.DEFAULT_PALETTE))
+
+                .width(width)
+                .height(height)
+            chart.yAxis
+                .axisLabel(options.y1 ? options.y1.label : options.yAxisLabel)
+                .axisLabelDistance((options.y1 ? options.y1.label_distance : options.yAxisLabelDistance) || 30)
+                .tickFormat(d3.format((options.y1 ? options.y1.format : options.yAxisFormat) || ',.3s'))
+            chart.xAxis
+                .axisLabel(options.x ? options.x.label : options.xAxisLabel)
+                .tickFormat(function(d) { return moment.unix(d).tz(ds.config.DISPLAY_TIMEZONE).format('h:mm A') })
+            d3.select(e.selector + ' svg')
+                .attr('width', width)
+                .attr('height', height)
+                .datum(data)
+                .transition()
+                .call(chart)
+            return chart
+        })
+    }
+
+    self.discrete_bar_chart = function(e, item, query) {
+      var is_horizontal = item.orientation === 'horizontal'
+      var series = query.chart_data('nvd3')
+      var data = [
+        {
+          values:
+            series.map(function(series) {
+              return {
+                x: series.key,
+                y: series.summation[item.transform]
+              }
+            })
+
+        }
+      ]
+      nv.addGraph(function() {
+        var chart =
+          is_horizontal
+                   ? nv.models.multiBarHorizontalChart()
+                       .barColor(ds.charts.util._color_function(item.options.palette || ds.charts.DEFAULT_PALETTE))
+                       .showLegend(false)
+                       .showControls(false)
+                       .x(function(d) { return d.x })
+                       .y(function(d) { return d.y })
+                   : nv.models.discreteBarChart()
+                       .x(function(d) { return d.x })
+                       .y(function(d) { return d.y })
+                       .showValues(true)
+
+        d3.select(e.selector + ' svg')
+          .attr('width', e.width())
+          .attr('height', e.height())
+          .datum(data)
+          .call(chart)
+
+        return chart
+      })
     }
 
     self.process_series = function(series) {

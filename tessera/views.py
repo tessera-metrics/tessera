@@ -72,7 +72,8 @@ defaults.
         'refresh' : _get_param('refresh', app.config['DEFAULT_REFRESH_INTERVAL'], store_in_session=store_in_session),
         'timezone' : _get_param('timezone', app.config['DISPLAY_TIMEZONE'], store_in_session=store_in_session),
         'graphite_url' : _get_param('graphite_url', app.config['GRAPHITE_URL'], store_in_session=store_in_session),
-        'graphite_auth' : _get_param('graphite_auth', app.config['GRAPHITE_AUTH'], store_in_session=store_in_session)
+        'graphite_auth' : _get_param('graphite_auth', app.config['GRAPHITE_AUTH'], store_in_session=store_in_session),
+        'propsheet_autoclose_seconds' : _get_param('propsheet_autoclose_seconds', app.config['DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS'], store_in_session=store_in_session)
     }
 
 def _set_preferences(prefs):

@@ -1,0 +1,134 @@
+{
+  "category": "Test", 
+  "definition": {
+    "item_id": "d0", 
+    "item_type": "dashboard_definition", 
+    "queries": {
+      "query0": {
+        "name": "query0", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query0\"))"
+        ]
+      }, 
+      "query1": {
+        "name": "query1", 
+        "targets": [
+          "group(\nabsolute(randomWalkFunction(\"query1\")),\nabsolute(randomWalkFunction(\"query2\")),\nabsolute(randomWalkFunction(\"query3\")),\nabsolute(randomWalkFunction(\"query4\")),\nabsolute(randomWalkFunction(\"query5\"))\n)"
+        ]
+      }
+    }, 
+    "href": "/api/dashboard/9/definition", 
+    "items": [
+      {
+        "item_id": "d3", 
+        "item_type": "section", 
+        "layout": "fixed", 
+        "items": [
+          {
+            "item_id": "d4", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d5", 
+                "item_type": "cell", 
+                "span": "12", 
+                "items": [
+                  {
+                    "title": "Stack - Normal", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "item_id": "d6", 
+                    "query": "query1", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d13", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d14", 
+                "item_type": "cell", 
+                "span": "12", 
+                "items": [
+                  {
+                    "title": "Stack - Percent", 
+                    "stack_mode": "percent", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "item_id": "d15", 
+                    "query": "query1", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d10", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d11", 
+                "item_type": "cell", 
+                "span": "12", 
+                "items": [
+                  {
+                    "title": "Stack - Stream", 
+                    "stack_mode": "stream", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "item_id": "d12", 
+                    "query": "query1", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d7", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d8", 
+                "item_type": "cell", 
+                "span": "12", 
+                "items": [
+                  {
+                    "title": "Stack - None", 
+                    "stack_mode": "none", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "item_id": "d9", 
+                    "query": "query1", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }, 
+  "view_href": "/dashboards/9/stacked-area-chart", 
+  "description": "", 
+  "tags": [
+    {
+      "count": 2, 
+      "id": 4, 
+      "name": "charts"
+    }
+  ], 
+  "title": "Stacked Area Chart", 
+  "summary": "", 
+  "definition_href": "/api/dashboard/9/definition", 
+  "href": "/api/dashboard/9", 
+  "id": 9, 
+  "imported_from": null
+}

@@ -27,6 +27,12 @@
         "targets": [
           "group(absolute(randomWalkFunction(\"query1\")), absolute(randomWalkFunction(\"query2\")), absolute(randomWalkFunction(\"query3\")))"
         ]
+      }, 
+      "discrete_bar": {
+        "name": "discrete_bar", 
+        "targets": [
+          "group(\n                    alias(absolute(randomWalkFunction(\"System\")), \"System\"),\n                    alias(absolute(randomWalkFunction(\"I/O\")), \"I/O\"),\n                    alias(absolute(randomWalkFunction(\"User\")), \"User\"),\n                    alias(absolute(randomWalkFunction(\"Idle\")), \"Idle\")\n              )"
+        ]
       }
     }, 
     "href": "/api/dashboard/6/definition", 
@@ -768,21 +774,74 @@
                 ]
               }
             ]
+          }, 
+          {
+            "item_id": "d103", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d104", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "orientation": "vertical", 
+                    "title": "Discrete, Vertical", 
+                    "transform": "sum", 
+                    "height": "3", 
+                    "item_type": "discrete_bar_chart", 
+                    "item_id": "d110", 
+                    "query": "discrete_bar", 
+                    "options": {}
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d106", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "orientation": "horizontal", 
+                    "title": "Discrete, Horizontal", 
+                    "transform": "max", 
+                    "height": "3", 
+                    "item_type": "discrete_bar_chart", 
+                    "item_id": "d111", 
+                    "query": "discrete_bar", 
+                    "options": {
+                      "palette": "tableau20"
+                    }
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d108", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": []
+              }
+            ]
           }
         ]
       }
     ]
   }, 
-  "view_href": "/dashboards/6/charts", 
+  "view_href": "/dashboards/6/all-charts", 
   "description": "", 
   "tags": [
     {
-      "count": 3, 
+      "count": 6, 
       "id": 3, 
       "name": "test"
+    }, 
+    {
+      "count": 4, 
+      "id": 4, 
+      "name": "charts"
     }
   ], 
-  "title": "Charts", 
+  "title": "All Charts", 
   "summary": "All the chart options", 
   "definition_href": "/api/dashboard/6/definition", 
   "href": "/api/dashboard/6", 

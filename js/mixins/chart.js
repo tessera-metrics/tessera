@@ -15,13 +15,13 @@ ds.models.chart =
       if (data) {
         target.title = data.title
         target.options = data.options || {}
-        if (data.options.y1) {
+        if (data.options && data.options.y1) {
           target.options.y1 = ds.models.Axis(data.options.y1)
         }
-        if (data.options.y2) {
+        if (data.options && data.options.y2) {
           target.options.y2 = ds.models.Axis(data.options.y2)
         }
-        if (data.options.x) {
+        if (data.options && data.options.x) {
           target.options.x = ds.models.Axis(data.options.x)
         }
       }
