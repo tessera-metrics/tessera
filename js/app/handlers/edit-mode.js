@@ -14,6 +14,7 @@
     var queries_in_use = dashboard.definition.get_queries()
     if (queries_in_use[query_name]) {
       bootbox.dialog({
+        backdrop: false,
         message: 'Query ' + query_name + ' is in use. Are you sure you want to delete it?',
         title: 'Confirm query delete',
         buttons: {
@@ -308,7 +309,10 @@
     icon:    'fa fa-code',
     handler: function(action, item) {
       var contents = ds.templates.edit.item_source({item:item})
-      bootbox.alert(contents)
+      bootbox.alert({
+        backdrop: false,
+        message: contents
+      })
     }
   })
 
@@ -355,13 +359,17 @@
     class: 'new-item',
     category: 'new-item-chart',
     handler: function(action, container) {
-      bootbox.prompt("Enter a Graphite chart URL", function(result) {
-        if (result) {
-          var item = new_chart_from_graphite_url(result)
-          if (item) {
-            container.add(item)
-            ds.manager.current.dashboard.update_index()
-            ds.manager.update_item_view(container)
+      bootbox.prompt({
+        title: "Enter a Graphite chart URL",
+        backdrop: false,
+        callback: function(result) {
+          if (result) {
+            var item = new_chart_from_graphite_url(result)
+            if (item) {
+              container.add(item)
+              ds.manager.current.dashboard.update_index()
+              ds.manager.update_item_view(container)
+            }
           }
         }
       })
