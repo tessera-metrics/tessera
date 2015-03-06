@@ -30,7 +30,7 @@ ds.charts.flot =
           valueLabels: { show: false },
           points: { show: false },
           bars: { lineWidth: 1, show: false },
-          stack: null,
+          stack: null
         },
         xaxis: {
           mode: "time",
@@ -188,6 +188,14 @@ ds.charts.flot =
 
     function render_legend(item, query, options) {
       var legend_id = '#ds-legend-' + item.item_id
+      if ( item.legend === ds.models.chart.LegendType.SIMPLE ) {
+        render_simple_legend(legend_id, item, query, options)
+      } else if ( item.legend === ds.models.chart.LegendType.TABLE ) {
+        // TODO - render a summation_table as the legend
+      }
+    }
+
+    function render_simple_legend(legend_id, item, query, options) {
       var legend = ''
       var data = query.chart_data('flot')
       for (var i = 0; i < data.length; i++) {
@@ -221,9 +229,7 @@ ds.charts.flot =
         log.error('Error rendering item ' + item.item_id
                  + ': ' + ex.message)
       }
-      if (item.legend) {
-        render_legend(item, query, options)
-      }
+      render_legend(item, query, options)
       return context
     }
 
@@ -291,7 +297,6 @@ ds.charts.flot =
         options.series.lines.fill = false
       }
 
-      item.legend = true
       render(e, item, query, options)
 
       return self
@@ -363,6 +368,7 @@ ds.charts.flot =
         grid: {
           borderWidth: 0,
           color: 'transparent',
+          borderColor: 'transparent',
           labelMargin: 10
         },
         series: {
@@ -396,13 +402,15 @@ ds.charts.flot =
                             })
 
       if (is_horizontal) {
+        options.yaxes[0].tickLength = 0
         options.xaxis.tickFormatter = null
         options.yaxes[0].ticks = ticks
         options.xaxis.axisLabel = options.yaxes[0].axisLabel
-        options.yaxes[0].axisLabel = null
+        options.yaxes[0].axisLabel = transform.charAt(0).toUpperCase() + transform.substring(1)
       } else {
+        options.xaxis.tickLength = 0
         options.xaxis.ticks = ticks
-        options.xaxis.axisLabel = null
+        options.xaxis.axisLabel = transform.charAt(0).toUpperCase() + transform.substring(1)
       }
 
       render(e, item, query, options, data)

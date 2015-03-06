@@ -15,6 +15,7 @@ ds.register_dashboard_item('discrete_bar_chart', {
                          .build()
 
     if (data) {
+      self.legend = undefined
       self.transform = data.transform || self.transform
       self.orientation = data.orientation || self.orientation
     }

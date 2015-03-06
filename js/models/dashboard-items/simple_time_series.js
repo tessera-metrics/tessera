@@ -17,6 +17,7 @@ ds.register_dashboard_item('simple_time_series', {
                          .build()
 
     if (data) {
+      self.legend = data.legend
       self.filled = Boolean(data.filled)
       self.show_max_value = Boolean(data.show_max_value)
       self.show_min_value = Boolean(data.show_min_value)
