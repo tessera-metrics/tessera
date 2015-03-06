@@ -425,7 +425,6 @@ ds.charts.flot =
     }
 
     self.discrete_bar_chart = function(e, item, query) {
-      console.log('ds.charts.flot.discrete_bar_chart()')
       var is_horizontal = item.orientation === 'horizontal'
       var context = {
           plot: null,
