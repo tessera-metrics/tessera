@@ -332,14 +332,33 @@ ds.charts.flot =
       return self
     }
 
+    var THREE_HOURS_MS = 1000 * 60 * 60 * 3
+    var ONE_HOUR_MS = 1000 * 60 * 60 * 1
+
     self.bar_chart = function(e, item, query) {
+      var series      = query.chart_data('flot')[0]
+      var ts_start    = series.data[0][0]
+      var ts_end      = series.data[series.data.length - 1][0]
+      var ts_length   = ts_end - ts_start
+      var sample_size = ts_length / series.data.length
+
+      var bar_scaling = 0.85
+      if (ts_length > THREE_HOURS_MS) {
+        bar_scaling = 0.15
+      } else if (ts_length > ONE_HOUR_MS) {
+        bar_scaling = 0.65
+      } else {
+        bar_scaling = 0.85
+      }
+
       var options = get_flot_options(item, {
         series: {
           lines: { show: false },
           stack: true,
           bars: {
             show: true,
-            barWidth: 30000 // TODO - figure this out from the data
+            fill: 0.8,
+            barWidth: sample_size * bar_scaling
           }
         }
       })
