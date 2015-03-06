@@ -252,6 +252,45 @@ ds.charts.nvd3 =
         })
     }
 
+    self.discrete_bar_chart = function(e, item, query) {
+      var is_horizontal = item.orientation === 'horizontal'
+      var series = query.chart_data('nvd3')
+      var data = [
+        {
+          values:
+            series.map(function(series) {
+              return {
+                x: series.key,
+                y: series.summation[item.transform]
+              }
+            })
+
+        }
+      ]
+      nv.addGraph(function() {
+        var chart =
+          is_horizontal
+                   ? nv.models.multiBarHorizontalChart()
+                       .barColor(ds.charts.util._color_function(item.options.palette || ds.charts.DEFAULT_PALETTE))
+                       .showLegend(false)
+                       .showControls(false)
+                       .x(function(d) { return d.x })
+                       .y(function(d) { return d.y })
+                   : nv.models.discreteBarChart()
+                       .x(function(d) { return d.x })
+                       .y(function(d) { return d.y })
+                       .showValues(true)
+
+        d3.select(e.selector + ' svg')
+          .attr('width', e.width())
+          .attr('height', e.height())
+          .datum(data)
+          .call(chart)
+
+        return chart
+      })
+    }
+
     self.process_series = function(series) {
       var result = {}
       if (series.summation) {
