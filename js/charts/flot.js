@@ -155,7 +155,7 @@ ds.charts.flot =
         var item   = items[0]
         var point  = series[item.serieIndex].data[item.dataIndex]
         var format = d3.format(',.3s')
-        var is_percent = context.item.stack_mode && (context.item.stack_mode === ds.charts.STACK_MODE_PERCENT)
+        var is_percent = context.item.stack_mode && (context.item.stack_mode === ds.charts.StackMode.PERCENT)
 
         var contents = ds.templates.flot.tooltip({
           time: point[0],
@@ -308,11 +308,15 @@ ds.charts.flot =
         }
       })
 
-      if (item.stack_mode === ds.charts.STACK_MODE_PERCENT) {
+      if (item.stack_mode === ds.charts.StackMode.PERCENT) {
         flot_options.series.stack = false
         flot_options.series.stackpercent = true
         flot_options.yaxes[0].max = 100
         flot_options.yaxes[0].min = 0
+      } else if (item.stack_mode == ds.charts.StackMode.NONE) {
+        flot_options.series.stack = false
+        flot_options.series.stackpercent = false
+        flot_options.series.lines.fill = false
       }
 
       setup_plugins(e, context)
@@ -331,6 +335,12 @@ ds.charts.flot =
       var options = get_flot_options(item, {
         legend: {
           show: false
+        },
+        crosshair: {
+          mode: null
+        },
+        multihighlight: {
+          mode: null
         },
         series: {
           lines: { show: false },
@@ -375,6 +385,114 @@ ds.charts.flot =
       }
       return self
     }
+
+    self.bar_chart = function(e, item, query) {
+      var context = {
+          plot: null,
+          item: item
+      }
+      var options = get_flot_options(item, {
+        legend: {
+          show: false
+        },
+        series: {
+          lines: { show: false },
+          stack: true,
+          bars: {
+            show: true,
+            lineWidth: 1,
+            barWidth: 30000 // TODO - figure this out from the data
+          }
+        }
+      })
+
+      if (item.stack_mode === ds.charts.StackMode.PERCENT) {
+        options.series.stack = false
+        options.series.stackpercent = true
+        options.yaxes[0].max = 100
+        options.yaxes[0].min = 0
+      } else if (item.stack_mode == ds.charts.StackMode.NONE) {
+        options.series.stack = false
+        options.series.stackpercent = false
+      }
+
+      setup_plugins(e, context)
+      context.plot = $.plot($(e), query.chart_data('flot'), options)
+
+      render_legend(item, query, options)
+
+      return self
+    }
+
+    self.discrete_bar_chart = function(e, item, query) {
+      var is_horizontal = item.orientation === 'horizontal'
+      var context = {
+          plot: null,
+          item: item
+      }
+      var options = get_flot_options(item, {
+        legend: {
+          show: false
+        },
+        xaxis: {
+        },
+        grid: {
+          hoverable: true,
+          show: true,
+          borderWidth: 0,
+          color: 'transparent',
+          labelMargin: 10,
+        },
+        multihighlight: {
+          mode: null
+        },
+        crosshair: {
+          mode: null
+        },
+        series: {
+          lines: { show: false },
+          bars: {
+            horizontal: is_horizontal,
+            show: true,
+            barWidth: 0.8,
+            align: "center",
+            fill: 0.75
+          }
+        }
+      })
+
+      var transform = item.transform || 'sum'
+      var index = 0
+      var data = query.chart_data('flot').map(function(series) {
+                   return {
+                     label: series.label,
+                     data: [
+                       is_horizontal
+                            ? [ series.summation[transform], index]
+                            : [index, series.summation[transform]]
+                     ],
+                     color: options.colors[options.colors % index++]
+                   }
+                 })
+      index = 0
+      var ticks = data.map(function(series) {
+                              return [index++, series.label]
+                            })
+      if (is_horizontal) {
+        options.yaxes[0].ticks = ticks
+        options.xaxis.axisLabel = options.yaxes[0].axisLabel
+        options.yaxes[0].axisLabel = null
+      } else {
+        options.xaxis.ticks = ticks
+        options.xaxis.axisLabel = null
+      }
+
+      setup_plugins(e, context)
+      context.plot = $.plot($(e), data, options)
+
+      return self
+    }
+
 
     self.process_series = function(series) {
       var result = {}

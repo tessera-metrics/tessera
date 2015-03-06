@@ -167,6 +167,14 @@ ds.charts.graphite =
       img(element, url)
     }
 
+    self.bar_chart = function(e, item, query) {
+      return self.stacked_area_chart(e, item, query)
+    }
+
+    self.discrete_bar_chart = function(e, item, query) {
+      return self.donut_chart(e, item, query)
+    }
+
     self.chart_url = function(item, options) {
       switch (item.item_type) {
         case 'simple_time_series':
