@@ -66,12 +66,15 @@ ds.register_dashboard_item('dashboard_definition', {
       log.debug('load_all()')
       self.options = options || self.options
       var promises = Object.keys(self.queries).map(function(key) {
-                       return self.queries[key].load(self.options, fire_only).promise()
+                       var future = self.queries[key].load(self.options, fire_only)
+                       return future ? future.promise() : undefined
                      })
       self.visit(function(item) {
         if (item.query_override) {
           log.debug('load_all(): loading query override ' + item.query_override.name)
-          promises.push(item.query_override.load(self.options, fire_only).promise())
+          var future = item.query_override.load(self.options, fire_only)
+          if (future)
+            promises.push(future.promise())
         }
       })
       $.when(promises).done(function() {

@@ -20,6 +20,8 @@
   {% if config.get('APPLICATION_ROOT') %}
   ds.config.APPLICATION_ROOT = "{{config.get('APPLICATION_ROOT')}}"
   {% endif %}
+  ds.prefs = ds.prefs || {}
+  ds.prefs.renderer = "{{ ctx.prefs.renderer }}"
 </script>
 
 <script src="{{ url_for('static', filename='bundle.js') }}"></script>

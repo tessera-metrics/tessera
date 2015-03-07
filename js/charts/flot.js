@@ -1,16 +1,19 @@
-ds.charts = ds.charts || {}
-
 /**
  * Chart provider for rendering dashboard chart with flot, which
  * provides Canvas-based interactivity.
  */
-ds.charts.flot =
-  (function() {
+(function() {
 
-    var self = {}
+    var self = ds.charts.provider({
+      name:          'flot',
+      is_interactive: true,
+      description: 'flot renders interactive charts using HTML canvas. '
+                 + 'It does not support stream graphs, but can be a better '
+                 + 'choice for rendering large numbers of graphs or lengthy '
+                 + 'time periods.'
+    })
+
     var log = ds.log.logger('ds.charts.flot')
-
-    self.CHART_IMPL_TYPE = 'flot'
 
     /* =============================================================================
        Helpers
@@ -458,10 +461,6 @@ ds.charts.flot =
       return self
     }
 
-    return self
-  })()
+    ds.charts.registry.register(self)
 
-/**
- * Set flot as the default interactive chart provider.
- */
-ds.charts.provider = ds.charts.flot
+})()

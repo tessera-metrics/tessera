@@ -158,15 +158,15 @@ ds.manager =
         var dashboard = ds.models.dashboard(data)
         holder.dashboard = dashboard
 
-        if (data.preferences.renderer && ds.charts[data.preferences.renderer]) {
-          ds.charts.provider = ds.charts[data.preferences.renderer]
+        if (data.preferences.renderer) {
+          ds.charts.provider = ds.charts.registry.get(data.preferences.renderer)
         }
 
           ds.event.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)
 
           dashboard.render_templates(context.variables)
 
-          var interactive = data.preferences.interactive
+          var interactive = ds.charts.provider.is_interactive
           if (context.interactive != undefined) {
             interactive = context.interactive
           }

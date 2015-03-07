@@ -1,5 +1,3 @@
-ds.charts = ds.charts || {}
-
 /**
  * Charts provider for Graphite's built-in static image
  * rendering. Also provides Graphite URL formatting for a number of
@@ -8,7 +6,13 @@ ds.charts = ds.charts || {}
 ds.charts.graphite =
   (function () {
 
-    var self = {}
+    var self = ds.charts.provider({
+      name: 'graphite',
+      is_interactive: false,
+      description: "Render graphs using Graphite's built-in static PNG rendering. "
+                 + "No interactive features will be available with this option, "
+                 + "and not all chart types will render with fidelity."
+    })
 
     self.DEFAULT_BGCOLOR = 'ff000000'
 
@@ -206,6 +210,8 @@ ds.charts.graphite =
         }
         return composer_url
     }
+
+    ds.charts.registry.register(self)
 
     return self
 
