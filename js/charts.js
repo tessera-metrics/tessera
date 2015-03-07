@@ -1,7 +1,7 @@
 /**
  * ds.charts exposes the generic interface to rendering a chart for a
  * dashboard item. It delegates all calls to the currently assigned
- * implementation in the impl property.
+ * implementation in the provider property.
  *
  * Chart providers must each implement the following functions:
  *
@@ -23,6 +23,15 @@ ds.charts =
                          .build()
 
     self.DEFAULT_PALETTE = 'spectrum6'
+
+    self.registry = ds.registry({
+      name: 'chart-provider',
+      process: function(data) {
+        if (data.is_chart_provider)
+          return data
+        return ds.charts.provider(data)
+      }
+    })
 
     function get_renderer(fn_name, item) {
       var interactive = self.interactive
@@ -91,7 +100,7 @@ ds.charts =
     self.process_series = function(series, type) {
       var processed = null
       if (type) {
-        processed = ds.charts[type].process_series(series)
+        processed = ds.charts.registry.get(type).process_series(series)
       } else {
         processed = self.provider.process_series(series)
       }

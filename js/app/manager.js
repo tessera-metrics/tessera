@@ -156,8 +156,8 @@ ds.manager =
         var dashboard = ds.models.dashboard(data)
         holder.dashboard = dashboard
 
-        if (data.preferences.renderer && ds.charts[data.preferences.renderer]) {
-          ds.charts.provider = ds.charts[data.preferences.renderer]
+        if (data.preferences.renderer) {
+          ds.charts.provider = ds.charts.registry.get(data.preferences.renderer)
         }
 
           ds.event.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)

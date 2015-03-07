@@ -1,15 +1,23 @@
-ds.charts = ds.charts || {}
-
 /**
  * Chart provider for rendering dashboard charts with NVD3
  */
-ds.charts.nvd3 =
-  (function() {
+(function() {
 
-    var self = {}
+    var self = ds.charts.provider({
+      name:          'nvd3',
+      is_interactive: true,
+      description: 'nvd3 renders interactive charts using D3.js and SVG. '
+                 + 'It supports particularly nice interactive features on '
+                 + 'stacked area charts, but can bog down the browser when '
+                 + 'there are a large number of charts or a long time period '
+                 + 'being rendered.'
+    })
 
-    self.CHART_IMPL_TYPE = 'nvd3'
     self.DEFAULT_AUTO_HIDE_LEGEND_THRESHOLD = 6
+
+    /* =============================================================================
+       Chart provider interface
+       ============================================================================= */
 
     self.simple_line_chart = function(e, item, query) {
       var options = item.options || {}
@@ -298,5 +306,6 @@ ds.charts.nvd3 =
       return result
     }
 
-    return self
+  ds.charts.registry.register(self)
+
 })()

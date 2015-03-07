@@ -98,6 +98,7 @@ module.exports = function(grunt) {
           'js/app/helpers.js',
           'tessera/static/templates.js',
           'js/charts.js',
+          'js/charts/provider.js',
           'js/charts/graphite.js',
           'js/charts/nvd3.js',
           'js/charts/flot.js',
