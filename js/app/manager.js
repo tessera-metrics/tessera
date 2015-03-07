@@ -437,6 +437,7 @@ ds.manager =
         bootbox.dialog({
             message: "Are you really sure you want to delete this dashboard? Deletion is irrevocable.",
             title: "Confirm dashboard delete",
+            backdrop: false,
             buttons: {
                 cancel: {
                     label: "Cancel",

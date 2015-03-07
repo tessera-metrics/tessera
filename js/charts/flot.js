@@ -30,7 +30,7 @@ ds.charts.flot =
           valueLabels: { show: false },
           points: { show: false },
           bars: { lineWidth: 1, show: false },
-          stack: null,
+          stack: null
         },
         xaxis: {
           mode: "time",
@@ -188,6 +188,14 @@ ds.charts.flot =
 
     function render_legend(item, query, options) {
       var legend_id = '#ds-legend-' + item.item_id
+      if ( item.legend === ds.models.chart.LegendType.SIMPLE ) {
+        render_simple_legend(legend_id, item, query, options)
+      } else if ( item.legend === ds.models.chart.LegendType.TABLE ) {
+        // TODO - render a summation_table as the legend
+      }
+    }
+
+    function render_simple_legend(legend_id, item, query, options) {
       var legend = ''
       var data = query.chart_data('flot')
       for (var i = 0; i < data.length; i++) {
@@ -221,9 +229,7 @@ ds.charts.flot =
         log.error('Error rendering item ' + item.item_id
                  + ': ' + ex.message)
       }
-      if (item.legend) {
-        render_legend(item, query, options)
-      }
+      render_legend(item, query, options)
       return context
     }
 
@@ -291,7 +297,6 @@ ds.charts.flot =
         options.series.lines.fill = false
       }
 
-      item.legend = true
       render(e, item, query, options)
 
       return self
@@ -327,14 +332,33 @@ ds.charts.flot =
       return self
     }
 
+    var THREE_HOURS_MS = 1000 * 60 * 60 * 3
+    var ONE_HOUR_MS = 1000 * 60 * 60 * 1
+
     self.bar_chart = function(e, item, query) {
+      var series      = query.chart_data('flot')[0]
+      var ts_start    = series.data[0][0]
+      var ts_end      = series.data[series.data.length - 1][0]
+      var ts_length   = ts_end - ts_start
+      var sample_size = ts_length / series.data.length
+
+      var bar_scaling = 0.85
+      if (ts_length > THREE_HOURS_MS) {
+        bar_scaling = 0.15
+      } else if (ts_length > ONE_HOUR_MS) {
+        bar_scaling = 0.65
+      } else {
+        bar_scaling = 0.85
+      }
+
       var options = get_flot_options(item, {
         series: {
           lines: { show: false },
           stack: true,
           bars: {
             show: true,
-            barWidth: 30000 // TODO - figure this out from the data
+            fill: 0.8,
+            barWidth: sample_size * bar_scaling
           }
         }
       })
@@ -363,6 +387,7 @@ ds.charts.flot =
         grid: {
           borderWidth: 0,
           color: 'transparent',
+          borderColor: 'transparent',
           labelMargin: 10
         },
         series: {
@@ -371,8 +396,17 @@ ds.charts.flot =
             horizontal: is_horizontal,
             show: true,
             barWidth: 0.8,
-            align: "center",
-            fill: 0.75
+            align: 'center',
+            fill: 0.75,
+            numbers: {
+              show: item.show_numbers,
+              xAlign: 'center',
+              font: '10pt Helvetica',
+              fontColor: '#f9f9f9', // TODO: get from theme
+              formatter: d3.format(item.format),
+              yAlign: function(y) { return y },
+              xAlign: function(x) { return x }
+            }
           }
         }
       })
@@ -396,13 +430,27 @@ ds.charts.flot =
                             })
 
       if (is_horizontal) {
-        options.xaxis.tickFormatter = null
+        options.yaxes[0].tickLength = 0
         options.yaxes[0].ticks = ticks
-        options.xaxis.axisLabel = options.yaxes[0].axisLabel
-        options.yaxes[0].axisLabel = null
+        options.xaxis.tickFormatter = null
+        options.series.bars.numbers.xOffset = -18
+        if (item.show_grid) {
+          options.xaxis.axisLabel = options.yaxes[0].axisLabel
+          options.yaxes[0].axisLabel = transform.charAt(0).toUpperCase() + transform.substring(1)
+        } else {
+          options.xaxis.ticks = []
+          options.yaxes[0].axisLabel = null
+        }
       } else {
+        options.xaxis.tickLength = 0
         options.xaxis.ticks = ticks
-        options.xaxis.axisLabel = null
+        options.series.bars.numbers.yOffset = 12
+        if (!item.show_grid) {
+          options.yaxes[0].ticks = []
+          options.yaxes[0].axisLabel = null
+        } else {
+          options.xaxis.axisLabel = transform.charAt(0).toUpperCase() + transform.substring(1)
+        }
       }
 
       render(e, item, query, options, data)

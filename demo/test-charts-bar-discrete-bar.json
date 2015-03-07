@@ -29,7 +29,7 @@
         ]
       }
     }, 
-    "href": "/api/dashboard/8/definition", 
+    "href": "/api/dashboard/6/definition", 
     "items": [
       {
         "item_id": "d22", 
@@ -47,11 +47,14 @@
                 "span": 4, 
                 "items": [
                   {
+                    "show_numbers": true, 
                     "orientation": "vertical", 
                     "title": "Vertical", 
+                    "format": ",.3s", 
                     "transform": "sum", 
                     "height": "4", 
                     "item_type": "discrete_bar_chart", 
+                    "show_grid": true, 
                     "item_id": "d25", 
                     "query": "query3", 
                     "options": {
@@ -65,15 +68,75 @@
               {
                 "item_id": "d27", 
                 "item_type": "cell", 
-                "span": 4, 
+                "span": 6, 
                 "items": [
                   {
+                    "show_numbers": false, 
                     "orientation": "horizontal", 
                     "title": "Horizontal", 
+                    "format": ",.3s", 
                     "transform": "sum", 
                     "height": "4", 
                     "item_type": "discrete_bar_chart", 
+                    "legend": "", 
+                    "show_grid": true, 
                     "item_id": "d28", 
+                    "query": "query3", 
+                    "options": {
+                      "y1": {
+                        "label": "Units"
+                      }, 
+                      "palette": "numbers6"
+                    }
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d29", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d30", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "show_numbers": false, 
+                    "orientation": "vertical", 
+                    "title": "Vertical", 
+                    "format": ",.3s", 
+                    "transform": "sum", 
+                    "height": "4", 
+                    "item_type": "discrete_bar_chart", 
+                    "show_grid": false, 
+                    "item_id": "d31", 
+                    "query": "query3", 
+                    "options": {
+                      "y1": {
+                        "label": "Units"
+                      }
+                    }
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d32", 
+                "item_type": "cell", 
+                "span": 6, 
+                "items": [
+                  {
+                    "show_numbers": true, 
+                    "orientation": "horizontal", 
+                    "title": "Horizontal", 
+                    "format": ",.3s", 
+                    "transform": "sum", 
+                    "height": "4", 
+                    "item_type": "discrete_bar_chart", 
+                    "legend": "", 
+                    "show_grid": false, 
+                    "item_id": "d33", 
                     "query": "query3", 
                     "options": {
                       "y1": {
@@ -107,9 +170,10 @@
                     "stack_mode": "stack", 
                     "height": "3", 
                     "item_type": "bar_chart", 
+                    "options": {}, 
                     "item_id": "d7", 
                     "query": "positive", 
-                    "options": {}
+                    "legend": "simple"
                   }
                 ]
               }
@@ -128,9 +192,10 @@
                     "stack_mode": "stack", 
                     "height": "3", 
                     "item_type": "bar_chart", 
+                    "options": {}, 
                     "item_id": "d10", 
                     "query": "negative", 
-                    "options": {}
+                    "legend": "simple"
                   }
                 ]
               }
@@ -150,6 +215,7 @@
                     "stack_mode": "stack", 
                     "height": "3", 
                     "item_type": "bar_chart", 
+                    "legend": "simple", 
                     "item_id": "d13", 
                     "query": "multi", 
                     "options": {}
@@ -172,6 +238,7 @@
                     "stack_mode": "percent", 
                     "height": "3", 
                     "item_type": "bar_chart", 
+                    "legend": "simple", 
                     "item_id": "d17", 
                     "query": "multi", 
                     "options": {}
@@ -194,6 +261,7 @@
                     "stack_mode": "none", 
                     "height": "3", 
                     "item_type": "bar_chart", 
+                    "legend": "simple", 
                     "item_id": "d20", 
                     "query": "multi", 
                     "options": {}
@@ -206,7 +274,7 @@
       }
     ]
   }, 
-  "view_href": "/dashboards/8/bar-charts", 
+  "view_href": "/dashboards/6/charts-bar-discrete-bar", 
   "description": "", 
   "tags": [
     {
@@ -220,10 +288,10 @@
       "name": "charts"
     }
   ], 
-  "title": "Bar Charts", 
+  "title": "Charts - Bar & Discrete Bar", 
   "summary": "", 
-  "definition_href": "/api/dashboard/8/definition", 
-  "href": "/api/dashboard/8", 
-  "id": 8, 
+  "definition_href": "/api/dashboard/6/definition", 
+  "href": "/api/dashboard/6", 
+  "id": 6, 
   "imported_from": null
 }

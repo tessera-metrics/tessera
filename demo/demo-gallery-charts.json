@@ -71,7 +71,7 @@
         ]
       }
     }, 
-    "href": "/api/dashboard/1/definition", 
+    "href": "/api/dashboard/2/definition", 
     "items": [
       {
         "item_id": "d2", 
@@ -518,27 +518,27 @@
       }
     ]
   }, 
-  "view_href": "/dashboards/1/gallery-charts", 
+  "view_href": "/dashboards/2/gallery-charts", 
   "description": "", 
   "tags": [
     {
       "count": 4, 
       "bgcolor": "green", 
-      "id": 1, 
+      "id": 3, 
       "name": "featured"
     }, 
     {
       "count": 4, 
       "bgcolor": "#ddd", 
-      "id": 2, 
+      "id": 4, 
       "fgcolor": "#333", 
       "name": "demo"
     }
   ], 
   "title": "Gallery - Charts", 
   "summary": "A gallery of graphical presentations", 
-  "definition_href": "/api/dashboard/1/definition", 
-  "href": "/api/dashboard/1", 
-  "id": 1, 
+  "definition_href": "/api/dashboard/2/definition", 
+  "href": "/api/dashboard/2", 
+  "id": 2, 
   "imported_from": null
 }

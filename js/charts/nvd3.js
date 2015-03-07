@@ -271,10 +271,12 @@ ds.charts.nvd3 =
                        .showControls(false)
                        .x(function(d) { return d.x })
                        .y(function(d) { return d.y })
+                       .showYAxis(item.show_grid)
                    : nv.models.discreteBarChart()
                        .x(function(d) { return d.x })
                        .y(function(d) { return d.y })
-                       .showValues(true)
+                       .showValues(item.show_numbers)
+                       .showYAxis(item.show_grid)
 
         d3.select(e.selector + ' svg')
           .attr('width', e.width())

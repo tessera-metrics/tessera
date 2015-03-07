@@ -71,7 +71,7 @@
         ]
       }
     }, 
-    "href": "/api/dashboard/25/definition", 
+    "href": "/api/dashboard/4/definition", 
     "items": [
       {
         "item_id": "d37", 
@@ -470,27 +470,27 @@
       }
     ]
   }, 
-  "view_href": "/dashboards/25/gallery-text-presentations", 
+  "view_href": "/dashboards/4/gallery-text-presentations", 
   "description": "", 
   "tags": [
     {
-      "count": 5, 
+      "count": 4, 
       "bgcolor": "green", 
-      "id": 1, 
+      "id": 3, 
       "name": "featured"
     }, 
     {
       "count": 4, 
       "bgcolor": "#ddd", 
-      "id": 2, 
+      "id": 4, 
       "fgcolor": "#333", 
       "name": "demo"
     }
   ], 
   "title": "Gallery - Text Presentations", 
   "summary": "Non-graphical presentations of data. ", 
-  "definition_href": "/api/dashboard/25/definition", 
-  "href": "/api/dashboard/25", 
-  "id": 25, 
+  "definition_href": "/api/dashboard/4/definition", 
+  "href": "/api/dashboard/4", 
+  "id": 4, 
   "imported_from": null
 }
