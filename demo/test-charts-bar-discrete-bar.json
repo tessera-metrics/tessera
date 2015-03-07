@@ -29,7 +29,7 @@
         ]
       }
     }, 
-    "href": "/api/dashboard/7/definition", 
+    "href": "/api/dashboard/6/definition", 
     "items": [
       {
         "item_id": "d22", 
@@ -47,11 +47,14 @@
                 "span": 4, 
                 "items": [
                   {
+                    "show_numbers": true, 
                     "orientation": "vertical", 
                     "title": "Vertical", 
+                    "format": ",.3s", 
                     "transform": "sum", 
                     "height": "4", 
                     "item_type": "discrete_bar_chart", 
+                    "show_grid": true, 
                     "item_id": "d25", 
                     "query": "query3", 
                     "options": {
@@ -68,13 +71,72 @@
                 "span": 6, 
                 "items": [
                   {
+                    "show_numbers": false, 
                     "orientation": "horizontal", 
                     "title": "Horizontal", 
+                    "format": ",.3s", 
                     "transform": "sum", 
                     "height": "4", 
                     "item_type": "discrete_bar_chart", 
                     "legend": "", 
+                    "show_grid": true, 
                     "item_id": "d28", 
+                    "query": "query3", 
+                    "options": {
+                      "y1": {
+                        "label": "Units"
+                      }, 
+                      "palette": "numbers6"
+                    }
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d29", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d30", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "show_numbers": false, 
+                    "orientation": "vertical", 
+                    "title": "Vertical", 
+                    "format": ",.3s", 
+                    "transform": "sum", 
+                    "height": "4", 
+                    "item_type": "discrete_bar_chart", 
+                    "show_grid": false, 
+                    "item_id": "d31", 
+                    "query": "query3", 
+                    "options": {
+                      "y1": {
+                        "label": "Units"
+                      }
+                    }
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d32", 
+                "item_type": "cell", 
+                "span": 6, 
+                "items": [
+                  {
+                    "show_numbers": true, 
+                    "orientation": "horizontal", 
+                    "title": "Horizontal", 
+                    "format": ",.3s", 
+                    "transform": "sum", 
+                    "height": "4", 
+                    "item_type": "discrete_bar_chart", 
+                    "legend": "", 
+                    "show_grid": false, 
+                    "item_id": "d33", 
                     "query": "query3", 
                     "options": {
                       "y1": {
@@ -212,24 +274,24 @@
       }
     ]
   }, 
-  "view_href": "/dashboards/7/charts-bar-discrete-bar", 
+  "view_href": "/dashboards/6/charts-bar-discrete-bar", 
   "description": "", 
   "tags": [
     {
       "count": 6, 
-      "id": 1, 
+      "id": 3, 
       "name": "test"
     }, 
     {
       "count": 4, 
-      "id": 2, 
+      "id": 4, 
       "name": "charts"
     }
   ], 
   "title": "Charts - Bar & Discrete Bar", 
   "summary": "", 
-  "definition_href": "/api/dashboard/7/definition", 
-  "href": "/api/dashboard/7", 
-  "id": 7, 
+  "definition_href": "/api/dashboard/6/definition", 
+  "href": "/api/dashboard/6", 
+  "id": 6, 
   "imported_from": null
 }
