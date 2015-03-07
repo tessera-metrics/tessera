@@ -75,6 +75,10 @@ ds.register_dashboard_item('dashboard_definition', {
         }
       })
       $.when(promises).done(function() {
+        // TODO: This isn't *quite* what I want - this fires after all
+        // the HTTP requests for the queries are complete, but the
+        // done() handlers are not (i.e. we're not actually done
+        // munging the data yet).
         ds.event.fire(ds.app, ds.app.Event.QUERIES_COMPLETE)
       })
       return self
