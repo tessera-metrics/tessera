@@ -12,12 +12,20 @@ ds.register_dashboard_item('discrete_bar_chart', {
                          .extend(ds.models.chart)
                          .property('transform', {init: 'sum'})
                          .property('orientation', {init: 'vertical'})
+                         .property('format', {init: ',.3s'})
+                         .property('show_grid', {init: true})
+                         .property('show_numbers', {init: true})
                          .build()
 
     if (data) {
       self.legend = undefined
       self.transform = data.transform || self.transform
       self.orientation = data.orientation || self.orientation
+      self.format = data.format || self.format
+      if (typeof(data.show_grid) !== 'undefined')
+        self.show_grid = data.show_grid
+      if (typeof(data.show_numbers) !== 'undefined')
+        self.show_numbers = data.show_numbers
     }
 
     ds.models.chart.init(self, data)
@@ -26,7 +34,10 @@ ds.register_dashboard_item('discrete_bar_chart', {
     self.toJSON = function() {
       return ds.models.chart.json(self, ds.models.item.json(self, {
         orientation: self.orientation,
-        transform: self.transform
+        transform: self.transform,
+        format: self.format,
+        show_grid: self.show_grid,
+        show_numbers: self.show_numbers
       }))
     }
 
@@ -41,6 +52,9 @@ ds.register_dashboard_item('discrete_bar_chart', {
 
   interactive_properties: [
     'transform',
+    'format',
+    { id: 'show_grid', type: 'boolean' },
+    { id: 'show_numbers', type: 'boolean' },
     {
       id: 'orientation',
       type: 'select',

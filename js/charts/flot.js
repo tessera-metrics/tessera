@@ -396,8 +396,17 @@ ds.charts.flot =
             horizontal: is_horizontal,
             show: true,
             barWidth: 0.8,
-            align: "center",
-            fill: 0.75
+            align: 'center',
+            fill: 0.75,
+            numbers: {
+              show: item.show_numbers,
+              xAlign: 'center',
+              font: '10pt Helvetica',
+              fontColor: '#f9f9f9', // TODO: get from theme
+              formatter: d3.format(item.format),
+              yAlign: function(y) { return y },
+              xAlign: function(x) { return x }
+            }
           }
         }
       })
@@ -422,14 +431,26 @@ ds.charts.flot =
 
       if (is_horizontal) {
         options.yaxes[0].tickLength = 0
-        options.xaxis.tickFormatter = null
         options.yaxes[0].ticks = ticks
-        options.xaxis.axisLabel = options.yaxes[0].axisLabel
-        options.yaxes[0].axisLabel = transform.charAt(0).toUpperCase() + transform.substring(1)
+        options.xaxis.tickFormatter = null
+        options.series.bars.numbers.xOffset = -18
+        if (item.show_grid) {
+          options.xaxis.axisLabel = options.yaxes[0].axisLabel
+          options.yaxes[0].axisLabel = transform.charAt(0).toUpperCase() + transform.substring(1)
+        } else {
+          options.xaxis.ticks = []
+          options.yaxes[0].axisLabel = null
+        }
       } else {
         options.xaxis.tickLength = 0
         options.xaxis.ticks = ticks
-        options.xaxis.axisLabel = transform.charAt(0).toUpperCase() + transform.substring(1)
+        options.series.bars.numbers.yOffset = 12
+        if (!item.show_grid) {
+          options.yaxes[0].ticks = []
+          options.yaxes[0].axisLabel = null
+        } else {
+          options.xaxis.axisLabel = transform.charAt(0).toUpperCase() + transform.substring(1)
+        }
       }
 
       render(e, item, query, options, data)

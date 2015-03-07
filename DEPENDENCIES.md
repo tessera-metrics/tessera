@@ -37,6 +37,7 @@ built with as many "off-the-shelf" components as possible.
   * [flot-valuelabels](https://github.com/winne27/flot-valuelabels)
   * [flot.stackpercent](https://github.com/skeleton9/flot.stackpercent)
   * [flot.multihighlight](https://github.com/eugenijusr/flot.multihighlight)
+  * [flot-barnumbers-enhanced](https://github.com/jasonroman/flot-barnumbers-enhanced)
 * [DataTables](http://datatables.net/)
 * [moment.js](http://momentjs.com/) for time parsing & formatting.
   * [moment-timezone.js](http://momentjs.com/timezone/)
