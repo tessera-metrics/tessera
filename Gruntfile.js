@@ -78,7 +78,8 @@ module.exports = function(grunt) {
           'tessera/static/js/flot/jquery.flot.pie.js',
           'tessera/static/js/flot/jquery.flot.barnumbers.enhanced.js',
           'tessera/static/js/simple_statistics.js',
-          'tessera/static/js/equalize.min.js'
+          'tessera/static/js/equalize.min.js',
+          'tessera/static/js/usertiming.js'
         ],
         dest: 'tessera/static/bundle.js'
       },
@@ -89,6 +90,7 @@ module.exports = function(grunt) {
         src: [
           'js/core.js',
           'js/log.js',
+          'js/perf.js',
           'js/event.js',
           'js/registry.js',
           'js/action.js',

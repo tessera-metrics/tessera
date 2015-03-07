@@ -23,12 +23,22 @@ ds.charts =
                          .build()
 
     self.DEFAULT_PALETTE = 'spectrum6'
+    self.perf = ds.perf('ds.charts')
 
     function get_renderer(fn_name, item) {
       var interactive = self.interactive
       if ((typeof(item) !== 'undefined') && (typeof(item.interactive) !== 'undefined'))
         interactive = item.interactive
-      return interactive ? self.provider[fn_name] : ds.charts.graphite[fn_name]
+      var renderer = interactive ? self.provider[fn_name] : ds.charts.graphite[fn_name]
+
+      return function() {
+        self.perf.start('render')
+        try {
+          return renderer(arguments[0], arguments[1], arguments[2])
+        } finally {
+          self.perf.end('render')
+        }
+      }
     }
 
     /**
