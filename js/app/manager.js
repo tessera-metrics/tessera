@@ -140,6 +140,8 @@ ds.manager =
      */
     self.load = function(url, element, options_) {
       log.debug('load(): ' + url)
+      window.performance.clearMarks()
+
       if (self.current && self.current.dashboard) {
         self.current.dashboard.cleanup()
       }
