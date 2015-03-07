@@ -9,7 +9,9 @@ ds.charts.graphite =
     var self = ds.charts.provider({
       name: 'graphite',
       is_interactive: false,
-      description: ''
+      description: "Render graphs using Graphite's built-in static PNG rendering. "
+                 + "No interactive features will be available with this option, "
+                 + "and not all chart types will render with fidelity."
     })
 
     self.DEFAULT_BGCOLOR = 'ff000000'
