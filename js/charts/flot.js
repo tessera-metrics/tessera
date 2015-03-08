@@ -203,6 +203,8 @@
       var data = query.chart_data('flot')
       for (var i = 0; i < data.length; i++) {
         var series = data[i]
+        if (item.hide_zero_series && series.summation.sum === 0)
+          continue
         var label = series.label
         var color = options.colors[i % options.colors.length]
 
@@ -323,12 +325,14 @@
 
       var transform = item.transform || 'sum'
       var data = query.chart_data('flot').map(function(series) {
+                   if (item.hide_zero_series && series.summation.sum === 0)
+                     return undefined
                    return {
                      label: series.label,
                      summation: series.summation,
                      data: [ series.label, series.summation[transform] ]
                    }
-                 })
+                 }).filter(function(item) { return item })
 
       render(e, item, query, options, data)
 
@@ -417,6 +421,8 @@
       var transform = item.transform || 'sum'
       var index = 0
       var data = query.chart_data('flot').map(function(series) {
+                   if (item.hide_zero_series && series.summation.sum === 0)
+                     return undefined
                    return {
                      label: series.label,
                      data: [
@@ -426,7 +432,7 @@
                      ],
                      color: options.colors[options.colors % index++]
                    }
-                 })
+                 }).filter(function(item) { return item })
       index = 0
       var ticks = data.map(function(series) {
                               return [index++, series.label]

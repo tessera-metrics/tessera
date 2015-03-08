@@ -15,6 +15,7 @@ ds.register_dashboard_item('discrete_bar_chart', {
                          .property('format', {init: ',.3s'})
                          .property('show_grid', {init: true})
                          .property('show_numbers', {init: true})
+                         .property('hide_zero_series', {init: false})
                          .build()
 
     if (data) {
@@ -22,10 +23,15 @@ ds.register_dashboard_item('discrete_bar_chart', {
       self.transform = data.transform || self.transform
       self.orientation = data.orientation || self.orientation
       self.format = data.format || self.format
-      if (typeof(data.show_grid) !== 'undefined')
-        self.show_grid = data.show_grid
-      if (typeof(data.show_numbers) !== 'undefined')
-        self.show_numbers = data.show_numbers
+      if (typeof(data.show_grid) !== 'undefined') {
+        self.show_grid = Boolean(data.show_grid)
+      }
+      if (typeof(data.show_numbers) !== 'undefined') {
+        self.show_numbers = Boolean(data.show_numbers)
+      }
+      if (typeof(data.hide_zero_series !== 'undefined')) {
+        self.hide_zero_series = Boolean(data.hide_zero_series)
+      }
     }
 
     ds.models.chart.init(self, data)
@@ -37,7 +43,8 @@ ds.register_dashboard_item('discrete_bar_chart', {
         transform: self.transform,
         format: self.format,
         show_grid: self.show_grid,
-        show_numbers: self.show_numbers
+        show_numbers: self.show_numbers,
+        hide_zero_series: self.hide_zero_series
       }))
     }
 
@@ -55,6 +62,7 @@ ds.register_dashboard_item('discrete_bar_chart', {
     'format',
     { id: 'show_grid', type: 'boolean' },
     { id: 'show_numbers', type: 'boolean' },
+    { id: 'hide_zero_series', type: 'boolean' },
     {
       id: 'orientation',
       type: 'select',
