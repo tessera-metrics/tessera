@@ -32,6 +32,7 @@ ds.models.data.Query = function(data) {
 
   self.DEFAULT_FROM_TIME = '-3h'
   self.perf = ds.perf('ds.models.data.Query', self.name)
+  self.cache = {}
 
   Object.defineProperty(self, 'is_query', {value: true})
 
@@ -173,6 +174,7 @@ ds.models.data.Query = function(data) {
 
       ds.event.fire(self, 'ds-data-ready', self)
     } else {
+      self.cache = {}
       self.perf.start('load')
       options.format = 'json'
       var url = self.url(options)
@@ -276,13 +278,13 @@ ds.models.data.Query = function(data) {
    * over.
    */
   self.chart_data = function(type) {
-    var attribute = 'chart_data_' + type
-    if (typeof(self[attribute]) === 'undefined') {
+    var cache_key = 'chart_data_' + type
+    if (!self.cache[cache_key]){
       self.perf.start('convert')
-      self[attribute] = ds.charts.process_data(self.data, type)
+      self.cache[cache_key] = ds.charts.process_data(self.data, type)
       self.perf.end('convert')
     }
-    return self[attribute]
+    return self.cache[cache_key]
   }
 
   self.performance_data = function() {
