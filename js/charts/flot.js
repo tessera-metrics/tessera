@@ -287,7 +287,8 @@
       var options = get_flot_options(item, {
         series: {
           lines: { fill: 1},
-          stack: true
+          stack: true,
+          streamgraph: { show: false }
         }
       })
 
@@ -296,6 +297,10 @@
         options.series.stackpercent = true
         options.yaxes[0].max = 100
         options.yaxes[0].min = 0
+      } else if (item.stack_mode == ds.charts.StackMode.STREAM) {
+        options.series.streamgraph.show = true
+        options.series.stack = false
+        options.series.stackpercent = false
       } else if (item.stack_mode == ds.charts.StackMode.NONE) {
         options.series.stack = false
         options.series.stackpercent = false
