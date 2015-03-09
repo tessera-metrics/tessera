@@ -32,10 +32,9 @@
     "href": "/api/dashboard/6/definition", 
     "items": [
       {
-        "item_id": "d22", 
-        "item_type": "section", 
-        "title": "Discrete Bar Charts", 
         "layout": "fixed", 
+        "description": "An alternative to donut charts for categorical data. ", 
+        "level": "2", 
         "items": [
           {
             "item_id": "d23", 
@@ -54,6 +53,7 @@
                     "transform": "sum", 
                     "height": "4", 
                     "item_type": "discrete_bar_chart", 
+                    "hide_zero_series": false, 
                     "show_grid": true, 
                     "item_id": "d25", 
                     "query": "query3", 
@@ -78,7 +78,7 @@
                     "transform": "sum", 
                     "height": "4", 
                     "item_type": "discrete_bar_chart", 
-                    "legend": "", 
+                    "hide_zero_series": false, 
                     "show_grid": true, 
                     "item_id": "d28", 
                     "query": "query3", 
@@ -87,7 +87,8 @@
                         "label": "Units"
                       }, 
                       "palette": "numbers6"
-                    }
+                    }, 
+                    "legend": ""
                   }
                 ]
               }
@@ -110,6 +111,7 @@
                     "transform": "sum", 
                     "height": "4", 
                     "item_type": "discrete_bar_chart", 
+                    "hide_zero_series": false, 
                     "show_grid": false, 
                     "item_id": "d31", 
                     "query": "query3", 
@@ -134,7 +136,7 @@
                     "transform": "sum", 
                     "height": "4", 
                     "item_type": "discrete_bar_chart", 
-                    "legend": "", 
+                    "hide_zero_series": false, 
                     "show_grid": false, 
                     "item_id": "d33", 
                     "query": "query3", 
@@ -143,19 +145,22 @@
                         "label": "Units"
                       }, 
                       "palette": "numbers6"
-                    }
+                    }, 
+                    "legend": ""
                   }
                 ]
               }
             ]
           }
-        ]
+        ], 
+        "title": "Discrete Bar Charts", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d22"
       }, 
       {
-        "item_id": "d3", 
-        "item_type": "section", 
-        "title": "Time Series Bar Charts", 
         "layout": "fixed", 
+        "level": "2", 
         "items": [
           {
             "item_id": "d4", 
@@ -248,6 +253,29 @@
             ]
           }, 
           {
+            "item_id": "d35", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d36", 
+                "item_type": "cell", 
+                "span": "12", 
+                "items": [
+                  {
+                    "title": "Stack - Stream", 
+                    "stack_mode": "stream", 
+                    "height": "3", 
+                    "item_type": "bar_chart", 
+                    "legend": "simple", 
+                    "item_id": "d37", 
+                    "query": "multi", 
+                    "options": {}
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
             "item_id": "d18", 
             "item_type": "row", 
             "items": [
@@ -270,7 +298,11 @@
               }
             ]
           }
-        ]
+        ], 
+        "title": "Time Series Bar Charts", 
+        "item_type": "section", 
+        "horizontal_rule": false, 
+        "item_id": "d3"
       }
     ]
   }, 
