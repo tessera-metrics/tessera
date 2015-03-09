@@ -7,10 +7,7 @@
     var self = ds.charts.provider({
       name:          'flot',
       is_interactive: true,
-      description: 'flot renders interactive charts using HTML canvas. '
-                 + 'It does not support stream graphs, but can be a better '
-                 + 'choice for rendering large numbers of graphs or lengthy '
-                 + 'time periods.'
+      description: 'flot renders interactive charts using HTML canvas.'
     })
 
     var log = ds.log.logger('ds.charts.flot')
