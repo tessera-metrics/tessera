@@ -65,9 +65,11 @@ def _get_preferences(store_in_session=False):
 from (in order) the request parameters, session, and config
 defaults.
     """
+    interactive = _get_param('renderer', app.config['CHART_RENDERER'], store_in_session=store_in_session) != 'graphite'
     return {
         'theme' : _get_param('theme', app.config['DEFAULT_THEME'], store_in_session=store_in_session),
-        'renderer' : _get_param('renderer', app.config['INTERACTIVE_CHARTS_RENDERER'], store_in_session=store_in_session),
+        'renderer' : _get_param('renderer', app.config['CHART_RENDERER'], store_in_session=store_in_session),
+        'interactive' : interactive,
         'refresh' : _get_param('refresh', app.config['DEFAULT_REFRESH_INTERVAL'], store_in_session=store_in_session),
         'timezone' : _get_param('timezone', app.config['DISPLAY_TIMEZONE'], store_in_session=store_in_session),
         'graphite_url' : _get_param('graphite_url', app.config['GRAPHITE_URL'], store_in_session=store_in_session),
