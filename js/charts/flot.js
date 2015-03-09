@@ -7,10 +7,7 @@
     var self = ds.charts.provider({
       name:          'flot',
       is_interactive: true,
-      description: 'flot renders interactive charts using HTML canvas. '
-                 + 'It does not support stream graphs, but can be a better '
-                 + 'choice for rendering large numbers of graphs or lengthy '
-                 + 'time periods.'
+      description: 'flot renders interactive charts using HTML canvas.'
     })
 
     var log = ds.log.logger('ds.charts.flot')
@@ -287,7 +284,8 @@
       var options = get_flot_options(item, {
         series: {
           lines: { fill: 1},
-          stack: true
+          stack: true,
+          streamgraph: { show: false }
         }
       })
 
@@ -296,6 +294,10 @@
         options.series.stackpercent = true
         options.yaxes[0].max = 100
         options.yaxes[0].min = 0
+      } else if (item.stack_mode == ds.charts.StackMode.STREAM) {
+        options.series.streamgraph.show = true
+        options.series.stack = false
+        options.series.stackpercent = false
       } else if (item.stack_mode == ds.charts.StackMode.NONE) {
         options.series.stack = false
         options.series.stackpercent = false
