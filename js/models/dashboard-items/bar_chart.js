@@ -45,7 +45,8 @@ ds.register_dashboard_item('bar_chart', {
         source: [
           ds.charts.StackMode.NONE,
           ds.charts.StackMode.NORMAL,
-          ds.charts.StackMode.PERCENT
+          ds.charts.StackMode.PERCENT,
+          ds.charts.StackMode.STREAM
         ]
       }
     }
