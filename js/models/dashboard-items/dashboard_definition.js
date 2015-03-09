@@ -65,14 +65,24 @@ ds.register_dashboard_item('dashboard_definition', {
     self.load_all = function(options, fire_only) {
       log.debug('load_all()')
       self.options = options || self.options
-      for (var key in self.queries) {
-        self.queries[key].load(self.options, fire_only)
-      }
+      var promises = Object.keys(self.queries).map(function(key) {
+                       var future = self.queries[key].load(self.options, fire_only)
+                       return future ? future.promise() : undefined
+                     })
       self.visit(function(item) {
         if (item.query_override) {
           log.debug('load_all(): loading query override ' + item.query_override.name)
-          item.query_override.load(self.options, fire_only)
+          var future = item.query_override.load(self.options, fire_only)
+          if (future)
+            promises.push(future.promise())
         }
+      })
+      $.when(promises).done(function() {
+        // TODO: This isn't *quite* what I want - this fires after all
+        // the HTTP requests for the queries are complete, but the
+        // done() handlers are not (i.e. we're not actually done
+        // munging the data yet).
+        ds.event.fire(ds.app, ds.app.Event.QUERIES_COMPLETE)
       })
       return self
     }

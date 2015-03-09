@@ -31,6 +31,8 @@ ds.models.data.Query = function(data) {
   }
 
   self.DEFAULT_FROM_TIME = '-3h'
+  self.perf = ds.perf('ds.models.data.Query', self.name)
+  self.cache = {}
 
   Object.defineProperty(self, 'is_query', {value: true})
 
@@ -172,10 +174,12 @@ ds.models.data.Query = function(data) {
 
       ds.event.fire(self, 'ds-data-ready', self)
     } else {
+      self.cache = {}
+      self.perf.start('load')
       options.format = 'json'
       var url = self.url(options)
       ds.event.fire(self, 'ds-data-loading')
-      $.ajax({
+      return $.ajax({
         dataType: 'jsonp',
         url: url,
         jsonp: 'jsonp',
@@ -185,15 +189,17 @@ ds.models.data.Query = function(data) {
           }
         }
       })
-       .done(function(response_data, textStatus) {
-        self._process(response_data)
+       .fail(function(xhr, status, error) {
+        self.perf.end('load')
+        ds.manager.error('Failed to load query ' + self.name + '. ' + error)
+      })
+       .then(function(response_data, textStatus) {
+        self.perf.end('load')
+        _summarize(response_data)
         if (options.ready && (options.ready instanceof Function)) {
           options.ready(self)
         }
         ds.event.fire(self, 'ds-data-ready', self)
-      })
-       .error(function(xhr, status, error) {
-        ds.manager.error('Failed to load query ' + self.name + '. ' + error)
       })
     }
   }
@@ -255,12 +261,14 @@ ds.models.data.Query = function(data) {
    * the returned structure into something consumable by the
    * charting library, and calculating sums.
    */
-  self._process = function(response_data) {
+  function _summarize(response_data) {
+    self.perf.start('summarize')
     self.summation = ds.models.data.Summation(response_data)
     self.data = response_data.map(function(series) {
                   series.summation = ds.models.data.Summation(series).toJSON()
                   return series
                 })
+    self.perf.end('summarize')
     return self
   }
 
@@ -270,11 +278,21 @@ ds.models.data.Query = function(data) {
    * over.
    */
   self.chart_data = function(type) {
-    var attribute = 'chart_data_' + type
-    if (typeof(self[attribute]) === 'undefined') {
-      self[attribute] = ds.charts.process_data(self.data, type)
+    var cache_key = 'chart_data_' + type
+    if (!self.cache[cache_key]){
+      self.perf.start('convert')
+      self.cache[cache_key] = ds.charts.process_data(self.data, type)
+      self.perf.end('convert')
     }
-    return self[attribute]
+    return self.cache[cache_key]
+  }
+
+  self.performance_data = function() {
+    return {
+      load:      self.perf.get_last_measure('load'),
+      summarize: self.perf.get_last_measure('summarize'),
+      convert:   self.perf.get_last_measure('convert')
+    }
   }
 
   self.toJSON = function() {

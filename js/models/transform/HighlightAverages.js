@@ -47,6 +47,7 @@ ds.transforms.register({
                             .set_title("Average & Max Average")
                             .set_query(query_averages)
     item_averages.options.palette = palette
+    item_averages.options.hideLegend = 'true'
 
     var item_deviant  = item.clone()
                             .set_item_type('standard_time_series')
@@ -62,13 +63,16 @@ ds.transforms.register({
                     .add(make('cell')
                            .set_span(12)
                            .set_style('well')
-                           .add(item_averages))
+                           .add(item_averages)))
+             .add(make('row')
                     .add(make('cell')
                            .set_span(12)
-                           .add(item_deviant))
+                           .add(item_deviant)))
+             .add(make('separator'))
+             .add(make('row')
                     .add(make('cell')
                            .set_span(12)
-                           .add(item)))
+                           .add(item.set_title('Original'))))
 
   }
 

@@ -1,0 +1,13 @@
+.flotValueLabels {
+	color:black;
+}
+.flotValueLabelLight {
+	opacity:0.5;
+	background-color: white;
+	border:none;
+	position:absolute;
+}
+.flotValueLabel {
+	position:absolute;
+	border:none;
+}

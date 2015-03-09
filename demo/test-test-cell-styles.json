@@ -1,0 +1,1645 @@
+{
+  "category": "Test", 
+  "definition": {
+    "item_id": "d0", 
+    "item_type": "dashboard_definition", 
+    "queries": {
+      "query0": [
+        "absolute(randomWalkFunction(\"query0\"))"
+      ], 
+      "multiple": [
+        "group(absolute(randomWalkFunction(\"query1\")),absolute(randomWalkFunction(\"query2\")),absolute(randomWalkFunction(\"query3\")),absolute(randomWalkFunction(\"query4\")),absolute(randomWalkFunction(\"query5\")))"
+      ]
+    }, 
+    "href": "/api/dashboard/8/definition", 
+    "items": [
+      {
+        "item_id": "d134", 
+        "item_type": "section", 
+        "title": "Wells", 
+        "layout": "fixed", 
+        "items": [
+          {
+            "item_id": "d151", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d152", 
+                "item_type": "cell", 
+                "align": "center", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d153", 
+                    "query": "query0"
+                  }
+                ]
+              }, 
+              {
+                "style": "none", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d155", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "item_type": "cell", 
+                "item_id": "d154"
+              }, 
+              {
+                "item_id": "d156", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": "6", 
+                "items": [
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d157", 
+                    "query": "multiple", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d158", 
+            "item_type": "row", 
+            "style": "well", 
+            "items": [
+              {
+                "item_id": "d159", 
+                "item_type": "cell", 
+                "align": "center", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d160", 
+                    "query": "query0"
+                  }
+                ]
+              }, 
+              {
+                "style": "none", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d162", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "item_type": "cell", 
+                "item_id": "d161"
+              }, 
+              {
+                "item_id": "d163", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": "6", 
+                "items": [
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d164", 
+                    "query": "multiple", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d165", 
+            "item_type": "row", 
+            "style": "alert_neutral", 
+            "items": [
+              {
+                "item_id": "d166", 
+                "item_type": "cell", 
+                "align": "center", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d167", 
+                    "query": "query0"
+                  }
+                ]
+              }, 
+              {
+                "style": "none", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d169", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "item_type": "cell", 
+                "item_id": "d168"
+              }, 
+              {
+                "item_id": "d170", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": "6", 
+                "items": [
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d171", 
+                    "query": "multiple", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d172", 
+            "item_type": "row", 
+            "style": "alert_info", 
+            "items": [
+              {
+                "item_id": "d173", 
+                "item_type": "cell", 
+                "align": "center", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d174", 
+                    "query": "query0"
+                  }
+                ]
+              }, 
+              {
+                "style": "none", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d176", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "item_type": "cell", 
+                "item_id": "d175"
+              }, 
+              {
+                "item_id": "d177", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": "6", 
+                "items": [
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d178", 
+                    "query": "multiple", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d179", 
+            "item_type": "row", 
+            "style": "alert_success", 
+            "items": [
+              {
+                "item_id": "d180", 
+                "item_type": "cell", 
+                "align": "center", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d181", 
+                    "query": "query0"
+                  }
+                ]
+              }, 
+              {
+                "style": "none", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d183", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "item_type": "cell", 
+                "item_id": "d182"
+              }, 
+              {
+                "item_id": "d184", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": "6", 
+                "items": [
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d185", 
+                    "query": "multiple", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d186", 
+            "item_type": "row", 
+            "style": "alert_warning", 
+            "items": [
+              {
+                "item_id": "d187", 
+                "item_type": "cell", 
+                "align": "center", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d188", 
+                    "query": "query0"
+                  }
+                ]
+              }, 
+              {
+                "style": "none", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d190", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "item_type": "cell", 
+                "item_id": "d189"
+              }, 
+              {
+                "item_id": "d191", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": "6", 
+                "items": [
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d192", 
+                    "query": "multiple", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d193", 
+            "item_type": "row", 
+            "style": "alert_danger", 
+            "items": [
+              {
+                "item_id": "d194", 
+                "item_type": "cell", 
+                "align": "center", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d195", 
+                    "query": "query0"
+                  }
+                ]
+              }, 
+              {
+                "style": "none", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d197", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "item_type": "cell", 
+                "item_id": "d196"
+              }, 
+              {
+                "item_id": "d198", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": "6", 
+                "items": [
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d199", 
+                    "query": "multiple", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }, 
+      {
+        "item_id": "d2", 
+        "item_type": "section", 
+        "title": "Nested Wells", 
+        "layout": "fixed", 
+        "items": [
+          {
+            "item_id": "d55", 
+            "item_type": "row", 
+            "style": "well", 
+            "items": [
+              {
+                "item_id": "d62", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": 10, 
+                "items": [
+                  {
+                    "item_id": "d63", 
+                    "item_type": "row", 
+                    "items": [
+                      {
+                        "item_id": "d64", 
+                        "item_type": "cell", 
+                        "style": "none", 
+                        "span": 10, 
+                        "items": [
+                          {
+                            "item_id": "d68", 
+                            "item_type": "row", 
+                            "style": "well", 
+                            "items": [
+                              {
+                                "item_id": "d69", 
+                                "item_type": "cell", 
+                                "span": 9, 
+                                "items": [
+                                  {
+                                    "item_id": "d70", 
+                                    "item_type": "row", 
+                                    "style": "well", 
+                                    "items": [
+                                      {
+                                        "item_id": "d71", 
+                                        "item_type": "cell", 
+                                        "span": 9, 
+                                        "items": [
+                                          {
+                                            "height": 1, 
+                                            "item_type": "simple_time_series", 
+                                            "item_id": "d200", 
+                                            "query": "multiple", 
+                                            "filled": false, 
+                                            "interactive": true
+                                          }
+                                        ]
+                                      }, 
+                                      {
+                                        "item_id": "d34", 
+                                        "item_type": "cell", 
+                                        "span": 3, 
+                                        "items": [
+                                          {
+                                            "item_id": "d35", 
+                                            "item_type": "markdown", 
+                                            "text": "#4"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }, 
+                              {
+                                "item_id": "d32", 
+                                "item_type": "cell", 
+                                "span": 3, 
+                                "items": [
+                                  {
+                                    "item_id": "d33", 
+                                    "item_type": "markdown", 
+                                    "text": "# 3"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }, 
+                      {
+                        "item_id": "d30", 
+                        "item_type": "cell", 
+                        "span": 2, 
+                        "items": [
+                          {
+                            "item_id": "d31", 
+                            "item_type": "markdown", 
+                            "text": "# 2"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d27", 
+                "item_type": "cell", 
+                "span": 2, 
+                "items": [
+                  {
+                    "item_id": "d29", 
+                    "item_type": "markdown", 
+                    "text": "# 1"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d141", 
+            "item_type": "row", 
+            "style": "alert_info", 
+            "items": [
+              {
+                "item_id": "d142", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": 10, 
+                "items": [
+                  {
+                    "item_id": "d143", 
+                    "item_type": "row", 
+                    "items": [
+                      {
+                        "item_id": "d144", 
+                        "item_type": "cell", 
+                        "style": "none", 
+                        "span": 10, 
+                        "items": [
+                          {
+                            "item_id": "d145", 
+                            "item_type": "row", 
+                            "style": "well", 
+                            "items": [
+                              {
+                                "item_id": "d146", 
+                                "item_type": "cell", 
+                                "span": 9, 
+                                "items": [
+                                  {
+                                    "item_id": "d147", 
+                                    "item_type": "row", 
+                                    "style": "well", 
+                                    "items": [
+                                      {
+                                        "item_id": "d148", 
+                                        "item_type": "cell", 
+                                        "span": 9, 
+                                        "items": [
+                                          {
+                                            "height": 1, 
+                                            "item_type": "simple_time_series", 
+                                            "item_id": "d149", 
+                                            "query": "multiple", 
+                                            "filled": false, 
+                                            "interactive": true
+                                          }
+                                        ]
+                                      }, 
+                                      {
+                                        "item_id": "d150", 
+                                        "item_type": "cell", 
+                                        "span": 3, 
+                                        "items": [
+                                          {
+                                            "item_id": "d355", 
+                                            "item_type": "markdown", 
+                                            "text": "#4"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }, 
+                              {
+                                "item_id": "d225", 
+                                "item_type": "cell", 
+                                "span": 3, 
+                                "items": [
+                                  {
+                                    "item_id": "d226", 
+                                    "item_type": "markdown", 
+                                    "text": "# 3"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }, 
+                      {
+                        "item_id": "d227", 
+                        "item_type": "cell", 
+                        "span": 2, 
+                        "items": [
+                          {
+                            "item_id": "d228", 
+                            "item_type": "markdown", 
+                            "text": "# 2"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d229", 
+                "item_type": "cell", 
+                "span": 2, 
+                "items": [
+                  {
+                    "item_id": "d230", 
+                    "item_type": "markdown", 
+                    "text": "# 1"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d231", 
+            "item_type": "row", 
+            "style": "alert_success", 
+            "items": [
+              {
+                "item_id": "d232", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": 10, 
+                "items": [
+                  {
+                    "item_id": "d233", 
+                    "item_type": "row", 
+                    "items": [
+                      {
+                        "item_id": "d234", 
+                        "item_type": "cell", 
+                        "style": "none", 
+                        "span": 10, 
+                        "items": [
+                          {
+                            "item_id": "d235", 
+                            "item_type": "row", 
+                            "style": "well", 
+                            "items": [
+                              {
+                                "item_id": "d236", 
+                                "item_type": "cell", 
+                                "span": 9, 
+                                "items": [
+                                  {
+                                    "item_id": "d237", 
+                                    "item_type": "row", 
+                                    "style": "well", 
+                                    "items": [
+                                      {
+                                        "item_id": "d238", 
+                                        "item_type": "cell", 
+                                        "span": 9, 
+                                        "items": [
+                                          {
+                                            "height": 1, 
+                                            "item_type": "simple_time_series", 
+                                            "item_id": "d239", 
+                                            "query": "multiple", 
+                                            "filled": false, 
+                                            "interactive": true
+                                          }
+                                        ]
+                                      }, 
+                                      {
+                                        "item_id": "d240", 
+                                        "item_type": "cell", 
+                                        "span": 3, 
+                                        "items": [
+                                          {
+                                            "item_id": "d241", 
+                                            "item_type": "markdown", 
+                                            "text": "#4"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }, 
+                              {
+                                "item_id": "d242", 
+                                "item_type": "cell", 
+                                "span": 3, 
+                                "items": [
+                                  {
+                                    "item_id": "d243", 
+                                    "item_type": "markdown", 
+                                    "text": "# 3"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }, 
+                      {
+                        "item_id": "d244", 
+                        "item_type": "cell", 
+                        "span": 2, 
+                        "items": [
+                          {
+                            "item_id": "d245", 
+                            "item_type": "markdown", 
+                            "text": "# 2"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d246", 
+                "item_type": "cell", 
+                "span": 2, 
+                "items": [
+                  {
+                    "item_id": "d247", 
+                    "item_type": "markdown", 
+                    "text": "# 1"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d248", 
+            "item_type": "row", 
+            "style": "alert_warning", 
+            "items": [
+              {
+                "item_id": "d249", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": 10, 
+                "items": [
+                  {
+                    "item_id": "d250", 
+                    "item_type": "row", 
+                    "items": [
+                      {
+                        "item_id": "d251", 
+                        "item_type": "cell", 
+                        "style": "none", 
+                        "span": 10, 
+                        "items": [
+                          {
+                            "item_id": "d252", 
+                            "item_type": "row", 
+                            "style": "well", 
+                            "items": [
+                              {
+                                "item_id": "d253", 
+                                "item_type": "cell", 
+                                "span": 9, 
+                                "items": [
+                                  {
+                                    "item_id": "d254", 
+                                    "item_type": "row", 
+                                    "style": "well", 
+                                    "items": [
+                                      {
+                                        "item_id": "d255", 
+                                        "item_type": "cell", 
+                                        "span": 9, 
+                                        "items": [
+                                          {
+                                            "height": 1, 
+                                            "item_type": "simple_time_series", 
+                                            "item_id": "d256", 
+                                            "query": "multiple", 
+                                            "filled": false, 
+                                            "interactive": true
+                                          }
+                                        ]
+                                      }, 
+                                      {
+                                        "item_id": "d257", 
+                                        "item_type": "cell", 
+                                        "span": 3, 
+                                        "items": [
+                                          {
+                                            "item_id": "d258", 
+                                            "item_type": "markdown", 
+                                            "text": "#4"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }, 
+                              {
+                                "item_id": "d259", 
+                                "item_type": "cell", 
+                                "span": 3, 
+                                "items": [
+                                  {
+                                    "item_id": "d260", 
+                                    "item_type": "markdown", 
+                                    "text": "# 3"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }, 
+                      {
+                        "item_id": "d261", 
+                        "item_type": "cell", 
+                        "span": 2, 
+                        "items": [
+                          {
+                            "item_id": "d262", 
+                            "item_type": "markdown", 
+                            "text": "# 2"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d263", 
+                "item_type": "cell", 
+                "span": 2, 
+                "items": [
+                  {
+                    "item_id": "d264", 
+                    "item_type": "markdown", 
+                    "text": "# 1"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d265", 
+            "item_type": "row", 
+            "style": "alert_danger", 
+            "items": [
+              {
+                "item_id": "d266", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": 10, 
+                "items": [
+                  {
+                    "item_id": "d267", 
+                    "item_type": "row", 
+                    "items": [
+                      {
+                        "item_id": "d268", 
+                        "item_type": "cell", 
+                        "style": "none", 
+                        "span": 10, 
+                        "items": [
+                          {
+                            "item_id": "d269", 
+                            "item_type": "row", 
+                            "style": "well", 
+                            "items": [
+                              {
+                                "item_id": "d270", 
+                                "item_type": "cell", 
+                                "span": 9, 
+                                "items": [
+                                  {
+                                    "item_id": "d271", 
+                                    "item_type": "row", 
+                                    "style": "well", 
+                                    "items": [
+                                      {
+                                        "item_id": "d272", 
+                                        "item_type": "cell", 
+                                        "span": 9, 
+                                        "items": [
+                                          {
+                                            "height": 1, 
+                                            "item_type": "simple_time_series", 
+                                            "item_id": "d273", 
+                                            "query": "multiple", 
+                                            "filled": false, 
+                                            "interactive": true
+                                          }
+                                        ]
+                                      }, 
+                                      {
+                                        "item_id": "d274", 
+                                        "item_type": "cell", 
+                                        "span": 3, 
+                                        "items": [
+                                          {
+                                            "item_id": "d275", 
+                                            "item_type": "markdown", 
+                                            "text": "#4"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }, 
+                              {
+                                "item_id": "d276", 
+                                "item_type": "cell", 
+                                "span": 3, 
+                                "items": [
+                                  {
+                                    "item_id": "d277", 
+                                    "item_type": "markdown", 
+                                    "text": "# 3"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }, 
+                      {
+                        "item_id": "d278", 
+                        "item_type": "cell", 
+                        "span": 2, 
+                        "items": [
+                          {
+                            "item_id": "d279", 
+                            "item_type": "markdown", 
+                            "text": "# 2"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d280", 
+                "item_type": "cell", 
+                "span": 2, 
+                "items": [
+                  {
+                    "item_id": "d281", 
+                    "item_type": "markdown", 
+                    "text": "# 1"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }, 
+      {
+        "item_id": "d3", 
+        "item_type": "section", 
+        "title": "All your style are belong to us", 
+        "layout": "fixed", 
+        "items": [
+          {
+            "item_id": "d37", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d38", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Well", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d39", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d48", 
+                "item_type": "cell", 
+                "style": "alert_neutral", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Neutral", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d49", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d50", 
+                "item_type": "cell", 
+                "style": "alert_info", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Information", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d51", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d52", 
+                "item_type": "cell", 
+                "style": "alert_success", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Success", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d53", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d54", 
+                "item_type": "cell", 
+                "style": "alert_warning", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Warning", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d56", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d57", 
+                "item_type": "cell", 
+                "style": "alert_danger", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Danger", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d58", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d282", 
+            "item_type": "row", 
+            "items": [
+              {
+                "style": "callout_neutral", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Neutral", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d296", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ], 
+                "item_type": "cell", 
+                "offset": "2", 
+                "item_id": "d295"
+              }, 
+              {
+                "item_id": "d297", 
+                "item_type": "cell", 
+                "style": "callout_info", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Information", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d298", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d299", 
+                "item_type": "cell", 
+                "style": "callout_success", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Success", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d300", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d301", 
+                "item_type": "cell", 
+                "style": "callout_warning", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Warning", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d302", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d303", 
+                "item_type": "cell", 
+                "style": "callout_danger", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Danger", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d304", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }, 
+      {
+        "style": "well", 
+        "layout": "fixed", 
+        "title": "All your style are belong to us", 
+        "items": [
+          {
+            "item_id": "d306", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d307", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Well", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d308", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d309", 
+                "item_type": "cell", 
+                "style": "alert_neutral", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Neutral", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d310", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d311", 
+                "item_type": "cell", 
+                "style": "alert_info", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Information", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d312", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d313", 
+                "item_type": "cell", 
+                "style": "alert_success", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Success", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d314", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d315", 
+                "item_type": "cell", 
+                "style": "alert_warning", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Warning", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d316", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d317", 
+                "item_type": "cell", 
+                "style": "alert_danger", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Danger", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d318", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d319", 
+            "item_type": "row", 
+            "items": [
+              {
+                "style": "callout_neutral", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Neutral", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d321", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ], 
+                "item_type": "cell", 
+                "offset": "2", 
+                "item_id": "d320"
+              }, 
+              {
+                "item_id": "d322", 
+                "item_type": "cell", 
+                "style": "callout_info", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Information", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d323", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d324", 
+                "item_type": "cell", 
+                "style": "callout_success", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Success", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d325", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d326", 
+                "item_type": "cell", 
+                "style": "callout_warning", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Warning", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d327", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d328", 
+                "item_type": "cell", 
+                "style": "callout_danger", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Danger", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d329", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "item_type": "section", 
+        "item_id": "d305"
+      }, 
+      {
+        "style": "alert_info", 
+        "layout": "fixed", 
+        "title": "All your style are belong to us", 
+        "items": [
+          {
+            "item_id": "d331", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d332", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Well", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d333", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d334", 
+                "item_type": "cell", 
+                "style": "alert_neutral", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Neutral", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d335", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d336", 
+                "item_type": "cell", 
+                "style": "alert_info", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Information", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d337", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d338", 
+                "item_type": "cell", 
+                "style": "alert_success", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Success", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d339", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d340", 
+                "item_type": "cell", 
+                "style": "alert_warning", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Warning", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d341", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d342", 
+                "item_type": "cell", 
+                "style": "alert_danger", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Alert Danger", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d343", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d344", 
+            "item_type": "row", 
+            "items": [
+              {
+                "style": "callout_neutral", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Neutral", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d346", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ], 
+                "item_type": "cell", 
+                "offset": "2", 
+                "item_id": "d345"
+              }, 
+              {
+                "item_id": "d347", 
+                "item_type": "cell", 
+                "style": "callout_info", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Information", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d348", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d349", 
+                "item_type": "cell", 
+                "style": "callout_success", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Success", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d350", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d351", 
+                "item_type": "cell", 
+                "style": "callout_warning", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Warning", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d352", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d353", 
+                "item_type": "cell", 
+                "style": "callout_danger", 
+                "span": 2, 
+                "items": [
+                  {
+                    "title": "Callout Danger", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "item_id": "d354", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "item_type": "section", 
+        "item_id": "d330"
+      }
+    ]
+  }, 
+  "view_href": "/dashboards/8/test-cell-styles", 
+  "description": "", 
+  "tags": [
+    {
+      "count": 6, 
+      "id": 1, 
+      "name": "test"
+    }
+  ], 
+  "title": "Test - Cell Styles", 
+  "summary": "Rendering combinations of cell styles", 
+  "definition_href": "/api/dashboard/8/definition", 
+  "href": "/api/dashboard/8", 
+  "id": 8, 
+  "imported_from": null
+}

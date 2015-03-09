@@ -10,16 +10,18 @@ GRAPHITE_AUTH              = ''
 DISPLAY_TIMEZONE           = 'Etc/UTC'
 SERVER_ADDRESS             = '0.0.0.0'
 SERVER_PORT                = 5000
-INTERACTIVE_CHARTS_DEFAULT = True
 INTERACTIVE_CHARTS_RENDERER = 'flot'
+DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS = 3
 
 DASHBOARD_RANGE_PICKER = [
-      ('Past Hour',   '-1h'),
-      ('Past 3 Hrs',  '-3h'),
-      ('Past 12 Hrs', '-12h'),
-      ('Past Day',    '-1d'),
-      ('Past Wk',     '-1w'),
-      ('Past 2 Wks',  '-2w'),
+      ('1h',  '-1h'),
+      ('3h',  '-3h'),
+      ('12h', '-12h'),
+      ('1d',  '-1d'),
+      ('3d',  '-3d'),
+      ('1w',  '-1w'),
+      ('2w',  '-2w'),
+      ('3w',  '-3w'),
 ]
 
 DASHBOARD_REFRESH_INTERVALS = [

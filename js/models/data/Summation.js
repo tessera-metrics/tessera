@@ -12,7 +12,9 @@ ds.models.data.Summation = function(initial_data) {
   var self = limivorous.observable()
                        .property('sum', { init: 0 })
                        .property('min', { init: Number.MAX_VALUE })
+                       .property('min_index')
                        .property('max', { init: Number.MIN_VALUE })
+                       .property('max_index')
                        .property('mean', { init: 0 })
                        .property('median', { init: 0 })
                        .property('first', { init: 0 })
@@ -61,22 +63,28 @@ ds.models.data.Summation = function(initial_data) {
     if (self.first == null) {
       self.first = 0
     }
+    var index = 0
     datapoints.forEach(function(point) {
       var value = point[0] || 0
       self.last = value
       self.sum = self.sum + value
       if (value > self.max) {
         self.max = value
+        self.max_index = index
       }
       if (point[0] && (value < self.min)) {
         self.min = value
+        self.min_index = index
       }
+      index++
     })
     self.mean = self.sum / self.count
   } else if (typeof(initial_data) === 'object') {
     self.sum   = if_defined(initial_data.sum,  self.sum)
     self.min   = if_defined(initial_data.min, self.min)
+    self.min_index = if_defined(initial_data.min, self.min_index)
     self.max   = if_defined(initial_data.max, self.max)
+    self.max_index = if_defined(initial_data.max, self.max_index)
     self.first = if_defined(initial_data.first, self.first)
     self.last  = if_defined(initial_data.last, self.last)
     self.mean  = if_defined(initial_data.mean, self.mean)
@@ -104,7 +112,9 @@ ds.models.data.Summation = function(initial_data) {
     return {
       sum: self.sum,
       min: self.min,
+      min_index: self.min_index,
       max: self.max,
+      max_index: self.max_index,
       mean: self.mean,
       median: self.median,
       first: self.first,

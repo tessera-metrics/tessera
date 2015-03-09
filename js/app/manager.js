@@ -140,6 +140,8 @@ ds.manager =
      */
     self.load = function(url, element, options_) {
       log.debug('load(): ' + url)
+      window.performance.clearMarks()
+
       if (self.current && self.current.dashboard) {
         self.current.dashboard.cleanup()
       }
@@ -156,15 +158,15 @@ ds.manager =
         var dashboard = ds.models.dashboard(data)
         holder.dashboard = dashboard
 
-        if (data.preferences.renderer && ds.charts[data.preferences.renderer]) {
-          ds.charts.provider = ds.charts[data.preferences.renderer]
+        if (data.preferences.renderer) {
+          ds.charts.provider = ds.charts.registry.get(data.preferences.renderer)
         }
 
           ds.event.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)
 
           dashboard.render_templates(context.variables)
 
-          var interactive = data.preferences.interactive
+          var interactive = ds.charts.provider.is_interactive
           if (context.interactive != undefined) {
             interactive = context.interactive
           }
@@ -435,6 +437,7 @@ ds.manager =
         bootbox.dialog({
             message: "Are you really sure you want to delete this dashboard? Deletion is irrevocable.",
             title: "Confirm dashboard delete",
+            backdrop: false,
             buttons: {
                 cancel: {
                     label: "Cancel",

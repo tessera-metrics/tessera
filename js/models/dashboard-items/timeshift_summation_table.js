@@ -160,10 +160,14 @@ ds.register_dashboard_item('timeshift_summation_table', {
       display: 'Pick interval...',
       icon:    'fa fa-clock-o',
       handler: function(action, item) {
-        bootbox.prompt("Enter a time shift interval", function(result) {
-          if (result) {
-            item.shift = result
-            ds.manager.update_item_view(item)
+        bootbox.prompt({
+          backdrop: false,
+          title: "Enter a time shift interval",
+          callback: function(result) {
+            if (result) {
+              item.shift = result
+              ds.manager.update_item_view(item)
+            }
           }
         })
       }

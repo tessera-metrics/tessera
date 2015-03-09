@@ -1,270 +1,8 @@
 {
   "category": "Demo", 
   "definition": {
-    "style": null, 
-    "items": [
-      {
-        "style": "none", 
-        "layout": "fixed", 
-        "title": null, 
-        "items": [
-          {
-            "style": null, 
-            "items": [
-              {
-                "style": "well", 
-                "span": 3, 
-                "items": [
-                  {
-                    "index": false, 
-                    "style": null, 
-                    "title": "Average", 
-                    "css_class": null, 
-                    "thresholds": null, 
-                    "format": ",.3f", 
-                    "item_id": "d17", 
-                    "transform": "mean", 
-                    "height": null, 
-                    "item_type": "singlestat", 
-                    "units": "/sec", 
-                    "query": "query0"
-                  }
-                ], 
-                "align": "center", 
-                "height": null, 
-                "item_type": "cell", 
-                "offset": null, 
-                "item_id": "d14", 
-                "css_class": null
-              }, 
-              {
-                "style": "well", 
-                "span": 3, 
-                "items": [
-                  {
-                    "index": false, 
-                    "style": null, 
-                    "title": "Max", 
-                    "css_class": null, 
-                    "thresholds": null, 
-                    "format": ",.3f", 
-                    "item_id": "d21", 
-                    "transform": "max", 
-                    "height": null, 
-                    "item_type": "singlestat", 
-                    "units": "/sec", 
-                    "query": "query0"
-                  }
-                ], 
-                "align": "center", 
-                "height": null, 
-                "item_type": "cell", 
-                "offset": null, 
-                "item_id": "d20", 
-                "css_class": null
-              }, 
-              {
-                "style": "well", 
-                "span": 3, 
-                "items": [
-                  {
-                    "index": false, 
-                    "style": null, 
-                    "title": "Median", 
-                    "css_class": null, 
-                    "thresholds": null, 
-                    "format": ",.3f", 
-                    "item_id": "d77", 
-                    "transform": "median", 
-                    "height": null, 
-                    "item_type": "singlestat", 
-                    "units": "/sec", 
-                    "query": "query0"
-                  }
-                ], 
-                "align": "center", 
-                "height": null, 
-                "item_type": "cell", 
-                "offset": null, 
-                "item_id": "d76", 
-                "css_class": null
-              }, 
-              {
-                "style": "well", 
-                "span": 3, 
-                "items": [
-                  {
-                    "index": false, 
-                    "style": null, 
-                    "title": "Total", 
-                    "css_class": null, 
-                    "thresholds": null, 
-                    "format": ",.2s", 
-                    "item_id": "d23", 
-                    "transform": "sum", 
-                    "height": null, 
-                    "item_type": "singlestat", 
-                    "units": "things", 
-                    "query": "query0"
-                  }
-                ], 
-                "align": "center", 
-                "height": null, 
-                "item_type": "cell", 
-                "offset": null, 
-                "item_id": "d22", 
-                "css_class": null
-              }
-            ], 
-            "height": null, 
-            "item_type": "row", 
-            "css_class": null, 
-            "item_id": "d7"
-          }, 
-          {
-            "style": null, 
-            "items": [], 
-            "height": null, 
-            "item_type": "row", 
-            "css_class": null, 
-            "item_id": "d75"
-          }
-        ], 
-        "height": null, 
-        "item_type": "section", 
-        "css_class": null, 
-        "item_id": "d2"
-      }, 
-      {
-        "style": "none", 
-        "layout": "fixed", 
-        "title": null, 
-        "items": [
-          {
-            "style": null, 
-            "items": [
-              {
-                "style": "well", 
-                "span": 8, 
-                "items": [
-                  {
-                    "style": null, 
-                    "title": "Total Request Traffic", 
-                    "css_class": null, 
-                    "thresholds": null, 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "item_id": "d91", 
-                    "query": "query0", 
-                    "options": {
-                      "palette": "d3category20"
-                    }, 
-                    "interactive": true
-                  }, 
-                  {
-                    "style": null, 
-                    "format": ",.3s", 
-                    "css_class": null, 
-                    "height": null, 
-                    "item_type": "percentage_table", 
-                    "include_sums": true, 
-                    "item_id": "d92", 
-                    "query": "query0"
-                  }, 
-                  {
-                    "style": null, 
-                    "title": "Network Traffic", 
-                    "css_class": null, 
-                    "thresholds": null, 
-                    "height": null, 
-                    "item_type": "standard_time_series", 
-                    "item_id": "d98", 
-                    "query": "Copy of query1 6", 
-                    "options": {
-                      "palette": "spectrum14"
-                    }, 
-                    "interactive": true
-                  }, 
-                  {
-                    "style": null, 
-                    "format": ",.3s", 
-                    "css_class": null, 
-                    "height": null, 
-                    "item_type": "percentage_table", 
-                    "include_sums": true, 
-                    "item_id": "d99", 
-                    "query": "Copy of query1 6"
-                  }
-                ], 
-                "align": null, 
-                "height": null, 
-                "item_type": "cell", 
-                "offset": null, 
-                "item_id": "d90", 
-                "css_class": null
-              }, 
-              {
-                "style": null, 
-                "span": 4, 
-                "items": [
-                  {
-                    "index": false, 
-                    "style": null, 
-                    "title": "peak rate", 
-                    "css_class": null, 
-                    "thresholds": null, 
-                    "format": ",.1f", 
-                    "item_id": "d94", 
-                    "transform": "mean", 
-                    "height": null, 
-                    "item_type": "jumbotron_singlestat", 
-                    "units": "/sec", 
-                    "query": "query5"
-                  }, 
-                  {
-                    "index": false, 
-                    "style": null, 
-                    "title": "Latency, 95th Percentile", 
-                    "css_class": null, 
-                    "thresholds": null, 
-                    "format": ",.1f", 
-                    "item_id": "d95", 
-                    "transform": "max", 
-                    "height": null, 
-                    "item_type": "jumbotron_singlestat", 
-                    "units": "ms", 
-                    "query": "query0"
-                  }, 
-                  {
-                    "style": null, 
-                    "item_type": "markdown", 
-                    "css_class": null, 
-                    "height": null, 
-                    "raw": false, 
-                    "text": "#### Related Dashboards\n\n{{dashboards-tagged \"demo\"}}\n\n{{dashboards-tagged \"test\"}}", 
-                    "item_id": "d100"
-                  }
-                ], 
-                "align": "none", 
-                "height": null, 
-                "item_type": "cell", 
-                "offset": null, 
-                "item_id": "d93", 
-                "css_class": null
-              }
-            ], 
-            "height": null, 
-            "item_type": "row", 
-            "css_class": null, 
-            "item_id": "d89"
-          }
-        ], 
-        "height": null, 
-        "item_type": "section", 
-        "css_class": null, 
-        "item_id": "d79"
-      }
-    ], 
+    "item_id": "d0", 
+    "item_type": "dashboard_definition", 
     "queries": {
       "query2": {
         "name": "query2", 
@@ -309,32 +47,210 @@
         ]
       }
     }, 
-    "height": null, 
-    "item_type": "dashboard_definition", 
-    "css_class": null, 
-    "item_id": "d0"
+    "href": "/api/dashboard/5/definition", 
+    "items": [
+      {
+        "item_id": "d2", 
+        "item_type": "section", 
+        "style": "none", 
+        "layout": "fixed", 
+        "items": [
+          {
+            "item_id": "d7", 
+            "item_type": "row", 
+            "items": [
+              {
+                "style": "well", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "Average", 
+                    "format": ",.3f", 
+                    "transform": "mean", 
+                    "item_type": "singlestat", 
+                    "item_id": "d17", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "item_type": "cell", 
+                "item_id": "d14"
+              }, 
+              {
+                "style": "well", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "Max", 
+                    "format": ",.3f", 
+                    "transform": "max", 
+                    "item_type": "singlestat", 
+                    "item_id": "d21", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "item_type": "cell", 
+                "item_id": "d20"
+              }, 
+              {
+                "style": "well", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "Median", 
+                    "format": ",.3f", 
+                    "transform": "median", 
+                    "item_type": "singlestat", 
+                    "item_id": "d77", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "item_type": "cell", 
+                "item_id": "d76"
+              }, 
+              {
+                "style": "well", 
+                "span": 3, 
+                "items": [
+                  {
+                    "units": "things", 
+                    "title": "Total", 
+                    "format": ",.2s", 
+                    "transform": "sum", 
+                    "item_type": "singlestat", 
+                    "item_id": "d23", 
+                    "query": "query0"
+                  }
+                ], 
+                "align": "center", 
+                "item_type": "cell", 
+                "item_id": "d22"
+              }
+            ]
+          }, 
+          {
+            "item_id": "d75", 
+            "item_type": "row", 
+            "items": []
+          }
+        ]
+      }, 
+      {
+        "item_id": "d79", 
+        "item_type": "section", 
+        "style": "none", 
+        "layout": "fixed", 
+        "items": [
+          {
+            "item_id": "d89", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d90", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": 8, 
+                "items": [
+                  {
+                    "title": "Total Request Traffic", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "item_id": "d91", 
+                    "query": "query0", 
+                    "options": {
+                      "palette": "d3category20"
+                    }, 
+                    "interactive": true
+                  }, 
+                  {
+                    "item_id": "d92", 
+                    "item_type": "percentage_table", 
+                    "format": ",.3s", 
+                    "include_sums": true, 
+                    "query": "query0"
+                  }, 
+                  {
+                    "title": "Network Traffic", 
+                    "item_type": "standard_time_series", 
+                    "item_id": "d98", 
+                    "query": "Copy of query1 6", 
+                    "options": {
+                      "palette": "spectrum14"
+                    }, 
+                    "interactive": true
+                  }, 
+                  {
+                    "item_id": "d99", 
+                    "item_type": "percentage_table", 
+                    "format": ",.3s", 
+                    "include_sums": true, 
+                    "query": "Copy of query1 6"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d93", 
+                "item_type": "cell", 
+                "align": "none", 
+                "span": 4, 
+                "items": [
+                  {
+                    "units": "/sec", 
+                    "title": "peak rate", 
+                    "format": ",.1f", 
+                    "transform": "mean", 
+                    "item_type": "jumbotron_singlestat", 
+                    "item_id": "d94", 
+                    "query": "query5"
+                  }, 
+                  {
+                    "units": "ms", 
+                    "title": "Latency, 95th Percentile", 
+                    "format": ",.1f", 
+                    "transform": "max", 
+                    "item_type": "jumbotron_singlestat", 
+                    "item_id": "d95", 
+                    "query": "query0"
+                  }, 
+                  {
+                    "item_id": "d100", 
+                    "item_type": "markdown", 
+                    "text": "#### Related Dashboards\n\n{{dashboards-tagged \"demo\"}}\n\n{{dashboards-tagged \"test\"}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }, 
-  "view_href": "/dashboards/2/overview-demo", 
+  "view_href": "/dashboards/5/overview-demo", 
   "description": "", 
   "tags": [
     {
       "count": 4, 
       "bgcolor": "green", 
-      "id": 1, 
+      "id": 3, 
       "name": "featured"
     }, 
     {
       "count": 4, 
       "bgcolor": "#ddd", 
-      "id": 2, 
+      "id": 4, 
       "fgcolor": "#333", 
       "name": "demo"
     }
   ], 
   "title": "Overview Demo", 
   "summary": "Some things and stuff", 
-  "definition_href": "/api/dashboard/2/definition", 
-  "href": "/api/dashboard/2", 
-  "id": 2, 
+  "definition_href": "/api/dashboard/5/definition", 
+  "href": "/api/dashboard/5", 
+  "id": 5, 
   "imported_from": null
 }

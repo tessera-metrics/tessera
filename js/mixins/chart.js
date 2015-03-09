@@ -8,20 +8,26 @@ ds.models.chart =
     function extend(builder) {
       Object.defineProperty(builder.target, 'is_chart', {value: true})
       return builder.property('title')
+                    .property('legend',  { init: ds.models.chart.LegendType.SIMPLE })
                     .property('options', { init: {} })
     }
 
     function init(target, data) {
       if (data) {
+        if (typeof(data.legend) !== 'undefined') {
+          target.legend = data.legend
+          if (typeof(data.legend) === 'boolean')
+            target.legend = data.legend ? ds.models.chart.LegendType.SIMPLE : undefined
+        }
         target.title = data.title
         target.options = data.options || {}
-        if (data.options.y1) {
+        if (data.options && data.options.y1) {
           target.options.y1 = ds.models.Axis(data.options.y1)
         }
-        if (data.options.y2) {
+        if (data.options && data.options.y2) {
           target.options.y2 = ds.models.Axis(data.options.y2)
         }
-        if (data.options.x) {
+        if (data.options && data.options.x) {
           target.options.x = ds.models.Axis(data.options.x)
         }
       }
@@ -32,6 +38,7 @@ ds.models.chart =
       data = data || {}
       if (target.title)
         data.title = target.title
+      data.legend = target.legend
       if (target.options) {
         data.options = ds.extend(target.options)
         if (target.options.y1) {
@@ -159,5 +166,23 @@ ds.models.chart.interactive_properties = [
         item.options.palette = newValue
       }
     }
+  },
+  {
+    id: 'chart.legend',
+    name: 'legend',
+    category: 'chart',
+    edit_options: {
+      type: 'select',
+      source: [
+        undefined,
+        'simple',
+        'table'
+      ]
+    }
   }
 ]
+
+ds.models.chart.LegendType = {
+  SIMPLE: 'simple',
+  TABLE: 'table'
+}
