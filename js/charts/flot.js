@@ -364,6 +364,9 @@
         series: {
           lines: { show: false },
           stack: true,
+          streamgraph: {
+            show: false
+          },
           bars: {
             show: true,
             fill: 0.8,
@@ -377,6 +380,10 @@
         options.series.stackpercent = true
         options.yaxes[0].max = 100
         options.yaxes[0].min = 0
+      } else if (item.stack_mode == ds.charts.StackMode.STREAM) {
+        options.series.stack = false
+        options.series.stackpercent = false
+        options.series.streamgraph.show = true
       } else if (item.stack_mode == ds.charts.StackMode.NONE) {
         options.series.stack = false
         options.series.stackpercent = false
