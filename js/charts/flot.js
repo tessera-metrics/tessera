@@ -20,6 +20,7 @@
       var theme_colors = ds.charts.util.get_colors()
       var default_options = {
         colors: ds.charts.util.get_palette(),
+        downsample: false,
         series: {
           lines: {
             show: true,
@@ -225,7 +226,7 @@
           query: query
       }
       setup_plugins(e, context)
-      if (options.series.downsample) {
+      if (ds.prefs.downsample && options.downsample) {
         options.series.downsample = {
           /**
            * TODO: making downsampling factor configurable might be
@@ -285,11 +286,11 @@
 
     self.simple_area_chart = function(e, item, query) {
       var options = get_flot_options(item, {
+        downsample: true,
         grid: { show: false },
         series: {
           lines: { fill: 1.0 },
           grid: { show: false },
-          downsample: true
         }
       })
 
@@ -300,8 +301,8 @@
 
     self.stacked_area_chart = function(e, item, query) {
       var options = get_flot_options(item, {
+        downsample: true,
         series: {
-          downsample: true,
           lines: { fill: 1},
           stack: true,
           streamgraph: { show: false }
@@ -381,7 +382,6 @@
 
       var options = get_flot_options(item, {
         series: {
-          downsample: false, /* downsampling and bar chart rendering don't seem to get along */
           lines: { show: false },
           stack: true,
           streamgraph: {

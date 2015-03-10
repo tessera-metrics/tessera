@@ -47,8 +47,10 @@ session.
         session[name] = value
     return value
 
-def _get_param_boolean(name, default=None):
+def _get_param_boolean(name, default=None, store_in_session=False):
     value = _get_param(name, default)
+    if store_in_session:
+        session[name] = value
     return value == 'True' \
         or value == 'true'
 
@@ -67,6 +69,7 @@ defaults.
     """
     interactive = _get_param('renderer', app.config['CHART_RENDERER'], store_in_session=store_in_session) != 'graphite'
     return {
+        'downsample' : _get_param('downsample', app.config['DOWNSAMPLE_TIMESERIES'], store_in_session=store_in_session),
         'theme' : _get_param('theme', app.config['DEFAULT_THEME'], store_in_session=store_in_session),
         'renderer' : _get_param('renderer', app.config['CHART_RENDERER'], store_in_session=store_in_session),
         'interactive' : interactive,
