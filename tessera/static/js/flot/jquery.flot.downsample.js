@@ -100,7 +100,6 @@ THE SOFTWARE.
 
 
     function processRawData ( plot, series ) {
-      console.log('Downsampling')
         series.data = largestTriangleThreeBuckets( series.data, series.downsample.threshold );
     }
 
