@@ -22,6 +22,7 @@
   {% endif %}
   ds.prefs = ds.prefs || {}
   ds.prefs.renderer = "{{ ctx.prefs.renderer }}"
+  ds.prefs.downsample = {{ctx.prefs.downsample}}
 </script>
 
 <script src="{{ url_for('static', filename='bundle.js') }}"></script>

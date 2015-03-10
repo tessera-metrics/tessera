@@ -73,6 +73,7 @@ module.exports = function(grunt) {
           'tessera/static/js/flot/jquery.flot.d3.streamgraph.js',
           'tessera/static/js/flot/jquery.flot.crosshair.js',
           'tessera/static/js/flot/jquery.flot.axislabels.js',
+          'tessera/static/js/flot/jquery.flot.downsample.js',
           'tessera/static/js/flot/jquery.flot.valuelabels.js',
           'tessera/static/js/flot/jquery.flot.pie.js',
           'tessera/static/js/flot/jquery.flot.barnumbers.enhanced.js',

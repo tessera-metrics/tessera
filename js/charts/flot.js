@@ -20,6 +20,7 @@
       var theme_colors = ds.charts.util.get_colors()
       var default_options = {
         colors: ds.charts.util.get_palette(),
+        downsample: false,
         series: {
           lines: {
             show: true,
@@ -225,11 +226,25 @@
           query: query
       }
       setup_plugins(e, context)
+      if (ds.prefs.downsample && options.downsample) {
+        options.series.downsample = {
+          /**
+           * TODO: making downsampling factor configurable might be
+           * nice.  This downsamples to approximately a little less
+           * than 1 point per pixel (using 80% of the element width to
+           * account for margins, etc...).
+           */
+          threshold: Math.floor(e.width() * 0.8)
+        }
+      } else {
+        options.series.downsample = { threshold: 0 }
+      }
       try {
         context.plot = $.plot($(e), data, options)
       } catch (ex) {
         log.error('Error rendering item ' + item.item_id
                  + ': ' + ex.message)
+        log.error(ex.stack)
       }
       render_legend(item, query, options)
       return context
@@ -253,7 +268,8 @@
 
     self.simple_line_chart = function(e, item, query) {
       var options = get_flot_options(item, {
-        grid: { show: false }
+        grid: { show: false },
+        downsample: true
       })
 
       render(e, item, query, options, [query.chart_data('flot')[0]])
@@ -262,16 +278,19 @@
     }
 
     self.standard_line_chart = function(e, item, query) {
-      render(e, item, query, get_flot_options(item))
+      render(e, item, query, get_flot_options(item, {
+        downsample: true
+      }))
       return self
     }
 
     self.simple_area_chart = function(e, item, query) {
       var options = get_flot_options(item, {
+        downsample: true,
         grid: { show: false },
         series: {
           lines: { fill: 1.0 },
-          grid: { show: false }
+          grid: { show: false },
         }
       })
 
@@ -282,6 +301,7 @@
 
     self.stacked_area_chart = function(e, item, query) {
       var options = get_flot_options(item, {
+        downsample: true,
         series: {
           lines: { fill: 1},
           stack: true,

@@ -10,7 +10,8 @@ GRAPHITE_AUTH              = ''
 DISPLAY_TIMEZONE           = 'Etc/UTC'
 SERVER_ADDRESS             = '0.0.0.0'
 SERVER_PORT                = 5000
-INTERACTIVE_CHARTS_RENDERER = 'flot'
+CHART_RENDERER             = 'flot'
+DOWNSAMPLE_TIMESERIES      = 1 # 1 for true, 0 for false
 DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS = 3
 
 DASHBOARD_RANGE_PICKER = [
