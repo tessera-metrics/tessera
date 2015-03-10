@@ -11,17 +11,27 @@ ds.register_dashboard_item('simple_time_series', {
                          .extend(ds.models.item, {item_type: 'simple_time_series'})
                          .extend(ds.models.chart)
                          .property('filled', {init: false})
+                         .property('show_max_value', {init: false})
+                         .property('show_min_value', {init: false})
+                         .property('show_last_value', {init: false})
                          .build()
 
     if (data) {
-      self.filled = data.filled !== false
+      self.legend = data.legend
+      self.filled = Boolean(data.filled)
+      self.show_max_value = Boolean(data.show_max_value)
+      self.show_min_value = Boolean(data.show_min_value)
+      self.show_last_value = Boolean(data.show_last_value)
     }
     ds.models.chart.init(self, data)
     ds.models.item.init(self, ds.extend({ height: 1 }, data))
 
     self.toJSON = function() {
       return ds.models.chart.json(self, ds.models.item.json(self, {
-        filled: self.filled
+        filled: self.filled,
+        show_max_value: self.show_max_value,
+        show_min_value: self.show_min_value,
+        show_last_value: self.show_last_value
       }))
     }
 
@@ -38,7 +48,11 @@ ds.register_dashboard_item('simple_time_series', {
 
   template: ds.templates.models.simple_time_series,
 
-  interactive_properties: [ { id: 'filled', type: 'boolean' } ]
-                            .concat(ds.models.chart.interactive_properties,
-                                    ds.models.item.interactive_properties)
+  interactive_properties: [
+    { id: 'filled', type: 'boolean' },
+    { id: 'show_max_value', type: 'boolean' },
+    { id: 'show_min_value', type: 'boolean' },
+    { id: 'show_last_value', type: 'boolean' }
+  ].concat(ds.models.chart.interactive_properties,
+           ds.models.item.interactive_properties)
 })

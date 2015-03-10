@@ -30,7 +30,8 @@ ds.app =
       MODE_REFRESH:       'ds-refresh:',
       DASHBOARD_LOADED:   'ds-dashboard-loaded',
       DASHBOARD_RENDERED: 'ds-dashboard-rendered',
-      RANGE_CHANGED:      'ds-range-changed'
+      RANGE_CHANGED:      'ds-range-changed',
+      QUERIES_COMPLETE:   'ds-queries-complete'
     }
 
     function do_exit_mode(mode) {
@@ -132,6 +133,32 @@ ds.app =
         ds.event.on(self, self.Event.MODE_REFRESH + mode, options.refresh)
       }
       return self
+    }
+
+    self.get_perf_stats = function() {
+      var stats = new Object()
+      stats.charts_render = ds.charts.perf.summarize_measures("render")
+
+      var queries = ds.manager.current.dashboard.definition.queries
+      var query_data = Object.keys(ds.manager.current.dashboard.definition.queries).map(function(key) {
+                         return queries[key].performance_data()
+                       })
+      stats.query_load = ds.perf.mixin(query_data.map(function(d) {
+                                    return d.load ? d.load.duration : 0
+                                  }))
+      stats.query_summarize = ds.perf.mixin(query_data.map(function(d) {
+                                         return d.summarize ? d.summarize.duration : 0
+                                       }))
+      stats.query_convert = ds.perf.mixin(query_data.map(function(d) {
+                                       return d.convert ? d.convert.duration : 0
+                                     }))
+      stats.query_total = ds.perf.mixin(query_data.map(function(d) {
+                                     return (d.convert ? d.convert.duration : 0)
+                                          + (d.summarize ? d.summarize.duration : 0)
+                                          + (d.load ? d.load.duration : 0)
+                                   }))
+
+      return stats
     }
 
     return self

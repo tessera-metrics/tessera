@@ -3,8 +3,10 @@
   {{#if item.style}}<div class="{{style_class item}}">{{/if}}
     {{#if item.title}}
       <div>
-        <h1 class="ds-section-heading">{{item.title}}</h1>
-        <hr/>
+        <h{{item.level}} class="ds-section-heading">{{item.title}}
+          {{#if item.description}}<small>{{item.description}}</small>{{/if}}
+        </h{{item.level}}>
+        {{#if item.horizontal_rule}}<hr/>{{/if}}
       </div>
     {{/if}}
 

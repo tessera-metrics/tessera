@@ -1,7 +1,7 @@
 /**
  * ds.charts exposes the generic interface to rendering a chart for a
  * dashboard item. It delegates all calls to the currently assigned
- * implementation in the impl property.
+ * implementation in the provider property.
  *
  * Chart providers must each implement the following functions:
  *
@@ -10,6 +10,8 @@
  *   * simple_area_chart
  *   * stacked_area_chart
  *   * donut_chart
+ *   * bar_chart
+ *   * discrete_bar_chart
  *   * process_series
  */
 ds.charts =
@@ -21,12 +23,31 @@ ds.charts =
                          .build()
 
     self.DEFAULT_PALETTE = 'spectrum6'
+    self.perf = ds.perf('ds.charts')
+
+    self.registry = ds.registry({
+      name: 'chart-provider',
+      process: function(data) {
+        if (data.is_chart_provider)
+          return data
+        return ds.charts.provider(data)
+      }
+    })
 
     function get_renderer(fn_name, item) {
       var interactive = self.interactive
       if ((typeof(item) !== 'undefined') && (typeof(item.interactive) !== 'undefined'))
         interactive = item.interactive
-      return interactive ? self.provider[fn_name] : ds.charts.graphite[fn_name]
+      var renderer = interactive ? self.provider[fn_name] : ds.charts.graphite[fn_name]
+
+      return function() {
+        self.perf.start('render')
+        try {
+          return renderer(arguments[0], arguments[1], arguments[2])
+        } finally {
+          self.perf.end('render')
+        }
+      }
     }
 
     /**
@@ -64,6 +85,21 @@ ds.charts =
       return get_renderer('donut_chart', item)(element, item, query)
     }
 
+   /**
+     * Render an historical bar chart into element.
+     */
+    self.bar_chart = function(element, item, query) {
+      return get_renderer('bar_chart', item)(element, item, query)
+    }
+
+   /**
+     * Render a bar chart of the data series' summations into
+     * element. The x-axis will be the series names, rather than time.
+     */
+    self.discrete_bar_chart = function(element, item, query) {
+      return get_renderer('discrete_bar_chart', item)(element, item, query)
+    }
+
     /**
      * Convert the JSON data series returned from Graphite into the
      * format used by the current chart provider.
@@ -74,7 +110,7 @@ ds.charts =
     self.process_series = function(series, type) {
       var processed = null
       if (type) {
-        processed = ds.charts[type].process_series(series)
+        processed = ds.charts.registry.get(type).process_series(series)
       } else {
         processed = self.provider.process_series(series)
       }
@@ -102,14 +138,12 @@ ds.charts =
       }
     }
 
-    self.STACK_MODE_NORMAL  = 'stack'
-    self.STACK_MODE_PERCENT = 'percent'
-    self.STACK_MODE_STREAM  = 'stream'
-    self.STACK_MODES = [
-      self.STACK_MODE_NORMAL,
-      self.STACK_MODE_PERCENT,
-      self.STACK_MODE_STREAM
-    ]
+    self.StackMode = {
+      NONE:    'none',
+      NORMAL:  'stack',
+      PERCENT: 'percent',
+      STREAM:  'stream'
+    }
 
     return self
 

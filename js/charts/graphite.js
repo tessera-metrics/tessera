@@ -1,5 +1,3 @@
-ds.charts = ds.charts || {}
-
 /**
  * Charts provider for Graphite's built-in static image
  * rendering. Also provides Graphite URL formatting for a number of
@@ -8,13 +6,19 @@ ds.charts = ds.charts || {}
 ds.charts.graphite =
   (function () {
 
-    var self = {}
+    var self = ds.charts.provider({
+      name: 'graphite',
+      is_interactive: false,
+      description: "Render graphs using Graphite's built-in static PNG rendering. "
+                 + "No interactive features will be available with this option, "
+                 + "and not all chart types will render with fidelity."
+    })
 
     self.DEFAULT_BGCOLOR = 'ff000000'
 
     function img(element, url) {
       element.html($('<img/>')
-                     .attr('src', url)
+                     .attr('src', url.href())
                      .height(element.height())
                      .width(element.width()))
     }
@@ -46,7 +50,7 @@ ds.charts.graphite =
         if (options.y1 && options.y1.max)
             png_url.setQuery('yMax', options.y1.max )
 
-        return png_url.href()
+        return png_url
     }
 
     self.standard_line_chart = function(element, item, query) {
@@ -78,7 +82,7 @@ ds.charts.graphite =
         if (options.y1 && options.y1.max)
             png_url.setQuery('yMax', options.y1.max )
 
-        return png_url.href()
+        return png_url
     }
 
     self.simple_area_chart = function(element, item, query) {
@@ -112,7 +116,7 @@ ds.charts.graphite =
         if (options.y1 && options.y1.max)
             png_url.setQuery('yMax', options.y1.max )
 
-        return png_url.href()
+        return png_url
     }
 
     self.stacked_area_chart = function(element, item, query) {
@@ -147,14 +151,16 @@ ds.charts.graphite =
         if (options.y1 && options.y1.max)
             png_url.setQuery('yMax', options.y1.max )
 
-        return png_url.href()
+        return png_url
     }
 
     self.donut_chart_url = function(item, opt) {
-      var png_url = URI(self.standard_line_chart_url(item, opt))
-            .setQuery('graphType', 'pie')
+      var png_url = self.standard_line_chart_url(item, opt)
+                        .setQuery('graphType', 'pie')
+      if (!item.legend)
+        png_url.setQuery('hideLegend', 'true')
 
-        return png_url.href()
+      return png_url
     }
 
     self.donut_chart = function(element, item, query) {
@@ -163,6 +169,14 @@ ds.charts.graphite =
         width: element.width()
       })
       img(element, url)
+    }
+
+    self.bar_chart = function(e, item, query) {
+      return self.stacked_area_chart(e, item, query)
+    }
+
+    self.discrete_bar_chart = function(e, item, query) {
+      return self.donut_chart(e, item, query)
     }
 
     self.chart_url = function(item, options) {
@@ -194,8 +208,10 @@ ds.charts.graphite =
         if (item.item_type === 'stacked_area_chart' && !(item.query.is_stacked())) {
             composer_url.setQuery('areaMode', 'stacked')
         }
-        return composer_url.href()
+        return composer_url
     }
+
+    ds.charts.registry.register(self)
 
     return self
 
