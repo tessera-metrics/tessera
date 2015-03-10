@@ -91,7 +91,7 @@ DISPLAY_TIMEZONE           = 'Etc/UTC'
 # close dashboard item property sheets in edit mode. Use 0 to disable
 # auto-close. This is overridable by user sessions.
 #
-DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS = 0
+DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS = 3
 
 #
 # The set of intervals to be displayed in the recent time range
