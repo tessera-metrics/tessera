@@ -16,6 +16,9 @@
        Helpers
        ============================================================================= */
 
+    var FORMAT_STANDARD = d3.format(',.3s')
+    var FORMAT_PERCENT  = d3.format('%')
+
     function get_default_options() {
       var theme_colors = ds.charts.util.get_colors()
       var default_options = {
@@ -31,7 +34,7 @@
           valueLabels: { show: false },
           points: { show: false },
           bars: { lineWidth: 1, show: false },
-          stack: null
+          stackD3: { show: false }
         },
         xaxis: {
           mode: "time",
@@ -58,7 +61,7 @@
         yaxes: [
           {
             position: 'left',
-            tickFormatter: d3.format(',.3s'),
+            tickFormatter: FORMAT_STANDARD,
             reserveSpace: 30,
             labelWidth: 30,
             tickColor: theme_colors.minorGridLineColor,
@@ -69,7 +72,7 @@
           },
           {
             position: 'right',
-            tickFormatter: d3.format(',.3s'),
+            tickFormatter: FORMAT_STANDARD,
             font: {
               color: theme_colors.fgcolor,
               size: 12
@@ -137,7 +140,7 @@
           showMinValue: item.show_min_value,
           showLastValue: item.show_last_value,
           showAsHtml: true,
-          labelFormatter: d3.format(',.3s'),
+          labelFormatter: FORMAT_STANDARD,
           yoffset: -20
         }
       }
@@ -155,25 +158,25 @@
     }
 
     function setup_plugins(container, context) {
+
       $(container).bind("multihighlighted", function(event, pos, items) {
         if ( !items )
           return
-        var series = context.plot.getData()
-        var item   = items[0]
-        var point  = series[item.serieIndex].data[item.dataIndex]
-        var format = d3.format(',.3s')
         var is_percent = context.item.stack_mode && (context.item.stack_mode === ds.charts.StackMode.PERCENT)
+        var data   = context.plot.getData()
+        var item   = items[0]
+        var point  = data[item.serieIndex].data[item.dataIndex]
 
         var contents = ds.templates.flot.tooltip({
           time: point[0],
           items: items.map(function(item) {
-                   var s = series[item.serieIndex]
+                   var s = data[item.serieIndex]
                    var value = is_percent
                              ? s.percents[item.dataIndex]
                              : s.data[item.dataIndex][1]
                    return {
                      series: s,
-                     value: is_percent ? format(value) + '%' : format(value)
+                     value: is_percent ? FORMAT_PERCENT(value) : FORMAT_STANDARD(value)
                    }
                  })
         })
@@ -290,7 +293,7 @@
         grid: { show: false },
         series: {
           lines: { fill: 1.0 },
-          grid: { show: false },
+          grid: { show: false }
         }
       })
 
@@ -304,23 +307,22 @@
         downsample: true,
         series: {
           lines: { fill: 1},
-          stack: true,
-          streamgraph: { show: false }
+          stackD3: {
+            show: true,
+            offset: 'zero'
+          }
         }
       })
 
       if (item.stack_mode === ds.charts.StackMode.PERCENT) {
-        options.series.stack = false
-        options.series.stackpercent = true
-        options.yaxes[0].max = 100
+        options.series.stackD3.offset = 'expand'
+        options.yaxes[0].max = 1
         options.yaxes[0].min = 0
+        options.yaxes[0].tickFormatter = FORMAT_PERCENT
       } else if (item.stack_mode == ds.charts.StackMode.STREAM) {
-        options.series.streamgraph.show = true
-        options.series.stack = false
-        options.series.stackpercent = false
+        options.series.stackD3.offset = 'wiggle'
       } else if (item.stack_mode == ds.charts.StackMode.NONE) {
-        options.series.stack = false
-        options.series.stackpercent = false
+        options.series.stackD3.show = false
         options.series.lines.fill = false
       }
 
@@ -383,9 +385,9 @@
       var options = get_flot_options(item, {
         series: {
           lines: { show: false },
-          stack: true,
-          streamgraph: {
-            show: false
+          stackD3: {
+            show: true,
+            offset: 'zero'
           },
           bars: {
             show: true,
@@ -396,17 +398,14 @@
       })
 
       if (item.stack_mode === ds.charts.StackMode.PERCENT) {
-        options.series.stack = false
-        options.series.stackpercent = true
-        options.yaxes[0].max = 100
+        options.series.stackD3.offset = 'expand'
+        options.yaxes[0].max = 1
         options.yaxes[0].min = 0
+        options.yaxes[0].tickFormatter = FORMAT_PERCENT
       } else if (item.stack_mode == ds.charts.StackMode.STREAM) {
-        options.series.stack = false
-        options.series.stackpercent = false
-        options.series.streamgraph.show = true
+        options.series.stackD3.offset = 'wiggle'
       } else if (item.stack_mode == ds.charts.StackMode.NONE) {
-        options.series.stack = false
-        options.series.stackpercent = false
+        options.series.stackD3.show = false
       }
 
       render(e, item, query, options)

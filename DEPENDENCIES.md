@@ -34,10 +34,9 @@ built with as many "off-the-shelf" components as possible.
   rendering.
   * [flot-axislabels](https://github.com/mikeslim7/flot-axislabels)
   * [flot-valuelabels](https://github.com/winne27/flot-valuelabels)
-  * [flot.stackpercent](https://github.com/skeleton9/flot.stackpercent)
   * [flot.multihighlight](https://github.com/eugenijusr/flot.multihighlight)
   * [flot-barnumbers-enhanced](https://github.com/jasonroman/flot-barnumbers-enhanced)
-  * [flot-d3-streamgraph](https://github.com/aalpern/flot-d3-streamgraph/)
+  * [flot-d3-stack](https://github.com/aalpern/flot-d3-stack/)
   * [flot-downsample](https://github.com/sveinn-steinarsson/flot-downsample/)
 * [DataTables](http://datatables.net/)
 * [moment.js](http://momentjs.com/) for time parsing & formatting.
