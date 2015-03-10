@@ -28,10 +28,9 @@ built with as many "off-the-shelf" components as possible.
     included here is MIT licensed).
   * [bootstrap-growl](https://github.com/mouse0270/bootstrap-growl)
 * [jQuery](http://jquery.com/)
-* [nvd3](https://github.com/novus/nvd3) for interactive charts build
-  on top of [d3](http://d3js.org). d3 is also used for value
-  formatting in text.
-* [flot](http://www.flotcharts.org/) for alternative interactive chart
+* [d3](http://d3js.org). d3 is used for value formatting in text and
+  for stacked graph layout.
+* [flot](http://www.flotcharts.org/) is used for interactive chart
   rendering.
   * [flot-axislabels](https://github.com/mikeslim7/flot-axislabels)
   * [flot-valuelabels](https://github.com/winne27/flot-valuelabels)
