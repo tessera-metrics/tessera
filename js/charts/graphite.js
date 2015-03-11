@@ -44,6 +44,7 @@ ds.charts.graphite =
             .setQuery('margin', '0')
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .setQuery('title', options.showTitle ? item.title : '')
+            .setQuery('lineMode', 'connected')
 
         if (options.y1 && options.y1.min)
             png_url.setQuery('yMin', options.y1.min )
@@ -76,6 +77,7 @@ ds.charts.graphite =
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .setQuery('vtitle', options.y1 ? options.y1.label : options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
+            .setQuery('lineMode', 'connected')
 
         if (options.y1 && options.y1.min)
             png_url.setQuery('yMin', options.y1.min )
@@ -107,6 +109,7 @@ ds.charts.graphite =
             .setQuery('hideAxes', 'true')
             .setQuery('margin', '0')
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
+            .setQuery('lineMode', 'connected')
 
         if (!item.query.is_stacked())
             png_url.setQuery('areaMode', 'stacked')
@@ -142,6 +145,7 @@ ds.charts.graphite =
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .setQuery('vtitle', options.y1 ? options.y1.label : options.yAxisLabel)
             .setQuery('title', options.showTitle ? item.title : '')
+            .setQuery('lineMode', 'connected')
 
         if (!item.query.is_stacked())
             png_url.setQuery('areaMode', 'stacked')
