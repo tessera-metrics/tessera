@@ -148,12 +148,12 @@
       return flot_options
     }
 
-    function show_tooltip(x, y, contents) {
+    function show_tooltip(x, y, contents, offset) {
       $('<div id="ds-tooltip">' + contents + '</div>').css( {
         position: 'absolute',
         display: 'none',
-        top: y + 5,
-        left: x + 5
+        top: y + (offset || 5),
+        left: x + (offset || 5)
       }).appendTo("body").show()
     }
 
@@ -341,10 +341,13 @@
             show: true,
             radius: 'auto',
             innerRadius: item.is_pie ? 0 : 0.35,
-            label: { show: item.labels }
+            label: { show: item.labels },
+            highlight: {
+              opacity: 0
+            }
           }
         },
-        grid: { show: false, hoverable: false }
+        grid: { show: false, hoverable: true }
       })
 
       var transform = item.transform || 'sum'
@@ -358,7 +361,22 @@
                    }
                  }).filter(function(item) { return item })
 
-      render(e, item, query, options, data)
+      var context = render(e, item, query, options, data)
+
+      $(e).bind('plothover', function(event, pos, event_item) {
+        if (event_item) {
+          var contents = ds.templates.flot.donut_tooltip({
+            series: event_item.series,
+            value: FORMAT_STANDARD(event_item.datapoint[1][0][1]),
+            percent: FORMAT_PERCENT(event_item.series.percent / 100)
+          })
+          $("#ds-tooltip").remove()
+          show_tooltip(pos.pageX, pos.pageY, contents)
+        } else {
+          $("#ds-tooltip").remove()
+        }
+      })
+
 
       return self
     }
@@ -415,6 +433,7 @@
 
     self.discrete_bar_chart = function(e, item, query) {
       var is_horizontal = item.orientation === 'horizontal'
+      var format = d3.format(item.format)
       var options = get_flot_options(item, {
         xaxis: { mode: null },
         multihighlight: { mode: null },
@@ -438,7 +457,7 @@
               xAlign: 'center',
               font: '10pt Helvetica',
               fontColor: '#f9f9f9', // TODO: get from theme
-              formatter: d3.format(item.format),
+              formatter: format,
               yAlign: function(y) { return y },
               xAlign: function(x) { return x }
             }
@@ -490,10 +509,24 @@
         }
       }
 
-      render(e, item, query, options, data)
+      var context = render(e, item, query, options, data)
+      $(e).bind('plothover', function(event, pos, event_item) {
+        if (event_item) {
+          var contents = ds.templates.flot.discrete_bar_tooltip({
+            series: event_item.series,
+            value: format(event_item.datapoint[1])
+          })
+          $("#ds-tooltip").remove()
+          show_tooltip(pos.pageX, pos.pageY, contents)
+        } else {
+          $("#ds-tooltip").remove()
+        }
+      })
 
       return self
     }
+
+
 
     ds.charts.registry.register(self)
 
