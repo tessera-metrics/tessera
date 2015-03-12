@@ -281,6 +281,13 @@
     }
 
     self.standard_line_chart = function(e, item, query) {
+      query.chart_data('flot').forEach(function(series) {
+        if (series.summation.sum === 0) {
+          series.lines = {
+            lineWidth: 0
+          }
+        }
+      })
       render(e, item, query, get_flot_options(item, {
         downsample: true
       }))
@@ -325,6 +332,14 @@
         options.series.stackD3.show = false
         options.series.lines.fill = false
       }
+
+      query.chart_data('flot').forEach(function(series) {
+        if (series.summation.sum === 0) {
+          series.lines = {
+            lineWidth: 0
+          }
+        }
+      })
 
       render(e, item, query, options)
 
