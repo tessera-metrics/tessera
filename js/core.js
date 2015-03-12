@@ -10,7 +10,8 @@ ds.edit.properties = ds.edit.properties || {}
  */
 ds.context = function(context) {
   context = context || {}
-  var params = URI(window.location).query(true)
+  var url       = URI(window.location)
+  var params    = url.query(true)
   var variables = {}
 
   context.from = params.from || ds.config.DEFAULT_FROM_TIME
@@ -25,6 +26,9 @@ ds.context = function(context) {
       variables[key] = params[key]
     }
   }
+
+  variables.path = url.path()
+  context.path = url.path()
   context.variables = variables
   context.params = params
 

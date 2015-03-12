@@ -141,6 +141,7 @@ ds.models.dashboard = function(data) {
   }
 
   self.render_templates = function(context) {
+    context.id = self.id
     self.expanded_description = ds.safe_render_template(self.description, context)
     self.expanded_title       = ds.safe_render_template(self.title, context)
     self.expanded_summary     = ds.safe_render_template(self.summary, context)
