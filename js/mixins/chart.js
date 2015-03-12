@@ -61,6 +61,37 @@ ds.models.chart =
     }
   })()
 
+ds.property.register(  {
+    id: 'chart.palette',
+    name: 'palette',
+    category: 'chart',
+
+    edit_options: {
+      type: 'select',
+
+      value: function(item) {
+        if (item.options && item.options.palette) {
+          return item.options.palette
+        } else {
+          return undefined
+        }
+      },
+
+      source: [ { text: 'None', value: undefined } ]
+                .concat(Object.keys(ds.charts.util.colors).map(function(value, index) {
+                          return { text: value, value: value }
+                        })),
+
+      update: function(item, newValue) {
+        if (!item.options) {
+          item.options = {}
+        }
+        item.options.palette = newValue
+      }
+    }
+  }
+)
+
 /**
  * Clearly, a bunch of this should be refactored into a common
  * model. Should probably make chart.options a property model object.
@@ -138,35 +169,7 @@ ds.models.chart.interactive_properties = [
       }
     }
   },
-  {
-    id: 'chart.palette',
-    name: 'palette',
-    category: 'chart',
-
-    edit_options: {
-      type: 'select',
-
-      value: function(item) {
-        if (item.options && item.options.palette) {
-          return item.options.palette
-        } else {
-          return undefined
-        }
-      },
-
-      source: [ { text: 'None', value: undefined } ]
-                .concat(Object.keys(ds.charts.util.colors).map(function(value, index) {
-                          return { text: value, value: value }
-                        })),
-
-      update: function(item, newValue) {
-        if (!item.options) {
-          item.options = {}
-        }
-        item.options.palette = newValue
-      }
-    }
-  },
+  'chart.palette',
   {
     id: 'chart.legend',
     name: 'legend',
