@@ -78,6 +78,10 @@ ds.models.data.Summation = function(initial_data) {
       }
       index++
     })
+    if (self.sum === 0) {
+      self.min = 0
+      self.max = 0
+    }
     self.mean = self.sum / self.count
   } else if (typeof(initial_data) === 'object') {
     self.sum   = if_defined(initial_data.sum,  self.sum)
