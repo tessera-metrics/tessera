@@ -79,6 +79,6 @@ ds.register_dashboard_item('summation_table', {
     { id: 'sortable', type: 'boolean' },
     'format',
     'title',
-    'chart.palette',
+    'chart.palette'
   ].concat(ds.models.item.interactive_properties)
 })
