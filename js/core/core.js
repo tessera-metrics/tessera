@@ -35,7 +35,6 @@ ds.context = function(context) {
   return context
 }
 
-
 /**
  * Helper function to (potentially) render a template with a given
  * context object. If the string does not contain any handlebars tags,

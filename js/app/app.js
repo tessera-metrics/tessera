@@ -12,6 +12,23 @@ ds.app =
       , self = {}
       , log = ds.log.logger('tessera.app')
 
+    /**
+     * Some pre-defined events that we can register handlers for.
+     */
+    self.Event = {
+      MODE_ENTER:         'ds-enter:',
+      MODE_EXIT:          'ds-exit:',
+      MODE_REFRESH:       'ds-refresh:',
+      DASHBOARD_LOADED:   'ds-dashboard-loaded',
+      DASHBOARD_RENDERED: 'ds-dashboard-rendered',
+      RANGE_CHANGED:      'ds-range-changed',
+      QUERIES_COMPLETE:   'ds-queries-complete'
+    }
+
+    /* =============================================================================
+       Mode Handling
+       ============================================================================= */
+
     self.current_mode = 'standard'
 
     /**
@@ -22,16 +39,6 @@ ds.app =
       TRANSFORM: 'transform',
       DISPLAY:   'display',
       STANDARD:  'standard'
-    }
-
-    self.Event = {
-      MODE_ENTER:         'ds-enter:',
-      MODE_EXIT:          'ds-exit:',
-      MODE_REFRESH:       'ds-refresh:',
-      DASHBOARD_LOADED:   'ds-dashboard-loaded',
-      DASHBOARD_RENDERED: 'ds-dashboard-rendered',
-      RANGE_CHANGED:      'ds-range-changed',
-      QUERIES_COMPLETE:   'ds-queries-complete'
     }
 
     function do_exit_mode(mode) {
@@ -135,6 +142,12 @@ ds.app =
       return self
     }
 
+    /* =============================================================================
+       Miscellany
+       ============================================================================= */
+
+    // This should go somewhere more logical - it doesn't really have
+    // anything to do with the app object.
     self.get_perf_stats = function() {
       var stats = new Object()
       stats.charts_render = ds.charts.perf.summarize_measures("render")
@@ -163,17 +176,3 @@ ds.app =
 
     return self
   })()
-
-Mousetrap.bind('ctrl+shift+d', function(e) {
-  ds.app.toggle_mode(ds.app.Mode.DISPLAY)
-})
-
-Mousetrap.bind('ctrl+shift+e', function(e) {
-  ds.app.toggle_mode(ds.app.Mode.EDIT)
-})
-
-Mousetrap.bind('ctrl+shift+s', function(e) {
-  ds.manager.update_definition(ds.manager.current.dashboard, function() {
-    ds.manager.success('Dashboard saved')
-  })
-})
