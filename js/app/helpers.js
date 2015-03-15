@@ -1,20 +1,34 @@
 
+/**
+ * Hook up syntax highlighting to marked' markdown processor, so code
+ * blocks will be highlighted.
+ */
 marked.setOptions({
   highlight: function(code) {
     return hljs.highlightAuto(code).value
   }
 })
 
+/**
+ * Render markdown content to HTML.
+ */
 Handlebars.registerHelper('markdown', function(value) {
   if (!value)
     return ''
   return new Handlebars.SafeString(marked(value))
 })
 
+/**
+ * Render an object to syntax-highlighted JSON.
+ */
 Handlebars.registerHelper('json', function(value) {
   return new Handlebars.SafeString(hljs.highlightAuto(JSON.stringify(value, null, '  ')).value)
 })
 
+/**
+ * Format a datetime value in the timezone configured for the current
+ * tessera user.
+ */
 Handlebars.registerHelper('moment', function(format, value) {
   if (!value)
     return ''
@@ -37,6 +51,40 @@ Handlebars.registerHelper('format', function(format, value) {
     return value
   }
 })
+
+/**
+ * Fetch the list of dashboards with a given tag and return a Markdown
+ * list of links to them.
+ */
+Handlebars.registerHelper('dashboards-tagged', function(tag) {
+  var markdown = ''
+  $.ajax({
+    url: ds.uri('/api/dashboard/tagged/' + tag),
+    type: 'GET',
+    async: false,
+    success: function(data) {
+      for (var i = 0; i < data.length; i++) {
+        var d = data[i]
+        markdown += '  * ['
+        if (d.category && d.category !== '') {
+          markdown += d.category + ': '
+        }
+        markdown += d.title + ']('
+        markdown += d.view_href + ')\n'
+      }
+    },
+    error: function() {
+      var error = 'Unable to retrieve list of dashboards tagged "' + tag + '"'
+      ds.manager.warning(error)
+      markdown = error
+    }
+  })
+  return new Handlebars.SafeString(markdown)
+})
+
+/* -----------------------------------------------------------------------------
+   Internal helpers
+   ----------------------------------------------------------------------------- */
 
 Handlebars.registerHelper('height', function(item) {
   var height = item.height
@@ -66,6 +114,9 @@ Handlebars.registerHelper('container_class', function(item) {
   }
 })
 
+/**
+ * Render the edit bar for any dashboard item.
+ */
 Handlebars.registerHelper('ds-edit-bar', function(item) {
   var context = { item: item }
   var template = undefined
@@ -106,18 +157,27 @@ Handlebars.registerHelper('style_class', function(item) {
         return 'alert alert-warning'
       case 'alert_danger':
         return 'alert alert-danger'
+      default:
+        return ''
      }
   }  else {
     return ''
   }
 })
 
+/**
+ * Handlebars helper to render a dashboard item, by calling its
+ * `render()` method.
+ */
 Handlebars.registerHelper('item', function(item) {
   if (!item)
     return ''
   return new Handlebars.SafeString(item.render())
 })
 
+/**
+ * Render an individual property for a property sheet.
+ */
 Handlebars.registerHelper('interactive_property', function(property, item) {
   property = ds.property.get(property)
   if (!property)
@@ -125,6 +185,11 @@ Handlebars.registerHelper('interactive_property', function(property, item) {
   return new Handlebars.SafeString(property.render(item))
 })
 
+/**
+ * Render a list of actions. The actions are selected by category from
+ * the global actions registry (`ds.actions`), and can be rendered
+ * either as a button bar or a dropdown.
+ */
 Handlebars.registerHelper('actions', function(category, type) {
   var template = ds.templates.action
   if (type === 'button') {
@@ -152,30 +217,4 @@ Handlebars.registerHelper('actions', function(category, type) {
   } else {
     return ''
   }
-})
-
-Handlebars.registerHelper('dashboards-tagged', function(tag) {
-  var markdown = ''
-  $.ajax({
-    url: ds.uri('/api/dashboard/tagged/' + tag),
-    type: 'GET',
-    async: false,
-    success: function(data) {
-      for (var i = 0; i < data.length; i++) {
-        var d = data[i]
-        markdown += '  * ['
-        if (d.category && d.category !== '') {
-          markdown += d.category + ': '
-        }
-        markdown += d.title + ']('
-        markdown += d.view_href + ')\n'
-      }
-    },
-    error: function() {
-      var error = 'Unable to retrieve list of dashboards tagged "' + tag + '"'
-      ds.manager.warning(error)
-      markdown = error
-    }
-  })
-  return new Handlebars.SafeString(markdown)
 })

@@ -1,3 +1,15 @@
+/**
+ * A model object describing a user-interface action. Actions may be
+ * rendered as either a menu item in a dropdown or a button in a
+ * button bar.
+ *
+ * actions - a list of additional actions, causing this action to be
+ *           rendered as a dropdown button or sub-menu.
+ * icon - CSS classes to render a Font Awesome icon.
+ * handler - callback function to run when the action is invoked.
+ * category - action category to register this action in .
+ * divider - if true, this action will simply render as a divider between action groups.
+ */
 ds.action = function(data) {
 
   var self = limivorous.observable()

@@ -1,6 +1,11 @@
+/*
+ * Register a bunch of editable properties that are used by many
+ * dashboard items.
+ */
 ds.property.register([
+
   {
-    id: 'query',
+    id:       'query',
     category: 'base',
     template: '{{item.query.name}}',
     edit_options: {
@@ -16,8 +21,9 @@ ds.property.register([
       }
     }
   },
+
   {
-    id: 'style',
+    id:   'style',
     type: 'select',
     edit_options: {
       source: [
@@ -36,8 +42,9 @@ ds.property.register([
       ]
     }
   },
+
   {
-    id: 'transform',
+    id:   'transform',
     type: 'select',
     edit_options: {
       source: [
@@ -53,4 +60,5 @@ ds.property.register([
       ]
     }
   }
+
 ])

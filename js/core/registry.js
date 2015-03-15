@@ -1,6 +1,10 @@
 /**
  * A simple registry for organizing and retrieving ordered sets of
- * named things.
+ * named objects. Each registry instance organizes its values into
+ * categories, allowing retrieval of individual values by name, or
+ * lists of values by category.
+ *
+ * Objects stored in a registry must have a 'name' property.
  */
 ds.registry = function(init) {
   'use strict'
@@ -24,6 +28,10 @@ ds.registry = function(init) {
     return data[category]
   }
 
+  /**
+   * Add a named object to the registry. If no category name is
+   * supplied, it will be assigned to the default category.
+   */
   self.register = function(category, thing) {
     if (arguments.length === 1) {
       thing = category
@@ -46,12 +54,21 @@ ds.registry = function(init) {
     return self
   }
 
+  /**
+   * Return a list of all values assigned to the named category. If no
+   * category name is supplied, the values assigned to the default
+   * category will be returned.
+   */
   self.list = function(category) {
     if (arguments.length === 0)
       category = DEFAULT_CATEGORY
     return get_data(category).list
   }
 
+  /**
+   * Retrieve a single value from a category by name. If only a name
+   * is supplied, the default category will be used.
+   */
   self.get = function(category, name) {
     if (arguments.length === 1) {
       name = category
@@ -60,6 +77,9 @@ ds.registry = function(init) {
     return get_data(category).index[name]
   }
 
+  /**
+   * Return a list of all registered categories.
+   */
   self.categories = function() {
     return Object.keys(data)
   }
