@@ -19,6 +19,7 @@ ds.models.data.Summation = function(initial_data) {
                        .property('median', { init: 0 })
                        .property('first', { init: 0 })
                        .property('last', { init: 0 })
+                       .property('last_non_zero', { init: 0 })
                        .property('count', { init: 0 })
                        .build()
   Object.defineProperty(self, 'is_summation', {value: true})
@@ -67,6 +68,8 @@ ds.models.data.Summation = function(initial_data) {
     datapoints.forEach(function(point) {
       var value = point[0] || 0
       self.last = value
+      if (value != 0)
+        self.last_non_zero = value
       self.sum = self.sum + value
       if (value > self.max) {
         self.max = value
@@ -91,6 +94,7 @@ ds.models.data.Summation = function(initial_data) {
     self.max_index = if_defined(initial_data.max, self.max_index)
     self.first = if_defined(initial_data.first, self.first)
     self.last  = if_defined(initial_data.last, self.last)
+    self.last_non_zero  = if_defined(initial_data.last, self.last_non_zero)
     self.mean  = if_defined(initial_data.mean, self.mean)
     self.mean  = if_defined(initial_data.median, self.median)
     self.count = if_defined(initial_data.count, self.count)
@@ -123,6 +127,7 @@ ds.models.data.Summation = function(initial_data) {
       median: self.median,
       first: self.first,
       last: self.last,
+      last_non_zero: self.last_non_zero,
       count: self.count
     }
   }
