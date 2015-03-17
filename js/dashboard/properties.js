@@ -56,6 +56,7 @@ ds.property.register([
         'median',
         'first',
         'last',
+        'last_non_zero',
         'count'
       ]
     }
