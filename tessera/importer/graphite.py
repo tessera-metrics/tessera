@@ -115,7 +115,8 @@ class GraphiteDashboardImporter(object):
                 presentation.options['yAxisLabel'] = options['vtitle']
                 presentation.options['yShowMaxMin'] = True
             presentation.options['margin'] = { 'top' : 16, 'left' : 80, 'right' : 0, 'bottom' : 16 }
-
+            presentation.options['y1'] = {'max' : options.get('yMax', ''), 'min' : options.get('yMin', ''), 'label' : options.get('vtitle', '')}
+            
             row.items.append(Cell(span=span, items=presentation))
             graph_count += 1
             if len(row.items) == columns:
