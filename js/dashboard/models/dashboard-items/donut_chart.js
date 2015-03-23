@@ -14,7 +14,6 @@ ds.register_dashboard_item('donut_chart', {
                          .property('is_pie', {init: false})
                          .property('hide_zero_series', {init: false})
                          .build()
-    Object.defineProperty(self, 'requires_data', {value: true})
 
     if (data) {
       if (typeof(data.labels) !== 'undefined') {
