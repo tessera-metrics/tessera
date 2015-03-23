@@ -33,6 +33,7 @@ ds.models.data.Query = function(data) {
   self.DEFAULT_FROM_TIME = '-3h'
   self.perf = ds.perf('ds.models.data.Query', self.name)
   self.cache = {}
+  self.load_count = 0
 
   Object.defineProperty(self, 'is_query', {value: true})
 
@@ -142,7 +143,6 @@ ds.models.data.Query = function(data) {
     return output;
   }
 
-
   /**
    * Asynchronously load the data for this query from the graphite
    * server, notifying any listening consumers when the data is
@@ -179,6 +179,7 @@ ds.models.data.Query = function(data) {
       options.format = 'json'
       var url = self.url(options)
       ds.event.fire(self, 'ds-data-loading')
+      self.load_count += 1
       return $.ajax({
         dataType: 'jsonp',
         url: url,

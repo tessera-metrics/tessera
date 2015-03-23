@@ -62,21 +62,50 @@ ds.register_dashboard_item('dashboard_definition', {
       }
     }
 
-    self.load_all = function(options, fire_only) {
+    self.list_queries = function() {
+      return Object.keys(self.queries).map(function(key) {
+        return self.queries[key]
+      })
+    }
+
+    self.load_all = function(options) {
       log.debug('load_all()')
       self.options = options || self.options
-      var promises = Object.keys(self.queries).map(function(key) {
-                       var future = self.queries[key].load(self.options, fire_only)
-                       return future ? future.promise() : undefined
-                     })
+
+      var queries_to_load = {}
+      var queries_to_fire = {}
+
       self.visit(function(item) {
-        if (item.query_override) {
-          log.debug('load_all(): loading query override ' + item.query_override.name)
-          var future = item.query_override.load(self.options, fire_only)
-          if (future)
-            promises.push(future.promise())
+        var query = item.query_override || item.query
+        if (query) {
+          if (item.requires_data || ds.charts.interactive) {
+            queries_to_load[query.name] = query
+            delete queries_to_fire[query.name]
+          } else {
+            if (!queries_to_load[query.name]) {
+              queries_to_fire[query.name] = query
+            }
+          }
         }
       })
+
+      var promises = Object.keys(queries_to_load).map(function(key) {
+        var query = queries_to_load[key]
+        if (query) {
+          var future = queries_to_load[key].load(self.options, false)
+          return future ? future.promise() : undefined
+        } else {
+          return undefined
+        }
+      })
+
+      Object.keys(queries_to_fire).forEach(function(key) {
+        var query = queries_to_fire[key]
+        if (query) {
+          queries_to_fire[key].load(self.options, true /* fire_only */)
+        }
+      })
+
       $.when(promises).done(function() {
         // TODO: This isn't *quite* what I want - this fires after all
         // the HTTP requests for the queries are complete, but the

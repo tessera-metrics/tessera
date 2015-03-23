@@ -95,21 +95,6 @@ ds.manager =
     }
 
     /**
-     * Recurse through the presentation tree, giving each dashboard
-     * item an element ID, and checking to see if we have any
-     * components that require the raw data queries to be made.
-     */
-    self._prep_items = function(dashboard, holder, interactive) {
-      dashboard.visit(function(item) {
-        if (!item.item_type)
-          return
-        if (item.requires_data) {
-          holder.raw_data_required = true
-        }
-      })
-    }
-
-    /**
      * Set up us the API call.
      */
     self._prep_url = function(base_url, options) {
@@ -162,20 +147,13 @@ ds.manager =
           ds.charts.provider = ds.charts.registry.get(data.preferences.renderer)
         }
 
-          ds.event.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)
+        ds.event.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)
 
-          dashboard.render_templates(context.variables)
+        dashboard.render_templates(context.variables)
 
-          var interactive = ds.charts.provider.is_interactive
-          if (context.interactive != undefined) {
-            interactive = context.interactive
-          }
-          holder.raw_data_required = interactive
-          ds.charts.interactive = interactive
-
-          // Build a map from the presentation elements to their
-          // model objects.
-          self._prep_items(dashboard, holder, interactive)
+        ds.charts.interactive = (context.interactive != undefined)
+                              ? context.interactive
+                              : ds.charts.provider.is_interactive
 
           // Render the dashboard
           $(element).html(dashboard.definition.render())
@@ -193,7 +171,7 @@ ds.manager =
             dashboard.definition.load_all({
               from: context.from,
               until: context.until
-            }, !holder.raw_data_required)
+            })
           }
 
           ds.event.fire(self, ds.app.Event.DASHBOARD_RENDERED, dashboard)
