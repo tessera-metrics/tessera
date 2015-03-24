@@ -14,6 +14,7 @@
   ds.config = ds.config || {}
   ds.config.GRAPHITE_URL = "{{ctx.get_str('graphite_url', config.get('GRAPHITE_URL'))}}"
   ds.config.GRAPHITE_AUTH = "{{ctx.get_str('graphite_auth', config.get('GRAPHITE_AUTH'))}}"
+  ds.config.GRAPHITE_CONNECTED_LINES = {{ctx.get_int('graphite_connected_lines', config.get('GRAPHITE_CONNECTED_LINES'))}}
   ds.config.DISPLAY_TIMEZONE = "{{ctx.get_str('timezone', config.get('DISPLAY_TIMEZONE','UTC'))}}"
   ds.config.PROPSHEET_AUTOCLOSE_SECONDS = {{ctx.get_int('propsheet_autoclose_seconds', config.get('DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS',3))}}
   ds.config.DEFAULT_FROM_TIME = "{{config.get('DEFAULT_FROM_TIME')}}"
