@@ -1,12 +1,16 @@
 <div class="ds-section {{container_class item}} {{css_class item}}" id="{{item.item_id}}">
   {{> ds-edit-bar}}
   {{#if item.style}}<div class="{{style_class item}}">{{/if}}
-    {{#if item.title}}
-      <div>
-        <h1 class="ds-section-heading">{{item.title}}</h1>
+    <div>
+      {{#if item.title}}
+        <h{{item.level}} class="ds-section-heading">{{item.title}}
+        {{#if item.description}}<small>{{item.description}}</small>{{/if}}
+          </h{{item.level}}>
+      {{/if}}
+      {{#if item.horizontal_rule}}
         <hr/>
-      </div>
-    {{/if}}
+      {{/if}}
+    </div>
 
     {{#each item.items}}
       {{item this}}

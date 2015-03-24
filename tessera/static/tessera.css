@@ -62,6 +62,54 @@ narrow unless we override */
     margin-left: 4px;
 }
 
+/**
+ * Override DataTable's column sorting styles to save space/clutter.
+ */
+table.dataTable thead > tr > th {
+	padding-left: 2em;
+    padding-right: 8px;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_desc:before {
+	position: absolute;
+//	top: 8px;
+//	right: 8px;
+	display: block;
+	font-family: 'FontAwesome';
+	opacity: 0.5;
+}
+table.dataTable thead .sorting:after {
+    display: none;
+}
+table.dataTable thead .sorting_asc:after {
+    display:none;
+}
+table.dataTable thead .sorting_asc:before {
+	content: "\f0de"; /* sort-by-attributes */
+}
+table.dataTable thead .sorting_desc:after {
+    display:none;
+}
+table.dataTable thead .sorting_desc:before {
+	content: "\f0dd"; /* sort-by-attributes-alt */
+}
+div.dataTables_scrollBody table.dataTable thead .sorting:after,
+div.dataTables_scrollBody table.dataTable thead .sorting_asc:after,
+div.dataTables_scrollBody table.dataTable thead .sorting_desc:after {
+	display: none;
+}
+
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:after {
+	color: #eee;
+}
+
+
 /* =============================================================================
    Application Styles
    ============================================================================= */
@@ -374,6 +422,7 @@ table.ds-property-sheet td {
 
 .ds-legend-cell {
   display: inline-block;
+  white-space: nowrap;
 }
 
 .ds-legend-cell .color {
@@ -395,4 +444,20 @@ table.ds-property-sheet td {
   width: 1em;
   display: inline-block;
   margin-right: 0.5em;
+}
+
+/* flot.valuelabels */
+
+.flotValueLabelLight {
+    display: none;
+}
+
+.flotValueLabel {
+    position: relative;
+    font-stretch: condensed;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding-left: .5em;
+    border-left-style: dotted;
+    border-left-width: 1px;
 }

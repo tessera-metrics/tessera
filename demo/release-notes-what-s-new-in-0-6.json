@@ -1,0 +1,383 @@
+{
+  "category": "Release Notes", 
+  "definition": {
+    "item_id": "d0", 
+    "item_type": "dashboard_definition", 
+    "queries": {
+      "HTTP": {
+        "name": "HTTP", 
+        "targets": [
+          "group(\n                            alias(absolute(randomWalkFunction(\"query0\")), \"200s\"),\n                            alias(absolute(randomWalkFunction(\"query0\")), \"300s\"),\n                            alias(absolute(randomWalkFunction(\"query0\")), \"400s\"),\n                            alias(absolute(randomWalkFunction(\"query0\")), \"500s\")\n                            )"
+        ]
+      }, 
+      "thingamajigs": {
+        "name": "thingamajigs", 
+        "targets": [
+          "group(\nalias(absolute(randomWalkFunction(\"query0\")), \"Frobs\"),\nalias(absolute(randomWalkFunction(\"query0\")), \"Globs\"),\nalias(absolute(randomWalkFunction(\"query0\")), \"Framistats\"),\nalias(absolute(randomWalkFunction(\"query0\")), \"Doohickeys\"),\nalias(absolute(randomWalkFunction(\"query0\")), \"Thingamajigs\")\n)"
+        ]
+      }, 
+      "vehicular_distribution": {
+        "name": "vehicular_distribution", 
+        "targets": [
+          "group(\n    alias(summarize(absolute(randomWalkFunction(\"query0\")), \"5min\"), \"Cars\"),\n    alias(summarize(absolute(randomWalkFunction(\"query0\")), \"5min\"), \"Bikes\"),\n    alias(summarize(absolute(randomWalkFunction(\"query0\")), \"5min\"), \"Motorcycles\")\n    )"
+        ]
+      }, 
+      "simple": {
+        "name": "simple", 
+        "targets": [
+          "randomWalkFunction(\"query4\")"
+        ]
+      }, 
+      "Copy of simple 5": {
+        "name": "Copy of simple 5", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query4\"))"
+        ]
+      }, 
+      "CPU": {
+        "name": "CPU", 
+        "targets": [
+          "group(\n      alias(absolute(randomWalkFunction(\"query0\")), \"System\"),\n           alias(absolute(randomWalkFunction(\"query0\")), \"User\"),\n           alias(absolute(randomWalkFunction(\"query0\")), \"IO\"),\n           alias(absolute(randomWalkFunction(\"query0\")), \"Wait\"),\n           alias(absolute(randomWalkFunction(\"query0\")), \"Idle\")\n           )"
+        ]
+      }
+    }, 
+    "href": "/api/dashboard/16/definition", 
+    "items": [
+      {
+        "layout": "fixed", 
+        "level": "2", 
+        "items": [
+          {
+            "item_id": "d4", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d5", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d6", 
+                    "item_type": "markdown", 
+                    "text": "### Flot is the default renderer"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d7", 
+                "item_type": "cell", 
+                "span": "8", 
+                "items": [
+                  {
+                    "item_id": "d8", 
+                    "item_type": "markdown", 
+                    "text": "\nThe [`flot`](http://www.flotcharts.org/) renderer, which renders charts in the browser, using Javascript and the HTML5 `canvas` element, is now the default renderer. Flot provides interactive charts, and a much wider variety of presentation options than using Graphite's built in static PNG rendering (which remains an option). \n\nThe [`nvd3`](http://nvd3.org/) renderer, which was previously included for its stream graph support, has been retired. It remains available in the [`extras/`](https://github.com/urbanairship/tessera/tree/master/extras) directory of the Github repository. "
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d12", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d13", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d14", 
+                    "item_type": "markdown", 
+                    "text": "### New Flot Features\n\nThe flot rendering engine has been enhanced with many new features. "
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d15", 
+                "item_type": "cell", 
+                "span": "8", 
+                "items": [
+                  {
+                    "item_id": "d17", 
+                    "item_type": "markdown", 
+                    "text": "#### Downsampling\n\nThis release incorporates the [flot-downsample](https://github.com/sveinn-steinarsson/flot-downsample/) plugin, which implements Sveinn Steinarsson's _Largest-Triangle-Three-Buckets_ algorithm for reducing the number of datapoints in a time series graph while retaining visual fidelity. It reduces the number of points that have to be rendered when long time ranges are selected, which results in better browser performance. The sampling threshold is chosen adaptively based on the width of the graph. \n"
+                  }, 
+                  {
+                    "item_id": "d18", 
+                    "item_type": "markdown", 
+                    "text": "#### Stream Graphs\n\nNVd3 is no longer included in the core build, but [d3js](http://d3js.org/) remains, as it provides convenient and comprehesive numeric formatting. Its stack layout is now being leveraged to improve the flot renderer -- which brings stream graphs rendered to Canvas along with it. "
+                  }, 
+                  {
+                    "stack_mode": "stream", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "item_id": "d39", 
+                    "query": "thingamajigs", 
+                    "legend": "simple", 
+                    "interactive": true
+                  }, 
+                  {
+                    "item_id": "d38", 
+                    "item_type": "markdown", 
+                    "text": "#### Percentage Stacking\n\nIn addition to stream graphs, stacked area charts can also be rendered in an expanded view, showing each series as a percentage of the total. \n"
+                  }, 
+                  {
+                    "stack_mode": "percent", 
+                    "height": "2", 
+                    "item_type": "stacked_area_chart", 
+                    "item_id": "d19", 
+                    "query": "thingamajigs", 
+                    "legend": "simple", 
+                    "interactive": true
+                  }, 
+                  {
+                    "item_id": "d22", 
+                    "item_type": "markdown", 
+                    "text": "#### Donut & Pie Charts\n\nIn the previous release, donut (and pie) charts were always rendered by the `nvd3` renderer (this was basically entirely out of laziness). With the nvd3 renderer being removed, the `flot` renderer has been updated to render donut and pie charts consistently with the rest of the charts it handles. "
+                  }, 
+                  {
+                    "item_id": "d23", 
+                    "item_type": "row", 
+                    "items": [
+                      {
+                        "item_id": "d24", 
+                        "item_type": "cell", 
+                        "span": "6", 
+                        "items": [
+                          {
+                            "is_pie": false, 
+                            "labels": true, 
+                            "height": "3", 
+                            "item_type": "donut_chart", 
+                            "hide_zero_series": false, 
+                            "item_id": "d25", 
+                            "query": "CPU", 
+                            "legend": "", 
+                            "interactive": true
+                          }
+                        ]
+                      }, 
+                      {
+                        "item_id": "d26", 
+                        "item_type": "cell", 
+                        "span": "6", 
+                        "items": [
+                          {
+                            "is_pie": true, 
+                            "labels": true, 
+                            "height": "3", 
+                            "item_type": "donut_chart", 
+                            "hide_zero_series": false, 
+                            "item_id": "d27", 
+                            "query": "CPU", 
+                            "options": {
+                              "palette": "numbers6"
+                            }, 
+                            "legend": "", 
+                            "interactive": true
+                          }
+                        ]
+                      }
+                    ]
+                  }, 
+                  {
+                    "item_id": "d41", 
+                    "item_type": "markdown", 
+                    "text": "### Max Value Display on `simple_time_series`"
+                  }, 
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "show_max_value": true, 
+                    "show_min_value": false, 
+                    "show_last_value": false, 
+                    "item_id": "d42", 
+                    "query": "simple", 
+                    "legend": "simple", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "Chart Rendering", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d3"
+      }, 
+      {
+        "layout": "fixed", 
+        "level": 1, 
+        "items": [
+          {
+            "item_id": "d21", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d28", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d30", 
+                    "item_type": "markdown", 
+                    "text": "### Bar charts!"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d29", 
+                "item_type": "cell", 
+                "span": 8, 
+                "items": [
+                  {
+                    "item_id": "d31", 
+                    "item_type": "markdown", 
+                    "text": "Bar charts are now available, in two varieties. Discrete bar charts, which display summation data (like pie charts do), are available in vertical and horizontal variations, with a variety of display options. Historical bar charts, which provide another visual option for time series data, are also available. They share most of their display options with stacked area charts. "
+                  }, 
+                  {
+                    "item_id": "d32", 
+                    "item_type": "row", 
+                    "items": [
+                      {
+                        "item_id": "d33", 
+                        "item_type": "cell", 
+                        "span": "6", 
+                        "items": [
+                          {
+                            "show_numbers": true, 
+                            "orientation": "vertical", 
+                            "title": "Responses by HTTP Code", 
+                            "format": ",.3s", 
+                            "transform": "sum", 
+                            "height": "3", 
+                            "item_type": "discrete_bar_chart", 
+                            "hide_zero_series": true, 
+                            "show_grid": false, 
+                            "item_id": "d34", 
+                            "query": "HTTP", 
+                            "options": {
+                              "y1": {
+                                "label": "Responses"
+                              }
+                            }, 
+                            "legend": ""
+                          }
+                        ]
+                      }, 
+                      {
+                        "item_id": "d36", 
+                        "item_type": "cell", 
+                        "span": "6", 
+                        "items": [
+                          {
+                            "show_numbers": true, 
+                            "orientation": "horizontal", 
+                            "title": "CPU Usage", 
+                            "format": ",.3s", 
+                            "transform": "sum", 
+                            "height": "3", 
+                            "item_type": "discrete_bar_chart", 
+                            "hide_zero_series": true, 
+                            "show_grid": false, 
+                            "item_id": "d37", 
+                            "query": "CPU", 
+                            "options": {
+                              "y1": {
+                                "label": ""
+                              }, 
+                              "palette": "applespectrum"
+                            }, 
+                            "legend": ""
+                          }
+                        ]
+                      }
+                    ]
+                  }, 
+                  {
+                    "title": "Time Series Bar Chart", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "bar_chart", 
+                    "legend": "simple", 
+                    "item_id": "d40", 
+                    "query": "vehicular_distribution", 
+                    "options": {
+                      "palette": "d3category20"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "New Dashboard Items", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d20"
+      }, 
+      {
+        "layout": "fixed", 
+        "level": 1, 
+        "items": [
+          {
+            "item_id": "d46", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d47", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": []
+              }, 
+              {
+                "item_id": "d48", 
+                "item_type": "cell", 
+                "span": 8, 
+                "items": [
+                  {
+                    "item_id": "d49", 
+                    "item_type": "markdown", 
+                    "text": "* The [Handlebars JS]() template engine has been upgraded to release 2.0\n* Sorting is now available as an option on all table presentations, and the rendering of the table sorting headers has been cleaned up so it's no longer intrusive, and no longer causes layout changes in the table. \n* The `section` structural dashboard item now has more options for rendering its header. \n* Auto-closing of the property sheet in edit mode can be disabled. \n* The server-side python model object code has been made more flexible, so that it's no longer necessary to modify the server side to add new attributes to existing model objects. Extending tessera with new attributes or dashboard items can be done entirely in the javascript code. \n* Lots of bug fixes. \n"
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "And the rest...", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d45"
+      }
+    ]
+  }, 
+  "view_href": "/dashboards/16/what-s-new-in-0-6", 
+  "description": "", 
+  "tags": [
+    {
+      "count": 5, 
+      "bgcolor": "green", 
+      "id": 1, 
+      "name": "featured"
+    }, 
+    {
+      "count": 1, 
+      "id": 8, 
+      "name": "release-notes"
+    }
+  ], 
+  "title": "What's new in 0.6?", 
+  "summary": "", 
+  "definition_href": "/api/dashboard/16/definition", 
+  "href": "/api/dashboard/16", 
+  "id": 16, 
+  "imported_from": null
+}

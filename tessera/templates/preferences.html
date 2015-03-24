@@ -109,61 +109,14 @@
             </div>
           </div>
 
-          <!-- Chart Style -->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="chartRadios">Default Chart Style</label>
-            <div class="col-md-4">
-              <div class="radio">
-                <label for="chartRadios-0">
-                  <!-- Static -->
-                  <input type="radio" name="chartRadios" id="chartRadios-0" value="static" {% if not ctx.prefs.interactive %} checked="checked"{% endif %} onclick="dsSetPref('interactive', 'false')">
-                    Static
-                </label>
-	          </div>
-              <div class="radio">
-                <label for="chartRadios-1">
-                  <!-- Interactive -->
-                  <input type="radio" name="chartRadios" id="chartRadios-1" value="interactive" {% if ctx.prefs.interactive %} checked="checked"{% endif %} onclick="dsSetPref('interactive', 'true')">
-                    Interactive
-                </label>
-	          </div>
-            </div>
-          </div>
+          <hr/>
 
           <!-- Chart Renderer -->
           <div class="form-group">
-            <label class="col-md-4 control-label" for="chartRenderRadios">Interactive Chart Renderer</label>
-            <div class="col-md-8">
-              <div class="radio">
-                <label for="chartRenderRadios-0">
-                  <!-- Static -->
-                  <input type="radio" name="chartRenderRadios" id="chartRenderRadios-0" value="static" {% if ctx.prefs.renderer=='nvd3' %} checked="checked"{% endif %} onclick="dsSetPref('renderer', 'nvd3')">
-                    nvd3
-                </label>
-                <p><small><a href="http://nvd3.org/" target="_blank">nvd3</a>
-                renders interactive charts
-                using <a href="http://d3js.org/"
-                target="_blank">D3.js</a> and SVG. It supports
-                particularly nice interactive features on stacked area
-                charts, but can bog down the browser when there are a
-                large number of charts or a long time period being
-                rendered.</small></p>
-	          </div>
-              <div class="radio">
-                <label for="chartRenderRadios-1">
-                  <!-- Interactive -->
-                  <input type="radio" name="chartRenderRadios" id="chartRenderRadios-1" value="interactive" {% if ctx.prefs.renderer=='flot' %} checked="checked"{% endif %} onclick="dsSetPref('renderer', 'flot')">
-                    flot
-                </label>
-                <p><small><a href="http://www.flotcharts.org/"
-                target="_blank">flot</a> renders interactive charts
-                using HTML canvas. It does not support stream graphs,
-                but can be a better choice for rendering large numbers
-                of graphs or lengthy time periods.</small></p>
-	          </div>
+            <label class="col-md-4 control-label" for="chartRenderRadios">Chart Renderer</label>
+            <div class="col-md-8" id="chart-renderers">
             </div>
           </div>
-
 
           <!-- Theme -->
           <div class="form-group">
@@ -207,6 +160,34 @@
 
             </div>
           </div>
+
+          <hr/>
+
+          <!-- Property Sheet Auto-Close Timeout -->
+          <div class="form-group">
+            <div class="col-md-4"
+                 style="text-align:right">
+              <label class="control-label" for="numberPropertySheetAutoClose">Property Sheet Auto-Close Time</label><br/>
+              <small>In seconds. Set value to 0 to disable autoclose.</small>
+            </div>
+            <div class="col-md-6">
+              <input type="number" step="1" id="numberPropertySheetAutoClose" name="numberPropertySheetAutoClose"
+                     class="form-control"
+                     value="{{ctx.get_int('propsheet_autoclose_seconds', config.get('DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS',3))}}"
+                     onchange="dsSetPref('propsheet_autoclose_seconds', this.value)">
+              </input>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-default"
+                      id="ds-reset-propertysheet-timeout-button"
+                      data-toggle="tooltip"
+                      title="Reset to Default">
+                <i class="fa fa-angle-double-down"></i>
+              </button>
+            </div>
+
+          </div>
+
         </fieldset>
       </form>
 
@@ -241,6 +222,14 @@
    })
  })
 
+   var renderers = ds.charts.registry.list()
+   for (var i = 0; i < renderers.length; i++) {
+     $('#chart-renderers').append((ds.templates['ds-preferences-renderer-entry']({
+       renderer: renderers[i],
+       checked: ds.prefs.renderer === renderers[i].name
+     })))
+   }
+
  $("[data-toggle=tooltip]").tooltip({
    animation:false,
    container: 'body',
@@ -263,6 +252,13 @@
    dsSetPref('graphite_url', e.value)
    return false
  })
+
+ $(document).on('click', '#ds-reset-propertysheet-timeout-button', function(e) {
+   $('#numberPropertySheetAutoClose')[0].value = {{config.get('DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS',3)}}
+   dsSetPref('propsheet_autoclose_seconds', e.value)
+   return false
+ })
+
 
 </script>
 

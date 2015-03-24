@@ -1,27 +1,124 @@
+#
+# Enables Flask's debug mode. Should not be True in production.
+#
 DEBUG                      = True
-SECRET_KEY                 = 'REPLACE ME'
-DEFAULT_FROM_TIME          = '-3h'
-DEFAULT_THEME              = 'light'
-DASHBOARD_APPNAME          = 'Tessera'
-SQLALCHEMY_DATABASE_URI    = 'sqlite:///tessera.db'
-MIGRATION_DIR              = 'migrations'
-GRAPHITE_URL               = 'http://localhost:8080'
-GRAPHITE_AUTH              = ''
-DISPLAY_TIMEZONE           = 'Etc/UTC'
-SERVER_ADDRESS             = '0.0.0.0'
-SERVER_PORT                = 5000
-INTERACTIVE_CHARTS_DEFAULT = True
-INTERACTIVE_CHARTS_RENDERER = 'flot'
 
+#
+# Hash key for anonymous sessions. Replace this with a good random
+# string, such as a UUID.
+#
+SECRET_KEY                 = 'REPLACE ME'
+
+#
+# The default 'from' time for graphite queries. When a dashboard is
+# loaded with no from or until parameters in the URL, this will be
+# used to select the time range to display.
+#
+DEFAULT_FROM_TIME          = '-3h'
+
+#
+# The default UI color theme. Valid values are 'light', 'dark',
+# 'snow', 'solarized-light', and 'solarized-dark'. This is overridable
+# by user sessions.
+#
+DEFAULT_THEME              = 'light'
+
+#
+# Displayed on the front page and in the footer of every page. If you
+# have multiple installations of tessera, using a unique value for
+# each one may be a good idea. Purely cosmetic.
+#
+DASHBOARD_APPNAME          = 'Tessera'
+
+#
+# A data base URL for dashboard storage. See
+# http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html
+#
+SQLALCHEMY_DATABASE_URI    = 'sqlite:///tessera.db'
+
+#
+# Directory for database migration scripts.
+#
+MIGRATION_DIR              = 'migrations'
+
+#
+# IP address to for the backend server to listen on.
+#
+SERVER_ADDRESS             = '0.0.0.0'
+
+#
+# TCP port for the backend server to listen on.
+#
+SERVER_PORT                = 5000
+
+#
+# URL to the graphite server to pull data from. This is overridable by
+# user sessions.
+#
+GRAPHITE_URL               = 'http://localhost:8080'
+
+#
+# If your graphite server requires authentication, enter the auth
+# string here. Only HTTP Basic authentication is supported - enter
+# 'user:password' as required. This is overridable by user sessions.
+#
+GRAPHITE_AUTH              = ''
+
+#
+# Whether or not to render graphite PNGs with
+# lineMode=connected. Connected line mode can be useful when your data
+# is sparse, but it can also mask scalability problems with your
+# Graphite installation.
+#
+GRAPHITE_CONNECTED_LINES   = 0
+
+#
+# The default renderer for charts. Valid values are 'graphite', for
+# non-interactive charts, and 'flot'. The graphite renderer does not
+# support the full range of visualizations, however. This is
+# overridable by user sessions.
+#
+CHART_RENDERER             = 'flot'
+
+#
+# Global flag to enable or disable the downsampling of data in the
+# flot renderer, which improves both rendering speed and clarity of
+# the rendered charts when there are long time periods displayed. Use
+# 1 to enable or 0 to disable.
+#
+DOWNSAMPLE_TIMESERIES      = 1
+
+#
+# Default time zone to display time stamps in. This is overridable by
+# user sessions.
+#
+DISPLAY_TIMEZONE           = 'Etc/UTC'
+
+#
+# The default time period, in seconds, after which to automatically
+# close dashboard item property sheets in edit mode. Use 0 to disable
+# auto-close. This is overridable by user sessions.
+#
+DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS = 3
+
+#
+# The set of intervals to be displayed in the recent time range
+# picker.
+#
 DASHBOARD_RANGE_PICKER = [
-      ('Past Hour',   '-1h'),
-      ('Past 3 Hrs',  '-3h'),
-      ('Past 12 Hrs', '-12h'),
-      ('Past Day',    '-1d'),
-      ('Past Wk',     '-1w'),
-      ('Past 2 Wks',  '-2w'),
+      ('1h',  '-1h'),
+      ('3h',  '-3h'),
+      ('12h', '-12h'),
+      ('1d',  '-1d'),
+      ('3d',  '-3d'),
+      ('1w',  '-1w'),
+      ('2w',  '-2w'),
+      ('3w',  '-3w'),
 ]
 
+#
+# The set of entries in the dashboard refresh period menu.
+#
 DASHBOARD_REFRESH_INTERVALS = [
     ('None',             0),
     ('30 seconds',      30),
@@ -33,4 +130,8 @@ DASHBOARD_REFRESH_INTERVALS = [
     ('1 hour',     60 * 60)
 ]
 
+#
+# The default refresh time to automatically reload dashboards, in
+# seconds. This is overridable by user sessions.
+#
 DEFAULT_REFRESH_INTERVAL = 60

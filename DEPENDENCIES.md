@@ -28,12 +28,16 @@ built with as many "off-the-shelf" components as possible.
     included here is MIT licensed).
   * [bootstrap-growl](https://github.com/mouse0270/bootstrap-growl)
 * [jQuery](http://jquery.com/)
-* [nvd3](https://github.com/novus/nvd3) for interactive charts build
-  on top of [d3](http://d3js.org). d3 is also used for value
-  formatting in text.
-* [flot](http://www.flotcharts.org/) for alternative interactive chart
+* [d3](http://d3js.org). d3 is used for value formatting in text and
+  for stacked graph layout.
+* [flot](http://www.flotcharts.org/) is used for interactive chart
   rendering.
   * [flot-axislabels](https://github.com/mikeslim7/flot-axislabels)
+  * [flot-valuelabels](https://github.com/winne27/flot-valuelabels)
+  * [flot.multihighlight](https://github.com/eugenijusr/flot.multihighlight)
+  * [flot-barnumbers-enhanced](https://github.com/jasonroman/flot-barnumbers-enhanced)
+  * [flot-d3-stack](https://github.com/aalpern/flot-d3-stack/)
+  * [flot-downsample](https://github.com/sveinn-steinarsson/flot-downsample/)
 * [DataTables](http://datatables.net/)
 * [moment.js](http://momentjs.com/) for time parsing & formatting.
   * [moment-timezone.js](http://momentjs.com/timezone/)
@@ -49,3 +53,6 @@ built with as many "off-the-shelf" components as possible.
 * [mousetrap](https://github.com/ccampbell/mousetrap)
 * [simple-statistics](https://github.com/tmcw/simple-statistics)
 * [equalize.js](https://github.com/tsvensen/equalize.js/)
+* [usertiming.js](https://github.com/nicjansma/usertiming.js) provides
+  polyfill of the W3 [User Timing](http://www.w3.org/TR/user-timing/)
+  API for browsers that don't support it natively (i.e. Safari 8).
