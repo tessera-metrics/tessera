@@ -44,7 +44,10 @@ ds.charts.graphite =
             .setQuery('margin', '0')
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .setQuery('title', options.showTitle ? item.title : '')
-            .setQuery('lineMode', 'connected')
+
+      if (ds.config.GRAPHITE_CONNECTED_LINES) {
+        png_url.setQuery('lineMode', 'connected')
+      }
 
         if (options.y1 && options.y1.min)
             png_url.setQuery('yMin', options.y1.min )
