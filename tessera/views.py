@@ -372,7 +372,7 @@ class RenderContext:
     def get(self, key, default=None, store_in_session=False):
         return _get_param(key, default=default, store_in_session=store_in_session)
 
-    def get_int(self, key, default=None, store_in_session=False):
+    def get_int(self, key, default=0, store_in_session=False):
         return int(self.get(key, default=default, store_in_session=store_in_session))
 
     def get_str(self, key, default=None, store_in_session=False):
