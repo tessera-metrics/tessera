@@ -13,6 +13,7 @@ ds.register_dashboard_item('singlegraph', {
                          .extend(ds.models.item, {item_type: 'singlegraph'})
                          .extend(ds.models.chart)
                          .build()
+    Object.defineProperty(self, 'requires_data', {value: true})
 
     if (data) {
       self.format = data.format || self.format
@@ -34,6 +35,8 @@ ds.register_dashboard_item('singlegraph', {
   },
 
   data_handler: function(query, item) {
+    if (!query.data)
+      return
     ds.charts.simple_area_chart($("#" + item.item_id + ' .ds-graph-holder'), item, query)
     item.options.margin = { top: 0, left: 0, bottom: 0, right: 0 }
     var label = query.data[item.index || 0].key
