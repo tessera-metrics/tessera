@@ -150,7 +150,7 @@ ds.charts.graphite =
             .setQuery('title', options.showTitle ? item.title : '')
             .setQuery('lineMode', 'connected')
 
-        if (!item.query.is_stacked())
+        if (!item.query.is_stacked() && item.stack_mode != ds.charts.StackMode.NONE)
             png_url.setQuery('areaMode', 'stacked')
 
         if (options.y1 && options.y1.min)
