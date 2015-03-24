@@ -65,6 +65,14 @@ GRAPHITE_URL               = 'http://localhost:8080'
 GRAPHITE_AUTH              = ''
 
 #
+# Whether or not to render graphite PNGs with
+# lineMode=connected. Connected line mode can be useful when your data
+# is sparse, but it can also mask scalability problems with your
+# Graphite installation.
+#
+GRAPHITE_CONNECTED_LINES   = 0
+
+#
 # The default renderer for charts. Valid values are 'graphite', for
 # non-interactive charts, and 'flot'. The graphite renderer does not
 # support the full range of visualizations, however. This is
