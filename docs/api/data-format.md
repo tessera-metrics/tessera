@@ -35,8 +35,12 @@ These item type have a visual component linked to one or more data queries.
 * `standard_time_series`
 * `stacked_area_chart`
 * `donut_chart`
+* `bar_chart`
+* `discrete_bar_chart`
 * `singlegraph`
 * `singlestat`
 * `jumbotron_singlestat`
 * `summation_table`
 * `timeshift_summation_table`
+* `comparison_summation_table`
+* `percentage_table`
