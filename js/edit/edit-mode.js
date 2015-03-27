@@ -52,6 +52,12 @@
     return true
   })
 
+  $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {
+    log.debug('shown.bs.tab ' + e.target.href)
+    if (e.target.id == 'ds-edit-tab-queries') {
+      ds.edit.edit_queries()
+    }
+  })
 
   ds.edit.edit_queries = function() {
     log.debug('edit_queries()')
@@ -244,7 +250,6 @@
     enter: function() {
       log.debug('mode_handler.enter()')
       $('.ds-section, .ds-cell, .ds-row').addClass('ds-edit')
-      ds.edit.edit_queries()
     },
     exit: function() {
       log.debug('mode_handler.exit()')
