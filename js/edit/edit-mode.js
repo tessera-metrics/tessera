@@ -1,11 +1,14 @@
 (function () {
 
+  var log = ds.log.logger('tessera.edit')
+
   /* -----------------------------------------------------------------------------
      Queries
      ----------------------------------------------------------------------------- */
 
   /* Query delete buttons */
   $(document).on('click', 'button.ds-delete-query-button', function(e) {
+    log.debug('click.delete-query')
     var $elt = $(this)
     var query_name   = $elt.attr('data-ds-query-name')
     var dashboard = ds.manager.current.dashboard
@@ -39,6 +42,7 @@
 
   /* Query duplicate buttons */
   $(document).on('click', 'button.ds-duplicate-query-button', function(e) {
+    log.debug('click.duplicate-query')
     var $elt       = $(this)
     var query_name = $elt.attr('data-ds-query-name')
     var dashboard  = ds.manager.current.dashboard
@@ -50,6 +54,7 @@
 
 
   ds.edit.edit_queries = function() {
+    log.debug('edit_queries()')
     /* Query names */
     $('th.ds-query-name').each(function(index, e) {
       var element = $(e)
@@ -85,6 +90,7 @@
    * Rename a query and update the UI to reflect the change.
    */
   function rename_query(dashboard, old_name, new_name) {
+    log.debug('rename_query()')
     var query = dashboard.definition.queries[old_name]
     var updated_items = dashboard.definition.rename_query(old_name, new_name)
     $('[data-ds-query-name="' + old_name + '"]').replaceWith(
@@ -103,6 +109,7 @@
    * Delete a query and remove it from the queries list in the UI.
    */
   function delete_query(dashboard, query_name) {
+    log.debug('delete_query()')
     dashboard.definition.delete_query(query_name)
     $('tr[data-ds-query-name="' + query_name + '"]').remove()
     ds.edit.edit_queries()
@@ -113,6 +120,7 @@
    * Add a new query to the dashboard and UI.
    */
   function add_query(dashboard, name, target) {
+    log.debug('add_query()')
     var query = ds.models.data.Query({name: name, targets: target})
     dashboard.definition.add_query(query)
     $("#ds-query-panel table").append(ds.templates.edit['dashboard-query-row'](query))
@@ -122,6 +130,7 @@
   }
 
   function duplicate_query(dashboard, name) {
+    log.debug('duplicate_query()')
     var new_name = 'Copy of ' + name + ' ' + Object.keys(dashboard.definition.queries).length
     var source   = dashboard.definition.queries[name]
     return add_query(dashboard, new_name, source.targets.slice(0))
@@ -134,6 +143,7 @@
    * be used as a placeholder.
    */
   function new_query(dashboard, targets) {
+    log.debug('new_query()')
     var name = "query" + Object.keys(dashboard.definition.queries).length
     return add_query(dashboard, name, targets || 'absolute(randomWalkFunction("' + name + '"))')
   }
@@ -232,13 +242,16 @@
 
   ds.app.add_mode_handler(ds.app.Mode.EDIT, {
     enter: function() {
+      log.debug('mode_handler.enter()')
       $('.ds-section, .ds-cell, .ds-row').addClass('ds-edit')
       ds.edit.edit_queries()
     },
     exit: function() {
+      log.debug('mode_handler.exit()')
       $('.ds-section, .ds-cell, .ds-row').removeClass('ds-edit')
     },
     refresh: function() {
+      log.debug('mode_handler.refresh()')
       $('.ds-section, .ds-cell, .ds-row').addClass('ds-edit')
     }
   })
