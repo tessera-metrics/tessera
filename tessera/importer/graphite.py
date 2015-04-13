@@ -16,7 +16,7 @@ class GraphiteDashboardImporter(object):
         self.auth = auth
 
     def get_dashboard_names(self, query=''):
-        response = self.__do_post('{0}/dashboard/find/'.format(self.graphite_url),
+        response = self.__do_get('{0}/dashboard/find/'.format(self.graphite_url),
                                  params={'query':query}
         )
         return [ d['name'] for d in response.json()['dashboards'] ]
@@ -132,8 +132,8 @@ class GraphiteDashboardImporter(object):
         dashboard.definition = definition
         return dashboard
 
-    def __do_get(self, url, headers = {}):
-        response = requests.get(url, headers=self.__headers_with_auth(headers))
+    def __do_get(self, url, params = {} ,headers = {}):
+        response = requests.get(url, params=params ,headers=self.__headers_with_auth(headers))
         response.raise_for_status()
         return response
 
