@@ -137,11 +137,6 @@ class GraphiteDashboardImporter(object):
         response.raise_for_status()
         return response
 
-    def __do_post(self, url, params = {}, headers = {}):
-        response = requests.post(url, params=params, headers=self.__headers_with_auth(headers))
-        response.raise_for_status()
-        return response
-
     def __headers_with_auth(self, headers):
         if self.auth != '':
             if ':' in self.auth:
