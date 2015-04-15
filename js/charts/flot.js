@@ -266,6 +266,11 @@
       result.data = series.datapoints.map(function(point) {
                       return [point[1] * 1000, point[0]]
                     })
+      if (ds.config.CONNECTED_LINES) {
+        result.data = result.data.filter(function(point) {
+          return point[1] != null
+        })
+      }
       return result
     }
 
