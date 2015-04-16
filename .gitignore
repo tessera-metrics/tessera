@@ -9,6 +9,7 @@ lib/
 include/
 man/
 dist/
+local/
 .Python
 bower_components/
 node_modules/
