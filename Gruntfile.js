@@ -151,6 +151,7 @@ module.exports = function(grunt) {
           separator: ';'
         },
         src: [
+          'node_modules/babel-core/browser-polyfill.js',
           '_build/app-es5.js',
           '_build/templates.js'
         ],

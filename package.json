@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/urbanairship/tessera",
   "devDependencies": {
+    "babel-core": "^5.1.11",
     "grunt-babel": "^5.0.0",
     "grunt-contrib-concat": "^0.4.0",
     "grunt-contrib-handlebars": "~0.9.3",
