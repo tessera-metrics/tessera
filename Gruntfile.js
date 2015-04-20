@@ -1,10 +1,70 @@
+
 module.exports = function(grunt) {
   var path = require('path');
+
+  var SOURCE_FILES = [
+    'ts/dependencies.ts',
+    'ts/core/core.ts',
+    'ts/core/log.ts',
+    'ts/core/perf.ts',
+    'ts/core/event.ts',
+    'ts/core/registry.ts',
+    'ts/core/action.ts',
+    'ts/dashboard/transform.ts',
+    'ts/app/app.ts',
+    'ts/app/manager.ts',
+    'ts/app/helpers.ts',
+    'ts/app/keybindings.ts',
+    'ts/charts/charts.ts',
+    'ts/charts/provider.ts',
+    'ts/charts/graphite.ts',
+    'ts/charts/flot.ts',
+    'ts/app/actions.ts',
+    'ts/edit/property.ts',
+    'ts/dashboard/factory.ts',
+    'ts/dashboard/properties.ts',
+    'ts/dashboard/mixins/**/*.ts',
+    'ts/dashboard/models/**/*.ts',
+    'ts/extensions/**/*.ts',
+    'ts/edit/edit-mode.ts',
+    'ts/app/handlers/*.ts'
+  ]
 
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
 
+    /**
+     * 1 - Transpile all TypeScript sources to ES6
+     */
+    ts: {
+      default: {
+        src: SOURCE_FILES,
+        out: '_build/app-es6.js',
+        options: {
+          target: 'es6'
+        }
+      }
+    },
+
+    /**
+     * 2 - Convert the ES6 Javascript to ES5 Javascript, via babeljs.
+     */
+    babel: {
+      options: {
+        sourceMap: false,
+        compact: false
+      },
+      dist: {
+        files: {
+          '_build/app-es5.js' : '_build/app-es6.js'
+        }
+      }
+    },
+
+    /**
+     * 3 - Precompile the handlebars templates
+     */
     handlebars: {
       all: {
         options: {
@@ -18,10 +78,15 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'tessera/static/templates.js' : [ 'templates/**/*.hbs']
+          '_build/templates.js' : [ 'templates/**/*.hbs']
         }
       }
     },
+
+    /**
+     * 4 - Concatenate the transpiled sources, the precompiled
+     * templates, and the babel polyfill required for all ES6 support.
+     */
     concat: {
       bundle_css: {
         src: [
@@ -86,31 +151,8 @@ module.exports = function(grunt) {
           separator: ';'
         },
         src: [
-          'js/core/core.js',
-          'js/core/log.js',
-          'js/core/perf.js',
-          'js/core/event.js',
-          'js/core/registry.js',
-          'js/core/action.js',
-          'js/dashboard/transform.js',
-          'js/app/app.js',
-          'js/app/manager.js',
-          'js/app/helpers.js',
-          'js/app/keybindings.js',
-          'tessera/static/templates.js',
-          'js/charts/charts.js',
-          'js/charts/provider.js',
-          'js/charts/graphite.js',
-          'js/charts/flot.js',
-          'js/app/actions.js',
-          'js/edit/property.js',
-          'js/dashboard/factory.js',
-          'js/dashboard/properties.js',
-          'js/dashboard/mixins/**/*.js',
-          'js/dashboard/models/**/*.js',
-          'js/extensions/**/*.js',
-          'js/edit/edit-mode.js',
-          'js/app/handlers/*.js'
+          '_build/app-es5.js',
+          '_build/templates.js'
         ],
         dest: 'tessera/static/app.js'
       }
@@ -118,6 +160,7 @@ module.exports = function(grunt) {
     watch: {
       files: [
         'js/**/*.js',
+        'ts/**/*.ts',
         'templates/**/*.hbs',
         'tessera/static/js/**/*.js',
         'tessera/static/css/**/*.css',
@@ -131,6 +174,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
+  grunt.loadNpmTasks('grunt-ts-1.5');
+  grunt.loadNpmTasks('grunt-babel');
+  grunt.loadNpmTasks('grunt-typedoc');
 
-  grunt.registerTask('default', ['handlebars', 'concat']);
+  grunt.registerTask('default', ['ts', 'babel', 'handlebars', 'concat']);
 }
