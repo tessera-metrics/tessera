@@ -52,7 +52,7 @@ module.exports = function(grunt) {
      */
     babel: {
       options: {
-        sourceMap: false,
+        sourceMap: true,
         compact: false
       },
       dist: {
@@ -152,8 +152,8 @@ module.exports = function(grunt) {
         },
         src: [
           'node_modules/babel-core/browser-polyfill.js',
-          '_build/app-es5.js',
-          '_build/templates.js'
+          '_build/templates.js',
+          '_build/app-es5.js'
         ],
         dest: 'tessera/static/app.js'
       }
@@ -168,7 +168,7 @@ module.exports = function(grunt) {
         'tessera/static/tessera.css',
         'tessera/static/tessera-typography.css'
       ],
-      tasks: ['handlebars', 'concat']
+      tasks: ['default']
     }
   });
 

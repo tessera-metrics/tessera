@@ -1,4 +1,4 @@
-var ds : any = {}
+var ds : any = window['ds'] || {}
 ds.models = ds.models || {}
 ds.models.data = ds.models.data || {}
 ds.models.transform = ds.models.transform || {}
