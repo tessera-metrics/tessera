@@ -29,7 +29,7 @@ ds.register_dashboard_item('dashboard_definition', {
      */
 
     self.summarize = function() {
-      var counts = {}
+      var counts : any = {}
       self.visit(function(item) {
         if (typeof(counts[item.item_type]) === 'undefined') {
           counts[item.item_type] = 1
@@ -72,8 +72,8 @@ ds.register_dashboard_item('dashboard_definition', {
       log.debug('load_all()')
       self.options = options || self.options
 
-      var queries_to_load = {}
-      var queries_to_fire = {}
+      var queries_to_load : any = {}
+      var queries_to_fire : any = {}
 
       self.visit(function(item) {
         var query = item.query_override || item.query
@@ -156,7 +156,7 @@ ds.register_dashboard_item('dashboard_definition', {
     }
 
     self.toJSON = function() {
-      var q = {}
+      var q : any = {}
       for (var key in self.queries) {
         q[key] = self.queries[key].toJSON()
       }

@@ -23,7 +23,7 @@ ds.manager =
     "use strict"
 
     var current
-      , self = {}
+      , self : any = {}
       , log = ds.log.logger('tessera.app.manager')
 
     Object.defineProperty(self, 'current', { get: function() { return current }})
@@ -337,7 +337,7 @@ ds.manager =
             self.current.url = dashboard_url.href()
             window.history.pushState({url: self.current.url, element:self.current.element}, '', window_url.href())
             self.refresh()
-            return setting == 'true'
+            return setting
         })
     }
 
@@ -437,7 +437,7 @@ ds.manager =
 
     self.delete_dashboard = function(href, done_) {
       var done = done_ || function() {
-                            window.location = '/dashboards'
+                            window.location.href = '/dashboards'
                             self.success('Successfully deleted dashboard ' + href)
                           }
         $.ajax({

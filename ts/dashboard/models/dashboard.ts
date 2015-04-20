@@ -60,7 +60,7 @@ ds.models.dashboard = function(data) {
   }
 
   self.update_index = function() {
-    var index = {}
+    var index : any = {}
     self.visit(function(item) {
       if (item.is_dashboard_item) {
         if ( !item.item_id ) {

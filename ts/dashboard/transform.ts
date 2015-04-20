@@ -3,7 +3,7 @@
  */
 ds.transform = function(data) {
 
-  var self = {}
+  var self : any = {}
 
   if (data) {
     self.name = data.name

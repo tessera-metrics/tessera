@@ -1,4 +1,4 @@
-var ds = window.ds || {}
+var ds : any = {}
 ds.models = ds.models || {}
 ds.models.data = ds.models.data || {}
 ds.models.transform = ds.models.transform || {}
@@ -12,7 +12,7 @@ ds.context = function(context) {
   context = context || {}
   var url       = URI(window.location)
   var params    = url.query(true)
-  var variables = {}
+  var variables : any = {}
 
   context.from = params.from || ds.config.DEFAULT_FROM_TIME
   context.until = params.until
@@ -66,7 +66,7 @@ ds.safe_render_template = function(str, context) {
  * objects...
  */
 ds.extend = function() {
-  var target = {}
+  var target : any = {}
   for (var i = 0; i < arguments.length; i++) {
     var source = arguments[i] || {}
     for (var key in source) {

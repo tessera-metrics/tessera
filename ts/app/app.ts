@@ -9,7 +9,7 @@ ds.app =
 
     var mode_stack = []
       , ANIMATION_DELAY = 300
-      , self = {}
+      , self : any = {}
       , log = ds.log.logger('tessera.app')
 
     /**
@@ -149,7 +149,7 @@ ds.app =
     // This should go somewhere more logical - it doesn't really have
     // anything to do with the app object.
     self.get_perf_stats = function() {
-      var stats = new Object()
+      var stats : any = new Object()
       stats.charts_render = ds.charts.perf.summarize_measures("render")
 
       var queries = ds.manager.current.dashboard.definition.queries

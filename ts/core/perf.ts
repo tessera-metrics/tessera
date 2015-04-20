@@ -5,7 +5,7 @@ ds.perf = function() {
 
   var separator = '/'
 
-  var self = { }
+  var self : any = {}
 
   if (arguments.length) {
     self.prefix = ''

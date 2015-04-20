@@ -34,7 +34,7 @@ ds.charts =
       }
     })
 
-    function get_renderer(fn_name, item) {
+    function get_renderer(fn_name, item) : (element, item, query) => void {
       var interactive = self.interactive
       if ((typeof(item) !== 'undefined') && (typeof(item.interactive) !== 'undefined'))
         interactive = item.interactive
@@ -155,7 +155,7 @@ ds.charts =
  */
 ds.charts.util =
   (function () {
-    var self = {}
+    var self : any = {}
 
     self.get_palette = function(name) {
       if (name instanceof Array)

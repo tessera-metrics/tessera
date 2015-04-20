@@ -27,7 +27,7 @@ ds.models.tag = function(data) {
   }
 
   self.toJSON = function() {
-    var json = {}
+    var json : any = {}
     if (self.id)
       json.id = self.id
     if (self.href)

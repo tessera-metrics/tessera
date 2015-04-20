@@ -148,7 +148,7 @@
       return flot_options
     }
 
-    function show_tooltip(x, y, contents, offset) {
+    function show_tooltip(x, y, contents, offset?) {
       $('<div id="ds-tooltip">' + contents + '</div>').css( {
         position: 'absolute',
         display: 'none',
@@ -220,7 +220,7 @@
       elt.equalize({equalize: 'outerWidth', reset: true })
     }
 
-    function render(e, item, query, options, data) {
+    function render(e, item, query, options?, data?) {
       if (typeof(data) === 'undefined')
         data = query.chart_data('flot')
       var context = {
@@ -258,7 +258,7 @@
        ============================================================================= */
 
     self.process_series = function(series) {
-      var result = {}
+      var result : any = {}
       if (series.summation) {
         result.summation = series.summation
       }
@@ -469,7 +469,6 @@
             fill: 0.75,
             numbers: {
               show: item.show_numbers,
-              xAlign: 'center',
               font: '10pt Helvetica',
               fontColor: '#f9f9f9', // TODO: get from theme
               formatter: format,

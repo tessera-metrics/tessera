@@ -9,8 +9,8 @@
 ds.registry = function(init) {
   'use strict'
 
-  var data = {}
-    , self = {}
+  var data : any = {}
+    , self : any = {}
     , DEFAULT_CATEGORY = 'default'
 
   if (init) {

@@ -1,7 +1,7 @@
 (function() {
 
   var GRAPHITE_FORMAT = 'HH:mm_YYYYMMDD'
-  var self = { }
+  var self : any = {}
 
   self.null_handler = function() {
   }

@@ -26,7 +26,7 @@ ds.log.set_level = function(level) {
 
 ds.log.logger = function(options) {
 
-  var self = {}
+  var self : any = {}
     , time_format = ds.log.default_log_time_format
     , level = ds.log.default_level
     , name = 'default'
@@ -86,7 +86,7 @@ ds.log.logger = function(options) {
   }
 
   self.time_format = function(_) {
-    if (arguments.level) {
+    if (arguments.length) {
       time_format = _
       return self
     }

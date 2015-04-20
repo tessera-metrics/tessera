@@ -19,7 +19,7 @@ ds.transforms.register({
       { shift:  '-2d', title: 'Two Days Ago' },
       { shift:  '-1w', title: 'One Week Ago' }
     ]
-    var make_row = function(query, item, style) {
+    var make_row = function(query, item, style?) {
       return make('row')
                .set_style(style)
                .add(make('cell')

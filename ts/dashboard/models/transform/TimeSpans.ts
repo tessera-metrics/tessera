@@ -20,7 +20,7 @@ ds.transforms.register({
 
   transform: function(item) {
     var make  = ds.models.make
-    var spans = [
+    var spans : { from: string, until?: string, title: string }[] = [
       { from: '-1h', title: 'Past Hour' },
       { from: '-4h', title: 'Past 4 Hours' },
       { from: '-1d', title: 'Past Day' },
@@ -28,7 +28,7 @@ ds.transforms.register({
     ]
     var columns = 1
     var query   = item.query
-    var colspan = 12 / self.columns
+    var colspan = 12 / columns
     var section = make('section')
                     .add(make('heading', {
                       level: 2, text: item.title

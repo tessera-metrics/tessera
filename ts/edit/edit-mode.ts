@@ -125,7 +125,7 @@
   /**
    * Add a new query to the dashboard and UI.
    */
-  function add_query(dashboard, name, target) {
+  function add_query(dashboard, name, target?) {
     log.debug('add_query()')
     var query = ds.models.data.Query({name: name, targets: target})
     dashboard.definition.add_query(query)
@@ -148,7 +148,7 @@
    * targets are not supplied, a function generating random data will
    * be used as a placeholder.
    */
-  function new_query(dashboard, targets) {
+  function new_query(dashboard, targets?) {
     log.debug('new_query()')
     var name = "query" + Object.keys(dashboard.definition.queries).length
     return add_query(dashboard, name, targets || 'absolute(randomWalkFunction("' + name + '"))')

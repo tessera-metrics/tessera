@@ -297,7 +297,7 @@ ds.models.data.Query = function(data) {
   }
 
   self.toJSON = function() {
-    var json = {}
+    var json : any = {}
     if (self.name)
       json.name = self.name
     if (self.targets)

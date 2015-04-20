@@ -110,7 +110,7 @@ ds.models.item =
       }
 
       self.get_queries = function() {
-        var queries = {}
+        var queries : any = {}
         self.visit(function(i) {
           var query = i.query || i.query_override
           if (query && query.is_query) {
