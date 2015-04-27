@@ -81,10 +81,6 @@ ds.models.data.Summation = function(initial_data) {
       }
       index++
     })
-    if (self.sum === 0) {
-      self.min = 0
-      self.max = 0
-    }
     self.mean = self.sum / self.count
   } else if (typeof(initial_data) === 'object') {
     self.sum   = if_defined(initial_data.sum,  self.sum)
@@ -98,6 +94,11 @@ ds.models.data.Summation = function(initial_data) {
     self.mean  = if_defined(initial_data.mean, self.mean)
     self.mean  = if_defined(initial_data.median, self.median)
     self.count = if_defined(initial_data.count, self.count)
+  }
+
+  if (self.sum === 0) {
+    self.min = 0
+    self.max = 0
   }
 
   /**
