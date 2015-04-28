@@ -3,7 +3,7 @@
  * handler to invoke them from the dashboard-list.html template.
  */
 
-ds.actions.register('dashboard-list-actions', [
+ts.actions.register('dashboard-list-actions', [
   ds.action({
     name:    'open',
     display: 'Open',

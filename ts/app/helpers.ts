@@ -191,19 +191,19 @@ Handlebars.registerHelper('interactive_property', function(property, item) {
  * either as a button bar or a dropdown.
  */
 Handlebars.registerHelper('actions', function(category, type) {
-  var template = ds.templates.action
-  if (type === 'button') {
-    template = ds.templates.action_button
-  }
-  var actions = ds.actions.list(category)
-  if (actions && (actions instanceof Array) && actions.length) {
-    if (typeof(type) === 'boolean' && type) {
-      actions = [ds.action.divider].concat(actions)
-    }
+  let template = type === 'button'
+        ? ds.templates.action_button
+        : ds.templates.action
+  let actions = ds.actions.list(category)
+  if (actions && actions.length) {
+      if (typeof type === 'boolean' && type) {
+          actions = [ds.action.divider].concat(actions)
+      }
 
     var html = ''
-    for (var i = 0; i < actions.length; i++) {
-      var action = actions[i]
+    for (let action of actions) {
+     if (!action)
+         continue
       var tmpl = template
       if (action.actions) {
         tmpl = ds.templates["action-menu-button"]

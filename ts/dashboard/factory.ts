@@ -15,7 +15,7 @@ ds.register_dashboard_item = function(item_type, descriptor) {
   }
 
   if (descriptor.actions && descriptor.actions.length) {
-    ds.actions.register(item_type, descriptor.actions)
+    ts.actions.register(item_type, descriptor.actions)
   }
 
   var props = (descriptor.interactive_properties || []).map(function(p) {
@@ -41,7 +41,7 @@ ds.register_dashboard_item = function(item_type, descriptor) {
 
   var category = descriptor.category ? 'new-item-' + descriptor.category : 'new-item'
 
-  ds.actions.register(category, {
+  ts.actions.register(category, {
     name:     item_type,
     display:  'Add new ' + (descriptor.display_name || item_type),
     icon:     descriptor.icon || '',

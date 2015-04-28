@@ -42,7 +42,7 @@ ds.transforms = ds.registry({
   process: function(data) {
     var transform = ds.transform(data)
     var action_category = transform.transform_type + '-transform-actions'
-    ds.actions.register(action_category, transform.action())
+    ts.actions.register(action_category, transform.action())
     return transform
   }
 })

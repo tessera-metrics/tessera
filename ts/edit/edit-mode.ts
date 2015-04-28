@@ -370,7 +370,7 @@
     return chart
   }
 
-  ds.actions.register('new-item-chart', {
+  ts.actions.register('new-item-chart', {
     name: 'new-chart-from-url',
     display: 'Add new chart from Graphite URL',
     icon: 'fa fa-image',
@@ -459,7 +459,7 @@
      Section actions
      ----------------------------------------------------------------------------- */
 
-  ds.actions.register('edit-bar-section', [
+  ts.actions.register('edit-bar-section', [
     new_item_action_for_section,
     duplicate_item_action,
     ds.action.divider,
@@ -473,7 +473,7 @@
      Row actions
      ----------------------------------------------------------------------------- */
 
-  ds.actions.register('edit-bar-row', [
+  ts.actions.register('edit-bar-row', [
     ds.action({
       name: 'new-cell',
       display: 'Add new Cell',
@@ -494,7 +494,7 @@
      Cell actions
      ----------------------------------------------------------------------------- */
 
-  ds.actions.register('edit-bar-cell', [
+  ts.actions.register('edit-bar-cell', [
     new_item_action_for_cell,
     duplicate_item_action,
     ds.action.divider,
@@ -530,7 +530,7 @@
      Item actions
      ----------------------------------------------------------------------------- */
 
-  ds.actions.register('edit-bar-item', [
+  ts.actions.register('edit-bar-item', [
     duplicate_item_action,
     ds.action.divider,
     move_back_action,
