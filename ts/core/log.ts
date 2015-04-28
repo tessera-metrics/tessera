@@ -10,7 +10,7 @@ module ts {
 
         const default_name        : string   = 'root'
         const default_time_format : string   = 'YYYY-MM-DD hh:mm:ss A'
-        const default_level       : Level = Level.DEBUG
+        const default_level       : Level = Level.INFO
         var   global_level        : Level = default_level
 
         function timestamp() : string {
