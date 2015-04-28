@@ -10,7 +10,7 @@
       description: 'flot renders interactive charts using HTML canvas.'
     })
 
-    var log = ds.log.logger('ds.charts.flot')
+    var log = ts.log.logger('ds.charts.flot')
 
     /* =============================================================================
        Helpers

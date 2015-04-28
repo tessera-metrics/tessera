@@ -11,7 +11,7 @@ ds.register_dashboard_item('dashboard_definition', {
                          .extend(ds.models.item, {item_type: 'dashboard_definition'})
                          .extend(ds.models.container)
                          .build()
-      , log = ds.log.logger('tessera.item.definition')
+      , log = ts.log.logger('tessera.item.definition')
 
     if (data && data.queries) {
       for (var key in data.queries) {

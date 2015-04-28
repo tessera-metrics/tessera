@@ -10,7 +10,7 @@ ds.models.data.Query = function(data) {
                        .property('expanded_targets')
                        .property('local_options')
                        .build()
-    , log = ds.log.logger('tessera.query')
+    , log = ts.log.logger('tessera.query')
 
   if (data) {
     if (data instanceof Array) {

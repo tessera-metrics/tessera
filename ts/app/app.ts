@@ -10,7 +10,7 @@ ds.app =
     var mode_stack = []
       , ANIMATION_DELAY = 300
       , self : any = {}
-      , log = ds.log.logger('tessera.app')
+      , log = ts.log.logger('tessera.app')
 
     /**
      * Some pre-defined events that we can register handlers for.
@@ -42,7 +42,7 @@ ds.app =
     }
 
     function do_exit_mode(mode) {
-      if (log.is_enabled(ds.log.Level.DEBUG)) {
+      if (log.is_enabled(ts.log.Level.DEBUG)) {
         log.debug('mode <- ' + mode)
       }
       ds.event.fire(self, self.Event.MODE_EXIT + mode)
@@ -54,7 +54,7 @@ ds.app =
     }
 
     function do_enter_mode(mode) {
-      if (log.is_enabled(ds.log.Level.DEBUG)) {
+      if (log.is_enabled(ts.log.Level.DEBUG)) {
         log.debug('mode -> ' + mode)
       }
       var hidden = $('[data-ds-hide~="' + mode + '"]').hide(ANIMATION_DELAY)

@@ -1,99 +1,137 @@
-ds.log = ds.log || {}
+/**
+ * Provides a very simple implementation of the age-old log4j logging
+ * pattern, supporting only output to `console` for now.
+ */
+module ts {
+    export module log {
+        export enum Level {
+            OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE
+        }
 
-ds.log.Level = {
-  OFF:   { name: 'OFF',   value: 0 },
-  FATAL: { name: 'FATAL', value: 1 },
-  ERROR: { name: 'ERROR', value: 2 },
-  WARN:  { name: 'WARN ', value: 3 },
-  INFO:  { name: 'INFO ', value: 4 },
-  DEBUG: { name: 'DEBUG', value: 5 },
-  TRACE: { name: 'TRACE', value: 6 }
-}
+        const default_name        : string   = 'root'
+        const default_time_format : string   = 'YYYY-MM-DD hh:mm:ss A'
+        const default_level       : Level = Level.DEBUG
+        var   global_level        : Level = default_level
 
-ds.log.default_log_time_format = 'YYYY-MM-DD hh:mm:ss A'
+        function timestamp() : string {
+            return moment().format(default_time_format)
+        }
 
-ds.log.default_level = ds.log.Level.INFO
+        /**
+         * Options for initializing a new logger.
+         */
+        export interface LoggerOptions {
+            name?: string
+            level?: Level
+        }
 
-ds.log.cache = {}
+        /**
+         * Loggers log logs.
+         */
+        export class Logger {
+            name: string
+            level: Level = global_level
 
-ds.log.set_level = function(level) {
-  ds.log.default_level = level
-  var keys = Object.keys(ds.log.cache)
-  for (var i in keys) {
-    ds.log.cache[keys[i]].level(level)
-  }
-}
+            constructor(init: string | LoggerOptions) {
+                if (typeof init === 'string') {
+                    this.name = init
+                } else {
+                    this.name = init.name || default_name
+                    this.level = init.level || default_level
+                }
+            }
 
-ds.log.logger = function(options) {
+            is_enabled(level: Level) : boolean {
+                return level && level >= this.level
+            }
 
-  var self : any = {}
-    , time_format = ds.log.default_log_time_format
-    , level = ds.log.default_level
-    , name = 'default'
+            format(level: Level, msg: any) : string {
+                var ts         : string = timestamp()
+                var level_name : string = Level[level]
+                return `${ts} | ${level_name} | ${this.name} | ${msg}`
+            }
 
-  if (options) {
-    if (typeof(options) === 'string') {
-      name = options
-    } else {
-      time_format = options.time_format || time_format
-      level       = options.level || level
-      name        = options.name || name
-    }
-  }
+            log(level: Level, msg: any) : Logger {
+                if (this.level >= level) {
+                    let statement = this.format(level, msg)
+                    if (level <= Level.WARN) {
+                        console.error(statement)
+                    } else {
+                        console.log(statement)
+                    }
+                }
+                return this
+            }
 
-  if (ds.log.cache[name]) {
-    return ds.log.cache[name]
-  }
+            fatal(msg: any) : Logger {
+                return this.log(Level.FATAL, msg)
+            }
 
-  function timestamp() {
-    return moment().format(time_format)
-  }
+            error(msg: any) : Logger {
+                return this.log(Level.ERROR, msg)
+            }
 
-  function format(msg_level, msg) {
-    return timestamp() + ' | ' + msg_level.name + ' | ' + name + ' | ' + msg
-  }
+            warn(msg: any) : Logger {
+                return this.log(Level.WARN, msg)
+            }
 
-  function logger(msg_level) {
-    return function(msg) {
-      if (level.value >= msg_level.value) {
-        console.log(format(msg_level, msg))
-      }
-      return self
-    }
-  }
+            info(msg: any) : Logger {
+                return this.log(Level.INFO, msg)
+            }
 
-  self.trace = logger(ds.log.Level.TRACE)
-  self.debug = logger(ds.log.Level.DEBUG)
-  self.info  = logger(ds.log.Level.INFO)
-  self.warn  = logger(ds.log.Level.WARN)
-  self.error = logger(ds.log.Level.ERROR)
-  self.fatal = logger(ds.log.Level.FATAL)
+            debug(msg: any) : Logger {
+                return this.log(Level.DEBUG, msg)
+            }
 
-  self.level = function(_) {
-    if (arguments.length) {
-      level = _
-      return self
-    }
-    return level
-  }
+            trace(msg: any) : Logger {
+                return this.log(Level.TRACE, msg)
+            }
+        }
 
-  self.is_enabled = function(log_level) {
-    return log_level && level.value >= log_level.value
-  }
+        /**
+         * Provide a typed map for caching loggers by name.
+         *
+         * Finding a basic generic implementation of Map for
+         * typescript would be ideal
+         */
+        class LoggerCache {
+            cache = {}
+            has(name: string) : boolean {
+                return typeof this.cache[name] !== 'undefined'
+            }
+            get(name: string) : Logger {
+                return this.cache[name]
+            }
+            put(name: string, logger: Logger) : void {
+                this.cache[name] = logger
+            }
+        }
+        const cache = new LoggerCache()
 
-  self.name = function() {
-    return name
-  }
+        /**
+         * Cached factory function for loggers, which avoids
+         * instantiating duplicates with the same name.
+         */
+        export function logger(init: string | LoggerOptions) : Logger {
+            let name = typeof init === 'string'
+                ? init
+                : init.name
+            if (!cache.has(name)) {
+                cache.put(name, new Logger(init))
+            }
+            return cache.get(name)
+        }
 
-  self.time_format = function(_) {
-    if (arguments.length) {
-      time_format = _
-      return self
-    }
-    return time_format
-  }
+        /**
+         * Set the default global level for new loggers, and change
+         * the current logging level of all existing cached loggers.
+         */
+        export function set_level(level: Level) {
+            global_level = level
+            for (let key of Object.keys(cache.cache)) {
+                cache.get(key).level = level
+            }
+        }
 
-  ds.log.cache[name] = self
-
-  return self
-}
+    } /* end module logging */
+} /* end module ts */

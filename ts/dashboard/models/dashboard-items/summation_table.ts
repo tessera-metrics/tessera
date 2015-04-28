@@ -51,7 +51,7 @@ ds.register_dashboard_item('summation_table', {
   },
 
   data_handler: function(query, item) {
-    ds.log.logger('tessera.items.summation_table').debug('data_handler(): '
+    ts.log.logger('tessera.items.summation_table').debug('data_handler(): '
                                                         + query.name + '/' + item.item_id)
     var options = item.options || {}
     var palette = ds.charts.util.get_palette(options.palette)

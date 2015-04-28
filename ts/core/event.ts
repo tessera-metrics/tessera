@@ -2,7 +2,7 @@ ds.event =
   (function() {
 
     var self : any = {}
-      , log = ds.log.logger('tessera.events')
+      , log = ts.log.logger('tessera.events')
 
     self.on = function(target, event, handler) {
       log.debug('on(): ' + event)

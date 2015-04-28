@@ -1,6 +1,6 @@
 (function () {
 
-  var log = ds.log.logger('tessera.edit')
+  var log = ts.log.logger('tessera.edit')
 
   /* -----------------------------------------------------------------------------
      Queries

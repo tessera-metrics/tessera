@@ -24,7 +24,7 @@ ds.manager =
 
     var current
       , self : any = {}
-      , log = ds.log.logger('tessera.app.manager')
+      , log = ts.log.logger('tessera.app.manager')
 
     Object.defineProperty(self, 'current', { get: function() { return current }})
 
@@ -312,7 +312,7 @@ ds.manager =
       if (self.current && (ds.app.current_mode != ds.app.Mode.EDIT)) {
         self.load(self.current.url, self.current.element)
       } else {
-        if (log.is_enabled(ds.log.Level.DEBUG)) {
+        if (log.is_enabled(ts.log.Level.DEBUG)) {
           log.debug('skipping reload; current mode: ' + ds.app.current_mode)
         }
       }
@@ -396,7 +396,7 @@ ds.manager =
         var intervalSeconds = parseInt(value)
         self.autoRefreshInterval = intervalSeconds
         if (self.intervalId) {
-          if (log.is_enabled(ds.log.Level.DEBUG)) {
+          if (log.is_enabled(ts.log.Level.DEBUG)) {
             log.debug('clearing auto-refresh interval; intervalId: ' + self.intervalId)
           }
           window.clearInterval(self.intervalId)
@@ -405,7 +405,7 @@ ds.manager =
         if (intervalSeconds > 0) {
             self.intervalSeconds = intervalSeconds
             self.intervalId = window.setInterval(self.refresh, intervalSeconds * 1000)
-          if (log.is_enabled(ds.log.Level.DEBUG)) {
+          if (log.is_enabled(ts.log.Level.DEBUG)) {
             log.debug('set auto-refresh interval; intervalId: ' + self.intervalId + '; seconds: ' + intervalSeconds)
           }
         }
