@@ -1,6 +1,6 @@
 (function () {
 
-  var log = ts.log.logger('tessera.edit')
+  let log = ts.log.logger('tessera.edit')
 
   /* -----------------------------------------------------------------------------
      Queries
@@ -9,16 +9,16 @@
   /* Query delete buttons */
   $(document).on('click', 'button.ds-delete-query-button', function(e) {
     log.debug('click.delete-query')
-    var $elt = $(this)
-    var query_name   = $elt.attr('data-ds-query-name')
-    var dashboard = ds.manager.current.dashboard
+    let $elt       = $(this)
+    let query_name = $elt.attr('data-ds-query-name')
+    let dashboard  = ds.manager.current.dashboard
     if (!dashboard.definition.queries[query_name])
       return true
-    var queries_in_use = dashboard.definition.get_queries()
+    let queries_in_use = dashboard.definition.get_queries()
     if (queries_in_use[query_name]) {
       bootbox.dialog({
         backdrop: false,
-        message: 'Query ' + query_name + ' is in use. Are you sure you want to delete it?',
+        message: `Query ${query_name} is in use. Are you sure you want to delete it?`,
         title: 'Confirm query delete',
         buttons: {
           cancel: {
@@ -43,9 +43,9 @@
   /* Query duplicate buttons */
   $(document).on('click', 'button.ds-duplicate-query-button', function(e) {
     log.debug('click.duplicate-query')
-    var $elt       = $(this)
-    var query_name = $elt.attr('data-ds-query-name')
-    var dashboard  = ds.manager.current.dashboard
+    let $elt       = $(this)
+    let query_name = $elt.attr('data-ds-query-name')
+    let dashboard  = ds.manager.current.dashboard
     if (!dashboard.definition.queries[query_name])
       return true
     duplicate_query(dashboard, query_name)
@@ -63,8 +63,8 @@
     log.debug('edit_queries()')
     /* Query names */
     $('th.ds-query-name').each(function(index, e) {
-      var element = $(e)
-      var query_name = e.getAttribute('data-ds-query-name')
+      let element    = $(e)
+      let query_name = e.getAttribute('data-ds-query-name')
       element.editable({
         type: 'text',
         value: query_name,
@@ -75,15 +75,15 @@
     });
     /* Query targets */
     $('td.ds-query-target').each(function(index, e) {
-      var element = $(e)
-      var query_name = e.getAttribute('data-ds-query-name')
+      let element    = $(e)
+      let query_name = e.getAttribute('data-ds-query-name')
       element.editable({
         type: 'textarea',
         inputclass: 'ds-source',
         value: element.text() || '',
         success: function(ignore, newValue) {
-          var target = newValue.trim()
-          var query = ds.manager.current.dashboard.definition.queries[query_name]
+          let target = newValue.trim()
+          let query = ds.manager.current.dashboard.definition.queries[query_name]
           query.targets = [target]
           query.render_templates(ds.context().variables)
           query.load()
@@ -97,14 +97,14 @@
    */
   function rename_query(dashboard, old_name, new_name) {
     log.debug('rename_query()')
-    var query = dashboard.definition.queries[old_name]
-    var updated_items = dashboard.definition.rename_query(old_name, new_name)
+    let query         = dashboard.definition.queries[old_name]
+    let updated_items = dashboard.definition.rename_query(old_name, new_name)
     $('[data-ds-query-name="' + old_name + '"]').replaceWith(
       ds.templates.edit['dashboard-query-row'](query)
     )
-    if (updated_items && (updated_items.length > 0)) {
-      for (var i = 0; i < updated_items.length; i++) {
-        ds.manager.update_item_view(updated_items[i])
+    if (updated_items && updated_items.length) {
+      for (let item of updated_items) {
+        ds.manager.update_item_view(item)
       }
     }
     ds.edit.edit_queries()
@@ -127,7 +127,7 @@
    */
   function add_query(dashboard, name, target?) {
     log.debug('add_query()')
-    var query = ds.models.data.Query({name: name, targets: target})
+    let query = ds.models.data.Query({name: name, targets: target})
     dashboard.definition.add_query(query)
     $("#ds-query-panel table").append(ds.templates.edit['dashboard-query-row'](query))
     query.load()
@@ -137,8 +137,8 @@
 
   function duplicate_query(dashboard, name) {
     log.debug('duplicate_query()')
-    var new_name = 'Copy of ' + name + ' ' + Object.keys(dashboard.definition.queries).length
-    var source   = dashboard.definition.queries[name]
+    let new_name = 'Copy of ' + name + ' ' + Object.keys(dashboard.definition.queries).length
+    let source   = dashboard.definition.queries[name]
     return add_query(dashboard, new_name, source.targets.slice(0))
   }
 
@@ -150,7 +150,7 @@
    */
   function new_query(dashboard, targets?) {
     log.debug('new_query()')
-    var name = "query" + Object.keys(dashboard.definition.queries).length
+    let name = "query" + Object.keys(dashboard.definition.queries).length
     return add_query(dashboard, name, targets || 'absolute(randomWalkFunction("' + name + '"))')
   }
 
@@ -163,7 +163,7 @@
    * for dashboard items.
    */
   ds.edit.hide_details = function(item_id) {
-    var details = $('#' + item_id + '-details')
+    let details = $('#' + item_id + '-details')
     details.remove()
     $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').hide()
     $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .badge').removeClass('ds-badge-highlight')
@@ -172,29 +172,29 @@
   ds.edit.show_details = function(item_id) {
     // Show the edit button bar across the top of the item
     $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').show()
-    var item = ds.manager.current.dashboard.get_item(item_id)
-    var item_type = ds.models[item.item_type]
-    var bar_id = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
-    var details_id = '#' + item_id + '-details'
+    let item       = ds.manager.current.dashboard.get_item(item_id)
+    let item_type  = ds.models[item.item_type]
+    let bar_id     = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
+    let details_id = '#' + item_id + '-details'
     if ($(details_id).length == 0) {
 
       // Render the item's property sheet
-      var elt = $('.ds-edit-bar[data-ds-item-id="' + item_id + '"]')
-      var details = ds.templates['ds-edit-bar-item-details']({item:item})
+      let elt     = $('.ds-edit-bar[data-ds-item-id="' + item_id + '"]')
+      let details = ds.templates['ds-edit-bar-item-details']({item:item})
       elt.append(details)
 
       if (item_type.interactive_properties) {
         // Run the edit handlers for each property, which make them
         // editable and set up the callbacks for their updates
-        for (var i = 0; i < item_type.interactive_properties.length; i++) {
-          item_type.interactive_properties[i].edit(item)
+        for (let prop of item_type.interactive_properties) {
+          prop.edit(item)
         }
       }
     }
   }
 
   ds.edit.toggle_details = function(item_id) {
-    var details = $('#' + item_id + '-details')
+    let details = $('#' + item_id + '-details')
     if (details.is(':visible')) {
       ds.edit.hide_details(item_id)
       return false
@@ -214,8 +214,8 @@
    */
 
   $(document).on('click', '.ds-edit-bar .badge', function(event) {
-    var $elt = $(this)
-    var id   = $elt.attr('data-ds-item-id')
+    let $elt = $(this)
+    let id   = $elt.attr('data-ds-item-id')
     if (ds.edit.toggle_details(id)) {
       $elt.addClass('ds-badge-highlight')
     } else {
@@ -224,18 +224,18 @@
   })
 
   $(document).on('mouseenter', '.ds-edit-bar', function(event) {
-    var timeout_id = $(this).attr('data-ds-timeout-id')
+    let timeout_id = $(this).attr('data-ds-timeout-id')
     if (timeout_id) {
       window.clearTimeout(timeout_id)
     }
   })
 
   $(document).on('mouseleave', '.ds-edit-bar', function(event) {
-    var $elt = $(this)
-    var id   = $elt.attr('data-ds-item-id')
-    var timeout = ds.config.PROPSHEET_AUTOCLOSE_SECONDS
-    if (timeout && timeout > 0) {
-      var timeout_id = window.setTimeout(function() {
+    let $elt    = $(this)
+    let id      = $elt.attr('data-ds-item-id')
+    let timeout = ds.config.PROPSHEET_AUTOCLOSE_SECONDS
+    if (timeout) {
+      let timeout_id = window.setTimeout(function() {
                          ds.edit.hide_details(id)
                        }, timeout * 1000)
       $elt.attr('data-ds-timeout-id', timeout_id)
@@ -265,14 +265,14 @@
      Item Actions
      ----------------------------------------------------------------------------- */
 
-  var duplicate_item_action = ds.action({
+  let duplicate_item_action = ds.action({
     name:    'duplicate',
     display: 'Duplicate Item',
     icon:    'fa fa-copy',
     handler: function(action, item) {
-      var dashboard = ds.manager.current.dashboard
-      var parent = dashboard.find_parent(item)
-      var dup = ds.models.factory(item.toJSON()).set_item_id(null)
+      let dashboard = ds.manager.current.dashboard
+      let parent = dashboard.find_parent(item)
+      let dup = ds.models.factory(item.toJSON()).set_item_id(null)
       dup.visit(function(child) {
         child.item_id = null
       })
@@ -282,12 +282,12 @@
     }
   })
 
-  var delete_action = ds.action({
+  let delete_action = ds.action({
     name:    'delete',
     display: 'Delete item',
     icon:    'fa fa-trash-o',
     handler:  function(action, item) {
-      var parent = ds.manager.current.dashboard.find_parent(item)
+      let parent = ds.manager.current.dashboard.find_parent(item)
       if (!parent) {
         return
       }
@@ -297,36 +297,36 @@
     }
   })
 
-  var move_back_action = ds.action({
+  let move_back_action = ds.action({
     name:    'move-back',
     display: 'Move item back one place',
     icon:    'fa fa-caret-left',
     handler:  function(action, item) {
-      var parent = ds.manager.current.dashboard.find_parent(item)
+      let parent = ds.manager.current.dashboard.find_parent(item)
       if (parent.is_container && parent.move(item, -1)) {
         ds.manager.update_item_view(parent)
       }
     }
   })
 
-  var move_forward_action = ds.action({
+  let move_forward_action = ds.action({
     name:    'move-forward',
     display: 'Move item forward one place',
     icon:    'fa fa-caret-right',
     handler:  function(action, item) {
-      var parent = ds.manager.current.dashboard.find_parent(item)
+      let parent = ds.manager.current.dashboard.find_parent(item)
       if (parent.is_container && parent.move(item, 1)) {
         ds.manager.update_item_view(parent)
       }
     }
   })
 
-  var view_definition_action = ds.action({
+  let view_definition_action = ds.action({
     name:    'view-definition',
     display: 'View definition...',
     icon:    'fa fa-code',
     handler: function(action, item) {
-      var contents = ds.templates.edit.item_source({item:item})
+      let contents = ds.templates.edit.item_source({item:item})
       bootbox.alert({
         backdrop: false,
         message: contents
@@ -339,11 +339,11 @@
      ----------------------------------------------------------------------------- */
 
   function new_chart_from_graphite_url(url_string) {
-    var dash  = ds.manager.current.dashboard
-    var url   = URI(url_string)
-    var data  = url.search(true)
-    var query = new_query(dash, data.target)
-    var type  = 'standard_time_series'
+    let dash  = ds.manager.current.dashboard
+    let url   = new URI(url_string)
+    let data  = url.search(true)
+    let query = new_query(dash, data.target)
+    let type  = 'standard_time_series'
 
     if (data.areaMode && data.areaMode === 'stacked') {
       type = 'stacked_area_chart'
@@ -351,7 +351,7 @@
       type = 'donut_chart'
     }
 
-    var chart = ds.models.make(type)
+    let chart = ds.models.make(type)
                   .set_query(query.name)
                   .set_dashboard(dash)
                   .set_height(Math.min(8, Math.floor(((data.height || 400) / 80))))
@@ -382,7 +382,7 @@
         backdrop: false,
         callback: function(result) {
           if (result) {
-            var item = new_chart_from_graphite_url(result)
+            let item = new_chart_from_graphite_url(result)
             if (item) {
               container.add(item)
               ds.manager.current.dashboard.update_index()
@@ -398,7 +398,7 @@
      New item handling
      ----------------------------------------------------------------------------- */
 
-  var new_item_actions = [].concat(ds.actions.get('new-item-structural', 'row'),
+  let new_item_actions = [].concat(ds.actions.get('new-item-structural', 'row'),
                                    ds.action.divider,
                                    ds.actions.list('new-item-display').sort(function(a, b) {
                                      return a.icon.localeCompare(b.icon)
@@ -412,14 +412,14 @@
                                      return a.icon.localeCompare(b.icon)
                                    })
                                   )
-  var other = ds.actions.list('new-item')
+  let other = ds.actions.list('new-item')
   if (other && other.length) {
     new_item_actions.concat(other.sort(function(a, b) {
                               return a.icon.localeCompare(b.icon)
                             }))
   }
 
-  var new_item_action_for_cell = ds.action({
+  let new_item_action_for_cell = ds.action({
     name: 'new-item',
     category: 'new-item',
     class: 'ds-new-item',
@@ -428,7 +428,7 @@
     actions: new_item_actions
   })
 
-  var new_item_action_for_section = ds.action({
+  let new_item_action_for_section = ds.action({
     name: 'new-item',
     category: 'new-item',
     class: 'ds-new-item',
@@ -444,12 +444,12 @@
   })
 
   $(document).on('click', 'li.new-item', function(event) {
-    var elt = $(this)
-    var category = elt.attr('data-ds-category')
-    var name = elt.attr('data-ds-action')
-    var item_id = elt.parent().parent().parent().parent()[0].getAttribute('data-ds-item-id')
-    var item = ds.manager.current.dashboard.get_item(item_id)
-    var action = ds.actions.get(category, name)
+    let elt      = $(this)
+    let category = elt.attr('data-ds-category')
+    let name     = elt.attr('data-ds-action')
+    let item_id  = elt.parent().parent().parent().parent()[0].getAttribute('data-ds-item-id')
+    let item     = ds.manager.current.dashboard.get_item(item_id)
+    let action   = ds.actions.get(category, name)
 
     action.handler(action, item)
     return false
@@ -546,13 +546,13 @@
      ----------------------------------------------------------------------------- */
 
   $(document).on('click', '.ds-edit-bar button', function(event) {
-    var element  = $(this)[0]
-    var parent   = $(this).parent()[0]
-    var item_id  = parent.getAttribute('data-ds-item-id')
-    var name     = element.getAttribute('data-ds-action')
-    var category = element.getAttribute('data-ds-category')
-    var action   = ds.actions.get(category, name)
-    var item     = ds.manager.current.dashboard.get_item(item_id)
+    let element  = $(this)[0]
+    let parent   = $(this).parent()[0]
+    let item_id  = parent.getAttribute('data-ds-item-id')
+    let name     = element.getAttribute('data-ds-action')
+    let category = element.getAttribute('data-ds-category')
+    let action   = ds.actions.get(category, name)
+    let item     = ds.manager.current.dashboard.get_item(item_id)
 
     if (action) {
       action.handler(action, item)
@@ -575,9 +575,9 @@
   ])
 
   $(document).on('click', '#ds-query-panel button', function(event) {
-    var element  = $(this)[0]
-    var name     = element.getAttribute('data-ds-action')
-    var action   = ds.actions.get('dashboard-queries', name)
+    let element  = $(this)[0]
+    let name     = element.getAttribute('data-ds-action')
+    let action   = ds.actions.get('dashboard-queries', name)
 
     if (action) {
       action.handler(action, ds.manager.current.dashboard)
