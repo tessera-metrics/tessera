@@ -90,23 +90,8 @@ module ts {
 
     /**
      * Provide a typed map for caching loggers by name.
-     *
-     * Finding a basic generic implementation of Map for
-     * typescript would be ideal
      */
-    class LoggerCache {
-      cache = {}
-      has(name: string) : boolean {
-        return typeof this.cache[name] !== 'undefined'
-      }
-      get(name: string) : Logger {
-        return this.cache[name]
-      }
-      put(name: string, logger: Logger) : void {
-        this.cache[name] = logger
-      }
-    }
-    const cache = new LoggerCache()
+    const cache = new Map<string, Logger>()
 
     /**
      * Cached factory function for loggers, which avoids
@@ -117,7 +102,7 @@ module ts {
         ? init
         : init.name
       if (!cache.has(name)) {
-        cache.put(name, new Logger(init))
+        cache.set(name, new Logger(init))
       }
       return cache.get(name)
     }
@@ -126,9 +111,9 @@ module ts {
      * Set the default global level for new loggers, and change
      * the current logging level of all existing cached loggers.
      */
-    export function set_level(level: Level) {
+    export function set_level(level: Level) : void {
       global_level = level
-      for (let key of Object.keys(cache.cache)) {
+      for (let key of cache.keys()) {
         cache.get(key).level = level
       }
     }
