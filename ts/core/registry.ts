@@ -34,19 +34,25 @@ module ts {
             process?: (data: any) => T
         }
 
+        /**
+         * A registry of named objects which supports categorizing
+         * those objects into one or more categories, listing them by
+         * category, or looking up individual objects by category and
+         * name.
+         */
         export class Registry<T extends NamedObject> {
 
-            /** Storage for categorized lists of things */
+            /** Internal storage for categorized lists of things. */
             private data: RegistryStorageDictionary<T>
 
             /** Name of the registry */
             name: string
 
-            /** When no category is explicitly specified, this one will be used */
-            static DEFAULT_CATEGORY = 'default'
-
             /** Optional constructor function to process data before registering */
             process: (data: any) => T
+
+            /** When no category is explicitly specified, this one will be used */
+            static DEFAULT_CATEGORY = 'default'
 
             constructor(data: RegistryInitializer<T>) {
                 this.name = data.name
@@ -64,7 +70,6 @@ module ts {
                 return this.data[category]
             }
 
-
             /**
              * Add a named object to the registry. If no category name is
              * supplied, it will be assigned to the default category.
@@ -73,6 +78,7 @@ module ts {
              * order to maintain compatibility with the original
              * JavaScript signature.
              */
+            register(data: any)
             register(data: T|T[]);
             register(category: string, data: T|T[]);
             register(cat: any, dat: any = Registry.DEFAULT_CATEGORY) : Registry<T> {
@@ -129,12 +135,7 @@ module ts {
             categories() : string[] {
                 return Object.keys(this.data)
             }
-
-        } /* end class Registry<T> */
+        }
 
     } /* end module registry */
 } /* end module ts */
-
-ds.registry = function(init) {
-    return new ts.registry.Registry<any>(init)
-}

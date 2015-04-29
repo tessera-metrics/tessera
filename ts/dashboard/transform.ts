@@ -1,48 +1,61 @@
-/**
- * Mixin for transform types common fields
- */
-ds.transform = function(data) {
-
-  var self : any = {}
-
-  if (data) {
-    self.name = data.name
-    self.display_name = data.display_name
-    self.transform_type = data.transform_type
-    self.transform = data.transform
-    self.icon = data.icon
-  }
-
-  /**
-   * Create a UI action object to invoke this transform.
-   */
-  self.action = function() {
-    return ds.action({
-      name:    self.name + '_action',
-      display: self.display_name + '...',
-      icon:    self.icon || 'fa fa-eye',
-      hide:    ds.app.Mode.TRANSFORM,
-      handler: function(action, item) {
-        ds.manager.apply_transform(self, item)
-      }
-    })
-  }
-
-  self.toJSON = function() {
-    return {
-      name: self.name
+module ts {
+    export interface ITransformProperties extends ts.registry.NamedObject {
+        display_name?: string
+        transform_type?: string
+        icon?: string
+        transform: (any) => any
     }
-  }
 
-  return self
+    export interface ITransform extends ITransformProperties {
+        action() : ts.Action
+    }
+
+    export class Transform implements ITransform {
+        name: string
+        display_name: string
+        transform_type: string
+        transform: (any) => any /* for now */
+        icon: string
+
+        constructor(data?: ITransformProperties) {
+            if (data) {
+                this.name = data.name
+                this.display_name = data.display_name
+                this.transform_type = data.transform_type
+                this.transform = data.transform
+                this.icon = data.icon
+            }
+        }
+
+        action() : ts.Action {
+            return new ts.Action({
+                name:    `${this.name}_action`,
+                display: `${this.display_name}...`,
+                icon:    this.icon || 'fa fa-eye',
+                hide:    ds.app.Mode.TRANSFORM,
+                handler: (action, item) => {
+                    ds.manager.apply_transform(this, item)
+                }
+            })
+        }
+
+        toJSON() : any {
+            return {
+                name: this.name
+            }
+        }
+    }
+
+    export const transforms = new ts.registry.Registry<ITransform>({
+        name: 'transforms',
+        process: (data) : ITransform => {
+            let transform  = new ts.Transform(data)
+            let action_cat = `${transform.transform_type}-transform-actions`
+            ts.actions.register(action_cat, transform.action())
+            return transform
+        }
+    })
 }
 
-ds.transforms = ds.registry({
-  name: 'transforms',
-  process: function(data) {
-    var transform = ds.transform(data)
-    var action_category = transform.transform_type + '-transform-actions'
-    ts.actions.register(action_category, transform.action())
-    return transform
-  }
-})
+/** @deprecated */
+ds.transforms = ts.transforms

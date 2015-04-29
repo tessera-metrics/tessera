@@ -196,9 +196,10 @@ Handlebars.registerHelper('actions', function(category, type) {
         : ds.templates.action
   let actions = ds.actions.list(category)
   if (actions && actions.length) {
-      if (typeof type === 'boolean' && type) {
-          actions = [ds.action.divider].concat(actions)
-      }
+    if (typeof(type) === 'boolean' && type) {
+        actions = actions.slice()
+        actions.unshift(ts.Action.DIVIDER)
+    }
 
     var html = ''
     for (let action of actions) {

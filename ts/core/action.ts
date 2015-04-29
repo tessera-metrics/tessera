@@ -11,7 +11,20 @@
  * divider - if true, this action will simply render as a divider between action groups.
  */
 module ts {
-    export class Action {
+    export interface IAction extends ts.registry.NamedObject {
+        display?: string
+        icon?: string
+        show?: string
+        hide?: string
+        class?: string
+        options?: any
+        handler?: (action: IAction, data: any) => void
+        divider?: boolean
+        actions?: IAction[]
+        category?: string
+    }
+
+    export class Action implements IAction {
         name: string
         display: string
         icon: string
@@ -21,12 +34,12 @@ module ts {
         options: any
         handler: any
         divider: boolean
-        actions: Action[]
+        actions: IAction[]
         category: string
 
-        static DIVIDER = new Action({divider: true})
+        static DIVIDER = new Action({divider: true, name: 'DIVIDER'})
 
-        constructor(data: any) {
+        constructor(data: IAction) {
             if (data) {
                 this.name = data.name
                 this.display = data.display
@@ -54,9 +67,9 @@ module ts {
         }
     }
 
-    export const actions = ds.registry({
+    export const actions = new ts.registry.Registry<IAction>({
         name: 'actions',
-        process: function(data) : Action {
+        process: function(data) : IAction {
             if (data instanceof Action)
                 return data
             return new Action(data)
@@ -65,12 +78,12 @@ module ts {
 }
 
 /** @deprecated */
-ds.actions = ts.actions
-
-/** @deprecated */
-ds.action = function(data: any) : ts.Action {
+ds.action = function(data: any) : ts.IAction {
     return new ts.Action(data)
 }
 
 /** @deprecated */
 ds.action.divider = ts.Action.DIVIDER
+
+/** @deprecated */
+ds.actions = ts.actions
