@@ -46,7 +46,7 @@ ds.transforms.register({
       var span = spans[i]
       var modified_query = ds.models.data.Query(query.toJSON())
                              .set_name(query.name + '/' + span.from + '/' + span.until)
-                             .set_options(ds.extend(query.options || {},
+                             .set_options($.extend({}, query.options,
                                                   {
                                                     from: span.from,
                                                     until: span.until

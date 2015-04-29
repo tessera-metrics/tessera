@@ -61,23 +61,6 @@ ds.safe_render_template = function(str, context) {
   }
 }
 
-/**
- * Yo dawg, I heard you like objects, so I put some objects in your
- * objects...
- */
-ds.extend = function() {
-  var target : any = {}
-  for (var i = 0; i < arguments.length; i++) {
-    var source = arguments[i] || {}
-    for (var key in source) {
-      if (source.hasOwnProperty(key)) {
-        target[key] = source[key]
-      }
-    }
-  }
-  return target
-}
-
 ds.json = function(thing) {
   if (thing.toJSON && typeof(thing.toJSON) === 'function') {
     return thing.toJSON()

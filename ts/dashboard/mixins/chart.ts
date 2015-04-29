@@ -40,7 +40,7 @@ ds.models.chart =
         data.title = target.title
       data.legend = target.legend
       if (target.options) {
-        data.options = ds.extend(target.options)
+        data.options = $.extend({}, target.options)
         if (target.options.y1) {
           data.options.y1 = ds.json(target.options.y1)
         }

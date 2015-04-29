@@ -32,7 +32,7 @@ ds.charts.graphite =
     }
 
     self.simple_line_chart_url = function(item, opt) {
-        var options = ds.extend(opt || {}, item.options, ds.charts.util.get_colors())
+        var options = $.extend({}, opt, item.options, ds.charts.util.get_colors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -66,7 +66,7 @@ ds.charts.graphite =
     }
 
     self.standard_line_chart_url = function(item, opt) {
-        var options = ds.extend(opt || {}, item.options, ds.charts.util.get_colors())
+        var options = $.extend({}, opt, item.options, ds.charts.util.get_colors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -99,7 +99,7 @@ ds.charts.graphite =
     }
 
     self.simple_area_chart_url = function(item, opt) {
-        var options = ds.extend(opt || {}, item.options, ds.charts.util.get_colors())
+        var options = $.extend({}, opt, item.options, ds.charts.util.get_colors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -134,7 +134,7 @@ ds.charts.graphite =
     }
 
     self.stacked_area_chart_url = function(item, opt) {
-        var options = ds.extend(opt || {}, item.options, ds.charts.util.get_colors())
+        var options = $.extend({}, opt, item.options, ds.charts.util.get_colors())
         var png_url = URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)

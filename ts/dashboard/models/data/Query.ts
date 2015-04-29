@@ -49,7 +49,7 @@ ds.models.data.Query = function(data) {
   }
 
   self.url = function(opt) {
-    var options = ds.extend(self.local_options, opt, self.options)
+    var options = $.extend({}, self.local_options, opt, self.options)
     var url = new URI(options.base_url || ds.config.GRAPHITE_URL);
     url = url.segment('render')
              .setQuery('format', options.format || 'png')
@@ -159,8 +159,8 @@ ds.models.data.Query = function(data) {
    */
   self.load = function(opt, fire_only) {
     log.debug('load(): ' + self.name)
-    self.local_options = ds.extend(self.local_options, opt)
-    var options = ds.extend(self.local_options, opt, self.options)
+    self.local_options = $.extend({}, self.local_options, opt)
+    var options = $.extend({}, self.local_options, opt, self.options)
 
     if (typeof(fire_only) === 'boolean' && fire_only) {
       // This is a bit of a hack for optimization, to fire the query
