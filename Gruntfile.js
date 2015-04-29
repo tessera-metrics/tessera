@@ -177,7 +177,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-ts-1.5');
   grunt.loadNpmTasks('grunt-babel');
-  grunt.loadNpmTasks('grunt-typedoc');
 
   grunt.registerTask('default', ['ts', 'babel', 'handlebars', 'concat']);
 }
