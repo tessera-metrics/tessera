@@ -86,7 +86,7 @@ module ts {
         let data: T|T[], category: string
         if (arguments.length == 1) {
           data = <T|T[]>cat
-          category = data.category || Registry.DEFAULT_CATEGORY
+          category = Registry.DEFAULT_CATEGORY
         } else if (arguments.length == 2 && typeof cat === 'string') {
           category = <string> cat
           data = <T|T[]>dat
@@ -96,6 +96,9 @@ module ts {
             this.register(category, d)
           }
         } else {
+          if ((<T>data).category && category == Registry.DEFAULT_CATEGORY) {
+            category = (<T>data).category
+          }
           let category_data = this._get_data(category)
           let thing: T = this.process ? this.process(data) : <T> data
           if (!category_data.index[thing.name]) {
