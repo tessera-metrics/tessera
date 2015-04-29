@@ -2,7 +2,7 @@
  * Register a bunch of editable properties that are used by many
  * dashboard items.
  */
-ds.property.register([
+ts.properties.register([
 
   {
     id:       'query',

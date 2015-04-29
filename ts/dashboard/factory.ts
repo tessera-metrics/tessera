@@ -20,7 +20,7 @@ ds.register_dashboard_item = function(item_type, descriptor) {
 
   var props = (descriptor.interactive_properties || []).map(function(p) {
                 if (typeof(p) === 'string') {
-                  var prop = ds.property.get(p)
+                  var prop = ts.properties.get(p)
                   return prop || ds.property({id: p})
                 } else if (p.is_property) {
                   return p

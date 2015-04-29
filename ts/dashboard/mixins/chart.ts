@@ -61,7 +61,7 @@ ds.models.chart =
     }
   })()
 
-ds.property.register(  {
+ts.properties.register(  {
     id: 'chart.palette',
     name: 'palette',
     category: 'chart',

@@ -179,7 +179,7 @@ Handlebars.registerHelper('item', function(item) {
  * Render an individual property for a property sheet.
  */
 Handlebars.registerHelper('interactive_property', function(property, item) {
-  property = ds.property.get(property)
+  property = ts.properties.get(property)
   if (!property)
     return ''
   return new Handlebars.SafeString(property.render(item))
