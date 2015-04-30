@@ -80,7 +80,7 @@ ds.register_dashboard_item('comparison_summation_table', {
     var body = $('#' + item.item_id + ' tbody')
     var now  = query.data[0].summation
     var then = query.data[1].summation
-    var diff = ds.models.data.Summation(now).subtract(then);
+    var diff = new ts.models.data.Summation(now).subtract(then)
     var properties = ['mean', 'min', 'max', 'sum']
     var float_margin = 0.000001
     properties.forEach(function(prop) {

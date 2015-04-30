@@ -264,9 +264,9 @@ ds.models.data.Query = function(data) {
    */
   function _summarize(response_data) {
     self.perf.start('summarize')
-    self.summation = ds.models.data.Summation(response_data)
+    self.summation = new ts.models.data.Summation(response_data)
     self.data = response_data.map(function(series) {
-                  series.summation = ds.models.data.Summation(series).toJSON()
+                  series.summation = new ts.models.data.Summation(series).toJSON()
                   return series
                 })
     self.perf.end('summarize')
