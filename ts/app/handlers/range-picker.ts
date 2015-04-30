@@ -60,7 +60,6 @@
     var range = $(e.target).attr('data-ds-range')
 
     if (range === 'custom') {
-      console.log('click handler; showing custom range picker')
       $('.ds-recent-range-picker').hide()
       $('.ds-custom-range-picker').show()
 
@@ -108,7 +107,7 @@
     })
 
     ds.manager.onDashboardLoaded(function() {
-      var params = URI(window.location).search(true)
+      var params = new URI(window.location).search(true)
       if (params.from && params.until) {
         // Initialise the range date pickers with the values from the URL query parameters
         // TODO - don't do this for relative specifiers

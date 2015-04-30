@@ -7,7 +7,7 @@ ds.DashboardHolder = function(url, element) {
 
     this.setRange = function(from, until) {
         var self = this
-        var url = URI(self.url)
+        var url = new URI(self.url)
         if (from) {
             url.setQuery('from', from)
         }
@@ -98,7 +98,7 @@ ds.manager =
      * Set up us the API call.
      */
     self._prep_url = function(base_url, options) {
-      var url = URI(base_url).setQuery('rendering', true)
+      var url = new URI(base_url).setQuery('rendering', true)
       var context = ds.context(url.query(true))
 
       context.from = options.from || context.from
@@ -158,7 +158,7 @@ ds.manager =
           // Render the dashboard
           $(element).html(dashboard.definition.render())
 
-          var currentURL = URI(holder.url)
+          var currentURL = new URI(holder.url)
           ds.event.fire(self, ds.app.Event.RANGE_CHANGED, {
             from: currentURL.query('from'),
             until: currentURL.query('until')
@@ -239,7 +239,7 @@ ds.manager =
     window.addEventListener('popstate', self.handle_popstate)
 
     self.remove_transform = function() {
-      window.location = URI(window.location)
+      window.location = new URI(window.location)
                         .path(self.current.dashboard.view_href)
                         .href()
       self.current_transform = undefined
@@ -263,7 +263,7 @@ ds.manager =
        * Set browser URL state
        */
       if (set_location) {
-        var url = URI(window.location)
+        var url = new URI(window.location)
         if (target.item_type != 'dashboard_definition') {
           url.segment(target.item_id.toString())
         }
@@ -323,8 +323,8 @@ ds.manager =
     self.toggle_interactive_charts = function() {
         $.get(ds.uri('/api/preferences'), function(data) {
             var setting = !data.interactive
-            var dashboard_url = URI(self.current.url)
-            var window_url = URI(window.location)
+            var dashboard_url = new URI(self.current.url)
+            var window_url = new URI(window.location)
 
             if (window_url.hasQuery('interactive', 'true')) {
                 setting = false
@@ -346,7 +346,7 @@ ds.manager =
        ----------------------------------------------------------------------------- */
 
     self.set_time_range = function(from, until) {
-        var uri = URI(window.location)
+        var uri = new URI(window.location)
         from
             ? uri.setQuery('from', from)
             : uri.removeQuery('from')

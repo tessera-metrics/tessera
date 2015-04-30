@@ -10,7 +10,7 @@ ds.edit.properties = ds.edit.properties || {}
  */
 ds.context = function(context) {
   context = context || {}
-  var url       = URI(window.location)
+  var url       = new URI(window.location)
   var params    = url.query(true)
   var variables : any = {}
 

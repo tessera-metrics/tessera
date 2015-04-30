@@ -33,7 +33,7 @@ ds.charts.graphite =
 
     self.simple_line_chart_url = function(item, opt) {
         var options = $.extend({}, opt, item.options, ds.charts.util.get_colors())
-        var png_url = URI(item.query.url())
+        var png_url = new URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
@@ -67,7 +67,7 @@ ds.charts.graphite =
 
     self.standard_line_chart_url = function(item, opt) {
         var options = $.extend({}, opt, item.options, ds.charts.util.get_colors())
-        var png_url = URI(item.query.url())
+        var png_url = new URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
@@ -100,7 +100,7 @@ ds.charts.graphite =
 
     self.simple_area_chart_url = function(item, opt) {
         var options = $.extend({}, opt, item.options, ds.charts.util.get_colors())
-        var png_url = URI(item.query.url())
+        var png_url = new URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
@@ -135,7 +135,7 @@ ds.charts.graphite =
 
     self.stacked_area_chart_url = function(item, opt) {
         var options = $.extend({}, opt, item.options, ds.charts.util.get_colors())
-        var png_url = URI(item.query.url())
+        var png_url = new URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
             .setQuery('width', options.width || 1200)
@@ -206,7 +206,7 @@ ds.charts.graphite =
 
     self.composer_url = function(item, options) {
         options = options || {}
-        var composer_url = URI(item.query.url())
+        var composer_url = new URI(item.query.url())
             .filename('composer')
             .removeQuery('format')
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
