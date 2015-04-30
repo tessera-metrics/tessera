@@ -45,7 +45,7 @@ ds.charts.graphite =
             .setQuery('colorList', ds.charts.util.get_palette(options.palette).join())
             .setQuery('title', options.showTitle ? item.title : '')
 
-      if (ds.config.GRAPHITE_CONNECTED_LINES) {
+      if (ds.config.CONNECTED_LINES) {
         png_url.setQuery('lineMode', 'connected')
       }
 
