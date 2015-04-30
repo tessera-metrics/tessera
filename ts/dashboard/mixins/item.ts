@@ -113,7 +113,7 @@ ds.models.item =
         var queries : any = {}
         self.visit(function(i) {
           var query = i.query || i.query_override
-          if (query && query.is_query) {
+          if (query && query instanceof ts.models.data.Query) {
             queries[query.name] = query
           }
         })

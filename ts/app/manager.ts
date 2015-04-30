@@ -197,7 +197,7 @@ ds.manager =
       }
       item.visit(function(i) {
         var query = i.query_override || i.query
-        if (query && query.is_query) {
+        if (query && query instanceof ts.models.data.Query) {
           log.debug('update_item_view(): reloading query ' + query.name)
           query.load()
         }

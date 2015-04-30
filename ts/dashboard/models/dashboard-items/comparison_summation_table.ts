@@ -33,7 +33,8 @@ ds.register_dashboard_item('comparison_summation_table', {
     Object.defineProperty(self, 'requires_data', {value: true})
 
     function update_query() {
-      if ((self.query && self.query.is_query) && (self.query_other && self.query_other.is_query)) {
+      if ((self.query && self.query instanceof ts.models.data.Query)
+          && (self.query_other && self.query_other instanceof ts.models.data.Query)) {
         self.query_override =
           self.query.join(self.query_other).set_name(self.item_id + '_joined')
         self.query_override.render_templates(ds.context().variables)
