@@ -60,7 +60,7 @@ ds.register_dashboard_item('singlestat',  {
   interactive_properties: [ 'title',
                             'units',
                             'format',
-                            { id: 'index', type: 'number' },
+                            { name: 'index', type: 'number' },
                             'transform'
                           ].concat(ds.models.item.interactive_properties)
 

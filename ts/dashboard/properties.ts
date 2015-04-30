@@ -5,7 +5,7 @@
 ts.properties.register([
 
   {
-    id:       'query',
+    name:     'query',
     category: 'base',
     template: '{{item.query.name}}',
     edit_options: {
@@ -23,7 +23,7 @@ ts.properties.register([
   },
 
   {
-    id:   'style',
+    name: 'style',
     type: 'select',
     edit_options: {
       source: [
@@ -44,7 +44,7 @@ ts.properties.register([
   },
 
   {
-    id:   'transform',
+    name: 'transform',
     type: 'select',
     edit_options: {
       source: [

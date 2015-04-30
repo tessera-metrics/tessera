@@ -18,20 +18,11 @@ ds.register_dashboard_item = function(item_type, descriptor) {
     ts.actions.register(item_type, descriptor.actions)
   }
 
-  var props = (descriptor.interactive_properties || []).map(function(p) {
-                if (typeof(p) === 'string') {
-                  var prop = ts.properties.get(p)
-                  return prop || ds.property({id: p})
-                } else if (p.is_property) {
-                  return p
-                } else {
-                  return ds.property(p)
-                }
-              })
+  var props = (descriptor.interactive_properties || []).map(p => ds.property(p))
 
   props.sort(function(p1, p2) {
     if (p1.category === p2.category) {
-      return p1.name.localeCompare(p2.name)
+      return p1.property_name.localeCompare(p2.property_name)
     } else {
       return (p1.category || '').localeCompare(p2.category || '')
     }

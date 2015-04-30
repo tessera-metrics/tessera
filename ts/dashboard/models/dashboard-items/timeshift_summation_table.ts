@@ -114,13 +114,13 @@ ds.register_dashboard_item('timeshift_summation_table', {
   template: ds.templates.models.timeshift_summation_table,
 
   interactive_properties: [
-    { id: 'striped', type: 'boolean' },
-    { id: 'sortable', type: 'boolean' },
+    { name: 'striped', type: 'boolean' },
+    { name: 'sortable', type: 'boolean' },
     'format',
     'title',
     'query',
     'shift',
-    { id: 'css_class', category: 'base' }
+    { name: 'css_class', category: 'base' }
   ],
 
   /**

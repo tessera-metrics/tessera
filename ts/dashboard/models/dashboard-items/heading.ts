@@ -38,7 +38,7 @@ ds.register_dashboard_item('heading', {
 
   interactive_properties: [
     'text',
-    { id: 'level', type: 'number' },
+    { name: 'level', type: 'number' },
     'description'
   ]
 

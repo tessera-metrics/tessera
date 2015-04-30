@@ -37,7 +37,7 @@ ds.register_dashboard_item('stacked_area_chart', {
 
   interactive_properties: [
     {
-      id: 'stack_mode',
+      name: 'stack_mode',
       type: 'select',
       edit_options: {
         source: [

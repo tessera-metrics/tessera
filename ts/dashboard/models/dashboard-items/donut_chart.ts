@@ -48,9 +48,9 @@ ds.register_dashboard_item('donut_chart', {
   template: ds.templates.models.donut_chart,
 
   interactive_properties: [
-    { id: 'labels', type: 'boolean' },
-    { id: 'is_pie', type: 'boolean' },
-    { id: 'hide_zero_series', type: 'boolean' },
+    { name: 'labels', type: 'boolean' },
+    { name: 'is_pie', type: 'boolean' },
+    { name: 'hide_zero_series', type: 'boolean' },
   ].concat(ds.models.chart.interactive_properties,
            ds.models.item.interactive_properties)
 

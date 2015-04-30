@@ -49,10 +49,10 @@ ds.register_dashboard_item('simple_time_series', {
   template: ds.templates.models.simple_time_series,
 
   interactive_properties: [
-    { id: 'filled', type: 'boolean' },
-    { id: 'show_max_value', type: 'boolean' },
-    { id: 'show_min_value', type: 'boolean' },
-    { id: 'show_last_value', type: 'boolean' }
+    { name: 'filled', type: 'boolean' },
+    { name: 'show_max_value', type: 'boolean' },
+    { name: 'show_min_value', type: 'boolean' },
+    { name: 'show_last_value', type: 'boolean' }
   ].concat(ds.models.chart.interactive_properties,
            ds.models.item.interactive_properties)
 })

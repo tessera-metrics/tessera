@@ -74,9 +74,9 @@ ds.register_dashboard_item('summation_table', {
   template: ds.templates.models.summation_table,
 
   interactive_properties: [
-    { id: 'striped', type: 'boolean' },
-    { id: 'show_color', type: 'boolean' },
-    { id: 'sortable', type: 'boolean' },
+    { name: 'striped', type: 'boolean' },
+    { name: 'show_color', type: 'boolean' },
+    { name: 'sortable', type: 'boolean' },
     'format',
     'title',
     'chart.palette'

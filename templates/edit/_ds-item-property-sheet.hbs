@@ -3,8 +3,8 @@
     <tr><th>Property</th><th>Value</th></tr>
     {{#each item.interactive_properties}}
       <tr>
-        <td><span class="ds-property-category">{{#if category}}{{category}}</span> / {{/if}}<span class="ds-property-name">{{name}}</span></td>
-        <td data-ds-property-name="{{name}}">{{interactive_property this ../item}}</td>
+        <td><span class="ds-property-category">{{#if category}}{{category}}</span> / {{/if}}<span class="ds-property-name">{{property_name}}</span></td>
+        <td data-ds-property-name="{{property_name}}">{{interactive_property this ../item}}</td>
       </tr>
     {{/each}}
   </tbody>

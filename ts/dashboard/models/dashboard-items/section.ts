@@ -46,7 +46,7 @@ ds.register_dashboard_item('section', {
   template: ds.templates.models.section,
 
   interactive_properties: [
-    { id: 'layout',
+    { name: 'layout',
       type: 'select',
       edit_options: {
         source: [
@@ -60,7 +60,7 @@ ds.register_dashboard_item('section', {
     'css_class',
     'title',
     'description',
-    { id: 'level', type: 'number' },
-    { id: 'horizontal_rule', type: 'boolean' }
+    { name: 'level', type: 'number' },
+    { name: 'horizontal_rule', type: 'boolean' }
   ]
 })

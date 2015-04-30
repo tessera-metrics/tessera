@@ -41,10 +41,10 @@ ds.register_dashboard_item('cell', {
   interactive_properties: [
     'style',
     'css_class',
-    { id: 'span', type: 'number' },
-    { id: 'offset', type: 'number' },
+    { name: 'span', type: 'number' },
+    { name: 'offset', type: 'number' },
     {
-      id: 'align',
+      name: 'align',
       type: 'select',
       edit_options: {
         source: [

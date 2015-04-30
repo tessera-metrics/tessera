@@ -44,11 +44,11 @@ ds.register_dashboard_item('markdown', {
 
   interactive_properties: [
     {
-      id: 'markdown.text',
+      name: 'markdown.text',
       type: 'textarea',
-      name: 'text'
+      property_name: 'text'
     },
-    { id: 'height', type: 'number' },
+    { name: 'height', type: 'number' },
     'css_class'
   ]
 

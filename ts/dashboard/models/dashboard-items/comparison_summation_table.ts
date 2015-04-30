@@ -119,13 +119,13 @@ ds.register_dashboard_item('comparison_summation_table', {
   template: ds.templates.models.comparison_summation_table,
 
   interactive_properties: [
-    { id: 'striped', type: 'boolean' },
-    { id: 'sortable', type: 'boolean' },
+    { name: 'striped', type: 'boolean' },
+    { name: 'sortable', type: 'boolean' },
     'format',
     'title',
     'query',
     {
-      id: 'query_other',
+      name: 'query_other',
       category: 'base',
       template: '{{item.query_other.name}}',
       edit_options: {
@@ -142,7 +142,7 @@ ds.register_dashboard_item('comparison_summation_table', {
       }
     },
     {
-      id: 'css_class', category: 'base'
+      name: 'css_class', category: 'base'
     }
   ]
 })

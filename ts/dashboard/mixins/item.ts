@@ -174,6 +174,6 @@ ds.models.item.Transform = {
 
 ds.models.item.interactive_properties = [
   'query',
-  { id: 'css_class', category: 'base'} ,
-  { id: 'height', type: 'number', category: 'base' }
+  { name: 'css_class', category: 'base'} ,
+  { name: 'height', type: 'number', category: 'base' }
 ]

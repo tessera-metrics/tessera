@@ -78,13 +78,13 @@ ds.register_dashboard_item('percentage_table', {
   template: ds.templates.models.percentage_table,
 
   interactive_properties: [
-    { id: 'striped', type: 'boolean' },
-    { id: 'sortable', type: 'boolean' },
-    { id: 'invert_axes', type: 'boolean' },
+    { name: 'striped', type: 'boolean' },
+    { name: 'sortable', type: 'boolean' },
+    { name: 'invert_axes', type: 'boolean' },
     'format',
     'title',
     {
-      id: 'include_sums',
+      name: 'include_sums',
       type: 'boolean'
     },
     'transform'

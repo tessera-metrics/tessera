@@ -62,9 +62,9 @@ ds.models.chart =
   })()
 
 ts.properties.register(  {
-    id: 'chart.palette',
-    name: 'palette',
-    category: 'chart',
+    name:          'chart.palette',
+    property_name: 'palette',
+    category:      'chart',
 
     edit_options: {
       type: 'select',
@@ -99,8 +99,8 @@ ts.properties.register(  {
 ds.models.chart.interactive_properties = [
   'title',
   {
-    id: 'chart.y-axis-label',
-    name: 'y-axis-label',
+    name: 'chart.y-axis-label',
+    property_name: 'y-axis-label',
     category: 'chart',
     edit_options: {
       type: 'text',
@@ -126,8 +126,8 @@ ds.models.chart.interactive_properties = [
     }
   },
   {
-    id: 'chart.y-axis-min',
-    name: 'y-axis-min',
+    name: 'chart.y-axis-min',
+    property_name: 'y-axis-min',
     category: 'chart',
     edit_options: {
       type: 'text',
@@ -148,8 +148,8 @@ ds.models.chart.interactive_properties = [
     }
   },
   {
-    id: 'chart.y-axis-max',
-    name: 'y-axis-max',
+    name: 'chart.y-axis-max',
+    property_name: 'y-axis-max',
     category: 'chart',
     edit_options: {
       type: 'text',
@@ -171,8 +171,8 @@ ds.models.chart.interactive_properties = [
   },
   'chart.palette',
   {
-    id: 'chart.legend',
-    name: 'legend',
+    name: 'chart.legend',
+    property_name: 'legend',
     category: 'chart',
     edit_options: {
       type: 'select',

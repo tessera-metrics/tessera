@@ -58,7 +58,7 @@ ds.register_dashboard_item('jumbotron_singlestat', {
   interactive_properties: [ 'title',
                             'units',
                             'format',
-                            { id: 'index', type: 'number' },
+                            { name: 'index', type: 'number' },
                             'transform'
                           ].concat(ds.models.item.interactive_properties)
 

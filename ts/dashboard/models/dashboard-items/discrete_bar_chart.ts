@@ -60,11 +60,11 @@ ds.register_dashboard_item('discrete_bar_chart', {
   interactive_properties: [
     'transform',
     'format',
-    { id: 'show_grid', type: 'boolean' },
-    { id: 'show_numbers', type: 'boolean' },
-    { id: 'hide_zero_series', type: 'boolean' },
+    { name: 'show_grid', type: 'boolean' },
+    { name: 'show_numbers', type: 'boolean' },
+    { name: 'hide_zero_series', type: 'boolean' },
     {
-      id: 'orientation',
+      name: 'orientation',
       type: 'select',
       edit_options: {
         source: [
