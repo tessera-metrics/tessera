@@ -8,7 +8,7 @@
  * control visibily of transforms, so they only appear for
  * presentations that they make sense for.
  */
-ds.transforms.register({
+ts.transforms.register({
   name:           'HighlightAverages',
   display_name:   'Highlight Averages',
   transform_type: 'presentation',

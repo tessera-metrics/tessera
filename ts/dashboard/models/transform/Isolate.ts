@@ -1,7 +1,7 @@
 /**
  * Focus on a single presentation.
  */
-ds.transforms.register({
+ts.transforms.register({
   name: 'Isolate',
   display_name: 'Isolate',
   transform_type: 'presentation',

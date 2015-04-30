@@ -12,7 +12,7 @@
  * Output => A section with a list of copies of the presentation with
  *           immediate query objects that override the time period
  */
-ds.transforms.register({
+ts.transforms.register({
   name:           'TimeSpans',
   display_name:   'View across time spans',
   transform_type: 'presentation',

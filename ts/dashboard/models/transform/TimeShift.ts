@@ -3,7 +3,7 @@
  * graph at the same temporal resolution but shifted by one or more
  * time periods.
  */
-ds.transforms.register({
+ts.transforms.register({
   name: 'TimeShift',
   display_name: 'Time Shift',
   transform_type: 'presentation',

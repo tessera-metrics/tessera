@@ -251,7 +251,7 @@ ds.manager =
         set_location = true
 
       if (typeof(transform) === 'string')
-        transform = ds.transforms.get(transform)
+        transform = ts.transforms.get(transform)
 
       log.debug('apply_transform(' + transform.name + ')')
 
