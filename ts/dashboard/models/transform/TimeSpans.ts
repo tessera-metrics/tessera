@@ -44,7 +44,7 @@ ds.transforms.register({
 
     for (var i = 0; i < spans.length; i++) {
       var span = spans[i]
-      var modified_query = ds.models.data.Query(query.toJSON())
+      var modified_query = new ts.models.data.Query(query.toJSON())
                              .set_name(query.name + '/' + span.from + '/' + span.until)
                              .set_options($.extend({}, query.options,
                                                   {

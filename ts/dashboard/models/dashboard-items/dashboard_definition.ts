@@ -17,8 +17,8 @@ ds.register_dashboard_item('dashboard_definition', {
       for (var key in data.queries) {
         var query = data.queries[key]
         self.queries[key] = (typeof(query) === 'string' || query instanceof Array)
-                          ? ds.models.data.Query({name: key, targets: query})
-                          : ds.models.data.Query(query)
+                          ? new ts.models.data.Query({name: key, targets: query})
+                          : new ts.models.data.Query(query)
       }
     }
     ds.models.item.init(self, data)

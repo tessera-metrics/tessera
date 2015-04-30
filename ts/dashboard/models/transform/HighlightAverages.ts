@@ -21,7 +21,7 @@ ds.transforms.register({
     var palette = ds.charts.util.get_low_contrast_palette()
 
     /* Set up the modified queries */
-    var query_averages = ds.models.data.Query({
+    var query_averages = new ts.models.data.Query({
       name: query.name + '_averages',
       targets: [
         group,
@@ -31,7 +31,7 @@ ds.transforms.register({
         'alias(lineWidth(color(highestAverage(' + group + ', 1), "red"), 2), "Max Avg")'
       ]
     })
-    var query_deviant = ds.models.data.Query({
+    var query_deviant = new ts.models.data.Query({
       name: query.name + '_deviant',
       targets: [
         group,

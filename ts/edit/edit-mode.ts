@@ -127,7 +127,7 @@
    */
   function add_query(dashboard, name, target?) {
     log.debug('add_query()')
-    let query = ds.models.data.Query({name: name, targets: target})
+    let query = new ts.models.data.Query({name: name, targets: target})
     dashboard.definition.add_query(query)
     $("#ds-query-panel table").append(ds.templates.edit['dashboard-query-row'](query))
     query.load()
