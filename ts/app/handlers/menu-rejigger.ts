@@ -3,7 +3,7 @@
     var cols = target.attr('data-ds-cols')
     var section_type = target.attr('data-ds-section-type')
 
-    var layout = ds.models.transform.SimpleGrid({
+    var layout = new ts.models.transform.SimpleGrid({
       section_type: section_type,
       columns: cols
     })

@@ -1,10 +1,15 @@
 module ts {
 
+  export const TransformType = {
+    DASHBOARD: 'dashboard',
+    PRESENTATION: 'presentation'
+  }
+
   export class Transform implements ts.registry.NamedObject {
     name: string
     display_name: string
     transform_type: string
-    transform: (any) => any /* for now */
+    private _transform: (any) => any /* for now */
     icon: string
 
     constructor(data?: any) {
@@ -12,7 +17,7 @@ module ts {
         this.name = data.name
         this.display_name = data.display_name
         this.transform_type = data.transform_type
-        this.transform = data.transform
+        this._transform = data.transform
         this.icon = data.icon
       }
     }
@@ -27,6 +32,12 @@ module ts {
           ds.manager.apply_transform(this, item)
         }
       })
+    }
+
+    transform(item: any) : any {
+      return this._transform
+        ? this._transform(item)
+        : item
     }
 
     toJSON() : any {

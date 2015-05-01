@@ -1,73 +1,84 @@
-/**
- * A transform which simply takes all presentations and arranges them in
- * a regular grid.
- */
-ds.models.transform.SimpleGrid = function(data) {
-  "use strict"
+module ts {
+  export module models {
+    export module transform {
 
-  var self = limivorous.observable()
-                       .property('columns', { init: 1,
-                                              update: function(target) {
-                                                target.span = 12 / target.columns
-                                              }
-                                            })
-                       .property('span', {init: 12})
-                       .property('section_type', {init: 'fixed'})
-                       .property('charts_only', {init: false})
-                       .build()
+      /**
+       * A transform which simply takes all presentations and arranges them in
+       * a regular grid.
+       */
+      export class SimpleGrid extends ts.Transform {
+        private _columns : number = 1
+        span: number = 12
+        section_type: string = 'fixed'
+        charts_only: boolean = false
 
-  if (data) {
-    self.display_name   = 'Simple Grid'
-    self.name           = 'SimpleGrid'
-    self.transform_type = 'dashboard'
-    self.columns = data.columns || self.columns
-    self.section_type = data.section_type || self.section_type
-    if (data.charts_only) {
-      self.charts_only = data.charts_only
-    }
-  }
-  self.span = 12 / self.columns
+        constructor(data: any) {
+          super($.extend({}, {
+            display_name: 'Simple Grid',
+            name: 'SimpleGrid',
+            transform_type: TransformType.DASHBOARD
+          }, data))
 
-  self.transform = function(item) {
-    var items       = item.flatten()
-    var section     = ds.models.make('section').set_layout(self.section_type)
-    var current_row = ds.models.make('row')
+          if (data) {
+            this.columns = data.columns || this.columns
+            this.section_type = data.section_type || this.section_type
+            this.charts_only = !!data.charts_only
+          }
+          this.span = 12 / this.columns
+        }
 
-    items.forEach( function(item) {
-      if (   item.item_type === 'dashboard_definition'
-          || item.item_type === 'cell'
-          || item.item_type === 'row'
-          || item.item_type === 'section'
-          || (self.charts_only && !item.is_chart)) {
-        return
+        /** Setter for the columns property recalculates the column
+         * span to resize items to (based ona 12-column grid) */
+        set columns(value: number) {
+          this._columns = value
+          this.span = 12 / value
+        }
+
+        get columns() : number {
+          return this._columns
+        }
+
+        transform(item: any) : any {
+          var items       = item.flatten()
+          var section     = ds.models.make('section').set_layout(this.section_type)
+          var current_row = ds.models.make('row')
+
+          items.forEach( (item) => {
+            if (   item.item_type === 'dashboard_definition'
+                   || item.item_type === 'cell'
+                   || item.item_type === 'row'
+                   || item.item_type === 'section'
+                   || (this.charts_only && !item.is_chart)) {
+              return
+            }
+            var cell = ds.models.make('cell')
+              .set_span(this.span)
+              .add(item)
+
+            if (current_row.add(cell).length == this.columns) {
+              section.add(current_row)
+              current_row = ds.models.make('row')
+            }
+          } )
+
+          if (current_row.length > 0) {
+            section.add(current_row)
+          }
+
+          return section
+        }
+
+
+        toJSON() : any {
+          return {
+            columns: this.columns,
+            span: this.span,
+            section_type: this.section_type,
+            charts_only: this.charts_only,
+            name: this.name
+          }
+        }
       }
-      var cell = ds.models.make('cell')
-                   .set_span(self.span)
-                   .add(item)
-
-      if (current_row.add(cell).length == self.columns) {
-        section.add(current_row)
-        current_row = ds.models.make('row')
-      }
-    } )
-
-    if (current_row.length > 0) {
-      section.add(current_row)
-    }
-
-    return section
-  }
-
-
-  self.toJSON = function() {
-    return {
-      columns: self.columns,
-      span: self.span,
-      section_type: self.section_type,
-      charts_only: self.charts_only,
-      name: self.name
-    }
-  }
-
-  return self
-}
+    } // end module Transform
+  } // end module models
+} // end module ts
