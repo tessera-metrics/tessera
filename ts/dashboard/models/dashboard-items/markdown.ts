@@ -1,55 +1,56 @@
-ds.register_dashboard_item('markdown', {
+module ts {
+  export module models {
 
-  display_name: 'Markdown',
-  icon: 'fa fa-code',
-  category: 'display',
+    export class Markdown {
+      static meta: DashboardItemMetadata = {
+        item_type: 'markdown',
+        display_name: 'Markdown',
+        icon: 'fa fa-code',
+        category: 'display',
+        template: ds.templates.models.markdown
+      }
 
-  constructor: function(data) {
-    'use strict'
+      text: string
+      expanded_text: string
+      raw: boolean = false
 
-    var self = limivorous.observable()
-                         .property('text')
-                         .property('expanded_text')
-                         .property('raw', {init: false})
-                         .extend(ds.models.item, {item_type: 'markdown'})
-                         .build()
+      constructor(data?: any) {
+        super(data)
+        if (data) {
+          self.text = data.text
+          if (data.raw !== undefined) {
+            self.raw = data.raw
+          }
+        }
+      }
 
-    if (data) {
-      self.text = data.text
-      if (data.raw !== undefined) {
-        self.raw = data.raw
+      render_templates(context?: any) : void {
+        try {
+          self.expanded_text = ds.render_template(self.text, context)
+        } catch (e) {
+          self.expanded_text = e.toString()
+        }
+      }
+
+      toJSON() : any {
+        return $.extend(super.toJSON(), {
+          text: this.text,
+          raw: this.raw
+        })
+      }
+
+      interactive_properties(): PropertyListEntry[] {
+        return [
+          {
+            name: 'markdown.text',
+            type: 'textarea',
+            property_name: 'text'
+          },
+          { name: 'height', type: 'number' },
+          'css_class'
+        ]
       }
     }
-    ds.models.item.init(self, data)
-
-    self.render_templates = function(context) {
-      try {
-        self.expanded_text = ds.render_template(self.text, context)
-      } catch (e) {
-        self.expanded_text = e.toString()
-      }
-    }
-
-    self.toJSON = function() {
-      return ds.models.item.json(self, {
-        text: self.text,
-        raw: self.raw
-      })
-    }
-
-    return self
-  },
-
-  template: ds.templates.models.markdown,
-
-  interactive_properties: [
-    {
-      name: 'markdown.text',
-      type: 'textarea',
-      property_name: 'text'
-    },
-    { name: 'height', type: 'number' },
-    'css_class'
-  ]
-
-})
+    ts.models.register_dashboard_item(Markdown)
+  }
+}

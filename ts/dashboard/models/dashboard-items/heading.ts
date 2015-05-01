@@ -1,45 +1,47 @@
-ds.register_dashboard_item('heading', {
+module ts {
+  export module models {
 
-  display_name: 'Heading',
-  icon: 'fa fa-header',
-  category: 'display',
+    export class Heading {
+      static meta: DashboardItemMetadata = {
+        item_type: 'heading',
+        display_name: 'Heading',
+        icon: 'fa fa-header',
+        category: 'display',
+        template: ds.templates.models.heading
+      }
 
-  constructor: function(data) {
-    'use strict'
+      text: string
+      level: number = 1
+      description: string
 
-    var self = limivorous.observable()
-                         .property('text')
-                         .property('level', {init: 1})
-                         .property('description')
-                         .extend(ds.models.item, {item_type: 'heading'})
-                         .build()
-    if (data) {
-      self.text = data.text
-      self.level = data.level || self.level
-      self.description = data.description
+      constructor(data?: any) {
+        super(data)
+        if (data) {
+          this.text = data.text
+          this.level = data.level || this.level
+          this.description = data.description
+        }
+      }
+
+      toJSON() : any {
+        var data = super.toJSON()
+        if (self.text)
+          data.text = self.text
+        if (self.level)
+          data.level = self.level
+        if (self.description)
+          data.description = self.description
+        return data
+      }
+
+      interactive_properties() : PropertyListEntry[] {
+        return [
+          'text',
+          { name: 'level', type: 'number' },
+          'description'
+        ]
+      }
     }
-    ds.models.item.init(self, data)
-
-    self.toJSON = function() {
-      var data = ds.models.item.json(self)
-      if (self.text)
-        data.text = self.text
-      if (self.level)
-        data.level = self.level
-      if (self.description)
-        data.description = self.description
-      return data
-    }
-
-    return self
-  },
-
-  template: ds.templates.models.heading,
-
-  interactive_properties: [
-    'text',
-    { name: 'level', type: 'number' },
-    'description'
-  ]
-
-})
+    ts.models.register_dashboard_item(Heading)
+  }
+}

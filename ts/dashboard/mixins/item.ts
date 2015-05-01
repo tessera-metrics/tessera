@@ -29,13 +29,25 @@ module ts {
       (item: DashboardItem) : void;
     }
 
+    export interface DashboardItemMetadata {
+      item_type: string
+      requires_data?: boolean
+      category?: string
+      display_name?: string
+      template?: string|ts.TemplateFunction
+      icon?: string,
+      actions?: ts.Action[]
+    }
+
     /**
      * Base class for all things that can be displayed on a dashboard.
      *
-     * TODO: Query-related logic should be split out into a subclass.
+     * TODO: Query-related logic should be split out into a subclass
+     * (call it Presentation).
+     * TODO: Combine metadata from base classes by waking up the
+     * prototype chain as long as there's a 'meta' field
      */
     export class DashboardItem extends Model {
-      item_type: string
       item_id: string
       css_class: string
       height: number
@@ -49,8 +61,6 @@ module ts {
       constructor(data?: any) {
         super(data)
         if (data) {
-          if (data.item_type)
-            this.item_type = data.item_type
           if (data.item_id)
             this.item_id = data.item_id
           this.query = data.query
@@ -58,6 +68,28 @@ module ts {
           this.height = data.height
           this.style = data.style
         }
+      }
+
+      /* Metadata Accessors ------------------------------ */
+
+      get item_type() : string {
+        return Object.getPrototypeOf(this).meta.item_type
+      }
+
+      get item_category() : string {
+        return Object.getPrototypeOf(this).meta.category
+      }
+
+      get display_name() : string {
+        return Object.getPrototypeOf(this).meta.display_name
+      }
+
+      get template() : string|ts.TemplateFunction {
+        return Object.getPrototypeOf(this).meta.template
+      }
+
+      get icon() : string {
+        return Object.getPrototypeOf(this).meta.icon
       }
 
       /* Query Accessors ------------------------------ */
@@ -134,6 +166,10 @@ module ts {
       /** Override this method in sub-classes to use query data to
        * render a dashboard element. */
       data_handler(query: ts.models.data.Query) : void { }
+
+      /** Override this method in sub classes that have strings which
+       * should be template-expanded before rendering. */
+      render_templates(context?: any) : void { }
 
       interactive_properties() : PropertyListEntry[] {
         return [

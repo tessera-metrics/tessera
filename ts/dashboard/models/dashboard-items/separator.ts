@@ -1,27 +1,23 @@
-ds.register_dashboard_item('separator', {
+module ts {
+  export module models {
+    export class Separator extends DashboardItem {
+      static meta: DashboardItemMetadata = {
+        item_type: 'separator',
+        display_name: 'Separator',
+        icon: 'fa fa-arrows-h',
+        category: 'display',
+        template: ds.templates.models.separator,
+        requires_data: false
+      }
 
-  display_name: 'Separator',
-  icon: 'fa fa-arrows-h',
-  category: 'display',
+      constructor(data?: any) {
+        super(data)
+      }
 
-  constructor: function(data) {
-    'use strict'
-
-    var self = limivorous.observable()
-                         .extend(ds.models.item, {item_type: 'separator'})
-                         .build()
-
-    ds.models.item.init(self, data)
-
-    self.toJSON = function() {
-      return ds.models.item.json(self)
+      interactive_properties() : PropertyListEntry[] {
+        return [ 'css_class' ]
+      }
     }
-
-    return self
-  },
-
-  template: ds.templates.models.separator,
-
-  interactive_properties: [ 'css_class' ]
-
-})
+    ts.models.register_dashboard_item(Separator)
+  }
+}

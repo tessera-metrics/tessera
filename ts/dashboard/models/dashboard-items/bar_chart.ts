@@ -1,56 +1,51 @@
-ds.register_dashboard_item('bar_chart', {
+module ts {
+  export module models {
 
-  display_name: 'Bar Chart',
-  icon: 'fa fa-bar-chart',
-  category: 'chart',
+    export class BarChart extends Chart {
+      static meta: DashboardItemMetadata = {
+        item_type: 'bar_chart',
+        display_name: 'Bar Chart',
+        icon: 'fa fa-bar-chart',
+        category: 'chart',
+        template: ds.templates.models.bar_chart
+      }
 
-  constructor: function(data) {
-    'use strict'
+      stack_mode: string = ds.charts.StackMode.NORMAL
 
-    var self = limivorous.observable()
-                         .extend(ds.models.item, {item_type: 'bar_chart'})
-                         .extend(ds.models.chart)
-                         .property('stack_mode', {init: ds.charts.StackMode.NORMAL})
-                         .build()
+      constructor(data?: any) {
+        super(data)
+        if (data) {
+          this.stack_mode = data.stack_mode || this.stack_mode
+        }
+      }
 
-    if (data) {
-      if (data.stack_mode) {
-        self.stack_mode = data.stack_mode
+      toJSON() : any {
+        return $.extend(super.toJSON(), {
+          stack_mode: this.stack_mode
+        })
+      }
+
+      data_handler(query: ts.models.data.Query) : void {
+        ds.charts.bar_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)
+      }
+
+      interactive_properties() : PropertyListEntry[] {
+        return super.interactive_properties().concat([
+          {
+            name: 'stack_mode',
+            type: 'select',
+            edit_options: {
+              source: [
+                ds.charts.StackMode.NONE,
+                ds.charts.StackMode.NORMAL,
+                ds.charts.StackMode.PERCENT,
+                ds.charts.StackMode.STREAM
+              ]
+            }
+          }
+        ])
       }
     }
-
-    ds.models.chart.init(self, data)
-    ds.models.item.init(self, data)
-
-    self.toJSON = function() {
-      return ds.models.chart.json(self, ds.models.item.json(self, {
-        stack_mode: self.stack_mode
-      }))
-    }
-
-    return self
-  },
-
-  data_handler: function(query, item) {
-    ds.charts.bar_chart($('#' + item.item_id + ' .ds-graph-holder'), item, query)
-  },
-
-  template: ds.templates.models.bar_chart,
-
-  interactive_properties: [
-    {
-      name: 'stack_mode',
-      type: 'select',
-      edit_options: {
-        source: [
-          ds.charts.StackMode.NONE,
-          ds.charts.StackMode.NORMAL,
-          ds.charts.StackMode.PERCENT,
-          ds.charts.StackMode.STREAM
-        ]
-      }
-    }
-  ].concat(ds.models.chart.interactive_properties,
-           ds.models.item.interactive_properties)
-
-})
+    ts.models.register_dashboard_item(BarChart)
+  }
+}

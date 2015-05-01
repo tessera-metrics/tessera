@@ -1,3 +1,11 @@
+module ts {
+  export module models {
+    export function register_dashboard_item(item_class) {
+      // TODO
+    }
+  }
+}
+
 /**
  * Descriptor may have the following attributes:
  *   - constructor

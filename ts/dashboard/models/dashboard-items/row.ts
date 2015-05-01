@@ -1,30 +1,24 @@
-ds.register_dashboard_item('row', {
+module ts {
+  export module models {
 
-  display_name: 'Row',
-  category: 'structural',
+    export class Row extends Container {
+      static meta: DashboardItemMetadata = {
+        item_type: 'row',
+        category: 'structural',
+        display_name: 'Row',
+        template: ds.templates.models.row
+      }
 
-  constructor: function(data) {
-    'use strict'
+      constructor(data?: any) {
+        super(data)
+      }
 
-    var self = limivorous.observable()
-                         .extend(ds.models.item, {item_type: 'row'})
-                         .extend(ds.models.container)
-                         .build()
-
-    ds.models.item.init(self, data)
-    ds.models.container.init(self, data)
-
-    self.toJSON = function() {
-      return ds.models.container.json(self, ds.models.item.json(self))
+      interactive_properties() : PropertyListEntry[] {
+        return [
+          'style', 'css_class'
+        ]
+      }
     }
-
-    return self
-  },
-
-  template: ds.templates.models.row,
-
-  interactive_properties: [
-    'style', 'css_class'
-  ]
-
-})
+    ts.models.register_dashboard_item(Row)
+  }
+}
