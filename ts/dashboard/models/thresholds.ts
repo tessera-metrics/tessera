@@ -1,25 +1,26 @@
-ds.models.thresholds = function(data) {
-  "use strict"
+module ts {
+  export module models {
+    export class Thresholds extends Model {
+      summation_type: string
+      warning: number
+      danger: number
 
-  var self = limivorous.observable()
-                       .property('summation_type')
-                       .property('warning')
-                       .property('danger')
-                       .build()
+      constructor(data?: any) {
+        super(data)
+        if (data) {
+          this.summation_type = data.summation_type  || 'mean'
+          this.warning = data.warning
+          this.danger = data.danger
+        }
+      }
 
-  if (data) {
-    self.summation_type = data.summation_type  || 'mean'
-    self.warning = data.warning
-    self.danger = data.danger
-  }
-
-  self.toJSON = function() {
-    return {
-      summation_type: self.summation_type,
-      warning: self.warning,
-      danger: self.danger
+      toJSON() : any {
+        return {
+          summation_type: this.summation_type,
+          warning: this.warning,
+          danger: this.danger
+        }
+      }
     }
   }
-
-  return self
 }
