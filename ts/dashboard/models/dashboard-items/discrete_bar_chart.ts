@@ -19,30 +19,30 @@ module ts {
       constructor(data?: any) {
         super(data)
         if (data) {
-          self.legend = undefined
-          self.transform = data.transform || self.transform
-          self.orientation = data.orientation || self.orientation
-          self.format = data.format || self.format
+          this.legend = undefined
+          this.transform = data.transform || this.transform
+          this.orientation = data.orientation || this.orientation
+          this.format = data.format || this.format
           if (typeof(data.show_grid) !== 'undefined') {
-            self.show_grid = Boolean(data.show_grid)
+            this.show_grid = Boolean(data.show_grid)
           }
           if (typeof(data.show_numbers) !== 'undefined') {
-            self.show_numbers = Boolean(data.show_numbers)
+            this.show_numbers = Boolean(data.show_numbers)
           }
           if (typeof(data.hide_zero_series !== 'undefined')) {
-            self.hide_zero_series = Boolean(data.hide_zero_series)
+            this.hide_zero_series = Boolean(data.hide_zero_series)
           }
         }
       }
 
       toJSON() : any {
         return $.extend(super.toJSON(), {
-          orientation: self.orientation,
-          transform: self.transform,
-          format: self.format,
-          show_grid: self.show_grid,
-          show_numbers: self.show_numbers,
-          hide_zero_series: self.hide_zero_series
+          orientation: this.orientation,
+          transform: this.transform,
+          format: this.format,
+          show_grid: this.show_grid,
+          show_numbers: this.show_numbers,
+          hide_zero_series: this.hide_zero_series
         })
       }
 

@@ -20,11 +20,11 @@ module ts {
       constructor(data?: any) {
         super(data)
         if (data) {
-          self.title = data.title
-          self.units = data.units
-          self.format = data.format || self.format
-          self.index = data.index
-          self.transform = data.transform || self.transform
+          this.title = data.title
+          this.units = data.units
+          this.format = data.format || this.format
+          this.index = data.index
+          this.transform = data.transform || this.transform
         }
       }
 
@@ -42,16 +42,16 @@ module ts {
 
       toJSON() {
         let data = super.toJSON()
-        if (self.title)
-          data.title = self.title
-        if (self.format)
-          data.format = self.format
-        if (self.transform)
-          data.transform = self.transform
-        if (self.units)
-          data.units = self.units
-        if (self.index)
-          data.index = self.index
+        if (this.title)
+          data.title = this.title
+        if (this.format)
+          data.format = this.format
+        if (this.transform)
+          data.transform = this.transform
+        if (this.units)
+          data.units = this.units
+        if (this.index)
+          data.index = this.index
         return data
       }
 

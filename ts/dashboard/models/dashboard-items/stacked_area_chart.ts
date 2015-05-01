@@ -21,7 +21,7 @@ module ts {
 
       toJSON() : any {
         return $.extend(super.toJSON(), {
-          stack_mode: self.stack_mode
+          stack_mode: this.stack_mode
         })
       }
 

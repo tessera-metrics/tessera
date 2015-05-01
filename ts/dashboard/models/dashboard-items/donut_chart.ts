@@ -18,22 +18,22 @@ module ts {
         super(data)
         if (data) {
           if (typeof(data.labels) !== 'undefined') {
-            self.labels = Boolean(data.labels)
+            this.labels = Boolean(data.labels)
           }
           if (typeof(data.is_pie) !== 'undefined') {
-            self.is_pie = Boolean(data.is_pie)
+            this.is_pie = Boolean(data.is_pie)
           }
           if (typeof(data.hide_zero_series !== 'undefined')) {
-            self.hide_zero_series = Boolean(data.hide_zero_series)
+            this.hide_zero_series = Boolean(data.hide_zero_series)
           }
         }
       }
 
       toJSON() : any {
         return $.extends(super.toJSON(), {
-          labels: self.labels,
-          is_pie: self.is_pie,
-          hide_zero_series: self.hide_zero_series
+          labels: this.labels,
+          is_pie: this.is_pie,
+          hide_zero_series: this.hide_zero_series
         })
       }
 

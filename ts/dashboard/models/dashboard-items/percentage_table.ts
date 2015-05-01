@@ -23,31 +23,31 @@ module ts {
       constructor(data?: any) {
         super(data)
         if (data) {
-          self.include_sums = data.include_sums
-          self.invert_axes = data.invert_axes
-          self.striped = Boolean(data.striped)
-          self.sortable = Boolean(data.sortable)
-          self.title = data.title
-          self.format = data.format || self.format
-          self.transform = data.transform || self.transform
+          this.include_sums = data.include_sums
+          this.invert_axes = data.invert_axes
+          this.striped = Boolean(data.striped)
+          this.sortable = Boolean(data.sortable)
+          this.title = data.title
+          this.format = data.format || this.format
+          this.transform = data.transform || this.transform
         }
       }
 
-      self.toJSON = function() {
+      this.toJSON = function() {
         var data = super.toJSON()
-        if (self.format)
-          data.format = self.format
-        if (self.invert_axes)
-          data.invert_axes = self.invert_axes
-        if (self.striped)
-          data.striped = self.striped
-        if (self.sortable)
-          data.sortable = self.sortable
-        if (self.title)
-          data.title = self.title
-        if (self.transform)
-          data.transform = self.transform
-        data.include_sums = self.include_sums
+        if (this.format)
+          data.format = this.format
+        if (this.invert_axes)
+          data.invert_axes = this.invert_axes
+        if (this.striped)
+          data.striped = this.striped
+        if (this.sortable)
+          data.sortable = this.sortable
+        if (this.title)
+          data.title = this.title
+        if (this.transform)
+          data.transform = this.transform
+        data.include_sums = this.include_sums
         return data
       }
 

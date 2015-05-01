@@ -17,18 +17,18 @@ module ts {
       constructor(data?: any) {
         super(data)
         if (data) {
-          self.text = data.text
+          this.text = data.text
           if (data.raw !== undefined) {
-            self.raw = data.raw
+            this.raw = data.raw
           }
         }
       }
 
       render_templates(context?: any) : void {
         try {
-          self.expanded_text = ds.render_template(self.text, context)
+          this.expanded_text = ds.render_template(this.text, context)
         } catch (e) {
-          self.expanded_text = e.toString()
+          this.expanded_text = e.toString()
         }
       }
 

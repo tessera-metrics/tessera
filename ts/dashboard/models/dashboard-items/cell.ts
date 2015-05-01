@@ -24,12 +24,12 @@ module ts {
 
       toJSON() : any {
         var data = super.toJSON()
-        if (self.span)
-          data.span = self.span
-        if (self.offset)
-          data.offset = self.offset
-        if (self.align)
-          data.align = self.align
+        if (this.span)
+          data.span = this.span
+        if (this.offset)
+          data.offset = this.offset
+        if (this.align)
+          data.align = this.align
         return data
       }
 

@@ -25,12 +25,12 @@ module ts {
 
       toJSON() : any {
         var data = super.toJSON()
-        if (self.text)
-          data.text = self.text
-        if (self.level)
-          data.level = self.level
-        if (self.description)
-          data.description = self.description
+        if (this.text)
+          data.text = this.text
+        if (this.level)
+          data.level = this.level
+        if (this.description)
+          data.description = this.description
         return data
       }
 

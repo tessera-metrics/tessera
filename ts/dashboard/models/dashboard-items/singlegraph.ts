@@ -16,8 +16,8 @@ module ts {
       constructor(data?: any) {
         super(data)
         if (data) {
-          self.format = data.format || self.format
-          self.transform = data.transform || self.transform
+          this.format = data.format || this.format
+          this.transform = data.transform || this.transform
           if (!this.height)
             this.height = 1
         }
