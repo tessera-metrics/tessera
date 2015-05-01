@@ -1,3 +1,9 @@
+module ts {
+  export interface TemplateFunction {
+    (ctx?: any) : string
+  }
+}
+
 var ds : any = window['ds'] || {}
 ds.models = ds.models || {}
 ds.models.data = ds.models.data || {}

@@ -66,6 +66,9 @@ module ts {
         return output;
       }
 
+      export interface QueryDictionary {
+        [index: string] : Query
+      }
 
       export class Query {
         static DEFAULT_FROM_TIME = '-3h'
