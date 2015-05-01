@@ -72,24 +72,32 @@ module ts {
 
       /* Metadata Accessors ------------------------------ */
 
+      get meta() : DashboardItemMetadata {
+        return Object.getPrototypeOf(this).meta
+      }
+
       get item_type() : string {
-        return Object.getPrototypeOf(this).meta.item_type
+        return this.meta.item_type
       }
 
       get item_category() : string {
-        return Object.getPrototypeOf(this).meta.category
+        return this.meta.category
       }
 
       get display_name() : string {
-        return Object.getPrototypeOf(this).meta.display_name
+        return this.meta.display_name
       }
 
       get template() : string|ts.TemplateFunction {
-        return Object.getPrototypeOf(this).meta.template
+        return this.meta.template
       }
 
       get icon() : string {
-        return Object.getPrototypeOf(this).meta.icon
+        return this.meta.icon
+      }
+
+      get requires_data() : boolean {
+        return this.meta.requires_data
       }
 
       /* Query Accessors ------------------------------ */
@@ -98,19 +106,19 @@ module ts {
         return typeof(this.query) !== 'string'
       }
 
-      get query() : string|ts.models.data.Query {
+      get query() : ts.models.data.Query {
         if (typeof this._query === 'string' && this.dashboard) {
           return this.dashboard.definition.queries[<string>this._query]
         } else {
-          return this._query
+          return <ts.models.data.Query>this._query
         }
       }
 
-      get query_override() : string|ts.models.data.Query {
+      get query_override() : ts.models.data.Query {
         if (typeof this._query_override === 'string' && this.dashboard) {
           return this.dashboard.definition.queries[<string>this._query_override]
         } else {
-          return this._query_override
+          return <ts.models.data.Query>this._query_override
         }
       }
 
@@ -152,12 +160,12 @@ module ts {
       }
 
       set_query(value: string|ts.models.data.Query) : DashboardItem {
-        this.query = value
+        this._query = value
         return this
       }
 
       set_query_override(value: string|ts.models.data.Query) : DashboardItem {
-        this.query_override = value
+        this._query_override = value
         return this
       }
 

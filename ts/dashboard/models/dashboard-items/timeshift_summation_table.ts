@@ -96,7 +96,7 @@ module ts {
       }
 
       data_handler(query: ts.models.data.Query) : void {
-        var body = $('#' + item.item_id + ' tbody')
+        var body = $('#' + this.item_id + ' tbody')
         var now  = query.data[0].summation
         var then = query.data[1].summation
         var diff = new ts.models.data.Summation(now).subtract(then)
@@ -125,7 +125,7 @@ module ts {
           diff: diff,
           item: item
         }))
-        if (item.sortable) {
+        if (this.sortable) {
           body.parent().DataTable({
             autoWidth: false,
             paging: false,

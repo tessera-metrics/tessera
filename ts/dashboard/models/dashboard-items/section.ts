@@ -62,8 +62,7 @@ module ts {
           { name: 'horizontal_rule', type: 'boolean' }
         ]
       }
-
-      ts.models.register_dashboard_item(Section)
     }
+    ts.models.register_dashboard_item(Section)
   }
 }

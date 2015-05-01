@@ -1,16 +1,16 @@
 module ts {
   export module models {
 
-    export class StackedAreaChart {
+    export class StackedAreaChart extends Chart {
       static meta: DashboardItemMetadata = {
         item_type: 'stacked_area_chart',
         display_name: 'Stacked Area Chart',
         icon: 'fa fa-area-chart',
-        category: 'chart'
+        category: 'chart',
         template: ds.templates.models.stacked_area_chart
       }
 
-      stack_mode: string = ds.charts.StackMode.NORMAL,
+      stack_mode: string = ds.charts.StackMode.NORMAL
 
       constructor(data?: any) {
         super(data)

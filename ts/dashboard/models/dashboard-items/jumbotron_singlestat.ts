@@ -46,12 +46,12 @@ module ts {
       }
 
       data_handler(query) {
-        var element = $('#' + item.item_id + ' span.value')
-        var value = query.summation[item.transform]
-        if (item.index) {
-          value = query.data[item.index].summation[item.transform]
+        var element = $('#' + this.item_id + ' span.value')
+        var value = query.summation[this.transform]
+        if (this.index) {
+          value = query.data[this.index].summation[this.transform]
         }
-        $(element).text(d3.format(item.format)(value))
+        $(element).text(d3.format(this.format)(value))
       }
 
       interactive_properties(): PropertyListEntry[] {

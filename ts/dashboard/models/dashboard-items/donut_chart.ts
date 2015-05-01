@@ -42,7 +42,7 @@ module ts {
       }
 
       interactive_properties(): PropertyListEntry[] {
-        return super.interactive_properties().concaat([
+        return super.interactive_properties().concat([
           { name: 'labels', type: 'boolean' },
           { name: 'is_pie', type: 'boolean' },
           { name: 'hide_zero_series', type: 'boolean' },

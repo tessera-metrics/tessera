@@ -36,7 +36,7 @@ module ts {
       }
 
       data_handler(query: ts.models.data.Query) : void {
-        if (item.filled) {
+        if (this.filled) {
           ds.charts.simple_area_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)
         } else {
           ds.charts.simple_line_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)

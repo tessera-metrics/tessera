@@ -2,7 +2,7 @@ module ts {
   export module models {
 
     // TODO: make a table base class
-    export class PercentageTable {
+    export class PercentageTable extends DashboardItem {
       static meta: DashboardItemMetadata = {
         item_type: 'percentage_table',
         display_name: 'Percentage Table',

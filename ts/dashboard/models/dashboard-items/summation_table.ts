@@ -49,7 +49,7 @@ module ts {
 
       data_handler(query: ts.models.data.Query) : void {
         ts.log.logger('tessera.items.summation_table').debug('data_handler(): '
-                                                             + query.name + '/' + item.item_id)
+                                                             + query.name + '/' + this.item_id)
         var options = this.options || {}
         var palette = ds.charts.util.get_palette(options.palette)
         var body = $('#' + this.item_id + ' tbody')

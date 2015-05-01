@@ -24,7 +24,7 @@ module ts {
 
       get query_other() : string|ts.models.data.Query {
         if (typeof this._query_other === 'string' && this.dashboard) {
-          return this.dashboard.definition.queries[<string>this._query]
+          return this.dashboard.definition.queries[<string>this._query_other]
         } else {
           return this._query_other
         }
@@ -69,19 +69,23 @@ module ts {
         data.sortable = this.sortable
         data.title = this.title
         if (this.query_other) {
-          data.query_other = this.query_other.name
+          if (this.query_other instanceof ts.models.data.Query) {
+            data.query_other = (<ts.models.data.Query>this.query_other).name
+          } else {
+            data.query_other = this.query_other
+          }
         }
         return data
       }
 
-      data_handler(query: ds.models.data.Query) : void {
-        var body = $('#' + item.item_id + ' tbody')
+      data_handler(query: ts.models.data.Query) : void {
+        var body = $('#' + this.item_id + ' tbody')
         var now  = query.data[0].summation
         var then = query.data[1].summation
         var diff = new ts.models.data.Summation(now).subtract(then)
         var properties = ['mean', 'min', 'max', 'sum']
         var float_margin = 0.000001
-        properties.forEach(function(prop) {
+        properties.forEach((prop) => {
           var value = diff[prop]
 
           if (value > float_margin)
@@ -104,7 +108,7 @@ module ts {
           diff: diff,
           item: item
         }))
-        if (item.sortable) {
+        if (this.sortable) {
           body.parent().DataTable({
             autoWidth: false,
             paging: false,

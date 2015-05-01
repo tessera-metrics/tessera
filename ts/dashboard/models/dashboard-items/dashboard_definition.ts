@@ -3,8 +3,7 @@ module ts {
     export class DashboardDefinition extends Container {
 
       static meta: DashboardItemMetadata = {
-        item_type: 'dashboard_definition'
-        category: false,
+        item_type: 'dashboard_definition',
         template: ds.templates.models.definition
       }
 
@@ -45,7 +44,7 @@ module ts {
         }
         this.visit((item) => {
           if (item.query_override) {
-            item.query_override.render_templates(context)
+            (<ts.models.data.Query>item.query_override).render_templates(context)
           }
           if ((item !== this) && item.render_templates) {
             item.render_templates(context)
@@ -112,7 +111,7 @@ module ts {
         return this
       }
 
-      add_query(query) {
+      add_query(query) : DashboardDefinition {
         this.queries[query.name] = query
         query.options = this.options
         return this
@@ -121,7 +120,7 @@ module ts {
       /**
        * Delete a query and null out any references to it.
        */
-      delete_query(query_name) {
+      delete_query(query_name) : DashboardDefinition {
         this.visit((item) => {
           if (item.query && (item.query.name === query_name)) {
             item.query = undefined
@@ -134,7 +133,7 @@ module ts {
       /**
        * Rename a query and update any references to it.
        */
-      rename_query(old_name, new_name) {
+      rename_query(old_name, new_name) : any {
         var query = this.queries[old_name]
         if (!query)
           return this

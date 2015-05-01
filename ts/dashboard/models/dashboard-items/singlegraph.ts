@@ -12,12 +12,14 @@ module ts {
 
       format: string = ',.1s'
       transform: string = 'mean'
+      index: number
 
       constructor(data?: any) {
         super(data)
         if (data) {
           this.format = data.format || this.format
           this.transform = data.transform || this.transform
+          this.index = data.index
           if (!this.height)
             this.height = 1
         }
@@ -26,7 +28,8 @@ module ts {
       toJSON() : any {
         return $.extend(super.toJSON(), {
           format: this.format,
-          transform: this.transform
+          transform: this.transform,
+          index: this.index
         })
       }
 

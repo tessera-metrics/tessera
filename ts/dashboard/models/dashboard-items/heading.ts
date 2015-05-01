@@ -1,7 +1,7 @@
 module ts {
   export module models {
 
-    export class Heading {
+    export class Heading extends DashboardItem {
       static meta: DashboardItemMetadata = {
         item_type: 'heading',
         display_name: 'Heading',

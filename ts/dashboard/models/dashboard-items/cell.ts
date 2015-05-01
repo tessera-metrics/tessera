@@ -53,6 +53,7 @@ module ts {
           }
         ])
       }
-      ts.models.register_dashboard_item(Cell)
+    }
+    ts.models.register_dashboard_item(Cell)
   }
 }
