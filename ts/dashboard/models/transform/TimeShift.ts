@@ -9,7 +9,7 @@ ts.transforms.register({
   transform_type: 'presentation',
   icon: 'fa fa-clock-o',
 
-  transform: function(item) {
+  transform: function(item: any) : any {
     var make  = ds.models.make
     var query = item.query
     var shifts = [

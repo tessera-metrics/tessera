@@ -6,7 +6,7 @@ ts.transforms.register({
   display_name: 'Isolate',
   transform_type: 'presentation',
 
-  transform: function(item) {
+  transform: function(item: any) : any {
     var make = ds.models.make
     var options = item.options || {}
     return make('section')

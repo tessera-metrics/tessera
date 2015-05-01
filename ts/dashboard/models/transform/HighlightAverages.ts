@@ -13,7 +13,7 @@ ts.transforms.register({
   display_name:   'Highlight Averages',
   transform_type: 'presentation',
 
-  transform: function(item) {
+  transform: function(item: any) : any {
     var make    = ds.models.make
     var query   = item.query
     var group   = (query.targets.length > 1) ? 'group(' + query.targets.join(',') + ')' : query.targets[0]
