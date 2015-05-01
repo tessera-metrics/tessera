@@ -54,7 +54,7 @@ module ts {
         var palette = ds.charts.util.get_palette(options.palette)
         var body = $('#' + this.item_id + ' tbody')
         body.empty()
-        query.data.forEach(function(series, i) {
+        query.data.forEach((series, i) => {
           var color = palette[i % palette.length]
           body.append(ds.templates.models.summation_table_row({series:series, item:this, color: color}))
         })

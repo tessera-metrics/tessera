@@ -33,7 +33,7 @@ module ts {
         }
       }
 
-      this.toJSON = function() {
+      toJSON() : any {
         var data = super.toJSON()
         if (this.format)
           data.format = this.format
