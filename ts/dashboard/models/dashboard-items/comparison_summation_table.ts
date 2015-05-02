@@ -11,57 +11,50 @@ module ts {
         requires_data: true
       }
 
-      private _query_other: string|ts.models.data.Query
-
-      get query_other() : string|ts.models.data.Query {
-        if (typeof this._query_other === 'string' && this.dashboard) {
-          return this.dashboard.definition.queries[<string>this._query_other]
-        } else {
-          return this._query_other
-        }
-      }
-
-      set query_other(value: string|ts.models.data.Query) {
-          this._query_other = value
-      }
+      private _query_other: string
 
       constructor(data?: any) {
         super(data)
         if (data) {
-          this.query_other = data.query_other
+          if (this.query_other instanceof ts.models.data.Query) {
+            this._query_other = data.query_other.name
+          } else {
+            this._query_other = data.query_other
+          }
+        }
+        this._update_query()
+      }
+
+      _update_query() : void {
+        if (this._query && this.query_other && this.dashboard) {
+          let query = this.dashboard.definition.queries[this._query]
+          this.query_override =
+            query.join(this.query_other).set_name(this.item_id + '_joined')
+          this.query_override.render_templates(ds.context().variables)
         }
       }
 
-      /*
-        function update_query() {
-        if ((this.query && this.query instanceof ts.models.data.Query)
-        && (this.query_other && this.query_other instanceof ts.models.data.Query)) {
-        this.query_override =
-        this.query.join(this.query_other).set_name(this.item_id + '_joined')
-        this.query_override.render_templates(ds.context().variables)
+      get query_other() : ts.models.data.Query {
+        if (!this.dashboard) {
+          return null
         }
-    }
+        return this.dashboard.definition.queries[this._query_other]
+      }
 
-    this.on('change:query', function(e) {
-    update_query()
-    }).on('change:query_other', function(e) {
-    update_query()
-    }).on('change:dashboard', function(e) {
-    update_query()
-    })
-    update_query()
-      */
+      set query_other(value: ts.models.data.Query) {
+        this._query_other = value.name
+        this._update_query()
+      }
 
       toJSON() : any {
-        var data = super.toJSON()
-        if (this.query_other) {
-          if (this.query_other instanceof ts.models.data.Query) {
-            data.query_other = (<ts.models.data.Query>this.query_other).name
-          } else {
-            data.query_other = this.query_other
-          }
-        }
-        return data
+        return $.extend(super.toJSON(), {
+          query_other: this._query_other
+        })
+      }
+
+      render() : string {
+        this._update_query()
+        return super.render()
       }
 
       data_handler(query: ts.models.data.Query) : void {
@@ -92,7 +85,7 @@ module ts {
           now:  now,
           then: then,
           diff: diff,
-          item: item
+          item: this
         }))
         if (this.sortable) {
           body.parent().DataTable({

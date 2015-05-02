@@ -71,36 +71,23 @@ module ts {
         }
       }
 
-      set query(value: ts.models.data.Query) {
-        super.set_query(value)
-        this._update_query()
-      }
-
-      set_query(value: string|ts.models.data.Query) : DashboardItem {
-        super.set_query(value)
-        this._update_query()
-        return this
-      }
-
-      set_dashboard(value: any) : DashboardItem {
-        super.set_dashboard(value)
-        this._update_query()
-        return this
-      }
-
       get shift() : string {
         return this._shift
       }
 
       set shift(value: string) {
         this._shift = value
-        this._update_query()
       }
 
       toJSON() : any {
         return $.extend(super.toJSON(), {
           shift: this.shift
         })
+      }
+
+      render() : string {
+        this._update_query()
+        return super.render()
       }
 
       data_handler(query: ts.models.data.Query) : void {
