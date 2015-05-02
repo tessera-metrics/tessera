@@ -272,7 +272,7 @@
     handler: function(action, item) {
       let dashboard = ds.manager.current.dashboard
       let parent = dashboard.find_parent(item)
-      let dup = ds.models.factory(item.toJSON()).set_item_id(null)
+      let dup = ts.models.make(item.toJSON()).set_item_id(null)
       dup.visit(function(child) {
         child.item_id = null
       })

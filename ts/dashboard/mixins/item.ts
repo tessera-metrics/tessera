@@ -23,10 +23,16 @@ module ts {
       MEDIAN: 'median'
     }
 
+    // TODO: move to property.ts
     export type PropertyListEntry = string|ts.PropertyDescriptor
+    export type PropertyList      = PropertyListEntry[]
 
     export interface DashboardItemVisitor {
       (item: DashboardItem) : void;
+    }
+
+    export interface DashboardItemConstructor {
+      new(data?: any) : DashboardItem;
     }
 
     export interface DashboardItemMetadata {
@@ -37,6 +43,7 @@ module ts {
       template?: string|ts.TemplateFunction
       icon?: string,
       actions?: ts.Action[]
+      interactive_properties?: PropertyList
     }
 
     /**
@@ -73,7 +80,7 @@ module ts {
       /* Metadata Accessors ------------------------------ */
 
       get meta() : DashboardItemMetadata {
-        return Object.getPrototypeOf(this).meta
+        return Object.getPrototypeOf(this).constructor.meta
       }
 
       get item_type() : string {
@@ -188,13 +195,7 @@ module ts {
       }
 
       render() : string {
-        var item_type = ds.models[this.item_type]
-
-        if (!item_type) {
-          return "<p>Unknown item type <code>" + this.item_type + "</code></p>"
-        }
-
-        if (!item_type.template) {
+        if (!this.meta.template) {
           return "<p>Item type <code>" + this.item_type + "</code> is missing a template.</p>"
         }
 
@@ -209,7 +210,7 @@ module ts {
             })
           }
         }
-        return item_type.template({item: this})
+        return (<ts.TemplateFunction>this.meta.template)({item: this})
       }
 
       visit(visitor: DashboardItemVisitor) : DashboardItem {

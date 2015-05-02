@@ -13,7 +13,7 @@ module ts {
         icon: 'fa fa-table',
         category: 'data-table',
         requires_data: true,
-        template: ds.templats.models.comparison_summation_table
+        template: ds.templates.models.comparison_summation_table
       }
 
       striped: boolean = false

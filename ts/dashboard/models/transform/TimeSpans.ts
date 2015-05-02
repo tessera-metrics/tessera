@@ -51,7 +51,7 @@ ts.transforms.register({
                                                     from: span.from,
                                                     until: span.until
                                                   }))
-      var modified_item = ds.models.factory(item.toJSON())
+      var modified_item = ts.models.make(item.toJSON())
                             .set_item_id(undefined)
                             .set_query(modified_query)
                             .set_title(span.title)

@@ -17,7 +17,7 @@ module ts {
       constructor(data?: any) {
         super(data)
         if (data && data.items) {
-          this.items = data.items.map(i => ds.models.factory(i))
+          this.items = data.items.map(i => ts.models.make(i))
         }
       }
 
@@ -58,7 +58,7 @@ module ts {
 
       add(item: string|DashboardItem) : DashboardItem {
         if (typeof(item) === 'string') {
-          item = ds.models.factory(item)
+          item = ts.models.make(item)
         }
         this.items.push(<DashboardItem>item)
         // this.notify('items')
