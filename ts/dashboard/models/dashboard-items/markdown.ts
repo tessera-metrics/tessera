@@ -4,8 +4,7 @@ module ts {
     export class Markdown extends DashboardItem {
       static meta: DashboardItemMetadata = {
         icon: 'fa fa-code',
-        category: 'display',
-        requires_data: false
+        category: 'display'
       }
 
       text: string

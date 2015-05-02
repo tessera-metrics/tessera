@@ -4,8 +4,7 @@ module ts {
     export class BarChart extends Chart {
       static meta: DashboardItemMetadata = {
         icon: 'fa fa-bar-chart',
-        category: 'chart',
-        requires_data: true
+        category: 'chart'
       }
 
       stack_mode: string = ds.charts.StackMode.NORMAL

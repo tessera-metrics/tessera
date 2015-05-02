@@ -3,8 +3,7 @@ module ts {
 
     export class Row extends Container {
       static meta: DashboardItemMetadata = {
-        category: 'structural',
-        requires_data: false
+        category: 'structural'
       }
 
       constructor(data?: any) {

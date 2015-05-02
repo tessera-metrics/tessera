@@ -3,8 +3,7 @@ module ts {
 
     export class Cell extends Container {
       static meta: DashboardItemMetadata = {
-        category:     'structural',
-        requires_data: false,
+        category:     'structural'
       }
 
       span: number = 3

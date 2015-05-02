@@ -6,8 +6,7 @@ module ts {
         display_name: 'Separator',
         icon: 'fa fa-arrows-h',
         category: 'display',
-        template: ds.templates.models.separator,
-        requires_data: false
+        template: ds.templates.models.separator
       }
 
       constructor(data?: any) {

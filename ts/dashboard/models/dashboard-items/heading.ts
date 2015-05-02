@@ -4,8 +4,7 @@ module ts {
     export class Heading extends DashboardItem {
       static meta: DashboardItemMetadata = {
         icon: 'fa fa-header',
-        category: 'display',
-        requires_data: false
+        category: 'display'
       }
 
       text: string

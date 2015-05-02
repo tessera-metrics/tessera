@@ -4,8 +4,7 @@ module ts {
     export class DonutChart extends Chart {
       static meta: DashboardItemMetadata = {
         icon: 'fa fa-pie-chart',
-        category: 'chart',
-        requires_data: true
+        category: 'chart'
       }
 
       labels: boolean = false

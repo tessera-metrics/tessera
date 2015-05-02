@@ -4,8 +4,7 @@ module ts {
     export class SimpleTimeSeries extends Chart {
       static meta: DashboardItemMetadata = {
         icon: 'fa fa-line-chart',
-        category: 'chart',
-        requires_data: true
+        category: 'chart'
       }
 
       filled: boolean = false

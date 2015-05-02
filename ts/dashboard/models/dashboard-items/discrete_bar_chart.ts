@@ -5,8 +5,7 @@ module ts {
       static meta: DashboardItemMetadata = {
         display_name: 'Bar Chart (Discrete)',
         icon: 'fa fa-bar-chart',
-        category: 'chart',
-        requires_data: true
+        category: 'chart'
       }
 
       transform: string = 'sum'

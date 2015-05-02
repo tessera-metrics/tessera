@@ -4,8 +4,7 @@ module ts {
     export class StackedAreaChart extends Chart {
       static meta: DashboardItemMetadata = {
         icon: 'fa fa-area-chart',
-        category: 'chart',
-        requires_data: true
+        category: 'chart'
       }
 
       stack_mode: string = ds.charts.StackMode.NORMAL
