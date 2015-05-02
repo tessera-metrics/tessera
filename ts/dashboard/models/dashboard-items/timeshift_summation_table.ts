@@ -1,5 +1,6 @@
 module ts {
   export module models {
+
     /**
      * This iteration of timeshift_summation_table takes a single query
      * and applies a timeShift() value to it. Another approach is to take
@@ -10,40 +11,26 @@ module ts {
      * need to join on two asynchronously fetched queries.
      */
     export class TimeshiftSummationTable extends TablePresentation {
+      static timeshift_action(interval: string, label: string) : ts.Action {
+        return new ts.Action({
+          name:    `timeshift_${interval}`,
+          display: label,
+          icon:    'fa fa-clock-o',
+          handler: function(action, item) {
+            item.shift = interval
+            ds.manager.update_item_view(item)
+          }
+        })
+      }
 
       static meta: DashboardItemMetadata = {
-        icon: 'fa fa-table',
+        icon:     'fa fa-table',
         category: 'data-table',
         requires_data: true,
-
         actions: [
-          ds.action({
-            name:    'timeshift_1h',
-            display: '1 Hour Ago',
-            icon:    'fa fa-clock-o',
-            handler: function(action, item) {
-              item.shift = '1h'
-              ds.manager.update_item_view(item)
-            }
-          }),
-          ds.action({
-            name:    'timeshift_1d',
-            display: '1 Day Ago',
-            icon:    'fa fa-clock-o',
-            handler: function(action, item) {
-              item.shift = '1d'
-              ds.manager.update_item_view(item)
-            }
-          }),
-          ds.action({
-            name:    'timeshift_1w',
-            display: '1 Week Ago',
-            icon:    'fa fa-clock-o',
-            handler: function(action, item) {
-              item.shift = '1w'
-              ds.manager.update_item_view(item)
-            }
-          }),
+          TimeshiftSummationTable.timeshift_action('1h', '1 Hour Ago'),
+          TimeshiftSummationTable.timeshift_action('1d', '1 Day Ago'),
+          TimeshiftSummationTable.timeshift_action('1w', '1 Week Ago'),
           ds.action({
             name:    'timeshift_user_input',
             display: 'Pick interval...',
