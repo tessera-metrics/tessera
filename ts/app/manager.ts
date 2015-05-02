@@ -282,6 +282,10 @@ ds.manager =
                      return transform.transform(target)
                    })
 
+      result.visit((item) => {
+        item.set_dashboard(dashboard)
+      })
+
       dashboard.definition.queries = result.get_queries() // this could go in an observer
       dashboard.set_items([result])
 
