@@ -33,8 +33,8 @@ module ts {
       constructor(data?: any) {
         super(data)
         if (data) {
-          this.striped = Boolean(data.striped)
-          this.sortable = Boolean(data.sortable)
+          this.striped = !!data.striped
+          this.sortable = !!data.sortable
           this.title = data.title
           this.format = data.format || this.format
           this.query_other = data.query_other

@@ -7,6 +7,7 @@ module ts {
         display_name: 'Donut Chart',
         icon: 'fa fa-pie-chart',
         category: 'chart',
+        requires_data: true,
         template: ds.templates.models.donut_chart
       }
 

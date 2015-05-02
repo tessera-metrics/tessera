@@ -73,7 +73,7 @@ module ts {
         this.visit((item) => {
           var query = item.query_override || item.query
           if (query) {
-            if (item.requires_data || ds.charts.interactive) {
+            if (item.meta.requires_data || ds.charts.interactive) {
               queries_to_load[query.name] = query
               delete queries_to_fire[query.name]
             } else {

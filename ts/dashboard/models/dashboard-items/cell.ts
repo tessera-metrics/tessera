@@ -6,6 +6,7 @@ module ts {
         item_type:    'cell',
         category:     'structural',
         display_name: 'Cell',
+        requires_data: false,
         template:     ds.templates.models.cell
       }
 

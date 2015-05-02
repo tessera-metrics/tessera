@@ -6,6 +6,7 @@ module ts {
         display_name: 'Bar Chart (Discrete)',
         icon: 'fa fa-bar-chart',
         category: 'chart',
+        requires_data: true,
         template: ds.templates.models.discrete_bar_chart
       }
 

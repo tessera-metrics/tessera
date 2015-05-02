@@ -7,7 +7,8 @@ module ts {
         display_name: 'Stacked Area Chart',
         icon: 'fa fa-area-chart',
         category: 'chart',
-        template: ds.templates.models.stacked_area_chart
+        template: ds.templates.models.stacked_area_chart,
+        requires_data: true
       }
 
       stack_mode: string = ds.charts.StackMode.NORMAL

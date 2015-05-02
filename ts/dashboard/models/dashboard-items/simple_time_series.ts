@@ -6,6 +6,7 @@ module ts {
         display_name: 'Simple Time Series',
         icon: 'fa fa-line-chart',
         category: 'chart',
+        requires_data: true,
         template: ds.templates.models.simple_time_series
       }
 

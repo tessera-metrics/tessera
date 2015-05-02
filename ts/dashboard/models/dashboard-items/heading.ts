@@ -7,6 +7,7 @@ module ts {
         display_name: 'Heading',
         icon: 'fa fa-header',
         category: 'display',
+        requires_data: false,
         template: ds.templates.models.heading
       }
 
