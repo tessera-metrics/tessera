@@ -70,7 +70,7 @@ module ts {
         if (data) {
           if (data.item_id)
             this.item_id = data.item_id
-          this.query = data.query
+          this._query = data.query
           this.css_class = data.css_class
           this.height = data.height
           this.style = data.style
@@ -248,7 +248,7 @@ module ts {
           data.item_id = this.item_id
         if (this.query) {
           data.query = this.is_immediate_query
-            ? (<ts.models.data.Query>this.query).toJSON()
+            ? (<ts.models.data.Query>this._query).toJSON()
             : this._query
         }
         if (this.css_class)
