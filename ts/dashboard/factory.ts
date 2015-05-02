@@ -5,9 +5,21 @@ module ts {
     var constructors = new Map<string, DashboardItemConstructor>()
     var metadata     = new Map<string, DashboardItemMetadata>()
 
+    /**
+     * Register a dashboard item type.
+     *
+     * Each dashboard item class must have the following members:
+     *   - A constructor with the signature `new(data?: any)`
+     *   - Optionally a static `meta` property of type `DashboardItemMetadata`
+     *
+     * @see DashboardItemConstructor
+     */
     export function register_dashboard_item(item_class) {
-      let meta = item_class.meta
+      if (!item_class.meta) {
+        item_class.meta = {}
+      }
 
+      let meta = item_class.meta
       if (!meta.item_type) {
         meta.item_type = inflection.underscore(item_class.name)
       }

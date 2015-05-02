@@ -33,6 +33,7 @@ module ts {
 
     export interface DashboardItemConstructor {
       new(data?: any) : DashboardItem;
+      meta?: DashboardItemMetadata
     }
 
     export interface DashboardItemMetadata {
