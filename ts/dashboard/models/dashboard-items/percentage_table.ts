@@ -16,19 +16,17 @@ module ts {
         super(data)
         if (data) {
           this.include_sums = data.include_sums
-          this.invert_axes = data.invert_axes
-          this.transform = data.transform || this.transform
+          this.invert_axes  = data.invert_axes
+          this.transform    = data.transform || this.transform
         }
       }
 
       toJSON() : any {
-        var data = super.toJSON()
-        if (this.invert_axes)
-          data.invert_axes = this.invert_axes
-        if (this.transform)
-          data.transform = this.transform
-        data.include_sums = this.include_sums
-        return data
+        return $.extend(super.toJSON(), {
+          invert_axes:  this.invert_axes,
+          transform:    this.transform,
+          include_sums: this.include_sums
+        })
       }
 
       data_handler(query) {

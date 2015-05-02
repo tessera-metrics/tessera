@@ -2,12 +2,9 @@ module ts {
   export module models {
     export class SummationTable extends TablePresentation {
       static meta: DashboardItemMetadata = {
-        item_type: 'summation_table',
-        display_name: 'Summation Table',
-        icon: 'fa fa-table',
+        icon:     'fa fa-table',
         category: 'data-table',
-        requires_data: true,
-        template: ds.templates.models.summation_table
+        requires_data: true
       }
 
       show_color: boolean = false
@@ -17,25 +14,25 @@ module ts {
       constructor(data?: any) {
         super(data)
         if (data) {
-          this.show_color = Boolean(data.show_color)
+          this.show_color = !!data.show_color
           this.options = data.options
+          this.palette = data.palette
         }
       }
 
       toJSON() :any {
-        var data = super.toJSON()
-        if (this.show_color)
-          data.show_color = this.show_color
-        if (this.options)
-          data.options = this.options
-        return data
+        return $.extend(super.toJSON(), {
+          show_color: this.show_color,
+          options: this.options,
+          palette: this.palette
+        })
       }
 
       data_handler(query: ts.models.data.Query) : void {
         ts.log.logger('tessera.items.summation_table').debug('data_handler(): '
                                                              + query.name + '/' + this.item_id)
         var options = this.options || {}
-        var palette = ds.charts.util.get_palette(options.palette)
+        var palette = ds.charts.util.get_palette(options.palette || this.palette)
         var body = $('#' + this.item_id + ' tbody')
         body.empty()
         query.data.forEach((series, i) => {
