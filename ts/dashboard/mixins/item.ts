@@ -59,18 +59,15 @@ module ts {
       css_class: string
       height: number
       style: string
-      interactive: boolean
+      interactive: boolean // TODO - this can probably go away
       dashboard: any // TODO - Dashboard type when ready
       is_dashboard_item: boolean = true // TODO - remove this
-      private _query: string|ts.models.data.Query
-      private _query_override: string|ts.models.data.Query
 
       constructor(data?: any) {
         super(data)
         if (data) {
           if (data.item_id)
             this.item_id = data.item_id
-          this._query = data.query
           this.css_class = data.css_class
           this.height = data.height
           this.style = data.style
@@ -105,40 +102,6 @@ module ts {
 
       get requires_data() : boolean {
         return this.meta.requires_data
-      }
-
-      /* Query Accessors ------------------------------ */
-
-      get is_immediate_query() : boolean {
-        return typeof(this._query) !== 'string'
-      }
-
-      get query() : ts.models.data.Query {
-        if (typeof this._query === 'string' && this.dashboard) {
-          return this.dashboard.definition.queries[<string>this._query]
-        } else {
-          return <ts.models.data.Query>this._query
-        }
-      }
-
-      set query(value: ts.models.data.Query) {
-        if (this.dashboard.definition.queries[value.name]) {
-          this._query = value.name
-        } else {
-          this._query = value
-        }
-      }
-
-      get query_override() : ts.models.data.Query {
-        if (typeof this._query_override === 'string' && this.dashboard) {
-          return this.dashboard.definition.queries[<string>this._query_override]
-        } else {
-          return <ts.models.data.Query>this._query_override
-        }
-      }
-
-      set query_override(value: ts.models.data.Query) {
-        this._query_override = value
       }
 
       /* Chainable setters ------------------------------ */
@@ -178,21 +141,7 @@ module ts {
         return this
       }
 
-      set_query(value: string|ts.models.data.Query) : DashboardItem {
-        this._query = value
-        return this
-      }
-
-      set_query_override(value: string|ts.models.data.Query) : DashboardItem {
-        this._query_override = value
-        return this
-      }
-
       /* Core methods ------------------------------ */
-
-      /** Override this method in sub-classes to use query data to
-       * render a dashboard element. */
-      data_handler(query: ts.models.data.Query) : void { }
 
       /** Override this method in sub classes that have strings which
        * should be template-expanded before rendering. */
@@ -200,7 +149,6 @@ module ts {
 
       interactive_properties() : PropertyListEntry[] {
         return [
-          'query',
           { name: 'css_class', category: 'base'} ,
           { name: 'height', type: 'number', category: 'base' }
         ]
@@ -209,18 +157,6 @@ module ts {
       render() : string {
         if (!this.meta.template) {
           return "<p>Item type <code>" + this.item_type + "</code> is missing a template.</p>"
-        }
-
-        if (this.query || this.query_override) {
-          let query = this.query_override || this.query
-          if (typeof(query) === 'string') {
-            return `<p>ERROR: unresolved query <code>${query}</code>`
-              + `for item <code>${this.item_id}</code>`
-          } else {
-            (<ts.models.data.Query>query).on_load(q => {
-              this.data_handler(q)
-            })
-          }
         }
         return (<ts.TemplateFunction>this.meta.template)({item: this})
       }
@@ -245,9 +181,11 @@ module ts {
       get_queries() : ts.models.data.QueryDictionary {
         let queries : ts.models.data.QueryDictionary = {}
         this.visit(item => {
-          let q = item.query || item.query_override
-          if (q instanceof ts.models.data.Query) {
-            queries[q.name] = q
+          if (item instanceof Presentation) {
+            let q = item.query || item.query_override
+            if (q instanceof ts.models.data.Query) {
+              queries[q.name] = q
+            }
           }
         })
         return queries
@@ -258,11 +196,6 @@ module ts {
         data.item_type = this.item_type
         if (this.item_id)
           data.item_id = this.item_id
-        if (this.query) {
-          data.query = this.is_immediate_query
-            ? (<ts.models.data.Query>this._query).toJSON()
-            : this._query
-        }
         if (this.css_class)
           data.css_class = this.css_class
         if (this.height)

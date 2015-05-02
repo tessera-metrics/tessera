@@ -3,7 +3,7 @@ module ts {
 
     // TODO: it should be straightforward for this to extend
     // Singlestat now, instead of duplicating most ofit.
-    export class JumbotronSinglestat extends DashboardItem {
+    export class JumbotronSinglestat extends Presentation {
       static meta: DashboardItemMetadata = {
         item_type: 'jumbotron_singlestat',
         display_name: 'Jumbotron Singlestat',

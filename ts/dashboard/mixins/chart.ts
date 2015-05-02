@@ -39,7 +39,7 @@ module ts {
     /**
      * Base class for all chart presentation types
      */
-    export class Chart extends DashboardItem {
+    export class Chart extends Presentation {
       is_chart: boolean = true // TODO: remove this
       title: string
       legend: string = ChartLegendType.SIMPLE

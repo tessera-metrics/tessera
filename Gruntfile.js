@@ -25,6 +25,7 @@ module.exports = function(grunt) {
     'ts/dashboard/properties.ts',
     'ts/dashboard/mixins/model.ts',
     'ts/dashboard/mixins/item.ts',
+    'ts/dashboard/mixins/presentation.ts',
     'ts/dashboard/mixins/container.ts',
     'ts/dashboard/mixins/chart.ts',
     'ts/dashboard/models/**/*.ts',

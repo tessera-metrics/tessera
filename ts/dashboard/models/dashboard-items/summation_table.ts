@@ -1,6 +1,6 @@
 module ts {
   export module models {
-    export class SummationTable extends DashboardItem {
+    export class SummationTable extends Presentation {
       static meta: DashboardItemMetadata = {
         item_type: 'summation_table',
         display_name: 'Summation Table',

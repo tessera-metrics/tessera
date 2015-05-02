@@ -43,9 +43,6 @@ module ts {
           this.queries[key].render_templates(context)
         }
         this.visit((item) => {
-          if (item.query_override) {
-            (<ts.models.data.Query>item.query_override).render_templates(context)
-          }
           if ((item !== this) && item.render_templates) {
             item.render_templates(context)
           }
@@ -71,14 +68,16 @@ module ts {
         var queries_to_fire : any = {}
 
         this.visit((item) => {
-          var query = item.query_override || item.query
-          if (query) {
-            if (item.meta.requires_data || ds.charts.interactive) {
-              queries_to_load[query.name] = query
-              delete queries_to_fire[query.name]
-            } else {
-              if (!queries_to_load[query.name]) {
-                queries_to_fire[query.name] = query
+          if (item instanceof Presentation) {
+            var query = item.query_override || item.query
+            if (query) {
+              if (item.meta.requires_data || ds.charts.interactive) {
+                queries_to_load[query.name] = query
+                delete queries_to_fire[query.name]
+              } else {
+                if (!queries_to_load[query.name]) {
+                  queries_to_fire[query.name] = query
+                }
               }
             }
           }
@@ -122,8 +121,10 @@ module ts {
        */
       delete_query(query_name) : DashboardDefinition {
         this.visit((item) => {
-          if (item.query && (item.query.name === query_name)) {
-            item.query = undefined
+          if (item instanceof Presentation) {
+            if (item.query && (item.query.name === query_name)) {
+              item.query = undefined
+            }
           }
         })
         delete this.queries[query_name]
@@ -139,9 +140,11 @@ module ts {
           return this
         var updated = []
         this.visit((item) => {
-          if (item.query && (item.query.name == old_name)) {
-            item.query = new_name
+          if (item instanceof Presentation) {
+            if (item.query && (item.query.name == old_name)) {
+              item.query = new_name
             updated.push(item)
+            }
           }
         })
         query.name = new_name

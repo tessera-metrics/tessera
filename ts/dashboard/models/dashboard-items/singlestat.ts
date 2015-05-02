@@ -1,7 +1,7 @@
 module ts {
   export module models {
 
-    export class Singlestat extends DashboardItem {
+    export class Singlestat extends Presentation {
       static meta: DashboardItemMetadata = {
         item_type: 'singlestat',
         category: 'data-table',

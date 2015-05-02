@@ -9,7 +9,7 @@ module ts {
      * This version is slightly simpler to implement, because we don't
      * need to join on two asynchronously fetched queries.
      */
-    export class TimeshiftSummationTable extends DashboardItem {
+    export class TimeshiftSummationTable extends Presentation {
 
       static meta: DashboardItemMetadata = {
         item_type: 'timeshift_summation_table',
