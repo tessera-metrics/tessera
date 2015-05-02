@@ -169,5 +169,4 @@ module ts {
   }).on('change:shift', function(e) {
   update_query()
   })
-  ds.models.item.init(this, data)
 */

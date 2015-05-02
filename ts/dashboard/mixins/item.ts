@@ -219,7 +219,7 @@ module ts {
       }
 
       clone() : DashboardItem {
-        return ds.models.make(this.toJSON()).set_item_id(null)
+        return ts.models.make(this.toJSON()).set_item_id(null)
       }
 
       flatten() : DashboardItem[] {

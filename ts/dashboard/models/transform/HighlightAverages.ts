@@ -14,7 +14,7 @@ ts.transforms.register({
   transform_type: 'presentation',
 
   transform: function(item: any) : any {
-    var make    = ds.models.make
+    var make    = ts.models.make
     var query   = item.query
     var group   = (query.targets.length > 1) ? 'group(' + query.targets.join(',') + ')' : query.targets[0]
     var bg      = Color(window.getComputedStyle($('body')[0]).backgroundColor)

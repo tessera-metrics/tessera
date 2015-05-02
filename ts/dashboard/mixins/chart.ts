@@ -51,18 +51,18 @@ module ts {
           if (typeof(data.legend) !== 'undefined') {
             this.legend = data.legend
             if (typeof(data.legend) === 'boolean')
-              this.legend = data.legend ? ds.models.chart.LegendType.SIMPLE : undefined
+              this.legend = data.legend ? ts.models.ChartLegendType.SIMPLE : undefined
           }
           this.title = data.title
           this.options = data.options || {}
           if (data.options && data.options.y1) {
-            this.options.y1 = ds.models.Axis(data.options.y1)
+            this.options.y1 = new ts.models.Axis(data.options.y1)
           }
           if (data.options && data.options.y2) {
-          this.options.y2 = ds.models.Axis(data.options.y2)
+          this.options.y2 = new ts.models.Axis(data.options.y2)
           }
           if (data.options && data.options.x) {
-            this.options.x = ds.models.Axis(data.options.x)
+            this.options.x = new ts.models.Axis(data.options.x)
           }
 
         }
@@ -116,7 +116,7 @@ module ts {
                   item.options = {}
                 }
                 if (!item.options.y1) {
-                  item.options.y1 = ds.models.Axis()
+                  item.options.y1 = new ts.models.Axis()
                 }
                 item.options.y1.label = newValue
               }
@@ -138,7 +138,7 @@ module ts {
                   item.options = {}
                 }
                 if (!item.options.y1) {
-                  item.options.y1 = ds.models.Axis()
+                  item.options.y1 = new ts.models.Axis()
                 }
                 item.options.y1.min = newValue
               }
@@ -160,7 +160,7 @@ module ts {
                   item.options = {}
                 }
                 if (!item.options.y1) {
-                  item.options.y1 = ds.models.Axis()
+                  item.options.y1 = new ts.models.Axis()
                 }
                 item.options.y1.max = newValue
               }

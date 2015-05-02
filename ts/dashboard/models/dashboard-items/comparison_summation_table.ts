@@ -58,7 +58,6 @@ module ts {
     }).on('change:dashboard', function(e) {
     update_query()
     })
-    ds.models.item.init(this, data)
     update_query()
       */
 

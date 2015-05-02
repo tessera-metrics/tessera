@@ -19,7 +19,7 @@ ts.transforms.register({
   icon: '          fa fa-clock-o',
 
   transform: function(item: any) : any {
-    var make  = ds.models.make
+    var make  = ts.models.make
     var spans : { from: string, until?: string, title: string }[] = [
       { from: '-1h', title: 'Past Hour' },
       { from: '-4h', title: 'Past 4 Hours' },

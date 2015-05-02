@@ -173,7 +173,7 @@
     // Show the edit button bar across the top of the item
     $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').show()
     let item       = ds.manager.current.dashboard.get_item(item_id)
-    let item_type  = ds.models[item.item_type]
+    let item_type  = ts.models[item.item_type]
     let bar_id     = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
     let details_id = '#' + item_id + '-details'
     if ($(details_id).length == 0) {
@@ -351,7 +351,7 @@
       type = 'donut_chart'
     }
 
-    let chart = ds.models.make(type)
+    let chart = ts.models.make(type)
                   .set_query(query.name)
                   .set_dashboard(dash)
                   .set_height(Math.min(8, Math.floor(((data.height || 400) / 80))))

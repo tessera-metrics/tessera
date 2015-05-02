@@ -10,7 +10,7 @@ ts.transforms.register({
   icon: 'fa fa-clock-o',
 
   transform: function(item: any) : any {
-    var make  = ds.models.make
+    var make  = ts.models.make
     var query = item.query
     var shifts = [
       { shift:  '-1h', title: 'One Hour Ago' },

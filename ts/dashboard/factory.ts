@@ -7,8 +7,6 @@ module ts {
 
     export function register_dashboard_item(item_class) {
       let meta = item_class.meta
-      console.log(`register_dashboard_item "${meta.item_type}"`)
-      console.log(meta)
 
       metadata.set(meta.item_type, meta)
       constructors.set(meta.item_type, item_class)
@@ -22,9 +20,7 @@ module ts {
       }
 
       let instance = new item_class()
-      console.log(instance)
       let props = instance.interactive_properties().map(p => ds.property(p))
-      console.log(props)
       props.sort((p1, p2) => {
         if (p1.category === p2.category) {
           return p1.property_name.localeCompare(p2.property_name)
@@ -48,14 +44,14 @@ module ts {
       })
     }
 
-    export function make(data?: any) {
+    export function make(data: any, init?: any) {
 
       if (data instanceof DashboardItem) {
         return data
       }
 
       if ((typeof(data) === 'string') && constructors.has(data)) {
-        return new (constructors.get(data))()
+        return new (constructors.get(data))(init)
       }
 
       if (data.item_type && constructors.has(data.item_type)) {
