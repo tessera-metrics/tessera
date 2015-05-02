@@ -1,77 +1,66 @@
-/**
- * Descriptor may have the following attributes:
- *   - constructor
- *   - template
- *   - interactive_properties
- *   - data_handler
- *   - icon
- *   - display_name
- *   - category
- */
-ds.register_dashboard_item = function(item_type, descriptor) {
-  ds.models[item_type] = descriptor
-  if (descriptor.template && (typeof(descriptor.template) === 'string')) {
-    descriptor.template = Handlebars.compile(descriptor.template)
-  }
+module ts {
 
-  if (descriptor.actions && descriptor.actions.length) {
-    ts.actions.register(item_type, descriptor.actions)
-  }
+  export module models {
 
-  var props = (descriptor.interactive_properties || []).map(p => ds.property(p))
+    var constructors = new Map<string, DashboardItemConstructor>()
+    var metadata     = new Map<string, DashboardItemMetadata>()
 
-  props.sort(function(p1, p2) {
-    if (p1.category === p2.category) {
-      return p1.property_name.localeCompare(p2.property_name)
-    } else {
-      return (p1.category || '').localeCompare(p2.category || '')
+    export function register_dashboard_item(item_class) {
+      let meta = item_class.meta
+
+      metadata.set(meta.item_type, meta)
+      constructors.set(meta.item_type, item_class)
+
+      if (meta.template && (typeof(meta.template) === 'string')) {
+        meta.template = Handlebars.compile(meta.template)
+      }
+
+      if (meta.actions && meta.actions.length) {
+        ts.actions.register(meta.item_type, meta.actions)
+      }
+
+      let instance = new item_class()
+      let props = instance.interactive_properties().map(p => ds.property(p))
+      props.sort((p1, p2) => {
+        if (p1.category === p2.category) {
+          return p1.property_name.localeCompare(p2.property_name)
+        } else {
+          return (p1.category || '').localeCompare(p2.category || '')
+        }
+      })
+      meta.interactive_properties = props
+
+      var category = meta.category ? 'new-item-' + meta.category : 'new-item'
+
+      ts.actions.register(category, {
+        name:     meta.item_type,
+        display:  'Add new ' + (meta.display_name || meta.item_type),
+        icon:     meta.icon || '',
+        category: category,
+        class:   'new-item',
+        handler:  (action, container) => {
+          container.add(item_class())
+        }
+      })
     }
-  })
 
-  descriptor.interactive_properties = props
+    export function make(data: any, init?: any) {
 
-  var category = descriptor.category ? 'new-item-' + descriptor.category : 'new-item'
+      if (data instanceof DashboardItem) {
+        return data
+      }
 
-  ts.actions.register(category, {
-    name:     item_type,
-    display:  'Add new ' + (descriptor.display_name || item_type),
-    icon:     descriptor.icon || '',
-    category: category,
-    class:   'new-item',
-    handler:  function(action, container) {
-      container.add(item_type)
+      if ((typeof(data) === 'string') && constructors.has(data)) {
+        return new (constructors.get(data))(init)
+      }
+
+      if (data.item_type && constructors.has(data.item_type)) {
+        return new (constructors.get(data.item_type))(data)
+      }
+
+      console.error('Unknown item type ' + data.toString())
+
+      return null
     }
-  })
-
-  return ds
+  }
 }
-
-ds.models.factory = function(data) {
-  var item_type = null
-    , item = null
-
-  if (typeof(data) === 'string' && ds.models[data]) {
-    item_type = ds.models[data]
-    item = ( item_type.constructor ) ? item_type.constructor() : item_type()
-  } else if (data.is_dashboard_item) {
-    item = data;
-  } else if (data.item_type && ds.models[data.item_type]) {
-    item_type = ds.models[data.item_type]
-    if (item_type instanceof Function) {
-      item = item_type(data)
-    } else if (item_type.constructor) {
-      item = item_type.constructor(data)
-    }
-  }
-  if (item) {
-    if (item_type) {
-      item.interactive_properties = item_type.interactive_properties
-    }
-    return item
-  }
-  console.log('Unknown type');
-  console.log(data);
-  return null;
-}
-
-ds.models.make = ds.models.factory

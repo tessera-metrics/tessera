@@ -1,179 +1,276 @@
-/**
- * Base mixin for all dashboard items
- */
-ds.models.item =
-  (function() {
-    'use strict'
+module ts {
+  export module models {
 
-    function init(target, data) {
-      if (data) {
-        if (data.item_type)
-          target.item_type = data.item_type
-        if (data.item_id)
-          target.item_id = data.item_id
-        target.query = data.query
-        target.css_class = data.css_class
-        target.height = data.height
-        target.style = data.style
-        if (data.thresholds)
-          target.thresholds = ds.models.thresholds(data.thresholds)
-      }
-      return target
+    export const DashboardItemStyle = {
+      WELL:            'well',
+      CALLOUT_NEUTRAL: 'callout_neutral',
+      CALLOUT_INFO:    'callout_info',
+      CALLOUT_SUCCESS: 'callout_success',
+      CALLOUT_WARNING: 'callout_warning',
+      CALLOUT_DANGER:  'callout_danger',
+      ALERT_NEUTRAL:   'alert_neutral',
+      ALERT_INFO:      'alert_info',
+      ALERT_SUCCESS:   'alert_success',
+      ALERT_WARNING:   'alert_warning',
+      ALERT_DANGER:    'alert_danger',
     }
 
-    function extend(builder, options) {
-      Object.defineProperty(builder.target, 'is_dashboard_item', {value: true})
-      options = options || {}
-      builder.property('item_type', {init: options.item_type })
-             .property('item_id')
-             .property('css_class')
-             .property('height')
-             .property('style')
-             .property('thresholds') // moving to Query
-             .property('interactive')
-             .property('dashboard')
-             .property('query', {
-               get: function(context) {
-                 if (typeof(context.query) === 'string' && context.dashboard) {
-                   return context.dashboard.definition.queries[context.query]
-                 } else {
-                   return context.query
-                 }
-               }
-             })
-             .property('query_override', {
-               get: function(context) {
-                 if (typeof(context.query_override) === 'string' && context.dashboard) {
-                   return context.dashboard.definition.queries[context.query_override]
-                 } else {
-                   return context.query_override
-                 }
-               }
-             })
-             .property('is_immediate_query', {
-               get: function(context) {
-                 return typeof(context.query) !== 'string'
-               }
-             })
+    export const Transform = {
+      SUM: 'sum',
+      MIN: 'min',
+      MAX: 'max',
+      MEAN: 'mean',
+      MEDIAN: 'median'
+    }
 
-      /**
-       * Operations
-       */
+    // TODO: move to property.ts
+    export type PropertyListEntry = string|ts.PropertyDescriptor
+    export type PropertyList      = PropertyListEntry[]
 
-      var self = builder.target
+    export interface DashboardItemVisitor {
+      (item: DashboardItem) : void;
+    }
 
-      self.render = function() {
-        var item_type = ds.models[self.item_type]
+    export interface DashboardItemConstructor {
+      new(data?: any) : DashboardItem;
+    }
 
-        if (!item_type) {
-          return "<p>Unknown item type <code>" + self.item_type + "</code></p>"
+    export interface DashboardItemMetadata {
+      item_type: string
+      requires_data?: boolean
+      category?: string
+      display_name?: string
+      template?: string|ts.TemplateFunction
+      icon?: string,
+      actions?: ts.Action[]
+      interactive_properties?: PropertyList
+    }
+
+    /**
+     * Base class for all things that can be displayed on a dashboard.
+     *
+     * TODO: Query-related logic should be split out into a subclass
+     * (call it Presentation).
+     * TODO: Combine metadata from base classes by waking up the
+     * prototype chain as long as there's a 'meta' field
+     */
+    export class DashboardItem extends Model {
+      item_id: string
+      css_class: string
+      height: number
+      style: string
+      interactive: boolean
+      dashboard: any // TODO - Dashboard type when ready
+      is_dashboard_item: boolean = true // TODO - remove this
+      private _query: string|ts.models.data.Query
+      private _query_override: string|ts.models.data.Query
+
+      constructor(data?: any) {
+        super(data)
+        if (data) {
+          if (data.item_id)
+            this.item_id = data.item_id
+          this._query = data.query
+          this.css_class = data.css_class
+          this.height = data.height
+          this.style = data.style
+        }
+      }
+
+      /* Metadata Accessors ------------------------------ */
+
+      get meta() : DashboardItemMetadata {
+        return Object.getPrototypeOf(this).constructor.meta
+      }
+
+      get item_type() : string {
+        return this.meta.item_type
+      }
+
+      get item_category() : string {
+        return this.meta.category
+      }
+
+      get display_name() : string {
+        return this.meta.display_name
+      }
+
+      get template() : string|ts.TemplateFunction {
+        return this.meta.template
+      }
+
+      get icon() : string {
+        return this.meta.icon
+      }
+
+      get requires_data() : boolean {
+        return this.meta.requires_data
+      }
+
+      /* Query Accessors ------------------------------ */
+
+      get is_immediate_query() : boolean {
+        return typeof(this._query) !== 'string'
+      }
+
+      get query() : ts.models.data.Query {
+        if (typeof this._query === 'string' && this.dashboard) {
+          return this.dashboard.definition.queries[<string>this._query]
+        } else {
+          return <ts.models.data.Query>this._query
+        }
+      }
+
+      set query(value: ts.models.data.Query) {
+        if (this.dashboard.definition.queries[value.name]) {
+          this._query = value.name
+        } else {
+          this._query = value
+        }
+      }
+
+      get query_override() : ts.models.data.Query {
+        if (typeof this._query_override === 'string' && this.dashboard) {
+          return this.dashboard.definition.queries[<string>this._query_override]
+        } else {
+          return <ts.models.data.Query>this._query_override
+        }
+      }
+
+      set query_override(value: ts.models.data.Query) {
+        this._query_override = value
+      }
+
+      /* Chainable setters ------------------------------ */
+
+      // These were created automatically by the old `limivorous`
+      // observable object library. The could be created automatically
+      // by a utility function here too, but we'd lose the benefit of
+      // type-checking.
+
+      set_item_id(value: string) : DashboardItem {
+        this.item_id = value
+        return this
+      }
+
+      set_height(value: number) : DashboardItem {
+        this.height = value
+        return this
+      }
+
+      set_style(value: string) : DashboardItem {
+        this.style = value
+        return this
+      }
+
+      set_css_class(value: string) : DashboardItem {
+        this.css_class = value
+        return this
+      }
+
+      set_interactive(value: boolean) : DashboardItem {
+        this.interactive = value
+        return this
+      }
+
+      set_dashboard(value: any /* TODO */) : DashboardItem {
+        this.dashboard = value
+        return this
+      }
+
+      set_query(value: string|ts.models.data.Query) : DashboardItem {
+        this._query = value
+        return this
+      }
+
+      set_query_override(value: string|ts.models.data.Query) : DashboardItem {
+        this._query_override = value
+        return this
+      }
+
+      /* Core methods ------------------------------ */
+
+      /** Override this method in sub-classes to use query data to
+       * render a dashboard element. */
+      data_handler(query: ts.models.data.Query) : void { }
+
+      /** Override this method in sub classes that have strings which
+       * should be template-expanded before rendering. */
+      render_templates(context?: any) : void { }
+
+      interactive_properties() : PropertyListEntry[] {
+        return [
+          'query',
+          { name: 'css_class', category: 'base'} ,
+          { name: 'height', type: 'number', category: 'base' }
+        ]
+      }
+
+      render() : string {
+        if (!this.meta.template) {
+          return "<p>Item type <code>" + this.item_type + "</code> is missing a template.</p>"
         }
 
-        if (!item_type.template) {
-          return "<p>Item type <code>" + self.item_type + "</code> is missing a template.</p>"
-        }
-
-        if (item_type.data_handler && (self.query || self.query_override)) {
-          var query = self.query_override || self.query
+        if (this.query || this.query_override) {
+          let query = this.query_override || this.query
           if (typeof(query) === 'string') {
-            return '<p>ERROR: unresolved query <code>' + query
-                 + '</code> for item <code>'
-                 + self.item_id + '</code>'
+            return `<p>ERROR: unresolved query <code>${query}</code>`
+              + `for item <code>${this.item_id}</code>`
+          } else {
+            (<ts.models.data.Query>query).on_load(q => {
+              this.data_handler(q)
+            })
           }
-          query.on_load(function(q) {
-            item_type.data_handler(q, self)
-          })
         }
-        return item_type.template({item: self})
+        return (<ts.TemplateFunction>this.meta.template)({item: this})
       }
 
-      self.visit = function(visitor) {
-        visitor(self)
+      visit(visitor: DashboardItemVisitor) : DashboardItem {
+        visitor(this)
+        return this
       }
 
-      self.clone = function() {
-        return ds.models.make(self.toJSON()).set_item_id(null)
+      clone() : DashboardItem {
+        return ts.models.make(this.toJSON()).set_item_id(null)
       }
 
-      /**
-       * Various visitors for convenience.
-       */
-
-      self.flatten = function() {
-        var flat = []
-        self.visit(function(item) {
-          if (item.item_type) {
-            flat.push(item)
-          }
+      flatten() : DashboardItem[] {
+        let flat = []
+        this.visit(item => {
+          flat.push(item)
         })
-         return flat
+        return flat
       }
 
-      self.get_queries = function() {
-        var queries : any = {}
-        self.visit(function(i) {
-          var query = i.query || i.query_override
-          if (query && query instanceof ts.models.data.Query) {
-            queries[query.name] = query
+      get_queries() : ts.models.data.QueryDictionary {
+        let queries : ts.models.data.QueryDictionary = {}
+        this.visit(item => {
+          let q = item.query || item.query_override
+          if (q instanceof ts.models.data.Query) {
+            queries[q.name] = q
           }
         })
         return queries
       }
 
-      return builder
-    }
-
-    function json(target, data) {
-      data = data || {}
-      data.item_type = target.item_type
-      if (target.item_id)
-        data.item_id = target.item_id
-      if (target.query) {
-        data.query = target.is_immediate_query ? target.query.toJSON() : target.query.name
+      toJSON() : any {
+        let data : any = {}
+        data.item_type = this.item_type
+        if (this.item_id)
+          data.item_id = this.item_id
+        if (this.query) {
+          data.query = this.is_immediate_query
+            ? (<ts.models.data.Query>this._query).toJSON()
+            : this._query
+        }
+        if (this.css_class)
+          data.css_class = this.css_class
+        if (this.height)
+          data.height = this.height
+        if (this.style)
+          data.style = this.style
+        return data
       }
-      if (target.css_class)
-        data.css_class = target.css_class
-      if (target.height)
-        data.height = target.height
-      if (target.style)
-        data.style = target.style
-      if (target.thresholds) {
-        data.thresholds = target.thresholds.toJSON()
-      }
-      return data
-    }
-
-    return {
-      extend: extend,
-      init: init,
-      json: json
-    }
-  })()
-
-ds.models.item.Style = {
-  WELL:            'well',
-  CALLOUT_NEUTRAL: 'callout_neutral',
-  CALLOUT_INFO:    'callout_info',
-  CALLOUT_SUCCESS: 'callout_success',
-  CALLOUT_WARNING: 'callout_warning',
-  CALLOUT_DANGER:  'callout_danger',
-  ALERT_NEUTRAL:   'alert_neutral',
-  ALERT_INFO:      'alert_info',
-  ALERT_SUCCESS:   'alert_success',
-  ALERT_WARNING:   'alert_warning',
-  ALERT_DANGER:    'alert_danger',
+    } // end class DashboardItem
+  }
 }
-
-ds.models.item.Transform = {
-  SUM: 'sum',
-  MIN: 'min',
-  MAX: 'max',
-  MEAN: 'mean',
-  MEDIAN: 'median'
-}
-
-ds.models.item.interactive_properties = [
-  'query',
-  { name: 'css_class', category: 'base'} ,
-  { name: 'height', type: 'number', category: 'base' }
-]

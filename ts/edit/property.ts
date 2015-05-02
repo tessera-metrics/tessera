@@ -3,10 +3,19 @@ module ts {
 
   const proplog = ts.log.logger('tessera.property')
 
-  const Type = {
+  export const PropertyType = {
     SELECT: 'select',
     BOOLEAN: 'boolean',
     TEXT: 'text'
+  }
+
+  export interface PropertyDescriptor {
+    name: string
+    property_name?: string
+    category?: string
+    type?: string
+    template?: string|TemplateFunction
+    edit_options?: any
   }
 
   export class Property implements ts.registry.NamedObject {
@@ -34,7 +43,7 @@ module ts {
      *
      * If no template is supplied, the value's toString() value will
      * be used.  */
-    template: (ctx?: any) => string
+    template: TemplateFunction
 
     /** Options for setting up the edit widget. Things such as the
      * valid set of values for a select widget go here.  */
@@ -78,7 +87,7 @@ module ts {
     edit(item) : Property {
       proplog.debug(`edit(${this.name} / ${item.item_id})`)
       let default_options = {
-        type: Type.TEXT,
+        type: PropertyType.TEXT,
         value: item[this.property_name] || '',
         success: (ignore, newValue) => {
           proplog.debug(`update(${item.item_id}.${this.property_name}) => ${newValue}`)
@@ -88,7 +97,7 @@ module ts {
       }
       let options = $.extend({}, default_options, this.edit_options)
 
-      if (this.type === Type.BOOLEAN) {
+      if (this.type === PropertyType.BOOLEAN) {
         options.type = 'checklist'
         options.source = [
           { value: true, text: this.property_name }

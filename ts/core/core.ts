@@ -1,7 +1,11 @@
+module ts {
+  export interface TemplateFunction {
+    (ctx?: any) : string
+  }
+}
+
 var ds : any = window['ds'] || {}
 ds.models = ds.models || {}
-ds.models.data = ds.models.data || {}
-ds.models.transform = ds.models.transform || {}
 ds.edit = ds.edit || {}
 ds.edit.properties = ds.edit.properties || {}
 

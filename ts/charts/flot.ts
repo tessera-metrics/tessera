@@ -192,9 +192,9 @@
 
     function render_legend(item, query, options) {
       var legend_id = '#ds-legend-' + item.item_id
-      if ( item.legend === ds.models.chart.LegendType.SIMPLE ) {
+      if ( item.legend === ts.models.ChartLegendType.SIMPLE ) {
         render_simple_legend(legend_id, item, query, options)
-      } else if ( item.legend === ds.models.chart.LegendType.TABLE ) {
+      } else if ( item.legend === ts.models.ChartLegendType.TABLE ) {
         // TODO - render a summation_table as the legend
       }
     }

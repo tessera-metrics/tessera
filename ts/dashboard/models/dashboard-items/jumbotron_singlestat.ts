@@ -1,65 +1,69 @@
-ds.register_dashboard_item('jumbotron_singlestat', {
+module ts {
+  export module models {
 
-  display_name: 'Jumbotron Singlestat',
-  icon: 'fa fa-subscript',
-  category: 'data-table',
+    // TODO: it should be straightforward for this to extend
+    // Singlestat now, instead of duplicating most ofit.
+    export class JumbotronSinglestat extends DashboardItem {
+      static meta: DashboardItemMetadata = {
+        item_type: 'jumbotron_singlestat',
+        display_name: 'Jumbotron Singlestat',
+        icon: 'fa fa-subscript',
+        category: 'data-table',
+        template: ds.templates.models.jumbotron_singlestat,
+        requires_data: true
+      }
 
-  constructor: function(data) {
-    'use strict'
+      title: string
+      units: string
+      format: string = ',.3s'
+      index: number
+      transform: string = 'mean'
 
-    var self = limivorous.observable()
-                         .property('title')
-                         .property('units')
-                         .property('format', {init: ',.3s'})
-                         .property('index')
-                         .property('transform', {init: 'mean'})
-                         .extend(ds.models.item, {item_type: 'jumbotron_singlestat'})
-                         .build()
-    Object.defineProperty(self, 'requires_data', {value: true})
+      constructor(data?: any) {
+        super(data)
+        if (data) {
+          this.title = data.title
+          this.units = data.units
+          this.format = data.format || this.format
+          this.index = data.index
+          this.transform = data.transform || this.transform
+        }
+      }
 
-    if (data) {
-      self.title = data.title
-      self.units = data.units
-      self.format = data.format || self.format
-      self.index = data.index
-      self.transform = data.transform || self.transform
+      toJSON() : any {
+        var data = super.toJSON()
+        if (this.title)
+          data.title = this.title
+        if (this.format)
+          data.format = this.format
+        if (this.transform)
+          data.transform = this.transform
+        if (this.units)
+          data.units = this.units
+        if (this.index)
+          data.index = this.index
+        return data
+      }
+
+      data_handler(query) {
+        var element = $('#' + this.item_id + ' span.value')
+        var value = query.summation[this.transform]
+        if (this.index) {
+          value = query.data[this.index].summation[this.transform]
+        }
+        $(element).text(d3.format(this.format)(value))
+      }
+
+      interactive_properties(): PropertyListEntry[] {
+        return super.interactive_properties().concat([
+          'title',
+          'units',
+          'format',
+          { name: 'index', type: 'number' },
+          'transform'
+        ])
+      }
     }
-    ds.models.item.init(self, data)
-
-    self.toJSON = function() {
-      var data = ds.models.item.json(self)
-      if (self.title)
-        data.title = self.title
-      if (self.format)
-        data.format = self.format
-      if (self.transform)
-        data.transform = self.transform
-      if (self.units)
-        data.units = self.units
-      if (self.index)
-        data.index = self.index
-      return data
-    }
-
-    return self
-  },
-
-  data_handler: function(query, item) {
-    var element = $('#' + item.item_id + ' span.value')
-    var value = query.summation[item.transform]
-    if (item.index) {
-      value = query.data[item.index].summation[item.transform]
-    }
-    $(element).text(d3.format(item.format)(value))
-  },
-
-  template: ds.templates.models.jumbotron_singlestat,
-
-  interactive_properties: [ 'title',
-                            'units',
-                            'format',
-                            { name: 'index', type: 'number' },
-                            'transform'
-                          ].concat(ds.models.item.interactive_properties)
-
-})
+    ts.models.register_dashboard_item(JumbotronSinglestat)
+  }
+}

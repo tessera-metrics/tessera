@@ -1,36 +1,36 @@
-ds.models.Axis = function(data) {
-  'use strict'
+module ts {
+  export module models {
+    export class Axis extends Model {
+      visible: boolean
+      label: string
+      label_distance: number
+      format: string
+      min: number
+      max: number
+      is_axis: boolean = true // TODO: remove this
 
-  var self = limivorous.observable()
-                       .property('visible')
-                       .property('label')
-                       .property('label_distance')
-                       .property('format')
-                       .property('min')
-                       .property('max')
-                       .build()
+      constructor(data?: any) {
+        super(data)
+        if (data) {
+          this.visible = data.visible
+          this.label = data.label
+          this.label_distance = data.label_distance
+          this.format = data.format
+          this.min = data.min
+          this.max = data.max
+        }
+      }
 
-  Object.defineProperty(self, 'is_axis', {value: true})
-
-  if (data) {
-    self.value = data.visible
-    self.label = data.label
-    self.label_distance = data.label_distance
-    self.format = data.format
-    self.min = data.min
-    self.max = data.max
-  }
-
-  self.toJSON = function() {
-    return {
-      visible: self.visible,
-      label: self.label,
-      label_distance: self.label_distance,
-      format: self.format,
-      min: self.min,
-      max: self.max
+      toJSON() : any {
+        return {
+          visible: this.visible,
+          label: this.label,
+          label_distance: this.label_distance,
+          format: this.format,
+          min: this.min,
+            max: this.max
+        }
+      }
     }
   }
-
-  return self
 }

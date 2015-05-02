@@ -1,7 +1,7 @@
 <table class="ds-property-sheet">
   <tbody>
     <tr><th>Property</th><th>Value</th></tr>
-    {{#each item.interactive_properties}}
+    {{#each item.meta.interactive_properties}}
       <tr>
         <td><span class="ds-property-category">{{#if category}}{{category}}</span> / {{/if}}<span class="ds-property-name">{{property_name}}</span></td>
         <td data-ds-property-name="{{property_name}}">{{interactive_property this ../item}}</td>

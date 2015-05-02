@@ -1,58 +1,58 @@
-ds.register_dashboard_item('simple_time_series', {
+module ts {
+  export module models {
+    export class SimpleTimeSeries extends Chart {
+      static meta: DashboardItemMetadata = {
+        item_type: 'simple_time_series',
+        display_name: 'Simple Time Series',
+        icon: 'fa fa-line-chart',
+        category: 'chart',
+        requires_data: true,
+        template: ds.templates.models.simple_time_series
+      }
 
-  display_name: 'Simple Time Series',
-  icon: 'fa fa-line-chart',
-  category: 'chart',
+      filled: boolean = false
+      show_max_value: boolean = false
+      show_min_value: boolean = false
+      show_last_value: boolean = false
 
-  constructor: function(data) {
-    'use strict'
+      constructor(data?: any) {
+        super(data)
+        if (data) {
+          this.legend = data.legend
+          this.filled = Boolean(data.filled)
+          this.show_max_value = Boolean(data.show_max_value)
+          this.show_min_value = Boolean(data.show_min_value)
+          this.show_last_value = Boolean(data.show_last_value)
+          this.height = 1
+        }
+      }
 
-    var self = limivorous.observable()
-                         .extend(ds.models.item, {item_type: 'simple_time_series'})
-                         .extend(ds.models.chart)
-                         .property('filled', {init: false})
-                         .property('show_max_value', {init: false})
-                         .property('show_min_value', {init: false})
-                         .property('show_last_value', {init: false})
-                         .build()
+      toJSON() : any {
+        return $.extend(super.toJSON(), {
+          filled: this.filled,
+          show_max_value: this.show_max_value,
+          show_min_value: this.show_min_value,
+          show_last_value: this.show_last_value
+        })
+      }
 
-    if (data) {
-      self.legend = data.legend
-      self.filled = Boolean(data.filled)
-      self.show_max_value = Boolean(data.show_max_value)
-      self.show_min_value = Boolean(data.show_min_value)
-      self.show_last_value = Boolean(data.show_last_value)
+      data_handler(query: ts.models.data.Query) : void {
+        if (this.filled) {
+          ds.charts.simple_area_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)
+        } else {
+          ds.charts.simple_line_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)
+        }
+      }
+
+      interactive_properties() : PropertyListEntry[] {
+        return super.interactive_properties().concat([
+          { name: 'filled', type: 'boolean' },
+          { name: 'show_max_value', type: 'boolean' },
+          { name: 'show_min_value', type: 'boolean' },
+          { name: 'show_last_value', type: 'boolean' }
+        ])
+      }
     }
-    ds.models.chart.init(self, data)
-    ds.models.item.init(self, $.extend({ height: 1 }, data))
-
-    self.toJSON = function() {
-      return ds.models.chart.json(self, ds.models.item.json(self, {
-        filled: self.filled,
-        show_max_value: self.show_max_value,
-        show_min_value: self.show_min_value,
-        show_last_value: self.show_last_value
-      }))
-    }
-
-    return self
-  },
-
-  data_handler: function(query, item) {
-    if (item.filled) {
-      ds.charts.simple_area_chart($('#' + item.item_id + ' .ds-graph-holder'), item, query)
-    } else {
-      ds.charts.simple_line_chart($('#' + item.item_id + ' .ds-graph-holder'), item, query)
-    }
-  },
-
-  template: ds.templates.models.simple_time_series,
-
-  interactive_properties: [
-    { name: 'filled', type: 'boolean' },
-    { name: 'show_max_value', type: 'boolean' },
-    { name: 'show_min_value', type: 'boolean' },
-    { name: 'show_last_value', type: 'boolean' }
-  ].concat(ds.models.chart.interactive_properties,
-           ds.models.item.interactive_properties)
-})
+    ts.models.register_dashboard_item(SimpleTimeSeries)
+  }
+}

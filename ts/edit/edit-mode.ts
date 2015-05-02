@@ -173,7 +173,6 @@
     // Show the edit button bar across the top of the item
     $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').show()
     let item       = ds.manager.current.dashboard.get_item(item_id)
-    let item_type  = ds.models[item.item_type]
     let bar_id     = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
     let details_id = '#' + item_id + '-details'
     if ($(details_id).length == 0) {
@@ -183,10 +182,10 @@
       let details = ds.templates['ds-edit-bar-item-details']({item:item})
       elt.append(details)
 
-      if (item_type.interactive_properties) {
+      if (item.meta.interactive_properties) {
         // Run the edit handlers for each property, which make them
         // editable and set up the callbacks for their updates
-        for (let prop of item_type.interactive_properties) {
+        for (let prop of item.meta.interactive_properties) {
           prop.edit(item)
         }
       }
@@ -272,7 +271,7 @@
     handler: function(action, item) {
       let dashboard = ds.manager.current.dashboard
       let parent = dashboard.find_parent(item)
-      let dup = ds.models.factory(item.toJSON()).set_item_id(null)
+      let dup = ts.models.make(item.toJSON()).set_item_id(null)
       dup.visit(function(child) {
         child.item_id = null
       })
@@ -351,7 +350,7 @@
       type = 'donut_chart'
     }
 
-    let chart = ds.models.make(type)
+    let chart = ts.models.make(type)
                   .set_query(query.name)
                   .set_dashboard(dash)
                   .set_height(Math.min(8, Math.floor(((data.height || 400) / 80))))

@@ -1,88 +1,91 @@
-/**
- * Mixin for all dashboard items that contain other items.
- */
-ds.models.container =
-  (function() {
-    'use strict'
+module ts {
+  export module models {
 
-    function init(target, data) {
-      if (data && data.items) {
-        target.items = data.items.map(function(i) {
-                         return ds.models.factory(i)
-                       })
+    /**
+     * Base class for all dashboard items that contain other items.
+     *
+     * TODO: implement iterator protocol for for..of support
+     */
+    export class Container extends DashboardItem {
+      items: DashboardItem[]
+      is_container: boolean = true // TODO: remove this
+
+      get length() : number {
+        return this.items ? this.items.length : 0
       }
-    }
 
-    function extend(builder, options) {
-      Object.defineProperty(builder.target, 'is_container', {value: true})
-      builder.property('items', {init: []})
-             .property('length', {
-               get: function(context) {
-                 return context.items.length
-               }
-             })
+      constructor(data?: any) {
+        super(data)
+        if (data && data.items) {
+          this.items = data.items.map(i => ts.models.make(i))
+        }
+      }
 
-      var self = builder.target
-
-      self.find = function(item_or_id) {
+      /**
+       * Find the index of a contained dashboard item.
+       *
+       * @return The numeric index (0-based) or -1 if not found.
+       */
+      find(item_or_id: string|DashboardItem) : number {
         var id = item_or_id
-        if (item_or_id instanceof Object && item_or_id.item_id) {
+        if (item_or_id instanceof DashboardItem) {
           id = item_or_id.item_id
         }
-        for (var i = 0; i < self.items.length; i++) {
-          if (self.items[i].item_id === id) {
+        for (var i = 0; i < this.items.length; i++) {
+          if (this.items[i].item_id === id) {
             return Number(i)
           }
         }
         return -1
       }
 
-      self.contains = function(item_or_id) {
-        return self.find(item_or_id) > -1
+      contains(item_or_id: string|DashboardItem) : boolean {
+        return this.find(item_or_id) > -1
       }
 
-      self.visit = function(visitor) {
-        visitor(self)
-        self.items.forEach(function(item) {
+
+      visit(visitor: DashboardItemVisitor) : DashboardItem {
+        visitor(this)
+        this.items.forEach(item => {
           if (item.visit && typeof(item.visit) === 'function') {
             item.visit(visitor)
           } else {
             visitor(item)
           }
         })
-        return self
+        return this
       }
 
-      self.add = function(item) {
+      add(item: string|DashboardItem) : DashboardItem {
         if (typeof(item) === 'string') {
-          item = ds.models.factory(item)
+          item = ts.models.make(item)
         }
-        self.items.push(item)
-        self.notify('items')
+        this.items.push(<DashboardItem>item)
+        // this.notify('items')
         /* This should go in an event handler */
         ds.manager.current.dashboard.update_index()
-        ds.manager.update_item_view(self)
-        return self
+        ds.manager.update_item_view(this)
+        return this
       }
 
-      self.add_after = function(item, new_item) {
-        var index = self.find(item)
-        if ((index === -1) || index === (self.length - 1)) {
-          self.items.push(new_item)
+      add_after(item: string|DashboardItem, new_item: DashboardItem) : DashboardItem {
+        let index = this.find(item)
+        if ((index === -1) || index === (this.length - 1)) {
+          this.items.push(new_item)
         } else {
-          self.items.splice(index + 1, 0, new_item)
+          this.items.splice(index + 1, 0, new_item)
         }
-        self.notify('items')
-        return self
+        // this.notify('items')
+        return this
       }
 
-      self.remove = function(item) {
-        var index = self.find(item)
+      remove(item) : boolean {
+        let index = this.find(item)
         if (index < 0) {
           return false
         }
-        self.items.splice(index, 1)
-        self.notify('items')
+        this.items.splice(index, 1)
+        // this.notify('items')
         return true
       }
 
@@ -97,39 +100,30 @@ ds.models.container =
        *                           place, or -1 to move it back one
        *                           element.
        */
-      self.move = function(item, increment) {
-        var index = self.find(item)
+      move(item: DashboardItem, increment: number) {
+        let index = this.find(item)
         if (index < 0) {
           return false
         }
         if (index == 0 && increment < 0) {
           return false
         }
-        if (index == (self.length - 1) && increment > 0) {
+        if (index == (this.length - 1) && increment > 0) {
           return false
         }
-        var target_index = index + increment
-        var tmp = self.items[target_index]
-        self.items[target_index] = item
-        self.items[index] = tmp
-        self.notify('items')
+        let target_index = index + increment
+        let tmp = this.items[target_index]
+        this.items[target_index] = item
+        this.items[index] = tmp
+        // this.notify('items')
         return true
       }
 
-      return builder
+      toJSON() : any {
+        return $.extend(super.toJSON(), {
+          items: this.items.map(i => i.toJSON())
+        })
+      }
     }
-
-    function json(target, data) {
-      data = data || {}
-      data.items = target.items.map(function(i) {
-                     return i.toJSON()
-                   })
-      return data
-    }
-
-    return {
-      extend: extend,
-      init: init,
-      json: json
-    }
-  })()
+  }
+}

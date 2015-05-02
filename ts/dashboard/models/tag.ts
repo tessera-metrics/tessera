@@ -1,47 +1,46 @@
-ds.models.tag = function(data) {
-  "use strict"
+module ts {
+  export module models {
+    export class Tag extends Model {
+      id: string
+      href: string
+      name: string
+      description: string
+      color: string
+      count: number
+      is_tag: boolean = true // TODO: remove this
 
-  var self = limivorous.observable()
-                       .property('id')
-                       .property('href')
-                       .property('name')
-                       .property('description')
-                       .property('color')
-                       .property('count')
-                       .build()
-  Object.defineProperty(self, 'is_tag', {value: true})
-
-  if (data) {
-      if (data.is_tag) {
-        return data
-      } else if (typeof data === 'string') {
-        self.name = data
-      } else {
-        self.id = data.id
-        self.href = data.href
-        self.name = data.name
-        self.description = data.description
-        self.color = data.color
-        self.count = data.count
+      constructor(data?: any) {
+        super(data)
+        if (data) {
+          if (typeof data === 'string') {
+            this.name = data
+          } else {
+            this.id = data.id
+            this.href = data.href
+            this.name = data.name
+            this.description = data.description
+            this.color = data.color
+            this.count = data.count
+          }
+        }
       }
-  }
 
-  self.toJSON = function() {
-    var json : any = {}
-    if (self.id)
-      json.id = self.id
-    if (self.href)
-      json.href = self.href
-    if (self.name)
-      json.name = self.name
-    if (self.description)
-      json.description = self.description
-    if (self.color)
-      json.color = self.color
-    if (self.count)
-      json.count = self.count
-    return json
+      toJSON() : any {
+        var json : any = {}
+        if (this.id)
+          json.id = this.id
+        if (this.href)
+          json.href = this.href
+        if (this.name)
+          json.name = this.name
+        if (this.description)
+          json.description = this.description
+        if (this.color)
+          json.color = this.color
+        if (this.count)
+          json.count = this.count
+        return json
+      }
+    }
   }
-
-  return self
 }

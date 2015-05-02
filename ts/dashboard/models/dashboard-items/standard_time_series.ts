@@ -1,34 +1,24 @@
-ds.register_dashboard_item('standard_time_series', {
+module ts {
+  export module models {
 
-  display_name: 'Standard Time Series',
-  icon: 'fa fa-line-chart',
-  category: 'chart',
+    export class StandardTimeSeries extends Chart {
+      static meta: DashboardItemMetadata = {
+        item_type: 'standard_time_series',
+        display_name: 'Standard Time Series',
+        icon: 'fa fa-line-chart',
+        category: 'chart',
+        template: ds.templates.models.standard_time_series,
+        requires_data: true
+      }
 
-  constructor: function(data) {
-    'use strict'
+      constructor(data?: any) {
+        super(data)
+      }
 
-    var self = limivorous.observable()
-                         .extend(ds.models.item, {item_type: 'standard_time_series'})
-                         .extend(ds.models.chart)
-                         .build()
-
-    ds.models.chart.init(self, data)
-    ds.models.item.init(self, data)
-
-    self.toJSON = function() {
-      return ds.models.chart.json(self, ds.models.item.json(self))
+      data_handler(query) : void {
+        ds.charts.standard_line_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)
+      }
     }
-
-    return self
-  },
-
-  data_handler: function(query, item) {
-    ds.charts.standard_line_chart($('#' + item.item_id + ' .ds-graph-holder'), item, query)
-  },
-
-  template: ds.templates.models.standard_time_series,
-
-  interactive_properties: ds.models.chart.interactive_properties
-                            .concat(ds.models.item.interactive_properties)
-
-})
+    ts.models.register_dashboard_item(StandardTimeSeries)
+  }
+}

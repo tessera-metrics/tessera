@@ -1,57 +1,58 @@
-ds.register_dashboard_item('singlegraph', {
+module ts {
+  export module models {
+    export class Singlegraph extends Chart {
+      static meta: DashboardItemMetadata = {
+        item_type: 'singlegraph',
+        display_name: 'Singlegraph',
+        icon: 'fa fa-image',
+        category: 'chart',
+        requires_data: true,
+        template: ds.templates.models.singlegraph
+      }
 
-  display_name: 'Singlegraph',
-  icon: 'fa fa-image',
-  category: 'chart',
+      format: string = ',.1s'
+      transform: string = 'mean'
+      index: number
 
-  constructor: function(data) {
-    'use strict'
+      constructor(data?: any) {
+        super(data)
+        if (data) {
+          this.format = data.format || this.format
+          this.transform = data.transform || this.transform
+          this.index = data.index
+          if (!this.height)
+            this.height = 1
+        }
+      }
 
-    var self = limivorous.observable()
-                         .property('format', {init: ',.1s'})
-                         .property('transform', {init: 'mean'})
-                         .extend(ds.models.item, {item_type: 'singlegraph'})
-                         .extend(ds.models.chart)
-                         .build()
-    Object.defineProperty(self, 'requires_data', {value: true})
+      toJSON() : any {
+        return $.extend(super.toJSON(), {
+          format: this.format,
+          transform: this.transform,
+          index: this.index
+        })
+      }
 
-    if (data) {
-      self.format = data.format || self.format
-      self.transform = data.transform || self.transform
+      data_handler(query) {
+        if (!query.data)
+          return
+        ds.charts.simple_area_chart($("#" + this.item_id + ' .ds-graph-holder'), this, query)
+        this.options.margin = { top: 0, left: 0, bottom: 0, right: 0 }
+        var label = query.data[this.index || 0].key
+        var value = query.summation[this.transform]
+        if (this.index) {
+          value = query.data[this.index].summation[this.transform]
+        }
+        $('#' + this.item_id + ' span.value').text(d3.format(this.format)(value))
+        $('#' + this.item_id + ' span.ds-label').text(label)
+      }
+
+      interactive_properties(): PropertyListEntry[] {
+        return super.interactive_properties().concat([
+          'format', 'transform'
+        ])
+      }
     }
-    ds.models.chart.init(self, data)
-    ds.models.item.init(self, data)
-    if (!self.height) {
-      self.height = 1
-    }
-
-    self.toJSON = function() {
-      return ds.models.chart.json(self, ds.models.item.json(self, {
-        format: self.format,
-        transform: self.transform
-      }))
-    }
-    return self
-  },
-
-  data_handler: function(query, item) {
-    if (!query.data)
-      return
-    ds.charts.simple_area_chart($("#" + item.item_id + ' .ds-graph-holder'), item, query)
-    item.options.margin = { top: 0, left: 0, bottom: 0, right: 0 }
-    var label = query.data[item.index || 0].key
-    var value = query.summation[item.transform]
-    if (item.index) {
-      value = query.data[item.index].summation[item.transform]
-    }
-    $('#' + item.item_id + ' span.value').text(d3.format(item.format)(value))
-    $('#' + item.item_id + ' span.ds-label').text(label)
-  },
-
-  template: ds.templates.models.singlegraph,
-
-  interactive_properties: [ 'format', 'transform' ]
-                            .concat(ds.models.chart.interactive_properties,
-                                    ds.models.item.interactive_properties)
-
-})
+    ts.models.register_dashboard_item(Singlegraph)
+  }
+}

@@ -7,7 +7,7 @@ ts.transforms.register({
   transform_type: 'presentation',
 
   transform: function(item: any) : any {
-    var make = ds.models.make
+    var make = ts.models.make
     var options = item.options || {}
     return make('section')
              .add(make('row')

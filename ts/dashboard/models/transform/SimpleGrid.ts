@@ -40,8 +40,8 @@ module ts {
 
         transform(item: any) : any {
           var items       = item.flatten()
-          var section     = ds.models.make('section').set_layout(this.section_type)
-          var current_row = ds.models.make('row')
+          var section     = ts.models.make('section').set_layout(this.section_type)
+          var current_row = ts.models.make('row')
 
           items.forEach( (item) => {
             if (   item.item_type === 'dashboard_definition'
@@ -51,13 +51,13 @@ module ts {
                    || (this.charts_only && !item.is_chart)) {
               return
             }
-            var cell = ds.models.make('cell')
+            var cell = ts.models.make('cell')
               .set_span(this.span)
               .add(item)
 
             if (current_row.add(cell).length == this.columns) {
               section.add(current_row)
-              current_row = ds.models.make('row')
+              current_row = ts.models.make('row')
             }
           } )
 
