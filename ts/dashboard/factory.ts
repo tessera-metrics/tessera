@@ -14,7 +14,7 @@ module ts {
      *
      * @see DashboardItemConstructor
      */
-    export function register_dashboard_item(item_class) {
+    export function register_dashboard_item(item_class: DashboardItemConstructor) {
       if (!item_class.meta) {
         item_class.meta = {}
       }
