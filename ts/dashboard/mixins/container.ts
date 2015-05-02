@@ -7,7 +7,7 @@ module ts {
      * TODO: implement iterator protocol for for..of support
      */
     export class Container extends DashboardItem {
-      items: DashboardItem[]
+      items: DashboardItem[] = []
       is_container: boolean = true // TODO: remove this
 
       get length() : number {
