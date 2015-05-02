@@ -75,7 +75,7 @@ module ts {
         category: category,
         class:   'new-item',
         handler:  (action, container) => {
-          container.add(item_class())
+          container.add(new item_class())
         }
       })
     }
