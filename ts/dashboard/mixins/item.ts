@@ -70,6 +70,7 @@ module ts {
           this.css_class = data.css_class
           this.height = data.height
           this.style = data.style
+          this.dashboard = data.dashboard
         }
       }
 
@@ -182,7 +183,7 @@ module ts {
         this.visit(item => {
           if (item instanceof Presentation) {
             let q = item.query || item.query_override
-            if (q instanceof ts.models.data.Query) {
+            if (q) {
               queries[q.name] = q
             }
           }

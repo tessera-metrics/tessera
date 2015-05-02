@@ -49,22 +49,58 @@ module ts {
             }
           })
         ]
-
       }
 
-      shift: string = '1d'
+      private _shift: string = '1d'
 
       constructor(data?: any) {
         super(data)
         if (data) {
-          this.shift = data.shift || this.shift
+          this._shift = data.shift || this._shift
+        }
+        this._update_query()
+      }
+
+      _update_query() : void {
+        if (this._query && this.dashboard) {
+          let query = this.dashboard.definition.queries[this._query]
+          this.query_override = query
+            .join(query.shift(this.shift))
+            .set_name(this.item_id + '_shifted')
+          this.query_override.render_templates(ds.context().variables)
         }
       }
 
+      set query(value: ts.models.data.Query) {
+        super.set_query(value)
+        this._update_query()
+      }
+
+      set_query(value: string|ts.models.data.Query) : DashboardItem {
+        super.set_query(value)
+        this._update_query()
+        return this
+      }
+
+      set_dashboard(value: any) : DashboardItem {
+        super.set_dashboard(value)
+        this._update_query()
+        return this
+      }
+
+      get shift() : string {
+        return this._shift
+      }
+
+      set shift(value: string) {
+        this._shift = value
+        this._update_query()
+      }
+
       toJSON() : any {
-        let data = super.toJSON()
-        data.shift = this.shift
-        return data
+        return $.extend(super.toJSON(), {
+          shift: this.shift
+        })
       }
 
       data_handler(query: ts.models.data.Query) : void {
@@ -95,7 +131,7 @@ module ts {
           now:  now,
           then: then,
           diff: diff,
-          item: item
+          item: this
         }))
         if (this.sortable) {
           body.parent().DataTable({
@@ -116,21 +152,3 @@ module ts {
     ts.models.register_dashboard_item(TimeshiftSummationTable)
   }
 }
-
-/*
-  function update_query() {
-  if (this.query && this.query instanceof ts.models.data.Query) {
-  this.query_override =
-  this.query.join(this.query.shift(this.shift)).set_name(this.item_id + '_shifted')
-  this.query_override.render_templates(ds.context().variables)
-  }
-  }
-
-  this.on('change:query', function(e) {
-  update_query()
-  }).on('change:dashboard', function(e) {
-  update_query()
-  }).on('change:shift', function(e) {
-  update_query()
-  })
-*/
