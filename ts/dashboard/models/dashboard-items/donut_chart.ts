@@ -28,7 +28,7 @@ module ts {
       }
 
       toJSON() : any {
-        return $.extends(super.toJSON(), {
+        return $.extend(super.toJSON(), {
           labels: this.labels,
           is_pie: this.is_pie,
           hide_zero_series: this.hide_zero_series

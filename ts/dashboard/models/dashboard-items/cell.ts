@@ -20,6 +20,21 @@ module ts {
         }
       }
 
+      set_span(value: number) : Cell {
+        this.span = value
+        return this
+      }
+
+      set_offset(value: number) : Cell {
+        this.offset = value
+        return this
+      }
+
+      set_align(value: string) : Cell {
+        this.align = value
+        return this
+      }
+
       toJSON() : any {
         var data = super.toJSON()
         if (this.span)

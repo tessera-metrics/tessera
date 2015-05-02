@@ -26,6 +26,11 @@ module ts {
         }
       }
 
+      set_layout(value: string) : Section {
+        this.layout = value
+        return this
+      }
+
       toJSON() :any {
         var data = super.toJSON()
         if (this.title)
