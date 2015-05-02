@@ -40,7 +40,7 @@ module ts {
       }
 
 
-      toJSON() {
+      toJSON() : any {
         let data = super.toJSON()
         if (this.title)
           data.title = this.title
