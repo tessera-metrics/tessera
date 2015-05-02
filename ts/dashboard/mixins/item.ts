@@ -110,7 +110,7 @@ module ts {
       /* Query Accessors ------------------------------ */
 
       get is_immediate_query() : boolean {
-        return typeof(this.query) !== 'string'
+        return typeof(this._query) !== 'string'
       }
 
       get query() : ts.models.data.Query {
@@ -121,12 +121,24 @@ module ts {
         }
       }
 
+      set query(value: ts.models.data.Query) {
+        if (this.dashboard.definition.queries[value.name]) {
+          this._query = value.name
+        } else {
+          this._query = value
+        }
+      }
+
       get query_override() : ts.models.data.Query {
         if (typeof this._query_override === 'string' && this.dashboard) {
           return this.dashboard.definition.queries[<string>this._query_override]
         } else {
           return <ts.models.data.Query>this._query_override
         }
+      }
+
+      set query_override(value: ts.models.data.Query) {
+        this._query_override = value
       }
 
       /* Chainable setters ------------------------------ */

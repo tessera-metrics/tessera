@@ -30,6 +30,10 @@ module ts {
         }
       }
 
+      set query_other(value: string|ts.models.data.Query) {
+          this._query_other = value
+      }
+
       constructor(data?: any) {
         super(data)
         if (data) {
