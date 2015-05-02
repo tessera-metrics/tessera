@@ -3,10 +3,8 @@ module ts {
 
     /**
      * A summation table that compares two arbitrary queries.
-     *
-     * TODO - make a table item base class
      */
-    export class ComparisonSummationTable extends DashboardItem {
+    export class ComparisonSummationTable extends TablePresentation {
       static meta: DashboardItemMetadata = {
         item_type: 'comparison_summation_table',
         display_name: 'Comparison Summation Table',
@@ -16,10 +14,6 @@ module ts {
         template: ds.templates.models.comparison_summation_table
       }
 
-      striped: boolean = false
-      sortable: boolean = false
-      format: string = ',.3s'
-      title: string
       private _query_other: string|ts.models.data.Query
 
       get query_other() : string|ts.models.data.Query {
@@ -37,10 +31,6 @@ module ts {
       constructor(data?: any) {
         super(data)
         if (data) {
-          this.striped = !!data.striped
-          this.sortable = !!data.sortable
-          this.title = data.title
-          this.format = data.format || this.format
           this.query_other = data.query_other
         }
       }
@@ -67,10 +57,6 @@ module ts {
 
       toJSON() : any {
         var data = super.toJSON()
-        data.format = this.format
-        data.striped = this.striped
-        data.sortable = this.sortable
-        data.title = this.title
         if (this.query_other) {
           if (this.query_other instanceof ts.models.data.Query) {
             data.query_other = (<ts.models.data.Query>this.query_other).name
@@ -122,12 +108,7 @@ module ts {
       }
 
       interactive_properties(): PropertyListEntry [] {
-        return [
-          { name: 'striped', type: 'boolean' },
-          { name: 'sortable', type: 'boolean' },
-          'format',
-          'title',
-          'query',
+        return super.interactive_properties().concat([
           {
             name: 'query_other',
             category: 'base',
@@ -144,11 +125,8 @@ module ts {
                 return item.query_other ? item.query_other.name : undefined
               }
             }
-          },
-          {
-            name: 'css_class', category: 'base'
           }
-        ]
+        ])
       }
     }
     ts.models.register_dashboard_item(ComparisonSummationTable)

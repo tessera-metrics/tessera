@@ -2,7 +2,7 @@ module ts {
   export module models {
 
     // TODO: make a table base class
-    export class PercentageTable extends Presentation {
+    export class PercentageTable extends TablePresentation {
       static meta: DashboardItemMetadata = {
         item_type: 'percentage_table',
         display_name: 'Percentage Table',
@@ -12,10 +12,6 @@ module ts {
         template: ds.templates.models.percentage_table
       }
 
-      format: string = ',.3s'
-      title: string
-      striped: boolean = true
-      sortable: boolean = true
       include_sums: boolean = false
       invert_axes: boolean = false
       transform: string = 'sum'
@@ -25,26 +21,14 @@ module ts {
         if (data) {
           this.include_sums = data.include_sums
           this.invert_axes = data.invert_axes
-          this.striped = Boolean(data.striped)
-          this.sortable = Boolean(data.sortable)
-          this.title = data.title
-          this.format = data.format || this.format
           this.transform = data.transform || this.transform
         }
       }
 
       toJSON() : any {
         var data = super.toJSON()
-        if (this.format)
-          data.format = this.format
         if (this.invert_axes)
           data.invert_axes = this.invert_axes
-        if (this.striped)
-          data.striped = this.striped
-        if (this.sortable)
-          data.sortable = this.sortable
-        if (this.title)
-          data.title = this.title
         if (this.transform)
           data.transform = this.transform
         data.include_sums = this.include_sums
@@ -76,11 +60,7 @@ module ts {
 
       interactive_properties(): PropertyListEntry[] {
         return super.interactive_properties().concat([
-          { name: 'striped', type: 'boolean' },
-          { name: 'sortable', type: 'boolean' },
           { name: 'invert_axes', type: 'boolean' },
-          'format',
-          'title',
           {
             name: 'include_sums',
             type: 'boolean'

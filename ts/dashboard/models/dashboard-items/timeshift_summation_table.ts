@@ -9,7 +9,7 @@ module ts {
      * This version is slightly simpler to implement, because we don't
      * need to join on two asynchronously fetched queries.
      */
-    export class TimeshiftSummationTable extends Presentation {
+    export class TimeshiftSummationTable extends TablePresentation {
 
       static meta: DashboardItemMetadata = {
         item_type: 'timeshift_summation_table',
@@ -68,29 +68,17 @@ module ts {
 
       }
 
-      striped: boolean = false
-      sortable: boolean = false
-      format: string = ',.3s'
-      title: string
       shift: string = '1d'
 
       constructor(data?: any) {
         super(data)
         if (data) {
-          this.striped = !!data.striped
-          this.sortable = !!data.sortable
-          this.title = data.title
-          this.format = data.format || this.format
           this.shift = data.shift || this.shift
         }
       }
 
       toJSON() : any {
         let data = super.toJSON()
-        data.format = this.format
-        data.striped = this.striped
-        data.sortable = this.sortable
-        data.title = this.title
         data.shift = this.shift
         return data
       }
@@ -135,19 +123,11 @@ module ts {
         }
       }
 
-      interactive_properties(): PropertyListEntry[] {
-        return [
-          { name: 'striped', type: 'boolean' },
-          { name: 'sortable', type: 'boolean' },
-          'format',
-          'title',
-          'query',
-          'shift',
-          { name: 'css_class', category: 'base' }
-        ]
+      interactive_properties(): PropertyList {
+        return super.interactive_properties().concat([
+          'shift'
+        ])
       }
-
-
     }
     ts.models.register_dashboard_item(TimeshiftSummationTable)
   }
