@@ -3,12 +3,9 @@ module ts {
 
     export class Markdown extends DashboardItem {
       static meta: DashboardItemMetadata = {
-        item_type: 'markdown',
-        display_name: 'Markdown',
         icon: 'fa fa-code',
         category: 'display',
-        requires_data: false,
-        template: ds.templates.models.markdown
+        requires_data: false
       }
 
       text: string

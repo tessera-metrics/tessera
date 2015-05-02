@@ -3,11 +3,8 @@ module ts {
 
     export class StandardTimeSeries extends Chart {
       static meta: DashboardItemMetadata = {
-        item_type: 'standard_time_series',
-        display_name: 'Standard Time Series',
         icon: 'fa fa-line-chart',
         category: 'chart',
-        template: ds.templates.models.standard_time_series,
         requires_data: true
       }
 

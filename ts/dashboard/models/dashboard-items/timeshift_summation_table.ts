@@ -12,11 +12,8 @@ module ts {
     export class TimeshiftSummationTable extends TablePresentation {
 
       static meta: DashboardItemMetadata = {
-        item_type: 'timeshift_summation_table',
-        display_name: 'Timeshift Summation Table',
         icon: 'fa fa-table',
         category: 'data-table',
-        template: ds.templates.models.timeshift_summation_table,
         requires_data: true,
 
         actions: [

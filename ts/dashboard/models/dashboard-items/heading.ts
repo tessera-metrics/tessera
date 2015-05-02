@@ -3,12 +3,9 @@ module ts {
 
     export class Heading extends DashboardItem {
       static meta: DashboardItemMetadata = {
-        item_type: 'heading',
-        display_name: 'Heading',
         icon: 'fa fa-header',
         category: 'display',
-        requires_data: false,
-        template: ds.templates.models.heading
+        requires_data: false
       }
 
       text: string

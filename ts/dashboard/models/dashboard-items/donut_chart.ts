@@ -3,12 +3,9 @@ module ts {
 
     export class DonutChart extends Chart {
       static meta: DashboardItemMetadata = {
-        item_type: 'donut_chart',
-        display_name: 'Donut Chart',
         icon: 'fa fa-pie-chart',
         category: 'chart',
-        requires_data: true,
-        template: ds.templates.models.donut_chart
+        requires_data: true
       }
 
       labels: boolean = false

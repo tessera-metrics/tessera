@@ -1,15 +1,11 @@
 module ts {
   export module models {
 
-    // TODO: make a table base class
     export class PercentageTable extends TablePresentation {
       static meta: DashboardItemMetadata = {
-        item_type: 'percentage_table',
-        display_name: 'Percentage Table',
         icon: 'fa fa-table',
         category: 'data-table',
-        requires_data: true,
-        template: ds.templates.models.percentage_table
+        requires_data: true
       }
 
       include_sums: boolean = false

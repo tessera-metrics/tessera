@@ -8,16 +8,47 @@ module ts {
     export function register_dashboard_item(item_class) {
       let meta = item_class.meta
 
+      if (!meta.item_type) {
+        meta.item_type = inflection.underscore(item_class.name)
+      }
+
       metadata.set(meta.item_type, meta)
       constructors.set(meta.item_type, item_class)
+
+      //
+      // Compile the template if necessary (after setting it based on
+      // the item_type if it wasn't already provided).
+      //
+
+      if (!meta.template) {
+        meta.template = ds.templates.models[meta.item_type]
+      }
 
       if (meta.template && (typeof(meta.template) === 'string')) {
         meta.template = Handlebars.compile(meta.template)
       }
 
+      //
+      // Register any item-specific action
+      //
+
       if (meta.actions && meta.actions.length) {
         ts.actions.register(meta.item_type, meta.actions)
       }
+
+      //
+      // Set any missing metadata fields by munging the item type.
+      //
+
+      if (!meta.display_name) {
+        meta.display_name = inflection.titleize(meta.item_type)
+      }
+
+      //
+      // Create a test instance to fetch the complete list of
+      // interactive properties, then sort them and cache them in the
+      // meta object.
+      //
 
       let instance = new item_class()
       let props = instance.interactive_properties().map(p => ds.property(p))
@@ -29,6 +60,11 @@ module ts {
         }
       })
       meta.interactive_properties = props
+
+      //
+      // Create and register a new action to instantiate the dashboard
+      // item type in the editor UI
+      //
 
       var category = meta.category ? 'new-item-' + meta.category : 'new-item'
 

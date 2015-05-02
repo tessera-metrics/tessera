@@ -1,13 +1,11 @@
 module ts {
   export module models {
+
     export class Singlegraph extends Chart {
       static meta: DashboardItemMetadata = {
-        item_type: 'singlegraph',
-        display_name: 'Singlegraph',
         icon: 'fa fa-image',
         category: 'chart',
-        requires_data: true,
-        template: ds.templates.models.singlegraph
+        requires_data: true
       }
 
       format: string = ',.1s'

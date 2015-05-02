@@ -3,11 +3,8 @@ module ts {
 
     export class Section extends Container {
       static meta: DashboardItemMetadata = {
-        item_type: 'section',
-        display_name: 'Section',
         category: 'structural',
-        requires_data: false,
-        template: ds.templates.models.section
+        requires_data: false
       }
 
 

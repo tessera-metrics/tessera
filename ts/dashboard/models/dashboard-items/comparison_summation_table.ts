@@ -6,12 +6,9 @@ module ts {
      */
     export class ComparisonSummationTable extends TablePresentation {
       static meta: DashboardItemMetadata = {
-        item_type: 'comparison_summation_table',
-        display_name: 'Comparison Summation Table',
         icon: 'fa fa-table',
         category: 'data-table',
-        requires_data: true,
-        template: ds.templates.models.comparison_summation_table
+        requires_data: true
       }
 
       private _query_other: string|ts.models.data.Query

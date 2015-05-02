@@ -3,11 +3,8 @@ module ts {
 
     export class Row extends Container {
       static meta: DashboardItemMetadata = {
-        item_type: 'row',
         category: 'structural',
-        display_name: 'Row',
-        requires_data: false,
-        template: ds.templates.models.row
+        requires_data: false
       }
 
       constructor(data?: any) {

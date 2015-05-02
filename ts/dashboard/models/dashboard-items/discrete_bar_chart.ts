@@ -1,13 +1,12 @@
 module ts {
   export module models {
+
     export class DiscreteBarChart extends Chart {
       static meta: DashboardItemMetadata = {
-        item_type: 'discrete_bar_chart',
         display_name: 'Bar Chart (Discrete)',
         icon: 'fa fa-bar-chart',
         category: 'chart',
-        requires_data: true,
-        template: ds.templates.models.discrete_bar_chart
+        requires_data: true
       }
 
       transform: string = 'sum'

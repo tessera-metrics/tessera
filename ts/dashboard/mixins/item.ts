@@ -36,7 +36,7 @@ module ts {
     }
 
     export interface DashboardItemMetadata {
-      item_type: string
+      item_type?: string
       requires_data?: boolean
       category?: string
       display_name?: string
@@ -49,9 +49,7 @@ module ts {
     /**
      * Base class for all things that can be displayed on a dashboard.
      *
-     * TODO: Query-related logic should be split out into a subclass
-     * (call it Presentation).
-     * TODO: Combine metadata from base classes by waking up the
+     * TODO: Combine metadata from base classes by walking up the
      * prototype chain as long as there's a 'meta' field
      */
     export class DashboardItem extends Model {

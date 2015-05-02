@@ -3,12 +3,9 @@ module ts {
 
     export class BarChart extends Chart {
       static meta: DashboardItemMetadata = {
-        item_type: 'bar_chart',
-        display_name: 'Bar Chart',
         icon: 'fa fa-bar-chart',
         category: 'chart',
-        requires_data: true,
-        template: ds.templates.models.bar_chart
+        requires_data: true
       }
 
       stack_mode: string = ds.charts.StackMode.NORMAL

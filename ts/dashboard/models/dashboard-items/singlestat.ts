@@ -3,11 +3,8 @@ module ts {
 
     export class Singlestat extends Presentation {
       static meta: DashboardItemMetadata = {
-        item_type: 'singlestat',
         category: 'data-table',
         icon: 'fa fa-subscript',
-        display_name: 'Singlestat',
-        template: ds.templates.models.singlestat,
         requires_data: true
       }
 

@@ -1,13 +1,11 @@
 module ts {
   export module models {
+
     export class SimpleTimeSeries extends Chart {
       static meta: DashboardItemMetadata = {
-        item_type: 'simple_time_series',
-        display_name: 'Simple Time Series',
         icon: 'fa fa-line-chart',
         category: 'chart',
-        requires_data: true,
-        template: ds.templates.models.simple_time_series
+        requires_data: true
       }
 
       filled: boolean = false

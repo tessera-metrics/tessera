@@ -1,9 +1,8 @@
 module ts {
   export module models {
-    export class DashboardDefinition extends Container {
 
+    export class DashboardDefinition extends Container {
       static meta: DashboardItemMetadata = {
-        item_type: 'dashboard_definition',
         template: ds.templates.models.definition
       }
 
