@@ -16,7 +16,7 @@ module ts {
       constructor(data?: any) {
         super(data)
         if (data) {
-          this.span = this.span || data.span
+          this.span = data.span || this.span
           this.offset = data.offset
           this.align = data.align
         }
