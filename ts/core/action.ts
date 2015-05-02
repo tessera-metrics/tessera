@@ -1,58 +1,52 @@
-/**
- * A model object describing a user-interface action. Actions may be
- * rendered as either a menu item in a dropdown or a button in a
- * button bar.
- *
- * actions - a list of additional actions, causing this action to be
- *           rendered as a dropdown button or sub-menu.
- * icon - CSS classes to render a Font Awesome icon.
- * handler - callback function to run when the action is invoked.
- * category - action category to register this action in .
- * divider - if true, this action will simply render as a divider between action groups.
- */
 module ts {
-  export interface IAction extends ts.registry.NamedObject {
+
+  /**
+   * An object describing a user-interface action. Actions may be
+   * rendered as either a menu item in a dropdown or a button in a
+   * button bar.
+   *
+   * actions - a list of additional actions, causing this action to be
+   *           rendered as a dropdown button or sub-menu.
+   * icon - CSS classes to render a Font Awesome icon.
+   * handler - callback function to run when the action is invoked.
+   * category - action category to register this action in .
+   * divider - if true, this action will simply render as a divider between action groups.
+   */
+  export class Action implements ts.registry.NamedObject {
+
+    /** NamedObject - identity of the action */
+    name: string
+
+    /** NamedObject - category to register the action under */
+    category: string
 
     /* Display name of the action */
-    display?: string
+    display: string
 
     /** A CSS icon class string to identify this action visually */
-    icon?: string
+    icon: string
 
     /** Application mode to show this action in. */
-    show?: string
+    show: string
 
     /** Application mode to hide this action in. */
-    hide?: string
+    hide: string
 
     /** Additional CSS classes to apply to the rendered element */
-    class?: string
+    css_class: string
 
     /* Is this even used? */
-    options?: any
+    options: any
 
     /** A callback that is invoked when the action is run */
-    handler?: (action: IAction, data: any) => void
+    handler: (action: Action, data: any) => void
 
     /** If true, just render a divider */
-    divider?: boolean
+    divider: boolean
 
     /** Sub-actions, for menu buttons */
-    actions?: IAction[]
-  }
+    actions: Action[]
 
-  export class Action implements IAction {
-    name: string
-    display: string
-    icon: string
-    show: string
-    hide: string
-    class: string
-    options: any
-    handler: any
-    divider: boolean
-    actions: IAction[]
-    category: string
 
     static DIVIDER = new Action({divider: true, name: 'DIVIDER'})
 
@@ -66,7 +60,7 @@ module ts {
         this.show = data.show
         this.hide = data.hide
         this.divider = data.divider
-        this.class = data.class
+        this.css_class = data.css_class
         this.actions = data.actions
         this.category = data.category
       }
@@ -78,7 +72,7 @@ module ts {
         category: this.category,
         show: this.show,
         hide: this.hide,
-        class: this.class,
+        css_class: this.css_class,
         options: this.options
       }
     }
