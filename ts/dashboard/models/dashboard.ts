@@ -62,7 +62,7 @@ ds.models.dashboard = function(data) {
   self.update_index = function() {
     var index : any = {}
     self.visit(function(item) {
-      if (item.is_dashboard_item) {
+      if (item instanceof ts.models.DashboardItem) {
         if ( !item.item_id ) {
           item.item_id = self.next_id()
         }
@@ -114,7 +114,7 @@ ds.models.dashboard = function(data) {
   self.find_parent = function(item_or_id) {
     var parent = undefined
     self.visit(function(item) {
-      if (item.is_container && item.contains(item_or_id)) {
+      if (item instanceof ts.models.Container && item.contains(item_or_id)) {
         parent = item
       }
     })

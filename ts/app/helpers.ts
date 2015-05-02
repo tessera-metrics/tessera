@@ -88,7 +88,7 @@ Handlebars.registerHelper('dashboards-tagged', function(tag) {
 
 Handlebars.registerHelper('height', function(item) {
   var height = item.height
-  if (item.is_chart && !height) {
+  if (item instanceof ts.models.Chart && !height) {
     height = 2
   }
   return height ? 'ds-height' + height : ''

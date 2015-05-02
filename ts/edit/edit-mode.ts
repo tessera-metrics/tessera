@@ -290,7 +290,7 @@
       if (!parent) {
         return
       }
-      if (parent && parent.is_container && parent.remove(item)) {
+      if (parent && (parent instanceof ts.models.Container) && parent.remove(item)) {
         ds.manager.update_item_view(parent)
       }
     }
@@ -302,7 +302,7 @@
     icon:    'fa fa-caret-left',
     handler:  function(action, item) {
       let parent = ds.manager.current.dashboard.find_parent(item)
-      if (parent.is_container && parent.move(item, -1)) {
+      if ((parent instanceof ts.models.Container) && parent.move(item, -1)) {
         ds.manager.update_item_view(parent)
       }
     }
@@ -314,7 +314,7 @@
     icon:    'fa fa-caret-right',
     handler:  function(action, item) {
       let parent = ds.manager.current.dashboard.find_parent(item)
-      if (parent.is_container && parent.move(item, 1)) {
+      if ((parent instanceof ts.models.Container) && parent.move(item, 1)) {
         ds.manager.update_item_view(parent)
       }
     }

@@ -8,7 +8,6 @@ module ts {
      */
     export class Container extends DashboardItem {
       items: DashboardItem[] = []
-      is_container: boolean = true // TODO: remove this
 
       get length() : number {
         return this.items ? this.items.length : 0

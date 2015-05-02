@@ -7,7 +7,6 @@ module ts {
       description: string
       color: string
       count: number
-      is_tag: boolean = true // TODO: remove this
 
       constructor(data?: any) {
         super(data)

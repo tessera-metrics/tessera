@@ -48,7 +48,7 @@ module ts {
                    || item.item_type === 'cell'
                    || item.item_type === 'row'
                    || item.item_type === 'section'
-                   || (this.charts_only && !item.is_chart)) {
+                   || (this.charts_only && !(item instanceof ts.models.Chart))) {
               return
             }
             var cell = ts.models.make('cell')

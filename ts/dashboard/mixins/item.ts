@@ -60,7 +60,6 @@ module ts {
       style: string
       interactive: boolean // TODO - this can probably go away
       dashboard: any // TODO - Dashboard type when ready
-      is_dashboard_item: boolean = true // TODO - remove this
 
       constructor(data?: any) {
         super(data)

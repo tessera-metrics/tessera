@@ -7,7 +7,6 @@ module ts {
       format: string
       min: number
       max: number
-      is_axis: boolean = true // TODO: remove this
 
       constructor(data?: any) {
         super(data)
