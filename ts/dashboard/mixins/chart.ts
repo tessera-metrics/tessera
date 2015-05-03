@@ -68,10 +68,10 @@ module ts {
       }
 
       toJSON() : any {
-        let data : any = {}
-        if (this.title)
-          data.title = this.title
-        data.legend = this.legend
+        let data = $.extend(super.toJSON(), {
+          title: this.title,
+          legend: this.legend
+        })
         if (this.options) {
           data.options = $.extend({}, this.options)
           if (this.options.y1) {
@@ -84,7 +84,7 @@ module ts {
             data.options.x = ds.json(this.options.x)
           }
         }
-        return $.extend(super.toJSON(), data)
+        return data
       }
 
       /**

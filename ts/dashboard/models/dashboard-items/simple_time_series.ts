@@ -20,7 +20,9 @@ module ts {
           this.show_max_value = Boolean(data.show_max_value)
           this.show_min_value = Boolean(data.show_min_value)
           this.show_last_value = Boolean(data.show_last_value)
-          this.height = 1
+          if (!this.height) {
+            this.height = 1
+          }
         }
       }
 
@@ -34,10 +36,11 @@ module ts {
       }
 
       data_handler(query: ts.models.data.Query) : void {
+        let selector = `#${this.item_id} .ds-graph-holder`
         if (this.filled) {
-          ds.charts.simple_area_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)
+          ds.charts.simple_area_chart($(selector), this, query)
         } else {
-          ds.charts.simple_line_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)
+          ds.charts.simple_line_chart($(selector), this, query)
         }
       }
 

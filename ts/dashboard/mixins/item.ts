@@ -16,11 +16,15 @@ module ts {
     }
 
     export const Transform = {
-      SUM: 'sum',
-      MIN: 'min',
-      MAX: 'max',
-      MEAN: 'mean',
-      MEDIAN: 'median'
+      SUM:           'sum',
+      MIN:           'min',
+      MAX:           'max',
+      MEAN:          'mean',
+      MEDIAN:        'median',
+      FIRST:         'first',
+      LAST:          'last',
+      LAST_NON_ZERO: 'last_non_zero',
+      COUNT:         'count',
     }
 
     // TODO: move to property.ts
@@ -191,17 +195,13 @@ module ts {
       }
 
       toJSON() : any {
-        let data : any = {}
-        data.item_type = this.item_type
-        if (this.item_id)
-          data.item_id = this.item_id
-        if (this.css_class)
-          data.css_class = this.css_class
-        if (this.height)
-          data.height = this.height
-        if (this.style)
-          data.style = this.style
-        return data
+        return {
+          item_type: this.item_type,
+          item_id: this.item_id,
+          css_class: this.css_class,
+          height: this.height,
+          style: this.style
+        }
       }
     } // end class DashboardItem
   }
