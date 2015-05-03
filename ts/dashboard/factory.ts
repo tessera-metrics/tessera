@@ -80,11 +80,11 @@ module ts {
 
       var category = meta.category ? 'new-item-' + meta.category : 'new-item'
 
-      ts.actions.register(category, {
+      ts.actions.register({
         name:     meta.item_type,
+        category: category,
         display:  'Add new ' + (meta.display_name || meta.item_type),
         icon:     meta.icon || '',
-        category: category,
         class:   'new-item',
         handler:  (action, container) => {
           container.add(new item_class())
