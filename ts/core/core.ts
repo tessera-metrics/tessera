@@ -1,5 +1,3 @@
-var ds : any = window['ds'] || {}
-
 module ts {
   export interface TemplateFunction {
     (ctx?: any) : string
