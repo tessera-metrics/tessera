@@ -25,7 +25,7 @@ $(document).on('click', '#ds-new-dashboard-create', function(e) {
     return
   }
 
-  var dashboard = ds.models.dashboard({
+  var dashboard = ts.models.dashboard({
     title: title,
     category: category,
     summary: summary,

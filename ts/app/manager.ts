@@ -141,7 +141,7 @@ module ts {
         }).error(function(xhr, status, error) {
           self.error('Error loading dashboard. ' + error)
         }).done(function(data) {
-          var dashboard = ds.models.dashboard(data)
+          var dashboard = ts.models.dashboard(data)
           holder.dashboard = dashboard
 
           if (data.preferences.renderer) {

@@ -1,7 +1,5 @@
 var ds : any = window['ds'] || {}
-ds.models = ds.models || {}
 ds.edit = ds.edit || {}
-ds.edit.properties = ds.edit.properties || {}
 
 module ts {
   export interface TemplateFunction {
