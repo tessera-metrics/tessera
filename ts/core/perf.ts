@@ -7,6 +7,7 @@ module ts {
 
   /**
    * Create a new performance helper.
+   * TODO: convert to an ES6 class
    */
   export const perf : PerfHelper = function(...args: any[]) : any {
 

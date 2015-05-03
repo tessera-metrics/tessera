@@ -1,7 +1,7 @@
 module ts {
   // export type PropertyTemplate = string | ((ctx?: any) => string)
 
-  const proplog = ts.log.logger('tessera.property')
+  const log = ts.log.logger('tessera.property')
 
   export const PropertyType = {
     SELECT: 'select',
@@ -56,7 +56,7 @@ module ts {
       this.type = data.type
       this.edit_options = data.edit_options
       if (data.template && typeof(data.template) === 'string') {
-        proplog.debug(`Compiling template for property "${this.name}" -> "${data.template}"`)
+        log.debug(`Compiling template for property "${this.name}" -> "${data.template}"`)
         this.template = Handlebars.compile(data.template)
       } else if (data.template && (data.template instanceof Function)) {
         this.template = data.template
@@ -69,7 +69,7 @@ module ts {
      * Render the basic display of the property's value.
      */
     render(item) : string {
-      proplog.debug(`render(${this.name} / ${item.item_id})`)
+      log.debug(`render(${this.name} / ${item.item_id})`)
       let inner = undefined
       if (this.template == null) {
         let value = item[this.property_name]
@@ -85,12 +85,12 @@ module ts {
      * an in-line edit widget.
      */
     edit(item) : Property {
-      proplog.debug(`edit(${this.name} / ${item.item_id})`)
+      log.debug(`edit(${this.name} / ${item.item_id})`)
       let default_options = {
         type: PropertyType.TEXT,
         value: item[this.property_name] || '',
         success: (ignore, newValue) => {
-          proplog.debug(`update(${item.item_id}.${this.property_name}) => ${newValue}`)
+          log.debug(`update(${item.item_id}.${this.property_name}) => ${newValue}`)
           item[this.property_name] = newValue
           ts.manager.update_item_view(item)
         }
@@ -138,7 +138,7 @@ module ts {
       }
 
       let selector = `#${item.item_id}${this.property_name}`
-      proplog.debug(`editable(${selector})`)
+      log.debug(`editable(${selector})`)
       $(selector).editable(options)
 
       return this
