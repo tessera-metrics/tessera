@@ -25,20 +25,14 @@ module ts {
       }
 
       toJSON() : any {
-        var json : any = {}
-        if (this.id)
-          json.id = this.id
-        if (this.href)
-          json.href = this.href
-        if (this.name)
-          json.name = this.name
-        if (this.description)
-          json.description = this.description
-        if (this.color)
-          json.color = this.color
-        if (this.count)
-          json.count = this.count
-        return json
+        return {
+          id: this.id,
+          href: this.href,
+          name: this.name,
+          description: this.description,
+          color: this.color,
+          count: this.count,
+        }
       }
     }
   }

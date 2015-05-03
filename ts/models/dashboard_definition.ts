@@ -3,6 +3,7 @@ module ts {
 
     export class DashboardDefinition extends Container {
       static meta: DashboardItemMetadata = {
+        item_type: 'definition',
         template: ds.templates.models.definition
       }
 
