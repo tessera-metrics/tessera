@@ -1,5 +1,4 @@
 var ds : any = window['ds'] || {}
-ds.edit = ds.edit || {}
 
 module ts {
   export interface TemplateFunction {

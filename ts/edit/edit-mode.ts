@@ -1,3 +1,163 @@
+module ts {
+  export module edit {
+
+    const log = ts.log.logger('tessera.edit')
+
+    /* -----------------------------------------------------------------------------
+       Queries
+       ----------------------------------------------------------------------------- */
+
+    /**
+     * Rename a query and update the UI to reflect the change.
+     */
+    export function rename_query(dashboard, old_name, new_name) {
+      log.debug('rename_query()')
+      let query         = dashboard.definition.queries[old_name]
+      let updated_items = dashboard.definition.rename_query(old_name, new_name)
+      $('[data-ds-query-name="' + old_name + '"]').replaceWith(
+        ds.templates.edit['dashboard-query-row'](query)
+      )
+      if (updated_items && updated_items.length) {
+        for (let item of updated_items) {
+          ts.manager.update_item_view(item)
+        }
+      }
+      ts.edit.edit_queries()
+      ts.app.refresh_mode()
+    }
+
+    /**
+     * Delete a query and remove it from the queries list in the UI.
+     */
+    export function delete_query(dashboard, query_name) {
+      log.debug('delete_query()')
+      dashboard.definition.delete_query(query_name)
+      $('tr[data-ds-query-name="' + query_name + '"]').remove()
+      ts.edit.edit_queries()
+      ts.app.refresh_mode()
+    }
+
+    /**
+     * Add a new query to the dashboard and UI.
+     */
+    export function add_query(dashboard, name, target?) {
+      log.debug('add_query()')
+      let query = new ts.models.data.Query({name: name, targets: target})
+      dashboard.definition.add_query(query)
+      $("#ds-query-panel table").append(ds.templates.edit['dashboard-query-row'](query))
+      query.load()
+      ts.edit.edit_queries()
+      return query
+    }
+
+    export function duplicate_query(dashboard, name) {
+      log.debug('duplicate_query()')
+      let new_name = `Copy of ${name} ` + Object.keys(dashboard.definition.queries).length
+      let source   = dashboard.definition.queries[name]
+      return add_query(dashboard, new_name, source.targets.slice(0))
+    }
+
+    /**
+     * Add a new query object to the dashboard and UI with an
+     * auto-generated unique name, and an optional set of targets. If
+     * targets are not supplied, a function generating random data will
+     * be used as a placeholder.
+     */
+    export function new_query(dashboard, targets?) {
+      log.debug('new_query()')
+      let name = "query" + Object.keys(dashboard.definition.queries).length
+      return add_query(dashboard, name, targets || `absolute(randomWalkFunction("${name}"))`)
+    }
+
+    export function edit_queries() {
+      log.debug('edit_queries()')
+      /* Query names */
+      $('th.ds-query-name').each(function(index, e) {
+        let element    = $(e)
+        let query_name = e.getAttribute('data-ds-query-name')
+        element.editable({
+          type: 'text',
+          value: query_name,
+          success: function(ignore, newValue) {
+            rename_query(ts.manager.current.dashboard, query_name, newValue)
+          }
+        })
+      });
+      /* Query targets */
+      $('td.ds-query-target').each(function(index, e) {
+        let element    = $(e)
+        let query_name = e.getAttribute('data-ds-query-name')
+        element.editable({
+          type: 'textarea',
+          inputclass: 'ds-source',
+          value: element.text() || '',
+          success: function(ignore, newValue) {
+            let target = newValue.trim()
+            let query = ts.manager.current.dashboard.definition.queries[query_name]
+            query.targets = [target]
+            query.render_templates(ts.context().variables)
+            query.load()
+          }
+        })
+      });
+    }
+
+    /* -----------------------------------------------------------------------------
+       Property Sheets
+       ----------------------------------------------------------------------------- */
+
+    /**
+     * Helper functions to show & hide the action bar & property sheet
+     * for dashboard items.
+     */
+    export function hide_details(item_id) {
+      let details = $('#' + item_id + '-details')
+      details.remove()
+      $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').hide()
+      $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .badge').removeClass('ds-badge-highlight')
+    }
+
+    export function show_details(item_id) {
+      // Show the edit button bar across the top of the item
+      $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').show()
+      let item       = ts.manager.current.dashboard.get_item(item_id)
+      let bar_id     = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
+      let details_id = '#' + item_id + '-details'
+      if ($(details_id).length == 0) {
+
+        // Render the item's property sheet
+        let elt     = $('.ds-edit-bar[data-ds-item-id="' + item_id + '"]')
+        let details = ds.templates['ds-edit-bar-item-details']({item:item})
+        elt.append(details)
+
+        if (item.meta.interactive_properties) {
+          // Run the edit handlers for each property, which make them
+          // editable and set up the callbacks for their updates
+          for (let prop of item.meta.interactive_properties) {
+            prop.edit(item)
+          }
+        }
+      }
+    }
+
+    export function toggle_details(item_id) {
+      let details = $('#' + item_id + '-details')
+      if (details.is(':visible')) {
+        ts.edit.hide_details(item_id)
+        return false
+      } else {
+        ts.edit.show_details(item_id)
+        return true
+      }
+    }
+
+    export function details_visibility(item) {
+      return $('#' + item.item_id + '-details').is(':visible')
+    }
+
+  } // end module edit
+} // end module ts
+
 (function () {
 
   let log = ts.log.logger('tessera.edit')
@@ -30,13 +190,13 @@
             label: 'Delete',
             className: 'btn-danger',
             callback: function() {
-              delete_query(dashboard, query_name)
+              ts.edit.delete_query(dashboard, query_name)
             }
           }
         }
       })
     } else {
-      delete_query(dashboard, query_name)
+      ts.edit.delete_query(dashboard, query_name)
     }
     return true
   })
@@ -50,164 +210,20 @@
     if (!dashboard.definition.queries[query_name]) {
       return true
     }
-    duplicate_query(dashboard, query_name)
+    ts.edit.duplicate_query(dashboard, query_name)
     return true
   })
 
   $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {
     log.debug('shown.bs.tab ' + e.target.href)
     if (e.target.id == 'ds-edit-tab-queries') {
-      ds.edit.edit_queries()
+      ts.edit.edit_queries()
     }
   })
-
-  ds.edit.edit_queries = function() {
-    log.debug('edit_queries()')
-    /* Query names */
-    $('th.ds-query-name').each(function(index, e) {
-      let element    = $(e)
-      let query_name = e.getAttribute('data-ds-query-name')
-      element.editable({
-        type: 'text',
-        value: query_name,
-        success: function(ignore, newValue) {
-          rename_query(ts.manager.current.dashboard, query_name, newValue)
-        }
-      })
-    });
-    /* Query targets */
-    $('td.ds-query-target').each(function(index, e) {
-      let element    = $(e)
-      let query_name = e.getAttribute('data-ds-query-name')
-      element.editable({
-        type: 'textarea',
-        inputclass: 'ds-source',
-        value: element.text() || '',
-        success: function(ignore, newValue) {
-          let target = newValue.trim()
-          let query = ts.manager.current.dashboard.definition.queries[query_name]
-          query.targets = [target]
-          query.render_templates(ts.context().variables)
-          query.load()
-        }
-      })
-    });
-  }
-
-  /**
-   * Rename a query and update the UI to reflect the change.
-   */
-  function rename_query(dashboard, old_name, new_name) {
-    log.debug('rename_query()')
-    let query         = dashboard.definition.queries[old_name]
-    let updated_items = dashboard.definition.rename_query(old_name, new_name)
-    $('[data-ds-query-name="' + old_name + '"]').replaceWith(
-      ds.templates.edit['dashboard-query-row'](query)
-    )
-    if (updated_items && updated_items.length) {
-      for (let item of updated_items) {
-        ts.manager.update_item_view(item)
-      }
-    }
-    ds.edit.edit_queries()
-    ts.app.refresh_mode()
-  }
-
-  /**
-   * Delete a query and remove it from the queries list in the UI.
-   */
-  function delete_query(dashboard, query_name) {
-    log.debug('delete_query()')
-    dashboard.definition.delete_query(query_name)
-    $('tr[data-ds-query-name="' + query_name + '"]').remove()
-    ds.edit.edit_queries()
-    ts.app.refresh_mode()
-  }
-
-  /**
-   * Add a new query to the dashboard and UI.
-   */
-  function add_query(dashboard, name, target?) {
-    log.debug('add_query()')
-    let query = new ts.models.data.Query({name: name, targets: target})
-    dashboard.definition.add_query(query)
-    $("#ds-query-panel table").append(ds.templates.edit['dashboard-query-row'](query))
-    query.load()
-    ds.edit.edit_queries()
-    return query
-  }
-
-  function duplicate_query(dashboard, name) {
-    log.debug('duplicate_query()')
-    let new_name = `Copy of ${name} ` + Object.keys(dashboard.definition.queries).length
-    let source   = dashboard.definition.queries[name]
-    return add_query(dashboard, new_name, source.targets.slice(0))
-  }
-
-  /**
-   * Add a new query object to the dashboard and UI with an
-   * auto-generated unique name, and an optional set of targets. If
-   * targets are not supplied, a function generating random data will
-   * be used as a placeholder.
-   */
-  function new_query(dashboard, targets?) {
-    log.debug('new_query()')
-    let name = "query" + Object.keys(dashboard.definition.queries).length
-    return add_query(dashboard, name, targets || `absolute(randomWalkFunction("${name}"))`)
-  }
 
   /* -----------------------------------------------------------------------------
      Property Sheets
      ----------------------------------------------------------------------------- */
-
-  /**
-   * Helper functions to show & hide the action bar & property sheet
-   * for dashboard items.
-   */
-  ds.edit.hide_details = function(item_id) {
-    let details = $('#' + item_id + '-details')
-    details.remove()
-    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').hide()
-    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .badge').removeClass('ds-badge-highlight')
-  }
-
-  ds.edit.show_details = function(item_id) {
-    // Show the edit button bar across the top of the item
-    $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').show()
-    let item       = ts.manager.current.dashboard.get_item(item_id)
-    let bar_id     = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
-    let details_id = '#' + item_id + '-details'
-    if ($(details_id).length == 0) {
-
-      // Render the item's property sheet
-      let elt     = $('.ds-edit-bar[data-ds-item-id="' + item_id + '"]')
-      let details = ds.templates['ds-edit-bar-item-details']({item:item})
-      elt.append(details)
-
-      if (item.meta.interactive_properties) {
-        // Run the edit handlers for each property, which make them
-        // editable and set up the callbacks for their updates
-        for (let prop of item.meta.interactive_properties) {
-          prop.edit(item)
-        }
-      }
-    }
-  }
-
-  ds.edit.toggle_details = function(item_id) {
-    let details = $('#' + item_id + '-details')
-    if (details.is(':visible')) {
-      ds.edit.hide_details(item_id)
-      return false
-    } else {
-      ds.edit.show_details(item_id)
-      return true
-    }
-  }
-
-  ds.edit.details_visibility = function(item) {
-    return $('#' + item.item_id + '-details').is(':visible')
-  }
 
   /**
    * Event handlers to show & hide the action bar & property sheet for
@@ -217,7 +233,7 @@
   $(document).on('click', '.ds-edit-bar .badge', function(event) {
     let $elt = $(this)
     let id   = $elt.attr('data-ds-item-id')
-    if (ds.edit.toggle_details(id)) {
+    if (ts.edit.toggle_details(id)) {
       $elt.addClass('ds-badge-highlight')
     } else {
       $elt.removeClass('ds-badge-highlight')
@@ -237,7 +253,7 @@
     let timeout = ds.config.PROPSHEET_AUTOCLOSE_SECONDS
     if (timeout) {
       let timeout_id = window.setTimeout(function() {
-                         ds.edit.hide_details(id)
+                         ts.edit.hide_details(id)
                        }, timeout * 1000)
       $elt.attr('data-ds-timeout-id', timeout_id)
     }
@@ -343,7 +359,7 @@
     let dash  = ts.manager.current.dashboard
     let url   = new URI(url_string)
     let data  = url.search(true)
-    let query = new_query(dash, data.target)
+    let query = ts.edit.new_query(dash, data.target)
     let type  = 'standard_time_series'
 
     if (data.areaMode && data.areaMode === 'stacked') {
@@ -574,7 +590,7 @@
       display: 'New Query...',
       icon:    'fa fa-plus',
       handler:  function(action, dashboard) {
-        new_query(dashboard)
+        ts.edit.new_query(dashboard)
       }
     })
   ])
