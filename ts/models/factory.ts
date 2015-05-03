@@ -63,7 +63,7 @@ module ts {
       //
 
       let instance = new item_class()
-      let props = instance.interactive_properties().map(p => ds.property(p))
+      let props = instance.interactive_properties().map(p => ts.property(p))
       props.sort((p1, p2) => {
         if (p1.category === p2.category) {
           return p1.property_name.localeCompare(p2.property_name)

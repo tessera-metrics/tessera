@@ -159,15 +159,14 @@ module ts {
     }
   })
 
-} /* end module ts */
-
-ds.property = function(data) : ts.Property {
-  if (data instanceof ts.Property) {
-    return data
-  } else if (typeof data === 'string') {
-    let prop = ts.properties.get(data)
-    return prop ? prop : new ts.Property({ name: data })
-  } else {
-    return new ts.Property(data)
+  export function property(data) : ts.Property {
+    if (data instanceof ts.Property) {
+      return data
+    } else if (typeof data === 'string') {
+      let prop = ts.properties.get(data)
+      return prop ? prop : new ts.Property({ name: data })
+    } else {
+      return new ts.Property(data)
+    }
   }
-}
+} /* end module ts */
