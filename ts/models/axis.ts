@@ -27,7 +27,7 @@ module ts {
           label_distance: this.label_distance,
           format: this.format,
           min: this.min,
-            max: this.max
+          max: this.max
         }
       }
     }
