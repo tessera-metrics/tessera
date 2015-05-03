@@ -4,7 +4,8 @@ ts/**/*.js.map
 ts/**/*.js
 *~
 *#
-#*#
+#*
+.#*
 *.egg-info/
 bin/
 lib/
