@@ -8,6 +8,10 @@ module ts {
     export class Model {
       constructor(data?: any) {
       }
+
+      toJSON() : any {
+        return {}
+      }
     }
   }
 }

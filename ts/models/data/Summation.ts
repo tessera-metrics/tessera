@@ -10,7 +10,7 @@ module ts {
        * The input format is assumed to be the JSON representation returned
        * by graphite-web.
        */
-      export class Summation {
+      export class Summation extends Model {
         sum: number  = 0
         min: number = Number.MAX_VALUE
         min_index: number
@@ -23,8 +23,8 @@ module ts {
         last_non_zero: number = 0
         count: number = 0
 
-        // TODO: add a type description of the graphite-web JSON format
         constructor(initial_data: any) {
+          super(data)
           let datapoints = []
 
           if (initial_data && (initial_data instanceof Array) && (initial_data.length)) {

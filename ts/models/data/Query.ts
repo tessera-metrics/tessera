@@ -70,7 +70,7 @@ module ts {
         [index: string] : Query
       }
 
-      export class Query {
+      export class Query extends Model {
         static DEFAULT_FROM_TIME = '-3h'
 
         targets: string[]
@@ -86,6 +86,7 @@ module ts {
         private cache: Map<string, any> = new Map<string, any>()
 
         constructor(data: any) {
+          super(data)
           if (data) {
             if (data instanceof Array) {
               this.targets = data
