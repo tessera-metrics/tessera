@@ -1,6 +1,6 @@
 <div class="btn-group btn-group-sm" align="left">
   <button type="button"
-    class="btn btn-default dropdown-toggle {{action.class}}"
+    class="btn btn-default dropdown-toggle {{action.css}}"
     data-toggle="dropdown"
     title="{{action.display}}">
     <i class="{{action.icon}}"></i> <span class="caret"></span>
@@ -10,7 +10,7 @@
       {{#if divider}}
         <li class="divider" data-ds-show="{{show}}" data-ds-hide="{{hide}}"/>
       {{else}}
-        <li class="{{class}}"
+        <li class="{{css}}"
           role="presentation"
           data-ds-action="{{name}}"
           data-ds-category="{{category}}"

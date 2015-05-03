@@ -88,7 +88,7 @@
     {% if transform %}
       ds.manager.onDashboardLoaded(function(dashboard) {
           var item = ds.manager.current.dashboard.get_item('{{transform.element}}')
-          var transform = ds.transforms.get('{{transform.name}}')
+          var transform = ts.transforms.get('{{transform.name}}')
           ds.manager.current_transform = {
               transform: transform,
               target: item
