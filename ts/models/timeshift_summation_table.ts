@@ -67,7 +67,7 @@ module ts {
           this.query_override = query
             .join(query.shift(this.shift))
             .set_name(this.item_id + '_shifted')
-          this.query_override.render_templates(ds.context().variables)
+          this.query_override.render_templates(ts.context().variables)
         }
       }
 

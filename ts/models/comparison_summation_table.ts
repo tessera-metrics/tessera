@@ -30,7 +30,7 @@ module ts {
           let query = this.dashboard.definition.queries[this._query]
           this.query_override =
             query.join(this.query_other).set_name(this.item_id + '_joined')
-          this.query_override.render_templates(ds.context().variables)
+          this.query_override.render_templates(ts.context().variables)
         }
       }
 

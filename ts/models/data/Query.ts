@@ -120,7 +120,7 @@ module ts {
         render_templates(context: any) : void {
           this.expanded_targets = this.targets.map(t => {
             try {
-              return ds.render_template(t, context)
+              return ts.render_template(t, context)
             } catch ( e ) {
               ds.manager.error(`Failed to expand query ${this.name}: ${e}`)
               return t

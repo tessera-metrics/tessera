@@ -1,7 +1,7 @@
 ds.app.add_mode_handler('display', {
   enter: function() {
     /* Make sure the fullscreen range indicator is correct */
-    var range       = ds.context()
+    var range       = ts.context()
     var description = ds.manager.getRangeDescription(range.from);
     if ( description ) {
       $("a.ds-fullscreen-range-indicator").text(description);

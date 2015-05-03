@@ -23,7 +23,7 @@ module ts {
 
       render_templates(context?: any) : void {
         try {
-          this.expanded_text = ds.render_template(this.text, context)
+          this.expanded_text = ts.render_template(this.text, context)
         } catch (e) {
           this.expanded_text = e.toString()
         }

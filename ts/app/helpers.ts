@@ -59,7 +59,7 @@ Handlebars.registerHelper('format', function(format, value) {
 Handlebars.registerHelper('dashboards-tagged', function(tag) {
   var markdown = ''
   $.ajax({
-    url: ds.uri('/api/dashboard/tagged/' + tag),
+    url: ts.uri('/api/dashboard/tagged/' + tag),
     type: 'GET',
     async: false,
     success: function(data) {

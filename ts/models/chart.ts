@@ -75,13 +75,13 @@ module ts {
         if (this.options) {
           data.options = $.extend({}, this.options)
           if (this.options.y1) {
-            data.options.y1 = ds.json(this.options.y1)
+            data.options.y1 = ts.json(this.options.y1)
           }
           if (this.options.y2) {
-            data.options.y2 = ds.json(this.options.y2)
+            data.options.y2 = ts.json(this.options.y2)
           }
           if (this.options.x) {
-            data.options.x = ds.json(this.options.x)
+            data.options.x = ts.json(this.options.x)
           }
         }
         return data

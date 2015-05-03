@@ -46,7 +46,7 @@ ds.manager =
      * List all dashboards.
      */
     self.list = function(path, handler) {
-        var path = path || ds.uri('/api/dashboard')
+        var path = path || ts.uri('/api/dashboard')
         $.ajax({
             dataType: 'json',
             url: path
@@ -99,7 +99,7 @@ ds.manager =
      */
     self._prep_url = function(base_url, options) {
       var url = new URI(base_url).setQuery('rendering', true)
-      var context = ds.context(url.query(true))
+      var context = ts.context(url.query(true))
 
       context.from = options.from || context.from
       context.until = context.until || options.until
@@ -290,7 +290,7 @@ ds.manager =
       dashboard.set_items([result])
 
       $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
-      dashboard.render_templates(ds.context().variables)
+      dashboard.render_templates(ts.context().variables)
       if (context) {
         dashboard.load_all({
           from: context.from,
@@ -325,7 +325,7 @@ ds.manager =
     // Definitely getting to the point we need some kind of reactive MVC
     // here
     self.toggle_interactive_charts = function() {
-        $.get(ds.uri('/api/preferences'), function(data) {
+        $.get(ts.uri('/api/preferences'), function(data) {
             var setting = !data.interactive
             var dashboard_url = new URI(self.current.url)
             var window_url = new URI(window.location)
@@ -459,7 +459,7 @@ ds.manager =
     self.create = function(dashboard, handler) {
       $.ajax({
         type: 'POST',
-        url: ds.uri('/api/dashboard/'),
+        url: ts.uri('/api/dashboard/'),
         contentType: 'application/json',
         dataType: 'json',
         data: JSON.stringify(dashboard)
@@ -519,7 +519,7 @@ ds.manager =
                 // Duplicate dashboard
                 $.ajax({
                     type: 'POST',
-                    url: ds.uri('/api/dashboard/'),
+                    url: ts.uri('/api/dashboard/'),
                     contentType: 'application/json',
                     dataType: 'json',
                     data: JSON.stringify(dashboard)

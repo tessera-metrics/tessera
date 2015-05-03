@@ -87,7 +87,7 @@
           let target = newValue.trim()
           let query = ds.manager.current.dashboard.definition.queries[query_name]
           query.targets = [target]
-          query.render_templates(ds.context().variables)
+          query.render_templates(ts.context().variables)
           query.load()
         }
       })
