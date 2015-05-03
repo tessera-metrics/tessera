@@ -95,7 +95,7 @@ module ts {
           ts.manager.update_item_view(item)
         }
       }
-      let options = $.extend({}, default_options, this.edit_options)
+      let options = ts.extend({}, default_options, this.edit_options)
 
       if (this.type === PropertyType.BOOLEAN) {
         options.type = 'checklist'

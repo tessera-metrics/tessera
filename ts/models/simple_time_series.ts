@@ -27,7 +27,7 @@ module ts {
       }
 
       toJSON() : any {
-        return $.extend(super.toJSON(), {
+        return ts.extend(super.toJSON(), {
           filled: this.filled,
           show_max_value: this.show_max_value,
           show_min_value: this.show_min_value,

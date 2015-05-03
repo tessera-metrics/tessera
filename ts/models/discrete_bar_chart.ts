@@ -35,7 +35,7 @@ module ts {
       }
 
       toJSON() : any {
-        return $.extend(super.toJSON(), {
+        return ts.extend(super.toJSON(), {
           orientation: this.orientation,
           transform: this.transform,
           format: this.format,

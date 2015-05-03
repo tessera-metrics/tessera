@@ -157,7 +157,7 @@ module ts {
         for (var key in this.queries) {
           q[key] = this.queries[key].toJSON()
         }
-        return $.extend(super.toJSON(), {
+        return ts.extend(super.toJSON(), {
           queries: q
         })
       }

@@ -24,7 +24,7 @@ module ts {
       }
 
       toJSON() : any {
-        return $.extend(super.toJSON(), {
+        return ts.extend(super.toJSON(), {
           format: this.format,
           transform: this.transform,
           index: this.index

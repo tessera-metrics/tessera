@@ -18,7 +18,7 @@ module ts {
       }
 
       toJSON() : any {
-        return $.extend(super.toJSON(), {
+        return ts.extend(super.toJSON(), {
           striped: this.striped,
           sortable: this.sortable,
           format: this.format,

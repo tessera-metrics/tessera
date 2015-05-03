@@ -22,7 +22,7 @@ module ts {
       }
 
       toJSON() :any {
-        return $.extend(super.toJSON(), {
+        return ts.extend(super.toJSON(), {
           show_color: this.show_color,
           options: this.options,
           palette: this.palette

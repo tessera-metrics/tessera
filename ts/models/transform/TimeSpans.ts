@@ -46,7 +46,7 @@ ts.transforms.register({
       var span = spans[i]
       var modified_query = new ts.models.data.Query(query.toJSON())
                              .set_name(query.name + '/' + span.from + '/' + span.until)
-                             .set_options($.extend({}, query.options,
+                             .set_options(ts.extend({}, query.options,
                                                   {
                                                     from: span.from,
                                                     until: span.until

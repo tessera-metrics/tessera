@@ -22,7 +22,7 @@ module ts {
       }
 
       toJSON() : any {
-        return $.extend(super.toJSON(), {
+        return ts.extend(super.toJSON(), {
           invert_axes:  this.invert_axes,
           transform:    this.transform,
           include_sums: this.include_sums

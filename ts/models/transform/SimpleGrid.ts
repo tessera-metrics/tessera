@@ -13,7 +13,7 @@ module ts {
         charts_only: boolean = false
 
         constructor(data: any) {
-          super($.extend({}, {
+          super(ts.extend({}, {
             display_name: 'Simple Grid',
             name: 'SimpleGrid',
             transform_type: TransformType.DASHBOARD

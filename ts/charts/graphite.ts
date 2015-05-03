@@ -35,7 +35,7 @@ module ts {
         }
 
         self.simple_line_chart_url = function(item, opt) {
-          var options = $.extend({}, opt, item.options, ts.charts.util.get_colors())
+          var options = ts.extend({}, opt, item.options, ts.charts.util.get_colors())
           var png_url = new URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -69,7 +69,7 @@ module ts {
         }
 
         self.standard_line_chart_url = function(item, opt) {
-          var options = $.extend({}, opt, item.options, ts.charts.util.get_colors())
+          var options = ts.extend({}, opt, item.options, ts.charts.util.get_colors())
           var png_url = new URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -102,7 +102,7 @@ module ts {
         }
 
         self.simple_area_chart_url = function(item, opt) {
-          var options = $.extend({}, opt, item.options, ts.charts.util.get_colors())
+          var options = ts.extend({}, opt, item.options, ts.charts.util.get_colors())
           var png_url = new URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)
@@ -137,7 +137,7 @@ module ts {
         }
 
         self.stacked_area_chart_url = function(item, opt) {
-          var options = $.extend({}, opt, item.options, ts.charts.util.get_colors())
+          var options = ts.extend({}, opt, item.options, ts.charts.util.get_colors())
           var png_url = new URI(item.query.url())
             .setQuery('format', options.format || 'png')
             .setQuery('height', options.height || 600)

@@ -129,7 +129,7 @@ module ts {
         }
 
         url(opt: any) : string {
-          var options = $.extend({}, this.local_options, opt, this.options)
+          var options = ts.extend({}, this.local_options, opt, this.options)
           var url     = new URI(options.base_url || ds.config.GRAPHITE_URL)
             .segment('render')
             .setQuery('format', options.format || 'png')
@@ -179,8 +179,8 @@ module ts {
          */
         load(opt?: any, fire_only?: boolean) : void {
           log.debug('load(): ' + this.name)
-          this.local_options = $.extend({}, this.local_options, opt)
-          var options = $.extend({}, this.local_options, opt, this.options)
+          this.local_options = ts.extend({}, this.local_options, opt)
+          var options = ts.extend({}, this.local_options, opt, this.options)
 
           if (typeof(fire_only) === 'boolean' && fire_only) {
             // This is a bit of a hack for optimization, to fire the query

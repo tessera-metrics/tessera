@@ -117,7 +117,7 @@ module ts {
 
         function get_flot_options(item, base) {
           var options      = item.options || {}
-          var flot_options = $.extend(true, {}, get_default_options(), base)
+          var flot_options = ts.extend(true, {}, get_default_options(), base)
 
           flot_options.colors = ts.charts.util.get_palette(options.palette)
 

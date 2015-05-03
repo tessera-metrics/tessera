@@ -119,7 +119,7 @@ module ts {
       }
 
       toJSON() : any {
-        return $.extend(super.toJSON(), {
+        return ts.extend(super.toJSON(), {
           items: this.items.map(i => i.toJSON())
         })
       }

@@ -72,4 +72,8 @@ module ts {
       ? ds.config.APPLICATION_ROOT + path
       : path
   }
+
+  export function extend(...objects: any[]) : any {
+    return $.extend(...objects)
+  }
 }
