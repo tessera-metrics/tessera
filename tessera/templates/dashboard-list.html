@@ -60,7 +60,7 @@
     {% else %}
       var path = '{{url_for('api_dashboard_list', sort=ctx.get('sort', 'created'), order=ctx.get('order', 'desc'))|safe}}'
     {% endif %}
-    ds.manager.list(path, function(data) {
+    ts.manager.list(path, function(data) {
       var rendered = ds.templates.listing.dashboard_list({ dashboards: data })
       $("#ds-dashboard-main-listing").html(rendered)
     })

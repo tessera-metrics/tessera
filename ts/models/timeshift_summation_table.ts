@@ -18,7 +18,7 @@ module ts {
           icon:    'fa fa-clock-o',
           handler: function(action, item) {
             item.shift = interval
-            ds.manager.update_item_view(item)
+            ts.manager.update_item_view(item)
           }
         })
       }
@@ -42,7 +42,7 @@ module ts {
                 callback: function(result) {
                   if (result) {
                     item.shift = result
-                    ds.manager.update_item_view(item)
+                    ts.manager.update_item_view(item)
                   }
                 }
               })

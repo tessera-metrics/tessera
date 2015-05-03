@@ -4,7 +4,7 @@
 
 ts.app.add_mode_handler('edit', {
   enter: function() {
-    $(".ds-dashboard-info-edit-panel").html(ds.templates.edit.dashboard_panel(ds.manager.current.dashboard))
+    $(".ds-dashboard-info-edit-panel").html(ds.templates.edit.dashboard_panel(ts.manager.current.dashboard))
     $('#ds-edit-info-button').addClass('active')
 
       $.fn.editable.defaults.mode = 'inline'
@@ -13,8 +13,8 @@ ts.app.add_mode_handler('edit', {
       $("#ds-info-panel-edit-title").editable({
         unsavedclass: null,
         success: function(ignore, newValue) {
-          ds.manager.current.dashboard.title = newValue
-          ds.manager.update(ds.manager.current.dashboard)
+          ts.manager.current.dashboard.title = newValue
+          ts.manager.update(ts.manager.current.dashboard)
         }
       })
 
@@ -22,32 +22,32 @@ ts.app.add_mode_handler('edit', {
       $("#ds-info-panel-edit-category").editable({
         unsavedclass: null,
         success: function(ignore, newValue) {
-          ds.manager.current.dashboard.category = newValue
-          ds.manager.update(ds.manager.current.dashboard)
+          ts.manager.current.dashboard.category = newValue
+          ts.manager.update(ts.manager.current.dashboard)
         }
       })
 
       $("#ds-info-panel-edit-summary").editable({
         unsavedclass: null,
         success: function(ignore, newValue) {
-          ds.manager.current.dashboard.summary = newValue
-          ds.manager.update(ds.manager.current.dashboard)
+          ts.manager.current.dashboard.summary = newValue
+          ts.manager.update(ts.manager.current.dashboard)
         }
       })
 
       $("#ds-info-panel-edit-description").editable({
         unsavedclass: null,
-        value: ds.manager.current.dashboard.description || '',
+        value: ts.manager.current.dashboard.description || '',
         success: function(ignore, newValue) {
-          ds.manager.current.dashboard.description = newValue
-          ds.manager.update(ds.manager.current.dashboard)
+          ts.manager.current.dashboard.description = newValue
+          ts.manager.update(ts.manager.current.dashboard)
         },
         display: function(value, response) {
           $(this).html(marked(value))
         }
       })
 
-      var tags = ds.manager.current.dashboard.tags || []
+      var tags = ts.manager.current.dashboard.tags || []
       $("#ds-info-panel-edit-tags").tagsManager({
         hiddenTagListName: 'ds-info-panel-edit-taglist',
         tagClass: 'badge badge-primary',
@@ -62,8 +62,8 @@ ts.app.add_mode_handler('edit', {
      */
     $('[name="ds-info-panel-edit-taglist"]').on('change', function(e) {
       var tags = $('#ds-info-panel-edit-tags').tagsManager('tags')
-      ds.manager.current.dashboard.set_tags(tags)
-      ds.manager.update(ds.manager.current.dashboard)
+      ts.manager.current.dashboard.set_tags(tags)
+      ts.manager.update(ts.manager.current.dashboard)
     })
 
   },
@@ -82,7 +82,7 @@ $(document).ready(function() {
   })
 
   $(document).on('click', '#ds-toggle-interactive-button', function(e) {
-    if (ds.manager.toggle_interactive_charts()) {
+    if (ts.manager.toggle_interactive_charts()) {
       $('#ds-toggle-interactive-button').removeClass('active')
     } else {
       $('#ds-toggle-interactive-button').addClass('active')
@@ -98,33 +98,33 @@ $(document).ready(function() {
   })
 
   $(document).on('click', '#ds-delete-dashboard-button', function(e) {
-    ds.manager.delete_current()
+    ts.manager.delete_current()
   })
 
   $(document).on('click', '#ds-remove-transform-button', function(e) {
-    ds.manager.remove_transform()
+    ts.manager.remove_transform()
   })
 
   $(document).on('click', '#ds-save-dashboard-button', function(e) {
-    ds.manager.update_definition(ds.manager.current.dashboard, function() {
-      ds.manager.success('Dashboard saved')
+    ts.manager.update_definition(ts.manager.current.dashboard, function() {
+      ts.manager.success('Dashboard saved')
     })
   })
 
 
   $(document).on('click', '#ds-new-section-button', function(e) {
-    var dash = ds.manager.current.dashboard
+    var dash = ts.manager.current.dashboard
     dash.definition.add(ts.models.make('section'))
     dash.update_index()
-    ds.manager.update_item_view(dash.definition)
+    ts.manager.update_item_view(dash.definition)
   })
 
 
   $(document).on('click', '#ds-view-dashboard-source-button', function(e) {
-    var dashboard = ds.manager.current.dashboard
+    var dashboard = ts.manager.current.dashboard
     $.get(dashboard.href + '?definition=true', function(data) {
       var contents = '<div class="container">' + ds.templates.edit.item_source({item:data}) + '</div>'
-      $(ds.manager.current.element).html(contents)
+      $(ts.manager.current.element).html(contents)
     })
   })
 

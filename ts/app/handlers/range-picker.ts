@@ -16,7 +16,7 @@
        * leading to looping.
        */
       self.disable_handler()
-      ds.manager.set_time_range(from.utc().format(GRAPHITE_FORMAT), until.utc().format(GRAPHITE_FORMAT))
+      ts.manager.set_time_range(from.utc().format(GRAPHITE_FORMAT), until.utc().format(GRAPHITE_FORMAT))
     }
   }
 
@@ -84,7 +84,7 @@
 
     } else {
       self.disable_handler()
-      ds.manager.set_time_range(range, null)
+      ts.manager.set_time_range(range, null)
     }
     return false
   })
@@ -106,7 +106,7 @@
       }
     })
 
-    ds.manager.onDashboardLoaded(function() {
+    ts.manager.onDashboardLoaded(function() {
       var params = new URI(window.location).search(true)
       if (params.from && params.until) {
         // Initialise the range date pickers with the values from the URL query parameters

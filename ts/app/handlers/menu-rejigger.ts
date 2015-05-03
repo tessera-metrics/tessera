@@ -8,7 +8,7 @@
       columns: cols
     })
 
-    ds.manager.apply_transform(layout, ds.manager.current.dashboard, false)
+    ts.manager.apply_transform(layout, ts.manager.current.dashboard, false)
     ts.app.refresh_mode()
     return false
   })

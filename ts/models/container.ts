@@ -62,8 +62,8 @@ module ts {
         this.items.push(<DashboardItem>item)
         // this.notify('items')
         /* This should go in an event handler */
-        ds.manager.current.dashboard.update_index()
-        ds.manager.update_item_view(this)
+        ts.manager.current.dashboard.update_index()
+        ts.manager.update_item_view(this)
         return this
       }
 

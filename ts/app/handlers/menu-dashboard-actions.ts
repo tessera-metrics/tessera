@@ -26,7 +26,7 @@ ts.actions.register('dashboard-list-actions', [
     display: 'Duplicate...',
     icon:    'fa fa-copy',
     handler: function(action, context) {
-      ds.manager.duplicate(context.href, function() {
+      ts.manager.duplicate(context.href, function() {
         window.location.reload()
       })
     }
@@ -39,9 +39,9 @@ ts.actions.register('dashboard-list-actions', [
     display: 'Delete...',
     icon:    'fa fa-trash-o',
     handler: function(action, context) {
-      ds.manager.delete_with_confirmation(context.href, function() {
+      ts.manager.delete_with_confirmation(context.href, function() {
         $('tr[data-ds-href="' + context.href + '"]').remove()
-        ds.manager.success('Succesfully deleted dashboard ' + context.href)
+        ts.manager.success('Succesfully deleted dashboard ' + context.href)
       })
     }
   })

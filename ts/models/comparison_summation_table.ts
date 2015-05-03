@@ -106,7 +106,7 @@ module ts {
             edit_options: {
               type: 'select',
               source: function() {
-                var queries = ds.manager.current.dashboard.definition.queries
+                var queries = ts.manager.current.dashboard.definition.queries
                 return Object.keys(queries).map(function(k) {
                   return { value: k, text: k }
                 })

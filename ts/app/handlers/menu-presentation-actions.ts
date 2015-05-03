@@ -40,7 +40,7 @@ ts.actions.register('presentation-actions', [
 $(document).on('click', 'ul.ds-action-menu li', function(event) {
 
   var presentation_id = $(this).parent().parent().parent().parent().parent()[0].id
-  var item = ds.manager.current.dashboard.get_item(presentation_id)
+  var item = ts.manager.current.dashboard.get_item(presentation_id)
 
   var action = ts.actions.get(this.getAttribute('data-ds-category'), this.getAttribute('data-ds-action'))
   action.handler(action, item)

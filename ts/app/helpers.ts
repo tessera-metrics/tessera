@@ -75,7 +75,7 @@ Handlebars.registerHelper('dashboards-tagged', function(tag) {
     },
     error: function() {
       var error = 'Unable to retrieve list of dashboards tagged "' + tag + '"'
-      ds.manager.warning(error)
+      ts.manager.warning(error)
       markdown = error
     }
   })

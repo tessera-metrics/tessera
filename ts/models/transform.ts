@@ -29,7 +29,7 @@ module ts {
         icon:    this.icon || 'fa fa-eye',
         hide:    ts.app.Mode.TRANSFORM,
         handler: (action, item) => {
-          ds.manager.apply_transform(this, item)
+          ts.manager.apply_transform(this, item)
         }
       })
     }

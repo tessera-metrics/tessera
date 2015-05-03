@@ -11,7 +11,7 @@ Mousetrap.bind('ctrl+shift+e', function(e) {
 })
 
 Mousetrap.bind('ctrl+shift+s', function(e) {
-  ds.manager.update_definition(ds.manager.current.dashboard, function() {
-    ds.manager.success('Dashboard saved')
+  ts.manager.update_definition(ts.manager.current.dashboard, function() {
+    ts.manager.success('Dashboard saved')
   })
 })

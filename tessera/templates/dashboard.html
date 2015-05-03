@@ -48,8 +48,8 @@
               </li>
             </ul>
             <script>
-              ds.manager.onRangeChanged(function(data) {
-                var description = ds.manager.getRangeDescription(data.from);
+              ts.manager.onRangeChanged(function(data) {
+                var description = ts.manager.getRangeDescription(data.from);
                 if ( description ) {
                   $("a.ds-fullscreen-range-indicator").text(description);
                 }
@@ -77,7 +77,7 @@
 
   <script>
 
-    ds.manager.onDashboardLoaded(function(dashboard) {
+    ts.manager.onDashboardLoaded(function(dashboard) {
       dashboard.on('change', function(e) {
         $(".ds-primary-title").text(e.target.category || '')
         $(".ds-secondary-title").text(e.target.expanded_title || e.target.title || '')
@@ -86,10 +86,10 @@
     })
 
     {% if transform %}
-      ds.manager.onDashboardLoaded(function(dashboard) {
-          var item = ds.manager.current.dashboard.get_item('{{transform.element}}')
+      ts.manager.onDashboardLoaded(function(dashboard) {
+          var item = ts.manager.current.dashboard.get_item('{{transform.element}}')
           var transform = ts.transforms.get('{{transform.name}}')
-          ds.manager.current_transform = {
+          ts.manager.current_transform = {
               transform: transform,
               target: item
           }
@@ -97,7 +97,7 @@
     {% endif %}
 
     var url = '{{url_for('api_dashboard_get', id=dashboard.id)|safe}}'
-    ds.manager.load(url, "#dashboard")
+    ts.manager.load(url, "#dashboard")
     $("[data-toggle=tooltip]").tooltip({
      animation:false,
      container: 'body',
@@ -106,7 +106,7 @@
 
     {% if ctx.get_int('refresh', config['DEFAULT_REFRESH_INTERVAL']) != 0 %}
       var interval = {{ctx.get_int('refresh', config['DEFAULT_REFRESH_INTERVAL'])}}
-      ds.manager.set_refresh_interval(interval)
+      ts.manager.set_refresh_interval(interval)
       $("ul.ds-refresh-menu li[data-ds-interval]").removeClass('active')
       $("ul.ds-refresh-menu li[data-ds-interval=" + interval + "]").addClass('active')
     {% endif %}

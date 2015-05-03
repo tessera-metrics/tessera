@@ -122,7 +122,7 @@ module ts {
             try {
               return ts.render_template(t, context)
             } catch ( e ) {
-              ds.manager.error(`Failed to expand query ${this.name}: ${e}`)
+              ts.manager.error(`Failed to expand query ${this.name}: ${e}`)
               return t
             }
           })
@@ -212,7 +212,7 @@ module ts {
             })
               .fail((xhr, status, error) => {
                 this.perf.end('load')
-                ds.manager.error('Failed to load query ' + this.name + '. ' + error)
+                ts.manager.error('Failed to load query ' + this.name + '. ' + error)
               })
               .then((response_data, textStatus) => {
                 this.perf.end('load')

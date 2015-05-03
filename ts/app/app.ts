@@ -185,8 +185,8 @@ module ts {
       var stats : any = new Object()
       stats.charts_render = ds.charts.perf.summarize_measures("render")
 
-      var queries = ds.manager.current.dashboard.definition.queries
-      var query_data = Object.keys(ds.manager.current.dashboard.definition.queries).map(function(key) {
+      var queries = ts.manager.current.dashboard.definition.queries
+      var query_data = Object.keys(ts.manager.current.dashboard.definition.queries).map(function(key) {
         return queries[key].performance_data()
       })
       stats.query_load = ts.perf.mixin(query_data.map(function(d) {

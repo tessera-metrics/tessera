@@ -92,7 +92,7 @@ module ts {
         success: (ignore, newValue) => {
           proplog.debug(`update(${item.item_id}.${this.property_name}) => ${newValue}`)
           item[this.property_name] = newValue
-          ds.manager.update_item_view(item)
+          ts.manager.update_item_view(item)
         }
       }
       let options = $.extend({}, default_options, this.edit_options)
@@ -104,7 +104,7 @@ module ts {
         ]
         options.success = (ignore, newValue) => {
           item[this.property_name] = newValue.length > 0
-          ds.manager.update_item_view(item)
+          ts.manager.update_item_view(item)
         }
       } else if (this.type) {
         options.type = this.type
@@ -133,7 +133,7 @@ module ts {
       if (options.update && (options.update instanceof Function)) {
         options.success = (ignore, newValue) => {
           options.update(item, newValue)
-          ds.manager.update_item_view(item)
+          ts.manager.update_item_view(item)
         }
       }
 

@@ -11,7 +11,7 @@
     log.debug('click.delete-query')
     let $elt       = $(this)
     let query_name = $elt.attr('data-ds-query-name')
-    let dashboard  = ds.manager.current.dashboard
+    let dashboard  = ts.manager.current.dashboard
     if (!dashboard.definition.queries[query_name]) {
       return true
     }
@@ -46,7 +46,7 @@
     log.debug('click.duplicate-query')
     let $elt       = $(this)
     let query_name = $elt.attr('data-ds-query-name')
-    let dashboard  = ds.manager.current.dashboard
+    let dashboard  = ts.manager.current.dashboard
     if (!dashboard.definition.queries[query_name]) {
       return true
     }
@@ -71,7 +71,7 @@
         type: 'text',
         value: query_name,
         success: function(ignore, newValue) {
-          rename_query(ds.manager.current.dashboard, query_name, newValue)
+          rename_query(ts.manager.current.dashboard, query_name, newValue)
         }
       })
     });
@@ -85,7 +85,7 @@
         value: element.text() || '',
         success: function(ignore, newValue) {
           let target = newValue.trim()
-          let query = ds.manager.current.dashboard.definition.queries[query_name]
+          let query = ts.manager.current.dashboard.definition.queries[query_name]
           query.targets = [target]
           query.render_templates(ts.context().variables)
           query.load()
@@ -106,7 +106,7 @@
     )
     if (updated_items && updated_items.length) {
       for (let item of updated_items) {
-        ds.manager.update_item_view(item)
+        ts.manager.update_item_view(item)
       }
     }
     ds.edit.edit_queries()
@@ -174,7 +174,7 @@
   ds.edit.show_details = function(item_id) {
     // Show the edit button bar across the top of the item
     $('.ds-edit-bar[data-ds-item-id="' + item_id + '"] .btn-group').show()
-    let item       = ds.manager.current.dashboard.get_item(item_id)
+    let item       = ts.manager.current.dashboard.get_item(item_id)
     let bar_id     = '.ds-edit-bar[data-ds-item-id="' + item_id + '"]'
     let details_id = '#' + item_id + '-details'
     if ($(details_id).length == 0) {
@@ -271,7 +271,7 @@
     display: 'Duplicate Item',
     icon:    'fa fa-copy',
     handler: function(action, item) {
-      let dashboard = ds.manager.current.dashboard
+      let dashboard = ts.manager.current.dashboard
       let parent = dashboard.find_parent(item)
       let dup = ts.models.make(item.toJSON()).set_item_id(null)
       dup.visit(function(child) {
@@ -279,7 +279,7 @@
       })
       parent.add_after(item, dup)
       dashboard.update_index()
-      ds.manager.update_item_view(parent)
+      ts.manager.update_item_view(parent)
     }
   })
 
@@ -288,12 +288,12 @@
     display: 'Delete item',
     icon:    'fa fa-trash-o',
     handler:  function(action, item) {
-      let parent = ds.manager.current.dashboard.find_parent(item)
+      let parent = ts.manager.current.dashboard.find_parent(item)
       if (!parent) {
         return
       }
       if (parent && (parent instanceof ts.models.Container) && parent.remove(item)) {
-        ds.manager.update_item_view(parent)
+        ts.manager.update_item_view(parent)
       }
     }
   })
@@ -303,9 +303,9 @@
     display: 'Move item back one place',
     icon:    'fa fa-caret-left',
     handler:  function(action, item) {
-      let parent = ds.manager.current.dashboard.find_parent(item)
+      let parent = ts.manager.current.dashboard.find_parent(item)
       if ((parent instanceof ts.models.Container) && parent.move(item, -1)) {
-        ds.manager.update_item_view(parent)
+        ts.manager.update_item_view(parent)
       }
     }
   })
@@ -315,9 +315,9 @@
     display: 'Move item forward one place',
     icon:    'fa fa-caret-right',
     handler:  function(action, item) {
-      let parent = ds.manager.current.dashboard.find_parent(item)
+      let parent = ts.manager.current.dashboard.find_parent(item)
       if ((parent instanceof ts.models.Container) && parent.move(item, 1)) {
-        ds.manager.update_item_view(parent)
+        ts.manager.update_item_view(parent)
       }
     }
   })
@@ -340,7 +340,7 @@
      ----------------------------------------------------------------------------- */
 
   function new_chart_from_graphite_url(url_string) {
-    let dash  = ds.manager.current.dashboard
+    let dash  = ts.manager.current.dashboard
     let url   = new URI(url_string)
     let data  = url.search(true)
     let query = new_query(dash, data.target)
@@ -386,8 +386,8 @@
             let item = new_chart_from_graphite_url(result)
             if (item) {
               container.add(item)
-              ds.manager.current.dashboard.update_index()
-              ds.manager.update_item_view(container)
+              ts.manager.current.dashboard.update_index()
+              ts.manager.update_item_view(container)
             }
           }
         }
@@ -450,7 +450,7 @@
     let category = elt.attr('data-ds-category')
     let name     = elt.attr('data-ds-action')
     let item_id  = elt.parent().parent().parent().parent()[0].getAttribute('data-ds-item-id')
-    let item     = ds.manager.current.dashboard.get_item(item_id)
+    let item     = ts.manager.current.dashboard.get_item(item_id)
     let action   = ts.actions.get(category, name)
 
     log.debug(`li.new-item:click(): ${item_id}, ${action}, ${category}/${name}`)
@@ -511,7 +511,7 @@
       handler:  function(action, item) {
         if (item.span) {
           item.span += 1
-          ds.manager.update_item_view(item)
+          ts.manager.update_item_view(item)
         }
       }
     }),
@@ -522,7 +522,7 @@
       handler:  function(action, item) {
         if (item.span) {
           item.span -= 1
-          ds.manager.update_item_view(item)
+          ts.manager.update_item_view(item)
         }
       }
     }),
@@ -557,7 +557,7 @@
     let name     = element.getAttribute('data-ds-action')
     let category = element.getAttribute('data-ds-category')
     let action   = ts.actions.get(category, name)
-    let item     = ds.manager.current.dashboard.get_item(item_id)
+    let item     = ts.manager.current.dashboard.get_item(item_id)
 
     if (action) {
       action.handler(action, item)
@@ -585,7 +585,7 @@
     let action   = ts.actions.get('dashboard-queries', name)
 
     if (action) {
-      action.handler(action, ds.manager.current.dashboard)
+      action.handler(action, ts.manager.current.dashboard)
     }
   })
 

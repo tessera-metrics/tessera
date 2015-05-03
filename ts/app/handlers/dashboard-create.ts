@@ -33,7 +33,7 @@ $(document).on('click', '#ds-new-dashboard-create', function(e) {
     tags: tags,
     definition: ts.models.make('dashboard_definition')
   })
-  ds.manager.create(dashboard, function(data) {
+  ts.manager.create(dashboard, function(data) {
     window.location = data.view_href
   })
 })
