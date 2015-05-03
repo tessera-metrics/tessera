@@ -38,7 +38,7 @@ ds.manager =
      * loaded and ready.
      */
     self.onDashboardLoaded = function(handler) {
-        ds.event.on(self, ds.app.Event.DASHBOARD_LOADED, handler)
+        ts.event.on(self, ds.app.Event.DASHBOARD_LOADED, handler)
         return self
     }
 
@@ -147,7 +147,7 @@ ds.manager =
           ds.charts.provider = ds.charts.registry.get(data.preferences.renderer)
         }
 
-        ds.event.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)
+        ts.event.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)
 
         dashboard.render_templates(context.variables)
 
@@ -159,7 +159,7 @@ ds.manager =
           $(element).html(dashboard.definition.render())
 
           var currentURL = new URI(holder.url)
-          ds.event.fire(self, ds.app.Event.RANGE_CHANGED, {
+          ts.event.fire(self, ds.app.Event.RANGE_CHANGED, {
             from: currentURL.query('from'),
             until: currentURL.query('until')
           })
@@ -174,7 +174,7 @@ ds.manager =
             })
           }
 
-          ds.event.fire(self, ds.app.Event.DASHBOARD_RENDERED, dashboard)
+          ts.event.fire(self, ds.app.Event.DASHBOARD_RENDERED, dashboard)
 
           if (context.params.mode) {
             ds.app.switch_to_mode(context.params.mode)
@@ -361,7 +361,7 @@ ds.manager =
         window.history.pushState({url: self.current.url, element:self.current.element}, '', uri.href())
 
         self.current.setRange(from, until)
-        ds.event.fire(self, ds.app.Event.RANGE_CHANGED, {
+        ts.event.fire(self, ds.app.Event.RANGE_CHANGED, {
             from: from, until: until
         })
       self.refresh()
@@ -390,7 +390,7 @@ ds.manager =
 
     self.onRangeChanged = function(handler) {
         var self = this
-        ds.event.on(self, ds.app.Event.RANGE_CHANGED, handler)
+        ts.event.on(self, ds.app.Event.RANGE_CHANGED, handler)
     }
 
     self.autoRefreshInterval = null

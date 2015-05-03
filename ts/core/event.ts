@@ -1,24 +1,22 @@
-ds.event =
-  (function() {
+module ts {
 
-    var self : any = {}
-      , log = ts.log.logger('tessera.events')
+  export const event = {
+    log: ts.log.logger('tessera.events'),
 
-    self.on = function(target, event, handler) {
-      log.debug('on(): ' + event)
+    on: function(target: Object, event: string, handler) : void {
+      ts.event.log.debug('on(): ' + event)
       bean.on(target, event, handler)
-    }
+    },
 
-    self.off = function(target, event) {
-      log.debug('off(): ' + event)
+    off: function(target: Object, event: string) : void {
+      ts.event.log.debug('off(): ' + event)
       bean.off(target, event)
-    }
+    },
 
-    self.fire = function(target, event, data) {
-      log.debug('fire(): ' + event)
+    fire: function(target: Object, event: string, data?: any) : void {
+      ts.event.log.debug('fire(): ' + event)
       bean.fire(target, event, data)
     }
 
-    return self
-
-  })()
+  }
+}

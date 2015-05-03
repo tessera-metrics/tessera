@@ -104,7 +104,7 @@ module ts {
             }
             this.name = data.name
           }
-          this.perf = ds.perf('ts.models.data.Query', this.name)
+          this.perf = ts.perf('ts.models.data.Query', this.name)
         }
 
         set_name(name: string) : Query {
@@ -192,13 +192,13 @@ module ts {
               ready(this)
             }
 
-            ds.event.fire(this, 'ds-data-ready', this)
+            ts.event.fire(this, 'ds-data-ready', this)
           } else {
             this.cache.clear()
             this.perf.start('load')
             options.format = 'json'
             var url = this.url(options)
-            ds.event.fire(this, 'ds-data-loading')
+            ts.event.fire(this, 'ds-data-loading')
             this.load_count += 1
             return $.ajax({
               dataType: 'jsonp',
@@ -220,7 +220,7 @@ module ts {
                 if (options.ready && (options.ready instanceof Function)) {
                   options.ready(this)
                 }
-                ds.event.fire(this, 'ds-data-ready', this)
+                ts.event.fire(this, 'ds-data-ready', this)
               })
           }
         }
@@ -231,7 +231,7 @@ module ts {
          */
         on_load(handler: any) : void {
           log.debug('on(): ' + this.name)
-          ds.event.on(this, 'ds-data-ready', handler)
+          ts.event.on(this, 'ds-data-ready', handler)
         }
 
         /**
@@ -239,7 +239,7 @@ module ts {
          */
         off() : void {
           log.debug('off(): ' + this.name)
-          ds.event.off(this, 'ds-data-ready')
+          ts.event.off(this, 'ds-data-ready')
         }
 
         _group_targets() : string {

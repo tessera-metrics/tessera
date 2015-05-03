@@ -23,7 +23,7 @@ ds.charts =
                          .build()
 
     self.DEFAULT_PALETTE = 'spectrum6'
-    self.perf = ds.perf('ds.charts')
+    self.perf = ts.perf('ds.charts')
 
     self.registry = new ts.registry.Registry<any>({
       name: 'chart-provider',

@@ -60,7 +60,7 @@ module ts {
         if (log.is_enabled(ts.log.Level.DEBUG)) {
           log.debug('mode <- ' + mode)
         }
-        ds.event.fire(this, Event.MODE_EXIT + mode)
+        ts.event.fire(this, Event.MODE_EXIT + mode)
         var state = this.mode_stack.pop()
         if (state) {
           state.hidden.show(ANIMATION_DELAY)
@@ -81,7 +81,7 @@ module ts {
           hidden: hidden,
           shown: shown
         })
-        ds.event.fire(this, Event.MODE_ENTER + mode)
+        ts.event.fire(this, Event.MODE_ENTER + mode)
       }
 
       /**
@@ -89,7 +89,7 @@ module ts {
        */
       refresh_mode() : Application {
         this.switch_to_mode(this.current_mode, 0)
-        ds.event.fire(this, Event.MODE_REFRESH + this.current_mode)
+        ts.event.fire(this, Event.MODE_REFRESH + this.current_mode)
         return this
       }
 
@@ -145,13 +145,13 @@ module ts {
        */
       add_mode_handler(mode: string, options: IModeHandlerOptions) : Application {
         if (options.enter && (options.enter instanceof Function)) {
-          ds.event.on(this, Event.MODE_ENTER + mode, options.enter)
+          ts.event.on(this, Event.MODE_ENTER + mode, options.enter)
         }
         if (options.exit && (options.exit instanceof Function)) {
-          ds.event.on(this, Event.MODE_EXIT + mode, options.exit)
+          ts.event.on(this, Event.MODE_EXIT + mode, options.exit)
         }
         if (options.refresh && (options.refresh instanceof Function)) {
-          ds.event.on(this, Event.MODE_REFRESH + mode, options.refresh)
+          ts.event.on(this, Event.MODE_REFRESH + mode, options.refresh)
         }
         return this
       }
@@ -189,16 +189,16 @@ module ts {
       var query_data = Object.keys(ds.manager.current.dashboard.definition.queries).map(function(key) {
         return queries[key].performance_data()
       })
-      stats.query_load = ds.perf.mixin(query_data.map(function(d) {
+      stats.query_load = ts.perf.mixin(query_data.map(function(d) {
         return d.load ? d.load.duration : 0
       }))
-      stats.query_summarize = ds.perf.mixin(query_data.map(function(d) {
+      stats.query_summarize = ts.perf.mixin(query_data.map(function(d) {
         return d.summarize ? d.summarize.duration : 0
       }))
-      stats.query_convert = ds.perf.mixin(query_data.map(function(d) {
+      stats.query_convert = ts.perf.mixin(query_data.map(function(d) {
         return d.convert ? d.convert.duration : 0
       }))
-      stats.query_total = ds.perf.mixin(query_data.map(function(d) {
+      stats.query_total = ts.perf.mixin(query_data.map(function(d) {
         return (d.convert ? d.convert.duration : 0)
           + (d.summarize ? d.summarize.duration : 0)
           + (d.load ? d.load.duration : 0)
