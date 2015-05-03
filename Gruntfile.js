@@ -4,6 +4,7 @@ module.exports = function(grunt) {
 
   var SOURCE_FILES = [
     'ts/dependencies.ts',
+    'ts/graphite.ts',
     'ts/core/core.ts',
     'ts/core/log.ts',
     'ts/core/perf.ts',
