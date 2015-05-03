@@ -145,16 +145,16 @@ module ts {
           holder.dashboard = dashboard
 
           if (data.preferences.renderer) {
-            ds.charts.provider = ds.charts.registry.get(data.preferences.renderer)
+            ts.charts.current_provider = ts.charts.registry.get(data.preferences.renderer)
           }
 
           ts.event.fire(self, ts.app.Event.DASHBOARD_LOADED, dashboard)
 
           dashboard.render_templates(context.variables)
 
-          ds.charts.interactive = (context.interactive != undefined)
+          ts.charts.interactive = (context.interactive != undefined)
             ? context.interactive
-            : ds.charts.provider.is_interactive
+            : ts.charts.current_provider.is_interactive
 
           // Render the dashboard
           $(element).html(dashboard.definition.render())

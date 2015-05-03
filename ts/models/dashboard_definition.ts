@@ -70,7 +70,7 @@ module ts {
           if (item instanceof Presentation) {
             var query = item.query_override || item.query
             if (query) {
-              if (item.meta.requires_data || ds.charts.interactive) {
+              if (item.meta.requires_data || ts.charts.interactive) {
                 queries_to_load[query.name] = query
                 delete queries_to_fire[query.name]
               } else {

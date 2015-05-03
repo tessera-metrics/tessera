@@ -35,7 +35,7 @@ module ts {
       }
 
       data_handler(query: ts.models.data.Query) : void {
-        ds.charts.donut_chart($("#" + this.item_id + ' .ds-graph-holder'), this, query)
+        ts.charts.donut_chart($("#" + this.item_id + ' .ds-graph-holder'), this, query)
       }
 
       interactive_properties(): PropertyList {

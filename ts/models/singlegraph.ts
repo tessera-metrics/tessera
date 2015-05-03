@@ -34,7 +34,7 @@ module ts {
       data_handler(query) {
         if (!query.data)
           return
-        ds.charts.simple_area_chart($("#" + this.item_id + ' .ds-graph-holder'), this, query)
+        ts.charts.simple_area_chart($("#" + this.item_id + ' .ds-graph-holder'), this, query)
         this.options.margin = { top: 0, left: 0, bottom: 0, right: 0 }
         var label = query.data[this.index || 0].key
         var value = query.summation[this.transform]

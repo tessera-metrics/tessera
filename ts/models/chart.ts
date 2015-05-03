@@ -18,7 +18,7 @@ module ts {
         },
 
         source: [ { text: 'None', value: undefined } ]
-          .concat(Object.keys(ds.charts.util.colors).map(function(value, index) {
+          .concat(Object.keys(ts.charts.util.colors).map(function(value, index) {
             return { text: value, value: value }
           })),
 

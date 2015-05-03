@@ -12,7 +12,7 @@ module ts {
       }
 
       data_handler(query) : void {
-        ds.charts.standard_line_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)
+        ts.charts.standard_line_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)
       }
     }
     ts.models.register_dashboard_item(StandardTimeSeries)

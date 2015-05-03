@@ -302,7 +302,7 @@ module ts {
           var cache_key = 'chart_data_' + type
           if (!this.cache.has(cache_key)){
             this.perf.start('convert')
-            this.cache.set(cache_key, ds.charts.process_data(this.data, type))
+            this.cache.set(cache_key, ts.charts.process_data(this.data, type))
             this.perf.end('convert')
           }
           return this.cache.get(cache_key)

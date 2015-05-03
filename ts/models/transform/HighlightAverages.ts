@@ -18,7 +18,7 @@ ts.transforms.register({
     var query   = item.query
     var group   = (query.targets.length > 1) ? 'group(' + query.targets.join(',') + ')' : query.targets[0]
     var bg      = Color(window.getComputedStyle($('body')[0]).backgroundColor)
-    var palette = ds.charts.util.get_low_contrast_palette()
+    var palette = ts.charts.util.get_low_contrast_palette()
 
     /* Set up the modified queries */
     var query_averages = new ts.models.data.Query({

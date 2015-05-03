@@ -7,7 +7,7 @@ module ts {
         category: 'chart'
       }
 
-      stack_mode: string = ds.charts.StackMode.NORMAL
+      stack_mode: string = ts.charts.StackMode.NORMAL
 
       constructor(data?: any) {
         super(data)
@@ -23,7 +23,7 @@ module ts {
       }
 
       data_handler(query: ts.models.data.Query) : void {
-        ds.charts.bar_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)
+        ts.charts.bar_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)
       }
 
       interactive_properties() : PropertyList {
@@ -33,10 +33,10 @@ module ts {
             type: 'select',
             edit_options: {
               source: [
-                ds.charts.StackMode.NONE,
-                ds.charts.StackMode.NORMAL,
-                ds.charts.StackMode.PERCENT,
-                ds.charts.StackMode.STREAM
+                ts.charts.StackMode.NONE,
+                ts.charts.StackMode.NORMAL,
+                ts.charts.StackMode.PERCENT,
+                ts.charts.StackMode.STREAM
               ]
             }
           }
