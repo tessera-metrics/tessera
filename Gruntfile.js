@@ -58,7 +58,7 @@ module.exports = function(grunt) {
     'ts/models/dashboard.ts',
     'ts/models/transform/*.ts',
     'ts/extensions/**/*.ts',
-    'ts/edit/edit-mode.ts',
+    'ts/edit.ts',
     'ts/app/handlers/*.ts'
   ]
 
