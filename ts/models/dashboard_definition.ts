@@ -3,7 +3,6 @@ module ts {
 
     export class DashboardDefinition extends Container {
       static meta: DashboardItemMetadata = {
-        item_type: 'definition',
         template: ds.templates.models.definition
       }
 
@@ -105,7 +104,7 @@ module ts {
           // the HTTP requests for the queries are complete, but the
           // done() handlers are not (i.e. we're not actually done
           // munging the data yet).
-          ds.event.fire(ds.app, ds.app.Event.QUERIES_COMPLETE)
+          ts.event.fire(ds.app, ds.app.Event.QUERIES_COMPLETE)
         })
         return this
       }
