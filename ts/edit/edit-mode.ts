@@ -376,7 +376,7 @@
     category:  'new-item-chart',
     display:   'Add new chart from Graphite URL',
     icon:      'fa fa-image',
-    css_class: 'new-item',
+    css:       'new-item',
     handler: function(action, container) {
       bootbox.prompt({
         title: "Enter a Graphite chart URL",
@@ -423,7 +423,7 @@
   let new_item_action_for_cell = new ts.Action({
     name:      'new-item',
     category:  'new-item',
-    css_class: 'ds-new-item',
+    css:       'ds-new-item',
     display:   'Add new dashboard item...',
     icon:      'fa fa-plus',
     actions:   new_item_actions
@@ -432,7 +432,7 @@
   let new_item_action_for_section = new ts.Action({
     name:      'new-item',
     category:  'new-item',
-    css_class: 'ds-new-item',
+    css:       'ds-new-item',
     display:   'Add new dashboard item...',
     icon:      'fa fa-plus',
     actions: [].concat(ts.actions.get('new-item-structural', 'section'),
@@ -445,12 +445,15 @@
   })
 
   $(document).on('click', 'li.new-item', function(event) {
+    log.debug('li.new-item.click')
     let elt      = $(this)
     let category = elt.attr('data-ds-category')
     let name     = elt.attr('data-ds-action')
     let item_id  = elt.parent().parent().parent().parent()[0].getAttribute('data-ds-item-id')
     let item     = ds.manager.current.dashboard.get_item(item_id)
     let action   = ts.actions.get(category, name)
+
+    log.debug(`li.new-item:click(): ${item_id}, ${action}, ${category}/${name}`)
 
     action.handler(action, item)
     return false
@@ -547,6 +550,7 @@
      ----------------------------------------------------------------------------- */
 
   $(document).on('click', '.ds-edit-bar button', function(event) {
+    log.debug('click.ds-edit-bar button')
     let element  = $(this)[0]
     let parent   = $(this).parent()[0]
     let item_id  = parent.getAttribute('data-ds-item-id')

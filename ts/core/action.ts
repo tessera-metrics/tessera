@@ -33,7 +33,7 @@ module ts {
     hide: string
 
     /** Additional CSS classes to apply to the rendered element */
-    css_class: string
+    css: string
 
     /* Is this even used? */
     options: any
@@ -59,7 +59,7 @@ module ts {
         this.show = data.show
         this.hide = data.hide
         this.divider = data.divider
-        this.css_class = data.css_class
+        this.css = data.css
         this.actions = data.actions
         this.category = data.category
       }
@@ -71,7 +71,7 @@ module ts {
         category: this.category,
         show: this.show,
         hide: this.hide,
-        css_class: this.css_class,
+        css: this.css,
         options: this.options
       }
     }
