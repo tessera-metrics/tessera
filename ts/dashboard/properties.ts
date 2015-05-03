@@ -18,6 +18,9 @@ ts.properties.register([
       },
       value: function(item) {
         return item.query ? item.query.name : undefined
+      },
+      update: function(item, value) {
+        item.set_query(value)
       }
     }
   },
