@@ -209,6 +209,3 @@ module ts {
 
   } // end module app
 } // end module ts
-
-/** @deprecated */
-ds.app = ts.app

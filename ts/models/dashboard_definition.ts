@@ -104,7 +104,7 @@ module ts {
           // the HTTP requests for the queries are complete, but the
           // done() handlers are not (i.e. we're not actually done
           // munging the data yet).
-          ts.event.fire(ds.app, ds.app.Event.QUERIES_COMPLETE)
+          ts.event.fire(ts.app.instance, ts.app.Event.QUERIES_COMPLETE)
         })
         return this
       }

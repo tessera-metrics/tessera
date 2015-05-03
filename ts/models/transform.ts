@@ -27,7 +27,7 @@ module ts {
         name:    `${this.name}_action`,
         display: `${this.display_name}...`,
         icon:    this.icon || 'fa fa-eye',
-        hide:    ds.app.Mode.TRANSFORM,
+        hide:    ts.app.Mode.TRANSFORM,
         handler: (action, item) => {
           ds.manager.apply_transform(this, item)
         }

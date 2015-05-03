@@ -2,7 +2,7 @@
  * Logic for the dashboard-toolbar.html template.
  */
 
-ds.app.add_mode_handler('edit', {
+ts.app.add_mode_handler('edit', {
   enter: function() {
     $(".ds-dashboard-info-edit-panel").html(ds.templates.edit.dashboard_panel(ds.manager.current.dashboard))
     $('#ds-edit-info-button').addClass('active')
@@ -78,7 +78,7 @@ $(document).ready(function() {
    * Handlers for the Info Edit panel.
    */
   $(document).on('click', '#ds-edit-info-button', function(e) {
-    ds.app.toggle_mode(ds.app.Mode.EDIT)
+    ts.app.toggle_mode(ts.app.Mode.EDIT)
   })
 
   $(document).on('click', '#ds-toggle-interactive-button', function(e) {
@@ -90,11 +90,11 @@ $(document).ready(function() {
   })
 
   $(document).on('click', '#ds-enter-fullscreen-button', function(e) {
-    ds.app.switch_to_mode(ds.app.Mode.DISPLAY)
+    ts.app.switch_to_mode(ts.app.Mode.DISPLAY)
   })
 
   $(document).on('click', '#ds-exit-display-mode-button', function(e) {
-    ds.app.switch_to_mode(ds.app.Mode.STANDARD)
+    ts.app.switch_to_mode(ts.app.Mode.STANDARD)
   })
 
   $(document).on('click', '#ds-delete-dashboard-button', function(e) {

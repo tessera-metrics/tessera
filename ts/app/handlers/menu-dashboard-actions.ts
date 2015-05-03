@@ -17,7 +17,7 @@ ts.actions.register('dashboard-list-actions', [
     display: 'Edit...',
     icon:    'fa fa-edit',
     handler: function(action, context) {
-      var url = new URI(context.view_href).setQuery('mode', ds.app.Mode.EDIT).href()
+      var url = new URI(context.view_href).setQuery('mode', ts.app.Mode.EDIT).href()
       window.location = url
     }
   }),

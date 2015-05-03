@@ -110,7 +110,7 @@
       }
     }
     ds.edit.edit_queries()
-    ds.app.refresh_mode()
+    ts.app.refresh_mode()
   }
 
   /**
@@ -121,7 +121,7 @@
     dashboard.definition.delete_query(query_name)
     $('tr[data-ds-query-name="' + query_name + '"]').remove()
     ds.edit.edit_queries()
-    ds.app.refresh_mode()
+    ts.app.refresh_mode()
   }
 
   /**
@@ -247,7 +247,7 @@
    * Toggle mode-specific CSS rules for dashboard structural elements.
    */
 
-  ds.app.add_mode_handler(ds.app.Mode.EDIT, {
+  ts.app.add_mode_handler(ts.app.Mode.EDIT, {
     enter: function() {
       log.debug('mode_handler.enter()')
       $('.ds-section, .ds-cell, .ds-row').addClass('ds-edit')

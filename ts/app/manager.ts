@@ -38,7 +38,7 @@ ds.manager =
      * loaded and ready.
      */
     self.onDashboardLoaded = function(handler) {
-        ts.event.on(self, ds.app.Event.DASHBOARD_LOADED, handler)
+        ts.event.on(self, ts.app.Event.DASHBOARD_LOADED, handler)
         return self
     }
 
@@ -147,7 +147,7 @@ ds.manager =
           ds.charts.provider = ds.charts.registry.get(data.preferences.renderer)
         }
 
-        ts.event.fire(self, ds.app.Event.DASHBOARD_LOADED, dashboard)
+        ts.event.fire(self, ts.app.Event.DASHBOARD_LOADED, dashboard)
 
         dashboard.render_templates(context.variables)
 
@@ -159,7 +159,7 @@ ds.manager =
           $(element).html(dashboard.definition.render())
 
           var currentURL = new URI(holder.url)
-          ts.event.fire(self, ds.app.Event.RANGE_CHANGED, {
+          ts.event.fire(self, ts.app.Event.RANGE_CHANGED, {
             from: currentURL.query('from'),
             until: currentURL.query('until')
           })
@@ -174,12 +174,12 @@ ds.manager =
             })
           }
 
-          ts.event.fire(self, ds.app.Event.DASHBOARD_RENDERED, dashboard)
+          ts.event.fire(self, ts.app.Event.DASHBOARD_RENDERED, dashboard)
 
           if (context.params.mode) {
-            ds.app.switch_to_mode(context.params.mode)
+            ts.app.switch_to_mode(context.params.mode)
           } else {
-            ds.app.refresh_mode()
+            ts.app.refresh_mode()
           }
         })
         return self
@@ -202,7 +202,7 @@ ds.manager =
           query.load()
         }
       })
-      ds.app.refresh_mode()
+      ts.app.refresh_mode()
     }
 
     /**
@@ -223,7 +223,7 @@ ds.manager =
       if (!event.state) {
         self.current_transform = undefined
         self.refresh()
-        ds.app.switch_to_mode('standard')
+        ts.app.switch_to_mode('standard')
       } else {
         if (event.state.transform) {
           var item = ds.manager.current.dashboard.get_item(event.state.target.item_id)
@@ -231,7 +231,7 @@ ds.manager =
         } else if (event.state.url) {
           self.current_transform = undefined
           self.refresh()
-          ds.app.switch_to_mode('standard')
+          ts.app.switch_to_mode('standard')
         }
       }
     }
@@ -300,8 +300,8 @@ ds.manager =
         dashboard.load_all()
       }
 
-      if ((transform.transform_type === 'presentation') && (ds.app.current_mode != ds.app.Mode.EDIT)) {
-        ds.app.switch_to_mode('transform')
+      if ((transform.transform_type === 'presentation') && (ts.app.instance.current_mode != ts.app.Mode.EDIT)) {
+        ts.app.switch_to_mode('transform')
         self.current_transform = {
           transform: transform,
           target: target
@@ -313,11 +313,11 @@ ds.manager =
 
     self.refresh = function() {
       log.debug('refresh()')
-      if (self.current && (ds.app.current_mode != ds.app.Mode.EDIT)) {
+      if (self.current && (ts.app.instance.current_mode != ts.app.Mode.EDIT)) {
         self.load(self.current.url, self.current.element)
       } else {
         if (log.is_enabled(ts.log.Level.DEBUG)) {
-          log.debug('skipping reload; current mode: ' + ds.app.current_mode)
+          log.debug('skipping reload; current mode: ' + ts.app.instance.current_mode)
         }
       }
     }
@@ -361,7 +361,7 @@ ds.manager =
         window.history.pushState({url: self.current.url, element:self.current.element}, '', uri.href())
 
         self.current.setRange(from, until)
-        ts.event.fire(self, ds.app.Event.RANGE_CHANGED, {
+        ts.event.fire(self, ts.app.Event.RANGE_CHANGED, {
             from: from, until: until
         })
       self.refresh()
@@ -390,7 +390,7 @@ ds.manager =
 
     self.onRangeChanged = function(handler) {
         var self = this
-        ts.event.on(self, ds.app.Event.RANGE_CHANGED, handler)
+        ts.event.on(self, ts.app.Event.RANGE_CHANGED, handler)
     }
 
     self.autoRefreshInterval = null

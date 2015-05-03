@@ -3,11 +3,11 @@
    ============================================================================= */
 
 Mousetrap.bind('ctrl+shift+d', function(e) {
-  ds.app.toggle_mode(ds.app.Mode.DISPLAY)
+  ts.app.toggle_mode(ts.app.Mode.DISPLAY)
 })
 
 Mousetrap.bind('ctrl+shift+e', function(e) {
-  ds.app.toggle_mode(ds.app.Mode.EDIT)
+  ts.app.toggle_mode(ts.app.Mode.EDIT)
 })
 
 Mousetrap.bind('ctrl+shift+s', function(e) {

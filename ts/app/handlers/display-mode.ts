@@ -1,4 +1,4 @@
-ds.app.add_mode_handler('display', {
+ts.app.add_mode_handler('display', {
   enter: function() {
     /* Make sure the fullscreen range indicator is correct */
     var range       = ts.context()

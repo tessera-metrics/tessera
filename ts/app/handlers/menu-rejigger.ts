@@ -9,6 +9,6 @@
     })
 
     ds.manager.apply_transform(layout, ds.manager.current.dashboard, false)
-    ds.app.refresh_mode()
+    ts.app.refresh_mode()
     return false
   })
