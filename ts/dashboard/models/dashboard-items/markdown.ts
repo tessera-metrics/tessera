@@ -36,7 +36,7 @@ module ts {
         })
       }
 
-      interactive_properties(): PropertyListEntry[] {
+      interactive_properties(): PropertyList {
         return [
           {
             name: 'markdown.text',

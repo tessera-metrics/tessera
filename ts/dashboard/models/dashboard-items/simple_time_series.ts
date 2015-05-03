@@ -41,7 +41,7 @@ module ts {
         }
       }
 
-      interactive_properties() : PropertyListEntry[] {
+      interactive_properties() : PropertyList {
         return super.interactive_properties().concat([
           { name: 'filled', type: 'boolean' },
           { name: 'show_max_value', type: 'boolean' },

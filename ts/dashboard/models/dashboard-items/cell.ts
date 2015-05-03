@@ -45,7 +45,7 @@ module ts {
         return data
       }
 
-      interactive_properties() : PropertyListEntry[] {
+      interactive_properties() : PropertyList {
         return super.interactive_properties().concat([
           'style',
           'css_class',

@@ -4,7 +4,7 @@
  */
 
 ts.actions.register('dashboard-list-actions', [
-  ds.action({
+  new ts.Action({
     name:    'open',
     display: 'Open',
     icon:    'fa fa-external-link',
@@ -12,7 +12,7 @@ ts.actions.register('dashboard-list-actions', [
       window.location = context.view_href
     }
   }),
-  ds.action({
+  new ts.Action({
     name:    'edit',
     display: 'Edit...',
     icon:    'fa fa-edit',
@@ -21,7 +21,7 @@ ts.actions.register('dashboard-list-actions', [
       window.location = url
     }
   }),
-  ds.action({
+  new ts.Action({
     name:    'duplicate',
     display: 'Duplicate...',
     icon:    'fa fa-copy',
@@ -31,10 +31,10 @@ ts.actions.register('dashboard-list-actions', [
       })
     }
   }),
-  ds.action({
+  new ts.Action({
     divider: true
   }),
-  ds.action({
+  new ts.Action({
     name:    'delete',
     display: 'Delete...',
     icon:    'fa fa-trash-o',
@@ -53,6 +53,6 @@ $(document).on('click', 'ul.ds-dashboard-action-menu li', function(event) {
     href: element.getAttribute('data-ds-href'),
     view_href: element.getAttribute('data-ds-view-href')
   }
-  var action = ds.actions.get('dashboard-list-actions', this.getAttribute('data-ds-action'))
+  var action = ts.actions.get('dashboard-list-actions', this.getAttribute('data-ds-action'))
   action.handler(action, context)
 })

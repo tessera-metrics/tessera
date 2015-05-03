@@ -13,7 +13,7 @@ module ts {
         super(data)
       }
 
-      interactive_properties() : PropertyListEntry[] {
+      interactive_properties() : PropertyList {
         return [ 'css_class' ]
       }
     }

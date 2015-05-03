@@ -1,5 +1,5 @@
-ds.actions.register('presentation-actions', [
-  ds.action({
+ts.actions.register('presentation-actions', [
+  new ts.Action({
     name:    'open-in-graphite',
     display: 'Open in Graphite...',
     icon:    'fa fa-bar-chart-o',
@@ -8,7 +8,7 @@ ds.actions.register('presentation-actions', [
       window.open(composer_url.href())
     }
   }),
-  ds.action({
+  new ts.Action({
     name:    'export-png',
     display: 'Export PNG...',
     icon:    'fa fa-file-image-o',
@@ -17,7 +17,7 @@ ds.actions.register('presentation-actions', [
       window.open(image_url.href())
     }
   }),
-  ds.action({
+  new ts.Action({
     name:    'export-svg',
     display: 'Export SVG...',
     icon:    'fa fa-file-code-o',
@@ -26,7 +26,7 @@ ds.actions.register('presentation-actions', [
       window.open(image_url.href())
     }
   }),
-  ds.action({
+  new ts.Action({
     name:    'export-csv',
     display: 'Export CSV...',
     icon:    'fa fa-file-excel-o',
@@ -42,7 +42,7 @@ $(document).on('click', 'ul.ds-action-menu li', function(event) {
   var presentation_id = $(this).parent().parent().parent().parent().parent()[0].id
   var item = ds.manager.current.dashboard.get_item(presentation_id)
 
-  var action = ds.actions.get(this.getAttribute('data-ds-category'), this.getAttribute('data-ds-action'))
+  var action = ts.actions.get(this.getAttribute('data-ds-category'), this.getAttribute('data-ds-action'))
   action.handler(action, item)
 
   /* prevents resetting scroll position */

@@ -97,7 +97,7 @@ module ts {
         }
       }
 
-      interactive_properties(): PropertyListEntry [] {
+      interactive_properties(): PropertyList {
         return super.interactive_properties().concat([
           {
             name: 'query_other',

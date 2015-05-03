@@ -38,7 +38,7 @@ module ts {
         ds.charts.donut_chart($("#" + this.item_id + ' .ds-graph-holder'), this, query)
       }
 
-      interactive_properties(): PropertyListEntry[] {
+      interactive_properties(): PropertyList {
         return super.interactive_properties().concat([
           { name: 'labels', type: 'boolean' },
           { name: 'is_pie', type: 'boolean' },

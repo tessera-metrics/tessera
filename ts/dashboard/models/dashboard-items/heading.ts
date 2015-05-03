@@ -31,7 +31,7 @@ module ts {
         return data
       }
 
-      interactive_properties() : PropertyListEntry[] {
+      interactive_properties() : PropertyList {
         return [
           'text',
           { name: 'level', type: 'number' },

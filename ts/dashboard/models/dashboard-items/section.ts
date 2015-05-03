@@ -43,7 +43,7 @@ module ts {
         return data
       }
 
-      interactive_properties(): PropertyListEntry[] {
+      interactive_properties(): PropertyList {
         return [
           { name: 'layout',
             type: 'select',

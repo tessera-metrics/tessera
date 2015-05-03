@@ -47,10 +47,9 @@ module ts {
     /** Sub-actions, for menu buttons */
     actions: Action[]
 
-
     static DIVIDER = new Action({divider: true, name: 'DIVIDER'})
 
-    constructor(data: IAction) {
+    constructor(data?: any) {
       if (data) {
         this.name = data.name
         this.display = data.display
@@ -78,23 +77,12 @@ module ts {
     }
   }
 
-  export const actions = new ts.registry.Registry<IAction>({
+  export const actions = new ts.registry.Registry<Action>({
     name: 'actions',
-    process: function(data) : IAction {
+    process: function(data) : Action {
       if (data instanceof Action)
         return data
       return new Action(data)
     }
   })
 }
-
-/** @deprecated */
-ds.action = function(data: any) : ts.IAction {
-  return new ts.Action(data)
-}
-
-/** @deprecated */
-ds.action.divider = ts.Action.DIVIDER
-
-/** @deprecated */
-ds.actions = ts.actions

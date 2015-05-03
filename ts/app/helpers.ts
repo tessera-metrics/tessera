@@ -184,14 +184,14 @@ Handlebars.registerHelper('interactive_property', function(property, item) {
 
 /**
  * Render a list of actions. The actions are selected by category from
- * the global actions registry (`ds.actions`), and can be rendered
+ * the global actions registry (`ts.actions`), and can be rendered
  * either as a button bar or a dropdown.
  */
 Handlebars.registerHelper('actions', function(category, type) {
   let template = type === 'button'
         ? ds.templates.action_button
         : ds.templates.action
-  let actions = ds.actions.list(category)
+  let actions = ts.actions.list(category)
   if (actions && actions.length) {
     if (typeof(type) === 'boolean' && type) {
         actions = actions.slice()

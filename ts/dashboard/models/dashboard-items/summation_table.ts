@@ -1,5 +1,6 @@
 module ts {
   export module models {
+
     export class SummationTable extends TablePresentation {
       static meta: DashboardItemMetadata = {
         icon:     'fa fa-table',
@@ -49,7 +50,7 @@ module ts {
         }
       }
 
-      interactive_properties(): PropertyListEntry[] {
+      interactive_properties(): PropertyList {
         return super.interactive_properties().concat([
           { name: 'show_color', type: 'boolean' },
           'chart.palette'

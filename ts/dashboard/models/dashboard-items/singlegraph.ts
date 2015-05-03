@@ -45,7 +45,7 @@ module ts {
         $('#' + this.item_id + ' span.ds-label').text(label)
       }
 
-      interactive_properties(): PropertyListEntry[] {
+      interactive_properties(): PropertyList {
         return super.interactive_properties().concat([
           'format', 'transform'
         ])

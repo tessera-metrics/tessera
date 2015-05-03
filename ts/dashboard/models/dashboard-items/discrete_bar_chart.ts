@@ -49,7 +49,7 @@ module ts {
         ds.charts.discrete_bar_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)
       }
 
-      interactive_properties() : PropertyListEntry[] {
+      interactive_properties() : PropertyList {
         return super.interactive_properties().concat([
           'transform',
           'format',

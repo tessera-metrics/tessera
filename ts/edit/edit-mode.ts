@@ -12,8 +12,9 @@
     let $elt       = $(this)
     let query_name = $elt.attr('data-ds-query-name')
     let dashboard  = ds.manager.current.dashboard
-    if (!dashboard.definition.queries[query_name])
+    if (!dashboard.definition.queries[query_name]) {
       return true
+    }
     let queries_in_use = dashboard.definition.get_queries()
     if (queries_in_use[query_name]) {
       bootbox.dialog({
@@ -46,8 +47,9 @@
     let $elt       = $(this)
     let query_name = $elt.attr('data-ds-query-name')
     let dashboard  = ds.manager.current.dashboard
-    if (!dashboard.definition.queries[query_name])
+    if (!dashboard.definition.queries[query_name]) {
       return true
+    }
     duplicate_query(dashboard, query_name)
     return true
   })
@@ -137,7 +139,7 @@
 
   function duplicate_query(dashboard, name) {
     log.debug('duplicate_query()')
-    let new_name = 'Copy of ' + name + ' ' + Object.keys(dashboard.definition.queries).length
+    let new_name = `Copy of ${name} ` + Object.keys(dashboard.definition.queries).length
     let source   = dashboard.definition.queries[name]
     return add_query(dashboard, new_name, source.targets.slice(0))
   }
@@ -151,7 +153,7 @@
   function new_query(dashboard, targets?) {
     log.debug('new_query()')
     let name = "query" + Object.keys(dashboard.definition.queries).length
-    return add_query(dashboard, name, targets || 'absolute(randomWalkFunction("' + name + '"))')
+    return add_query(dashboard, name, targets || `absolute(randomWalkFunction("${name}"))`)
   }
 
   /* -----------------------------------------------------------------------------
@@ -264,7 +266,7 @@
      Item Actions
      ----------------------------------------------------------------------------- */
 
-  let duplicate_item_action = ds.action({
+  let duplicate_item_action = new ts.Action({
     name:    'duplicate',
     display: 'Duplicate Item',
     icon:    'fa fa-copy',
@@ -281,7 +283,7 @@
     }
   })
 
-  let delete_action = ds.action({
+  let delete_action = new ts.Action({
     name:    'delete',
     display: 'Delete item',
     icon:    'fa fa-trash-o',
@@ -296,7 +298,7 @@
     }
   })
 
-  let move_back_action = ds.action({
+  let move_back_action = new ts.Action({
     name:    'move-back',
     display: 'Move item back one place',
     icon:    'fa fa-caret-left',
@@ -308,7 +310,7 @@
     }
   })
 
-  let move_forward_action = ds.action({
+  let move_forward_action = new ts.Action({
     name:    'move-forward',
     display: 'Move item forward one place',
     icon:    'fa fa-caret-right',
@@ -320,7 +322,7 @@
     }
   })
 
-  let view_definition_action = ds.action({
+  let view_definition_action = new ts.Action({
     name:    'view-definition',
     display: 'View definition...',
     icon:    'fa fa-code',
@@ -369,12 +371,12 @@
     return chart
   }
 
-  ts.actions.register('new-item-chart', {
-    name: 'new-chart-from-url',
-    display: 'Add new chart from Graphite URL',
-    icon: 'fa fa-image',
-    class: 'new-item',
-    category: 'new-item-chart',
+  ts.actions.register({
+    name:      'new-chart-from-url',
+    category:  'new-item-chart',
+    display:   'Add new chart from Graphite URL',
+    icon:      'fa fa-image',
+    css_class: 'new-item',
     handler: function(action, container) {
       bootbox.prompt({
         title: "Enter a Graphite chart URL",
@@ -397,46 +399,46 @@
      New item handling
      ----------------------------------------------------------------------------- */
 
-  let new_item_actions = [].concat(ds.actions.get('new-item-structural', 'row'),
-                                   ds.action.divider,
-                                   ds.actions.list('new-item-display').sort(function(a, b) {
+  let new_item_actions = [].concat(ts.actions.get('new-item-structural', 'row'),
+                                   ts.Action.DIVIDER,
+                                   ts.actions.list('new-item-display').sort(function(a, b) {
                                      return a.icon.localeCompare(b.icon)
                                    }),
-                                   ds.action.divider,
-                                   ds.actions.list('new-item-data-table').sort(function(a, b) {
+                                   ts.Action.DIVIDER,
+                                   ts.actions.list('new-item-data-table').sort(function(a, b) {
                                      return a.icon.localeCompare(b.icon)
                                    }),
-                                   ds.action.divider,
-                                   ds.actions.list('new-item-chart').sort(function(a, b) {
+                                   ts.Action.DIVIDER,
+                                   ts.actions.list('new-item-chart').sort(function(a, b) {
                                      return a.icon.localeCompare(b.icon)
                                    })
                                   )
-  let other = ds.actions.list('new-item')
+  let other = ts.actions.list('new-item')
   if (other && other.length) {
     new_item_actions.concat(other.sort(function(a, b) {
                               return a.icon.localeCompare(b.icon)
                             }))
   }
 
-  let new_item_action_for_cell = ds.action({
-    name: 'new-item',
-    category: 'new-item',
-    class: 'ds-new-item',
-    display: 'Add new dashboard item...',
-    icon: 'fa fa-plus',
-    actions: new_item_actions
+  let new_item_action_for_cell = new ts.Action({
+    name:      'new-item',
+    category:  'new-item',
+    css_class: 'ds-new-item',
+    display:   'Add new dashboard item...',
+    icon:      'fa fa-plus',
+    actions:   new_item_actions
   })
 
-  let new_item_action_for_section = ds.action({
-    name: 'new-item',
-    category: 'new-item',
-    class: 'ds-new-item',
-    display: 'Add new dashboard item...',
-    icon: 'fa fa-plus',
-    actions: [].concat(ds.actions.get('new-item-structural', 'section'),
-                       ds.actions.get('new-item-structural', 'row'),
-                       ds.action.divider,
-                       ds.actions.list('new-item-display').sort(function(a, b) {
+  let new_item_action_for_section = new ts.Action({
+    name:      'new-item',
+    category:  'new-item',
+    css_class: 'ds-new-item',
+    display:   'Add new dashboard item...',
+    icon:      'fa fa-plus',
+    actions: [].concat(ts.actions.get('new-item-structural', 'section'),
+                       ts.actions.get('new-item-structural', 'row'),
+                       ts.Action.DIVIDER,
+                       ts.actions.list('new-item-display').sort(function(a, b) {
                          return a.icon.localeCompare(b.icon)
                        })
                       )
@@ -448,7 +450,7 @@
     let name     = elt.attr('data-ds-action')
     let item_id  = elt.parent().parent().parent().parent()[0].getAttribute('data-ds-item-id')
     let item     = ds.manager.current.dashboard.get_item(item_id)
-    let action   = ds.actions.get(category, name)
+    let action   = ts.actions.get(category, name)
 
     action.handler(action, item)
     return false
@@ -461,10 +463,10 @@
   ts.actions.register('edit-bar-section', [
     new_item_action_for_section,
     duplicate_item_action,
-    ds.action.divider,
+    ts.Action.DIVIDER,
     move_back_action,
     move_forward_action,
-    ds.action.divider,
+    ts.Action.DIVIDER,
     delete_action
   ])
 
@@ -473,7 +475,7 @@
      ----------------------------------------------------------------------------- */
 
   ts.actions.register('edit-bar-row', [
-    ds.action({
+    new ts.Action({
       name: 'new-cell',
       display: 'Add new Cell',
       icon: 'fa fa-plus',
@@ -482,10 +484,10 @@
       }
     }),
     duplicate_item_action,
-    ds.action.divider,
+    ts.Action.DIVIDER,
     move_back_action,
     move_forward_action,
-    ds.action.divider,
+    ts.Action.DIVIDER,
     delete_action
   ])
 
@@ -496,10 +498,10 @@
   ts.actions.register('edit-bar-cell', [
     new_item_action_for_cell,
     duplicate_item_action,
-    ds.action.divider,
+    ts.Action.DIVIDER,
     move_back_action,
     move_forward_action,
-    ds.action({
+    new ts.Action({
       name:    'increase-span',
       display: 'Increase cell span by one',
       icon:    'fa fa-expand',
@@ -510,7 +512,7 @@
         }
       }
     }),
-    ds.action({
+    new ts.Action({
       name:    'decrease-span',
       display: 'Decrease cell span by one',
       icon:    'fa fa-compress',
@@ -521,7 +523,7 @@
         }
       }
     }),
-    ds.action.divider,
+    ts.Action.DIVIDER,
     delete_action
   ])
 
@@ -531,11 +533,11 @@
 
   ts.actions.register('edit-bar-item', [
     duplicate_item_action,
-    ds.action.divider,
+    ts.Action.DIVIDER,
     move_back_action,
     move_forward_action,
     view_definition_action,
-    ds.action.divider,
+    ts.Action.DIVIDER,
     delete_action
   ])
 
@@ -550,7 +552,7 @@
     let item_id  = parent.getAttribute('data-ds-item-id')
     let name     = element.getAttribute('data-ds-action')
     let category = element.getAttribute('data-ds-category')
-    let action   = ds.actions.get(category, name)
+    let action   = ts.actions.get(category, name)
     let item     = ds.manager.current.dashboard.get_item(item_id)
 
     if (action) {
@@ -562,8 +564,8 @@
      Dashboard Query Panel
      ----------------------------------------------------------------------------- */
 
-  ds.actions.register('dashboard-queries', [
-    ds.action({
+  ts.actions.register('dashboard-queries', [
+    new ts.Action({
       name:    'new-query',
       display: 'New Query...',
       icon:    'fa fa-plus',
@@ -576,7 +578,7 @@
   $(document).on('click', '#ds-query-panel button', function(event) {
     let element  = $(this)[0]
     let name     = element.getAttribute('data-ds-action')
-    let action   = ds.actions.get('dashboard-queries', name)
+    let action   = ts.actions.get('dashboard-queries', name)
 
     if (action) {
       action.handler(action, ds.manager.current.dashboard)

@@ -31,7 +31,7 @@ module ts {
           TimeshiftSummationTable.timeshift_action('1h', '1 Hour Ago'),
           TimeshiftSummationTable.timeshift_action('1d', '1 Day Ago'),
           TimeshiftSummationTable.timeshift_action('1w', '1 Week Ago'),
-          ds.action({
+          new ts.Action({
             name:    'timeshift_user_input',
             display: 'Pick interval...',
             icon:    'fa fa-clock-o',
