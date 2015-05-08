@@ -55,7 +55,7 @@
    ts.manager.list('{{url_for('api_dashboard_list_tagged', tag='featured')|safe}}', function(data) {
      if (data && data.length) {
        $("#ds-featured-dashboards").show()
-       $("#ds-dashboard-featured-listing").html(ds.templates.listing.dashboard_list({dashboards: data}))
+       $("#ds-dashboard-featured-listing").html(ts.templates.listing.dashboard_list({dashboards: data}))
      }
    })
 

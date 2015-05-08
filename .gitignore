@@ -27,3 +27,5 @@ _site/
 _build/
 .tscache/
 tscommand*
+.DS_Store
+src/ts/.baseDir.ts

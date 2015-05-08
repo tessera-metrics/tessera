@@ -1,0 +1,255 @@
+import { logger } from '../../core/log'
+import Summation from './summation'
+import Model from '../model'
+import { extend } from '../../core/util'
+import { render_template } from '../../core/template'
+import events from '../../core/event'
+import * as app from '../../app/app'
+
+declare var URI, $, ts
+const log = logger('tessera.query')
+
+export interface QueryDictionary {
+  [index: string] : Query
+}
+
+export default class Query extends Model {
+  static DEFAULT_FROM_TIME = '-3h'
+
+  targets: string[]
+  name: string
+  data: any
+  summation: Summation
+  options: any
+  expanded_targets: string[]
+  local_options: any
+
+  private load_count: number = 0
+  private cache: Map<string, any> = new Map<string, any>()
+
+  constructor(data: any) {
+    super(data)
+    if (data) {
+      if (data instanceof Array) {
+        this.targets = data
+      } else if (typeof(data) === 'string') {
+        this.targets = [data]
+      } else if (data.targets) {
+        if (data.targets instanceof Array) {
+          this.targets = data.targets
+        } else {
+          this.targets = [data.targets]
+        }
+      }
+      if (data.options) {
+        this.options = data.options
+      }
+      this.name = data.name
+    }
+  }
+
+  set_name(name: string) : Query {
+    this.name = name
+    return this
+  }
+
+  set_options(options: any) : Query {
+    this.options = options
+    return this
+  }
+
+  render_templates(context: any) : void {
+    this.expanded_targets = this.targets.map(t => {
+      try {
+        return render_template(t, context)
+      } catch ( e ) {
+        ts.manager.error(`Failed to expand query ${this.name}: ${e}`)
+        return t
+      }
+    })
+  }
+
+  url(opt?: any) : string {
+    var options = extend({}, this.local_options, opt, this.options)
+    var url     = new URI(options.base_url || app.config.GRAPHITE_URL)
+      .segment('render')
+      .setQuery('format', options.format || 'png')
+      .setQuery('from', options.from || app.config.DEFAULT_FROM_TIME || Query.DEFAULT_FROM_TIME)
+      .setQuery('tz', app.config.DISPLAY_TIMEZONE)
+    if (options.until) {
+      url.setQuery('until', options.until)
+    }
+    var targets = this.expanded_targets || this.targets
+    for (let t of targets) {
+      url.addQuery('target', t.replace(/(\r\n|\n|\r)/gm,''))
+    }
+    return url.href()
+  }
+
+  /**
+   * Return true if the item's query has the graphite stacked()
+   * function anywhere in it. If you have stacked() in the query and
+   * areaMode=stack in the URL, bad shit will happen to your graph.
+   */
+  is_stacked() : boolean {
+    var targets = this.expanded_targets || this.targets
+    if (typeof(targets) === 'undefined')
+      return false
+    var stacked = false
+    this.targets.forEach(function(target) {
+      if (target.indexOf('stacked') > -1) {
+        stacked = true
+      }
+    })
+    return stacked
+  }
+
+  /**
+   * Asynchronously load the data for this query from the graphite
+   * server, notifying any listening consumers when the data is
+   * available.
+   *
+   * @param {Object} options Parameters for generating the URL to
+   * load. Valid properties are:
+   *   * base_url (required)
+   *   * from
+   *   * until
+   *   * ready
+   * @param {boolean} fire_only Just raise the event, without fetching
+   *                            data.
+   */
+  load(opt?: any, fire_only?: boolean) : void {
+    log.debug('load(): ' + this.name)
+    this.local_options = extend({}, this.local_options, opt)
+    var options = extend({}, this.local_options, opt, this.options)
+
+    if (typeof(fire_only) === 'boolean' && fire_only) {
+      // This is a bit of a hack for optimization, to fire the query
+      // events when if we don't need the raw data because we're
+      // rendering non-interactive graphs only. Would like a more
+      // elegant way to handle the case.
+      var ready = options.ready
+      if (ready && (ready instanceof Function)) {
+        ready(this)
+      }
+
+      events.fire(this, 'ds-data-ready', this)
+    } else {
+      this.cache.clear()
+      options.format = 'json'
+      var url = this.url(options)
+      events.fire(this, 'ds-data-loading')
+      this.load_count += 1
+      return $.ajax({
+        dataType: 'jsonp',
+        url: url,
+        jsonp: 'jsonp',
+        beforeSend: function(xhr) {
+          if (app.config.GRAPHITE_AUTH !== '') {
+            xhr.setRequestHeader('Authorization', 'Basic ' + window.btoa(app.config.GRAPHITE_AUTH))
+          }
+        }
+      })
+        .fail((xhr, status, error) => {
+          ts.manager.error('Failed to load query ' + this.name + '. ' + error)
+        })
+        .then((response_data, textStatus) => {
+          this._summarize(response_data)
+          if (options.ready && (options.ready instanceof Function)) {
+            options.ready(this)
+          }
+          events.fire(this, 'ds-data-ready', this)
+        })
+    }
+  }
+
+  /**
+   * Register an event handler to be called when the query's data is
+   * loaded.
+   */
+  on_load(handler: any) : void {
+    log.debug('on(): ' + this.name)
+    events.on(this, 'ds-data-ready', handler)
+  }
+
+  /**
+   * Remove all registered event handlers.
+   */
+  off() : void {
+    log.debug('off(): ' + this.name)
+    events.off(this, 'ds-data-ready')
+  }
+
+  _group_targets() : string {
+    return (this.targets.length > 1)
+      ? 'group(' + this.targets.join(',') + ')'
+      : this.targets[0]
+  }
+
+  /**
+   * Return a new query with the targets timeshifted.
+   */
+  shift(interval: string) {
+    var group = this._group_targets()
+    return new Query({
+      name: this.name + '_shift_' + interval,
+      targets: [
+        'timeShift(' + group + ', \"' + interval + '\")'
+      ]
+    })
+  }
+
+  /**
+   * Return a new query with the targets from this query and another
+   * query joined into a 2-target array, for comparison presentations.
+   */
+  join(other) : Query {
+    var target_this  = this._group_targets()
+    var target_other = other._group_targets()
+    return new Query({
+      name: this.name + '_join_' + other.name,
+      targets: [
+        target_this,
+        target_other
+      ]
+    })
+  }
+
+  /**
+   * Process the results of executing the query, transforming
+   * the returned structure into something consumable by the
+   * charting library, and calculating sums.
+   */
+  _summarize(response_data) : Query {
+    this.summation = new Summation(response_data)
+    this.data = response_data.map((series) => {
+      series.summation = new Summation(series).toJSON()
+      return series
+    })
+    return this
+  }
+
+  /**
+   * Fetch data processed for use by a particular chart renderer, and
+   * cache it in the query object so it's not re-processed over and
+   * over.
+   */
+  chart_data(type: string) : any {
+    var cache_key = 'chart_data_' + type
+    if (!this.cache.has(cache_key)){
+      // TODO
+      // this.cache.set(cache_key, ts.charts.process_data(this.data, type))
+    }
+    return this.cache.get(cache_key)
+  }
+
+  toJSON() : any {
+    return extend(super.toJSON(), {
+      name: this.name,
+      targets: this.targets,
+      data: this.data,
+      summation: this.summation.toJSON(),
+      options: this.options
+    })
+  }
+}
