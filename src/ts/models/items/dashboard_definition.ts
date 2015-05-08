@@ -4,8 +4,11 @@ import { DashboardItemMetadata } from './item'
 import Query, { QueryDictionary } from '../data/Query'
 import { register_dashboard_item } from './factory'
 import { extend } from '../../core/util'
+import { logger } from '../../core/log'
+import * as charts from '../../charts/core'
 
 declare var $, tessera
+const log = logger('tessera.dashboard_definition')
 
 export default class DashboardDefinition extends Container {
   static meta: DashboardItemMetadata = {
@@ -66,6 +69,7 @@ export default class DashboardDefinition extends Container {
   }
 
   load_all(options?: any) {
+    log.debug('load_all()')
     this.options = options || this.options
 
     var queries_to_load : any = {}
@@ -75,7 +79,7 @@ export default class DashboardDefinition extends Container {
       if (item instanceof Presentation) {
         var query = item.query_override || item.query
         if (query) {
-          if (item.meta.requires_data /* || ts.charts.interactive */) {
+          if (item.meta.requires_data || charts.renderer.is_interactive) {
             queries_to_load[query.name] = query
             delete queries_to_fire[query.name]
           } else {

@@ -16,6 +16,8 @@ var log = logging.logger('main')
 window.ts.app = app
 window.ts.manager = manager
 window.ts.templates = tessera.templates
+window.ts.charts = charts
+window.ts.factory = factory
 app.config = window.ts.config
 
 function setup(config: Config) {

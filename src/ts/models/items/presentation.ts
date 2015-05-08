@@ -2,6 +2,9 @@ import DashboardItem from './item'
 import Query from '../data/query'
 import { extend } from '../../core/util'
 import { PropertyList } from '../../core/property'
+import { logger } from '../../core/log'
+
+const log = logger('tessera.models.presentation')
 
 /**
  * The base class for all _presentations_, or dashboard items
@@ -27,6 +30,7 @@ export default class Presentation extends DashboardItem {
 
   get query() : Query {
     if (!this.dashboard) {
+      log.error(`dashboard property not set on ${this.item_type} / ${this.item_id}`)
       return null
     }
     return this.dashboard.definition.queries[this._query]

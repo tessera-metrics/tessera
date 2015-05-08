@@ -1,5 +1,6 @@
 import { safe_render_template } from '../core/template'
 import { extend } from '../core/util'
+import { logger } from '../core/log'
 import Model from './model'
 import Tag from './tag'
 import Container from './items/container'
@@ -7,6 +8,7 @@ import DashboardDefinition from './items/dashboard_definition'
 import DashboardItem from './items/item'
 import { make } from './items/factory'
 
+const log = logger('tessera.models.dashboard')
 
 export default class Dashboard extends Model {
 
@@ -63,9 +65,15 @@ export default class Dashboard extends Model {
         this._next_id++
       })
       this.next_id()
+      this.update_index()
     }
   }
 
+  set_definition(definition: DashboardDefinition) : Dashboard {
+    this.definition = definition
+    this.update_index()
+    return this
+  }
 
   visit(visitor) : Dashboard {
     visitor(this)
@@ -93,6 +101,7 @@ export default class Dashboard extends Model {
   }
 
   update_index() : Dashboard {
+    log.debug('update_index()')
     var index : any = {}
     this.visit((item) => {
       if (item instanceof DashboardItem) {

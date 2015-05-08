@@ -14,14 +14,12 @@ export const StackMode = {
 
 export class ChartRenderer implements NamedObject {
   name: string
-  category: string
   is_interactive: boolean
   description: string
 
   constructor(data?: any) {
     if (data) {
       this.name = data.name
-      this.category = data.category
       this.is_interactive = !!data.is_interactive
       this.description = data.description
     }
