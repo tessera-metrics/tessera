@@ -7,7 +7,7 @@ import { register_dashboard_item } from './factory'
 
 declare var $, tessera
 
-export class PercentageTable extends TablePresentation {
+export default class PercentageTable extends TablePresentation {
   static meta: DashboardItemMetadata = {
     icon: 'fa fa-table',
     category: 'data-table',

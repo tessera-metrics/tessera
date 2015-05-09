@@ -8,7 +8,7 @@ import * as charts from '../../charts/core'
 
 declare var $
 
-export class SimpleTimeSeries extends Chart {
+export default class SimpleTimeSeries extends Chart {
   static meta: DashboardItemMetadata = {
     icon: 'fa fa-line-chart'
   }

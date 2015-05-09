@@ -8,9 +8,9 @@ import * as charts from '../../charts/util'
 
 declare var $, tessera
 
-const log = logger('tessera.items.summation_table')
+const log = logger('models.summation_table')
 
-export class SummationTable extends TablePresentation {
+export default class SummationTable extends TablePresentation {
 
   show_color: boolean = false
   options: any
