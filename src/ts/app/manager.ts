@@ -10,7 +10,7 @@ import Dashboard from '../models/dashboard'
 import Query from '../models/data/Query'
 import { transforms } from '../models/transform/transform'
 
-declare var $, URI, window, bootbox
+declare var $, URI, window, bootbox, ts
 
 const log = logging.logger('manager')
 
@@ -205,13 +205,12 @@ const manager =
      */
     self.update_item_view = function(item) {
       let element = $('#' + item.item_id)
-      // TODO - circular dependency between manager & edit
-      // let visible = ts.edit.details_visibility(item)
-      let visible = false
+      // REFACTOR - unchecked global reference
+      let visible = ts.edit.details_visibility(item)
       element.replaceWith(item.render())
       if (visible) {
-        // TODO
-        // ts.edit.show_details(item.item_id)
+        // REFACTOR - unchecked global reference
+        ts.edit.show_details(item.item_id)
       }
       item.visit(function(i) {
         let query = i.query_override || i.query
