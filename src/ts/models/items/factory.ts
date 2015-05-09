@@ -10,7 +10,7 @@ import { extend } from '../../core/util'
 
 declare var inflection, Handlebars, tessera
 
-var log = logger('tessera.models.factory')
+var log = logger('models.factory')
 var constructors = new Map<string, DashboardItemConstructor>()
 export var metadata = new Map<string, DashboardItemMetadata>()
 

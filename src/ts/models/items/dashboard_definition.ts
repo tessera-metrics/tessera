@@ -8,7 +8,7 @@ import { logger } from '../../core/log'
 import * as charts from '../../charts/core'
 
 declare var $, tessera
-const log = logger('tessera.dashboard_definition')
+const log = logger('models.dashboard_definition')
 
 export default class DashboardDefinition extends Container {
   static meta: DashboardItemMetadata = {

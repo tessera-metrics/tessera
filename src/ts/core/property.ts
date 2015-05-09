@@ -11,7 +11,7 @@ import manager from '../app/manager'
 
 // export type PropertyTemplate = string | ((ctx?: any) => string)
 
-const log = logger('tessera.property')
+const log = logger('property')
 
 export const PropertyType = {
   SELECT: 'select',

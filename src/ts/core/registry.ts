@@ -70,7 +70,7 @@ export class Registry<T extends NamedObject> {
     this.process = data.process
     this.ignore_categories = !!data.ignore_categories
     this.data = {}
-    this.log = logger(`tessera.registry.${this.name}`)
+    this.log = logger(`registry.${this.name}`)
   }
 
   _get_data(category: string) : RegistryStorage<T> {

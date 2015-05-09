@@ -4,7 +4,7 @@ import { extend } from '../../core/util'
 import { PropertyList } from '../../core/property'
 import { logger } from '../../core/log'
 
-const log = logger('tessera.models.presentation')
+const log = logger('models.presentation')
 
 /**
  * The base class for all _presentations_, or dashboard items

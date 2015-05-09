@@ -12,7 +12,7 @@ import { transforms } from '../models/transform/transform'
 
 declare var $, URI, window, bootbox
 
-const log = logging.logger('tessera.app.manager')
+const log = logging.logger('manager')
 
 const DashboardHolder = function(url, element) {
   "use strict"

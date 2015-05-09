@@ -1,7 +1,7 @@
 import { logger } from './log'
 
 declare var bean
-const log = logger('tessera.events')
+const log = logger('events')
 
 export interface EventHandler {
   (target?: Object, data?: any) : void

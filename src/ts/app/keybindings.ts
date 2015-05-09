@@ -4,7 +4,7 @@ import manager from './manager'
 
 declare var Mousetrap
 
-const log = logger('tessera.keys')
+const log = logger('keys')
 
 /* =============================================================================
    Keyboard Shortcuts

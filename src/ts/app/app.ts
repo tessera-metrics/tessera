@@ -4,7 +4,7 @@ import Config from './config'
 
 declare var $, URI, window
 
-const log             = logging.logger('tessera.app')
+const log             = logging.logger('app')
 const ANIMATION_DELAY = 300
 
 export var config = new Config()
