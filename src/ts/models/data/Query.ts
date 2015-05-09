@@ -5,6 +5,8 @@ import { extend } from '../../core/util'
 import { render_template } from '../../core/template'
 import events from '../../core/event'
 import * as app from '../../app/app'
+import * as charts from '../../charts/core'
+import * as graphite from '../../data/graphite'
 
 declare var URI, $, ts
 const log = logger('tessera.query')
@@ -18,7 +20,7 @@ export default class Query extends Model {
 
   targets: string[]
   name: string
-  data: any
+  data: graphite.DataSeriesList
   summation: Summation
   options: any
   expanded_targets: string[]
@@ -237,8 +239,7 @@ export default class Query extends Model {
   chart_data(type: string) : any {
     var cache_key = 'chart_data_' + type
     if (!this.cache.has(cache_key)){
-      // TODO
-      // this.cache.set(cache_key, ts.charts.process_data(this.data, type))
+      this.cache.set(cache_key, charts.process_data(this.data, type))
     }
     return this.cache.get(cache_key)
   }

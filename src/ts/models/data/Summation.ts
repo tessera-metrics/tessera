@@ -21,6 +21,7 @@ export default class Summation extends Model {
   last: number = 0
   last_non_zero: number = 0
   count: number = 0
+  percent: number = undefined
   percent_value: number = undefined
 
   constructor(initial_data: any) {

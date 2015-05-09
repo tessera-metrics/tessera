@@ -1,4 +1,3 @@
-import Query from '../models/data/query'
 import Chart from '../models/items/chart'
 import { NamedObject, Registry } from '../core/registry'
 import * as graphite from '../data/graphite'
@@ -63,7 +62,6 @@ export function set_renderer(r: string|ChartRenderer) {
   }
 }
 
-
 /* =============================================================================
    Global delegates
    ============================================================================= */
@@ -108,4 +106,12 @@ export function discrete_bar_chart(element: any, item: Chart) : void {
   if (renderer) {
     renderer.discrete_bar_chart(element, item)
   }
+}
+
+export function process_series(series: graphite.DataSeries, type?: string) : any {
+  return renderer ? renderer.process_series(series) : series
+}
+
+export function process_data(data: graphite.DataSeriesList|graphite.DataSeries, type?: string) : any {
+  return renderer ? renderer.process_data(data) : data
 }

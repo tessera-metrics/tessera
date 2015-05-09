@@ -43,7 +43,7 @@ export default class Singlegraph extends Chart {
       return
     charts.simple_area_chart($("#" + this.item_id + ' .ds-graph-holder'), this)
     this.options.margin = { top: 0, left: 0, bottom: 0, right: 0 }
-    var label = this.query.data[this.index || 0].key
+    var label = this.query.data[this.index || 0].target
     var value = this.query.summation[this.transform]
     if (this.index) {
       value = this.query.data[this.index].summation[this.transform]
