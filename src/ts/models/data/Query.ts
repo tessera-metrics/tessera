@@ -9,7 +9,7 @@ import * as charts from '../../charts/core'
 import * as graphite from '../../data/graphite'
 
 declare var URI, $, ts
-const log = logger('tessera.query')
+const log = logger('query')
 
 export interface QueryDictionary {
   [index: string] : Query
@@ -249,7 +249,7 @@ export default class Query extends Model {
       name: this.name,
       targets: this.targets,
       data: this.data,
-      summation: this.summation.toJSON(),
+      summation: this.summation ? this.summation.toJSON() : undefined,
       options: this.options
     })
   }
