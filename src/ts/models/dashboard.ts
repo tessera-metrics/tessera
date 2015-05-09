@@ -8,7 +8,7 @@ import DashboardDefinition from './items/dashboard_definition'
 import DashboardItem from './items/item'
 import { make } from './items/factory'
 
-const log = logger('tessera.models.dashboard')
+const log = logger('models.dashboard')
 
 export default class Dashboard extends Model {
 
@@ -97,7 +97,6 @@ export default class Dashboard extends Model {
   }
 
   update_index() : Dashboard {
-    log.debug('update_index()')
     var index : any = {}
     this.visit((item) => {
       if (item instanceof DashboardItem) {
