@@ -28,18 +28,9 @@ export default class Dashboard extends Model {
   description: string
   expanded_description: string
   definition: DashboardDefinition
-  tags: Tag[]
+  tags: Tag[] = []
 
   _next_id: number = 0
-
-  // .property('definition', {
-  //   update: function() {
-  //     self.update_index()
-  // .property('tags', {
-  //   init: [],
-  //   transform: function(tags) {
-  //     return tags.map(function(t) {
-  //       return new ts.models.Tag(t)
 
   constructor(data?: any) {
     super(data)
@@ -67,6 +58,11 @@ export default class Dashboard extends Model {
       this.next_id()
       this.update_index()
     }
+  }
+
+  set_tags(tags: string[]) : Dashboard {
+    this.tags = tags.map(t => new Tag(t))
+    return this
   }
 
   set_definition(definition: DashboardDefinition) : Dashboard {
