@@ -45,9 +45,9 @@
     <script>
      function ds_display_time() {
        var now = moment()
-       $('.ds-time-container .time').text(now.tz(ds.config.DISPLAY_TIMEZONE).format('hh:mm'))
-       $('.ds-time-container .ampm').text(now.tz(ds.config.DISPLAY_TIMEZONE).format('A z'))
-       $('.ds-time-container .date').text(now.tz(ds.config.DISPLAY_TIMEZONE).format('dddd D MMMM YYYY'))
+       $('.ds-time-container .time').text(now.tz(ts.config.DISPLAY_TIMEZONE).format('hh:mm'))
+       $('.ds-time-container .ampm').text(now.tz(ts.config.DISPLAY_TIMEZONE).format('A z'))
+       $('.ds-time-container .date').text(now.tz(ts.config.DISPLAY_TIMEZONE).format('dddd D MMMM YYYY'))
      }
 
      ds_display_time()

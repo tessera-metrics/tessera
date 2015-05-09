@@ -3,63 +3,8 @@ module.exports = function(grunt) {
   var path = require('path');
 
   var SOURCE_FILES = [
-    'ts/dependencies.ts',
-    'ts/graphite.ts',
-    'ts/core/core.ts',
-    'ts/core/log.ts',
-    'ts/core/perf.ts',
-    'ts/core/event.ts',
-    'ts/core/registry.ts',
-    'ts/core/action.ts',
-    'ts/core/property.ts',
-    'ts/models/transform.ts',
-    'ts/app/app.ts',
-    'ts/app/manager.ts',
-    'ts/app/helpers.ts',
-    'ts/app/keybindings.ts',
-    'ts/charts/charts.ts',
-    'ts/charts/provider.ts',
-    'ts/charts/graphite.ts',
-    'ts/charts/flot.ts',
-    'ts/app/actions.ts',
-    'ts/models/factory.ts',
-    'ts/models/properties.ts',
-    'ts/models/model.ts',
-    'ts/models/item.ts',
-    'ts/models/presentation.ts',
-    'ts/models/table-presentation.ts',
-    'ts/models/container.ts',
-    'ts/models/chart.ts',
-    'ts/models/axis.ts',
-    'ts/models/tag.ts',
-    'ts/models/thresholds.ts',
-    'ts/models/data/Summation.ts',
-    'ts/models/data/Query.ts',
-    'ts/models/section.ts',
-    'ts/models/row.ts',
-    'ts/models/cell.ts',
-    'ts/models/separator.ts',
-    'ts/models/heading.ts',
-    'ts/models/markdown.ts',
-    'ts/models/singlestat.ts',
-    'ts/models/jumbotron_singlestat.ts',
-    'ts/models/summation_table.ts',
-    'ts/models/comparison_summation_table.ts',
-    'ts/models/timeshift_summation_table.ts',
-    'ts/models/percentage_table.ts',
-    'ts/models/singlegraph.ts',
-    'ts/models/simple_time_series.ts',
-    'ts/models/standard_time_series.ts',
-    'ts/models/stacked_area_chart.ts',
-    'ts/models/bar_chart.ts',
-    'ts/models/discrete_bar_chart.ts',
-    'ts/models/donut_chart.ts',
-    'ts/models/dashboard_definition.ts',
-    'ts/models/dashboard.ts',
-    'ts/models/transform/*.ts',
-    'ts/extensions/**/*.ts',
-    'ts/edit.ts',
-    'ts/app/handlers/*.ts'
+    'src/ts/**/*.ts',
+    '!src/ts/types/**'
   ]
 
   grunt.initConfig({
@@ -72,24 +17,46 @@ module.exports = function(grunt) {
     ts: {
       default: {
         src: SOURCE_FILES,
-        out: '_build/app-es6.js',
+        outDir: '_build/phase1',
         options: {
-          target: 'es6'
+          target: 'es6',
+          coments: true
         }
       }
     },
 
     /**
-     * 2 - Convert the ES6 Javascript to ES5 Javascript, via babeljs.
+     * 2 - Compile the app sources to a single bundle using
+     * browserify, running babeljs over the sources on the way.
      */
-    babel: {
-      options: {
-        sourceMap: true,
-        compact: false
-      },
-      dist: {
+    browserify: {
+
+      dep: {
         files: {
-          '_build/app-es5.js' : '_build/app-es6.js'
+          '_build/dependencies.js' : [
+            'src/js/dependencies.js'
+          ]
+        },
+        options: {
+          browserifyOptions: {
+            // debug: true
+          }
+        }
+      },
+
+      app: {
+        files: {
+          '_build/phase2.js' : [
+            '_build/phase1/**/*.js'
+          ]
+        },
+        options: {
+          transform: [
+            'babelify'
+          ],
+          browserifyOptions: {
+            // debug: true
+          }
         }
       }
     },
@@ -102,7 +69,7 @@ module.exports = function(grunt) {
         options: {
           partialsUseNamespace: true,
           namespace: function(filename) {
-            return 'ds.' + path.dirname(filename).split('/').join('.')
+            return path.dirname(filename).split('/').join('.').replace('src', 'tessera')
           },
           processName: function(filename) {
             var pieces = filename.split('/')
@@ -110,7 +77,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          '_build/templates.js' : [ 'templates/**/*.hbs']
+          '_build/templates.js' : [ 'src/templates/**/*.hbs']
         }
       }
     },
@@ -120,7 +87,7 @@ module.exports = function(grunt) {
      * templates, and the babel polyfill required for all ES6 support.
      */
     concat: {
-      bundle_css: {
+      dep_css: {
         src: [
           'tessera/static/css/bootstrap.css',
           'tessera/static/css/bootstrap-callouts.css',
@@ -135,33 +102,17 @@ module.exports = function(grunt) {
         ],
         dest: 'tessera/static/css/bundle.css'
       },
-      bundle: {
+      dep_js: {
         options: {
           separator: ';'
         },
         src: [
-          'tessera/static/js/jquery-1.11.2.min.js',
-          'tessera/static/js/jquery.dataTables.min.js',
-          'tessera/static/js/dataTables.bootstrap.min.js',
-          'tessera/static/js/moment.min.js',
+          '_build/dependencies.js',
           'tessera/static/js/moment-timezone-with-data.min.js',
-          'tessera/static/js/marked.min.js',
-          'tessera/static/js/mousetrap.min.js',
-          'tessera/static/js/highlight.pack.js',
-          'tessera/static/js/bean.min.js',
-          'tessera/static/js/URI.min.js',
-          'tessera/static/js/handlebars.min.js',
-          'tessera/static/js/bootstrap.min.js',
-          'tessera/static/js/bootbox.min.js',
-          'tessera/static/js/d3.min.js',
           'tessera/static/js/tagmanager.js',
-          'tessera/static/js/select2.min.js',
           'tessera/static/js/bootstrap-editable.min.js',
-          'tessera/static/js/bootstrap-growl.min.js',
           'tessera/static/js/bootstrap-datetimepicker.min.js',
           'tessera/static/js/bootstrapValidator.min.js',
-          'tessera/static/js/limivorous.js',
-          'tessera/static/js/color-0.7.1.js',
           'tessera/static/js/flot/jquery.flot.js',
           'tessera/static/js/flot/jquery.flot.time.js',
           'tessera/static/js/flot/jquery.flot.multihighlight.js',
@@ -172,10 +123,7 @@ module.exports = function(grunt) {
           'tessera/static/js/flot/jquery.flot.valuelabels.js',
           'tessera/static/js/flot/jquery.flot.pie.js',
           'tessera/static/js/flot/jquery.flot.barnumbers.enhanced.js',
-          'tessera/static/js/simple_statistics.js',
-          'tessera/static/js/equalize.min.js',
-          'tessera/static/js/usertiming.js',
-          'tessera/static/js/inflection.min.js'
+          'tessera/static/js/equalize.min.js'
         ],
         dest: 'tessera/static/bundle.js'
       },
@@ -186,11 +134,12 @@ module.exports = function(grunt) {
         src: [
           'node_modules/babel-core/browser-polyfill.js',
           '_build/templates.js',
-          '_build/app-es5.js'
+          '_build/phase2.js'
         ],
-        dest: 'tessera/static/app.js'
+        dest: 'tessera/static/tessera.js'
       }
     },
+
     watch: {
       files: [
         'js/**/*.js',
@@ -207,9 +156,18 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
+  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-ts-1.5');
-  grunt.loadNpmTasks('grunt-babel');
 
-  grunt.registerTask('default', ['ts', 'babel', 'handlebars', 'concat']);
+  /** Compile the tessera source and templates */
+  grunt.registerTask('app', ['ts', 'browserify:app', 'handlebars', 'concat:app'])
+
+  /** Compile all third-party dependencies */
+  grunt.registerTask('dep', ['browserify:dep', 'concat:dep_js', 'concat:dep_css']);
+
+  grunt.registerTask('all', ['app', 'dep'])
+
+  grunt.registerTask('default', ['app'])
 }

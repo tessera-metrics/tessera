@@ -211,7 +211,7 @@
 
  $('#selectRefresh').select2()
 
- $('#selectTimeZone').attr('value', ds.config.DISPLAY_TIMEZONE)
+ $('#selectTimeZone').attr('value', ts.config.DISPLAY_TIMEZONE)
 
  $('#selectTimeZone').select2({
    data: moment.tz.names().map(function(name) {
@@ -224,9 +224,9 @@
 
    var renderers = ds.charts.registry.list()
    for (var i = 0; i < renderers.length; i++) {
-     $('#chart-renderers').append((ds.templates['ds-preferences-renderer-entry']({
+     $('#chart-renderers').append((ts.templates['ds-preferences-renderer-entry']({
        renderer: renderers[i],
-       checked: ds.prefs.renderer === renderers[i].name
+       checked: ts.prefs.renderer === renderers[i].name
      })))
    }
 
