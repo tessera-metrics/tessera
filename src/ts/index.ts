@@ -2,6 +2,8 @@ import * as logging from './core/log'
 import * as charts  from './charts/core'
 import * as factory from './models/items/factory'
 import * as app     from './app/app'
+import * as edit    from './edit/edit'
+import { actions } from './core/action'
 import GraphiteChartRenderer    from './charts/graphite'
 import FlotChartRenderer        from './charts/flot'
 import PlaceholderChartRenderer from './charts/placeholder'
@@ -18,6 +20,8 @@ window.ts.manager = manager
 window.ts.templates = tessera.templates
 window.ts.charts = charts
 window.ts.factory = factory
+window.ts.actions = actions
+window.ts.edit = edit
 app.config = window.ts.config
 
 function setup(config: Config) {
