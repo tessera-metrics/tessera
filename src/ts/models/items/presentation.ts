@@ -18,7 +18,7 @@ export default class Presentation extends DashboardItem {
   constructor(data?: any) {
     super(data)
     if (data) {
-      if (data.query && data.query instanceof Query) {
+      if (data.query && data.query.name) {
         this._query = data.query.name
       } else {
         this._query = data.query
