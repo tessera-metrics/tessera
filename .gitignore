@@ -29,3 +29,4 @@ _build/
 tscommand*
 .DS_Store
 src/ts/.baseDir.ts
+src/ts/extensions/

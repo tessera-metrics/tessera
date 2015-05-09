@@ -5,8 +5,7 @@ import { extend } from '../../core/util'
 import { PropertyList } from '../../core/property'
 import Query from '../data/query'
 
-declare var $
-declare var d3
+declare var $, d3
 
 export default class Singlestat extends Presentation {
   static meta: DashboardItemMetadata = {
@@ -28,6 +27,26 @@ export default class Singlestat extends Presentation {
       this.index = data.index
       this.transform = data.transform || this.transform
     }
+  }
+
+  set_transform(transform: string) : Singlestat {
+    this.transform = transform
+    return this
+  }
+
+  set_format(format: string) : Singlestat {
+    this.format = format
+    return this
+  }
+
+  set_index(index: number) : Singlestat {
+    this.index = index
+    return this
+  }
+
+  set_units(units: string) : Singlestat {
+    this.units = units
+    return this
   }
 
   data_handler(query: Query) : void {

@@ -146,6 +146,11 @@ export default class DashboardItem extends Model {
     return this
   }
 
+  set_title(value: string) : DashboardItem {
+    this.title = value
+    return this
+  }
+
   /* Core methods ------------------------------ */
 
   /** Override this method in sub classes that have strings which
