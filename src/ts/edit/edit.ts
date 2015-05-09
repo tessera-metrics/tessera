@@ -1,14 +1,14 @@
 import * as logging from '../core/log'
 import * as app from '../app/app'
 import manager from '../app/manager'
-import Action, { actions } from '../core/action'
+import Action, { actions, ActionList } from '../core/action'
 import Query from '../models/data/Query'
 import Container from '../models/items/container'
 import { make } from '../models/items/factory'
 
 declare var $, bootbox, tessera
 
-const log = logging.logger('tessera.edit')
+const log = logging.logger('edit')
 
 /* -----------------------------------------------------------------------------
    Queries
@@ -416,25 +416,28 @@ actions.register({
    New item handling
    ----------------------------------------------------------------------------- */
 
-let new_item_actions = [].concat(actions.get('new-item-structural', 'row'),
-                                 Action.DIVIDER,
-                                 actions.list('new-item-display').sort(function(a, b) {
-                                   return a.icon.localeCompare(b.icon)
-                                 }),
-                                 Action.DIVIDER,
-                                 actions.list('new-item-data-table').sort(function(a, b) {
-                                   return a.icon.localeCompare(b.icon)
-                                 }),
-                                 Action.DIVIDER,
-                                 actions.list('new-item-chart').sort(function(a, b) {
-                                   return a.icon.localeCompare(b.icon)
-                                 })
-                                )
-let other = actions.list('new-item')
-if (other && other.length) {
-  new_item_actions.concat(other.sort(function(a, b) {
-    return a.icon.localeCompare(b.icon)
-  }))
+function new_item_actions() : ActionList {
+  let list = [].concat(actions.get('new-item-structural', 'row'),
+                       Action.DIVIDER,
+                       actions.list('new-item-display').sort(function(a, b) {
+                         return a.icon.localeCompare(b.icon)
+                       }),
+                       Action.DIVIDER,
+                       actions.list('new-item-data-table').sort(function(a, b) {
+                         return a.icon.localeCompare(b.icon)
+                       }),
+                       Action.DIVIDER,
+                       actions.list('new-item-chart').sort(function(a, b) {
+                         return a.icon.localeCompare(b.icon)
+                       })
+                      )
+  let other = actions.list('new-item')
+  if (other && other.length) {
+    list.concat(other.sort(function(a, b) {
+      return a.icon.localeCompare(b.icon)
+    }))
+  }
+  return list
 }
 
 let new_item_action_for_cell = new Action({
@@ -452,13 +455,15 @@ let new_item_action_for_section = new Action({
   css:       'ds-new-item',
   display:   'Add new dashboard item...',
   icon:      'fa fa-plus',
-  actions: [].concat(actions.get('new-item-structural', 'section'),
+  actions: () : ActionList => {
+    return [].concat(actions.get('new-item-structural', 'section'),
                      actions.get('new-item-structural', 'row'),
                      Action.DIVIDER,
                      actions.list('new-item-display').sort(function(a, b) {
                        return a.icon.localeCompare(b.icon)
                      })
                     )
+  }
 })
 
 $(document).on('click', 'li.new-item', function(event) {

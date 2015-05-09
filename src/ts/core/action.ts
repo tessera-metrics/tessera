@@ -1,5 +1,12 @@
 import { NamedObject, Registry } from './registry'
 
+export type ActionList = Action[]
+
+export interface ActionListFunction {
+  () : ActionList
+}
+
+
 /**
  * An object describing a user-interface action. Actions may be
  * rendered as either a menu item in a dropdown or a button in a
@@ -45,7 +52,7 @@ export default class Action implements NamedObject {
   divider: boolean
 
   /** Sub-actions, for menu buttons */
-  actions: Action[]
+  private _actions: ActionList|ActionListFunction
 
   static DIVIDER = new Action({divider: true, name: 'DIVIDER'})
 
@@ -60,8 +67,19 @@ export default class Action implements NamedObject {
       this.hide = data.hide
       this.divider = data.divider
       this.css = data.css
-      this.actions = data.actions
+      this._actions = data.actions
       this.category = data.category
+    }
+  }
+
+  get actions() : ActionList {
+    if (typeof this._actions === 'undefined' ) {
+      return undefined
+    } else if (this._actions instanceof Array) {
+      return <ActionList> this._actions
+    } else {
+      let fn = <ActionListFunction> this._actions
+      return fn()
     }
   }
 
