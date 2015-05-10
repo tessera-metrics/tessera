@@ -148,12 +148,27 @@ module.exports = function(grunt) {
       dep: {
         files: [
           { expand: true, cwd: 'src/3rd-Party/fonts/', src: '**', dest: 'tessera/static/fonts/' },
-          { expand: true, cwd: 'src/3rd-Party/img/', src: '**', dest: 'tessera/static/img/' }
+          { expand: true, cwd: 'src/3rd-Party/img/', src: '**', dest: 'tessera/static/img/' },
+          {
+            expand: true, cwd: 'src/3rd-Party/css/', src: [
+              '*.gif', '*.png', '*.map'
+            ],
+            dest: 'tessera/static/css'
+          }
         ]
       },
       app: {
         files: [
           { expand: true, cwd: 'src/css/', src: '**', dest: 'tessera/static/' }
+        ]
+      }
+    },
+
+    clean: {
+      build: {
+        src: [
+          '_build/',
+          'tessera/static/*'
         ]
       }
     },
@@ -180,6 +195,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-browserify');
