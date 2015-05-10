@@ -27,6 +27,7 @@ built with as many "off-the-shelf" components as possible.
     appears to no longer have an OSS compatible license (the version
     included here is MIT licensed).
   * [bootstrap-growl](https://github.com/mouse0270/bootstrap-growl)
+  * [bootstrap-datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker)
 * [jQuery](http://jquery.com/)
 * [d3](http://d3js.org). d3 is used for value formatting in text and
   for stacked graph layout.
