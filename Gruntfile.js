@@ -98,7 +98,8 @@ module.exports = function(grunt) {
           'src/3rd-Party/css/select2.css',
           'src/3rd-Party/css/select2-bootstrap.css',
           'src/3rd-Party/css/dataTables.bootstrap.css',
-          'src/3rd-Party/css/jquery.flot.valuelabels.css'
+          'src/3rd-Party/css/jquery.flot.valuelabels.css',
+          'src/3rd-Party/css/highlight-styles/github.css'
         ],
         dest: 'tessera/static/css/bundle.css'
       },
