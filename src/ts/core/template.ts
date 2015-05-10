@@ -1,7 +1,7 @@
 import { logger } from './log'
 declare var Handlebars
 
-const log = logger('tessera.template')
+const log = logger('template')
 
 export interface TemplateFunction {
   (ctx?: any) : string

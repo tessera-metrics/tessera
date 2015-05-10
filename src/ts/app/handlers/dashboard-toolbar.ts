@@ -2,7 +2,7 @@ import * as app from '../app'
 import manager from '../manager'
 import { make } from '../../models/items/factory'
 
-declare var $, marked, tessera
+declare var $, marked, ts
 
 /*
  * Logic for the dashboard-toolbar.html template.
@@ -10,7 +10,7 @@ declare var $, marked, tessera
 
 app.add_mode_handler('edit', {
   enter: function() {
-    $(".ds-dashboard-info-edit-panel").html(tessera.templates.edit.dashboard_panel(manager.current.dashboard))
+    $(".ds-dashboard-info-edit-panel").html(ts.templates.edit.dashboard_panel(manager.current.dashboard))
     $('#ds-edit-info-button').addClass('active')
 
       $.fn.editable.defaults.mode = 'inline'
@@ -129,7 +129,7 @@ $(document).ready(function() {
   $(document).on('click', '#ds-view-dashboard-source-button', function(e) {
     let dashboard = manager.current.dashboard
     $.get(dashboard.href + '?definition=true', function(data) {
-      let contents = '<div class="container">' + tessera.templates.edit.item_source({item:data}) + '</div>'
+      let contents = '<div class="container">' + ts.templates.edit.item_source({item:data}) + '</div>'
       $(manager.current.element).html(contents)
     })
   })

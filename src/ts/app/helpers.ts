@@ -3,7 +3,7 @@ import Chart from '../models/items/chart'
 import * as app from './app'
 import manager from './manager'
 
-declare var marked, hljs, Handlebars, moment, d3, $, tessera
+declare var marked, hljs, Handlebars, moment, d3, $, ts
 
 /**
  * Hook up syntax highlighting to marked' markdown processor, so code
@@ -127,13 +127,13 @@ Handlebars.registerHelper('ds-edit-bar', function(item) {
   let context = { item: item }
   let template = undefined
   if (item.item_type === 'cell') {
-    template = tessera.templates["ds-edit-bar-cell"]
+    template = ts.templates["ds-edit-bar-cell"]
   } else if (item.item_type === 'row') {
-    template = tessera.templates["ds-edit-bar-row"]
+    template = ts.templates["ds-edit-bar-row"]
   } else if (item.item_type === 'section') {
-    template = tessera.templates["ds-edit-bar-section"]
+    template = ts.templates["ds-edit-bar-section"]
   } else {
-    template = tessera.templates["ds-edit-bar-item"]
+    template = ts.templates["ds-edit-bar-item"]
   }
   return template ? new Handlebars.SafeString(template(context)) : ''
 })
@@ -195,8 +195,8 @@ Handlebars.registerHelper('interactive_property', function(property, item) {
  */
 Handlebars.registerHelper('actions', function(category, type) {
   let template = type === 'button'
-    ? tessera.templates.action_button
-    : tessera.templates.action
+    ? ts.templates.action_button
+    : ts.templates.action
   let actions = action_registry.list(category)
   if (actions && actions.length) {
     if (typeof(type) === 'boolean' && type) {
@@ -210,7 +210,7 @@ Handlebars.registerHelper('actions', function(category, type) {
          continue
       let tmpl = template
       if (action.actions) {
-        tmpl = tessera.templates["action-menu-button"]
+        tmpl = ts.templates["action-menu-button"]
       }
       html += tmpl({
         category: category,

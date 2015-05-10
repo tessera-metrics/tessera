@@ -7,10 +7,9 @@ import { logger } from '../core/log'
 import * as graphite from '../data/graphite'
 import * as app from '../app/app'
 
-declare var URI, $, d3, moment, tessera
+declare var URI, $, d3, moment, ts
 
-const log = logger('tessera.charts.flot')
-
+const log = logger('charts.flot')
 
 /* =============================================================================
    Helpers
@@ -169,7 +168,7 @@ function setup_plugins(container, context) {
     let data       = context.plot.getData()
     let item       = items[0]
     let point      = data[item.serieIndex].data[item.dataIndex]
-    let contents   = tessera.templates.flot.tooltip({
+    let contents   = ts.templates.flot.tooltip({
       time: point[0],
       items: items.map(function(item) {
         let s = data[item.serieIndex]
@@ -402,7 +401,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
 
     $(element).bind('plothover', function(event, pos, event_item) {
       if (event_item) {
-        let contents = tessera.templates.flot.donut_tooltip({
+        let contents = ts.templates.flot.donut_tooltip({
           series: event_item.series,
           value: FORMAT_STANDARD(event_item.datapoint[1][0][1]),
           percent: FORMAT_PERCENT(event_item.series.percent / 100)
@@ -544,7 +543,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     let context = this.render(element, item, options, data)
     $(element).bind('plothover', function(event, pos, event_item) {
       if (event_item) {
-        let contents = tessera.templates.flot.discrete_bar_tooltip({
+        let contents = ts.templates.flot.discrete_bar_tooltip({
           series: event_item.series,
           value: format(event_item.datapoint[1])
         })

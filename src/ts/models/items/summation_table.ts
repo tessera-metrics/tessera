@@ -6,7 +6,7 @@ import { PropertyList } from '../../core/property'
 import Query from '../data/query'
 import * as charts from '../../charts/util'
 
-declare var $, tessera
+declare var $, ts
 
 const log = logger('models.summation_table')
 
@@ -41,7 +41,7 @@ export default class SummationTable extends TablePresentation {
     body.empty()
     query.data.forEach((series, i) => {
       let color = palette[i % palette.length]
-      body.append(tessera.templates.models.summation_table_row({series:series, item:this, color: color}))
+      body.append(ts.templates.models.summation_table_row({series:series, item:this, color: color}))
     })
     if (this.sortable) {
         body.parent().DataTable({

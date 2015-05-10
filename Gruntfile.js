@@ -69,7 +69,7 @@ module.exports = function(grunt) {
         options: {
           partialsUseNamespace: true,
           namespace: function(filename) {
-            return path.dirname(filename).split('/').join('.').replace('src', 'tessera')
+            return path.dirname(filename).split('/').join('.').replace('src', 'ts')
           },
           processName: function(filename) {
             var pieces = filename.split('/')

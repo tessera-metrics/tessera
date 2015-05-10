@@ -8,7 +8,7 @@ import Summation from '../data/summation'
 import Action from '../../core/action'
 import manager from '../../app/manager'
 
-declare var $, bootbox, d3, tessera
+declare var $, bootbox, d3, ts
 
 /**
  * This iteration of timeshift_summation_table takes a single query
@@ -123,7 +123,7 @@ export default class TimeshiftSummationTable extends TablePresentation {
       diff[prop] = Math.abs(value)
     })
     body.empty()
-    body.append(tessera.templates.models.timeshift_summation_table_body({
+    body.append(ts.templates.models.timeshift_summation_table_body({
       now:  now,
       then: then,
       diff: diff,

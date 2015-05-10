@@ -6,7 +6,7 @@ import Query from '../models/data/Query'
 import Container from '../models/items/container'
 import { make } from '../models/items/factory'
 
-declare var $, bootbox, tessera
+declare var $, bootbox, ts
 
 const log = logging.logger('edit')
 
@@ -22,7 +22,7 @@ export function rename_query(dashboard, old_name, new_name) {
   let query         = dashboard.definition.queries[old_name]
   let updated_items = dashboard.definition.rename_query(old_name, new_name)
   $('[data-ds-query-name="' + old_name + '"]').replaceWith(
-    tessera.templates.edit['dashboard-query-row'](query)
+    ts.templates.edit['dashboard-query-row'](query)
   )
   if (updated_items && updated_items.length) {
     for (let item of updated_items) {
@@ -51,7 +51,7 @@ export function add_query(dashboard, name, target?) {
   log.debug('add_query()')
   let query = new Query({name: name, targets: target})
   dashboard.definition.add_query(query)
-  $("#ds-query-panel table").append(tessera.templates.edit['dashboard-query-row'](query))
+  $("#ds-query-panel table").append(ts.templates.edit['dashboard-query-row'](query))
   query.load()
   edit_queries()
   return query
@@ -134,7 +134,7 @@ export function show_details(item_id) {
 
     // Render the item's property sheet
     let elt     = $('.ds-edit-bar[data-ds-item-id="' + item_id + '"]')
-    let details = tessera.templates['ds-edit-bar-item-details']({item:item})
+    let details = ts.templates['ds-edit-bar-item-details']({item:item})
     elt.append(details)
 
     if (item.meta.interactive_properties) {
@@ -344,7 +344,7 @@ let view_definition_action = new Action({
   display: 'View definition...',
   icon:    'fa fa-code',
   handler: function(action, item) {
-    let contents = tessera.templates.edit.item_source({item:item})
+    let contents = ts.templates.edit.item_source({item:item})
     bootbox.alert({
       backdrop: false,
       message: contents

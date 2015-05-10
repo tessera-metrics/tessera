@@ -8,7 +8,7 @@ import { compile_template } from '../../core/template'
 import { logger } from '../../core/log'
 import { extend } from '../../core/util'
 
-declare var inflection, Handlebars, tessera
+declare var inflection, Handlebars, ts
 
 var log = logger('models.factory')
 var constructors = new Map<string, DashboardItemConstructor>()
@@ -70,8 +70,8 @@ export function register_dashboard_item(item_class: DashboardItemConstructor) {
   if (!meta.display_name) {
     meta.display_name = inflection.titleize(meta.item_type)
   }
-  if (!meta.template && tessera.templates.models[meta.item_type]) {
-    meta.template = tessera.templates.models[meta.item_type]
+  if (!meta.template && ts.templates.models[meta.item_type]) {
+    meta.template = ts.templates.models[meta.item_type]
   }
 
   //

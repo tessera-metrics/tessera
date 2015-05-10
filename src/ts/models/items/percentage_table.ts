@@ -5,7 +5,7 @@ import { extend } from '../../core/util'
 import { PropertyList } from '../../core/property'
 import { register_dashboard_item } from './factory'
 
-declare var $, tessera
+declare var $, ts
 
 export default class PercentageTable extends TablePresentation {
   static meta: DashboardItemMetadata = {
@@ -45,7 +45,7 @@ export default class PercentageTable extends TablePresentation {
 
     var holder = $('#' + this.item_id + ' .ds-percentage-table-holder')
     holder.empty()
-    holder.append(tessera.templates.models.percentage_table_data({item:this, query:query}))
+    holder.append(ts.templates.models.percentage_table_data({item:this, query:query}))
     if (this.sortable) {
       var table = $('#' + this.item_id + ' .ds-percentage-table-holder table')
       table.DataTable({

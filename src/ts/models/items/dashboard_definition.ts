@@ -7,12 +7,12 @@ import { extend } from '../../core/util'
 import { logger } from '../../core/log'
 import * as charts from '../../charts/core'
 
-declare var $, tessera
+declare var $, ts
 const log = logger('models.dashboard_definition')
 
 export default class DashboardDefinition extends Container {
   static meta: DashboardItemMetadata = {
-    template: tessera.templates.models.definition
+    template: ts.templates.models.definition
   }
 
   queries: QueryDictionary = {}

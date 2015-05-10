@@ -6,7 +6,7 @@ import { PropertyList, property } from '../../core/property'
 import { register_dashboard_item } from './factory'
 import manager from '../../app/manager'
 
-declare var $, d3, tessera
+declare var $, d3, ts
 
 /**
  * A summation table that compares two arbitrary queries.
@@ -84,7 +84,7 @@ export default class ComparisonSummationTable extends TablePresentation {
       diff[prop] = Math.abs(value)
     })
     body.empty()
-    body.append(tessera.templates.models.comparison_summation_table_body({
+    body.append(ts.templates.models.comparison_summation_table_body({
       now:  now,
       then: then,
       diff: diff,
