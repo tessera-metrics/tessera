@@ -142,14 +142,21 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      files: [
-        'js/**/*.js',
-        'ts/**/*.ts',
-        'src/templates/**/*.hbs',
-        'src/css/tessera.css',
-        'src/css/tessera-typography.css'
-      ],
-      tasks: ['default']
+      dep: {
+        files: [
+          'src/js/dependencies.js',
+          'src/3rd-Party/**/*.*'
+        ],
+        tasks: ['dep']
+      },
+      app: {
+        files: [
+          'src/ts/**/*.ts',
+          'src/templates/**/*.hbs',
+          'src/css/*.css'
+        ],
+        tasks: ['app']
+      }
     }
   });
 
