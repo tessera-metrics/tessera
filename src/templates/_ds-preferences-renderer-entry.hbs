@@ -3,7 +3,7 @@
     <input type="radio"
            name="chartRenderRadios"
            id="chartRenderRadios-{{renderer.name}}"
-           value="{{name}}"
+           value="{{renderer.name}}"
            {{#if checked}}checked="checked"{{/if}}
            onclick="dsSetPref('renderer', '{{renderer.name}}')">
     {{renderer.name}}

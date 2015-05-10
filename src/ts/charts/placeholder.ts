@@ -14,13 +14,14 @@ function render(element, item) {
 /**
  * A chart renderer that uses Holder.js to render placeholder images.
  */
-export default class PlaceholderChartRenderer {
+export default class PlaceholderChartRenderer extends charts.ChartRenderer {
 
   constructor(data?: any) {
-    extend({}, data, {
+    super(extend({}, data, {
       name: 'placeholder',
-      description: 'Render placeholder images in place of actual charts.'
-    })
+      description: 'Render placeholder images in place of actual charts.',
+      is_interactive: false
+    }))
   }
 
   simple_line_chart(element: any, item: Chart) : void {
