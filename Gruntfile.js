@@ -141,6 +141,23 @@ module.exports = function(grunt) {
       }
     },
 
+    /**
+     * 5 - Copy sources to the static resources dir.
+     */
+    copy: {
+      dep: {
+        files: [
+          { expand: true, cwd: 'src/3rd-Party/fonts/', src: '**', dest: 'tessera/static/fonts/' },
+          { expand: true, cwd: 'src/3rd-Party/img/', src: '**', dest: 'tessera/static/img/' }
+        ]
+      },
+      app: {
+        files: [
+          { expand: true, cwd: 'src/css/', src: '**', dest: 'tessera/static/' }
+        ]
+      }
+    },
+
     watch: {
       dep: {
         files: [
@@ -162,18 +179,29 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-ts-1.5');
 
   /** Compile the tessera source and templates */
-  grunt.registerTask('app', ['ts', 'browserify:app', 'handlebars', 'concat:app'])
+  grunt.registerTask('app', [
+    'ts', 'browserify:app', 'handlebars', 'concat:app', 'copy:app'
+  ])
 
   /** Compile all third-party dependencies */
-  grunt.registerTask('dep', ['browserify:dep', 'concat:dep_js', 'concat:dep_css']);
+  grunt.registerTask('dep', [
+    'browserify:dep', 'concat:dep_js', 'concat:dep_css', 'copy:dep'
+  ]);
 
-  grunt.registerTask('all', ['app', 'dep'])
+  /** Compile everything */
+  grunt.registerTask('all', [
+    'app', 'dep'
+  ])
 
-  grunt.registerTask('default', ['app'])
+  /** By default */
+  grunt.registerTask('default', [
+    'all'
+  ])
 }

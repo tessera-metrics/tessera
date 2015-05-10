@@ -1,0 +1,30 @@
+body {
+    background-color: #fafafa;
+}
+
+h1 .ds-primary-title {
+    color: gray;
+}
+
+.well,
+.ds-grid .well,
+.breadcrumb {
+    background-color: white;
+}
+
+.well .ds-singlestat h3 {
+    color: #666;
+}
+
+#ds-tooltip {
+    color: black;
+    background-color: white;
+    border: 1px solid #888;
+}
+
+/* flot.valuelabels */
+
+.flotValueLabel {
+    color: black;
+    border-left-color: #A75354;
+}
