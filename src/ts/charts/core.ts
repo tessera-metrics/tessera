@@ -67,7 +67,10 @@ export function set_renderer(r: string|ChartRenderer) {
    Global delegates
    ============================================================================= */
 
-export function get_renderer(item: DashboardItem|string) : ChartRenderer {
+export function get_renderer(item?: DashboardItem|string) : ChartRenderer {
+  if (!item) {
+    return renderer
+  }
   let name = undefined
   if (typeof item === 'string') {
     name = item
