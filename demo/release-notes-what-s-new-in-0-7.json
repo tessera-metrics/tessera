@@ -1,0 +1,216 @@
+{
+  "category": "Release Notes", 
+  "definition": {
+    "items": [
+      {
+        "layout": "fixed", 
+        "level": 1, 
+        "items": [
+          {
+            "item_id": "d15", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d16", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": []
+              }, 
+              {
+                "item_id": "d17", 
+                "item_type": "cell", 
+                "span": 7, 
+                "items": [
+                  {
+                    "item_id": "d23", 
+                    "item_type": "markdown", 
+                    "text": "This release doesn't have as many flashy new features as the previous release, 0.6, but internally it's an even bigger release. The client side code has been cleaned up and refactored, which provides a much better base for tackling some of the [major features](https://github.com/urbanairship/tessera/labels/major-feature) in future releases. "
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d25", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d26", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d27", 
+                    "item_type": "markdown", 
+                    "text": "### TypeScript"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d28", 
+                "item_type": "cell", 
+                "span": 7, 
+                "items": [
+                  {
+                    "item_id": "d29", 
+                    "item_type": "markdown"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d19", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d20", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d21", 
+                    "item_type": "markdown", 
+                    "text": "### Browserify Workflow"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d22", 
+                "item_type": "cell", 
+                "span": 7, 
+                "items": [
+                  {
+                    "item_id": "d24", 
+                    "item_type": "markdown"
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "Internal Rewrite", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d14"
+      }, 
+      {
+        "layout": "fixed", 
+        "level": 1, 
+        "items": [
+          {
+            "item_id": "d5", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d6", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d8", 
+                    "item_type": "markdown", 
+                    "text": "### Timer Stats\n\nA timer stat presentation is very similar to a singlestat, but shows one of the summation values translated to a human-readable time span. "
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d7", 
+                "item_type": "cell", 
+                "span": 2, 
+                "items": [
+                  {
+                    "scale": 100, 
+                    "language": "minimal", 
+                    "title": "Short", 
+                    "transform": "sum", 
+                    "precision": 2, 
+                    "item_type": "timerstat", 
+                    "item_id": "d9", 
+                    "query": "duration"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d10", 
+                "item_type": "cell", 
+                "span": 2, 
+                "items": [
+                  {
+                    "scale": 37067, 
+                    "language": "compact", 
+                    "title": "Longer", 
+                    "transform": "sum", 
+                    "precision": 2, 
+                    "item_type": "timerstat", 
+                    "item_id": "d11", 
+                    "query": "duration"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d12", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "scale": 3730167, 
+                    "title": "Even Longer", 
+                    "precision": 3, 
+                    "transform": "sum", 
+                    "item_type": "timerstat", 
+                    "item_id": "d13", 
+                    "query": "duration"
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "New Dashboard Items", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d4"
+      }
+    ], 
+    "item_type": "dashboard_definition", 
+    "href": "/api/dashboard/24/definition", 
+    "queries": {
+      "duration": {
+        "name": "duration", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query0\"))"
+        ]
+      }
+    }, 
+    "item_id": "d3", 
+    "options": {
+      "from": "-3h"
+    }
+  }, 
+  "view_href": "/dashboards/24/what-s-new-in-0-7", 
+  "description": null, 
+  "tags": [
+    {
+      "count": 9, 
+      "bgcolor": "green", 
+      "id": 1, 
+      "name": "featured"
+    }, 
+    {
+      "count": 2, 
+      "id": 3, 
+      "name": "release-notes"
+    }
+  ], 
+  "title": "What's new in 0.7?", 
+  "summary": "", 
+  "definition_href": "/api/dashboard/24/definition", 
+  "href": "/api/dashboard/24", 
+  "id": 24, 
+  "imported_from": null
+}
