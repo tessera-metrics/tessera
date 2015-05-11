@@ -112,7 +112,11 @@ export default class Chart extends Presentation {
   interactive_properties() : PropertyList {
     let props = [
       'title',
-      { name: 'hide_zero_series', type: 'boolean' },
+      {
+        name: 'hide_zero_series',
+        type: 'boolean',
+        category: 'chart'
+      },
       {
         name: 'chart.renderer',
         property_name: 'renderer',

@@ -154,7 +154,7 @@ export default class DashboardItem extends Model {
   interactive_properties() : PropertyList {
     return [
       { name: 'css_class', category: 'base'} ,
-      { name: 'height', type: 'number', category: 'base' }
+      'height'
     ]
   }
 

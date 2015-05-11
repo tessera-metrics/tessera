@@ -6,7 +6,25 @@ import manager from '../app/manager'
  * dashboard items.
  */
 properties.register([
-
+  {
+    name: 'title',
+    category: 'base'
+  },
+  {
+    name: 'height',
+    category: 'base',
+    type: 'select',
+    edit_options: {
+      source: [
+        { value: undefined, text: 'default' }, 1, 2, 3, 4, 5, 6, 7, 8
+      ],
+      update: function(item, value) {
+        if (value) {
+          item.set_height(Number(value))
+        }
+      }
+    }
+  },
   {
     name:     'query',
     category: 'base',
@@ -33,7 +51,7 @@ properties.register([
     type: 'select',
     edit_options: {
       source: [
-        undefined,
+        { value: undefined, text: 'none' },
         'well',
         'callout_neutral',
         'callout_info',
@@ -54,7 +72,7 @@ properties.register([
     type: 'select',
     edit_options: {
       source: [
-        undefined,
+        { value: undefined, text: 'default' },
         'sum',
         'min',
         'max',
