@@ -10,6 +10,48 @@ declare var $, d3, humanize_duration, ts
 
 const log = logger('models.timerstat')
 
+
+const ADDITIONAL_LANGUAGES = {
+  minimal: {
+    year: function() { return "y"; },
+    month: function() { return "mo"; },
+    week: function() { return "w"; },
+    day: function() { return "d"; },
+    hour: function() { return "h"; },
+    minute: function() { return "m"; },
+    second: function() { return "s"; },
+    millisecond: function() { return "ms"; }
+  },
+  compact: {
+    year: function() { return "yr"; },
+    month: function() { return "mo"; },
+    week: function() { return "wk"; },
+    day: function() { return "day"; },
+    hour: function() { return "hr"; },
+    minute: function() { return "min"; },
+    second: function() { return "sec"; },
+    millisecond: function() { return "ms"; }
+  }
+}
+
+const LANGUAGES = [
+  undefined,
+  'minimal',
+  'compact',
+].concat(humanize_duration.getSupportedLanguages())
+
+const DEFAULT_HUMANIZER = humanize_duration
+
+const MINIMAL_HUMANIZER = humanize_duration.humanizer({
+  language: 'minimal',
+  languages: ADDITIONAL_LANGUAGES
+})
+
+const COMPACT_HUMANIZER = humanize_duration.humanizer({
+  language: 'compact',
+  languages: ADDITIONAL_LANGUAGES
+})
+
 /**
  * Render a summation value as a human-readable time span.
  *
@@ -32,6 +74,8 @@ export default class Timerstat extends Presentation {
   index: number
   scale: number = 1
   precision: number = 2
+  language: string = undefined
+  private humanizer = DEFAULT_HUMANIZER
 
   constructor(data?: any) {
     super(data)
@@ -40,6 +84,21 @@ export default class Timerstat extends Presentation {
       this.index = Number(data.index) || this.index
       this.scale = Number(data.scale) || this.scale
       this.precision = Number(data.precision) || this.precision
+      this.set_language(data.language)
+    }
+  }
+
+  _updateHumanizer() : void {
+    if (this.language) {
+      if (this.language === 'compact') {
+        this.humanizer = COMPACT_HUMANIZER
+      } else {
+        this.humanizer = humanize_duration.humanizer({
+          language: this.language
+        })
+      }
+    } else {
+      this.humanizer = DEFAULT_HUMANIZER
     }
   }
 
@@ -51,7 +110,7 @@ export default class Timerstat extends Presentation {
   }
 
   _getTimeParts(millis: number) {
-    let humanized = humanize_duration(millis, {
+    let humanized = this.humanizer(millis, {
       round: true,
       delimiter: ' '
     })
@@ -68,13 +127,15 @@ export default class Timerstat extends Presentation {
     return timeParts
   }
 
+  set_language(language: string) : Timerstat {
+    this.language = language
+    this._updateHumanizer()
+    return this
+  }
+
   data_handler(query: Query) : void {
-    log.info('data_handler()')
     let millis    = this._getMillis(query)
     let timeParts = this._getTimeParts(millis)
-
-    log.info(`millis = ${millis}`)
-    console.log(timeParts)
 
     $(`#${this.item_id} .data`)
       .empty()
@@ -83,6 +144,7 @@ export default class Timerstat extends Presentation {
 
   toJSON() : any {
     return extend(super.toJSON(), {
+      language: this.language,
       transform: this.transform,
       index: this.index,
       scale: this.scale,
@@ -96,7 +158,16 @@ export default class Timerstat extends Presentation {
       { name: 'index', type: 'number' },
       'scale',
       { name: 'precision', type: 'number' },
-      'transform'
+      'transform',
+      {
+        name: 'language', type: 'select',
+        edit_options: {
+          source: LANGUAGES,
+          update: (item, value) => {
+            item.set_language(value)
+          }
+        }
+      }
     ])
   }
 }
