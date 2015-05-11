@@ -60,7 +60,6 @@ export default class DashboardItem extends Model {
   height: number
   style: string
   title: string
-  interactive: boolean // TODO - this can probably go away
   dashboard: any // TODO - Dashboard type when ready
   options: any
 
@@ -133,11 +132,6 @@ export default class DashboardItem extends Model {
 
   set_css_class(value: string) : DashboardItem {
     this.css_class = value
-    return this
-  }
-
-  set_interactive(value: boolean) : DashboardItem {
-    this.interactive = value
     return this
   }
 

@@ -3,6 +3,7 @@ import Axis from '../axis'
 import { DashboardItemMetadata } from './item'
 import { properties, PropertyList } from '../../core/property'
 import * as util from '../../core/util'
+import * as charts from '../../charts/core'
 import PALETTES from '../../charts/palettes'
 
 properties.register({
@@ -50,6 +51,7 @@ export default class Chart extends Presentation {
 
   legend: string = ChartLegendType.SIMPLE
   hide_zero_series: boolean = false
+  renderer: string
   options: any = {}
 
   constructor(data?: any) {
@@ -73,13 +75,20 @@ export default class Chart extends Presentation {
       if (typeof(data.hide_zero_series !== 'undefined')) {
         this.hide_zero_series = Boolean(data.hide_zero_series)
       }
+      this.renderer = data.renderer
     }
+  }
+
+  set_renderer(renderer: string) : Chart {
+    this.renderer = renderer
+    return this
   }
 
   toJSON() : any {
     let data = util.extend(super.toJSON(), {
       legend: this.legend,
-      hide_zero_series: this.hide_zero_series
+      hide_zero_series: this.hide_zero_series,
+      renderer: this.renderer
     })
     if (this.options) {
       data.options = util.extend({}, this.options)
@@ -104,6 +113,17 @@ export default class Chart extends Presentation {
     let props = [
       'title',
       { name: 'hide_zero_series', type: 'boolean' },
+      {
+        name: 'chart.renderer',
+        property_name: 'renderer',
+        category: 'chart',
+        edit_options: {
+          type: 'select',
+          source: function() {
+            return [undefined].concat([...charts.renderers.list().map(r => r.name)])
+          }
+        }
+      },
       {
         name: 'chart.y-axis-label',
         property_name: 'y-axis-label',

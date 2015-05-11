@@ -55,7 +55,8 @@
                 "items": [
                   {
                     "item_id": "d29", 
-                    "item_type": "markdown"
+                    "item_type": "markdown", 
+                    "text": "The big news is that the client-side JavaScript code has been\nre-written in Microsoft's\n[TypeScript](http://www.typescriptlang.org/). TypeScript is a\nsuperset of the ECMAScript 6 specification with optional type\nannotations, which compiles down to JavaScript. "
                   }
                 ]
               }
@@ -169,6 +170,66 @@
                 ]
               }
             ]
+          }, 
+          {
+            "item_id": "d35", 
+            "item_type": "separator"
+          }, 
+          {
+            "item_id": "d30", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d31", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d32", 
+                    "item_type": "markdown", 
+                    "text": "### Override Chart Renderer\n\nThe chart renderer can now be set on a per-chart basis,\noverriding the default.\n\nNow if there\u2019s something you need to do with a graphite query\nthat flot charts don\u2019t support, you can selectively use\ngraphite\u2019s PNG renderer.\n"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d33", 
+                "item_type": "cell", 
+                "span": "4", 
+                "items": [
+                  {
+                    "title": "Flot Renderer", 
+                    "stack_mode": "stack", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "renderer": "flot", 
+                    "item_id": "d39", 
+                    "query": "group", 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d40", 
+                "item_type": "cell", 
+                "span": "4", 
+                "items": [
+                  {
+                    "title": "Graphite Renderer", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "renderer": "graphite", 
+                    "item_id": "d41", 
+                    "query": "group", 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
           }
         ], 
         "title": "New Dashboard Items", 
@@ -178,12 +239,18 @@
       }
     ], 
     "item_type": "dashboard_definition", 
-    "href": "/api/dashboard/24/definition", 
+    "href": "/api/dashboard/11/definition", 
     "queries": {
       "duration": {
         "name": "duration", 
         "targets": [
           "absolute(randomWalkFunction(\"query0\"))"
+        ]
+      }, 
+      "group": {
+        "name": "group", 
+        "targets": [
+          "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
         ]
       }
     }, 
@@ -192,25 +259,25 @@
       "from": "-3h"
     }
   }, 
-  "view_href": "/dashboards/24/what-s-new-in-0-7", 
+  "view_href": "/dashboards/11/what-s-new-in-0-7", 
   "description": null, 
   "tags": [
     {
       "count": 9, 
       "bgcolor": "green", 
-      "id": 1, 
+      "id": 6, 
       "name": "featured"
     }, 
     {
       "count": 2, 
-      "id": 3, 
+      "id": 14, 
       "name": "release-notes"
     }
   ], 
   "title": "What's new in 0.7?", 
   "summary": "", 
-  "definition_href": "/api/dashboard/24/definition", 
-  "href": "/api/dashboard/24", 
-  "id": 24, 
+  "definition_href": "/api/dashboard/11/definition", 
+  "href": "/api/dashboard/11", 
+  "id": 11, 
   "imported_from": null
 }

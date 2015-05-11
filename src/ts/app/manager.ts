@@ -163,12 +163,8 @@ const manager =
 
         events.fire(self, app.Event.DASHBOARD_LOADED, dashboard)
 
+        // Expand any templatized queries or dashboard items
         dashboard.render_templates(context.variables)
-
-        // TODO
-        // ts.charts.interactive = (context.interactive != undefined)
-        //  ? context.interactive
-        //  : ts.charts.current_provider.is_interactive
 
         // Render the dashboard
         $(element).html(dashboard.definition.render())
