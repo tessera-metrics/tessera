@@ -1,5 +1,6 @@
 $ = jQuery  = require('jquery')
 moment      = require('moment')
+momenttz    = require('moment-timezone')
 extend_impl = require('extend')
 Handlebars  = require('handlebars')
 URI         = require('URIjs')

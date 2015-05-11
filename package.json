@@ -37,6 +37,7 @@
     "jquery": "^2.1.4",
     "marked": "^0.3.3",
     "moment": "^2.10.2",
+    "moment-timezone": "^0.3.1",
     "mousetrap": "^1.5.2",
     "select2": "^3.5.2-browserify",
     "simple-statistics": "^0.9.1"

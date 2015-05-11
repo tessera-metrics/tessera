@@ -109,7 +109,6 @@ module.exports = function(grunt) {
         },
         src: [
           '_build/dependencies.js',
-          'src/3rd-Party/js/moment-timezone-with-data.min.js',
           'src/3rd-Party/js/tagmanager.js',
           'src/3rd-Party/js/bootstrap-editable.min.js',
           'src/3rd-Party/js/bootstrap-datetimepicker.min.js',
