@@ -66,52 +66,71 @@ export function set_renderer(r: string|ChartRenderer) {
    Global delegates
    ============================================================================= */
 
+export function get_renderer(item: Chart|string) : ChartRenderer {
+  let name = undefined
+  if (typeof item === 'string') {
+    name = item
+  } else {
+    name = item.renderer
+  }
+  return renderers.get(name) || renderer
+}
+
 export function simple_line_chart(element: any, item: Chart) : void {
-  if (renderer) {
-    renderer.simple_line_chart(element, item)
+  let r = get_renderer(item)
+  if (r) {
+    r.simple_line_chart(element, item)
   }
 }
 
 export function standard_line_chart(element: any, item: Chart) : void {
-  if (renderer) {
-    renderer.standard_line_chart(element, item)
+  let r = get_renderer(item)
+  if (r) {
+    r.standard_line_chart(element, item)
   }
 }
 
 export function simple_area_chart(element: any, item: Chart) : void {
-  if (renderer) {
-    renderer.simple_area_chart(element, item)
+  let r = get_renderer(item)
+  if (r) {
+    r.simple_area_chart(element, item)
   }
 }
 
 export function stacked_area_chart(element: any, item: Chart) : void {
-  if (renderer) {
-    renderer.stacked_area_chart(element, item)
+  let r = get_renderer(item)
+  if (r) {
+    r.stacked_area_chart(element, item)
   }
 }
 
 export function donut_chart(element: any, item: Chart) : void {
-  if (renderer) {
-    renderer.donut_chart(element, item)
+  let r = get_renderer(item)
+  if (r) {
+    r.donut_chart(element, item)
   }
 }
 
 export function bar_chart(element: any, item: Chart) : void {
-  if (renderer) {
-    renderer.bar_chart(element, item)
+  let r = get_renderer(item)
+  if (r) {
+    r.bar_chart(element, item)
   }
 }
 
 export function discrete_bar_chart(element: any, item: Chart) : void {
-  if (renderer) {
-    renderer.discrete_bar_chart(element, item)
+  let r = get_renderer(item)
+  if (r) {
+    r.discrete_bar_chart(element, item)
   }
 }
 
 export function process_series(series: graphite.DataSeries, type?: string) : any {
-  return renderer ? renderer.process_series(series) : series
+  let r = get_renderer(type)
+  return r ? r.process_series(series) : series
 }
 
 export function process_data(data: graphite.DataSeriesList|graphite.DataSeries, type?: string) : any {
-  return renderer ? renderer.process_data(data) : data
+  let r = get_renderer(type)
+  return r ? r.process_data(data) : data
 }

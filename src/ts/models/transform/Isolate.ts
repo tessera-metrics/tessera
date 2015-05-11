@@ -1,5 +1,6 @@
 import { transforms } from './transform'
 import { make } from '../items/factory'
+import Chart from '../items/chart'
 
 /**
  * Focus on a single presentation.
@@ -11,13 +12,15 @@ transforms.register({
 
   transform: function(item: any) : any {
     var options = item.options || {}
+    if (item instanceof Chart) {
+        item.set_renderer('flot')
+    }
     return make('section')
       .add(make('row')
            .add(make('cell')
                 .set_span(12)
                 .set_style('well')
-                .add(item.set_height(6)
-                     .set_interactive(true))))
+                .add(item.set_height(6))))
       .add(make('row')
            .add(make('cell')
                 .set_span(12)

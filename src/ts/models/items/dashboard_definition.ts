@@ -79,7 +79,7 @@ export default class DashboardDefinition extends Container {
       if (item instanceof Presentation) {
         var query = item.query_override || item.query
         if (query) {
-          if (item.meta.requires_data || charts.renderer.is_interactive) {
+          if (item.meta.requires_data || charts.get_renderer(item).is_interactive) {
             queries_to_load[query.name] = query
             delete queries_to_fire[query.name]
           } else {
