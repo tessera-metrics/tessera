@@ -528,7 +528,7 @@ const manager =
 
         // Get definition
         $.get(href + '/definition', function(data) {
-          dashboard.set_definition(data)
+          dashboard.definition = data
           // Duplicate dashboard
           $.ajax({
             type: 'POST',
