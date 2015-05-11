@@ -5,6 +5,7 @@ import * as app       from './app/app'
 import * as edit      from './edit/edit'
 import { actions }    from './core/action'
 import { transforms } from './models/transform/transform'
+import { extend }     from './core/util'
 import manager        from './app/manager'
 import Config         from './app/config'
 import GraphiteChartRenderer    from './charts/graphite'
@@ -15,13 +16,15 @@ declare var window, $
 
 var log = logging.logger('main')
 
-window.ts.app = app
-window.ts.manager = manager
-window.ts.charts = charts
-window.ts.factory = factory
-window.ts.actions = actions
-window.ts.edit = edit
-window.ts.transforms = transforms
+extend(window.ts, {
+  app: app,
+  manager: manager,
+  charts: charts,
+  factory: factory,
+  actions: actions,
+  edit: edit,
+  transforms: transforms
+})
 app.config = window.ts.config
 
 function setup(config: Config) {
