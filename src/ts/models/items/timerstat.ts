@@ -3,13 +3,9 @@ import { DashboardItemMetadata } from './item'
 import { register_dashboard_item } from './factory'
 import { extend } from '../../core/util'
 import { PropertyList } from '../../core/property'
-import { logger } from '../../core/log'
 import Query from '../data/query'
 
 declare var $, d3, humanize_duration, ts
-
-const log = logger('models.timerstat')
-
 
 const ADDITIONAL_LANGUAGES = {
   minimal: {
@@ -40,7 +36,9 @@ const LANGUAGES = [
   'compact',
 ].concat(humanize_duration.getSupportedLanguages())
 
-const DEFAULT_HUMANIZER = humanize_duration
+const DEFAULT_HUMANIZER = humanize_duration.humanizer({
+  language: 'en'
+})
 
 const MINIMAL_HUMANIZER = humanize_duration.humanizer({
   language: 'minimal',
@@ -92,6 +90,8 @@ export default class Timerstat extends Presentation {
     if (this.language) {
       if (this.language === 'compact') {
         this.humanizer = COMPACT_HUMANIZER
+      } else if (this.language === 'minimal') {
+        this.humanizer = MINIMAL_HUMANIZER
       } else {
         this.humanizer = humanize_duration.humanizer({
           language: this.language
@@ -128,7 +128,7 @@ export default class Timerstat extends Presentation {
   }
 
   set_language(language: string) : Timerstat {
-    this.language = language
+    this.language = language === 'none' ? undefined : language
     this._updateHumanizer()
     return this
   }
