@@ -1,47 +1,6 @@
 {
   "category": "Release Notes", 
   "definition": {
-    "item_id": "d0", 
-    "item_type": "dashboard_definition", 
-    "queries": {
-      "HTTP": {
-        "name": "HTTP", 
-        "targets": [
-          "group(\n                            alias(absolute(randomWalkFunction(\"query0\")), \"200s\"),\n                            alias(absolute(randomWalkFunction(\"query0\")), \"300s\"),\n                            alias(absolute(randomWalkFunction(\"query0\")), \"400s\"),\n                            alias(absolute(randomWalkFunction(\"query0\")), \"500s\")\n                            )"
-        ]
-      }, 
-      "thingamajigs": {
-        "name": "thingamajigs", 
-        "targets": [
-          "group(\nalias(absolute(randomWalkFunction(\"query0\")), \"Frobs\"),\nalias(absolute(randomWalkFunction(\"query0\")), \"Globs\"),\nalias(absolute(randomWalkFunction(\"query0\")), \"Framistats\"),\nalias(absolute(randomWalkFunction(\"query0\")), \"Doohickeys\"),\nalias(absolute(randomWalkFunction(\"query0\")), \"Thingamajigs\")\n)"
-        ]
-      }, 
-      "vehicular_distribution": {
-        "name": "vehicular_distribution", 
-        "targets": [
-          "group(\n    alias(summarize(absolute(randomWalkFunction(\"query0\")), \"5min\"), \"Cars\"),\n    alias(summarize(absolute(randomWalkFunction(\"query0\")), \"5min\"), \"Bikes\"),\n    alias(summarize(absolute(randomWalkFunction(\"query0\")), \"5min\"), \"Motorcycles\")\n    )"
-        ]
-      }, 
-      "simple": {
-        "name": "simple", 
-        "targets": [
-          "randomWalkFunction(\"query4\")"
-        ]
-      }, 
-      "Copy of simple 5": {
-        "name": "Copy of simple 5", 
-        "targets": [
-          "absolute(randomWalkFunction(\"query4\"))"
-        ]
-      }, 
-      "CPU": {
-        "name": "CPU", 
-        "targets": [
-          "group(\n      alias(absolute(randomWalkFunction(\"query0\")), \"System\"),\n           alias(absolute(randomWalkFunction(\"query0\")), \"User\"),\n           alias(absolute(randomWalkFunction(\"query0\")), \"IO\"),\n           alias(absolute(randomWalkFunction(\"query0\")), \"Wait\"),\n           alias(absolute(randomWalkFunction(\"query0\")), \"Idle\")\n           )"
-        ]
-      }
-    }, 
-    "href": "/api/dashboard/16/definition", 
     "items": [
       {
         "layout": "fixed", 
@@ -108,12 +67,13 @@
                   {
                     "item_id": "d18", 
                     "item_type": "markdown", 
-                    "text": "#### Stream Graphs\n\nNVd3 is no longer included in the core build, but [d3js](http://d3js.org/) remains, as it provides convenient and comprehesive numeric formatting. Its stack layout is now being leveraged to improve the flot renderer -- which brings stream graphs rendered to Canvas along with it. "
+                    "text": "#### Stream Graphs\n\nNVd3 is no longer included in the core build, but [d3js](http://d3js.org/) remains, as it provides convenient and comprehensive numeric formatting. Its stack layout is now being leveraged to improve the flot renderer -- which brings stream graphs rendered to Canvas along with it. "
                   }, 
                   {
                     "stack_mode": "stream", 
                     "height": "3", 
                     "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
                     "item_id": "d39", 
                     "query": "thingamajigs", 
                     "legend": "simple", 
@@ -128,6 +88,7 @@
                     "stack_mode": "percent", 
                     "height": "2", 
                     "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
                     "item_id": "d19", 
                     "query": "thingamajigs", 
                     "legend": "simple", 
@@ -191,6 +152,7 @@
                   {
                     "height": 1, 
                     "item_type": "simple_time_series", 
+                    "hide_zero_series": false, 
                     "show_max_value": true, 
                     "show_min_value": false, 
                     "show_last_value": false, 
@@ -266,8 +228,7 @@
                               "y1": {
                                 "label": "Responses"
                               }
-                            }, 
-                            "legend": ""
+                            }
                           }
                         ]
                       }, 
@@ -293,8 +254,7 @@
                                 "label": ""
                               }, 
                               "palette": "applespectrum"
-                            }, 
-                            "legend": ""
+                            }
                           }
                         ]
                       }
@@ -305,12 +265,13 @@
                     "stack_mode": "stack", 
                     "height": "3", 
                     "item_type": "bar_chart", 
-                    "legend": "simple", 
+                    "hide_zero_series": false, 
                     "item_id": "d40", 
                     "query": "vehicular_distribution", 
                     "options": {
                       "palette": "d3category20"
-                    }
+                    }, 
+                    "legend": "simple"
                   }
                 ]
               }
@@ -357,27 +318,71 @@
         "horizontal_rule": true, 
         "item_id": "d45"
       }
-    ]
+    ], 
+    "item_type": "dashboard_definition", 
+    "href": "/api/dashboard/5/definition", 
+    "queries": {
+      "HTTP": {
+        "name": "HTTP", 
+        "targets": [
+          "group(\n                            alias(absolute(randomWalkFunction(\"query0\")), \"200s\"),\n                            alias(absolute(randomWalkFunction(\"query0\")), \"300s\"),\n                            alias(absolute(randomWalkFunction(\"query0\")), \"400s\"),\n                            alias(absolute(randomWalkFunction(\"query0\")), \"500s\")\n                            )"
+        ]
+      }, 
+      "thingamajigs": {
+        "name": "thingamajigs", 
+        "targets": [
+          "group(\nalias(absolute(randomWalkFunction(\"query0\")), \"Frobs\"),\nalias(absolute(randomWalkFunction(\"query0\")), \"Globs\"),\nalias(absolute(randomWalkFunction(\"query0\")), \"Framistats\"),\nalias(absolute(randomWalkFunction(\"query0\")), \"Doohickeys\"),\nalias(absolute(randomWalkFunction(\"query0\")), \"Thingamajigs\")\n)"
+        ]
+      }, 
+      "vehicular_distribution": {
+        "name": "vehicular_distribution", 
+        "targets": [
+          "group(\n    alias(summarize(absolute(randomWalkFunction(\"query0\")), \"5min\"), \"Cars\"),\n    alias(summarize(absolute(randomWalkFunction(\"query0\")), \"5min\"), \"Bikes\"),\n    alias(summarize(absolute(randomWalkFunction(\"query0\")), \"5min\"), \"Motorcycles\")\n    )"
+        ]
+      }, 
+      "simple": {
+        "name": "simple", 
+        "targets": [
+          "randomWalkFunction(\"query4\")"
+        ]
+      }, 
+      "Copy of simple 5": {
+        "name": "Copy of simple 5", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query4\"))"
+        ]
+      }, 
+      "CPU": {
+        "name": "CPU", 
+        "targets": [
+          "group(\n      alias(absolute(randomWalkFunction(\"query0\")), \"System\"),\n           alias(absolute(randomWalkFunction(\"query0\")), \"User\"),\n           alias(absolute(randomWalkFunction(\"query0\")), \"IO\"),\n           alias(absolute(randomWalkFunction(\"query0\")), \"Wait\"),\n           alias(absolute(randomWalkFunction(\"query0\")), \"Idle\")\n           )"
+        ]
+      }
+    }, 
+    "item_id": "d0", 
+    "options": {
+      "from": "-3h"
+    }
   }, 
-  "view_href": "/dashboards/16/what-s-new-in-0-6", 
+  "view_href": "/dashboards/5/what-s-new-in-0-6", 
   "description": "", 
   "tags": [
     {
-      "count": 5, 
+      "count": 9, 
       "bgcolor": "green", 
       "id": 1, 
       "name": "featured"
     }, 
     {
-      "count": 1, 
-      "id": 8, 
+      "count": 2, 
+      "id": 3, 
       "name": "release-notes"
     }
   ], 
   "title": "What's new in 0.6?", 
   "summary": "", 
-  "definition_href": "/api/dashboard/16/definition", 
-  "href": "/api/dashboard/16", 
-  "id": 16, 
+  "definition_href": "/api/dashboard/5/definition", 
+  "href": "/api/dashboard/5", 
+  "id": 5, 
   "imported_from": null
 }
