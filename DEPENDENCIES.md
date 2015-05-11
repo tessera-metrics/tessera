@@ -58,3 +58,4 @@ built with as many "off-the-shelf" components as possible.
   polyfill of the W3 [User Timing](http://www.w3.org/TR/user-timing/)
   API for browsers that don't support it natively (i.e. Safari 8).
 * [node-inflection](https://github.com/dreamerslab/node.inflection)
+* [HumanizeDuration](https://github.com/EvanHahn/HumanizeDuration.js)
