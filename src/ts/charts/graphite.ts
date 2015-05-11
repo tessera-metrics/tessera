@@ -173,10 +173,12 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
       .setQuery('title', options.showTitle ? item.title : '')
       .setQuery('lineMode', 'connected')
 
-    // TODO - stack_mode (restrict to type Chart)
-    // if (!item.query.is_stacked() && item.stack_mode != charts.StackMode.NONE) {
-    // png_url.setQuery('areaMode', 'stacked')
-    // }
+    if (item.hasOwnProperty('stack_mode')) {
+
+      if (!item.query.is_stacked() && item['stack_mode'] != charts.StackMode.NONE) {
+        png_url.setQuery('areaMode', 'stacked')
+      }
+    }
 
     if (options.y1 && options.y1.min) {
       png_url.setQuery('yMin', options.y1.min )

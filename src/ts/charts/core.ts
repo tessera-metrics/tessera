@@ -1,4 +1,5 @@
 import Chart from '../models/items/chart'
+import DashboardItem from '../models/items/item'
 import { NamedObject, Registry } from '../core/registry'
 import * as graphite from '../data/graphite'
 
@@ -66,12 +67,12 @@ export function set_renderer(r: string|ChartRenderer) {
    Global delegates
    ============================================================================= */
 
-export function get_renderer(item: Chart|string) : ChartRenderer {
+export function get_renderer(item: DashboardItem|string) : ChartRenderer {
   let name = undefined
   if (typeof item === 'string') {
     name = item
   } else {
-    name = item.renderer
+    name = item['renderer']
   }
   return renderers.get(name) || renderer
 }
