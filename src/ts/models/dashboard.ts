@@ -39,6 +39,7 @@ export default class Dashboard extends Model {
       this.title = data.title
       this.category = data.category
       this.summary = data.summary
+      this.description = data.description
       this.definition = data.definition
       this.creation_date = data.creation_date
       this.last_modified_date = data.last_modified_date
