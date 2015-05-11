@@ -23,10 +23,12 @@
     color: black;
 }
 
+.ds-timerstat h3,
 .ds-singlestat h3 {
     color: #737380;
 }
 
+.well .ds-timerstat h3,
 .well .ds-singlestat h3 {
     color: #A95353;
 }
@@ -39,6 +41,7 @@
     // color:white;
 }
 
+.ds-timerstat .unit,
 .ds-singlestat .unit,
 .ds-jumbotron-singlestat .unit {
     color: gray;

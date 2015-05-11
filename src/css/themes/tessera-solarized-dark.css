@@ -76,14 +76,17 @@ hr {
     color: #93a1a1;
 }
 
+.ds-timerstat h3,
 .ds-singlestat h3 {
     color: #959588;
 }
 
+.well .ds-timerstat h3,
 .well .ds-singlestat h3 {
   color: #b58900;
 }
 
+.ds-timerstat p,
 .ds-singlestat p {
     color:white;
 }

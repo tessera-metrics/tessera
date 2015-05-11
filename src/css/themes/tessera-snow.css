@@ -12,6 +12,7 @@ h1 .ds-primary-title {
     background-color: white;
 }
 
+.well .ds-timerstat h3,
 .well .ds-singlestat h3 {
     color: #666;
 }

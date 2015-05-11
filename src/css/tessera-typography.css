@@ -15,6 +15,7 @@ h1, h2, h3, h4 {
   font-weight: 400;
 }
 
+.ds-timerstat h3,
 .ds-singlestat h3 {
     font-stretch: condensed;
     font-size: 1.2em;
@@ -22,11 +23,13 @@ h1, h2, h3, h4 {
     text-transform:uppercase;
 }
 
+.ds-timerstat p,
 .ds-singlestat p {
     font-size: 2.5em;
     font-weight: bold;
 }
 
+.ds-timerstat .unit,
 .ds-singlestat .unit {
     font-size: .5em;
     text-transform: lowercase;

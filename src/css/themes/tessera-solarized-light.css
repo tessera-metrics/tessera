@@ -15,11 +15,13 @@
     text-shadow: 1px 1px white;
 }
 
+.ds-timerstat .unit,
 .ds-singlestat .unit,
 .ds-jumbotron-singlestat .unit {
     color: #93a1a1;
 }
 
+.ds-timerstat h3,
 .ds-singlestat h3,
 .ds-jumbotron-singlestat h3 {
     color: #839496;
