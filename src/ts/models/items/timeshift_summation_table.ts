@@ -7,6 +7,7 @@ import Query from '../data/query'
 import Summation from '../data/summation'
 import Action from '../../core/action'
 import manager from '../../app/manager'
+import * as app from '../../app/app'
 
 declare var $, bootbox, d3, ts
 
@@ -69,14 +70,11 @@ export default class TimeshiftSummationTable extends TablePresentation {
 
   _update_query() : void {
     if (this._query && this.dashboard) {
-      // TODO
-      /*
-        let query = this.dashboard.definition.queries[this._query]
-        this.query_override = query
+      let query = this.dashboard.definition.queries[this._query]
+      this.query_override = query
         .join(query.shift(this.shift))
         .set_name(this.item_id + '_shifted')
-        this.query_override.render_templates(ts.context().variables)
-      */
+      this.query_override.render_templates(app.context().variables)
     }
   }
 
