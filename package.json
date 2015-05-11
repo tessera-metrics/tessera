@@ -32,6 +32,7 @@
     "handlebars": "^3.0.3",
     "highlight.js": "^8.5.0",
     "holderjs": "^2.7.1",
+    "humanize-duration": "^2.8.0",
     "inflection": "^1.7.1",
     "jquery": "^2.1.4",
     "marked": "^0.3.3",

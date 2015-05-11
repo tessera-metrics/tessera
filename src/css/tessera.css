@@ -159,14 +159,17 @@ h1.page-title {
   margin-top:0;
 }
 
+.ds-timerstat h3,
 .ds-singlestat h3 {
     margin: 0px;
 }
 
+.ds-timerstat p,
 .ds-singlestat p {
     margin-bottom: 0px;
 }
 
+.ds-timerstat .unit,
 .ds-singlestat .unit {
     margin-left: .25em;
 }
