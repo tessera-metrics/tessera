@@ -180,10 +180,15 @@ module.exports = function(grunt) {
         ],
         tasks: ['dep']
       },
+      app_templates: {
+        files: [
+          'src/templates/**/*.hbs'
+        ],
+        tasks: ['handlebars', 'concat:app', 'copy:app']
+      },
       app: {
         files: [
           'src/ts/**/*.ts',
-          'src/templates/**/*.hbs',
           'src/css/*.css'
         ],
         tasks: ['app']
