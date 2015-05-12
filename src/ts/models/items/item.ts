@@ -1,9 +1,13 @@
-import Model    from '../model'
-import Action   from '../../core/action'
+import events from '../../core/event'
+import Model  from '../model'
+import Action from '../../core/action'
 import { TemplateFunction, compile_template } from '../../core/template'
 import { PropertyList } from '../../core/property'
 import Query, { QueryDictionary } from '../data/query'
 import { make } from './factory'
+import { logger } from '../../core/log'
+
+const log = logger('item')
 
 export const DashboardItemStyle = {
   WELL:            'well',
@@ -108,6 +112,20 @@ export default class DashboardItem extends Model {
     return this.meta.requires_data
   }
 
+  /* Events ----------------------------------------- */
+
+  /**
+   * Fire a centralized 'update' event. Parties interested in
+   * receiving events when an item is updated can register handlers
+   * using the class (DashboardItem) as the target. The specific item
+   * updated will be passed as the event data.
+   */
+  updated() : DashboardItem {
+    log.info(`updated(): ${this.item_type}/${this.item_id}`)
+    events.fire(DashboardItem, 'update', this)
+    return this
+  }
+
   /* Chainable setters ------------------------------ */
 
   // These were created automatically by the old `limivorous`
@@ -117,22 +135,22 @@ export default class DashboardItem extends Model {
 
   set_item_id(value: string) : DashboardItem {
     this.item_id = value
-    return this
+    return this.updated()
   }
 
   set_height(value: number) : DashboardItem {
     this.height = value
-    return this
+    return this.updated()
   }
 
   set_style(value: string) : DashboardItem {
     this.style = value
-    return this
+    return this.updated()
   }
 
   set_css_class(value: string) : DashboardItem {
     this.css_class = value
-    return this
+    return this.updated()
   }
 
   set_dashboard(value: any /* TODO */) : DashboardItem {
@@ -142,7 +160,7 @@ export default class DashboardItem extends Model {
 
   set_title(value: string) : DashboardItem {
     this.title = value
-    return this
+    return this.updated()
   }
 
   /* Core methods ------------------------------ */

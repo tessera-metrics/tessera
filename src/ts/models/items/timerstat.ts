@@ -130,7 +130,7 @@ export default class Timerstat extends Presentation {
   set_language(language: string) : Timerstat {
     this.language = language === 'none' ? undefined : language
     this._updateHumanizer()
-    return this
+    return <Timerstat> this.updated()
   }
 
   data_handler(query: Query) : void {

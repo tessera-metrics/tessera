@@ -81,7 +81,7 @@ export default class Chart extends Presentation {
 
   set_renderer(renderer: string) : Chart {
     this.renderer = renderer
-    return this
+    return <Chart> this.updated()
   }
 
   toJSON() : any {

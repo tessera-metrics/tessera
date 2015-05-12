@@ -45,6 +45,24 @@ properties.register([
       }
     }
   },
+  {
+    name: 'query_other',
+    category: 'base',
+    template: '{{item.query_other.name}}',
+    edit_options: {
+      type: 'select',
+      source: function() {
+        var queries = manager.current.dashboard.definition.queries
+
+        return Object.keys(queries).map(function(k) {
+          return { value: k, text: k }
+        })
+      },
+      value: function(item) {
+        return item.query_other ? item.query_other.name : undefined
+      }
+    }
+  },
 
   {
     name: 'style',

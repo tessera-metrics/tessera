@@ -48,12 +48,12 @@ export default class Presentation extends DashboardItem {
     } else {
       this._query = value.name
     }
-    return this
+    return this.updated()
   }
 
   set_query_override(value: Query) : DashboardItem {
     this.query_override = value
-    return this
+    return this.updated()
   }
 
   /* Core methods ------------------------------ */

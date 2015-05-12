@@ -24,17 +24,17 @@ export default class Cell extends Container {
 
   set_span(value: number) : Cell {
     this.span = value
-    return this
+    return <Cell> this.updated()
   }
 
   set_offset(value: number) : Cell {
     this.offset = value
-    return this
+    return <Cell> this.updated()
   }
 
   set_align(value: string) : Cell {
     this.align = value
-    return this
+    return <Cell> this.updated()
   }
 
   toJSON() : any {

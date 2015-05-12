@@ -27,7 +27,7 @@ export default class Section extends Container {
 
   set_layout(value: string) : Section {
     this.layout = value
-    return this
+    return <Section> this.updated()
   }
 
   toJSON() :any {

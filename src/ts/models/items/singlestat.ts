@@ -31,22 +31,22 @@ export default class Singlestat extends Presentation {
 
   set_transform(transform: string) : Singlestat {
     this.transform = transform
-    return this
+    return <Singlestat> this.updated()
   }
 
   set_format(format: string) : Singlestat {
     this.format = format
-    return this
+    return <Singlestat> this.updated()
   }
 
   set_index(index: number) : Singlestat {
     this.index = index
-    return this
+    return <Singlestat> this.updated()
   }
 
   set_units(units: string) : Singlestat {
     this.units = units
-    return this
+    return <Singlestat> this.updated()
   }
 
   data_handler(query: Query) : void {

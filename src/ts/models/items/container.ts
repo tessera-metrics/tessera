@@ -1,7 +1,6 @@
 import DashboardItem, { DashboardItemVisitor } from './item'
 import { extend } from '../../core/util'
 import { make } from './factory'
-import manager from '../../app/manager'
 
 /**
  * Base class for all dashboard items that contain other items.
@@ -55,29 +54,22 @@ export default class Container extends DashboardItem {
     return this
   }
 
-  add(item: string|DashboardItem) : DashboardItem {
+  add(item: string|DashboardItem) : Container {
     if (typeof(item) === 'string') {
       item = make(item)
     }
     this.items.push(<DashboardItem>item)
-    // TODO
-    // this.notify('items')
-    /* This should go in an event handler */
-    manager.current.dashboard.update_index()
-    manager.update_item_view(this)
-    return this
+    return <Container> this.updated()
   }
 
-  add_after(item: string|DashboardItem, new_item: DashboardItem) : DashboardItem {
+  add_after(item: string|DashboardItem, new_item: DashboardItem) : Container {
     let index = this.find(item)
     if ((index === -1) || index === (this.length - 1)) {
       this.items.push(new_item)
     } else {
       this.items.splice(index + 1, 0, new_item)
     }
-    // TODO
-    // this.notify('items')
-    return this
+    return <Container> this.updated()
   }
 
   remove(item) : boolean {
@@ -86,8 +78,7 @@ export default class Container extends DashboardItem {
       return false
     }
     this.items.splice(index, 1)
-    // TODO
-    // this.notify('items')
+    this.updated()
     return true
   }
 
@@ -102,7 +93,7 @@ export default class Container extends DashboardItem {
    *                           place, or -1 to move it back one
    *                           element.
    */
-  move(item: DashboardItem, increment: number) {
+  move(item: DashboardItem, increment: number) : boolean {
     let index = this.find(item)
     if (index < 0) {
       return false
@@ -117,8 +108,7 @@ export default class Container extends DashboardItem {
     let tmp = this.items[target_index]
     this.items[target_index] = item
     this.items[index] = tmp
-    // TODO
-    // this.notify('items')
+    this.updated()
     return true
   }
 

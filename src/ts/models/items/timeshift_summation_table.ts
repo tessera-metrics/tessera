@@ -6,7 +6,6 @@ import { register_dashboard_item } from './factory'
 import Query from '../data/query'
 import Summation from '../data/summation'
 import Action from '../../core/action'
-import manager from '../../app/manager'
 import * as app from '../../app/app'
 
 declare var $, bootbox, d3, ts
@@ -27,8 +26,7 @@ export default class TimeshiftSummationTable extends TablePresentation {
       display: label,
       icon:    'fa fa-clock-o',
       handler: function(action, item) {
-        item.shift = interval
-        manager.update_item_view(item)
+        item.set_shift(interval)
       }
     })
   }
@@ -48,8 +46,7 @@ export default class TimeshiftSummationTable extends TablePresentation {
             title: "Enter a time shift interval",
             callback: function(result) {
               if (result) {
-                item.shift = result
-                manager.update_item_view(item)
+                item.set_shift(result)
               }
             }
           })
@@ -84,6 +81,11 @@ export default class TimeshiftSummationTable extends TablePresentation {
 
   set shift(value: string) {
     this._shift = value
+  }
+
+  set_shift(value: string) : TimeshiftSummationTable {
+    this.shift = value
+    return <TimeshiftSummationTable> this.updated()
   }
 
   toJSON() : any {

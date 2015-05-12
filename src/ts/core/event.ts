@@ -4,7 +4,7 @@ declare var bean
 const log = logger('events')
 
 export interface EventHandler {
-  (target?: Object, data?: any) : void
+  (...args:any[]) : void
 }
 
 export interface EventProvider {
@@ -13,6 +13,10 @@ export interface EventProvider {
   fire(target: Object, event: string, data?: any) : void
 }
 
+/**
+ * A delegating event provider which just logs and forwards all calls
+ * to another provider.
+ */
 class LoggingEventProvider implements EventProvider {
   private provider : EventProvider
 
@@ -36,6 +40,12 @@ class LoggingEventProvider implements EventProvider {
   }
 }
 
+/**
+ * Event provider that uses bean.js as the underlying event registry
+ * and dispatcher.
+ *
+ * @see https://github.com/fat/bean
+ */
 class BeanEventProvider implements EventProvider {
   on(target: Object, event: string, handler: EventHandler) : void {
     bean.on(target, event, handler)
@@ -50,6 +60,9 @@ class BeanEventProvider implements EventProvider {
   }
 }
 
+/**
+ * Global event provider instance.
+ */
 var provider : EventProvider
 
 export function set_provider(value: EventProvider) : EventProvider {

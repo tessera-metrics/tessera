@@ -117,14 +117,11 @@ $(document).ready(function() {
     })
   })
 
-
   $(document).on('click', '#ds-new-section-button', function(e) {
     let dash = manager.current.dashboard
     dash.definition.add(make('section'))
     dash.update_index()
-    manager.update_item_view(dash.definition)
   })
-
 
   $(document).on('click', '#ds-view-dashboard-source-button', function(e) {
     let dashboard = manager.current.dashboard

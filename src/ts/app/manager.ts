@@ -2,13 +2,15 @@
 // TODO - all of this needs refactoring
 //
 
-import * as logging from '../core/log'
-import * as app from './app'
-import * as charts from '../charts/core'
-import events from '../core/event'
-import Dashboard from '../models/dashboard'
-import Query from '../models/data/Query'
-import { transforms } from '../models/transform/transform'
+import * as logging  from '../core/log'
+import * as app      from './app'
+import * as charts   from '../charts/core'
+import events        from '../core/event'
+import Dashboard     from '../models/dashboard'
+import DashboardItem from '../models/items/item'
+import Container     from '../models/items/container'
+import Query         from '../models/data/Query'
+import {transforms}  from '../models/transform/transform'
 
 declare var $, URI, window, bootbox, ts
 
@@ -217,6 +219,18 @@ const manager =
       })
       app.refresh_mode()
     }
+
+    events.on(DashboardItem, 'update', (item: DashboardItem) => {
+      if (!item) {
+        log.warn('on:DashboardItem.update: item not bound')
+      } else {
+        log.debug(`on:DashboardItem.update: ${item.item_type} / ${item.item_id}`)
+        if (item instanceof Container) {
+          self.current.dashboard.update_index()
+        }
+        self.update_item_view(item)
+      }
+    })
 
     /**
      * Execute a function with re-rendering of the DOM for dashboard

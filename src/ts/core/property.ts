@@ -5,12 +5,6 @@ import Template from './template'
 
 declare var $
 
-// REFACTOR - property editing should move out into the edit module,
-// so we don't have 'core' depending on 'app'
-import manager from '../app/manager'
-
-// export type PropertyTemplate = string | ((ctx?: any) => string)
-
 const log = logger('property')
 
 export const PropertyType = {
@@ -19,6 +13,9 @@ export const PropertyType = {
   TEXT: 'text'
 }
 
+/**
+ * A description of the data format for initializing a property.
+ */
 export interface PropertyDescriptor {
   name: string
   property_name?: string
@@ -28,7 +25,16 @@ export interface PropertyDescriptor {
   edit_options?: any
 }
 
+/**
+ * Entries in a property list can be property names, plain objects
+ * describing a property, or instances of Property. When a dashboard
+ * item is registered the properties will be canonicalized.
+ *
+ * @see property()
+ * @see PropertyList
+ */
 export type PropertyListEntry = string|PropertyDescriptor|Property
+
 export type PropertyList      = PropertyListEntry[]
 
 export default class Property implements NamedObject {
@@ -98,7 +104,9 @@ export default class Property implements NamedObject {
       success: (ignore, newValue) => {
         log.debug(`update(${item.item_id}.${this.property_name}) => ${newValue}`)
         item[this.property_name] = newValue
-        manager.update_item_view(item)
+        if (item.updated) {
+          item.updated()
+        }
       }
     }
     let options = extend({}, default_options, this.edit_options)
@@ -110,7 +118,9 @@ export default class Property implements NamedObject {
       ]
       options.success = (ignore, newValue) => {
         item[this.property_name] = newValue.length > 0
-        manager.update_item_view(item)
+        if (item.fire_update) {
+          item.fire_update()
+        }
       }
     } else if (this.type) {
       options.type = this.type
@@ -139,7 +149,9 @@ export default class Property implements NamedObject {
     if (options.update && (options.update instanceof Function)) {
       options.success = (ignore, newValue) => {
         options.update(item, newValue)
-        manager.update_item_view(item)
+        if (item.fire_update) {
+          item.fire_update()
+        }
       }
     }
 
@@ -151,6 +163,11 @@ export default class Property implements NamedObject {
   }
 }
 
+/**
+ * Registry of property definitions. Properties which have complex
+ * handlers and are shared between multiple dashboard items should be
+ * registered.
+ */
 export const properties = new Registry<Property>({
   name: 'properties',
   ignore_categories: true,
@@ -165,6 +182,9 @@ export const properties = new Registry<Property>({
   }
 })
 
+/**
+ * Canonicalize properties.
+ */
 export function property(data) : Property {
   if (data instanceof Property) {
     return data
