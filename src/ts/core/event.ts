@@ -10,7 +10,7 @@ export interface EventHandler {
 export interface EventProvider {
   on(target: Object, event: string, handler: EventHandler) : void
   off(target: Object, event: string) : void
-  fire(target: Object, event: string, data?: any) : void
+  fire(target: Object, event: string, ...data: any[]) : void
 }
 
 /**
@@ -34,9 +34,9 @@ class LoggingEventProvider implements EventProvider {
     this.provider.off(target, event)
   }
 
-  fire(target: Object, event: string, data?: any) : void {
+  fire(target: Object, event: string, ...data: any[]) : void {
     log.debug(`fire(): ${event}`)
-    this.provider.fire(target, event, data)
+    this.provider.fire(target, event, ...data)
   }
 }
 
@@ -55,8 +55,8 @@ class BeanEventProvider implements EventProvider {
     bean.off(target, event)
   }
 
-  fire(target: Object, event: string, data?: any) : void {
-    bean.fire(target, event, data)
+  fire(target: Object, event: string, ...data: any[]) : void {
+    bean.fire(target, event, ...data)
   }
 }
 

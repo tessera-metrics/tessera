@@ -23,3 +23,4 @@ export {
 } from './core/registry'
 
 export { default as events } from './core/event'
+export { default as EventSource } from './core/event-source'
