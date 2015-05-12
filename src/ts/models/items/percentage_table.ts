@@ -61,10 +61,7 @@ export default class PercentageTable extends TablePresentation {
   interactive_properties(): PropertyList {
     return super.interactive_properties().concat([
       { name: 'invert_axes', type: 'boolean' },
-      {
-        name: 'include_sums',
-        type: 'boolean'
-      },
+      { name: 'include_sums', type: 'boolean' },
       'transform'
     ])
   }
