@@ -1,13 +1,9 @@
-import events from '../../core/event'
+import * as core from '../../core'
 import Model  from '../model'
-import Action from '../../core/action'
-import { TemplateFunction, compile_template } from '../../core/template'
-import { PropertyList } from '../../core/property'
 import Query, { QueryDictionary } from '../data/query'
 import { make } from './factory'
-import { logger } from '../../core/log'
 
-const log = logger('item')
+const log = core.logger('item')
 
 export const DashboardItemStyle = {
   WELL:            'well',
@@ -49,10 +45,10 @@ export interface DashboardItemMetadata {
   requires_data?: boolean
   category?: string
   display_name?: string
-  template?: string|TemplateFunction
+  template?: string|core.TemplateFunction
   icon?: string
-  actions?: Action[]
-  interactive_properties?: PropertyList
+  actions?: core.ActionList
+  interactive_properties?: core.PropertyList
 }
 
 /**
@@ -100,7 +96,7 @@ export default class DashboardItem extends Model {
     return this.meta.display_name
   }
 
-  get template() : string|TemplateFunction {
+  get template() : string|core.TemplateFunction {
     return this.meta.template
   }
 
@@ -122,7 +118,7 @@ export default class DashboardItem extends Model {
    */
   updated() : DashboardItem {
     log.info(`updated(): ${this.item_type}/${this.item_id}`)
-    events.fire(DashboardItem, 'update', this)
+    core.events.fire(DashboardItem, 'update', this)
     return this
   }
 
@@ -169,7 +165,7 @@ export default class DashboardItem extends Model {
    * should be template-expanded before rendering. */
   render_templates(context?: any) : void { }
 
-  interactive_properties() : PropertyList {
+  interactive_properties() : core.PropertyList {
     return [
       { name: 'css_class', category: 'base'} ,
       'height'
@@ -180,7 +176,7 @@ export default class DashboardItem extends Model {
     if (!this.meta.template) {
       return "<p>Item type <code>" + this.item_type + "</code> is missing a template.</p>"
     }
-    return compile_template(this.template)({item: this})
+    return core.compile_template(this.template)({item: this})
   }
 
   visit(visitor: DashboardItemVisitor) : DashboardItem {

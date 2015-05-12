@@ -1,9 +1,10 @@
-declare var moment
-
 /**
  * Provides a very simple implementation of the age-old log4j logging
  * pattern, supporting only output to `console` for now.
  */
+
+declare var moment
+
 export enum Level {
   OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE
 }

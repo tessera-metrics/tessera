@@ -1,10 +1,8 @@
+import * as core from '../../core'
 import DashboardItem from './item'
 import Query from '../data/query'
-import { extend } from '../../core/util'
-import { PropertyList } from '../../core/property'
-import { logger } from '../../core/log'
 
-const log = logger('models.presentation')
+const log = core.logger('models.presentation')
 
 /**
  * The base class for all _presentations_, or dashboard items
@@ -62,7 +60,7 @@ export default class Presentation extends DashboardItem {
    * render a dashboard element. */
   data_handler(query: Query) : void { }
 
-  interactive_properties() : PropertyList {
+  interactive_properties() : core.PropertyList {
     return super.interactive_properties().concat([
       'query'
     ])
@@ -88,7 +86,7 @@ export default class Presentation extends DashboardItem {
   }
 
   toJSON() : any {
-    return extend(super.toJSON(), {
+    return core.extend(super.toJSON(), {
       query: this._query
     })
   }

@@ -1,10 +1,9 @@
-import * as logging from '../core/log'
-import events from '../core/event'
+import * as core from '../core'
 import Config from './config'
 
 declare var $, URI, window
 
-const log             = logging.logger('app')
+const log             = core.logger('app')
 const ANIMATION_DELAY = 300
 
 export var config = new Config()
@@ -62,10 +61,8 @@ export class Application {
   /* Mode Handling ------------------------------------------ */
 
   _do_exit_mode(mode: string) : void {
-    if (log.is_enabled(logging.Level.DEBUG)) {
-      log.debug('mode <- ' + mode)
-    }
-    events.fire(this, Event.MODE_EXIT + mode)
+    log.debug('mode <- ' + mode)
+    core.events.fire(this, Event.MODE_EXIT + mode)
     let state = this.mode_stack.pop()
     if (state) {
       state.hidden.show(ANIMATION_DELAY)
@@ -74,9 +71,7 @@ export class Application {
   }
 
   _do_enter_mode(mode: string) : void {
-    if (log.is_enabled(logging.Level.DEBUG)) {
-      log.debug('mode -> ' + mode)
-    }
+    log.debug('mode -> ' + mode)
     let hidden = $('[data-ds-hide~="' + mode + '"]').hide(ANIMATION_DELAY)
     let shown = $('[data-ds-show~="' + mode + '"]').show(ANIMATION_DELAY)
 
@@ -86,7 +81,7 @@ export class Application {
       hidden: hidden,
       shown: shown
     })
-    events.fire(this, Event.MODE_ENTER + mode)
+    core.events.fire(this, Event.MODE_ENTER + mode)
   }
 
   /**
@@ -94,7 +89,7 @@ export class Application {
    */
   refresh_mode() : Application {
     this.switch_to_mode(this.current_mode, 0)
-    events.fire(this, Event.MODE_REFRESH + this.current_mode)
+    core.events.fire(this, Event.MODE_REFRESH + this.current_mode)
     return this
   }
 
@@ -150,13 +145,13 @@ export class Application {
    */
   add_mode_handler(mode: string, options: IModeHandlerOptions) : Application {
     if (options.enter && (options.enter instanceof Function)) {
-      events.on(this, Event.MODE_ENTER + mode, options.enter)
+      core.events.on(this, Event.MODE_ENTER + mode, options.enter)
     }
     if (options.exit && (options.exit instanceof Function)) {
-      events.on(this, Event.MODE_EXIT + mode, options.exit)
+      core.events.on(this, Event.MODE_EXIT + mode, options.exit)
     }
     if (options.refresh && (options.refresh instanceof Function)) {
-      events.on(this, Event.MODE_REFRESH + mode, options.refresh)
+      core.events.on(this, Event.MODE_REFRESH + mode, options.refresh)
     }
     return this
   }

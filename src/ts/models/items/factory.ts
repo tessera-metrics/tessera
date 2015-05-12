@@ -2,15 +2,12 @@ import DashboardItem, {
   DashboardItemConstructor,
   DashboardItemMetadata
 } from './item'
-import { actions } from '../../core/action'
-import { property } from '../../core/property'
-import { compile_template } from '../../core/template'
-import { logger } from '../../core/log'
-import { extend } from '../../core/util'
+import * as core from '../../core'
 
 declare var inflection, Handlebars, ts
 
-var log = logger('models.factory')
+var log = core.logger('models.factory')
+
 var constructors = new Map<string, DashboardItemConstructor>()
 export var metadata = new Map<string, DashboardItemMetadata>()
 
@@ -36,7 +33,7 @@ export function get_metadata_list(item_class: DashboardItemConstructor) : Dashbo
  */
 export function get_merged_metadata(item_class: DashboardItemConstructor) : DashboardItemMetadata {
   let metas = get_metadata_list(item_class)
-  return extend({}, ...metas)
+  return core.extend({}, ...metas)
 }
 
 /**
@@ -93,7 +90,7 @@ export function register_dashboard_item(item_class: DashboardItemConstructor) {
   //
 
   if (meta.actions && meta.actions.length) {
-    actions.register(meta.item_type, meta.actions)
+    core.actions.register(meta.item_type, meta.actions)
   }
 
   //
@@ -103,7 +100,7 @@ export function register_dashboard_item(item_class: DashboardItemConstructor) {
   //
 
   let instance = new item_class()
-  let props = instance.interactive_properties().map(p => property(p))
+  let props = instance.interactive_properties().map(p => core.property(p))
   props.sort((p1, p2) => {
     if (p1.category === p2.category) {
       return p1.property_name.localeCompare(p2.property_name)
@@ -120,7 +117,7 @@ export function register_dashboard_item(item_class: DashboardItemConstructor) {
 
   var category = meta.category ? 'new-item-' + meta.category : 'new-item'
 
-  actions.register({
+  core.actions.register({
     name:      meta.item_type,
     category:  category,
     display:   'Add new ' + (meta.display_name || meta.item_type),

@@ -1,15 +1,12 @@
-import { logger } from '../../core/log'
+import * as core from '../../core'
 import Summation from './summation'
 import Model from '../model'
-import { extend } from '../../core/util'
-import { render_template } from '../../core/template'
-import events from '../../core/event'
 import * as app from '../../app/app'
 import * as charts from '../../charts/core'
 import * as graphite from '../../data/graphite'
 
 declare var URI, $, ts
-const log = logger('query')
+const log = core.logger('query')
 
 export interface QueryDictionary {
   [index: string] : Query
@@ -62,17 +59,12 @@ export default class Query extends Model {
 
   render_templates(context: any) : void {
     this.expanded_targets = this.targets.map(t => {
-      try {
-        return render_template(t, context)
-      } catch ( e ) {
-        ts.manager.error(`Failed to expand query ${this.name}: ${e}`)
-        return t
-      }
+      return core.render_template(t, context)
     })
   }
 
   url(opt?: any) : string {
-    var options = extend({}, this.local_options, opt, this.options)
+    var options = core.extend({}, this.local_options, opt, this.options)
     var url     = new URI(options.base_url || app.config.GRAPHITE_URL)
       .segment('render')
       .setQuery('format', options.format || 'png')
@@ -122,8 +114,8 @@ export default class Query extends Model {
    */
   load(opt?: any, fire_only?: boolean) : void {
     log.debug('load(): ' + this.name)
-    this.local_options = extend({}, this.local_options, opt)
-    var options = extend({}, this.local_options, opt, this.options)
+    this.local_options = core.extend({}, this.local_options, opt)
+    var options = core.extend({}, this.local_options, opt, this.options)
 
     if (typeof(fire_only) === 'boolean' && fire_only) {
       // This is a bit of a hack for optimization, to fire the query
@@ -135,12 +127,12 @@ export default class Query extends Model {
         ready(this)
       }
 
-      events.fire(this, 'ds-data-ready', this)
+      core.events.fire(this, 'ds-data-ready', this)
     } else {
       this.cache.clear()
       options.format = 'json'
       var url = this.url(options)
-      events.fire(this, 'ds-data-loading')
+      core.events.fire(this, 'ds-data-loading')
       this.load_count += 1
       return $.ajax({
         dataType: 'jsonp',
@@ -160,7 +152,7 @@ export default class Query extends Model {
           if (options.ready && (options.ready instanceof Function)) {
             options.ready(this)
           }
-          events.fire(this, 'ds-data-ready', this)
+          core.events.fire(this, 'ds-data-ready', this)
         })
     }
   }
@@ -171,7 +163,7 @@ export default class Query extends Model {
    */
   on_load(handler: any) : void {
     log.debug('on(): ' + this.name)
-    events.on(this, 'ds-data-ready', handler)
+    core.events.on(this, 'ds-data-ready', handler)
   }
 
   /**
@@ -179,7 +171,7 @@ export default class Query extends Model {
    */
   off() : void {
     log.debug('off(): ' + this.name)
-    events.off(this, 'ds-data-ready')
+    core.events.off(this, 'ds-data-ready')
   }
 
   _group_targets() : string {
@@ -245,7 +237,7 @@ export default class Query extends Model {
   }
 
   toJSON() : any {
-    return extend(super.toJSON(), {
+    return core.extend(super.toJSON(), {
       name: this.name,
       targets: this.targets,
       data: this.data,

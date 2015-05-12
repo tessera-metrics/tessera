@@ -1,6 +1,4 @@
-import { safe_render_template } from '../core/template'
-import { extend } from '../core/util'
-import { logger } from '../core/log'
+import * as core from '../core'
 import Model from './model'
 import Tag from './tag'
 import Container from './items/container'
@@ -8,7 +6,7 @@ import DashboardDefinition from './items/dashboard_definition'
 import DashboardItem from './items/item'
 import { make } from './items/factory'
 
-const log = logger('models.dashboard')
+const log = core.logger('models.dashboard')
 
 export default class Dashboard extends Model {
 
@@ -154,9 +152,9 @@ export default class Dashboard extends Model {
 
   render_templates(context) : Dashboard {
     context.id = this.id
-    this.expanded_description = safe_render_template(this.description, context)
-    this.expanded_title       = safe_render_template(this.title, context)
-    this.expanded_summary     = safe_render_template(this.summary, context)
+    this.expanded_description = core.render_template(this.description, context)
+    this.expanded_title       = core.render_template(this.title, context)
+    this.expanded_summary     = core.render_template(this.summary, context)
     if (this.definition) {
       this.definition.render_templates(context)
     }
@@ -168,7 +166,7 @@ export default class Dashboard extends Model {
   }
 
   toJSON() : any {
-    return extend(super.toJSON(), {
+    return core.extend(super.toJSON(), {
       id: this.id,
       title: this.title,
       category: this.category,

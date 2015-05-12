@@ -9,10 +9,4 @@ export default class Model {
   toJSON() : any {
     return {}
   }
-
-  on(event: string, handler) {
-    // TODO
-  }
-
-
 }

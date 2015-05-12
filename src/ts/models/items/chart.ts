@@ -1,12 +1,11 @@
 import Presentation from './presentation'
 import Axis from '../axis'
 import { DashboardItemMetadata } from './item'
-import { properties, PropertyList } from '../../core/property'
-import * as util from '../../core/util'
+import * as core from '../../core'
 import * as charts from '../../charts/core'
 import PALETTES from '../../charts/palettes'
 
-properties.register({
+core.properties.register({
   name:          'chart.palette',
   property_name: 'palette',
   category:      'chart',
@@ -85,21 +84,21 @@ export default class Chart extends Presentation {
   }
 
   toJSON() : any {
-    let data = util.extend(super.toJSON(), {
+    let data = core.extend(super.toJSON(), {
       legend: this.legend,
       hide_zero_series: this.hide_zero_series,
       renderer: this.renderer
     })
     if (this.options) {
-      data.options = util.extend({}, this.options)
+      data.options = core.extend({}, this.options)
       if (this.options.y1) {
-        data.options.y1 = util.json(this.options.y1)
+        data.options.y1 = core.json(this.options.y1)
       }
       if (this.options.y2) {
-        data.options.y2 = util.json(this.options.y2)
+        data.options.y2 = core.json(this.options.y2)
       }
       if (this.options.x) {
-            data.options.x = util.json(this.options.x)
+            data.options.x = core.json(this.options.x)
       }
     }
     return data
@@ -109,7 +108,7 @@ export default class Chart extends Presentation {
    * Clearly, a bunch of this should be refactored into a common
    * model. Should probably make chart.options a property model object.
    */
-  interactive_properties() : PropertyList {
+  interactive_properties() : core.PropertyList {
     let props = [
       'title',
       {

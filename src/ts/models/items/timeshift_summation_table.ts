@@ -1,11 +1,9 @@
+import * as core from '../../core'
 import TablePresentation from './table_presentation'
 import { DashboardItemMetadata } from './item'
-import { extend } from '../../core/util'
-import { PropertyList } from '../../core/property'
 import { register_dashboard_item } from './factory'
 import Query from '../data/query'
 import Summation from '../data/summation'
-import Action from '../../core/action'
 import * as app from '../../app/app'
 
 declare var $, bootbox, d3, ts
@@ -20,8 +18,8 @@ declare var $, bootbox, d3, ts
  * need to join on two asynchronously fetched queries.
  */
 export default class TimeshiftSummationTable extends TablePresentation {
-  static timeshift_action(interval: string, label: string) : Action {
-    return new Action({
+  static timeshift_action(interval: string, label: string) : core.Action {
+    return new core.Action({
       name:    `timeshift_${interval}`,
       display: label,
       icon:    'fa fa-clock-o',
@@ -36,7 +34,7 @@ export default class TimeshiftSummationTable extends TablePresentation {
       TimeshiftSummationTable.timeshift_action('1h', '1 Hour Ago'),
       TimeshiftSummationTable.timeshift_action('1d', '1 Day Ago'),
       TimeshiftSummationTable.timeshift_action('1w', '1 Week Ago'),
-      new Action({
+      new core.Action({
         name:    'timeshift_user_input',
         display: 'Pick interval...',
         icon:    'fa fa-clock-o',
@@ -89,7 +87,7 @@ export default class TimeshiftSummationTable extends TablePresentation {
   }
 
   toJSON() : any {
-    return extend(super.toJSON(), {
+    return core.extend(super.toJSON(), {
       shift: this.shift
     })
   }
@@ -139,7 +137,7 @@ export default class TimeshiftSummationTable extends TablePresentation {
     }
   }
 
-  interactive_properties(): PropertyList {
+  interactive_properties(): core.PropertyList {
     return super.interactive_properties().concat([
       'shift'
     ])

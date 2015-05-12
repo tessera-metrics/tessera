@@ -1,14 +1,12 @@
 import TablePresentation from './table_presentation'
 import { register_dashboard_item } from './factory'
-import { extend } from '../../core/util'
-import { logger } from '../../core/log'
-import { PropertyList } from '../../core/property'
+import * as core from '../../core'
 import Query from '../data/query'
 import * as charts from '../../charts/util'
 
 declare var $, ts
 
-const log = logger('models.summation_table')
+const log = core.logger('models.summation_table')
 
 export default class SummationTable extends TablePresentation {
 
@@ -25,8 +23,8 @@ export default class SummationTable extends TablePresentation {
     }
   }
 
-  toJSON() :any {
-    return extend(super.toJSON(), {
+  toJSON() : any {
+    return core.extend(super.toJSON(), {
       show_color: this.show_color,
       options: this.options,
       palette: this.palette
@@ -53,7 +51,7 @@ export default class SummationTable extends TablePresentation {
     }
   }
 
-  interactive_properties(): PropertyList {
+  interactive_properties() : core.PropertyList {
     return super.interactive_properties().concat([
       { name: 'show_color', type: 'boolean' },
       'chart.palette'

@@ -15,7 +15,7 @@ export function compile_template(tmpl: string|TemplateFunction) : TemplateFuncti
   }
 }
 
-export function render_template(tmpl: string|TemplateFunction, context?: any) : string {
+function _render_template(tmpl: string|TemplateFunction, context?: any) : string {
   if (tmpl == null) {
     return ''
   }
@@ -30,9 +30,9 @@ export function render_template(tmpl: string|TemplateFunction, context?: any) : 
   }
 }
 
-export function safe_render_template(tmpl: string|TemplateFunction, context?: any) : string {
+export function render_template(tmpl: string|TemplateFunction, context?: any) : string {
   try {
-    return render_template(tmpl, context)
+    return _render_template(tmpl, context)
   } catch (e) {
     log.error('safe_render_template(): ' + e)
     if (typeof tmpl === 'string') {
@@ -51,6 +51,6 @@ export default class Template {
   }
 
   render(context?: any) : string {
-    return safe_render_template(this.tmpl, context)
+    return render_template(this.tmpl, context)
   }
 }

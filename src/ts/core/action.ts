@@ -2,22 +2,21 @@ import { NamedObject, Registry } from './registry'
 
 export type ActionList = Action[]
 
+/**
+ * Type of a function which returns an action list, intended for late
+ * binding lists of sub-actions by looking up categories in the
+ * actions registry at runtime.
+ *
+ * @see actions
+ */
 export interface ActionListFunction {
   () : ActionList
 }
-
 
 /**
  * An object describing a user-interface action. Actions may be
  * rendered as either a menu item in a dropdown or a button in a
  * button bar.
- *
- * actions - a list of additional actions, causing this action to be
- *           rendered as a dropdown button or sub-menu.
- * icon - CSS classes to render a Font Awesome icon.
- * handler - callback function to run when the action is invoked.
- * category - action category to register this action in .
- * divider - if true, this action will simply render as a divider between action groups.
  */
 export default class Action implements NamedObject {
 
@@ -45,14 +44,17 @@ export default class Action implements NamedObject {
   /* Is this even used? */
   options: any
 
-  /** A callback that is invoked when the action is run */
+  /** A callback that is run when the action is invoked.  */
   handler: (action: Action, data: any) => void
 
   /** If true, just render a divider */
   divider: boolean
 
-  /** Sub-actions, for menu buttons */
-  private _actions: ActionList|ActionListFunction
+  /** A list of additional sub-actions, which will cause the action to
+   * be rendered as a dropdown button or a sub-menu. This can be
+   * supplied as an immediate list of actions, a string naming an
+   * action category, or a function returning a list of actions. */
+  private _actions: string|ActionList|ActionListFunction
 
   static DIVIDER = new Action({divider: true, name: 'DIVIDER'})
 
@@ -75,22 +77,16 @@ export default class Action implements NamedObject {
   get actions() : ActionList {
     if (typeof this._actions === 'undefined' ) {
       return undefined
+
+    } else if (typeof this._actions === 'string') {
+      return actions.list(<string>this._actions)
+
     } else if (this._actions instanceof Array) {
       return <ActionList> this._actions
+
     } else {
       let fn = <ActionListFunction> this._actions
       return fn()
-    }
-  }
-
-  toJSON() : any {
-    return {
-      name: this.name,
-      category: this.category,
-      show: this.show,
-      hide: this.hide,
-      css: this.css,
-      options: this.options
     }
   }
 }

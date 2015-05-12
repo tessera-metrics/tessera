@@ -2,10 +2,9 @@
 // TODO - all of this needs refactoring
 //
 
-import * as logging  from '../core/log'
+import * as core     from '../core'
 import * as app      from './app'
 import * as charts   from '../charts/core'
-import events        from '../core/event'
 import Dashboard     from '../models/dashboard'
 import DashboardItem from '../models/items/item'
 import Container     from '../models/items/container'
@@ -14,7 +13,7 @@ import {transforms}  from '../models/transform/transform'
 
 declare var $, URI, window, bootbox, ts
 
-const log = logging.logger('manager')
+const log = core.logger('manager')
 
 const DashboardHolder = function(url, element) {
   "use strict"
@@ -55,7 +54,7 @@ const manager =
      * loaded and ready.
      */
     self.onDashboardLoaded = function(handler) {
-      events.on(self, app.Event.DASHBOARD_LOADED, handler)
+      core.events.on(self, app.Event.DASHBOARD_LOADED, handler)
       return self
     }
 
@@ -163,7 +162,7 @@ const manager =
           charts.set_renderer(data.preferences.renderer)
         }
 
-        events.fire(self, app.Event.DASHBOARD_LOADED, dashboard)
+        core.events.fire(self, app.Event.DASHBOARD_LOADED, dashboard)
 
         // Expand any templatized queries or dashboard items
         dashboard.render_templates(context.variables)
@@ -172,7 +171,7 @@ const manager =
         $(element).html(dashboard.definition.render())
 
         let currentURL = new URI(holder.url)
-        events.fire(self, app.Event.RANGE_CHANGED, {
+        core.events.fire(self, app.Event.RANGE_CHANGED, {
           from: currentURL.query('from'),
           until: currentURL.query('until')
         })
@@ -187,7 +186,7 @@ const manager =
           })
         }
 
-        events.fire(self, app.Event.DASHBOARD_RENDERED, dashboard)
+        core.events.fire(self, app.Event.DASHBOARD_RENDERED, dashboard)
 
         if (context.params.mode) {
           app.switch_to_mode(context.params.mode)
@@ -220,7 +219,7 @@ const manager =
       app.refresh_mode()
     }
 
-    events.on(DashboardItem, 'update', (item: DashboardItem) => {
+    core.events.on(DashboardItem, 'update', (item: DashboardItem) => {
       if (!item) {
         log.warn('on:DashboardItem.update: item not bound')
       } else {
@@ -343,9 +342,7 @@ const manager =
       if (self.current && (app.instance.current_mode != app.Mode.EDIT)) {
         self.load(self.current.url, self.current.element)
       } else {
-        if (log.is_enabled(logging.Level.DEBUG)) {
-          log.debug('skipping reload; current mode: ' + app.instance.current_mode)
-        }
+        log.debug('skipping reload; current mode: ' + app.instance.current_mode)
       }
     }
 
@@ -388,7 +385,7 @@ const manager =
       window.history.pushState({url: self.current.url, element:self.current.element}, '', uri.href())
 
       self.current.setRange(from, until)
-      events.fire(self, app.Event.RANGE_CHANGED, {
+      core.events.fire(self, app.Event.RANGE_CHANGED, {
         from: from, until: until
       })
       self.refresh()
@@ -417,7 +414,7 @@ const manager =
 
     self.onRangeChanged = function(handler) {
       let self = this
-      events.on(self, app.Event.RANGE_CHANGED, handler)
+      core.events.on(self, app.Event.RANGE_CHANGED, handler)
     }
 
     self.autoRefreshInterval = null
@@ -427,18 +424,14 @@ const manager =
       let intervalSeconds = parseInt(value)
       self.autoRefreshInterval = intervalSeconds
       if (self.intervalId) {
-        if (log.is_enabled(logging.Level.DEBUG)) {
-          log.debug('clearing auto-refresh interval; intervalId: ' + self.intervalId)
-        }
+        log.debug('clearing auto-refresh interval; intervalId: ' + self.intervalId)
         window.clearInterval(self.intervalId)
         self.intervalId = undefined
       }
       if (intervalSeconds > 0) {
         self.intervalSeconds = intervalSeconds
         self.intervalId = window.setInterval(self.refresh, intervalSeconds * 1000)
-        if (log.is_enabled(logging.Level.DEBUG)) {
-          log.debug('set auto-refresh interval; intervalId: ' + self.intervalId + '; seconds: ' + intervalSeconds)
-        }
+        log.debug('set auto-refresh interval; intervalId: ' + self.intervalId + '; seconds: ' + intervalSeconds)
       }
     }
 
