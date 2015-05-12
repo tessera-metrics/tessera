@@ -118,8 +118,8 @@ export default class Property implements NamedObject {
       ]
       options.success = (ignore, newValue) => {
         item[this.property_name] = newValue.length > 0
-        if (item.fire_update) {
-          item.fire_update()
+        if (item.updated) {
+          item.updated()
         }
       }
     } else if (this.type) {
