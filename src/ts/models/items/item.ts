@@ -117,7 +117,6 @@ export default class DashboardItem extends Model {
    * updated will be passed as the event data.
    */
   updated() : DashboardItem {
-    log.info(`updated(): ${this.item_type}/${this.item_id}`)
     core.events.fire(DashboardItem, 'update', { target: this })
     return this
   }
@@ -167,8 +166,7 @@ export default class DashboardItem extends Model {
 
   interactive_properties() : core.PropertyList {
     return [
-      { name: 'css_class', category: 'base'} ,
-      'height'
+      { name: 'css_class', category: 'base'}
     ]
   }
 

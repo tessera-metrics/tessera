@@ -82,7 +82,8 @@ export default class Timerstat extends Presentation {
       this.index = Number(data.index) || this.index
       this.scale = Number(data.scale) || this.scale
       this.precision = Number(data.precision) || this.precision
-      this.set_language(data.language)
+      this.language = data.language
+      this._updateHumanizer()
     }
   }
 

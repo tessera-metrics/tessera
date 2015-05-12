@@ -112,16 +112,25 @@ export default class Property implements NamedObject {
     let options = extend({}, default_options, this.edit_options)
 
     if (this.type === PropertyType.BOOLEAN) {
-      options.type = 'checklist'
-      options.source = [
-        { value: true, text: this.property_name }
-      ]
-      options.success = (ignore, newValue) => {
-        item[this.property_name] = newValue.length > 0
-        if (item.updated) {
-          item.updated()
+      extend(options, {
+        type: 'select',
+        source:  [
+          { value: 'no', text: 'no' },
+          { value: 'yes', text: 'yes' }
+        ],
+        value: (item) => {
+          let value = !!(item[this.property_name])
+          return value ? 'yes' : 'no'
+        },
+        success: (ignore, newValue) => {
+          log.info(`boolean.success: ${this.property_name}: ${newValue} / ${typeof newValue}`)
+          item[this.property_name] = (newValue === 'yes')
+          console.log(item)
+          if (item.updated) {
+            item.updated()
+          }
         }
-      }
+      })
     } else if (this.type) {
       options.type = this.type
     }

@@ -44,9 +44,8 @@ export default class Markdown extends DashboardItem {
       {
         name: 'markdown.text',
         type: 'textarea',
-            property_name: 'text'
+        property_name: 'text'
       },
-      { name: 'height', type: 'number' },
       'css_class'
     ]
   }

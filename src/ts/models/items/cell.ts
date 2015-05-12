@@ -49,8 +49,30 @@ export default class Cell extends Container {
     return super.interactive_properties().concat([
       'style',
       'css_class',
-      { name: 'span', type: 'number' },
-      { name: 'offset', type: 'number' },
+      {
+        name: 'span',
+        edit_options: {
+          type: 'select',
+          source: [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+          ],
+          update: function(item, value) {
+            item.set_span(Number(value))
+          }
+        }
+      },
+      {
+        name: 'offset',
+        edit_options: {
+          type: 'select',
+          source: [
+            { value: undefined, text: 'none' }, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+          ],
+          update: function(item, value) {
+            item.set_offset(Number(value))
+          }
+        }
+      },
       {
         name: 'align',
         type: 'select',

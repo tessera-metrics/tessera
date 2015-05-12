@@ -111,6 +111,7 @@ export default class Chart extends Presentation {
   interactive_properties() : core.PropertyList {
     let props = [
       'title',
+      'height',
       {
         name: 'hide_zero_series',
         type: 'boolean',
@@ -206,7 +207,7 @@ export default class Chart extends Presentation {
         edit_options: {
           type: 'select',
           source: [
-            undefined,
+            { value: undefined, text: 'none' },
             'simple',
             'table'
           ]
