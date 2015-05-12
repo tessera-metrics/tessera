@@ -118,7 +118,7 @@ export default class DashboardItem extends Model {
    */
   updated() : DashboardItem {
     log.info(`updated(): ${this.item_type}/${this.item_id}`)
-    core.events.fire(DashboardItem, 'update', this)
+    core.events.fire(DashboardItem, 'update', { target: this })
     return this
   }
 

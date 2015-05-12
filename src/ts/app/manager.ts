@@ -219,10 +219,11 @@ const manager =
       app.refresh_mode()
     }
 
-    core.events.on(DashboardItem, 'update', (item: DashboardItem) => {
-      if (!item) {
+    core.events.on(DashboardItem, 'update', (e: { target: DashboardItem }) => {
+      if (!e || !e.target) {
         log.warn('on:DashboardItem.update: item not bound')
       } else {
+        let item = e.target
         log.debug(`on:DashboardItem.update: ${item.item_type} / ${item.item_id}`)
         if (item instanceof Container) {
           self.current.dashboard.update_index()
