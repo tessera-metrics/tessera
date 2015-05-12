@@ -34,7 +34,7 @@ export function render_template(tmpl: string|TemplateFunction, context?: any) : 
   try {
     return _render_template(tmpl, context)
   } catch (e) {
-    log.error('safe_render_template(): ' + e)
+    log.error('render_template(): ' + e)
     if (typeof tmpl === 'string') {
       return tmpl
     } else {
