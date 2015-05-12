@@ -5,12 +5,14 @@
     </a>
   </li>
 
-    {{#each tags}}
-  <li data-ds-tag="{{name}}">
-    <a href="/dashboards/tagged/{{name}}">
-      {{name}}
-      <span class="badge badge-primary pull-right">{{count}}</span>
-    </a>
-  </li>
+  {{#each tags}}
+    {{#if count}}
+      <li data-ds-tag="{{name}}">
+        <a href="/dashboards/tagged/{{name}}">
+        {{name}}
+        <span class="badge badge-primary pull-right">{{count}}</span>
+        </a>
+      </li>
+    {{/if}}
   {{/each}}
 </ul>
