@@ -510,6 +510,10 @@ const manager =
     }
 
     self.update_definition = function(dashboard, handler) {
+      if (app.instance.current_mode === app.Mode.TRANSFORM) {
+        self.warning('Unable to save dashboad while a transform is applied. Revert to standard mode in order to save changes.')
+        return
+      }
       $.ajax({
         type: 'PUT',
         url: dashboard.definition_href,
