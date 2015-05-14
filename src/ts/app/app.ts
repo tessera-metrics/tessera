@@ -106,6 +106,10 @@ export class Application {
    * @param mode {string} A mode name
    */
   switch_to_mode(mode: string, delay: number = ANIMATION_DELAY) : Application {
+    if (this.current_mode === Mode.TRANSFORM && mode === Mode.EDIT) {
+      log.debug("Can't switch from transform to edit.")
+      return this
+    }
     if (mode === this.current_mode && this.mode_stack.length > 0) {
       let state = this.mode_stack[this.mode_stack.length - 1]
       state.hidden = $('[data-ds-hide~="' + mode + '"]').hide(delay)
