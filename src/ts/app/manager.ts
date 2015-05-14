@@ -266,10 +266,12 @@ const manager =
     window.addEventListener('popstate', self.handle_popstate)
 
     self.remove_transform = function() {
-      window.location = new URI(window.location)
-        .path(self.current.dashboard.view_href)
-        .href()
-      self.current_transform = undefined
+      if (self.current && self.current_transform) {
+        window.location = new URI(window.location)
+          .path(self.current.dashboard.view_href)
+          .href()
+        self.current_transform = undefined
+      }
     }
 
     self.apply_transform = function(transform, target, set_location, context) {
@@ -562,5 +564,11 @@ const manager =
 
     return self
   })()
+
+app.add_mode_handler(app.Mode.STANDARD, {
+  enter: () => {
+    manager.remove_transform()
+  }
+})
 
 export default manager
