@@ -29,7 +29,7 @@ export default class StackedAreaChart extends Chart {
   }
 
   data_handler(query: Query) : void {
-    charts.stacked_area_chart($(`#${this.item_id} .ds-graph-holder`), this)
+    charts.stacked_area_chart($(`#${this.item_id} .ds-graph-holder`), this, query)
   }
 
   interactive_properties() : PropertyList {

@@ -4,6 +4,7 @@ import Query from '../data/query'
 import Summation from '../data/summation'
 import { PropertyList, property } from '../../core/property'
 import { register_dashboard_item } from './factory'
+import * as app from '../../app/app'
 
 declare var $, d3, ts
 
@@ -31,8 +32,7 @@ export default class ComparisonSummationTable extends TablePresentation {
       let query = this.dashboard.definition.queries[this._query]
       this.query_override =
         query.join(this.query_other).set_name(this.item_id + '_joined')
-      // TODO (ts.context())
-      // this.query_override.render_templates(ts.context().variables)
+      this.query_override.render_templates(app.context().variables)
     }
   }
 

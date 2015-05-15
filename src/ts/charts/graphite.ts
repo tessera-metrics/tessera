@@ -39,17 +39,17 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     }
   }
 
-  simple_line_chart(element: any, item: Chart) : void {
-    let url = this.simple_line_chart_url(item, {
+  simple_line_chart(element: any, item: Chart, query: Query) : void {
+    let url = this.simple_line_chart_url(item, query, {
       height: element.height(),
       width: element.width()
     })
     img(element, url)
   }
 
-  simple_line_chart_url(item: Chart, opt?: any) : any {
+  simple_line_chart_url(item: Chart, query: Query, opt?: any) : any {
     let options = extend({}, opt, item.options, get_colors())
-    let png_url = new URI(item.query.url({ base_url: this.graphite_url }))
+    let png_url = new URI(query.url({ base_url: this.graphite_url }))
       .setQuery('format', options.format || 'png')
       .setQuery('height', options.height || 600)
       .setQuery('width', options.width || 1200)
@@ -75,17 +75,17 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     return png_url
   }
 
-  standard_line_chart(element: any, item: Chart) : void {
-    let url = this.standard_line_chart_url(item, {
+  standard_line_chart(element: any, item: Chart, query: Query) : void {
+    let url = this.standard_line_chart_url(item, query, {
       height: element.height(),
       width: element.width()
     })
     img(element, url)
   }
 
-  standard_line_chart_url(item, opt) : any {
+  standard_line_chart_url(item: Chart, query: Query, opt) : any {
     let options = extend({}, opt, item.options, get_colors())
-    let png_url = new URI(item.query.url({ base_url: this.graphite_url }))
+    let png_url = new URI(query.url({ base_url: this.graphite_url }))
       .setQuery('format', options.format || 'png')
       .setQuery('height', options.height || 600)
       .setQuery('width', options.width || 1200)
@@ -110,17 +110,17 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     return png_url
   }
 
-  simple_area_chart(element: any, item: Chart) : void {
-    let url = this.simple_area_chart_url(item, {
+  simple_area_chart(element: any, item: Chart, query: Query) : void {
+    let url = this.simple_area_chart_url(item, query, {
       height: element.height(),
       width: element.width()
     })
     img(element, url)
   }
 
-  simple_area_chart_url(item: Chart, opt?: any) : any {
+  simple_area_chart_url(item: Chart, query: Query, opt?: any) : any {
     let options = extend({}, opt, item.options, get_colors())
-    let png_url = new URI(item.query.url({ base_url: this.graphite_url }))
+    let png_url = new URI(query.url({ base_url: this.graphite_url }))
       .setQuery('format', options.format || 'png')
       .setQuery('height', options.height || 600)
       .setQuery('width', options.width || 1200)
@@ -134,7 +134,7 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
       .setQuery('colorList', get_palette(options.palette).join())
       .setQuery('lineMode', 'connected')
 
-    if (!item.query.is_stacked()) {
+    if (!query.is_stacked()) {
       png_url.setQuery('areaMode', 'stacked')
     }
 
@@ -148,17 +148,17 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     return png_url
   }
 
-  stacked_area_chart(element: any, item: Chart) : void {
-    let url = this.stacked_area_chart_url(item, {
+  stacked_area_chart(element: any, item: Chart, query: Query) : void {
+    let url = this.stacked_area_chart_url(item, query, {
       height: element.height(),
       width: element.width()
     })
     img(element, url)
   }
 
-  stacked_area_chart_url(item: Chart, opt?: any) {
+  stacked_area_chart_url(item: Chart, query: Query, opt?: any) {
     let options = extend({}, opt, item.options, get_colors())
-    let png_url = new URI(item.query.url({ base_url: this.graphite_url }))
+    let png_url = new URI(query.url({ base_url: this.graphite_url }))
       .setQuery('format', options.format || 'png')
       .setQuery('height', options.height || 600)
       .setQuery('width', options.width || 1200)
@@ -175,7 +175,7 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
 
     if (item.hasOwnProperty('stack_mode')) {
 
-      if (!item.query.is_stacked() && item['stack_mode'] != charts.StackMode.NONE) {
+      if (!query.is_stacked() && item['stack_mode'] != charts.StackMode.NONE) {
         png_url.setQuery('areaMode', 'stacked')
       }
     }
@@ -189,8 +189,8 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     return png_url
   }
 
-  donut_chart_url(item: Chart, opt?: any) : any {
-    let png_url = this.standard_line_chart_url(item, opt)
+  donut_chart_url(item: Chart, query: Query, opt?: any) : any {
+    let png_url = this.standard_line_chart_url(item, query, opt)
       .setQuery('graphType', 'pie')
     // TODO
     // if (!item.legend) {
@@ -200,61 +200,61 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     return png_url
   }
 
-  donut_chart(element: any, item: Chart) : void {
-    let url = this.donut_chart_url(item, {
+  donut_chart(element: any, item: Chart, query: Query) : void {
+    let url = this.donut_chart_url(item, query, {
       height: element.height(),
       width: element.width()
     })
     img(element, url)
   }
 
-  bar_chart(element: any, item: Chart) : void{
-    this.stacked_area_chart(element, item)
+  bar_chart(element: any, item: Chart, query: Query) : void{
+    this.stacked_area_chart(element, item, query)
   }
 
-  discrete_bar_chart(element: any, item: Chart) : void {
-    this.donut_chart(element, item)
+  discrete_bar_chart(element: any, item: Chart, query: Query) : void {
+    this.donut_chart(element, item, query)
   }
 
-  chart_url(item: Chart, opt?: any) {
+  chart_url(item: Chart, query: Query, opt?: any) {
     switch (item.item_type) {
     case 'simple_time_series':
       return item['filled']
-        ? this.simple_area_chart_url(item, opt)
-        : this.simple_line_chart_url(item, opt)
+        ? this.simple_area_chart_url(item, query, opt)
+        : this.simple_line_chart_url(item, query, opt)
     case 'standard_time_series':
-      return this.standard_line_chart_url(item, opt)
+      return this.standard_line_chart_url(item, query, opt)
     case 'stacked_area_chart':
-      return this.stacked_area_chart_url(item, opt)
+      return this.stacked_area_chart_url(item, query, opt)
     case 'singlegraph':
-      return this.simple_area_chart_url(item, opt)
+      return this.simple_area_chart_url(item, query, opt)
     case 'donut_chart':
-      return this.donut_chart_url(item, opt)
+      return this.donut_chart_url(item, query, opt)
     }
     return undefined
   }
 
-  composer_url(item: Chart, opt?: any) {
+  composer_url(item: Chart, query: Query, opt?: any) {
     let options = opt || {}
-    let composer_url = new URI(item.query.url({ base_url: this.graphite_url }))
+    let composer_url = new URI(query.url({ base_url: this.graphite_url }))
       .filename('composer')
       .removeQuery('format')
       .setQuery('colorList', get_palette(options.palette).join())
       .setQuery('vtitle', options.yAxisLabel)
       .setQuery('title', options.showTitle ? item.title : '')
-    if (item.item_type === 'stacked_area_chart' && !(item.query.is_stacked())) {
+    if (item.item_type === 'stacked_area_chart' && !(query.is_stacked())) {
       composer_url.setQuery('areaMode', 'stacked')
     }
     return composer_url
   }
 }
 
-export function composer_url(item: Chart, options?: any) {
+export function composer_url(item: Chart, query: Query, options?: any) {
   let g = <GraphiteChartRenderer> charts.renderers.get('graphite')
-  return g.composer_url(item, options)
+  return g.composer_url(item, query, options)
 }
 
-export function chart_url(item: Chart, options?: any) {
+export function chart_url(item: Chart, query: Query, options?: any) {
   let g = <GraphiteChartRenderer> charts.renderers.get('graphite')
-  return g.chart_url(item, options)
+  return g.chart_url(item, query, options)
 }

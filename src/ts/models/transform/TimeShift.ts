@@ -58,7 +58,7 @@ transforms.register({
       let modified_query = query.shift(shift.shift)
       let modified_item  = make(item.toJSON())
         .set_item_id(undefined)
-        .set_query(modified_query)
+        .set_query_override(modified_query)
         .set_title(shift.title)
       section.add(make_row(modified_query, modified_item))
     }

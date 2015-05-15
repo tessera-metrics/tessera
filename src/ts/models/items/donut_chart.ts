@@ -36,7 +36,7 @@ export default class DonutChart extends Chart {
   }
 
   data_handler(query: Query) : void {
-    charts.donut_chart($("#" + this.item_id + ' .ds-graph-holder'), this)
+    charts.donut_chart($("#" + this.item_id + ' .ds-graph-holder'), this, query)
   }
 
   interactive_properties(): PropertyList {

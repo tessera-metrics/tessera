@@ -41,12 +41,12 @@ export default class Singlegraph extends Chart {
   data_handler(query: Query) : void {
     if (!query.data)
       return
-    charts.simple_area_chart($("#" + this.item_id + ' .ds-graph-holder'), this)
+    charts.simple_area_chart($("#" + this.item_id + ' .ds-graph-holder'), this, query)
     this.options.margin = { top: 0, left: 0, bottom: 0, right: 0 }
-    var label = this.query.data[this.index || 0].target
-    var value = this.query.summation[this.transform]
+    var label = query.data[this.index || 0].target
+    var value = query.summation[this.transform]
     if (this.index) {
-      value = this.query.data[this.index].summation[this.transform]
+      value = query.data[this.index].summation[this.transform]
     }
     $('#' + this.item_id + ' span.value').text(d3.format(this.format)(value))
     $('#' + this.item_id + ' span.ds-label').text(label)

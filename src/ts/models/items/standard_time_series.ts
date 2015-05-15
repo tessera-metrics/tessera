@@ -16,7 +16,7 @@ export default class StandardTimeSeries extends Chart {
   }
 
   data_handler(query: Query) : void {
-    charts.standard_line_chart($(`#${this.item_id} .ds-graph-holder`), this)
+    charts.standard_line_chart($(`#${this.item_id} .ds-graph-holder`), this, query)
   }
 }
 register_dashboard_item(StandardTimeSeries)

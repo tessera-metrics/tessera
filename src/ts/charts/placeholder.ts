@@ -1,5 +1,6 @@
 import * as charts from './core'
 import Chart from '../models/items/chart'
+import Query from '../models/data/Query'
 import { extend } from '../core/util'
 
 declare var $
@@ -24,31 +25,31 @@ export default class PlaceholderChartRenderer extends charts.ChartRenderer {
     }))
   }
 
-  simple_line_chart(element: any, item: Chart) : void {
+  simple_line_chart(element: any, item: Chart, query: Query) : void {
     render(element, item)
   }
 
-  standard_line_chart(element: any, item: Chart) : void {
+  standard_line_chart(element: any, item: Chart, query: Query) : void {
     render(element, item)
   }
 
-  simple_area_chart(element: any, item: Chart) : void {
+  simple_area_chart(element: any, item: Chart, query: Query) : void {
     render(element, item)
   }
 
-  stacked_area_chart(element: any, item: Chart) : void {
+  stacked_area_chart(element: any, item: Chart, query: Query) : void {
     render(element, item)
   }
 
-  donut_chart(element: any, item: Chart) : void {
+  donut_chart(element: any, item: Chart, query: Query) : void {
     render(element, item)
   }
 
-  bar_chart(element: any, item: Chart) : void {
+  bar_chart(element: any, item: Chart, query: Query) : void {
     render(element, item)
   }
 
-  discrete_bar_chart(element: any, item: Chart) : void {
+  discrete_bar_chart(element: any, item: Chart, query: Query) : void {
     render(element, item)
   }
 

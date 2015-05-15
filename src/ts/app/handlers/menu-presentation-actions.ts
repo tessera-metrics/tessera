@@ -8,7 +8,9 @@ actions.register('presentation-actions', [
     display: 'Open in Graphite...',
     icon:    'fa fa-bar-chart-o',
     handler: function(action, item) {
-      let composer_url = graphite.composer_url(item, { showTitle: true })
+      let composer_url = graphite.composer_url(item, item.query_override || item.query, {
+        showTitle: true
+      })
       window.open(composer_url.href())
     }
   }),
@@ -17,7 +19,9 @@ actions.register('presentation-actions', [
     display: 'Export PNG...',
     icon:    'fa fa-file-image-o',
     handler: function(action, item) {
-      let image_url = graphite.chart_url(item, { showTitle: true })
+      let image_url = graphite.chart_url(item, item.query_override || item.query, {
+        showTitle: true
+      })
       window.open(image_url.href())
     }
   }),
@@ -26,7 +30,10 @@ actions.register('presentation-actions', [
     display: 'Export SVG...',
     icon:    'fa fa-file-code-o',
     handler: function(action, item) {
-      let image_url = graphite.chart_url(item, { showTitle: true, format: 'svg' })
+      let image_url = graphite.chart_url(item, item.query_override || item.query, {
+        showTitle: true,
+        format: 'svg'
+      })
       window.open(image_url.href())
     }
   }),
@@ -35,7 +42,10 @@ actions.register('presentation-actions', [
     display: 'Export CSV...',
     icon:    'fa fa-file-excel-o',
     handler: function(action, item) {
-      let image_url = graphite.chart_url(item, { showTitle: true, format: 'csv' })
+      let image_url = graphite.chart_url(item, item.query_override || item.query, {
+        showTitle: true,
+        format: 'csv'
+      })
       window.open(image_url.href())
     }
   })

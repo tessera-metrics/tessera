@@ -44,9 +44,9 @@ export default class SimpleTimeSeries extends Chart {
   data_handler(query: Query) : void {
     let selector = `#${this.item_id} .ds-graph-holder`
     if (this.filled) {
-      charts.simple_area_chart($(selector), this)
+      charts.simple_area_chart($(selector), this, query)
     } else {
-      charts.simple_line_chart($(selector), this)
+      charts.simple_line_chart($(selector), this, query)
     }
   }
 

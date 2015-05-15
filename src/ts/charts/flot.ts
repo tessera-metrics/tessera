@@ -191,18 +191,18 @@ function setup_plugins(container, context) {
   })
 }
 
-function render_legend(item: Chart, options?: any) {
+function render_legend(item: Chart, query: Query, options?: any) {
   let legend_id = '#ds-legend-' + item.item_id
   if ( item.legend === ChartLegendType.SIMPLE ) {
-    render_simple_legend(legend_id, item, options)
+    render_simple_legend(legend_id, item, query, options)
   } else if ( item.legend === ChartLegendType.TABLE ) {
     // TODO - render a summation_table as the legend
   }
 }
 
-function render_simple_legend(legend_id: string, item: Chart, options?: any) {
+function render_simple_legend(legend_id: string, item: Chart, query: Query, options?: any) {
   let legend = ''
-  let data = item.query.chart_data('flot')
+  let data = query.chart_data('flot')
   for (let i = 0; i < data.length; i++) {
     let series = data[i]
     if (item.hide_zero_series && series.summation.sum === 0) {
@@ -249,13 +249,13 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     }
   }
 
-  render(e: any, item: Chart, options?: any, data?: any) : any {
+  render(e: any, item: Chart, query: Query, options?: any, data?: any) : any {
     if (typeof(data) === 'undefined')
-      data = item.query.chart_data('flot')
+      data = query.chart_data('flot')
     let context = {
       plot: null,
       item: item,
-      query: item.query
+      query: query
     }
     setup_plugins(e, context)
     if (this.downsample && options.downsample) {
@@ -272,7 +272,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
                 + ': ' + ex.message)
       log.error(ex.stack)
     }
-    render_legend(item, options)
+    render_legend(item, query, options)
     return context
   }
 
@@ -293,29 +293,29 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return result
   }
 
-  simple_line_chart(element: any, item: Chart) : void {
+  simple_line_chart(element: any, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       grid: { show: false },
       downsample: true
     })
 
-    this.render(element, item, options, [item.query.chart_data('flot')[0]])
+    this.render(element, item, query, options, [query.chart_data('flot')[0]])
   }
 
-  standard_line_chart(element: any, item: Chart) : void {
-    item.query.chart_data('flot').forEach(function(series) {
+  standard_line_chart(element: any, item: Chart, query: Query) : void {
+    query.chart_data('flot').forEach(function(series) {
       if (series.summation.sum === 0) {
         series.lines = {
           lineWidth: 0
         }
       }
     })
-    this.render(element, item, get_flot_options(item, {
+    this.render(element, item, query, get_flot_options(item, {
       downsample: true
     }))
   }
 
-  simple_area_chart(element: any, item: Chart) : void {
+  simple_area_chart(element: any, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       downsample: true,
       grid: { show: false },
@@ -325,10 +325,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     })
 
-    this.render(element, item, options, [item.query.chart_data('flot')[0]])
+    this.render(element, item, query, options, [query.chart_data('flot')[0]])
   }
 
-  stacked_area_chart(element: any, item: Chart) : void {
+  stacked_area_chart(element: any, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       downsample: true,
       series: {
@@ -355,7 +355,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     }
 
-    item.query.chart_data('flot').forEach(function(series) {
+    query.chart_data('flot').forEach(function(series) {
       if (series.summation.sum === 0) {
         series.lines = {
           lineWidth: 0
@@ -363,10 +363,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     })
 
-    this.render(element, item, options)
+    this.render(element, item, query, options)
   }
 
-  donut_chart(element: any, item: Chart) {
+  donut_chart(element: any, item: Chart, query: Query) {
     let options = get_flot_options(item, {
       crosshair: { mode: null },
       multihighlight: { mode: null },
@@ -386,7 +386,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     })
 
     let transform = item['transform'] || 'sum'
-    let data = item.query.chart_data('flot').map(function(series) {
+    let data = query.chart_data('flot').map(function(series) {
        if (item.hide_zero_series && series.summation.sum === 0) {
          return undefined
        }
@@ -397,7 +397,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     }).filter(function(item) { return item })
 
-    let context = this.render(element, item, options, data)
+    let context = this.render(element, item, query, options, data)
 
     $(element).bind('plothover', function(event, pos, event_item) {
       if (event_item) {
@@ -414,8 +414,8 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     })
   }
 
-  bar_chart(element: any, item: Chart) : void {
-    let series      = item.query.chart_data('flot')[0]
+  bar_chart(element: any, item: Chart, query: Query) : void {
+    let series      = query.chart_data('flot')[0]
     let ts_start    = series.data[0][0]
     let ts_end      = series.data[series.data.length - 1][0]
     let ts_length   = ts_end - ts_start
@@ -459,10 +459,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     }
 
-    this.render(element, item, options)
+    this.render(element, item, query, options)
   }
 
-  discrete_bar_chart(element: any, item: Chart) : void {
+  discrete_bar_chart(element: any, item: Chart, query: Query) : void {
     let is_horizontal = item['orientation'] === 'horizontal'
     let format = d3.format(item['format'] || FORMAT_STRING_STANDARD)
     let options = get_flot_options(item, {
@@ -497,7 +497,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
 
     let transform = item['transform'] || 'sum'
     let index = 0
-    let data = item.query.chart_data('flot').map(function(series) {
+    let data = query.chart_data('flot').map(function(series) {
       if (item.hide_zero_series && series.summation.sum === 0) {
          return undefined
       }
@@ -540,7 +540,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     }
 
-    let context = this.render(element, item, options, data)
+    let context = this.render(element, item, query, options, data)
     $(element).bind('plothover', function(event, pos, event_item) {
       if (event_item) {
         let contents = ts.templates.flot.discrete_bar_tooltip({

@@ -195,14 +195,12 @@ export default class DashboardItem extends Model {
   }
 
   // TODO - this should be moved out of the base class into a utility
-  // module.
+  // module. It's only used by the manager object.
   get_queries() : QueryDictionary {
     let queries : QueryDictionary = {}
     this.visit(item => {
-      // Doh! Circular dependency. Definitely move this out.
-      // if (item instanceof Presentation) {
       if (item['query']) {
-        let q = item['query'] || item['query_override']
+        let q = item['query_override'] || item['query']
         if (q) {
           queries[q.name] = q
         }

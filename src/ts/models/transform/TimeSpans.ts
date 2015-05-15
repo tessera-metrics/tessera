@@ -56,7 +56,7 @@ transforms.register({
                             }))
       let modified_item = make(item.toJSON())
         .set_item_id(undefined)
-        .set_query(modified_query)
+        .set_query_override(modified_query)
         .set_title(span.title)
 
       section.add(make('cell')

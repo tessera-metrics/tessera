@@ -76,8 +76,8 @@ export default class Presentation extends DashboardItem {
   }
 
   render() : string {
-    if (this.query || this.query_override) {
-      let query = this.query_override || this.query
+    let query = this.query_override || this.query
+    if (query) {
       query.on_load(q => {
         this.data_handler(q)
       })

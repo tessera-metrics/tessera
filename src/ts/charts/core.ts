@@ -1,5 +1,6 @@
 import Chart from '../models/items/chart'
 import DashboardItem from '../models/items/item'
+import Query from '../models/data/Query'
 import { NamedObject, Registry } from '../core/registry'
 import * as graphite from '../data/graphite'
 
@@ -25,13 +26,13 @@ export class ChartRenderer implements NamedObject {
     }
   }
 
-  simple_line_chart(element: any, item: Chart) : void {}
-  standard_line_chart(element: any, item: Chart) : void {}
-  simple_area_chart(element: any, item: Chart) : void {}
-  stacked_area_chart(element: any, item: Chart) : void {}
-  donut_chart(element: any, item: Chart) : void {}
-  bar_chart(element: any, item: Chart) : void {}
-  discrete_bar_chart(element: any, item: Chart) : void {}
+  simple_line_chart(element: any, item: Chart, query: Query) : void {}
+  standard_line_chart(element: any, item: Chart, query: Query) : void {}
+  simple_area_chart(element: any, item: Chart, query: Query) : void {}
+  stacked_area_chart(element: any, item: Chart, query: Query) : void {}
+  donut_chart(element: any, item: Chart, query: Query) : void {}
+  bar_chart(element: any, item: Chart, query: Query) : void {}
+  discrete_bar_chart(element: any, item: Chart, query: Query) : void {}
 
   process_series(series: graphite.DataSeries) : any {
     return series
@@ -80,52 +81,52 @@ export function get_renderer(item?: DashboardItem|string) : ChartRenderer {
   return renderers.get(name) || renderer
 }
 
-export function simple_line_chart(element: any, item: Chart) : void {
+export function simple_line_chart(element: any, item: Chart, query: Query) : void {
   let r = get_renderer(item)
   if (r) {
-    r.simple_line_chart(element, item)
+    r.simple_line_chart(element, item, query)
   }
 }
 
-export function standard_line_chart(element: any, item: Chart) : void {
+export function standard_line_chart(element: any, item: Chart, query: Query) : void {
   let r = get_renderer(item)
   if (r) {
-    r.standard_line_chart(element, item)
+    r.standard_line_chart(element, item, query)
   }
 }
 
-export function simple_area_chart(element: any, item: Chart) : void {
+export function simple_area_chart(element: any, item: Chart, query: Query) : void {
   let r = get_renderer(item)
   if (r) {
-    r.simple_area_chart(element, item)
+    r.simple_area_chart(element, item, query)
   }
 }
 
-export function stacked_area_chart(element: any, item: Chart) : void {
+export function stacked_area_chart(element: any, item: Chart, query: Query) : void {
   let r = get_renderer(item)
   if (r) {
-    r.stacked_area_chart(element, item)
+    r.stacked_area_chart(element, item, query)
   }
 }
 
-export function donut_chart(element: any, item: Chart) : void {
+export function donut_chart(element: any, item: Chart, query: Query) : void {
   let r = get_renderer(item)
   if (r) {
-    r.donut_chart(element, item)
+    r.donut_chart(element, item, query)
   }
 }
 
-export function bar_chart(element: any, item: Chart) : void {
+export function bar_chart(element: any, item: Chart, query: Query) : void {
   let r = get_renderer(item)
   if (r) {
-    r.bar_chart(element, item)
+    r.bar_chart(element, item, query)
   }
 }
 
-export function discrete_bar_chart(element: any, item: Chart) : void {
+export function discrete_bar_chart(element: any, item: Chart, query: Query) : void {
   let r = get_renderer(item)
   if (r) {
-    r.discrete_bar_chart(element, item)
+    r.discrete_bar_chart(element, item, query)
   }
 }
 
