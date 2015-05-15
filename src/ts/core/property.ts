@@ -125,7 +125,6 @@ export default class Property implements NamedObject {
         success: (ignore, newValue) => {
           log.info(`boolean.success: ${this.property_name}: ${newValue} / ${typeof newValue}`)
           item[this.property_name] = (newValue === 'yes')
-          console.log(item)
           if (item.updated) {
             item.updated()
           }

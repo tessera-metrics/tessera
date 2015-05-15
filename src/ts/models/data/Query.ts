@@ -114,7 +114,6 @@ export default class Query extends Model {
    */
   load(opt?: any, fire_only?: boolean) : void {
     log.debug('load(): ' + this.name)
-    console.log(this.targets)
     this.local_options = core.extend({}, this.local_options, opt)
     let options = core.extend({}, this.local_options, opt, this.options)
 
