@@ -33,7 +33,6 @@ function setup(config: Config) {
     graphite_url: config.GRAPHITE_URL
   }))
   charts.renderers.register(new FlotChartRenderer())
-  // charts.renderers.register(new PlaceholderChartRenderer())
   log.info('Done.')
 }
 

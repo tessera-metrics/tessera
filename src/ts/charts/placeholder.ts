@@ -7,7 +7,7 @@ declare var $
 
 function render(element, item) {
   element.html($('<img/>')
-               .attr('src', 'holder.js/100px100p')
+               .attr('data-src', 'holder.js/100px100p')
                .height(element.height())
                .width(element.width()))
 }
