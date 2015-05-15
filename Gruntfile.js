@@ -20,7 +20,7 @@ module.exports = function(grunt) {
         outDir: '_build/phase1',
         options: {
           target: 'es6',
-          coments: true
+          comments: true
         }
       }
     },
