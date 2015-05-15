@@ -47,21 +47,19 @@ transforms.register({
     })
 
     /* Clone and modify the original */
-    let item_averages = item.clone()
-                            .set_item_type('standard_time_series')
-                            .set_height(6)
-                            .set_interactive(false)
-                            .set_title("Average & Max Average")
-                            .set_query(query_averages)
+    let item_averages = make('standard_time_series')
+      .set_height(6)
+      .set_renderer('graphite')
+      .set_title("Average & Max Average")
+      .set_query_override(query_averages)
     item_averages.options.palette = palette
     item_averages.options.hideLegend = 'true'
 
-    let item_deviant  = item.clone()
-                            .set_item_type('standard_time_series')
-                            .set_height(4)
-                            .set_interactive(false)
-                            .set_title('Most Deviant')
-                            .set_query(query_deviant)
+    let item_deviant = make('standard_time_series')
+      .set_height(4)
+      .set_renderer('graphite')
+      .set_title('Most Deviant')
+      .set_query_override(query_deviant)
     item_deviant.options.palette = palette
 
     /* And put it all together */
