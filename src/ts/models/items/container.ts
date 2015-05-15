@@ -25,11 +25,11 @@ export default class Container extends DashboardItem {
    * @return The numeric index (0-based) or -1 if not found.
    */
   find(item_or_id: string|DashboardItem) : number {
-    var id = item_or_id
+    let id = item_or_id
     if (item_or_id instanceof DashboardItem) {
       id = item_or_id.item_id
     }
-    for (var i = 0; i < this.items.length; i++) {
+    for (let i = 0; i < this.items.length; i++) {
       if (this.items[i].item_id === id) {
         return Number(i)
       }

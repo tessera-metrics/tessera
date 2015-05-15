@@ -43,11 +43,11 @@ export default class PercentageTable extends TablePresentation {
       series.summation.percent_value = series.summation[this.transform]
     })
 
-    var holder = $('#' + this.item_id + ' .ds-percentage-table-holder')
+    let holder = $('#' + this.item_id + ' .ds-percentage-table-holder')
     holder.empty()
     holder.append(ts.templates.models.percentage_table_data({item:this, query:query}))
     if (this.sortable) {
-      var table = $('#' + this.item_id + ' .ds-percentage-table-holder table')
+      let table = $('#' + this.item_id + ' .ds-percentage-table-holder table')
       table.DataTable({
         order: [[ 2, "desc" ]],
         paging: false,

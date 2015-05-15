@@ -98,14 +98,14 @@ export default class TimeshiftSummationTable extends TablePresentation {
   }
 
   data_handler(query: Query) : void {
-    var body = $('#' + this.item_id + ' tbody')
-    var now  = query.data[0].summation
-    var then = query.data[1].summation
-    var diff = new Summation(now).subtract(then)
-    var properties = ['mean', 'median', 'min', 'max', 'sum']
-    var float_margin = 0.000001
+    let body = $('#' + this.item_id + ' tbody')
+    let now  = query.data[0].summation
+    let then = query.data[1].summation
+    let diff = new Summation(now).subtract(then)
+    let properties = ['mean', 'median', 'min', 'max', 'sum']
+    let float_margin = 0.000001
     properties.forEach(function(prop) {
-      var value = diff[prop]
+      let value = diff[prop]
 
       if (value > float_margin)
         diff[prop + '_class'] = 'ds-diff-plus'
@@ -115,7 +115,7 @@ export default class TimeshiftSummationTable extends TablePresentation {
       if ((float_margin > value) && (value > -float_margin))
         value = 0.0
 
-      var pct = (now[prop] / then[prop]) - 1
+      let pct = (now[prop] / then[prop]) - 1
       pct = isNaN(pct) ? 0.0 : pct
       diff[prop + '_pct'] = d3.format(',.2%')(Math.abs(pct))
       diff[prop] = Math.abs(value)

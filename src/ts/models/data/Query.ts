@@ -64,8 +64,8 @@ export default class Query extends Model {
   }
 
   url(opt?: any) : string {
-    var options = core.extend({}, this.local_options, opt, this.options)
-    var url     = new URI(options.base_url || app.config.GRAPHITE_URL)
+    let options = core.extend({}, this.local_options, opt, this.options)
+    let url     = new URI(options.base_url || app.config.GRAPHITE_URL)
       .segment('render')
       .setQuery('format', options.format || 'png')
       .setQuery('from', options.from || app.config.DEFAULT_FROM_TIME || Query.DEFAULT_FROM_TIME)
@@ -73,7 +73,7 @@ export default class Query extends Model {
     if (options.until) {
       url.setQuery('until', options.until)
     }
-    var targets = this.expanded_targets || this.targets
+    let targets = this.expanded_targets || this.targets
     for (let t of targets) {
       url.addQuery('target', t.replace(/(\r\n|\n|\r)/gm,''))
     }
@@ -86,10 +86,10 @@ export default class Query extends Model {
    * areaMode=stack in the URL, bad shit will happen to your graph.
    */
   is_stacked() : boolean {
-    var targets = this.expanded_targets || this.targets
+    let targets = this.expanded_targets || this.targets
     if (typeof(targets) === 'undefined')
       return false
-    var stacked = false
+    let stacked = false
     this.targets.forEach(function(target) {
       if (target.indexOf('stacked') > -1) {
         stacked = true
@@ -114,15 +114,16 @@ export default class Query extends Model {
    */
   load(opt?: any, fire_only?: boolean) : void {
     log.debug('load(): ' + this.name)
+    console.log(this.targets)
     this.local_options = core.extend({}, this.local_options, opt)
-    var options = core.extend({}, this.local_options, opt, this.options)
+    let options = core.extend({}, this.local_options, opt, this.options)
 
     if (typeof(fire_only) === 'boolean' && fire_only) {
       // This is a bit of a hack for optimization, to fire the query
       // events when if we don't need the raw data because we're
       // rendering non-interactive graphs only. Would like a more
       // elegant way to handle the case.
-      var ready = options.ready
+      let ready = options.ready
       if (ready && (ready instanceof Function)) {
         ready(this)
       }
@@ -131,7 +132,7 @@ export default class Query extends Model {
     } else {
       this.cache.clear()
       options.format = 'json'
-      var url = this.url(options)
+      let url = this.url(options)
       core.events.fire(this, 'ds-data-loading')
       this.load_count += 1
       return $.ajax({
@@ -184,7 +185,7 @@ export default class Query extends Model {
    * Return a new query with the targets timeshifted.
    */
   shift(interval: string) {
-    var group = this._group_targets()
+    let group = this._group_targets()
     return new Query({
       name: this.name + '_shift_' + interval,
       targets: [
@@ -198,8 +199,8 @@ export default class Query extends Model {
    * query joined into a 2-target array, for comparison presentations.
    */
   join(other) : Query {
-    var target_this  = this._group_targets()
-    var target_other = other._group_targets()
+    let target_this  = this._group_targets()
+    let target_other = other._group_targets()
     return new Query({
       name: this.name + '_join_' + other.name,
       targets: [
@@ -229,7 +230,7 @@ export default class Query extends Model {
    * over.
    */
   chart_data(type: string) : any {
-    var cache_key = 'chart_data_' + type
+    let cache_key = 'chart_data_' + type
     if (!this.cache.has(cache_key)){
       this.cache.set(cache_key, charts.process_data(this.data, type))
     }

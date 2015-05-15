@@ -21,8 +21,8 @@ export default class DashboardDefinition extends Container {
   constructor(data?: any) {
     super(data)
     if (data && data.queries) {
-      for (var key in data.queries) {
-        var query = data.queries[key]
+      for (let key in data.queries) {
+        let query = data.queries[key]
         this.queries[key] = (typeof(query) === 'string' || query instanceof Array)
           ? new Query({name: key, targets: query})
         : new Query(query)
@@ -34,7 +34,7 @@ export default class DashboardDefinition extends Container {
    * Operations
    */
   summarize() {
-    var counts : any = {}
+    let counts : any = {}
     this.visit((item) => {
       if (typeof(counts[item.item_type]) === 'undefined') {
         counts[item.item_type] = 1
@@ -46,7 +46,7 @@ export default class DashboardDefinition extends Container {
   }
 
   render_templates(context?: any) : void {
-    for (var key in this.queries) {
+    for (let key in this.queries) {
       this.queries[key].render_templates(context)
     }
     this.visit((item) => {
@@ -57,7 +57,7 @@ export default class DashboardDefinition extends Container {
   }
 
   cleanup() {
-    for (var key in this.queries) {
+    for (let key in this.queries) {
       this.queries[key].off()
     }
   }
@@ -72,12 +72,12 @@ export default class DashboardDefinition extends Container {
     log.debug('load_all()')
     this.options = options || this.options
 
-    var queries_to_load : any = {}
-    var queries_to_fire : any = {}
+    let queries_to_load : any = {}
+    let queries_to_fire : any = {}
 
     this.visit((item) => {
       if (item instanceof Presentation) {
-        var query = item.query_override || item.query
+        let query = item.query_override || item.query
         if (query) {
           if (item.meta.requires_data || charts.get_renderer(item).is_interactive) {
             queries_to_load[query.name] = query
@@ -91,10 +91,10 @@ export default class DashboardDefinition extends Container {
       }
     })
 
-    var promises = Object.keys(queries_to_load).map((key) => {
-      var query = queries_to_load[key]
+    let promises = Object.keys(queries_to_load).map((key) => {
+      let query = queries_to_load[key]
       if (query) {
-        var future = queries_to_load[key].load(this.options, false)
+        let future = queries_to_load[key].load(this.options, false)
         return future ? future.promise() : undefined
       } else {
         return undefined
@@ -102,7 +102,7 @@ export default class DashboardDefinition extends Container {
     })
 
     Object.keys(queries_to_fire).forEach((key) => {
-      var query = queries_to_fire[key]
+      let query = queries_to_fire[key]
       if (query) {
         queries_to_fire[key].load(this.options, true /* fire_only */)
       }
@@ -145,10 +145,10 @@ export default class DashboardDefinition extends Container {
    * Rename a query and update any references to it.
    */
   rename_query(old_name, new_name) : any {
-    var query = this.queries[old_name]
+    let query = this.queries[old_name]
     if (!query)
       return this
-    var updated = []
+    let updated = []
     this.visit((item) => {
       if (item instanceof Presentation) {
         if (item.query && (item.query.name == old_name)) {
@@ -164,8 +164,8 @@ export default class DashboardDefinition extends Container {
   }
 
   toJSON() : any {
-    var q : any = {}
-    for (var key in this.queries) {
+    let q : any = {}
+    for (let key in this.queries) {
       q[key] = this.queries[key].toJSON()
     }
     return extend(super.toJSON(), {

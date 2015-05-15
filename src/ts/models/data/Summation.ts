@@ -30,10 +30,10 @@ export default class Summation extends Model {
 
     if (initial_data && (initial_data instanceof Array) && (initial_data.length)) {
       /* This assumes that all input series have the same number of data points */
-      var length = initial_data[0].datapoints.length
-      for (var i = 0; i < length; i++) {
-        var x = 0
-        for (var n = 0; n < initial_data.length; n++) {
+      let length = initial_data[0].datapoints.length
+      for (let i = 0; i < length; i++) {
+        let x = 0
+        for (let n = 0; n < initial_data.length; n++) {
           /* ignore input series which are smaller than the first series */
           if (typeof(initial_data[n].datapoints[i]) !== 'undefined') {
             x += initial_data[n].datapoints[i][0]
@@ -47,14 +47,14 @@ export default class Summation extends Model {
 
     if (datapoints && datapoints.length) {
       /* add simple-statistics methods */
-      var values = ss.mixin(datapoints.map(point => point[0]))
+      let values = ss.mixin(datapoints.map(point => point[0]))
       this.median = values.median()
       this.first = datapoints[0][0]
       this.count = datapoints.length
       if (this.first == null) {
         this.first = 0
       }
-      var index = 0
+      let index = 0
       datapoints.forEach((point) => {
         var value = point[0] || 0
         this.last = value

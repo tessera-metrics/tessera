@@ -6,7 +6,7 @@ import * as core from '../../core'
 
 declare var inflection, Handlebars, ts
 
-var log = core.logger('models.factory')
+const log = core.logger('models.factory')
 
 var constructors = new Map<string, DashboardItemConstructor>()
 export var metadata = new Map<string, DashboardItemMetadata>()
@@ -115,7 +115,7 @@ export function register_dashboard_item(item_class: DashboardItemConstructor) {
   // item type in the editor UI
   //
 
-  var category = meta.category ? 'new-item-' + meta.category : 'new-item'
+  let category = meta.category ? 'new-item-' + meta.category : 'new-item'
 
   core.actions.register({
     name:      meta.item_type,
