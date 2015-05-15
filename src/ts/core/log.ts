@@ -42,6 +42,11 @@ export class Logger {
     }
   }
 
+  set_level(level: Level) : Logger {
+    this.level = level
+    return this
+  }
+
   is_enabled(level: Level) : boolean {
     return level && level >= this.level
   }
