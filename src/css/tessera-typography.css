@@ -30,7 +30,8 @@ h1, h2, h3, h4 {
 }
 
 .ds-timerstat .unit,
-.ds-singlestat .unit {
+.ds-singlestat .unit,
+.ds-singlestat .diff {
     font-size: .5em;
     text-transform: lowercase;
 }

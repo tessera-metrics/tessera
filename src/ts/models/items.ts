@@ -2,31 +2,37 @@
 export {
   DashboardItemStyle as ItemStyle,
   Transform,
-  default as DashboardItem }
-from './items/item'
+  default as DashboardItem
+} from './items/item'
 
 export { default as DashboardDefinition } from './items/dashboard_definition'
 
+// Structural
 export { default as Container } from './items/container'
 export { default as Section } from './items/section'
 export { default as Row } from './items/row'
 export { default as Cell } from './items/cell'
 
+// Informational
 export { default as Markdown } from './items/markdown'
 export { default as Heading } from './items/heading'
 export { default as Separator } from './items/separator'
 
+// Presentation base classes
 export { default as Presentation } from './items/presentation'
 export { default as TablePresentation } from './items/table_presentation'
 
+// Text
 export { default as SummationTable } from './items/summation_table'
 export { default as PercentageTable } from './items/percentage_table'
 export { default as TimeshiftSummationTable } from './items/timeshift_summation_table'
 export { default as ComparisonSummationTable } from './items/comparison_summation_table'
 export { default as Singlestat } from './items/singlestat'
+export { default as TimeshiftSinglestat } from './items/timeshift_singlestat'
 export { default as JumbotronSinglestat } from './items/jumbotron_singlestat'
 export { default as Timerstat } from './items/timerstat'
 
+// Charts
 export { default as Chart } from './items/chart'
 export { default as DonutChart } from './items/donut_chart'
 export { default as BarChart } from './items/bar_chart'
