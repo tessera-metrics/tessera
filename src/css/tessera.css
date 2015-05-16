@@ -178,6 +178,12 @@ h1.page-title {
     display: block;
 }
 
+.ds-jumbotron-singlestat .diff {
+    float: right;
+    position: relative;
+    top: 2em;
+}
+
 .ds-jumbotron-singlestat .unit {
     margin-left: .25em;
 }

@@ -36,6 +36,7 @@ h1, h2, h3, h4 {
     text-transform: lowercase;
 }
 
+.ds-jumbotron-singlestat .diff,
 .ds-jumbotron-singlestat .unit {
     text-transform: lowercase;
     font-size: 2em;

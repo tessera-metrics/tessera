@@ -30,6 +30,7 @@ export { default as ComparisonSummationTable } from './items/comparison_summatio
 export { default as Singlestat } from './items/singlestat'
 export { default as TimeshiftSinglestat } from './items/timeshift_singlestat'
 export { default as JumbotronSinglestat } from './items/jumbotron_singlestat'
+export { default as JumbotronTimeshiftSinglestat } from './items/jumbotron_timeshift_singlestat'
 export { default as Timerstat } from './items/timerstat'
 
 // Charts
