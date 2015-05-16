@@ -186,12 +186,17 @@ module.exports = function(grunt) {
         ],
         tasks: ['handlebars', 'concat:app', 'copy:app']
       },
-      app: {
+      app_js: {
         files: [
-          'src/ts/**/*.ts',
-          'src/css/*.css'
+          'src/ts/**/*.ts'
         ],
         tasks: ['app']
+      },
+      app_css: {
+        files: [
+          'src/css/*.css'
+        ],
+        tasks: ['copy:app']
       }
     }
   });

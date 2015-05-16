@@ -28,12 +28,10 @@ extend(window.ts, {
 app.config = window.ts.config
 
 function setup(config: Config) {
-  log.info('Registering chart renderers')
   charts.renderers.register(new GraphiteChartRenderer({
     graphite_url: config.GRAPHITE_URL
   }))
   charts.renderers.register(new FlotChartRenderer())
-  log.info('Done.')
 }
 
 setup(app.config)
