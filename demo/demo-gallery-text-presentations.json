@@ -262,6 +262,42 @@
                 ]
               }
             ]
+          }, 
+          {
+            "item_id": "d89", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d90", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d91", 
+                    "item_type": "markdown", 
+                    "text": "Naturally, there are comparison variants of the jumbotron singlestat as well."
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d92", 
+                "item_type": "cell", 
+                "span": 5, 
+                "items": [
+                  {
+                    "units": "ms", 
+                    "format": ",.3s", 
+                    "shift": "1d", 
+                    "title": "today vs. yesterday", 
+                    "percent": true, 
+                    "transform": "mean", 
+                    "item_type": "jumbotron_timeshift_singlestat", 
+                    "item_id": "d81", 
+                    "query": "collector"
+                  }
+                ]
+              }
+            ]
           }
         ], 
         "item_type": "section", 

@@ -105,6 +105,7 @@
           {
             "item_id": "d5", 
             "item_type": "row", 
+            "style": "none", 
             "items": [
               {
                 "item_id": "d6", 
@@ -174,6 +175,7 @@
           {
             "item_id": "d50", 
             "item_type": "row", 
+            "style": "none", 
             "items": [
               {
                 "item_id": "d51", 
@@ -235,6 +237,37 @@
                     "transform": "mean", 
                     "item_type": "timeshift_singlestat", 
                     "item_id": "d63", 
+                    "query": "collector"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d64", 
+            "item_type": "row", 
+            "style": "none", 
+            "items": [
+              {
+                "item_id": "d65", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": []
+              }, 
+              {
+                "item_id": "d67", 
+                "item_type": "cell", 
+                "span": 5, 
+                "items": [
+                  {
+                    "format": ",.3s", 
+                    "shift": "1d", 
+                    "title": "timeshifted jumbotron", 
+                    "percent": true, 
+                    "transform": "mean", 
+                    "item_type": "jumbotron_timeshift_singlestat", 
+                    "item_id": "d66", 
                     "query": "collector"
                   }
                 ]
