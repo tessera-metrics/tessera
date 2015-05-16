@@ -4,12 +4,16 @@ import Singlestat from './singlestat'
 import Query from '../data/query'
 import { register_dashboard_item } from './factory'
 
-declare var $, d3
+declare var $, d3, ts
 
 const log = core.logger('models.timeshift_singlestat')
 const FORMAT_PERCENT = d3.format(',.1%')
 
 export default class TimeshiftSinglestat extends Singlestat {
+  static meta = {
+    template: ts.templates.models.singlestat
+  }
+
   private _shift: string = '1d'
   percent : boolean = false
 
