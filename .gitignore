@@ -1,23 +1,36 @@
-*.pyc
 *.db
+src/ts/extensions/
+tessera/static/
+_build/
+
+
+# Miscellany
+.DS_Store
 *~
 *#
-#*#
+.#*
+
+# TypeScript
+.tscache/
+tscommand*
+src/ts/.baseDir.ts
+
+# Node, etc...
+bower_components/
+node_modules/
+
+# Assorted Python
+*.pyc
 *.egg-info/
+.Python
+
+# Python virtualenv dirs
 bin/
 lib/
 include/
 man/
 dist/
 local/
-.Python
-bower_components/
-node_modules/
-tessera/static/*.js
-tessera/static/css/bundle.css
-tessera/tessera.db
-experimental/
-js/demo/
+build/
 tmp/
 etc/
-_site/

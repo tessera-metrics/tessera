@@ -1,0 +1,342 @@
+/* =============================================================================
+   Application Styles
+   ============================================================================= */
+
+.ds-grid h1,
+.ds-grid h2
+{
+    color: #848480;
+}
+
+.ds-grid h1 small,
+.ds-grid h2 small
+{
+    color: #747470;
+}
+
+.ds-item h1,
+.ds-item h2,
+.ds-item h3,
+.ds-item h4,
+.ds-item h5,
+.ds-item h6 {
+    color: #BBB;
+}
+
+.ds-timerstat h3,
+.ds-singlestat h3 {
+    color: #959588;
+}
+
+.well .ds-timerstat h3,
+.well .ds-singlestat h3 {
+  color: #aa8866;
+}
+
+.ds-timerstat p,
+.ds-singlestat p {
+    color:white;
+}
+
+.ds-timerstat .unit,
+.ds-singlestat .unit,
+.ds-jumbotron-singlestat .unit {
+    color: gray;
+}
+
+.ds-jumbotron-singlestat .value {
+    color: white;
+}
+
+.ds-jumbotron-singlestat h3 {
+    color: #a6a699;
+}
+
+h1 .ds-primary-title {
+  color: gray;
+}
+
+h1 .ds-secondary-title {
+  color: white;
+}
+
+.ds-time-container h2 {
+    color: #ddd;
+}
+
+.ds-warning,
+.ds-warning h3,
+.ds-warning .value,
+.ds-warning .unit {
+    color: #FF9E3F;
+}
+
+.ds-danger,
+.ds-danger h3,
+.ds-danger .value,
+.ds-danger .unit {
+    color: #FF0000;
+}
+
+.badge-neutral {
+  color: #222;
+}
+
+.ds-singlegraph span.value {
+    text-shadow: 1px 1px black;
+}
+
+/* =============================================================================
+   3rd Party Tweaks
+   ============================================================================= */
+
+.alert-neutral h1, .alert-neutral h2, .alert-neutral h3, .alert-neutral h4, .alert-neutral h5, .alert-neutral h6 {
+  color: #888;
+}
+
+.alert-info h1, .alert-info h2, .alert-info h3, .alert-info h4, .alert-info h5, .alert-info h6 {
+  color: #6A9AB3;
+}
+
+.alert-success h1, .alert-success h2, .alert-success h3, .alert-success h4, .alert-success h5, .alert-success h6 {
+    color: #86B186;
+}
+
+.alert-warning h1, .alert-warning h2, .alert-warning h3, .alert-warning h4, .alert-warning h5, .alert-warning h6 {
+    color: #FF9E3F;
+}
+
+.alert-danger h1, .alert-danger h2, .alert-danger h3, .alert-danger h4, .alert-danger h5, .alert-danger h6 {
+    color: #E22424;
+}
+
+/* nvd3 tweaks for darkstrap */
+
+.nvtooltip {
+  background-color: #555555;
+  color: #EFEFEF;
+  border:none ;
+}
+
+.nvd3 text {
+    fill: #a6a6a6;
+}
+
+.nv-legend-text {
+    fill: #a6a6a6;
+}
+
+.nvd3 .tick line {
+    stroke: #494951;
+}
+
+.nvd3 .nv-axis path {
+    stroke: #494951;
+}
+
+.nv-label text {
+    stroke: #a6a6a6;
+}
+
+/* darkstrap tweaks */
+
+.table th, .table td {
+    border-top: 1px solid #404040;
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    background-color: #454545;
+}
+
+.table thead tr th,
+.table thead tr td {
+    border-bottom: 1px solid #454545;
+}
+
+.table tbody tr td,
+.table tbody tr th {
+    border-top: 1px solid #454545;
+}
+
+.label, .badge {
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.input-group-addon {
+    color: #DDD;
+    background: #444;
+    border-color: #777;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="search"],
+input[type="number"]
+{
+    background: #444;
+    border: 1px solid #777;
+    color: white;
+    box-shadow: none;
+}
+
+
+.btn-default {
+    color: #DDD;
+    background-color: #444;
+    border-color: #777;
+}
+
+.alert-neutral,
+.bs-callout-neutral {
+    background-color: #494949;
+    border-color: #686868;
+}
+
+.alert-info,
+.bs-callout-info {
+    background-color: #2A3B49;
+    border-color: #36576E;
+}
+
+.alert-success,
+.bs-callout-success {
+    background-color: #35492C;
+    border-color: #436824;
+}
+
+.alert-warning,
+.bs-callout-warning {
+    background-color: #6F3701;
+    border-color: #A25103;
+}
+
+.alert-danger,
+.bs-callout-danger {
+    background-color: #690d0d;
+    border-color: #a80e0B;
+}
+
+#ds-tooltip {
+    color: white;
+    background-color: #444;
+    border: 1px solid #666;
+}
+
+/* -----------------------------------------------------------------------------
+ Edit mode headers
+ ----------------------------------------------------------------------------- */
+
+/*
+ * Section
+ */
+
+.ds-badge-section {
+    background-color: #333;
+}
+
+.ds-edit-bar-section {
+    background-color: #111;
+    border: 1px solid #444;
+}
+
+/*
+ * Row
+ */
+
+.ds-badge-row {
+    background-color: #555;
+}
+
+.ds-edit-bar-row {
+    border: 1px solid #555;
+    background-color: #222;
+}
+
+.ds-row.ds-edit {
+    border: 1px solid #555;
+}
+
+/*
+ * Cell
+ */
+
+.ds-badge-cell {
+    border: 1px solid #555;
+}
+
+.ds-edit-bar-cell {
+    background-color: #444;
+    border: 1px solid #777;
+}
+
+/*
+ * Item
+ */
+
+.ds-badge-item {
+    background-color: #777;
+    color: white;
+    border: 1px solid #AAA;
+}
+
+.ds-edit-bar-item {
+    background-color: #555;
+    border: 1px solid #777;
+}
+
+
+/* -----------------------------------------------------------------------------
+   Select2
+   ----------------------------------------------------------------------------- */
+
+.select2-container .select2-choices .select2-search-field input,
+.select2-container .select2-choice,
+.select2-container .select2-choices,
+.select2-search input,
+.select2-drop
+{
+    background: #444;
+    border-color: #777;
+    color: white;
+}
+
+.select2-arrow {
+    border-left: 1px solid #777;
+    color: white;
+}
+
+/* -----------------------------------------------------------------------------
+   bootstrap-datetime
+   ----------------------------------------------------------------------------- */
+
+.bootstrap-datetimepicker-widget {
+    background: #555;
+    border-color: #777;
+    color: white;
+}
+
+
+.datepicker table tr td.day.active {
+    background: #428BCA;
+}
+
+.bootstrap-datetimepicker-widget td span:hover,
+.datepicker table tr th.switch:hover,
+.datepicker table tr th.next:hover,
+.datepicker table tr th.prev:hover,
+.datepicker table tr td.day:hover,
+.datepicker table tr td.second:hover
+{
+    background: #627E96;
+}
+
+/* flot.valuelabels */
+
+.flotValueLabel {
+    color: #CCC;
+    border-left-color: #b58900;
+}

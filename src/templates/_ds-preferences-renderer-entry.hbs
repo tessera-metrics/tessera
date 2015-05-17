@@ -1,0 +1,12 @@
+<div class="radio">
+  <label for="chartRenderRadios-{{renderer.name}}">
+    <input type="radio"
+           name="chartRenderRadios"
+           id="chartRenderRadios-{{renderer.name}}"
+           value="{{renderer.name}}"
+           {{#if checked}}checked="checked"{{/if}}
+           onclick="dsSetPref('renderer', '{{renderer.name}}')">
+    {{renderer.name}}
+  </label>
+  <p><small>{{renderer.description}}</small></p>
+</div>

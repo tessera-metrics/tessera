@@ -54,12 +54,15 @@ def _get_param_boolean(name, default=None, store_in_session=False):
     return value == 'True' \
         or value == 'true'
 
+def _cfg(key, default=None):
+    return app.config.get(key, default)
+
 def _get_config():
     """Retrieve a dictionary containing all UI-relevant config settings."""
     return {
-        'GRAPHITE_URL' : app.config['GRAPHITE_URL'],
-        'DISPLAY_TIMEZONE' : app.config.get('DISPLAY_TIMEZONE', 'UTC'),
-        'DEFAULT_FROM_TIME' : app.config['DEFAULT_FROM_TIME']
+        'GRAPHITE_URL' : _cfg('GRAPHITE_URL', 'http://localhost:8080'),
+        'DISPLAY_TIMEZONE' : _cfg('DISPLAY_TIMEZONE', 'Etc/UTC'),
+        'DEFAULT_FROM_TIME' : _cfg('DEFAULT_FROM_TIME', '-3h')
     }
 
 def _get_preferences(store_in_session=False):
@@ -67,18 +70,18 @@ def _get_preferences(store_in_session=False):
 from (in order) the request parameters, session, and config
 defaults.
     """
-    interactive = _get_param('renderer', app.config['CHART_RENDERER'], store_in_session=store_in_session) != 'graphite'
+    interactive = _get_param('renderer', _cfg('CHART_RENDERER', 'flot'), store_in_session=store_in_session) != 'graphite'
     return {
-        'downsample' : _get_param('downsample', app.config['DOWNSAMPLE_TIMESERIES'], store_in_session=store_in_session),
-        'theme' : _get_param('theme', app.config['DEFAULT_THEME'], store_in_session=store_in_session),
-        'renderer' : _get_param('renderer', app.config['CHART_RENDERER'], store_in_session=store_in_session),
+        'downsample' : _get_param('downsample', _cfg('DOWNSAMPLE_TIMESERIES', 1), store_in_session=store_in_session),
+        'theme' : _get_param('theme', _cfg('DEFAULT_THEME', 'light'), store_in_session=store_in_session),
+        'renderer' : _get_param('renderer', _cfg('CHART_RENDERER', 'flot'), store_in_session=store_in_session),
         'interactive' : interactive,
-        'refresh' : _get_param('refresh', app.config['DEFAULT_REFRESH_INTERVAL'], store_in_session=store_in_session),
-        'timezone' : _get_param('timezone', app.config['DISPLAY_TIMEZONE'], store_in_session=store_in_session),
-        'graphite_url' : _get_param('graphite_url', app.config['GRAPHITE_URL'], store_in_session=store_in_session),
-        'graphite_auth' : _get_param('graphite_auth', app.config['GRAPHITE_AUTH'], store_in_session=store_in_session),
-        'connected_lines' : _get_param('connected_lines', app.config['CONNECTED_LINES'], store_in_session=store_in_session),
-        'propsheet_autoclose_seconds' : _get_param('propsheet_autoclose_seconds', app.config['DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS'], store_in_session=store_in_session)
+        'refresh' : _get_param('refresh', _cfg('DEFAULT_REFRESH_INTERVAL', 60), store_in_session=store_in_session),
+        'timezone' : _get_param('timezone', _cfg('DISPLAY_TIMEZONE', 'Etc/UTC'), store_in_session=store_in_session),
+        'graphite_url' : _get_param('graphite_url', _cfg('GRAPHITE_URL', 'http://localhost:8080'), store_in_session=store_in_session),
+        'graphite_auth' : _get_param('graphite_auth', _cfg('GRAPHITE_AUTH', ''), store_in_session=store_in_session),
+        'connected_lines' : _get_param('connected_lines', _cfg('CONNECTED_LINES', _cfg('GRAPHITE_CONNECTED_LINES', 0)), store_in_session=store_in_session),
+        'propsheet_autoclose_seconds' : _get_param('propsheet_autoclose_seconds', _cfg('DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS', 3), store_in_session=store_in_session)
     }
 
 def _set_preferences(prefs):
@@ -383,7 +386,7 @@ def _render_template(template, **kwargs):
     return render_template(template, ctx=RenderContext(), **kwargs)
 
 def _render_client_side_dashboard(dashboard, template='dashboard.html', transform=None):
-    from_time = _get_param('from', app.config['DEFAULT_FROM_TIME'])
+    from_time = _get_param('from', _cfg('DEFAULT_FROM_TIME', '-3h'))
     until_time = _get_param('until', None)
     title = '{0} {1}'.format(dashboard.category, dashboard.title)
     return _render_template(template,

@@ -52,20 +52,20 @@
 
   <script>
    /* Load featured dashboard list */
-   ds.manager.list('{{url_for('api_dashboard_list_tagged', tag='featured')|safe}}', function(data) {
+   ts.manager.list('{{url_for('api_dashboard_list_tagged', tag='featured')|safe}}', function(data) {
      if (data && data.length) {
        $("#ds-featured-dashboards").show()
-       $("#ds-dashboard-featured-listing").html(ds.templates.listing.dashboard_list({dashboards: data}))
+       $("#ds-dashboard-featured-listing").html(ts.templates.listing.dashboard_list({dashboards: data}))
      }
    })
 
    /* Load the dashboards tagged with 'featured-billboard', and
     * select one of them at random to display at the top of the
     * page. */
-    ds.manager.list('{{url_for('api_dashboard_list_tagged', tag='featured-billboard')|safe}}', function(data) {
+    ts.manager.list('{{url_for('api_dashboard_list_tagged', tag='featured-billboard')|safe}}', function(data) {
      if (data && data.length > 0) {
        var dashboard = data[Math.floor(Math.random() * data.length)]
-       ds.manager.load(dashboard.href, '.ds-featured-dashboard', {
+       ts.manager.load(dashboard.href, '.ds-featured-dashboard', {
          interactive: true,
          from: '-3h'
        })
