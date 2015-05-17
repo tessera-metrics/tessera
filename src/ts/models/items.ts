@@ -29,8 +29,10 @@ export { default as TimeshiftSummationTable } from './items/timeshift_summation_
 export { default as ComparisonSummationTable } from './items/comparison_summation_table'
 export { default as Singlestat } from './items/singlestat'
 export { default as TimeshiftSinglestat } from './items/timeshift_singlestat'
+export { default as ComparisonSinglestat } from './items/comparison_singlestat'
 export { default as JumbotronSinglestat } from './items/jumbotron_singlestat'
 export { default as TimeshiftJumbotronSinglestat } from './items/timeshift_jumbotron_singlestat'
+export { default as ComparisonJumbotronSinglestat } from './items/comparison_jumbotron_singlestat'
 export { default as Timerstat } from './items/timerstat'
 
 // Charts

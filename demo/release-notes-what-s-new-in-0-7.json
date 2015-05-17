@@ -1,470 +1,551 @@
 {
-  "category": "Release Notes",
+  "category": "Release Notes", 
   "definition": {
     "items": [
       {
-        "layout": "fixed",
-        "level": "2",
+        "layout": "fixed", 
+        "level": "2", 
         "items": [
           {
-            "item_id": "d15",
-            "item_type": "row",
+            "item_id": "d15", 
+            "item_type": "row", 
             "items": [
               {
-                "item_id": "d16",
-                "item_type": "cell",
-                "offset": "1",
-                "span": 3,
+                "item_id": "d16", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": []
-              },
+              }, 
               {
-                "item_id": "d17",
-                "item_type": "cell",
-                "span": 7,
+                "item_id": "d17", 
+                "item_type": "cell", 
+                "span": 7, 
                 "items": [
                   {
-                    "item_id": "d23",
-                    "item_type": "markdown",
+                    "item_id": "d23", 
+                    "item_type": "markdown", 
                     "text": "This release doesn't have as many flashy new features as the previous release, 0.6, but internally it's an even bigger release. The client side code has been cleaned up and refactored, which provides a much better base for tackling some of the [major features](https://github.com/urbanairship/tessera/labels/major-feature) in future releases. "
                   }
                 ]
               }
             ]
-          },
+          }, 
           {
-            "item_id": "d25",
-            "item_type": "row",
+            "item_id": "d25", 
+            "item_type": "row", 
             "items": [
               {
-                "item_id": "d26",
-                "item_type": "cell",
-                "offset": "1",
-                "span": 3,
+                "item_id": "d26", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": [
                   {
-                    "item_id": "d27",
-                    "item_type": "markdown",
+                    "item_id": "d27", 
+                    "item_type": "markdown", 
                     "text": "### TypeScript"
                   }
                 ]
-              },
+              }, 
               {
-                "item_id": "d28",
-                "item_type": "cell",
-                "span": 7,
+                "item_id": "d28", 
+                "item_type": "cell", 
+                "span": 7, 
                 "items": [
                   {
-                    "item_id": "d29",
-                    "item_type": "markdown",
-                    "text": "The big news is that the client-side JavaScript code has been\nre-written in Microsoft's\n[TypeScript](http://www.typescriptlang.org/). TypeScript is a\nsuperset of the ECMAScript 6 specification with optional type\nannotations, which compiles down to JavaScript. "
+                    "item_id": "d29", 
+                    "item_type": "markdown", 
+                    "text": "\n\nThe big news is that the client-side JavaScript code has been\nre-written in Microsoft's\n[TypeScript](http://www.typescriptlang.org/). TypeScript is a\nsuperset of the ECMAScript 6 specification with optional type\nannotations, which compiles down to JavaScript.\n\nAs part of the refactoring, the homegrown object model library\nhas been replaced with standard JavaScript classes, using\nECMAScript 6's `class` syntax. This makes the hierarchy of\ndashboard items much easier to extend.\n"
                   }
                 ]
               }
             ]
-          },
+          }, 
           {
-            "item_id": "d19",
-            "item_type": "row",
+            "item_id": "d19", 
+            "item_type": "row", 
             "items": [
               {
-                "item_id": "d20",
-                "item_type": "cell",
-                "offset": "1",
-                "span": 3,
+                "item_id": "d20", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": [
                   {
-                    "item_id": "d21",
-                    "item_type": "markdown",
+                    "item_id": "d21", 
+                    "item_type": "markdown", 
                     "text": "### Browserify Workflow"
                   }
                 ]
-              },
+              }, 
               {
-                "item_id": "d22",
-                "item_type": "cell",
-                "span": 7,
+                "item_id": "d22", 
+                "item_type": "cell", 
+                "span": 7, 
                 "items": [
                   {
-                    "item_id": "d24",
+                    "item_id": "d24", 
                     "item_type": "markdown"
                   }
                 ]
               }
             ]
           }
-        ],
-        "title": "Internal Rewrite",
-        "item_type": "section",
-        "horizontal_rule": true,
+        ], 
+        "title": "Internal Rewrite", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
         "item_id": "d14"
-      },
+      }, 
       {
-        "layout": "fixed",
-        "level": "2",
+        "layout": "fixed", 
+        "level": "2", 
         "items": [
           {
-            "item_id": "d5",
-            "item_type": "row",
-            "style": "none",
+            "item_id": "d5", 
+            "item_type": "row", 
+            "style": "none", 
             "items": [
               {
-                "item_id": "d6",
-                "item_type": "cell",
-                "offset": "1",
-                "span": 3,
+                "item_id": "d6", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": [
                   {
-                    "item_id": "d8",
-                    "item_type": "markdown",
+                    "item_id": "d8", 
+                    "item_type": "markdown", 
                     "text": "### Timer Stats\n\nA timer stat presentation is very similar to a singlestat, but shows one of the summation values translated to a human-readable time span. "
                   }
                 ]
-              },
+              }, 
               {
-                "item_id": "d7",
-                "item_type": "cell",
-                "span": 2,
+                "item_id": "d7", 
+                "item_type": "cell", 
+                "span": 2, 
                 "items": [
                   {
-                    "scale": 100,
-                    "language": "minimal",
-                    "title": "Short",
-                    "transform": "sum",
-                    "precision": 2,
-                    "item_type": "timerstat",
-                    "item_id": "d9",
+                    "scale": 100, 
+                    "language": "minimal", 
+                    "title": "Short", 
+                    "transform": "sum", 
+                    "precision": 2, 
+                    "item_type": "timerstat", 
+                    "item_id": "d9", 
                     "query": "duration"
                   }
                 ]
-              },
+              }, 
               {
-                "item_id": "d10",
-                "item_type": "cell",
-                "span": 2,
+                "item_id": "d10", 
+                "item_type": "cell", 
+                "span": 2, 
                 "items": [
                   {
-                    "scale": 37067,
-                    "language": "compact",
-                    "title": "Longer",
-                    "transform": "sum",
-                    "precision": 2,
-                    "item_type": "timerstat",
-                    "item_id": "d11",
+                    "scale": 37067, 
+                    "language": "compact", 
+                    "title": "Longer", 
+                    "transform": "sum", 
+                    "precision": 2, 
+                    "item_type": "timerstat", 
+                    "item_id": "d11", 
                     "query": "duration"
                   }
                 ]
-              },
+              }, 
               {
-                "item_id": "d12",
-                "item_type": "cell",
-                "span": 4,
+                "item_id": "d12", 
+                "item_type": "cell", 
+                "span": 4, 
                 "items": [
                   {
-                    "scale": 3730167,
-                    "title": "Even Longer",
-                    "precision": 3,
-                    "transform": "sum",
-                    "item_type": "timerstat",
-                    "item_id": "d13",
+                    "scale": 3730167, 
+                    "title": "Even Longer", 
+                    "precision": 3, 
+                    "transform": "sum", 
+                    "item_type": "timerstat", 
+                    "item_id": "d13", 
                     "query": "duration"
                   }
                 ]
               }
             ]
-          },
+          }, 
           {
-            "item_id": "d50",
-            "item_type": "row",
-            "style": "none",
+            "item_id": "d50", 
+            "item_type": "row", 
+            "style": "none", 
             "items": [
               {
-                "item_id": "d51",
-                "item_type": "cell",
-                "offset": "1",
-                "span": 3,
+                "item_id": "d51", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": [
                   {
-                    "item_id": "d52",
-                    "item_type": "markdown",
+                    "item_id": "d52", 
+                    "item_type": "markdown", 
                     "text": "### Timeshift Single Stats\n\nLike timeshift summation tables, this presentation takes the\nquery and compares it to the same query shifted back in time. The\ndelta can be displayed as a raw value or a percentage.\n"
                   }
                 ]
-              },
+              }, 
               {
-                "item_id": "d53",
-                "item_type": "cell",
-                "span": 2,
+                "item_id": "d53", 
+                "item_type": "cell", 
+                "span": 2, 
                 "items": [
                   {
-                    "format": ",.3s",
-                    "shift": "1d",
-                    "title": "shift 1 day, value",
-                    "percent": false,
-                    "transform": "mean",
-                    "item_type": "timeshift_singlestat",
-                    "item_id": "d59",
+                    "format": ",.3s", 
+                    "shift": "1d", 
+                    "title": "shift 1 day, value", 
+                    "percent": false, 
+                    "transform": "mean", 
+                    "item_type": "timeshift_singlestat", 
+                    "item_id": "d59", 
                     "query": "collector"
                   }
                 ]
-              },
+              }, 
               {
-                "item_id": "d60",
-                "item_type": "cell",
-                "span": 2,
+                "item_id": "d60", 
+                "item_type": "cell", 
+                "span": 2, 
                 "items": [
                   {
-                    "format": ",.3s",
-                    "shift": "1d",
-                    "title": "shift 1 day, %",
-                    "percent": true,
-                    "transform": "mean",
-                    "item_type": "timeshift_singlestat",
-                    "item_id": "d61",
+                    "format": ",.3s", 
+                    "shift": "1d", 
+                    "title": "shift 1 day, %", 
+                    "percent": true, 
+                    "transform": "mean", 
+                    "item_type": "timeshift_singlestat", 
+                    "item_id": "d61", 
                     "query": "collector"
                   }
                 ]
-              },
+              }, 
               {
-                "item_id": "d62",
-                "item_type": "cell",
-                "span": 2,
+                "item_id": "d62", 
+                "item_type": "cell", 
+                "span": 2, 
                 "items": [
                   {
-                    "format": ",.3s",
-                    "shift": "1w",
-                    "title": "shift 1 week, %",
-                    "percent": true,
-                    "transform": "mean",
-                    "item_type": "timeshift_singlestat",
-                    "item_id": "d63",
+                    "format": ",.3s", 
+                    "shift": "1w", 
+                    "title": "shift 1 week, %", 
+                    "percent": true, 
+                    "transform": "mean", 
+                    "item_type": "timeshift_singlestat", 
+                    "item_id": "d63", 
                     "query": "collector"
                   }
                 ]
               }
             ]
-          },
+          }, 
           {
-            "item_id": "d64",
-            "item_type": "row",
-            "style": "none",
+            "item_id": "d68", 
+            "item_type": "row", 
+            "style": "none", 
             "items": [
               {
-                "item_id": "d65",
-                "item_type": "cell",
-                "offset": "1",
-                "span": 3,
+                "item_id": "d69", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d70", 
+                    "item_type": "markdown", 
+                    "text": "### Comparison Singlestats\n\nJust like timeshift singlestats, just comparing two arbitrary queries. "
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d71", 
+                "item_type": "cell", 
+                "span": 2, 
+                "items": [
+                  {
+                    "query_other": "b", 
+                    "units": "things", 
+                    "format": ",.3s", 
+                    "title": "A vs B (max)", 
+                    "percent": true, 
+                    "transform": "max", 
+                    "item_type": "comparison_singlestat", 
+                    "item_id": "d72", 
+                    "query": "a"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d73", 
+            "item_type": "row", 
+            "style": "none", 
+            "items": [
+              {
+                "item_id": "d74", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": []
-              },
+              }, 
               {
-                "item_id": "d67",
-                "item_type": "cell",
-                "span": 5,
+                "item_id": "d76", 
+                "item_type": "cell", 
+                "span": 5, 
                 "items": [
                   {
-                    "format": ",.3s",
-                    "shift": "1d",
-                    "title": "timeshifted jumbotron",
-                    "percent": true,
-                    "transform": "mean",
-                    "item_type": "timeshift_jumbotron_singlestat",
-                    "item_id": "d66",
+                    "query_other": "b", 
+                    "format": ",.3s", 
+                    "title": "a vs b (mean)", 
+                    "percent": true, 
+                    "transform": "mean", 
+                    "item_type": "comparison_jumbotron_singlestat", 
+                    "item_id": "d78", 
+                    "query": "a"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d64", 
+            "item_type": "row", 
+            "style": "none", 
+            "items": [
+              {
+                "item_id": "d65", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": []
+              }, 
+              {
+                "item_id": "d67", 
+                "item_type": "cell", 
+                "span": 5, 
+                "items": [
+                  {
+                    "format": ",.3s", 
+                    "shift": "1d", 
+                    "title": "timeshifted jumbotron", 
+                    "percent": true, 
+                    "transform": "mean", 
+                    "item_type": "timeshift_jumbotron_singlestat", 
+                    "item_id": "d66", 
                     "query": "collector"
                   }
                 ]
               }
             ]
-          },
+          }, 
           {
-            "item_id": "d35",
+            "item_id": "d35", 
             "item_type": "separator"
-          },
+          }, 
           {
-            "item_id": "d30",
-            "item_type": "row",
+            "item_id": "d30", 
+            "item_type": "row", 
             "items": [
               {
-                "item_id": "d31",
-                "item_type": "cell",
-                "offset": "1",
-                "span": 3,
+                "item_id": "d31", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": [
                   {
-                    "item_id": "d32",
-                    "item_type": "markdown",
+                    "item_id": "d32", 
+                    "item_type": "markdown", 
                     "text": "### Override Chart Renderer\n\nThe chart renderer can now be set on a per-chart basis,\noverriding the default.\n\nNow if there\u2019s something you need to do with a graphite query\nthat flot charts don\u2019t support, you can selectively use\ngraphite\u2019s PNG renderer.\n"
                   }
                 ]
-              },
+              }, 
               {
-                "item_id": "d33",
-                "item_type": "cell",
-                "span": "4",
+                "item_id": "d33", 
+                "item_type": "cell", 
+                "span": "4", 
                 "items": [
                   {
-                    "title": "Flot Renderer",
-                    "stack_mode": "stack",
+                    "title": "Flot Renderer", 
+                    "stack_mode": "stack", 
                     "options": {
                       "palette": "d3category20"
-                    },
-                    "item_type": "stacked_area_chart",
-                    "hide_zero_series": false,
-                    "renderer": "flot",
-                    "item_id": "d39",
-                    "query": "group",
-                    "legend": "simple",
+                    }, 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "renderer": "flot", 
+                    "item_id": "d39", 
+                    "query": "group", 
+                    "legend": "simple", 
                     "interactive": true
                   }
                 ]
-              },
+              }, 
               {
-                "item_id": "d40",
-                "item_type": "cell",
-                "span": "4",
+                "item_id": "d40", 
+                "item_type": "cell", 
+                "span": "4", 
                 "items": [
                   {
-                    "title": "Graphite Renderer",
-                    "stack_mode": "stack",
-                    "height": "3",
-                    "item_type": "stacked_area_chart",
-                    "hide_zero_series": false,
-                    "renderer": "graphite",
-                    "item_id": "d41",
-                    "query": "group",
+                    "title": "Graphite Renderer", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "renderer": "graphite", 
+                    "item_id": "d41", 
+                    "query": "group", 
                     "options": {
                       "palette": "d3category20"
-                    },
-                    "legend": "simple",
+                    }, 
+                    "legend": "simple", 
                     "interactive": true
                   }
                 ]
               }
             ]
           }
-        ],
-        "title": "Dashboard Enhancements",
-        "item_type": "section",
-        "horizontal_rule": true,
+        ], 
+        "title": "Dashboard Enhancements", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
         "item_id": "d4"
-      },
+      }, 
       {
-        "layout": "fixed",
-        "level": "2",
+        "layout": "fixed", 
+        "level": "2", 
         "items": [
           {
-            "item_id": "d37",
-            "item_type": "row",
+            "item_id": "d37", 
+            "item_type": "row", 
             "items": [
               {
-                "item_id": "d38",
-                "item_type": "cell",
-                "offset": 1,
-                "span": 3,
+                "item_id": "d38", 
+                "item_type": "cell", 
+                "offset": 1, 
+                "span": 3, 
                 "items": [
                   {
-                    "item_id": "d43",
-                    "item_type": "markdown",
+                    "item_id": "d43", 
+                    "item_type": "markdown", 
                     "text": "### Editor Improvements\n"
                   }
                 ]
-              },
+              }, 
               {
-                "item_id": "d42",
-                "item_type": "cell",
-                "span": 7,
+                "item_id": "d42", 
+                "item_type": "cell", 
+                "span": 7, 
                 "items": [
                   {
-                    "item_id": "d44",
-                    "item_type": "markdown",
+                    "item_id": "d44", 
+                    "item_type": "markdown", 
                     "text": "Property editing has generally been tightened up in small ways. Boolean values are rendered with a `select` dropdown, and will reliably show the current value. Constrained numeric fields related to the grid, such as cell `span` and `offset` are also rendered with a select now, so it's impossible to enter invalid values. "
                   }
                 ]
               }
             ]
-          },
+          }, 
           {
-            "item_id": "d45",
-            "item_type": "row",
+            "item_id": "d45", 
+            "item_type": "row", 
             "items": [
               {
-                "item_id": "d46",
-                "item_type": "cell",
-                "offset": 1,
-                "span": 3,
+                "item_id": "d46", 
+                "item_type": "cell", 
+                "offset": 1, 
+                "span": 3, 
                 "items": [
                   {
-                    "item_id": "d47",
-                    "item_type": "markdown",
+                    "item_id": "d47", 
+                    "item_type": "markdown", 
                     "text": "### Other"
                   }
                 ]
-              },
+              }, 
               {
-                "item_id": "d48",
-                "item_type": "cell",
-                "span": 7,
+                "item_id": "d48", 
+                "item_type": "cell", 
+                "span": 7, 
                 "items": [
                   {
-                    "item_id": "d49",
-                    "item_type": "markdown",
+                    "item_id": "d49", 
+                    "item_type": "markdown", 
                     "text": "* Don't display tags with zero dashboards in the tag list"
                   }
                 ]
               }
             ]
           }
-        ],
-        "title": "Miscellany",
-        "item_type": "section",
-        "horizontal_rule": true,
+        ], 
+        "title": "Miscellany", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
         "item_id": "d36"
       }
-    ],
-    "item_type": "dashboard_definition",
-    "href": "/api/dashboard/11/definition",
+    ], 
+    "item_type": "dashboard_definition", 
+    "href": "/api/dashboard/25/definition", 
     "queries": {
+      "a": {
+        "name": "a", 
+        "targets": [
+          "randomWalkFunction(\"query3\")"
+        ]
+      }, 
       "duration": {
-        "name": "duration",
+        "name": "duration", 
         "targets": [
           "absolute(randomWalkFunction(\"query0\"))"
         ]
-      },
-      "group": {
-        "name": "group",
+      }, 
+      "b": {
+        "name": "b", 
         "targets": [
-          "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
+          "randomWalkFunction(\"query4\")"
         ]
-      },
+      }, 
       "collector": {
-        "name": "collector",
+        "name": "collector", 
         "targets": [
           "collector_time_ms"
         ]
+      }, 
+      "group": {
+        "name": "group", 
+        "targets": [
+          "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
+        ]
       }
-    },
-    "item_id": "d3",
+    }, 
+    "item_id": "d3", 
     "options": {
       "from": "-3h"
     }
-  },
-  "view_href": "/dashboards/11/what-s-new-in-0-7",
-  "description": null,
+  }, 
+  "view_href": "/dashboards/25/what-s-new-in-0-7", 
+  "description": null, 
   "tags": [
     {
-      "count": 10,
-      "bgcolor": "green",
-      "id": 6,
+      "count": 10, 
+      "bgcolor": "green", 
+      "id": 6, 
       "name": "featured"
-    },
+    }, 
     {
-      "count": 1,
-      "id": 14,
+      "count": 1, 
+      "id": 14, 
       "name": "release-notes"
     }
-  ],
-  "title": "What's new in 0.7?",
-  "summary": "",
-  "definition_href": "/api/dashboard/11/definition",
-  "href": "/api/dashboard/11",
-  "id": 11,
+  ], 
+  "title": "What's new in 0.7?", 
+  "summary": "", 
+  "definition_href": "/api/dashboard/25/definition", 
+  "href": "/api/dashboard/25", 
+  "id": 25, 
   "imported_from": null
 }

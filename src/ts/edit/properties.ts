@@ -60,6 +60,9 @@ properties.register([
       },
       value: function(item) {
         return item.query_other ? item.query_other.name : undefined
+      },
+      update: function(item, value) {
+        item.set_query_other(value)
       }
     }
   },
