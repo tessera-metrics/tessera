@@ -24,7 +24,6 @@ export default class ComparisonSummationTable extends TablePresentation {
         this._query_other = data.query_other
       }
     }
-    this._update_query()
   }
 
   _update_query() : void {
@@ -44,8 +43,16 @@ export default class ComparisonSummationTable extends TablePresentation {
   }
 
   set query_other(value: Query) {
-    this._query_other = value.name
-    this._update_query()
+      this._query_other = value.name
+  }
+
+  set_query_other(value: string|Query) : ComparisonSummationTable {
+    if (typeof value === 'string') {
+      this._query_other = value
+    } else {
+      this._query_other = value.name
+    }
+    return <ComparisonSummationTable> this.updated()
   }
 
   toJSON() : any {
@@ -60,6 +67,8 @@ export default class ComparisonSummationTable extends TablePresentation {
   }
 
   data_handler(query: Query) : void {
+    if (query.data.length < 2)
+      return
     let body = $('#' + this.item_id + ' tbody')
     let now  = query.data[0].summation
     let then = query.data[1].summation

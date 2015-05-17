@@ -85,6 +85,78 @@
             ]
           }, 
           {
+            "item_id": "d75", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d76", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d77", 
+                    "item_type": "markdown", 
+                    "text": "### Timeshift Single Stats\n\nLike timeshift summation tables (see below), this presentation\ntakes the query and compares it to the same query shifted back in\ntime. The delta can be displayed as a raw value or a percentage.\n"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d78", 
+                "item_type": "cell", 
+                "span": 2, 
+                "items": [
+                  {
+                    "units": "ms", 
+                    "format": ",.3s", 
+                    "shift": "1d", 
+                    "title": "Shifted 1d, Value", 
+                    "percent": false, 
+                    "transform": "mean", 
+                    "item_type": "timeshift_singlestat", 
+                    "item_id": "d84", 
+                    "query": "collector"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d85", 
+                "item_type": "cell", 
+                "span": 2, 
+                "items": [
+                  {
+                    "units": "ms", 
+                    "format": ",.3s", 
+                    "shift": "1d", 
+                    "title": "Shifted 1d, %", 
+                    "percent": true, 
+                    "transform": "mean", 
+                    "item_type": "timeshift_singlestat", 
+                    "item_id": "d86", 
+                    "query": "collector"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d87", 
+                "item_type": "cell", 
+                "span": 2, 
+                "items": [
+                  {
+                    "units": "ms", 
+                    "format": ",.3s", 
+                    "shift": "1w", 
+                    "title": "Shifted 1w, %", 
+                    "percent": true, 
+                    "transform": "mean", 
+                    "item_type": "timeshift_singlestat", 
+                    "item_id": "d88", 
+                    "query": "collector"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
             "item_id": "d59", 
             "item_type": "row", 
             "items": [
@@ -106,7 +178,7 @@
                 "span": 2, 
                 "items": [
                   {
-                    "scale": "100", 
+                    "scale": 100, 
                     "title": "Duration", 
                     "precision": 2, 
                     "transform": "sum", 
@@ -140,9 +212,9 @@
                 "span": 4, 
                 "items": [
                   {
-                    "scale": "1256129", 
+                    "scale": 1256129, 
                     "title": "Long Duration, 3 elements", 
-                    "precision": "3", 
+                    "precision": 3, 
                     "transform": "sum", 
                     "item_type": "timerstat", 
                     "item_id": "d74", 
@@ -186,6 +258,42 @@
                     "item_type": "jumbotron_singlestat", 
                     "item_id": "d54", 
                     "query": "single1"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d89", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d90", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d91", 
+                    "item_type": "markdown", 
+                    "text": "Naturally, there are comparison variants of the jumbotron singlestat as well."
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d92", 
+                "item_type": "cell", 
+                "span": 5, 
+                "items": [
+                  {
+                    "units": "ms", 
+                    "format": ",.3s", 
+                    "shift": "1d", 
+                    "title": "today vs. yesterday", 
+                    "percent": true, 
+                    "transform": "mean", 
+                    "item_type": "timeshift_jumbotron_singlestat", 
+                    "item_id": "d81", 
+                    "query": "collector"
                   }
                 ]
               }
@@ -480,7 +588,7 @@
       }
     ], 
     "item_type": "dashboard_definition", 
-    "href": "/api/dashboard/3/definition", 
+    "href": "/api/dashboard/24/definition", 
     "queries": {
       "comparison": {
         "name": "comparison", 
@@ -554,27 +662,27 @@
       "from": "-3h"
     }
   }, 
-  "view_href": "/dashboards/3/gallery-text-presentations", 
+  "view_href": "/dashboards/24/gallery-text-presentations", 
   "description": "", 
   "tags": [
     {
-      "count": 8, 
+      "count": 10, 
       "bgcolor": "green", 
-      "id": 1, 
+      "id": 6, 
       "name": "featured"
     }, 
     {
       "count": 3, 
       "bgcolor": "#ddd", 
-      "id": 2, 
+      "id": 7, 
       "fgcolor": "#333", 
       "name": "demo"
     }
   ], 
   "title": "Gallery - Text Presentations", 
   "summary": "Non-graphical presentations of data. ", 
-  "definition_href": "/api/dashboard/3/definition", 
-  "href": "/api/dashboard/3", 
-  "id": 3, 
+  "definition_href": "/api/dashboard/24/definition", 
+  "href": "/api/dashboard/24", 
+  "id": 24, 
   "imported_from": null
 }

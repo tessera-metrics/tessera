@@ -52,8 +52,8 @@ export default class Singlestat extends Presentation {
   data_handler(query: Query) : void {
     if (!query.summation)
       return
-    var element = $('#' + this.item_id + ' span.value')
-    var value = query.summation[this.transform]
+    let element = $('#' + this.item_id + ' span.value')
+    let value = query.summation[this.transform]
     if (this.index) {
       value = query.data[this.index].summation[this.transform]
     }
@@ -73,6 +73,7 @@ export default class Singlestat extends Presentation {
     return super.interactive_properties().concat([
       'units',
       'format',
+      'title',
       { name: 'index', type: 'number' },
       'transform'
     ])
