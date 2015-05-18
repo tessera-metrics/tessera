@@ -51,7 +51,7 @@ export default class PercentageTable extends TablePresentation {
       table.DataTable({
         order: [[ 2, "desc" ]],
         paging: false,
-        searching: true,
+        searching: false,
         oLanguage: { sSearch: "" },
         info: true
       })
