@@ -8,7 +8,7 @@ import * as charts   from '../charts/core'
 import Dashboard     from '../models/dashboard'
 import DashboardItem from '../models/items/item'
 import Container     from '../models/items/container'
-import Query         from '../models/data/Query'
+import Query         from '../models/data/query'
 import {transforms}  from '../models/transform/transform'
 
 declare var $, URI, window, bootbox, ts

@@ -1,6 +1,6 @@
 import * as charts from './core'
 import Chart from '../models/items/chart'
-import Query from '../models/data/Query'
+import Query from '../models/data/query'
 import { extend } from '../core/util'
 
 declare var $

@@ -1,7 +1,7 @@
 import * as core from '../core'
 import * as app from '../app/app'
 import manager from '../app/manager'
-import Query from '../models/data/Query'
+import Query from '../models/data/query'
 import Container from '../models/items/container'
 import { make } from '../models/items/factory'
 

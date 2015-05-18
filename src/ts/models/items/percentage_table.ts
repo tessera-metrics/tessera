@@ -1,6 +1,6 @@
 import TablePresentation from './table_presentation'
 import { DashboardItemMetadata } from './item'
-import Query from '../data/Query'
+import Query from '../data/query'
 import { extend } from '../../core/util'
 import { PropertyList } from '../../core/property'
 import { register_dashboard_item } from './factory'

@@ -4,7 +4,7 @@
  * @see http://graphite.readthedocs.org/en/latest/render_api.html#data-display-formats
  */
 
-import Summation from '../models/data/Summation'
+import Summation from '../models/data/summation'
 
 /**
  * Each individual datapoint is a tuple of [value, timestamp].

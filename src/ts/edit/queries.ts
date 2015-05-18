@@ -1,5 +1,5 @@
 import * as core from '../core'
-import Query from '../models/data/Query'
+import Query from '../models/data/query'
 import Dashboard from '../models/dashboard'
 import manager from '../app/manager'
 import * as app from '../app/app'

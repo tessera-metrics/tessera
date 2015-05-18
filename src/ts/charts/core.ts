@@ -1,6 +1,6 @@
 import Chart from '../models/items/chart'
 import DashboardItem from '../models/items/item'
-import Query from '../models/data/Query'
+import Query from '../models/data/query'
 import { NamedObject, Registry } from '../core/registry'
 import * as graphite from '../data/graphite'
 

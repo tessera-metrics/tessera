@@ -1,7 +1,7 @@
 import Container from './container'
 import Presentation from './presentation'
 import { DashboardItemMetadata } from './item'
-import Query, { QueryDictionary } from '../data/Query'
+import Query, { QueryDictionary } from '../data/query'
 import { register_dashboard_item } from './factory'
 import { extend } from '../../core/util'
 import { logger } from '../../core/log'
