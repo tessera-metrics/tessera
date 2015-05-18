@@ -1,6 +1,6 @@
 import Presentation from './presentation'
-import Axis from '../axis'
 import { DashboardItemMetadata } from './item'
+import Axis from '../axis'
 import * as core from '../../core'
 import * as charts from '../../charts/core'
 import PALETTES from '../../charts/palettes'
@@ -31,6 +31,7 @@ core.properties.register({
         item.options = {}
       }
       item.options.palette = newValue
+      item.updated()
     }
   }
 })
@@ -125,77 +126,6 @@ export default class Chart extends Presentation {
           type: 'select',
           source: function() {
             return [undefined].concat([...charts.renderers.list().map(r => r.name)])
-          }
-        }
-      },
-      {
-        name: 'chart.y-axis-label',
-        property_name: 'y-axis-label',
-        category: 'chart',
-        edit_options: {
-          type: 'text',
-          value: function(item) {
-            if (item.options && item.options.y1) {
-              return item.options.y1.label
-            } else if (item.options) {
-              /* legacy */
-              return item.options.yAxisLabel
-            } else {
-              return undefined
-            }
-          },
-          update: function(item, newValue) {
-            if (!item.options) {
-              item.options = {}
-            }
-            if (!item.options.y1) {
-              item.options.y1 = new Axis()
-            }
-            item.options.y1.label = newValue
-          }
-        }
-      },
-      {
-        name: 'chart.y-axis-min',
-        property_name: 'y-axis-min',
-        category: 'chart',
-        edit_options: {
-          type: 'text',
-          value: function(item) {
-            return item.options && item.options.y1
-              ? item.options.y1.min
-              : undefined
-          },
-          update: function(item, newValue) {
-            if (!item.options) {
-              item.options = {}
-            }
-            if (!item.options.y1) {
-              item.options.y1 = new Axis()
-            }
-            item.options.y1.min = newValue
-          }
-        }
-      },
-      {
-        name: 'chart.y-axis-max',
-        property_name: 'y-axis-max',
-        category: 'chart',
-        edit_options: {
-          type: 'text',
-          value: function(item) {
-            return item.options && item.options.y1
-              ? item.options.y1.max
-              : undefined
-          },
-          update: function(item, newValue) {
-            if (!item.options) {
-              item.options = {}
-            }
-            if (!item.options.y1) {
-              item.options.y1 = new Axis()
-            }
-            item.options.y1.max = newValue
           }
         }
       },

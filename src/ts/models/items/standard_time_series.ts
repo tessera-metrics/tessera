@@ -1,4 +1,4 @@
-import Chart from './chart'
+import XYChart from './xychart'
 import Query from '../data/query'
 import { DashboardItemMetadata } from './item'
 import { register_dashboard_item } from './factory'
@@ -6,7 +6,7 @@ import * as charts from '../../charts/core'
 
 declare var $
 
-export default class StandardTimeSeries extends Chart {
+export default class StandardTimeSeries extends XYChart {
   static meta: DashboardItemMetadata = {
     icon: 'fa fa-line-chart'
   }

@@ -1,4 +1,4 @@
-import Chart from './chart'
+import XYChart from './xychart'
 import Query from '../data/query'
 import { DashboardItemMetadata } from './item'
 import { register_dashboard_item } from './factory'
@@ -8,7 +8,7 @@ import { PropertyList } from '../../core/property'
 
 declare var $
 
-export default class StackedAreaChart extends Chart {
+export default class StackedAreaChart extends XYChart {
   static meta: DashboardItemMetadata = {
     icon: 'fa fa-area-chart'
   }

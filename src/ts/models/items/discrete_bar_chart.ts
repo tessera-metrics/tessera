@@ -54,6 +54,7 @@ export default class DiscreteBarChart extends Chart {
     return super.interactive_properties().concat([
       'transform',
       'format',
+      'chart.y-axis-label',
       { name: 'show_grid', type: 'boolean' },
       { name: 'show_numbers', type: 'boolean' },
       {
