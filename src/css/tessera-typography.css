@@ -38,6 +38,7 @@ h1, h2, h3, h4 {
 
 .ds-jumbotron-singlestat .diff,
 .ds-jumbotron-singlestat .unit {
+    font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;
     text-transform: lowercase;
     font-size: 2em;
     font-weight: bold;
