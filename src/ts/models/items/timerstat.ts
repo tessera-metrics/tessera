@@ -134,6 +134,11 @@ export default class Timerstat extends Presentation {
     return <Timerstat> this.updated()
   }
 
+  set_precision(value: number) : Timerstat {
+    this.precision = value
+    return <Timerstat> this.updated()
+  }
+
   data_handler(query: Query) : void {
     let millis    = this._getMillis(query)
     let timeParts = this._getTimeParts(millis)
@@ -158,7 +163,15 @@ export default class Timerstat extends Presentation {
       'title',
       { name: 'index', type: 'number' },
       'scale',
-      { name: 'precision', type: 'number' },
+      {
+        name: 'precision', type: 'select',
+        edit_options: {
+          source: [1, 2, 3, 4, 5, 6],
+          update: (item, value) => {
+            item.set_precision(value)
+          }
+        }
+      },
       'transform',
       {
         name: 'language', type: 'select',
