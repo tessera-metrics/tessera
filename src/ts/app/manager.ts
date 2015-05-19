@@ -158,8 +158,12 @@ const manager =
         let dashboard = new Dashboard(data)
         holder.dashboard = dashboard
 
-        if (data.preferences.renderer) {
-          charts.set_renderer(data.preferences.renderer)
+        let r = context.variables.renderer || data.preferences.renderer
+        if (typeof context.variables.interactive != 'undefined') {
+          r = context.variables.interactive === 'false' ? 'graphite' : 'flot'
+        }
+        if (r) {
+          charts.set_renderer(r)
         }
 
         core.events.fire(self, app.Event.DASHBOARD_LOADED, dashboard)

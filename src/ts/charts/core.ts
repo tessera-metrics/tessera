@@ -1,3 +1,4 @@
+import * as core from '../core'
 import Chart from '../models/items/chart'
 import DashboardItem from '../models/items/item'
 import Query from '../models/data/query'
@@ -5,6 +6,7 @@ import { NamedObject, Registry } from '../core/registry'
 import * as graphite from '../data/graphite'
 
 export const DEFAULT_PALETTE = 'spectrum6'
+const log = core.logger('charts')
 
 export const StackMode = {
   NONE:    'none',
@@ -57,8 +59,14 @@ export var renderers = new Registry<ChartRenderer>({
 export var renderer : ChartRenderer
 
 export function set_renderer(r: string|ChartRenderer) {
+  log.debug(`set_renderer(): ${r}`)
   if (typeof r === 'string') {
-    renderer = renderers.get(r)
+    let _renderer = renderers.get(r)
+    if (!_renderer) {
+      log.error(`Unknown renderer ${r}`)
+    } else {
+      renderer = _renderer
+    }
   } else {
     renderer = r
   }
