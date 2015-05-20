@@ -1,6 +1,7 @@
 import * as core from '../core'
 import * as app from '../app/app'
 import manager from '../app/manager'
+import Axis from '../models/axis'
 import Query from '../models/data/query'
 import Container from '../models/items/container'
 import { make } from '../models/items/factory'
@@ -129,13 +130,27 @@ function new_chart_from_graphite_url(url_string) {
     .set_height(Math.min(8, Math.floor(((data.height || 400) / 80))))
     .set_title(data.title)
 
+  chart.options = chart.options || {}
+
   if (data.vtitle) {
-    chart.options = chart.options || {}
-    chart.options.yAxisLabel = data.vtitle
+    if (!chart.options.y1)
+      chart.options.y1 = new Axis()
+    chart.options.y1.label = data.vtitle
+  }
+
+  if (data.yMin) {
+    if (!chart.options.y1)
+      chart.options.y1 = new Axis()
+    chart.options.y1.min = data.yMin
+  }
+
+  if (data.yMax) {
+    if (!chart.options.y1)
+      chart.options.y1 = new Axis()
+    chart.options.y1.max = data.yMax
   }
 
   if (data.template) {
-    chart.options = chart.options || {}
     chart.options.palette = data.template
   }
 
