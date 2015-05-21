@@ -466,12 +466,15 @@ export class Manager {
   }
 
   create(dashboard, handler?) : void {
+    let upload_data = dashboard
+    if (typeof upload_data != 'string')
+      upload_data = JSON.stringify(core.json(upload_data))
     $.ajax({
       type: 'POST',
       url: app.uri('/api/dashboard/'),
       contentType: 'application/json',
       dataType: 'json',
-      data: JSON.stringify(dashboard)
+      data: upload_data
     }).done((data) => {
       if (handler && handler instanceof Function) {
         handler(data)

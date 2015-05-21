@@ -41,7 +41,7 @@ actions.register('dashboard-list-actions', [
   new Action({
     name:    'export',
     display: 'Export...',
-    icon:    'fa fa-floppy-o',
+    icon:    'fa fa-download',
     handler: function(action, context) {
       manager.get_with_definition(context.href, (data) => {
         let json = JSON.stringify(core.json(data), null, '  ')
