@@ -327,7 +327,7 @@
               {
                 "item_id": "d67", 
                 "item_type": "cell", 
-                "span": 5, 
+                "span": 4, 
                 "items": [
                   {
                     "format": ",.3s", 
@@ -337,6 +337,23 @@
                     "transform": "mean", 
                     "item_type": "timeshift_jumbotron_singlestat", 
                     "item_id": "d66", 
+                    "query": "collector"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d75", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "format": ",.3s", 
+                    "shift": "1w", 
+                    "title": "timeshifted jumbotron", 
+                    "percent": false, 
+                    "transform": "sum", 
+                    "item_type": "timeshift_jumbotron_singlestat", 
+                    "item_id": "d77", 
                     "query": "collector"
                   }
                 ]
@@ -475,7 +492,7 @@
                   {
                     "item_id": "d49", 
                     "item_type": "markdown", 
-                    "text": "* Don't display tags with zero dashboards in the tag list"
+                    "text": "\n* Don't display tags with zero dashboards in the tag list.\n* Don't allow saving dashboards when a transform has been applied.\n* HandlebarsJS engine upgraded to version 3.0.\n* A UI for import and export of dashboards from local JSON files."
                   }
                 ]
               }
@@ -489,7 +506,7 @@
       }
     ], 
     "item_type": "dashboard_definition", 
-    "href": "/api/dashboard/25/definition", 
+    "href": "/api/dashboard/15/definition", 
     "queries": {
       "a": {
         "name": "a", 
@@ -527,25 +544,25 @@
       "from": "-3h"
     }
   }, 
-  "view_href": "/dashboards/25/what-s-new-in-0-7", 
+  "view_href": "/dashboards/15/what-s-new-in-0-7", 
   "description": null, 
   "tags": [
     {
-      "count": 10, 
+      "count": 11, 
       "bgcolor": "green", 
       "id": 6, 
       "name": "featured"
     }, 
     {
-      "count": 1, 
+      "count": 3, 
       "id": 14, 
       "name": "release-notes"
     }
   ], 
   "title": "What's new in 0.7?", 
   "summary": "", 
-  "definition_href": "/api/dashboard/25/definition", 
-  "href": "/api/dashboard/25", 
-  "id": 25, 
+  "definition_href": "/api/dashboard/15/definition", 
+  "href": "/api/dashboard/15", 
+  "id": 15, 
   "imported_from": null
 }

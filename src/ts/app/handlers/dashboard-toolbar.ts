@@ -1,8 +1,9 @@
 import * as app from '../app'
+import * as core from '../../core'
 import manager from '../manager'
 import { make } from '../../models/items/factory'
 
-declare var $, marked, ts
+declare var $, marked, ts, moment, window
 
 /*
  * Logic for the dashboard-toolbar.html template.
@@ -24,14 +25,14 @@ app.add_mode_handler('edit', {
         }
       })
 
-      /** Category */
-      $("#ds-info-panel-edit-category").editable({
-        unsavedclass: null,
-        success: function(ignore, newValue) {
-          manager.current.dashboard.category = newValue
-          manager.update(manager.current.dashboard)
-        }
-      })
+    /** Category */
+    $("#ds-info-panel-edit-category").editable({
+      unsavedclass: null,
+      success: function(ignore, newValue) {
+        manager.current.dashboard.category = newValue
+        manager.update(manager.current.dashboard)
+      }
+    })
 
       $("#ds-info-panel-edit-summary").editable({
         unsavedclass: null,
@@ -85,6 +86,14 @@ $(document).ready(function() {
    */
   $(document).on('click', '#ds-edit-info-button', function(e) {
     app.toggle_mode(app.Mode.EDIT)
+  })
+
+  $(document).on('click', '#ds-export-button', function(e) {
+    let dashboard = manager.current.dashboard
+    let json = JSON.stringify(core.json(dashboard), null, '  ')
+    let blob = new Blob([json], { type: 'application/json;charset=utf-8' })
+    let now  = moment().format()
+    window.saveAs(blob, `${dashboard.title} ${now}`)
   })
 
   $(document).on('click', '#ds-toggle-interactive-button', function(e) {

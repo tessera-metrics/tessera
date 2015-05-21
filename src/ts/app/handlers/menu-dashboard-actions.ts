@@ -1,11 +1,12 @@
 import Action, { actions } from '../../core/action'
 import manager from '../manager'
 import * as app from '../app'
+import * as core from '../../core'
 
-declare var $, URI
+declare var $, URI, moment, window
 
 /**
- * Actions that operate on dashboard in the listing page, and the
+ * Actions that operate on dashboards in the listing page, and the
  * handler to invoke them from the dashboard-list.html template.
  */
 
@@ -38,8 +39,19 @@ actions.register('dashboard-list-actions', [
     }
   }),
   new Action({
-    divider: true
+    name:    'export',
+    display: 'Export...',
+    icon:    'fa fa-download',
+    handler: function(action, context) {
+      manager.get_with_definition(context.href, (data) => {
+        let json = JSON.stringify(core.json(data), null, '  ')
+        let blob = new Blob([json], { type: 'application/json;charset=utf-8' })
+        let now  = moment().format()
+        window.saveAs(blob, `${data.title} ${now}`)
+      })
+    }
   }),
+  Action.DIVIDER,
   new Action({
     name:    'delete',
     display: 'Delete...',
