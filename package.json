@@ -40,7 +40,8 @@
     "moment-timezone": "^0.3.1",
     "mousetrap": "^1.5.2",
     "select2": "^3.5.2-browserify",
-    "simple-statistics": "^0.9.1"
+    "simple-statistics": "^0.9.1",
+    "store": "^1.3.17"
   },
   "devDependencies": {
     "babel-core": "^5.1.11",

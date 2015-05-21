@@ -417,6 +417,14 @@ def ui_preferences():
                             breadcrumbs=[('Home', url_for('ui_root')),
                                          (title, '')])
 
+@app.route('/favorites/')
+def ui_favorites():
+    title = 'Favorites'
+    return _render_template('dashboard-list.html',
+                            title=title,
+                            breadcrumbs=[('Home', url_for('ui_root')),
+                                         (title, '')])
+
 @app.route('/dashboards/')
 def ui_dashboard_list():
     title = 'Dashboards'
