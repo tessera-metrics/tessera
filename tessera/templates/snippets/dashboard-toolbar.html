@@ -8,6 +8,7 @@
   </div>
 
   <!-- toolbar -->
+  <!-- TODO - this whole thing should be rendered client-side from Action definitions -->
   <div class="col-md-5">
     <div class="btn-toolbar pull-right">
 
@@ -58,6 +59,11 @@
         <!-- Edit button -->
         <button type="button" id="ds-edit-info-button" class="btn btn-default" data-toggle="tooltip" title="Edit" data-ds-hide="transform">
           <i class="fa fa-edit"></i>
+        </button>
+
+        <!-- Export button -->
+        <button type="button" id="ds-export-button" class="btn btn-default" data-toggle="tooltip" title="Export..." data-ds-hide="transform">
+          <i class="fa fa-download"></i>
         </button>
 
         <!-- Toggle interactive button -->

@@ -59,3 +59,4 @@ built with as many "off-the-shelf" components as possible.
   API for browsers that don't support it natively (i.e. Safari 8).
 * [node-inflection](https://github.com/dreamerslab/node.inflection)
 * [HumanizeDuration](https://github.com/EvanHahn/HumanizeDuration.js)
+* [filejaver.js](https://www.npmjs.com/package/filesaver.js)

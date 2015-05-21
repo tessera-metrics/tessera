@@ -466,12 +466,15 @@ export class Manager {
   }
 
   create(dashboard, handler?) : void {
+    let upload_data = dashboard
+    if (typeof upload_data != 'string')
+      upload_data = JSON.stringify(core.json(upload_data))
     $.ajax({
       type: 'POST',
       url: app.uri('/api/dashboard/'),
       contentType: 'application/json',
       dataType: 'json',
-      data: JSON.stringify(dashboard)
+      data: upload_data
     }).done((data) => {
       if (handler && handler instanceof Function) {
         handler(data)
@@ -517,30 +520,32 @@ export class Manager {
     })
   }
 
-  // Oh this is ugly
-  duplicate(href, handler?) : void {
-    // Get dashboard
-    $.get(href, (data) => {
+  get_with_definition(href: string, handler) : void {
+    $.ajax({
+      url: href,
+      dataType: 'json',
+      data: {
+        definition: true
+      }
+    }).done(handler)
+  }
+
+  duplicate(href: string, handler?) : void {
+    this.get_with_definition(href, (data) => {
       let dashboard = data
       dashboard.title = 'Copy of ' + dashboard.title
-
-      // Get definition
-      $.get(href + '/definition', (data) => {
-        dashboard.definition = data
-        // Duplicate dashboard
-        $.ajax({
-          type: 'POST',
-          url: app.uri('/api/dashboard/'),
-          contentType: 'application/json',
-          dataType: 'json',
-          data: JSON.stringify(dashboard)
-        }).done((data) => {
-          if (handler) {
-            handler()
-          }
-        }).error((xhr, status, error) => {
-          this.error('Error duplicating dashboard ' + href + '. ' + error)
-        })
+      $.ajax({
+        type: 'POST',
+        url: app.uri('/api/dashboard/'),
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(dashboard)
+      }).done((data) => {
+        if (handler) {
+          handler()
+        }
+      }).error((xhr, status, error) => {
+        this.error('Error duplicating dashboard ' + href + '. ' + error)
       })
     })
   }

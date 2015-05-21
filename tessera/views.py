@@ -425,6 +425,15 @@ def ui_favorites():
                             breadcrumbs=[('Home', url_for('ui_root')),
                                          (title, '')])
 
+@app.route('/import/')
+def ui_import():
+    _get_preferences(store_in_session=True),
+    title = 'Import Dashboards'
+    return _render_template('import.html',
+                            title=title,
+                            breadcrumbs=[('Home', url_for('ui_root')),
+                                         (title, '')])
+
 @app.route('/dashboards/')
 def ui_dashboard_list():
     title = 'Dashboards'
