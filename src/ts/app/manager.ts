@@ -517,14 +517,18 @@ export class Manager {
     })
   }
 
-
-  duplicate(href: string, handler?) : void {
-    // Get dashboard
+  get_with_definition(href: string, handler) : void {
     $.ajax({
       url: href,
-      data: { definition: true },
-      dataType: 'json'
-    }).done((data) => {
+      dataType: 'json',
+      data: {
+        definition: true
+      }
+    }).done(handler)
+  }
+
+  duplicate(href: string, handler?) : void {
+    this.get_with_definition(href, (data) => {
       let dashboard = data
       dashboard.title = 'Copy of ' + dashboard.title
       $.ajax({

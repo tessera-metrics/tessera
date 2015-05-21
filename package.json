@@ -29,6 +29,7 @@
     "d3": "^3.5.5",
     "datatables": "^1.10.7",
     "extend": "^2.0.1",
+    "filesaver.js": "^0.1.1",
     "handlebars": "^3.0.3",
     "highlight.js": "^8.5.0",
     "holderjs": "^2.7.1",
