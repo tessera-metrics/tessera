@@ -517,30 +517,28 @@ export class Manager {
     })
   }
 
-  // Oh this is ugly
-  duplicate(href, handler?) : void {
+
+  duplicate(href: string, handler?) : void {
     // Get dashboard
-    $.get(href, (data) => {
+    $.ajax({
+      url: href,
+      data: { definition: true },
+      dataType: 'json'
+    }).done((data) => {
       let dashboard = data
       dashboard.title = 'Copy of ' + dashboard.title
-
-      // Get definition
-      $.get(href + '/definition', (data) => {
-        dashboard.definition = data
-        // Duplicate dashboard
-        $.ajax({
-          type: 'POST',
-          url: app.uri('/api/dashboard/'),
-          contentType: 'application/json',
-          dataType: 'json',
-          data: JSON.stringify(dashboard)
-        }).done((data) => {
-          if (handler) {
-            handler()
-          }
-        }).error((xhr, status, error) => {
-          this.error('Error duplicating dashboard ' + href + '. ' + error)
-        })
+      $.ajax({
+        type: 'POST',
+        url: app.uri('/api/dashboard/'),
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(dashboard)
+      }).done((data) => {
+        if (handler) {
+          handler()
+        }
+      }).error((xhr, status, error) => {
+        this.error('Error duplicating dashboard ' + href + '. ' + error)
       })
     })
   }
