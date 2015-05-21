@@ -114,6 +114,10 @@ table.dataTable thead .sorting_desc_disabled:after {
    Application Styles
    ============================================================================= */
 
+.ds-favorited i::before {
+    color: red;
+}
+
 .ds-grid .well {
     padding-bottom: 1em;
 }

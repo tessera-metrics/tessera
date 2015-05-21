@@ -420,7 +420,7 @@ def ui_preferences():
 @app.route('/favorites/')
 def ui_favorites():
     title = 'Favorites'
-    return _render_template('dashboard-list.html',
+    return _render_template('favorites.html',
                             title=title,
                             breadcrumbs=[('Home', url_for('ui_root')),
                                          (title, '')])

@@ -5,6 +5,7 @@ import * as app       from './app/app'
 import * as edit      from './edit/edit'
 import { actions }    from './core/action'
 import { transforms } from './models/transform/transform'
+import User           from './models/user'
 import { extend }     from './core/util'
 import manager        from './app/manager'
 import Config         from './app/config'
@@ -15,6 +16,7 @@ import PlaceholderChartRenderer from './charts/placeholder'
 declare var window, $
 
 var log = logging.logger('main')
+const user = new User()
 
 extend(window.ts, {
   app: app,
@@ -23,7 +25,8 @@ extend(window.ts, {
   factory: factory,
   actions: actions,
   edit: edit,
-  transforms: transforms
+  transforms: transforms,
+  user: user
 })
 app.config = window.ts.config
 

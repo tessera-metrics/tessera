@@ -66,6 +66,12 @@
     ts.manager.list(path, function(data) {
       var rendered = ts.templates.listing.dashboard_list({ dashboards: data })
       $("#ds-dashboard-main-listing").html(rendered)
+
+      ts.user.list_favorites().forEach(function(d) {
+        $('[data-ds-href="' + d.href + '"].ds-favorite-indicator').html('<i class="fa fa-lg fa-star"></i>')
+        $('[data-ds-href="' + d.href + '"]').addClass('ds-favorited')
+        $('tr[data-ds-href="' + d.href + '"]').addClass('active')
+      })
     })
 
     $.ajax({

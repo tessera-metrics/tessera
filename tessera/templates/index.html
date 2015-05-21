@@ -63,6 +63,11 @@
      if (data && data.length) {
        $("#ds-featured-dashboards").show()
        $("#ds-dashboard-featured-listing").html(ts.templates.listing.dashboard_list({dashboards: data}))
+      ts.user.list_favorites().forEach(function(d) {
+        $('[data-ds-href="' + d.href + '"].ds-favorite-indicator').html('<i class="fa fa-lg fa-star"></i>')
+        $('[data-ds-href="' + d.href + '"]').addClass('ds-favorited')
+        $('tr[data-ds-href="' + d.href + '"]').addClass('active')
+      })
      }
    })
 
