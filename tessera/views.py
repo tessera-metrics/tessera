@@ -471,7 +471,12 @@ def ui_dashboard_with_slug(id, slug, path):
 def ui_dashboard(id, slug=None, path=None):
     transform = None
     if path and path.find('transform') > -1:
-        element, ignore, name = path.split('/')
+        components = path.split('/')
+        if len(components) == 2:
+            name = components[1]
+            element = slug
+        elif len(components) == 3:
+            element, ignore, name = components
         transform = {
             'element': element,
             'name' : name
