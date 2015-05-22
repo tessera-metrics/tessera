@@ -18,7 +18,7 @@ export default class User extends Model {
   constructor() {
     super()
     let data = store.get(STORAGE_KEY)
-    if (data.favorites) {
+    if (data && data.favorites) {
       data.favorites = data.favorites.map((pair) => {
         let [key, dashboard_data] = pair
         return [key, new Dashboard(dashboard_data)]
