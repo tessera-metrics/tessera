@@ -83,6 +83,10 @@
         $(".ds-secondary-title").text(e.target.expanded_title || e.target.title || '')
         $(".ds-summary").text(e.target.expanded_summary || e.target.summary || '')
       })
+
+      if (ts.user.favorites.has(dashboard.href)) {
+        $('#ds-favorite-button').html('<i class="fa fa-star"></i>').addClass('ds-favorited')
+      }
     })
 
     {% if transform %}

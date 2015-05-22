@@ -128,6 +128,7 @@ ul.ds-header-links a.active {
     padding-bottom: .125em;
 }
 
+button.ds-favorited i::before,
 .ds-favorite-indicator.ds-favorited i::before {
     color: red;
 }

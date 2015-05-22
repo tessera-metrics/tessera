@@ -34,21 +34,35 @@ export default class User extends Model {
   }
 
   add_favorite(d: Dashboard) : User {
+    log.debug(`add_favorite(${d.href})`)
     if (!this.favorites.has(d.href)) {
       // Make a copy of the dashboard without the definition, to
       // minimize the amount of data stored locally.
       let dash = new Dashboard(d.toJSON())
         .set_definition(null)
       this.favorites.set(dash.href, dash)
+      this.store()
+    }
+    return this
+  }
+
+  remove_favorite(d: Dashboard) : User {
+    log.debug(`remove_favorite(${d.href})`)
+    if (this.favorites.has(d.href)) {
+      this.favorites.delete(d.href)
+      this.store()
     }
     return this.store()
   }
 
-  remove_favorite(d: Dashboard) : User {
+  toggle_favorite(d: Dashboard) : boolean {
     if (this.favorites.has(d.href)) {
-      this.favorites.delete(d.href)
+      this.remove_favorite(d)
+      return false
+    } else {
+      this.add_favorite(d)
+      return true
     }
-    return this
   }
 
   list_favorites() : Dashboard[] {

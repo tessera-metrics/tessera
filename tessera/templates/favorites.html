@@ -29,12 +29,7 @@
 
   <script>
    $(document).ready(function() {
-     var rendered = ts.templates.listing.dashboard_list({ dashboards: ts.user.list_favorites() })
-     $("#ds-dashboard-main-listing").html(rendered)
-     ts.user.list_favorites().forEach(function(d) {
-       var selector = '[data-ds-href="' + d.href + '"].ds-favorite-indicator'
-       $(selector).html('<i class="fa fa-lg fa-star"></i>').addClass('ds-favorited')
-     })
+     ts.manager.render_dashboard_list(ts.user.list_favorites(), '#ds-dashboard-main-listing')
    })
   </script>
 

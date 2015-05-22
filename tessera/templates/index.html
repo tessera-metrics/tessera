@@ -59,22 +59,16 @@
 
   <script>
    /* Load featured dashboard list */
-   ts.manager.list('{{url_for('api_dashboard_list_tagged', tag='featured')|safe}}', function(data) {
-     if (data && data.length) {
-       $("#ds-featured-dashboards").show()
-       $("#ds-dashboard-featured-listing").html(ts.templates.listing.dashboard_list({dashboards: data}))
-      ts.user.list_favorites().forEach(function(d) {
-        $('[data-ds-href="' + d.href + '"].ds-favorite-indicator').html('<i class="fa fa-lg fa-star"></i>')
-        $('[data-ds-href="' + d.href + '"]').addClass('ds-favorited')
-        $('tr[data-ds-href="' + d.href + '"]').addClass('active')
-      })
-     }
-   })
+   ts.manager.render_dashboard_list('{{url_for('api_dashboard_list_tagged', tag='featured')|safe}}',
+                                    '#ds-dashboard-featured-listing',
+                                    function(data) {
+                                      $("#ds-featured-dashboards").show()
+                                    })
 
    /* Load the dashboards tagged with 'featured-billboard', and
     * select one of them at random to display at the top of the
     * page. */
-    ts.manager.list('{{url_for('api_dashboard_list_tagged', tag='featured-billboard')|safe}}', function(data) {
+   ts.manager.list('{{url_for('api_dashboard_list_tagged', tag='featured-billboard')|safe}}', function(data) {
      if (data && data.length > 0) {
        var dashboard = data[Math.floor(Math.random() * data.length)]
        ts.manager.load(dashboard.href, '.ds-featured-dashboard', {
