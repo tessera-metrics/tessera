@@ -57,27 +57,56 @@
       <div class="btn-group">
 
         <!-- Edit button -->
-        <button type="button" id="ds-edit-info-button" class="btn btn-default" data-toggle="tooltip" title="Edit" data-ds-hide="transform">
+        <button type="button"
+                id="ds-edit-info-button"
+                class="btn btn-default"
+                data-toggle="tooltip"
+                title="Edit"
+                data-ds-hide="transform">
           <i class="fa fa-edit"></i>
         </button>
 
         <!-- Export button -->
-        <button type="button" id="ds-export-button" class="btn btn-default" data-toggle="tooltip" title="Export..." data-ds-hide="transform">
+        <button type="button"
+                id="ds-export-button"
+                class="btn btn-default"
+                data-toggle="tooltip"
+                title="Export..."
+                data-ds-hide="transform">
           <i class="fa fa-download"></i>
         </button>
 
         <!-- Toggle interactive button -->
-        <button data-ds-hide="edit transform" type="button" id="ds-toggle-interactive-button" class="btn btn-default {% if ctx.prefs.interactive %} {% else %} active {% endif %}" data-toggle="tooltip" title="Toggle Interactive Graphs">
+        <button type="button"
+                id="ds-toggle-interactive-button"
+                class="btn btn-default {% if ctx.prefs.interactive %} {% else %} active {% endif %}"
+                data-toggle="tooltip"
+                title="Toggle Interactive Graphs"
+                data-ds-hide="edit transform">
           <i class="fa fa-lock"></i>
         </button>
 
-        <button data-ds-show="transform" style="display:none;" class="btn btn-default" id="ds-remove-transform-button" data-toggle="tooltip" title="Back to full dashboard">
+        <button id="ds-remove-transform-button"
+                style="display:none;"
+                class="btn btn-default"
+                data-toggle="tooltip"
+                title="Back to full dashboard"
+                data-ds-show="transform">
           <i class="fa fa-arrow-left"></i>
         </button>
 
         {% include "snippets/rejigger-button.html" %}
 
         {% include "snippets/refresh-button.html" %}
+
+        <!-- Favorite button -->
+        <button type="button"
+                id="ds-favorite-button"
+                class="btn btn-default"
+                data-toggle="tooltip"
+                title="Mark as Favorite">
+          <i class="fa fa-star-o"></i>
+        </button>
 
         <!-- Display mode button -->
         <button data-ds-hide="transform" type="button" id="ds-enter-fullscreen-button" class="btn btn-default" data-toggle="tooltip" title="Enter Display Mode">

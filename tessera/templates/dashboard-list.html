@@ -63,10 +63,7 @@
     {% else %}
       var path = '{{url_for('api_dashboard_list', sort=ctx.get('sort', 'created'), order=ctx.get('order', 'desc'))|safe}}'
     {% endif %}
-    ts.manager.list(path, function(data) {
-      var rendered = ts.templates.listing.dashboard_list({ dashboards: data })
-      $("#ds-dashboard-main-listing").html(rendered)
-    })
+    ts.manager.render_dashboard_list(path, '#ds-dashboard-main-listing')
 
     $.ajax({
       dataType: 'json',

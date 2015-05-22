@@ -32,16 +32,18 @@
                       id="ds-import-filepicker-button">
                 <i class="fa fa-file-text-o"> </i> Choose File...
               </button>
-              <div id="ds-import-filename"></div>
-            </div>
-            <div class="col-md-2">
               <button class="btn btn-default"
                       id="ds-import-from-file-button"
                       data-toggle="tooltip"
+                      disabled="disabled"
                       title="Import from Selected File">
                 <i class="fa fa-upload"></i> Import
               </button>
+              <div id="ds-import-filename"></div>
             </div>
+            <div class="col-md-2">
+            </div>
+            <p class="help-block">Import a Tessera dashboard definition from a .JSON file.</p>
           </div>
 
         </fieldset>
@@ -61,6 +63,9 @@
  #ds-import-filepicker {
    display: none;
  }
+ #ds-import-filename {
+   margin-top: 1em;
+ }
 </style>
 
 <script>
@@ -73,6 +78,7 @@ $(document).on('change', '#ds-import-filepicker', function(e) {
   var file_list = this.files
   if (file_list.length > 0) {
     $('#ds-import-filename').text(file_list[0].name)
+    $('#ds-import-from-file-button').removeAttr('disabled')
   }
 })
 

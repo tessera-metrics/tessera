@@ -417,6 +417,14 @@ def ui_preferences():
                             breadcrumbs=[('Home', url_for('ui_root')),
                                          (title, '')])
 
+@app.route('/favorites/')
+def ui_favorites():
+    title = 'Favorites'
+    return _render_template('favorites.html',
+                            title=title,
+                            breadcrumbs=[('Home', url_for('ui_root')),
+                                         (title, '')])
+
 @app.route('/import/')
 def ui_import():
     _get_preferences(store_in_session=True),

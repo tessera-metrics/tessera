@@ -140,4 +140,31 @@ $(document).ready(function() {
     })
   })
 
+  $(document).on('click', '#ds-favorite-button', function(e) {
+    let dashboard = manager.current.dashboard
+    if (ts.user.toggle_favorite(dashboard)) {
+      $('#ds-favorite-button').html('<i class="fa fa-star"></i>').addClass('ds-favorited')
+    } else {
+      $('#ds-favorite-button').html('<i class="fa fa-star-o"></i>').removeClass('ds-favorited')
+    }
+  })
+
+  $(document).on('click', '.ds-favorite-indicator', function(e) {
+    let element = $(e.target).parent()[0]
+    let href    = element.getAttribute('data-ds-href')
+    let d       = ts.manager.find(href)
+    if (d) {
+      // TODO -- all this rendering code should be triggered by events
+      // on the user model
+      if (ts.user.toggle_favorite(d)) {
+        $('[data-ds-href="' + d.href + '"].ds-favorite-indicator').html('<i class="fa fa-lg fa-star"></i>')
+        $('[data-ds-href="' + d.href + '"]').addClass('ds-favorited')
+        $('tr[data-ds-href="' + d.href + '"]').addClass('active')
+      } else {
+        $('[data-ds-href="' + d.href + '"].ds-favorite-indicator').html('<i class="fa fa-lg fa-star-o"></i>')
+        $('[data-ds-href="' + d.href + '"]').removeClass('ds-favorited')
+        $('tr[data-ds-href="' + d.href + '"]').removeClass('active')
+      }
+    }
+  })
 })

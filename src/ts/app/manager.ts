@@ -16,9 +16,9 @@ declare var $, URI, window, bootbox, ts
 const log = core.logger('manager')
 
 class DashboardHolder {
-  url
-  element
-  dashboard
+  url : string
+  element : any
+  dashboard : Dashboard
 
   constructor(url, element) {
     this.url = url
@@ -41,14 +41,20 @@ class DashboardHolder {
 export class Manager {
   current: any /* DashboardHolder */
   current_transform: any
+  current_list: Dashboard[]
 
   constructor() {
   }
 
-
   set_current(value) : Manager {
     this.current = value
     return this
+  }
+
+  find(href: string) : Dashboard {
+    if (!this.current_list)
+      return null
+    return this.current_list.find(d => d.href === href)
   }
 
   /**
@@ -69,10 +75,35 @@ export class Manager {
       dataType: 'json',
       url: path
     }).done((data) => {
+      data = data.map(d => new Dashboard(d))
       handler(data)
     }).error((xhr, status, error) => {
       this.error('Error listing dashboards. ' + error)
     })
+  }
+
+  // Web Components. I want Web Components. TBD.
+  render_dashboard_list(path, element, handler?) : void {
+    let mgr = this
+    let fn = (data) => {
+      if (data && data.length) {
+        this.current_list = data
+        if (handler) {
+          handler(data)
+        }
+        $(element).html(ts.templates.listing.dashboard_list({dashboards: data}))
+        ts.user.list_favorites().forEach(function(d) {
+          $('[data-ds-href="' + d.href + '"].ds-favorite-indicator').html('<i class="fa fa-lg fa-star"></i>')
+          $('[data-ds-href="' + d.href + '"]').addClass('ds-favorited')
+          $('tr[data-ds-href="' + d.href + '"]').addClass('active')
+        })
+      }
+    }
+    if (path instanceof Array) {
+      fn(path)
+    } else {
+      this.list(path, fn)
+    }
   }
 
   default_error_handler(xhr, status, error) : void {

@@ -1,9 +1,6 @@
 <tr data-ds-href="{{href}}">
   <td>
     <div class="row">
-      <div class=""> <!-- col-md-1 -->
-        <!-- <a href="/dashboards/{{id}}"><i class="fa fa-2x fa-dashboard"></i></a> -->
-      </div>
       <div class="col-md-12">
 
         <div class="pull-left">
@@ -26,6 +23,10 @@
 
         <div class="pull-right" style="margin-left: 0.5em">
           {{> ds-dashboard-listing-action-menu}}
+        </div>
+
+        <div data-ds-href="{{href}}" class="pull-right ds-favorite-indicator" style="margin-left: 0.5em">
+          <i class="text-muted fa fa-lg fa-star-o"></i>
         </div>
 
         <div class="pull-right" style="text-align:right">

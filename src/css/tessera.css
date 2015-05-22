@@ -114,6 +114,25 @@ table.dataTable thead .sorting_desc_disabled:after {
    Application Styles
    ============================================================================= */
 
+ul.ds-header-links {
+    list-style: none;
+}
+
+ul.ds-header-links li {
+    display: inline;
+    margin-left: .5em;
+}
+
+ul.ds-header-links a.active {
+    border-bottom: 2px solid;
+    padding-bottom: .125em;
+}
+
+button.ds-favorited i::before,
+.ds-favorite-indicator.ds-favorited i::before {
+    color: red;
+}
+
 .ds-grid .well {
     padding-bottom: 1em;
 }
