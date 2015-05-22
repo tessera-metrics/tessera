@@ -134,10 +134,18 @@ $(document).ready(function() {
 
   $(document).on('click', '#ds-view-dashboard-source-button', function(e) {
     let dashboard = manager.current.dashboard
-    $.get(dashboard.href + '?definition=true', function(data) {
-      let contents = '<div class="container">' + ts.templates.edit.item_source({item:data}) + '</div>'
-      $(manager.current.element).html(contents)
-    })
+    let selector = '#ds-dashboard-source'
+    let source_elt = $(selector)
+    if (!source_elt.length) {
+      $.get(dashboard.href + '?definition=true', function(data) {
+        let contents = '<div id="ds-dashboard-source" class="container">' + ts.templates.edit.item_source({item:data}) + '</div>'
+        $('.ds-dashboard').hide()
+        $('#dashboard').append(contents)
+      })
+    } else {
+      source_elt.remove()
+      $('.ds-dashboard').show()
+    }
   })
 
   $(document).on('click', '#ds-favorite-button', function(e) {
