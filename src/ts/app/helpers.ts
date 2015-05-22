@@ -132,6 +132,8 @@ Handlebars.registerHelper('ds-edit-bar', function(item) {
     template = ts.templates["ds-edit-bar-row"]
   } else if (item.item_type === 'section') {
     template = ts.templates["ds-edit-bar-section"]
+  } else if (item.item_type === 'dashboard_definition') {
+    template = ts.templates["ds-edit-bar-definition"]
   } else {
     template = ts.templates["ds-edit-bar-item"]
   }

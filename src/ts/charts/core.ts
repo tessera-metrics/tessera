@@ -86,6 +86,11 @@ export function get_renderer(item?: DashboardItem|string) : ChartRenderer {
   } else {
     name = item['renderer']
   }
+  if (item instanceof DashboardItem) {
+    if (!name && item.dashboard && item.dashboard.definition) {
+      name = item.dashboard.definition.renderer
+    }
+  }
   return renderers.get(name) || renderer
 }
 

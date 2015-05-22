@@ -3,12 +3,11 @@ import Presentation from './presentation'
 import { DashboardItemMetadata } from './item'
 import Query, { QueryDictionary } from '../data/query'
 import { register_dashboard_item } from './factory'
-import { extend } from '../../core/util'
-import { logger } from '../../core/log'
+import * as core from '../../core'
 import * as charts from '../../charts/core'
 
 declare var $, ts
-const log = logger('models.dashboard_definition')
+const log = core.logger('models.dashboard_definition')
 
 export default class DashboardDefinition extends Container {
   static meta: DashboardItemMetadata = {
@@ -17,15 +16,19 @@ export default class DashboardDefinition extends Container {
 
   queries: QueryDictionary = {}
   options: any = {}
+  renderer: string
 
   constructor(data?: any) {
     super(data)
-    if (data && data.queries) {
-      for (let key in data.queries) {
-        let query = data.queries[key]
-        this.queries[key] = (typeof(query) === 'string' || query instanceof Array)
-          ? new Query({name: key, targets: query})
-        : new Query(query)
+    if (data) {
+      this.renderer = data.renderer
+      if (data.queries) {
+        for (let key in data.queries) {
+          let query = data.queries[key]
+          this.queries[key] = (typeof(query) === 'string' || query instanceof Array)
+            ? new Query({name: key, targets: query})
+          : new Query(query)
+        }
       }
     }
   }
@@ -163,13 +166,20 @@ export default class DashboardDefinition extends Container {
     return updated
   }
 
+  interactive_properties() : core.PropertyList {
+    return super.interactive_properties().concat([
+      'chart.renderer'
+    ])
+  }
+
   toJSON() : any {
     let q : any = {}
     for (let key in this.queries) {
       q[key] = this.queries[key].toJSON()
     }
-    return extend(super.toJSON(), {
-      queries: q
+    return core.extend(super.toJSON(), {
+      queries: q,
+      renderer: this.renderer
     })
   }
 } // end class DashboardDefinition

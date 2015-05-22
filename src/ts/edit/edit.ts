@@ -22,15 +22,15 @@ const log = core.logger('edit')
 app.add_mode_handler(app.Mode.EDIT, {
   enter: function() {
     log.debug('mode_handler.enter()')
-    $('.ds-section, .ds-cell, .ds-row').addClass('ds-edit')
+    $('.ds-dashboard .ds-section, .ds-cell, .ds-row').addClass('ds-edit')
   },
   exit: function() {
     log.debug('mode_handler.exit()')
-    $('.ds-section, .ds-cell, .ds-row').removeClass('ds-edit')
+    $('.ds-dashboard .ds-section, .ds-cell, .ds-row').removeClass('ds-edit')
   },
   refresh: function() {
     log.debug('mode_handler.refresh()')
-    $('.ds-section, .ds-cell, .ds-row').addClass('ds-edit')
+    $('.ds-dashboard .ds-section, .ds-cell, .ds-row').addClass('ds-edit')
   }
 })
 
