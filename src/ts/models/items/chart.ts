@@ -5,7 +5,7 @@ import * as core from '../../core'
 import * as charts from '../../charts/core'
 import PALETTES from '../../charts/palettes'
 
-core.properties.register({
+core.properties.register([{
   name:          'chart.palette',
   property_name: 'palette',
   category:      'chart',
@@ -34,7 +34,17 @@ core.properties.register({
       item.updated()
     }
   }
-})
+}, {
+  name: 'chart.renderer',
+  property_name: 'renderer',
+  category: 'chart',
+  edit_options: {
+    type: 'select',
+    source: function() {
+      return [undefined].concat([...charts.renderers.list().map(r => r.name)])
+    }
+  }
+}])
 
 export const ChartLegendType = {
   SIMPLE: 'simple',
@@ -118,17 +128,7 @@ export default class Chart extends Presentation {
         type: 'boolean',
         category: 'chart'
       },
-      {
-        name: 'chart.renderer',
-        property_name: 'renderer',
-        category: 'chart',
-        edit_options: {
-          type: 'select',
-          source: function() {
-            return [undefined].concat([...charts.renderers.list().map(r => r.name)])
-          }
-        }
-      },
+      'chart.renderer',
       'chart.palette',
       {
         name: 'chart.legend',

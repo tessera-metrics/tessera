@@ -1,4 +1,4 @@
-import * as logging   from './core/log'
+import * as core      from './core'
 import * as charts    from './charts/core'
 import * as factory   from './models/items/factory'
 import * as app       from './app/app'
@@ -15,10 +15,11 @@ import PlaceholderChartRenderer from './charts/placeholder'
 
 declare var window, $
 
-var log = logging.logger('main')
+var log = core.logger('main')
 const user = new User()
 
-extend(window.ts, {
+core.extend(window.ts, {
+  core: core,
   app: app,
   manager: manager,
   charts: charts,
