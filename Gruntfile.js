@@ -146,6 +146,7 @@ module.exports = function(grunt) {
     copy: {
       dep: {
         files: [
+          { expand: true, cwd: 'node_modules/bootstrap-solarized/', src: '*.css', dest: 'tessera/static/themes/' },
           { expand: true, cwd: 'src/3rd-Party/fonts/', src: '**', dest: 'tessera/static/fonts/' },
           { expand: true, cwd: 'src/3rd-Party/img/', src: '**', dest: 'tessera/static/img/' },
           {
