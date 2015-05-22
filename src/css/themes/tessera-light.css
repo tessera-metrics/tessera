@@ -37,18 +37,10 @@
   background-color: rgba(0,0,0,0.07)
 }
 
-.ds-singlestat p {
-    // color:white;
-}
-
 .ds-timerstat .unit,
 .ds-singlestat .unit,
 .ds-jumbotron-singlestat .unit {
     color: gray;
-}
-
-.ds-jumbotron-singlestat .value {
-    // color: white;
 }
 
 .ds-jumbotron-singlestat h3 {
@@ -57,14 +49,6 @@
 
 h1 .ds-primary-title {
     color: gray;
-}
-
-h1 .ds-secondary-title {
-    // color: white;
-}
-
-.ds-time-container h2 {
-    // color: #ddd;
 }
 
 .ds-danger,

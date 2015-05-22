@@ -77,8 +77,6 @@ table.dataTable thead .sorting:before,
 table.dataTable thead .sorting_asc:before,
 table.dataTable thead .sorting_desc:before {
 	position: absolute;
-//	top: 8px;
-//	right: 8px;
 	display: block;
 	font-family: 'FontAwesome';
 	opacity: 0.5;
@@ -152,10 +150,6 @@ h1.page-title {
 
 .ds-grid h1 {
     margin-bottom: 0.125em;
-}
-
-.ds-grid .ds-row {
-    // margin-bottom: 1.0em;
 }
 
 .ds-row .well {
