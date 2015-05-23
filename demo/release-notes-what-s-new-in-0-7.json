@@ -56,37 +56,7 @@
                   {
                     "item_id": "d29", 
                     "item_type": "markdown", 
-                    "text": "\n\nThe big news is that the client-side JavaScript code has been\nre-written in Microsoft's\n[TypeScript](http://www.typescriptlang.org/). TypeScript is a\nsuperset of the ECMAScript 6 specification with optional type\nannotations, which compiles down to JavaScript.\n\nAs part of the refactoring, the homegrown object model library\nhas been replaced with standard JavaScript classes, using\nECMAScript 6's `class` syntax. This makes the hierarchy of\ndashboard items much easier to extend.\n"
-                  }
-                ]
-              }
-            ]
-          }, 
-          {
-            "item_id": "d19", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d20", 
-                "item_type": "cell", 
-                "offset": "1", 
-                "span": 3, 
-                "items": [
-                  {
-                    "item_id": "d21", 
-                    "item_type": "markdown", 
-                    "text": "### Browserify Workflow"
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d22", 
-                "item_type": "cell", 
-                "span": 7, 
-                "items": [
-                  {
-                    "item_id": "d24", 
-                    "item_type": "markdown"
+                    "text": "The big news is that the client-side JavaScript code has been\nre-written in Microsoft's\n[TypeScript](http://www.typescriptlang.org/). TypeScript is a\nsuperset of the ECMAScript 6 specification with optional type\nannotations, which compiles down to JavaScript.\n\nAs part of the refactoring, the homegrown object model library\nhas been replaced with standard JavaScript classes, using\nECMAScript 6's `class` syntax. This makes the hierarchy of\ndashboard items much easier to extend.\n\nAlong with the re-write, the build workflow has been updated to\nuse Browserify and Babel.js, with more components being loaded\nfrom [npm](https://www.npmjs.com/) rather than being checked in\nto the project."
                   }
                 ]
               }
@@ -97,6 +67,78 @@
         "item_type": "section", 
         "horizontal_rule": true, 
         "item_id": "d14"
+      }, 
+      {
+        "layout": "fixed", 
+        "level": "2", 
+        "items": [
+          {
+            "item_id": "d37", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d38", 
+                "item_type": "cell", 
+                "offset": 1, 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d43", 
+                    "item_type": "markdown", 
+                    "text": "### Editor Improvements\n"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d42", 
+                "item_type": "cell", 
+                "span": 7, 
+                "items": [
+                  {
+                    "item_id": "d44", 
+                    "item_type": "markdown", 
+                    "text": "Property editing has generally been tightened up in small ways. Boolean values are rendered with a `select` dropdown, and will reliably show the current value. Constrained numeric fields related to the grid, such as cell `span` and `offset` are also rendered with a select now, so it's impossible to enter invalid values. "
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d45", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d46", 
+                "item_type": "cell", 
+                "offset": 1, 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d47", 
+                    "item_type": "markdown", 
+                    "text": "### Navigation & Bugfixes"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d48", 
+                "item_type": "cell", 
+                "span": 7, 
+                "items": [
+                  {
+                    "item_id": "d49", 
+                    "item_type": "markdown", 
+                    "text": "* Dashboards can now be marked as favorites, and accessed from\n  the [favorites](/favorites) page. Look for the <i class=\"fa\n  fa-star-o\"></i> star icon in dashboard lists and the dashboard\n  toolbar. They're stored in your browser's `localStorage`.\n* Don't display tags with zero dashboards in the tag list.\n* Don't allow saving dashboards when a transform has been applied.\n* A UI for import and export of dashboards from local JSON files.\n* HandlebarsJS engine upgraded to version 3.0.\n"
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "Miscellany", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d36"
       }, 
       {
         "layout": "fixed", 
@@ -167,6 +209,25 @@
                     "item_type": "timerstat", 
                     "item_id": "d13", 
                     "query": "duration"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d91", 
+            "item_type": "row", 
+            "style": "none", 
+            "items": [
+              {
+                "item_id": "d94", 
+                "item_type": "cell", 
+                "offset": 3, 
+                "span": 9, 
+                "items": [
+                  {
+                    "item_id": "d100", 
+                    "item_type": "separator"
                   }
                 ]
               }
@@ -244,6 +305,56 @@
             ]
           }, 
           {
+            "item_id": "d79", 
+            "item_type": "row", 
+            "style": "none", 
+            "items": [
+              {
+                "item_id": "d80", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": []
+              }, 
+              {
+                "item_id": "d82", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "format": ",.3s", 
+                    "shift": "1d", 
+                    "title": "timeshifted jumbotron", 
+                    "percent": false, 
+                    "transform": "mean", 
+                    "item_type": "timeshift_jumbotron_singlestat", 
+                    "item_id": "d88", 
+                    "query": "collector"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d101", 
+            "item_type": "row", 
+            "style": "none", 
+            "items": [
+              {
+                "item_id": "d102", 
+                "item_type": "cell", 
+                "offset": 3, 
+                "span": 9, 
+                "items": [
+                  {
+                    "item_id": "d103", 
+                    "item_type": "separator"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
             "item_id": "d68", 
             "item_type": "row", 
             "style": "none", 
@@ -270,11 +381,29 @@
                     "query_other": "b", 
                     "units": "things", 
                     "format": ",.3s", 
-                    "title": "A vs B (max)", 
+                    "title": "A vs B (max, %)", 
                     "percent": true, 
                     "transform": "max", 
                     "item_type": "comparison_singlestat", 
                     "item_id": "d72", 
+                    "query": "a"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d89", 
+                "item_type": "cell", 
+                "span": 2, 
+                "items": [
+                  {
+                    "query_other": "b", 
+                    "units": "things", 
+                    "format": ",.3s", 
+                    "title": "A vs B (median)", 
+                    "percent": false, 
+                    "transform": "median", 
+                    "item_type": "comparison_singlestat", 
+                    "item_id": "d90", 
                     "query": "a"
                   }
                 ]
@@ -301,7 +430,7 @@
                   {
                     "query_other": "b", 
                     "format": ",.3s", 
-                    "title": "a vs b (mean)", 
+                    "title": "comparison jumbotron", 
                     "percent": true, 
                     "transform": "mean", 
                     "item_type": "comparison_jumbotron_singlestat", 
@@ -313,56 +442,23 @@
             ]
           }, 
           {
-            "item_id": "d64", 
+            "item_id": "d107", 
             "item_type": "row", 
             "style": "none", 
             "items": [
               {
-                "item_id": "d65", 
+                "item_id": "d108", 
                 "item_type": "cell", 
-                "offset": "1", 
-                "span": 3, 
-                "items": []
-              }, 
-              {
-                "item_id": "d67", 
-                "item_type": "cell", 
-                "span": 4, 
+                "offset": 3, 
+                "span": 9, 
                 "items": [
                   {
-                    "format": ",.3s", 
-                    "shift": "1d", 
-                    "title": "timeshifted jumbotron", 
-                    "percent": true, 
-                    "transform": "mean", 
-                    "item_type": "timeshift_jumbotron_singlestat", 
-                    "item_id": "d66", 
-                    "query": "collector"
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d75", 
-                "item_type": "cell", 
-                "span": 4, 
-                "items": [
-                  {
-                    "format": ",.3s", 
-                    "shift": "1w", 
-                    "title": "timeshifted jumbotron", 
-                    "percent": false, 
-                    "transform": "sum", 
-                    "item_type": "timeshift_jumbotron_singlestat", 
-                    "item_id": "d77", 
-                    "query": "collector"
+                    "item_id": "d109", 
+                    "item_type": "separator"
                   }
                 ]
               }
             ]
-          }, 
-          {
-            "item_id": "d35", 
-            "item_type": "separator"
           }, 
           {
             "item_id": "d30", 
@@ -431,78 +527,6 @@
         "item_type": "section", 
         "horizontal_rule": true, 
         "item_id": "d4"
-      }, 
-      {
-        "layout": "fixed", 
-        "level": "2", 
-        "items": [
-          {
-            "item_id": "d37", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d38", 
-                "item_type": "cell", 
-                "offset": 1, 
-                "span": 3, 
-                "items": [
-                  {
-                    "item_id": "d43", 
-                    "item_type": "markdown", 
-                    "text": "### Editor Improvements\n"
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d42", 
-                "item_type": "cell", 
-                "span": 7, 
-                "items": [
-                  {
-                    "item_id": "d44", 
-                    "item_type": "markdown", 
-                    "text": "Property editing has generally been tightened up in small ways. Boolean values are rendered with a `select` dropdown, and will reliably show the current value. Constrained numeric fields related to the grid, such as cell `span` and `offset` are also rendered with a select now, so it's impossible to enter invalid values. "
-                  }
-                ]
-              }
-            ]
-          }, 
-          {
-            "item_id": "d45", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d46", 
-                "item_type": "cell", 
-                "offset": 1, 
-                "span": 3, 
-                "items": [
-                  {
-                    "item_id": "d47", 
-                    "item_type": "markdown", 
-                    "text": "### Other"
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d48", 
-                "item_type": "cell", 
-                "span": 7, 
-                "items": [
-                  {
-                    "item_id": "d49", 
-                    "item_type": "markdown", 
-                    "text": "\n* Don't display tags with zero dashboards in the tag list.\n* Don't allow saving dashboards when a transform has been applied.\n* HandlebarsJS engine upgraded to version 3.0.\n* A UI for import and export of dashboards from local JSON files."
-                  }
-                ]
-              }
-            ]
-          }
-        ], 
-        "title": "Miscellany", 
-        "item_type": "section", 
-        "horizontal_rule": true, 
-        "item_id": "d36"
       }
     ], 
     "item_type": "dashboard_definition", 
@@ -548,7 +572,7 @@
   "description": null, 
   "tags": [
     {
-      "count": 11, 
+      "count": 12, 
       "bgcolor": "green", 
       "id": 6, 
       "name": "featured"
