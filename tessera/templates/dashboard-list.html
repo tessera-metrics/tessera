@@ -65,20 +65,18 @@
     {% endif %}
     ts.manager.render_dashboard_list(path, '#ds-dashboard-main-listing')
 
-    $.ajax({
-      dataType: 'json',
-      url: '{{url_for('api_tag_list')}}'
-    }).done(function(data) {
-      var context = { tags: data }
-    {% if tag %}
-      context.tag = '{{ tag }}'
-    {% endif %}
-      var rendered = ts.templates.listing.dashboard_tag_list(context)
-      $("#ds-dashboard-tag-listing").html(rendered)
-    {% if tag %}
-      $("[data-ds-tag={{tag}}]").addClass("active")
-    {% endif %}
-    })
+   ts.manager.client.tag_list()
+                    .then(function(tags) {
+                      var context = { tags: tags }
+                      {% if tag %}
+                      context.tag = '{{ tag }}'
+                      {% endif %}
+                      var rendered = ts.templates.listing.dashboard_tag_list(context)
+                      $("#ds-dashboard-tag-listing").html(rendered)
+                      {% if tag %}
+                      $("[data-ds-tag={{tag}}]").addClass("active")
+                      {% endif %}
+                    })
   </script>
 
 {% endblock %}
