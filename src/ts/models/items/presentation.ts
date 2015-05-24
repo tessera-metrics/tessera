@@ -1,8 +1,68 @@
 import * as core from '../../core'
+import manager from '../../app/manager'
 import DashboardItem from './item'
 import Query from '../data/query'
 
 const log = core.logger('models.presentation')
+
+core.properties.register([{
+  name:     'query',
+  category: 'base',
+  template: '{{item.query.name}}',
+  edit_options: {
+    type: 'select',
+    source: function() {
+      var queries = manager.current.dashboard.definition.queries
+      return Object.keys(queries).map(function(k) {
+        return { value: k, text: k }
+      })
+    },
+    value: function(item) {
+      return item.query ? item.query.name : undefined
+    },
+    update: function(item, value) {
+      item.set_query(value)
+    }
+  }
+}, {
+  name: 'query_other',
+  category: 'base',
+  template: '{{item.query_other.name}}',
+  edit_options: {
+    type: 'select',
+    source: function() {
+      var queries = manager.current.dashboard.definition.queries
+
+      return Object.keys(queries).map(function(k) {
+        return { value: k, text: k }
+      })
+    },
+      value: function(item) {
+        return item.query_other ? item.query_other.name : undefined
+      },
+    update: function(item, value) {
+      item.set_query_other(value)
+    }
+  }
+}, {
+  name: 'transform',
+  type: 'select',
+  edit_options: {
+    source: [
+      { value: undefined, text: 'default' },
+      'sum',
+      'min',
+      'max',
+      'mean',
+      'median',
+      'first',
+      'last',
+      'last_non_zero',
+      'count'
+    ]
+  }
+}])
+
 
 /**
  * The base class for all _presentations_, or dashboard items

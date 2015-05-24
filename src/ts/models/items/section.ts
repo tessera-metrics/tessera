@@ -11,7 +11,7 @@ export default class Section extends Container {
 
   description: string
   level: number = 1
-  horizontal_rule: boolean = true
+  horizontal_rule: boolean = false
   layout: string = 'fixed'
 
   constructor(data?: any) {
@@ -19,7 +19,7 @@ export default class Section extends Container {
     if (data) {
       this.description = data.description
       this.level = data.level || this.level
-      if (typeof(data.horizontal_rule !== 'undefined'))
+      if (typeof data.horizontal_rule !== 'undefined')
         this.horizontal_rule = !!data.horizontal_rule
       this.layout = data.layout || this.layout
     }
@@ -55,7 +55,13 @@ export default class Section extends Container {
       'css_class',
       'title',
       'description',
-      { name: 'level', type: 'number' },
+      {
+        name: 'level',
+        edit_options: {
+          type: 'select',
+          source: [ 1, 2, 3, 4, 5, 6 ]
+        }
+      },
       { name: 'horizontal_rule', type: 'boolean' }
     ]
   }

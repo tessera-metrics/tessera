@@ -31,6 +31,45 @@ export const Transform = {
   COUNT:         'count',
 }
 
+core.properties.register([{
+    name: 'style',
+    type: 'select',
+    edit_options: {
+      source: [
+        { value: undefined, text: 'none' },
+        'well',
+        'callout_neutral',
+        'callout_info',
+        'callout_success',
+        'callout_warning',
+        'callout_danger',
+        'alert_neutral',
+        'alert_info',
+        'alert_success',
+        'alert_warning',
+        'alert_danger'
+      ]
+    }
+}, {
+  name: 'height',
+  category: 'base',
+  type: 'select',
+  edit_options: {
+    source: [
+      { value: undefined, text: 'default' }, 1, 2, 3, 4, 5, 6, 7, 8
+    ],
+    update: function(item, value) {
+      if (value) {
+        item.set_height(Number(value))
+      }
+    }
+  }
+}, {
+  name: 'title',
+  category: 'base'
+}])
+
+
 export interface DashboardItemVisitor {
   (item: DashboardItem) : void
 }
