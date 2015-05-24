@@ -4,6 +4,7 @@ import Tag from './tag'
 import Container from './items/container'
 import DashboardDefinition from './items/dashboard_definition'
 import DashboardItem from './items/item'
+import Preferences from './preferences'
 import { make } from './items/factory'
 
 const log = core.logger('models.dashboard')
@@ -183,5 +184,25 @@ export default class Dashboard extends Model {
       view_href: this.view_href,
       definition_href: this.definition_href
     })
+  }
+}
+
+export class DashboardTuple extends Model {
+  dashboard: Dashboard
+  preferences: Preferences
+
+  constructor(data?: any) {
+    super(data)
+    if (data) {
+      this.dashboard = new Dashboard(data.dashboard)
+      this.preferences = new Preferences(data.preferences)
+    }
+  }
+
+  toJSON() : any {
+    return {
+      dashboard: this.dashboard.toJSON(),
+      preferences: this.preferences.toJSON()
+    }
   }
 }

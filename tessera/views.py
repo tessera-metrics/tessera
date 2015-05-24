@@ -57,31 +57,22 @@ def _get_param_boolean(name, default=None, store_in_session=False):
 def _cfg(key, default=None):
     return app.config.get(key, default)
 
-def _get_config():
-    """Retrieve a dictionary containing all UI-relevant config settings."""
-    return {
-        'GRAPHITE_URL' : _cfg('GRAPHITE_URL', 'http://localhost:8080'),
-        'DISPLAY_TIMEZONE' : _cfg('DISPLAY_TIMEZONE', 'Etc/UTC'),
-        'DEFAULT_FROM_TIME' : _cfg('DEFAULT_FROM_TIME', '-3h')
-    }
-
 def _get_preferences(store_in_session=False):
     """Retrieve a dictionary containing all user preferences, obtained
 from (in order) the request parameters, session, and config
 defaults.
     """
-    interactive = _get_param('renderer', _cfg('CHART_RENDERER', 'flot'), store_in_session=store_in_session) != 'graphite'
     return {
-        'downsample' : _get_param('downsample', _cfg('DOWNSAMPLE_TIMESERIES', 1), store_in_session=store_in_session),
-        'theme' : _get_param('theme', _cfg('DEFAULT_THEME', 'light'), store_in_session=store_in_session),
-        'renderer' : _get_param('renderer', _cfg('CHART_RENDERER', 'flot'), store_in_session=store_in_session),
-        'interactive' : interactive,
-        'refresh' : _get_param('refresh', _cfg('DEFAULT_REFRESH_INTERVAL', 60), store_in_session=store_in_session),
-        'timezone' : _get_param('timezone', _cfg('DISPLAY_TIMEZONE', 'Etc/UTC'), store_in_session=store_in_session),
-        'graphite_url' : _get_param('graphite_url', _cfg('GRAPHITE_URL', 'http://localhost:8080'), store_in_session=store_in_session),
-        'graphite_auth' : _get_param('graphite_auth', _cfg('GRAPHITE_AUTH', ''), store_in_session=store_in_session),
-        'connected_lines' : _get_param('connected_lines', _cfg('CONNECTED_LINES', _cfg('GRAPHITE_CONNECTED_LINES', 0)), store_in_session=store_in_session),
-        'propsheet_autoclose_seconds' : _get_param('propsheet_autoclose_seconds', _cfg('DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS', 3), store_in_session=store_in_session)
+        'downsample'                  : _get_param('downsample',       _cfg('DOWNSAMPLE_TIMESERIES', 1), store_in_session=store_in_session),
+        'theme'                       : _get_param('theme',            _cfg('DEFAULT_THEME', 'light'), store_in_session=store_in_session),
+        'renderer'                    : _get_param('renderer',         _cfg('CHART_RENDERER', 'flot'), store_in_session=store_in_session),
+        'refresh'                     : _get_param('refresh',          _cfg('DEFAULT_REFRESH_INTERVAL', 60), store_in_session=store_in_session),
+        'timezone'                    : _get_param('timezone',         _cfg('DISPLAY_TIMEZONE', 'Etc/UTC'), store_in_session=store_in_session),
+        'graphite_url'                : _get_param('graphite_url',     _cfg('GRAPHITE_URL', 'http://localhost:8080'), store_in_session=store_in_session),
+        'graphite_auth'               : _get_param('graphite_auth',    _cfg('GRAPHITE_AUTH', ''), store_in_session=store_in_session),
+        'connected_lines'             : _get_param('connected_lines',  _cfg('CONNECTED_LINES', _cfg('GRAPHITE_CONNECTED_LINES', 0)), store_in_session=store_in_session),
+        'propsheet_autoclose_seconds' : _get_param('propsheet_autoclose_seconds', _cfg('DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS', 3), store_in_session=store_in_session),
+        'default_from_time'           : _get_param('default_from_time', _cfg('DEFAULT_FROM_TIME', '-3h'), store_in_session=store_in_session),
     }
 
 def _set_preferences(prefs):
@@ -232,6 +223,22 @@ def api_dashboard_get(id):
         dash['preferences'] = _get_preferences()
     return _jsonify(dash)
 
+@app.route('/api/dashboard/<id>/for-rendering')
+def api_dashboard_get_for_rendering(id):
+    """Get a dashboard with its definition, and current settings necessary
+for rendering.
+
+    """
+    try:
+        dashboard = database.DashboardRecord.query.get_or_404(id)
+    except HTTPException as e:
+        raise _set_exception_response(e)
+    dash = _set_dashboard_hrefs(dashboard.to_json(True))
+    return _jsonify({
+        'dashboard' : dash,
+        'preferences' : _get_preferences()
+    })
+
 @app.route('/api/dashboard/', methods=['POST'])
 def api_dashboard_create():
     """Create a new dashboard with an empty definition.
@@ -344,10 +351,6 @@ def api_tag_get(id):
 #
 # Miscellany
 #
-
-@app.route('/api/config')
-def api_config_get():
-    return _jsonify(_get_config())
 
 @app.route('/api/preferences/')
 def api_preferences_get():

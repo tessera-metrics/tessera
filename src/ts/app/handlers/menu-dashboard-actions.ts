@@ -43,12 +43,13 @@ actions.register('dashboard-list-actions', [
     display: 'Export...',
     icon:    'fa fa-download',
     handler: function(action, context) {
-      manager.get_with_definition(context.href, (data) => {
-        let json = JSON.stringify(core.json(data), null, '  ')
-        let blob = new Blob([json], { type: 'application/json;charset=utf-8' })
-        let now  = moment().format()
-        window.saveAs(blob, `${data.title} ${now}`)
-      })
+      manager.client.dashboard_get(context.href, { definition: true })
+        .then((data) => {
+          let json = JSON.stringify(core.json(data), null, '  ')
+          let blob = new Blob([json], { type: 'application/json;charset=utf-8' })
+          let now  = moment().format()
+          window.saveAs(blob, `${data.title} ${now}`)
+        })
     }
   }),
   Action.DIVIDER,

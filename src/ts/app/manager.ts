@@ -5,6 +5,7 @@
 import * as core     from '../core'
 import * as app      from './app'
 import * as charts   from '../charts/core'
+import { Client }    from '../client'
 import Dashboard     from '../models/dashboard'
 import DashboardItem from '../models/items/item'
 import Container     from '../models/items/container'
@@ -42,8 +43,10 @@ export class Manager {
   current: any /* DashboardHolder */
   current_transform: any
   current_list: Dashboard[]
+  client: Client
 
-  constructor() {
+  constructor(client?: Client) {
+    this.client = client ? client : new Client()
   }
 
   set_current(value) : Manager {
@@ -70,16 +73,11 @@ export class Manager {
    * List all dashboards.
    */
   list(path, handler) : void {
-    path = path || app.uri('/api/dashboard')
-    $.ajax({
-      dataType: 'json',
-      url: path
-    }).done((data) => {
-      data = data.map(d => new Dashboard(d))
-      handler(data)
-    }).error((xhr, status, error) => {
-      this.error('Error listing dashboards. ' + error)
-    })
+    this.client.dashboard_list({path: path})
+      .then(handler)
+      .catch((req, status, error) => {
+        this.error(`Error listing dashboards. ${error}`)
+      })
   }
 
   // Web Components. I want Web Components. TBD.
@@ -369,24 +367,25 @@ export class Manager {
   // Definitely getting to the point we need some kind of reactive MVC
   // here
   toggle_interactive_charts() : void {
-    $.get(app.uri('/api/preferences'), (data) => {
-      let setting = !data.interactive
-      let dashboard_url = new URI(this.current.url)
-      let window_url = new URI(window.location)
+    this.client.preferences_get()
+      .then((data) => {
+        let setting = !data.interactive
+        let dashboard_url = new URI(this.current.url)
+        let window_url = new URI(window.location)
 
-      if (window_url.hasQuery('interactive', 'true')) {
-        setting = false
-      } else if (window_url.hasQuery('interactive', 'false')) {
-        setting = true
-      }
+        if (window_url.hasQuery('interactive', 'true')) {
+          setting = false
+        } else if (window_url.hasQuery('interactive', 'false')) {
+          setting = true
+        }
 
-      dashboard_url.setQuery('interactive', setting)
-      window_url.setQuery('interactive', setting)
-      this.current.url = dashboard_url.href()
-      window.history.pushState({url: this.current.url, element:this.current.element}, '', window_url.href())
-      this.refresh()
-      return setting
-    })
+        dashboard_url.setQuery('interactive', setting)
+        window_url.setQuery('interactive', setting)
+        this.current.url = dashboard_url.href()
+        window.history.pushState({url: this.current.url, element:this.current.element}, '', window_url.href())
+        this.refresh()
+        return setting
+      })
   }
 
   /* -----------------------------------------------------------------------------
@@ -484,101 +483,69 @@ export class Manager {
       window.location.href = '/dashboards'
       this.success('Successfully deleted dashboard ' + href)
     })
-    $.ajax({
-      url: href,
-      type: 'DELETE'
-    }).done(done).error((xhr, status, error) => {
-      this.error('Error deleting dashboard ' + href + ' ' + error)
-    })
+    this.client.dashboard_delete(href)
+      .then(done)
+      .catch((request, status, error) => {
+        this.error(`Error deleting dashboard ${href}. ${error}`)
+      })
   }
 
   delete_current() : void {
     this.delete_with_confirmation(this.current.dashboard.href)
   }
 
-  create(dashboard, handler?) : void {
-    let upload_data = dashboard
-    if (typeof upload_data != 'string')
-      upload_data = JSON.stringify(core.json(upload_data))
-    $.ajax({
-      type: 'POST',
-      url: app.uri('/api/dashboard/'),
-      contentType: 'application/json',
-      dataType: 'json',
-      data: upload_data
-    }).done((data) => {
-      if (handler && handler instanceof Function) {
-        handler(data)
-      }
-    }).error((xhr, status, error) => {
-      this.error('Error creating dashboard. ' + error)
-    })
+  create(input, handler?) : void {
+    let dashboard = null
+    if (typeof input === 'string') {
+      let json = JSON.parse(input)
+      dashboard = new Dashboard(json)
+    } else if (input instanceof Dashboard) {
+      dashboard = input
+    } else {
+      dashboard = new Dashboard(input)
+    }
+
+    this.client.dashboard_create(dashboard)
+      .then(handler)
+      .catch((request, status, error) => {
+        this.error(`Error creating dashboard. ${error}`)
+      })
   }
 
   update(dashboard, handler?) : void {
-    $.ajax({
-      type: 'PUT',
-      url: dashboard.href,
-      contentType: 'application/json',
-      dataType: 'json',
-      data: JSON.stringify(dashboard)
-    }).done((data) => {
-      if (handler && handler instanceof Function) {
-        handler(data)
-      }
-    }).error((xhr, status, error) => {
-      this.error('Error updating dashboard ' + dashboard.title + '. ' + error)
-    })
+    this.client.dashboard_update(dashboard)
+      .then(handler)
+      .catch((request, status, error) => {
+        this.error('Error updating dashboard ' + dashboard.title + '. ' + error)
+      })
   }
 
   update_definition(dashboard: any, handler?) : void {
     if (app.instance.current_mode === app.Mode.TRANSFORM) {
-      this.warning('Unable to save dashboad while a transform is applied. Revert to standard mode in order to save changes.')
+      this.warning(`Unable to save dashboad while a transform is applied.
+Revert to standard mode in order to save changes.`)
       return
     }
-    $.ajax({
-      type: 'PUT',
-      url: dashboard.definition_href,
-      contentType: 'application/json',
-      dataType: 'json',
-      data: JSON.stringify(dashboard.definition)
-    }).done((data) => {
-      if (handler && handler instanceof Function) {
-        handler(data)
-      }
-    }).error((xhr, status, error) => {
-      this.error('Error updating dashboard definition ' + dashboard.title + '. ' + error)
-    })
-  }
-
-  get_with_definition(href: string, handler) : void {
-    $.ajax({
-      url: href,
-      dataType: 'json',
-      data: {
-        definition: true
-      }
-    }).done(handler)
+    this.client.dashboard_update_definition(dashboard)
+      .then(handler)
+      .catch((request, status, error) => {
+        this.error(`Error updating dashboard definition ${dashboard.title}. ${error}`)
+      })
   }
 
   duplicate(href: string, handler?) : void {
-    this.get_with_definition(href, (data) => {
-      let dashboard = data
-      dashboard.title = 'Copy of ' + dashboard.title
-      $.ajax({
-        type: 'POST',
-        url: app.uri('/api/dashboard/'),
-        contentType: 'application/json',
-        dataType: 'json',
-        data: JSON.stringify(dashboard)
-      }).done((data) => {
-        if (handler) {
-          handler()
-        }
-      }).error((xhr, status, error) => {
-        this.error('Error duplicating dashboard ' + href + '. ' + error)
+    let err = (request, status, error) => {
+      this.error(`Error duplicating dashboard ${href}. ${error}`)
+    }
+    this.client.dashboard_get(href, { definition: true })
+      .then((db) => {
+        db.title = `Copy of ${db.title}`
+        db.id = null
+        this.client.dashboard_create(db)
+          .then(handler)
+          .catch(err)
       })
-    })
+      .catch(err)
   }
 }
 
@@ -596,7 +563,6 @@ core.events.on(DashboardItem, 'update', (e: { target: DashboardItem }) => {
     manager.update_item_view(item)
   }
 })
-
 
 window.addEventListener('popstate', (e) => {
   manager.handle_popstate(e)

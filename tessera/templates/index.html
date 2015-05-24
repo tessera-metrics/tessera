@@ -72,7 +72,6 @@
      if (data && data.length > 0) {
        var dashboard = data[Math.floor(Math.random() * data.length)]
        ts.manager.load(dashboard.href, '.ds-featured-dashboard', {
-         interactive: true,
          from: '-3h'
        })
      }

@@ -3,6 +3,7 @@ import * as charts    from './charts/core'
 import * as factory   from './models/items/factory'
 import * as app       from './app/app'
 import * as edit      from './edit/edit'
+import { Client }     from './client'
 import { actions }    from './core/action'
 import { transforms } from './models/transform/transform'
 import User           from './models/user'
@@ -18,6 +19,7 @@ declare var window, $
 var log = core.logger('main')
 const user = new User()
 
+
 core.extend(window.ts, {
   core: core,
   app: app,
@@ -30,6 +32,7 @@ core.extend(window.ts, {
   user: user
 })
 app.config = window.ts.config
+window.ts.client = new Client({ prefix: app.config.APPLICATION_ROOT })
 
 function setup(config: Config) {
   charts.renderers.register(new GraphiteChartRenderer({
