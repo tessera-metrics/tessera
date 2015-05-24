@@ -5,7 +5,7 @@
 import * as core     from '../core'
 import * as app      from './app'
 import * as charts   from '../charts/core'
-import { Client }    from '../client'
+import Client        from '../client'
 import Dashboard     from '../models/dashboard'
 import DashboardItem from '../models/items/item'
 import Container     from '../models/items/container'
