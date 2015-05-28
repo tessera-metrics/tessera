@@ -22,6 +22,7 @@
   "dependencies": {
     "URIjs": "^1.15.1",
     "bean": "^1.0.15",
+    "bluebird": "^2.9.25",
     "bootbox": "^4.4.0",
     "bootstrap": "^3.3.4",
     "bootstrap-growl": "^2.0.0",
