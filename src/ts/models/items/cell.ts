@@ -47,7 +47,6 @@ export default class Cell extends Container {
   interactive_properties() : PropertyList {
     return super.interactive_properties().concat([
       'style',
-      'css_class',
       {
         name: 'span',
         edit_options: {

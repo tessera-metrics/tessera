@@ -90,6 +90,10 @@ export interface DashboardItemMetadata {
   interactive_properties?: core.PropertyList
 }
 
+core.properties.register([{
+  name: 'css_class', category: 'base'
+}])
+
 /**
  * Base class for all things that can be displayed on a dashboard.
  */
@@ -205,7 +209,7 @@ export default class DashboardItem extends Model {
 
   interactive_properties() : core.PropertyList {
     return [
-      { name: 'css_class', category: 'base'}
+      'css_class'
     ]
   }
 
