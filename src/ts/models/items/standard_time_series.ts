@@ -1,7 +1,6 @@
 import XYChart from './xychart'
 import Query from '../data/query'
 import { DashboardItemMetadata } from './item'
-import { register_dashboard_item } from './factory'
 import * as charts from '../../charts/core'
 
 declare var $
@@ -19,4 +18,3 @@ export default class StandardTimeSeries extends XYChart {
     charts.standard_line_chart($(`#${this.item_id} .ds-graph-holder`), this, query)
   }
 }
-register_dashboard_item(StandardTimeSeries)

@@ -2,7 +2,6 @@ import Chart from './chart'
 import Query from '../data/query'
 import * as charts from '../../charts/core'
 import { DashboardItemMetadata } from './item'
-import { register_dashboard_item } from './factory'
 import { extend } from '../../core/util'
 import { PropertyList } from '../../core/property'
 
@@ -70,4 +69,3 @@ export default class DiscreteBarChart extends Chart {
     ])
   }
 }
-register_dashboard_item(DiscreteBarChart)

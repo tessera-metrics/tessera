@@ -3,7 +3,6 @@ import { DashboardItemMetadata } from './item'
 import Query from '../data/query'
 import { extend } from '../../core/util'
 import { PropertyList } from '../../core/property'
-import { register_dashboard_item } from './factory'
 
 declare var $, ts
 
@@ -66,4 +65,3 @@ export default class PercentageTable extends TablePresentation {
     ])
   }
 }
-register_dashboard_item(PercentageTable)

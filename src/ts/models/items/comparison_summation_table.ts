@@ -3,7 +3,6 @@ import { extend } from '../../core/util'
 import Query from '../data/query'
 import Summation from '../data/summation'
 import { PropertyList, property } from '../../core/property'
-import { register_dashboard_item } from './factory'
 import * as app from '../../app/app'
 
 declare var $, d3, ts
@@ -114,4 +113,3 @@ export default class ComparisonSummationTable extends TablePresentation {
     ])
   }
 }
-register_dashboard_item(ComparisonSummationTable)

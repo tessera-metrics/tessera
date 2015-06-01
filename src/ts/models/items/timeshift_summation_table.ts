@@ -1,7 +1,6 @@
 import * as core from '../../core'
 import TablePresentation from './table_presentation'
 import { DashboardItemMetadata } from './item'
-import { register_dashboard_item } from './factory'
 import Query from '../data/query'
 import Summation from '../data/summation'
 import * as app from '../../app/app'
@@ -143,4 +142,3 @@ export default class TimeshiftSummationTable extends TablePresentation {
     ])
   }
 }
-register_dashboard_item(TimeshiftSummationTable)

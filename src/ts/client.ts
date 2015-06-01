@@ -2,7 +2,7 @@ import * as core from './core'
 import * as model from './models'
 
 declare var $, Promise
-const log = core.logger('client').set_level(core.LogLevel.DEBUG)
+const log = core.logger('client')
 
 export interface DashboardGetOptions {
   definition?: boolean

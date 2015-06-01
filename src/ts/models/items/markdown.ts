@@ -2,7 +2,6 @@ import DashboardItem, { DashboardItemMetadata } from './item'
 import { render_template } from '../../core/template'
 import { PropertyList } from '../../core/property'
 import { extend } from '../../core/util'
-import { register_dashboard_item } from './factory'
 
 export default class Markdown extends DashboardItem {
   static meta: DashboardItemMetadata = {
@@ -50,4 +49,3 @@ export default class Markdown extends DashboardItem {
     ]
   }
 }
-register_dashboard_item(Markdown)

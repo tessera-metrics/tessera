@@ -1,5 +1,4 @@
 import TablePresentation from './table_presentation'
-import { register_dashboard_item } from './factory'
 import * as core from '../../core'
 import Query from '../data/query'
 import * as charts from '../../charts/util'
@@ -58,4 +57,3 @@ export default class SummationTable extends TablePresentation {
     ])
   }
 }
-register_dashboard_item(SummationTable)

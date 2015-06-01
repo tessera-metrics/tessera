@@ -3,7 +3,6 @@ import Query from '../data/query'
 import { DashboardItemMetadata } from './item'
 import { PropertyList } from '../../core/property'
 import { extend } from '../../core/util'
-import { register_dashboard_item } from './factory'
 import * as charts from '../../charts/core'
 
 declare var $
@@ -59,4 +58,3 @@ export default class SimpleTimeSeries extends XYChart {
     ])
   }
 }
-register_dashboard_item(SimpleTimeSeries)

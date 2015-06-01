@@ -1,6 +1,5 @@
 import DashboardItem, { DashboardItemMetadata } from './item'
 import { PropertyList } from '../../core/property'
-import { register_dashboard_item } from './factory'
 
 export default class Separator extends DashboardItem {
   static meta: DashboardItemMetadata = {
@@ -18,4 +17,3 @@ export default class Separator extends DashboardItem {
     return [ 'css_class' ]
   }
 }
-register_dashboard_item(Separator)

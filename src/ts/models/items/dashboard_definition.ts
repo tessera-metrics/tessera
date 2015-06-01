@@ -2,7 +2,6 @@ import Container from './container'
 import Presentation from './presentation'
 import { DashboardItemMetadata } from './item'
 import Query, { QueryDictionary } from '../data/query'
-import { register_dashboard_item } from './factory'
 import * as core from '../../core'
 import * as charts from '../../charts/core'
 
@@ -183,4 +182,3 @@ export default class DashboardDefinition extends Container {
     })
   }
 } // end class DashboardDefinition
-register_dashboard_item(DashboardDefinition)

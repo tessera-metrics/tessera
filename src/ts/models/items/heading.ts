@@ -1,7 +1,6 @@
 import DashboardItem, { DashboardItemMetadata } from './item'
 import { extend } from '../../core/util'
 import { PropertyList } from '../../core/property'
-import { register_dashboard_item } from './factory'
 
 export default class Heading extends DashboardItem {
   static meta: DashboardItemMetadata = {
@@ -38,4 +37,3 @@ export default class Heading extends DashboardItem {
     ]
   }
 }
-register_dashboard_item(Heading)

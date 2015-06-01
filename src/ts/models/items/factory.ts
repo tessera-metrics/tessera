@@ -152,7 +152,7 @@ export function make(data: any, init?: any) {
     return new (constructors.get(data.item_type))(data)
   }
 
-  log.error('Unknown item type ' + data.toString())
+  log.error('Unknown item type ' + JSON.stringify(data))
 
   return null
 }

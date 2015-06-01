@@ -1,6 +1,5 @@
 import Presentation from './presentation'
 import { DashboardItemMetadata } from './item'
-import { register_dashboard_item } from './factory'
 import { extend } from '../../core/util'
 import { PropertyList } from '../../core/property'
 import Query from '../data/query'
@@ -79,4 +78,3 @@ export default class Singlestat extends Presentation {
     ])
   }
 }
-register_dashboard_item(Singlestat)

@@ -2,7 +2,6 @@ import * as core from '../../core'
 import * as app from '../../app'
 import Singlestat from './singlestat'
 import Query from '../data/query'
-import { register_dashboard_item } from './factory'
 
 declare var $, d3, ts
 
@@ -90,4 +89,3 @@ export default class TimeshiftSinglestat extends Singlestat {
     ])
   }
 }
-register_dashboard_item(TimeshiftSinglestat)

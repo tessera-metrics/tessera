@@ -1,7 +1,6 @@
 import Chart from './chart'
 import Query from '../data/query'
 import { DashboardItemMetadata } from './item'
-import { register_dashboard_item } from './factory'
 import * as charts from '../../charts/core'
 import { extend } from '../../core/util'
 import { PropertyList } from '../../core/property'
@@ -46,4 +45,3 @@ export default class DonutChart extends Chart {
     ])
   }
 }
-register_dashboard_item(DonutChart)
