@@ -37,7 +37,7 @@
 
 <script>
  $(document).ready(function() {
-   ds.manager.onDashboardLoaded(function() {
+   ts.manager.onDashboardLoaded(function() {
      var from = URI(window.location).search(true).from || '-3h'
      $('[data-ds-range]').removeClass('active')
      if (from[0] === '-') {

@@ -1,16 +1,75 @@
+
 module.exports = function(grunt) {
   var path = require('path');
+
+  var SOURCE_FILES = [
+    'src/ts/**/*.ts',
+    '!src/ts/types/**'
+  ]
 
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
 
+    /**
+     * 1 - Transpile all TypeScript sources to ES6
+     */
+    ts: {
+      default: {
+        src: SOURCE_FILES,
+        outDir: '_build/phase1',
+        options: {
+          target: 'es6',
+          comments: true
+        }
+      }
+    },
+
+    /**
+     * 2 - Compile the app sources to a single bundle using
+     * browserify, running babeljs over the sources on the way.
+     */
+    browserify: {
+
+      dep: {
+        files: {
+          '_build/dependencies.js' : [
+            'src/js/dependencies.js'
+          ]
+        },
+        options: {
+          browserifyOptions: {
+            // debug: true
+          }
+        }
+      },
+
+      app: {
+        files: {
+          '_build/phase2.js' : [
+            '_build/phase1/**/*.js'
+          ]
+        },
+        options: {
+          transform: [
+            'babelify'
+          ],
+          browserifyOptions: {
+            // debug: true
+          }
+        }
+      }
+    },
+
+    /**
+     * 3 - Precompile the handlebars templates
+     */
     handlebars: {
       all: {
         options: {
           partialsUseNamespace: true,
           namespace: function(filename) {
-            return 'ds.' + path.dirname(filename).split('/').join('.')
+            return path.dirname(filename).split('/').join('.').replace('src', 'ts')
           },
           processName: function(filename) {
             var pieces = filename.split('/')
@@ -18,66 +77,53 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'tessera/static/templates.js' : [ 'templates/**/*.hbs']
+          '_build/templates.js' : [ 'src/templates/**/*.hbs']
         }
       }
     },
+
+    /**
+     * 4 - Concatenate the transpiled sources, the precompiled
+     * templates, and the babel polyfill required for all ES6 support.
+     */
     concat: {
-      bundle_css: {
+      dep_css: {
         src: [
-          'tessera/static/css/bootstrap.css',
-          'tessera/static/css/bootstrap-callouts.css',
-          'tessera/static/css/bootstrap-editable.css',
-          'tessera/static/css/bootstrap-datetimepicker.css',
-          'tessera/static/css/bootstrapValidator.min.css',
-          'tessera/static/css/font-awesome.css',
-          'tessera/static/css/select2.css',
-          'tessera/static/css/select2-bootstrap.css',
-          'tessera/static/css/dataTables.bootstrap.css',
-          'tessera/static/css/jquery.flot.valuelabels.css'
+          'src/3rd-Party/css/bootstrap.css',
+          'src/3rd-Party/css/bootstrap-callouts.css',
+          'src/3rd-Party/css/bootstrap-editable.css',
+          'src/3rd-Party/css/bootstrap-datetimepicker.css',
+          'src/3rd-Party/css/bootstrapValidator.min.css',
+          'src/3rd-Party/css/font-awesome.css',
+          'src/3rd-Party/css/select2.css',
+          'src/3rd-Party/css/select2-bootstrap.css',
+          'src/3rd-Party/css/dataTables.bootstrap.css',
+          'src/3rd-Party/css/jquery.flot.valuelabels.css',
+          'src/3rd-Party/css/highlight-styles/github.css'
         ],
         dest: 'tessera/static/css/bundle.css'
       },
-      bundle: {
+      dep_js: {
         options: {
           separator: ';'
         },
         src: [
-          'tessera/static/js/jquery-1.11.2.min.js',
-          'tessera/static/js/jquery.dataTables.min.js',
-          'tessera/static/js/dataTables.bootstrap.min.js',
-          'tessera/static/js/moment.min.js',
-          'tessera/static/js/moment-timezone-with-data.min.js',
-          'tessera/static/js/marked.min.js',
-          'tessera/static/js/mousetrap.min.js',
-          'tessera/static/js/highlight.pack.js',
-          'tessera/static/js/bean.min.js',
-          'tessera/static/js/URI.min.js',
-          'tessera/static/js/handlebars.min.js',
-          'tessera/static/js/bootstrap.min.js',
-          'tessera/static/js/bootbox.min.js',
-          'tessera/static/js/d3.min.js',
-          'tessera/static/js/tagmanager.js',
-          'tessera/static/js/select2.min.js',
-          'tessera/static/js/bootstrap-editable.min.js',
-          'tessera/static/js/bootstrap-growl.min.js',
-          'tessera/static/js/bootstrap-datetimepicker.min.js',
-          'tessera/static/js/bootstrapValidator.min.js',
-          'tessera/static/js/limivorous.js',
-          'tessera/static/js/color-0.7.1.js',
-          'tessera/static/js/flot/jquery.flot.js',
-          'tessera/static/js/flot/jquery.flot.time.js',
-          'tessera/static/js/flot/jquery.flot.multihighlight.js',
-          'tessera/static/js/flot/jquery.flot.d3.stack.js',
-          'tessera/static/js/flot/jquery.flot.crosshair.js',
-          'tessera/static/js/flot/jquery.flot.axislabels.js',
-          'tessera/static/js/flot/jquery.flot.downsample.js',
-          'tessera/static/js/flot/jquery.flot.valuelabels.js',
-          'tessera/static/js/flot/jquery.flot.pie.js',
-          'tessera/static/js/flot/jquery.flot.barnumbers.enhanced.js',
-          'tessera/static/js/simple_statistics.js',
-          'tessera/static/js/equalize.min.js',
-          'tessera/static/js/usertiming.js'
+          '_build/dependencies.js',
+          'src/3rd-Party/js/tagmanager.js',
+          'src/3rd-Party/js/bootstrap-editable.min.js',
+          'src/3rd-Party/js/bootstrap-datetimepicker.min.js',
+          'src/3rd-Party/js/bootstrapValidator.min.js',
+          'src/3rd-Party/js/flot/jquery.flot.js',
+          'src/3rd-Party/js/flot/jquery.flot.time.js',
+          'src/3rd-Party/js/flot/jquery.flot.multihighlight.js',
+          'src/3rd-Party/js/flot/jquery.flot.d3.stack.js',
+          'src/3rd-Party/js/flot/jquery.flot.crosshair.js',
+          'src/3rd-Party/js/flot/jquery.flot.axislabels.js',
+          'src/3rd-Party/js/flot/jquery.flot.downsample.js',
+          'src/3rd-Party/js/flot/jquery.flot.valuelabels.js',
+          'src/3rd-Party/js/flot/jquery.flot.pie.js',
+          'src/3rd-Party/js/flot/jquery.flot.barnumbers.enhanced.js',
+          'src/3rd-Party/js/equalize.min.js'
         ],
         dest: 'tessera/static/bundle.js'
       },
@@ -86,51 +132,102 @@ module.exports = function(grunt) {
           separator: ';'
         },
         src: [
-          'js/core/core.js',
-          'js/core/log.js',
-          'js/core/perf.js',
-          'js/core/event.js',
-          'js/core/registry.js',
-          'js/core/action.js',
-          'js/dashboard/transform.js',
-          'js/app/app.js',
-          'js/app/manager.js',
-          'js/app/helpers.js',
-          'js/app/keybindings.js',
-          'tessera/static/templates.js',
-          'js/charts/charts.js',
-          'js/charts/provider.js',
-          'js/charts/graphite.js',
-          'js/charts/flot.js',
-          'js/app/actions.js',
-          'js/edit/property.js',
-          'js/dashboard/factory.js',
-          'js/dashboard/properties.js',
-          'js/dashboard/mixins/**/*.js',
-          'js/dashboard/models/**/*.js',
-          'js/extensions/**/*.js',
-          'js/edit/edit-mode.js',
-          'js/app/handlers/*.js'
+          'node_modules/babel-core/browser-polyfill.js',
+          '_build/templates.js',
+          '_build/phase2.js'
         ],
-        dest: 'tessera/static/app.js'
+        dest: 'tessera/static/tessera.js'
       }
     },
+
+    /**
+     * 5 - Copy sources to the static resources dir.
+     */
+    copy: {
+      dep: {
+        files: [
+          { expand: true, cwd: 'node_modules/bootstrap-solarized/', src: '*.css', dest: 'tessera/static/themes/' },
+          { expand: true, cwd: 'src/3rd-Party/fonts/', src: '**', dest: 'tessera/static/fonts/' },
+          { expand: true, cwd: 'src/3rd-Party/img/', src: '**', dest: 'tessera/static/img/' },
+          {
+            expand: true, cwd: 'src/3rd-Party/css/', src: [
+              '*.gif', '*.png', '*.map'
+            ],
+            dest: 'tessera/static/css'
+          }
+        ]
+      },
+      app: {
+        files: [
+          { expand: true, cwd: 'src/css/', src: '**', dest: 'tessera/static/' }
+        ]
+      }
+    },
+
+    clean: {
+      build: {
+        src: [
+          '_build/',
+          'tessera/static/*'
+        ]
+      }
+    },
+
     watch: {
-      files: [
-        'js/**/*.js',
-        'templates/**/*.hbs',
-        'tessera/static/js/**/*.js',
-        'tessera/static/css/**/*.css',
-        'tessera/static/tessera.css',
-        'tessera/static/tessera-typography.css'
-      ],
-      tasks: ['handlebars', 'concat']
+      dep: {
+        files: [
+          'src/js/dependencies.js',
+          'src/3rd-Party/**/*.*'
+        ],
+        tasks: ['dep']
+      },
+      app_templates: {
+        files: [
+          'src/templates/**/*.hbs'
+        ],
+        tasks: ['handlebars', 'concat:app', 'copy:app']
+      },
+      app_js: {
+        files: [
+          'src/ts/**/*.ts'
+        ],
+        tasks: ['app']
+      },
+      app_css: {
+        files: [
+          'src/css/*.css'
+        ],
+        tasks: ['copy:app']
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
+  grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-ts-1.5');
 
-  grunt.registerTask('default', ['handlebars', 'concat']);
+  /** Compile the tessera source and templates */
+  grunt.registerTask('app', [
+    'ts', 'browserify:app', 'handlebars', 'concat:app', 'copy:app'
+  ])
+
+  /** Compile all third-party dependencies */
+  grunt.registerTask('dep', [
+    'browserify:dep', 'concat:dep_js', 'concat:dep_css', 'copy:dep'
+  ]);
+
+  /** Compile everything */
+  grunt.registerTask('all', [
+    'app', 'dep'
+  ])
+
+  /** By default */
+  grunt.registerTask('default', [
+    'all'
+  ])
 }

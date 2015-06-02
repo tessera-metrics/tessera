@@ -27,6 +27,7 @@ built with as many "off-the-shelf" components as possible.
     appears to no longer have an OSS compatible license (the version
     included here is MIT licensed).
   * [bootstrap-growl](https://github.com/mouse0270/bootstrap-growl)
+  * [bootstrap-datetimepicker](https://github.com/Eonasdan/bootstrap-datetimepicker)
 * [jQuery](http://jquery.com/)
 * [d3](http://d3js.org). d3 is used for value formatting in text and
   for stacked graph layout.
@@ -56,3 +57,6 @@ built with as many "off-the-shelf" components as possible.
 * [usertiming.js](https://github.com/nicjansma/usertiming.js) provides
   polyfill of the W3 [User Timing](http://www.w3.org/TR/user-timing/)
   API for browsers that don't support it natively (i.e. Safari 8).
+* [node-inflection](https://github.com/dreamerslab/node.inflection)
+* [HumanizeDuration](https://github.com/EvanHahn/HumanizeDuration.js)
+* [filejaver.js](https://www.npmjs.com/package/filesaver.js)

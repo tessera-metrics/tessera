@@ -1,0 +1,18 @@
+<ul class="nav nav-pills nav-stacked">
+  <li class="{{#unless tag}}active{{/unless}}">
+    <a href="/dashboards">
+      All <span class="badge badge-primary pull-right"></span>
+    </a>
+  </li>
+
+  {{#each tags}}
+    {{#if count}}
+      <li data-ds-tag="{{name}}">
+        <a href="/dashboards/tagged/{{name}}">
+        {{name}}
+        <span class="badge badge-primary pull-right">{{count}}</span>
+        </a>
+      </li>
+    {{/if}}
+  {{/each}}
+</ul>

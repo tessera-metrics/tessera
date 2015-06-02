@@ -46,7 +46,10 @@
       <div class="col-md-4">
         <h3>Actions</h3>
         <ul class="list-group">
-          <li class="list-group-item"><a href="{{url_for('ui_dashboard_create')}}">New dashboard&hellip;</a></li>
+          <li class="list-group-item"><a href="{{url_for('ui_dashboard_create')}}"><i class="fa fa-plus"></i> New dashboard&hellip;</a></li>
+        </ul>
+        <ul class="list-group">
+          <li class="list-group-item"><a href="{{url_for('ui_import')}}"><i class="fa fa-upload"></i> Import&hellip;</a></li>
         </ul>
         <h3>Tags</h3>
         <div id="ds-dashboard-tag-listing"></div>
@@ -60,25 +63,20 @@
     {% else %}
       var path = '{{url_for('api_dashboard_list', sort=ctx.get('sort', 'created'), order=ctx.get('order', 'desc'))|safe}}'
     {% endif %}
-    ds.manager.list(path, function(data) {
-      var rendered = ds.templates.listing.dashboard_list({ dashboards: data })
-      $("#ds-dashboard-main-listing").html(rendered)
-    })
+    ts.manager.render_dashboard_list(path, '#ds-dashboard-main-listing')
 
-    $.ajax({
-      dataType: 'json',
-      url: '{{url_for('api_tag_list')}}'
-    }).done(function(data) {
-      var context = { tags: data }
-    {% if tag %}
-      context.tag = '{{ tag }}'
-    {% endif %}
-      var rendered = ds.templates.listing.dashboard_tag_list(context)
-      $("#ds-dashboard-tag-listing").html(rendered)
-    {% if tag %}
-      $("[data-ds-tag={{tag}}]").addClass("active")
-    {% endif %}
-    })
+   ts.manager.client.tag_list()
+                    .then(function(tags) {
+                      var context = { tags: tags }
+                      {% if tag %}
+                      context.tag = '{{ tag }}'
+                      {% endif %}
+                      var rendered = ts.templates.listing.dashboard_tag_list(context)
+                      $("#ds-dashboard-tag-listing").html(rendered)
+                      {% if tag %}
+                      $("[data-ds-tag={{tag}}]").addClass("active")
+                      {% endif %}
+                    })
   </script>
 
 {% endblock %}

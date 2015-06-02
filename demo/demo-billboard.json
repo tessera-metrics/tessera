@@ -1,0 +1,72 @@
+{
+  "category": "Demo", 
+  "definition": {
+    "items": [
+      {
+        "layout": "fixed", 
+        "level": 1, 
+        "items": [
+          {
+            "item_id": "d5", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d6", 
+                "item_type": "cell", 
+                "style": "well", 
+                "span": 12, 
+                "items": [
+                  {
+                    "stack_mode": "stream", 
+                    "height": 2, 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d7", 
+                    "query": "query1", 
+                    "options": {
+                      "palette": "d3category20c"
+                    }, 
+                    "legend": "none", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "item_type": "section", 
+        "horizontal_rule": false, 
+        "item_id": "d4"
+      }
+    ], 
+    "item_type": "dashboard_definition", 
+    "href": "/api/dashboard/13/definition", 
+    "queries": {
+      "query1": {
+        "name": "query1", 
+        "targets": [
+          "group(\n  absolute(randomWalkFunction(\"query1\")),\n  absolute(randomWalkFunction(\"query2\")),\n  absolute(randomWalkFunction(\"query3\")),\n  absolute(randomWalkFunction(\"query4\")),\n  absolute(randomWalkFunction(\"query5\")),\n  absolute(randomWalkFunction(\"query6\"))\n)"
+        ]
+      }
+    }, 
+    "item_id": "d3", 
+    "options": {
+      "from": "-3h"
+    }
+  }, 
+  "view_href": "/dashboards/13/billboard", 
+  "description": "", 
+  "tags": [
+    {
+      "count": 1, 
+      "id": 6, 
+      "name": "featured-billboard"
+    }
+  ], 
+  "title": "Billboard", 
+  "summary": "", 
+  "definition_href": "/api/dashboard/13/definition", 
+  "href": "/api/dashboard/13", 
+  "id": 13, 
+  "imported_from": null
+}

@@ -1,0 +1,46 @@
+<tr data-ds-href="{{href}}">
+  <td>
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="pull-left">
+          <a href="{{view_href}}">
+            <span class="ds-dashboard-listing-category">
+              {{category}}
+            </span>
+            <span class="ds-dashboard-listing-title">
+              {{title}}
+            </span>
+            {{#if summary}}
+            <br/>
+            <small>{{summary}}</small>
+            {{/if}}
+          </a><br/>
+          <span class="ds-dashboard-listing-last-modified">
+            Last modified {{moment 'fromNow' last_modified_date}}.
+          </span>
+        </div>
+
+        <div class="pull-right" style="margin-left: 0.5em">
+          {{> ds-dashboard-listing-action-menu}}
+        </div>
+
+        <div data-ds-href="{{href}}" class="pull-right ds-favorite-indicator" style="margin-left: 0.5em">
+          <i class="text-muted fa fa-lg fa-star-o"></i>
+        </div>
+
+        <div class="pull-right" style="text-align:right">
+          {{#each tags}}
+          {{> ds-dashboard-tag-with-link this}}
+          {{/each}}
+          <br/>
+          {{#if imported_from}}
+          <a href="{{imported_from}}" target="_blank"><i class="fa fa-cloud"></i></a><br/>
+          {{/if}}
+        </div>
+
+      </div>
+
+    </div> <!-- row -->
+  </td>
+</tr>

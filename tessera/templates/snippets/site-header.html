@@ -7,24 +7,27 @@
 <link  href="{{ url_for('static', filename='tessera-typography.css') }}" rel="stylesheet"></link>
 <link  href="{{ url_for('static', filename='themes/tessera-' + ctx.prefs.theme + '.css') }}" rel="stylesheet"></link>
 <link  href="{{ url_for('static', filename='tessera.css') }}" rel="stylesheet"></link>
-<link  href="{{ url_for('static', filename='css/highlight-styles/github.css') }}" rel="stylesheet"></link>
 
 <script>
-  ds = window.ds || {}
-  ds.config = ds.config || {}
-  ds.config.GRAPHITE_URL = "{{ctx.get_str('graphite_url', config.get('GRAPHITE_URL'))}}"
-  ds.config.GRAPHITE_AUTH = "{{ctx.get_str('graphite_auth', config.get('GRAPHITE_AUTH'))}}"
-  ds.config.CONNECTED_LINES = {{ctx.get_int('connected_lines', config.get('CONNECTED_LINES'))}}
-  ds.config.DISPLAY_TIMEZONE = "{{ctx.get_str('timezone', config.get('DISPLAY_TIMEZONE','UTC'))}}"
-  ds.config.PROPSHEET_AUTOCLOSE_SECONDS = {{ctx.get_int('propsheet_autoclose_seconds', config.get('DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS',3))}}
-  ds.config.DEFAULT_FROM_TIME = "{{config.get('DEFAULT_FROM_TIME')}}"
+  ts = window.ts || {}
+  ts.config = ts.config || {}
+  ts.config.GRAPHITE_URL = "{{ctx.get_str('graphite_url', config.get('GRAPHITE_URL'))}}"
+  ts.config.GRAPHITE_AUTH = "{{ctx.get_str('graphite_auth', config.get('GRAPHITE_AUTH'))}}"
+  ts.config.CONNECTED_LINES = {{ctx.get_int('connected_lines', config.get('CONNECTED_LINES'))}}
+  ts.config.DISPLAY_TIMEZONE = "{{ctx.get_str('timezone', config.get('DISPLAY_TIMEZONE','UTC'))}}"
+  ts.config.PROPSHEET_AUTOCLOSE_SECONDS = {{ctx.get_int('propsheet_autoclose_seconds', config.get('DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS',3))}}
+  ts.config.DEFAULT_FROM_TIME = "{{config.get('DEFAULT_FROM_TIME')}}"
   {% if config.get('APPLICATION_ROOT') %}
-  ds.config.APPLICATION_ROOT = "{{config.get('APPLICATION_ROOT')}}"
+  ts.config.APPLICATION_ROOT = "{{config.get('APPLICATION_ROOT')}}"
   {% endif %}
-  ds.prefs = ds.prefs || {}
-  ds.prefs.renderer = "{{ ctx.prefs.renderer }}"
-  ds.prefs.downsample = {{ctx.prefs.downsample}}
+  ts.prefs = ts.prefs || {}
+  ts.prefs.renderer = "{{ ctx.prefs.renderer }}"
+  ts.prefs.downsample = {{ctx.prefs.downsample}}
 </script>
 
 <script src="{{ url_for('static', filename='bundle.js') }}"></script>
-<script src="{{ url_for('static', filename='app.js') }}"></script>
+<script src="{{ url_for('static', filename='tessera.js') }}"></script>
+
+<script>
+ts.init()
+</script>

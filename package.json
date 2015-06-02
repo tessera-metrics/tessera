@@ -19,9 +19,45 @@
     "url": "https://github.com/urbanairship/tessera/issues"
   },
   "homepage": "https://github.com/urbanairship/tessera",
+  "dependencies": {
+    "URIjs": "^1.15.1",
+    "bean": "^1.0.15",
+    "bluebird": "^2.9.25",
+    "bootbox": "^4.4.0",
+    "bootstrap": "^3.3.4",
+    "bootstrap-growl": "^2.0.0",
+    "bootstrap-solarized": "^1.0.2",
+    "color": "^0.8.0",
+    "d3": "^3.5.5",
+    "datatables": "^1.10.7",
+    "extend": "^2.0.1",
+    "filesaver.js": "^0.1.1",
+    "handlebars": "^3.0.3",
+    "highlight.js": "^8.5.0",
+    "holderjs": "^2.7.1",
+    "humanize-duration": "^2.8.0",
+    "inflection": "^1.7.1",
+    "jquery": "^2.1.4",
+    "marked": "^0.3.3",
+    "moment": "^2.10.2",
+    "moment-timezone": "^0.3.1",
+    "mousetrap": "^1.5.2",
+    "select2": "^3.5.2-browserify",
+    "simple-statistics": "^0.9.1",
+    "store": "^1.3.17"
+  },
   "devDependencies": {
+    "babel-core": "^5.1.11",
+    "babelify": "^6.0.2",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.8.0",
+    "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-handlebars": "^0.10.2",
+    "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-contrib-handlebars": "~0.9.3"
+    "grunt-ts-1.5": "^4.0.1",
+    "typescript": "^1.5.0-beta"
   }
 }
