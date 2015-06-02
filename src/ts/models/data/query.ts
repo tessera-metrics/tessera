@@ -138,6 +138,7 @@ export default class Query extends Model {
         dataType: 'jsonp',
         url: url,
         jsonp: 'jsonp',
+        cache: true,
         beforeSend: function(xhr) {
           if (app.config.GRAPHITE_AUTH !== '') {
             xhr.setRequestHeader('Authorization', 'Basic ' + window.btoa(app.config.GRAPHITE_AUTH))
