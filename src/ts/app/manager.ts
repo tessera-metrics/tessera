@@ -449,7 +449,7 @@ export class Manager {
     }
     if (intervalSeconds > 0) {
       this.intervalSeconds = intervalSeconds
-      this.intervalId = window.setInterval(this.refresh, intervalSeconds * 1000)
+      this.intervalId = window.setInterval(() => { this.refresh() }, intervalSeconds * 1000)
       log.debug('set auto-refresh interval; intervalId: ' + this.intervalId + '; seconds: ' + intervalSeconds)
     }
   }

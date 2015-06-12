@@ -159,7 +159,7 @@ export default class Dashboard extends Model {
     if (this.definition) {
       this.definition.render_templates(context)
     }
-    return this
+    return <Dashboard> this.fire('change', {target: this})
   }
 
   flatten() {
