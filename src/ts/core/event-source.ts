@@ -13,7 +13,8 @@ export default class EventSource {
     events.off(this, event)
   }
 
-  fire(event: string, ...data: any[]) : void {
+  fire(event: string, ...data: any[]) : EventSource {
     events.fire(this, event, ...data)
+    return this
   }
 }
