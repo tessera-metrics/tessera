@@ -56,7 +56,7 @@ def jsonify(data, status=200, headers=None):
     return response
 
 def set_exception_response(http_exception):
-    http_exception.response = _jsonify({
+    http_exception.response = jsonify({
         'error_message' : http_exception.description
     }, status=http_exception.code)
     return http_exception
