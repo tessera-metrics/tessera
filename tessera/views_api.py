@@ -33,13 +33,13 @@ def route_api(application, *args, **kwargs):
             try:
                 value = fn(*args, **kwargs)
             except HTTPException as e:
-                raise helpers._set_exception_response(e)
+                raise helpers.set_exception_response(e)
             if isinstance(value, tuple):
                 if len(value) > 2:
                     headers = value[2]
                 status_code = value[1]
                 value = value[0]
-            return helpers._jsonify(value, status_code, headers)
+            return helpers.jsonify(value, status_code, headers)
         return fn
     return decorator
 
@@ -54,8 +54,8 @@ the 'sort' and 'order' request parameters.
         'id' : database.DashboardRecord.id,
         'title' : database.DashboardRecord.title
     }
-    colname = helpers._get_param('sort', 'created')
-    order   = helpers._get_param('order')
+    colname = helpers.get_param('sort', 'created')
+    order   = helpers.get_param('order')
     column  = database.DashboardRecord.creation_date
     if colname in columns:
         column = columns[colname]
@@ -89,7 +89,7 @@ will be converted to their JSON representation.
     if not isinstance(dashboards, list):
         dashboards = [dashboards]
 
-    include_definition = helpers._get_param_boolean('definition', False)
+    include_definition = helpers.get_param_boolean('definition', False)
     return [ _set_dashboard_hrefs(d.to_json(include_definition=include_definition)) for d in dashboards]
 
 def _set_tag_hrefs(tag):
@@ -172,11 +172,11 @@ def api_dashboard_get(id):
 
     """
     dashboard = database.DashboardRecord.query.get_or_404(id)
-    rendering = helpers._get_param('rendering', False)
-    include_definition = helpers._get_param_boolean('definition', False)
+    rendering = helpers.get_param('rendering', False)
+    include_definition = helpers.get_param_boolean('definition', False)
     dash = _set_dashboard_hrefs(dashboard.to_json(rendering or include_definition))
     if rendering:
-        dash['preferences'] = helpers._get_preferences()
+        dash['preferences'] = helpers.get_preferences()
     return dash
 
 @route_api(app, '/api/dashboard/<id>/for-rendering')
@@ -189,7 +189,7 @@ for rendering.
     dash = _set_dashboard_hrefs(dashboard.to_json(True))
     return {
         'dashboard' : dash,
-        'preferences' : helpers._get_preferences()
+        'preferences' : helpers.get_preferences()
     }
 
 @route_api(app, '/api/dashboard/', methods=['POST'])
@@ -290,9 +290,9 @@ def api_tag_get(id):
 
 @route_api(app, '/api/preferences/')
 def api_preferences_get():
-    return helpers._get_preferences()
+    return helpers.get_preferences()
 
 @route_api(app, '/api/preferences/', methods=['PUT'])
 def api_preferences_put():
-    helpers._set_preferences(request.json)
-    return helpers._get_preferences()
+    helpers.set_preferences(request.json)
+    return helpers.get_preferences()

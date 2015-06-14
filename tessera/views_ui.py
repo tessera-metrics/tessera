@@ -22,11 +22,11 @@ log = logging.getLogger(__name__)
 class RenderContext:
     def __init__(self):
         self.now = datetime.now()
-        self.prefs = helpers._get_preferences()
+        self.prefs = helpers.get_preferences()
         self.version = __version__
 
     def get(self, key, default=None, store_in_session=False):
-        return helpers._get_param(key, default=default, store_in_session=store_in_session)
+        return helpers.get_param(key, default=default, store_in_session=store_in_session)
 
     def get_int(self, key, default=0, store_in_session=False):
         return int(self.get(key, default=default, store_in_session=store_in_session) or 0)
@@ -39,8 +39,8 @@ def _render_template(template, **kwargs):
     return render_template(template, ctx=RenderContext(), **kwargs)
 
 def _render_client_side_dashboard(dashboard, template='dashboard.html', transform=None):
-    from_time = helpers._get_param('from', helpers._cfg('DEFAULT_FROM_TIME', '-3h'))
-    until_time = helpers._get_param('until', None)
+    from_time = helpers.get_param('from', helpers.cfg('DEFAULT_FROM_TIME', '-3h'))
+    until_time = helpers.get_param('until', None)
     title = '{0} {1}'.format(dashboard.category, dashboard.title)
     return _render_template(template,
                             dashboard=dashboard,
@@ -63,7 +63,7 @@ def ui_root():
 
 @app.route('/preferences/')
 def ui_preferences():
-    helpers._get_preferences(store_in_session=True),
+    helpers.get_preferences(store_in_session=True),
     title = 'User Preferences'
     return _render_template('preferences.html',
                             title=title,
@@ -137,4 +137,4 @@ def ui_dashboard(id, slug=None, path=None):
         dashboard = database.DashboardRecord.query.get_or_404(id)
         return _render_client_side_dashboard(dashboard, transform=transform)
     except HTTPException as e:
-        raise helpers._set_exception_response(e)
+        raise helpers.set_exception_response(e)
