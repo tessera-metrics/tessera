@@ -32,7 +32,8 @@ db      = SQLAlchemy(app)
 migrate = Migrate(app, db)
 config  = app.config
 
-from .views import *
+from .views_api import *
+from .views_ui import *
 
 app_root = app.config.get('APPLICATION_ROOT', None)
 if app_root:

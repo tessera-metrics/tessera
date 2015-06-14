@@ -7,14 +7,14 @@ from datetime import datetime
 import inflection
 from functools import wraps
 
-from flask import render_template, request, session, url_for
+from flask import render_template, request, url_for
 from werkzeug.exceptions import HTTPException
 
 from tessera_client.api.model import *
 from . import database
+from . import helpers
 from .application import app
 from .application import db
-from ._version import __version__
 
 mgr = database.DatabaseManager(db)
 log = logging.getLogger(__name__)
@@ -22,21 +22,6 @@ log = logging.getLogger(__name__)
 # =============================================================================
 # API Helpers
 # =============================================================================
-
-def _jsonify(data, status=200, headers=None):
-    response = flask.Response(status=status,
-                              mimetype="application/json",
-                              response=json.dumps(data, cls=EntityEncoder, sort_keys=True))
-    if isinstance(headers, dict):
-        for key, value in headers.items():
-            response.headers[key] = str(value)
-    return response
-
-def _set_exception_response(http_exception):
-    http_exception.response = _jsonify({
-        'error_message' : http_exception.description
-    }, status=http_exception.code)
-    return http_exception
 
 def route_api(application, *args, **kwargs):
     def decorator(fn):
@@ -48,58 +33,15 @@ def route_api(application, *args, **kwargs):
             try:
                 value = fn(*args, **kwargs)
             except HTTPException as e:
-                raise _set_exception_response(e)
+                raise helpers._set_exception_response(e)
             if isinstance(value, tuple):
                 if len(value) > 2:
                     headers = value[2]
                 status_code = value[1]
                 value = value[0]
-            return _jsonify(value, status_code, headers)
+            return helpers._jsonify(value, status_code, headers)
         return fn
     return decorator
-
-def _get_param(name, default=None, store_in_session=False):
-    """Retrieve a named parameter from the request, falling back to the
-session. If store_in_session is True, the value will be stored in the
-session.
-    """
-    value = request.args.get(name) or session.get(name, default)
-    if store_in_session:
-        session[name] = value
-    return value
-
-def _get_param_boolean(name, default=None, store_in_session=False):
-    value = _get_param(name, default)
-    if store_in_session:
-        session[name] = value
-    return value == 'True' \
-        or value == 'true'
-
-def _cfg(key, default=None):
-    return app.config.get(key, default)
-
-def _get_preferences(store_in_session=False):
-    """Retrieve a dictionary containing all user preferences, obtained
-from (in order) the request parameters, session, and config
-defaults.
-    """
-    return {
-        'downsample'                  : _get_param('downsample',       _cfg('DOWNSAMPLE_TIMESERIES', 1), store_in_session=store_in_session),
-        'theme'                       : _get_param('theme',            _cfg('DEFAULT_THEME', 'light'), store_in_session=store_in_session),
-        'renderer'                    : _get_param('renderer',         _cfg('CHART_RENDERER', 'flot'), store_in_session=store_in_session),
-        'refresh'                     : _get_param('refresh',          _cfg('DEFAULT_REFRESH_INTERVAL', 60), store_in_session=store_in_session),
-        'timezone'                    : _get_param('timezone',         _cfg('DISPLAY_TIMEZONE', 'Etc/UTC'), store_in_session=store_in_session),
-        'graphite_url'                : _get_param('graphite_url',     _cfg('GRAPHITE_URL', 'http://localhost:8080'), store_in_session=store_in_session),
-        'graphite_auth'               : _get_param('graphite_auth',    _cfg('GRAPHITE_AUTH', ''), store_in_session=store_in_session),
-        'connected_lines'             : _get_param('connected_lines',  _cfg('CONNECTED_LINES', _cfg('GRAPHITE_CONNECTED_LINES', 0)), store_in_session=store_in_session),
-        'propsheet_autoclose_seconds' : _get_param('propsheet_autoclose_seconds', _cfg('DEFAULT_PROPSHEET_AUTOCLOSE_SECONDS', 3), store_in_session=store_in_session),
-        'default_from_time'           : _get_param('default_from_time', _cfg('DEFAULT_FROM_TIME', '-3h'), store_in_session=store_in_session),
-    }
-
-def _set_preferences(prefs):
-    """Store multiple key/value pairs in the session."""
-    for name, value in prefs.items():
-        session[name] = value
 
 def _dashboard_sort_column():
     """Return a SQLAlchemy column descriptor to sort results by, based on
@@ -112,8 +54,8 @@ the 'sort' and 'order' request parameters.
         'id' : database.DashboardRecord.id,
         'title' : database.DashboardRecord.title
     }
-    colname = _get_param('sort', 'created')
-    order   = _get_param('order')
+    colname = helpers._get_param('sort', 'created')
+    order   = helpers._get_param('order')
     column  = database.DashboardRecord.creation_date
     if colname in columns:
         column = columns[colname]
@@ -147,7 +89,7 @@ will be converted to their JSON representation.
     if not isinstance(dashboards, list):
         dashboards = [dashboards]
 
-    include_definition = _get_param_boolean('definition', False)
+    include_definition = helpers._get_param_boolean('definition', False)
     return [ _set_dashboard_hrefs(d.to_json(include_definition=include_definition)) for d in dashboards]
 
 def _set_tag_hrefs(tag):
@@ -168,12 +110,8 @@ will be converted to their JSON representation.
     return [_set_tag_hrefs(t.to_json()) for t in tags]
 
 # =============================================================================
-# API Endpoints
-# =============================================================================
-
-#
 # Dashboards
-#
+# =============================================================================
 
 @route_api(app, '/api/dashboard/')
 def api_dashboard_list():
@@ -234,11 +172,11 @@ def api_dashboard_get(id):
 
     """
     dashboard = database.DashboardRecord.query.get_or_404(id)
-    rendering = _get_param('rendering', False)
-    include_definition = _get_param_boolean('definition', False)
+    rendering = helpers._get_param('rendering', False)
+    include_definition = helpers._get_param_boolean('definition', False)
     dash = _set_dashboard_hrefs(dashboard.to_json(rendering or include_definition))
     if rendering:
-        dash['preferences'] = _get_preferences()
+        dash['preferences'] = helpers._get_preferences()
     return dash
 
 @route_api(app, '/api/dashboard/<id>/for-rendering')
@@ -251,7 +189,7 @@ for rendering.
     dash = _set_dashboard_hrefs(dashboard.to_json(True))
     return {
         'dashboard' : dash,
-        'preferences' : _get_preferences()
+        'preferences' : helpers._get_preferences()
     }
 
 @route_api(app, '/api/dashboard/', methods=['POST'])
@@ -329,9 +267,9 @@ def api_dashboard_update_definition(id):
 
     return {}
 
-#
+# =============================================================================
 # Tags
-#
+# =============================================================================
 
 @route_api(app, '/api/tag/')
 def api_tag_list():
@@ -346,144 +284,15 @@ def api_tag_get(id):
     tag = database.TagRecord.query.get_or_404(id)
     return _tags_response(tag)
 
-#
+# =============================================================================
 # Miscellany
-#
+# =============================================================================
 
 @route_api(app, '/api/preferences/')
 def api_preferences_get():
-    return _get_preferences()
+    return helpers._get_preferences()
 
 @route_api(app, '/api/preferences/', methods=['PUT'])
 def api_preferences_put():
-    _set_preferences(request.json)
-    return _get_preferences()
-
-# =============================================================================
-# UI
-# =============================================================================
-
-#
-# Helpers
-#
-
-class RenderContext:
-    def __init__(self):
-        self.now = datetime.now()
-        self.prefs = _get_preferences()
-        self.version = __version__
-
-    def get(self, key, default=None, store_in_session=False):
-        return _get_param(key, default=default, store_in_session=store_in_session)
-
-    def get_int(self, key, default=0, store_in_session=False):
-        return int(self.get(key, default=default, store_in_session=store_in_session) or 0)
-
-    def get_str(self, key, default=None, store_in_session=False):
-        return str(self.get(key, default=default, store_in_session=store_in_session))
-
-
-def _render_template(template, **kwargs):
-    return render_template(template, ctx=RenderContext(), **kwargs)
-
-def _render_client_side_dashboard(dashboard, template='dashboard.html', transform=None):
-    from_time = _get_param('from', _cfg('DEFAULT_FROM_TIME', '-3h'))
-    until_time = _get_param('until', None)
-    title = '{0} {1}'.format(dashboard.category, dashboard.title)
-    return _render_template(template,
-                            dashboard=dashboard,
-                            definition=dashboard.definition,
-                            from_time=from_time,
-                            until_time=until_time,
-                            title=title,
-                            transform=transform,
-                            breadcrumbs=[('Home', url_for('ui_root')),
-                                         ('Dashboards', url_for('ui_dashboard_list')),
-                                         (title, '')])
-
-#
-# Endpoints
-#
-
-@app.route('/')
-def ui_root():
-    return _render_template('index.html', breadcrumbs=[('Home', url_for('ui_root'))])
-
-@app.route('/preferences/')
-def ui_preferences():
-    _get_preferences(store_in_session=True),
-    title = 'User Preferences'
-    return _render_template('preferences.html',
-                            title=title,
-                            breadcrumbs=[('Home', url_for('ui_root')),
-                                         (title, '')])
-
-@app.route('/favorites/')
-def ui_favorites():
-    title = 'Favorites'
-    return _render_template('favorites.html',
-                            title=title,
-                            breadcrumbs=[('Home', url_for('ui_root')),
-                                         (title, '')])
-
-@app.route('/import/')
-def ui_import():
-    _get_preferences(store_in_session=True),
-    title = 'Import Dashboards'
-    return _render_template('import.html',
-                            title=title,
-                            breadcrumbs=[('Home', url_for('ui_root')),
-                                         (title, '')])
-
-@app.route('/dashboards/')
-def ui_dashboard_list():
-    title = 'Dashboards'
-    return _render_template('dashboard-list.html',
-                            title=title,
-                            breadcrumbs=[('Home', url_for('ui_root')),
-                                         (title, '')])
-
-@app.route('/dashboards/create/')
-def ui_dashboard_create():
-    title = 'New Dashboard'
-    return _render_template('dashboard-create.html',
-                            title=title,
-                            breadcrumbs=[('Home', url_for('ui_root')),
-                                         ('Dashboards', url_for('ui_dashboard_list')),
-                                         (title, '')])
-
-
-@app.route('/dashboards/tagged/<tag>')
-def ui_dashboard_list_tagged(tag):
-    title = 'Dashboards'
-    return _render_template('dashboard-list.html',
-                            tag=tag,
-                            title=title,
-                            breadcrumbs=[('Home', url_for('ui_root')),
-                                         (title, '')])
-
-
-@app.route('/dashboards/<id>/<slug>', defaults={'path' : ''})
-@app.route('/dashboards/<id>/<slug>/<path:path>')
-def ui_dashboard_with_slug(id, slug, path):
-    return ui_dashboard(id, slug, path)
-
-@app.route('/dashboards/<id>/')
-def ui_dashboard(id, slug=None, path=None):
-    transform = None
-    if path and path.find('transform') > -1:
-        components = path.split('/')
-        if len(components) == 2:
-            name = components[1]
-            element = slug
-        elif len(components) == 3:
-            element, ignore, name = components
-        transform = {
-            'element': element,
-            'name' : name
-        }
-    try:
-        dashboard = database.DashboardRecord.query.get_or_404(id)
-        return _render_client_side_dashboard(dashboard, transform=transform)
-    except HTTPException as e:
-        raise _set_exception_response(e)
+    helpers._set_preferences(request.json)
+    return helpers._get_preferences()
