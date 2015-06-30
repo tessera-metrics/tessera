@@ -100,7 +100,7 @@
       })
     {% endif %}
 
-    var url = '{{url_for('api_dashboard_get', id=dashboard.id)|safe}}'
+    var url = '{{url_for('api.dashboard_get', id=dashboard.id)|safe}}'
     ts.manager.load(url, "#dashboard")
 
     $("[data-toggle=tooltip]").tooltip({

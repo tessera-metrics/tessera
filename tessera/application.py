@@ -32,7 +32,11 @@ db      = SQLAlchemy(app)
 migrate = Migrate(app, db)
 config  = app.config
 
-from .views import *
+from views_api import api
+from views_ui import ui
+
+app.register_blueprint(api, url_prefix='/api')
+app.register_blueprint(ui)
 
 app_root = app.config.get('APPLICATION_ROOT', None)
 if app_root:
