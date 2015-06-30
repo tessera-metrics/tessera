@@ -6,6 +6,7 @@ import os
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate
+from flask_cors import CORS
 from werkzeug.wsgi import DispatcherMiddleware
 
 log = logging.getLogger(__name__)
@@ -42,4 +43,11 @@ app_root = app.config.get('APPLICATION_ROOT', None)
 if app_root:
     app = DispatcherMiddleware(Flask('root'), {
         app_root : app
+    })
+
+if app.config.get('ENABLE_CORS', False):
+    CORS(app, resources={
+        r'/api/*': {
+            'origins' : app.config.get('CORS_ORIGINS', '*')
+        }
     })
