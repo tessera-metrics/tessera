@@ -135,3 +135,13 @@ DASHBOARD_REFRESH_INTERVALS = [
 # seconds. This is overridable by user sessions.
 #
 DEFAULT_REFRESH_INTERVAL = 60
+
+#
+# Enable Cross Origin Resource Sharing headers
+#
+ENABLE_CORS = False
+
+#
+# Set the allowed origins for CORS, when enabled.
+#
+CORS_ORIGINS = '*'

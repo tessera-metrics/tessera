@@ -46,10 +46,10 @@
       <div class="col-md-4">
         <h3>Actions</h3>
         <ul class="list-group">
-          <li class="list-group-item"><a href="{{url_for('ui_dashboard_create')}}"><i class="fa fa-plus"></i> New dashboard&hellip;</a></li>
+          <li class="list-group-item"><a href="{{url_for('ui.dashboard_create')}}"><i class="fa fa-plus"></i> New dashboard&hellip;</a></li>
         </ul>
         <ul class="list-group">
-          <li class="list-group-item"><a href="{{url_for('ui_import')}}"><i class="fa fa-upload"></i> Import&hellip;</a></li>
+          <li class="list-group-item"><a href="{{url_for('ui.dashboard_import')}}"><i class="fa fa-upload"></i> Import&hellip;</a></li>
         </ul>
         <h3>Tags</h3>
         <div id="ds-dashboard-tag-listing"></div>
@@ -59,9 +59,9 @@
 
   <script>
    {% if tag %}
-      var path = '{{url_for('api_dashboard_list_tagged', tag=tag, sort=ctx.get('sort', 'created'), order=ctx.get('order', 'desc'))|safe}}'
+      var path = '{{url_for('api.dashboard_list_tagged', tag=tag, sort=ctx.get('sort', 'created'), order=ctx.get('order', 'desc'))|safe}}'
     {% else %}
-      var path = '{{url_for('api_dashboard_list', sort=ctx.get('sort', 'created'), order=ctx.get('order', 'desc'))|safe}}'
+      var path = '{{url_for('api.dashboard_list', sort=ctx.get('sort', 'created'), order=ctx.get('order', 'desc'))|safe}}'
     {% endif %}
     ts.manager.render_dashboard_list(path, '#ds-dashboard-main-listing')
 
