@@ -10,10 +10,11 @@ from werkzeug.exceptions import HTTPException
 from tessera_client.api.model import *
 from . import database
 from . import helpers
-from .application import app
 from ._version import __version__
 
 log = logging.getLogger(__name__)
+
+ui = flask.Blueprint('ui', __name__)
 
 # =============================================================================
 # UI Helpers
@@ -49,78 +50,78 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html', transfor
                             until_time=until_time,
                             title=title,
                             transform=transform,
-                            breadcrumbs=[('Home', url_for('ui_root')),
-                                         ('Dashboards', url_for('ui_dashboard_list')),
+                            breadcrumbs=[('Home', url_for('ui.root')),
+                                         ('Dashboards', url_for('ui.dashboard_list')),
                                          (title, '')])
 
 # =============================================================================
 # UI Endpoints
 # =============================================================================
 
-@app.route('/')
-def ui_root():
-    return _render_template('index.html', breadcrumbs=[('Home', url_for('ui_root'))])
+@ui.route('/')
+def root():
+    return _render_template('index.html', breadcrumbs=[('Home', url_for('ui.root'))])
 
-@app.route('/preferences/')
-def ui_preferences():
+@ui.route('/preferences/')
+def preferences():
     helpers.get_preferences(store_in_session=True),
     title = 'User Preferences'
     return _render_template('preferences.html',
                             title=title,
-                            breadcrumbs=[('Home', url_for('ui_root')),
+                            breadcrumbs=[('Home', url_for('ui.root')),
                                          (title, '')])
 
-@app.route('/favorites/')
-def ui_favorites():
+@ui.route('/favorites/')
+def favorites():
     title = 'Favorites'
     return _render_template('favorites.html',
                             title=title,
-                            breadcrumbs=[('Home', url_for('ui_root')),
+                            breadcrumbs=[('Home', url_for('ui.root')),
                                          (title, '')])
 
-@app.route('/import/')
-def ui_import():
+@ui.route('/import/')
+def dashboard_import():
     title = 'Import Dashboards'
     return _render_template('import.html',
                             title=title,
-                            breadcrumbs=[('Home', url_for('ui_root')),
+                            breadcrumbs=[('Home', url_for('ui.root')),
                                          (title, '')])
 
-@app.route('/dashboards/')
-def ui_dashboard_list():
+@ui.route('/dashboards/')
+def dashboard_list():
     title = 'Dashboards'
     return _render_template('dashboard-list.html',
                             title=title,
-                            breadcrumbs=[('Home', url_for('ui_root')),
+                            breadcrumbs=[('Home', url_for('ui.root')),
                                          (title, '')])
 
-@app.route('/dashboards/create/')
-def ui_dashboard_create():
+@ui.route('/dashboards/create/')
+def dashboard_create():
     title = 'New Dashboard'
     return _render_template('dashboard-create.html',
                             title=title,
-                            breadcrumbs=[('Home', url_for('ui_root')),
-                                         ('Dashboards', url_for('ui_dashboard_list')),
+                            breadcrumbs=[('Home', url_for('ui.root')),
+                                         ('Dashboards', url_for('ui.dashboard_list')),
                                          (title, '')])
 
 
-@app.route('/dashboards/tagged/<tag>')
-def ui_dashboard_list_tagged(tag):
+@ui.route('/dashboards/tagged/<tag>')
+def dashboard_list_tagged(tag):
     title = 'Dashboards'
     return _render_template('dashboard-list.html',
                             tag=tag,
                             title=title,
-                            breadcrumbs=[('Home', url_for('ui_root')),
+                            breadcrumbs=[('Home', url_for('ui.root')),
                                          (title, '')])
 
 
-@app.route('/dashboards/<id>/<slug>', defaults={'path' : ''})
-@app.route('/dashboards/<id>/<slug>/<path:path>')
-def ui_dashboard_with_slug(id, slug, path):
-    return ui_dashboard(id, slug, path)
+@ui.route('/dashboards/<id>/<slug>', defaults={'path' : ''})
+@ui.route('/dashboards/<id>/<slug>/<path:path>')
+def dashboard_with_slug(id, slug, path):
+    return dashboard(id, slug, path)
 
-@app.route('/dashboards/<id>/')
-def ui_dashboard(id, slug=None, path=None):
+@ui.route('/dashboards/<id>/')
+def dashboard(id, slug=None, path=None):
     transform = None
     if path and path.find('transform') > -1:
         components = path.split('/')
