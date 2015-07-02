@@ -5,7 +5,7 @@ export default class Preferences extends Model {
   default_from_time: string = '-3h'
   downsample: boolean = true
   graphite_auth: string
-  graphite_url: string = 'http://locahost:8080'
+  graphite_url: string = 'http://localhost:8080'
   propsheet_autoclose_seconds: number = 3
   refresh: number = 60
   renderer: string = 'flot'
