@@ -1,10 +1,6 @@
-<!doctype html>
-<html>
-  <head>
-    {% include "snippets/site-header.html" %}
-  </head>
-  <body>
+{% extends "base.html" %}
 
+{% block pageheader %}
     <div class="container ds-header-container">
       <div class="page-header" data-ds-hide="display">
         <div class="row">
@@ -31,6 +27,9 @@
         </div>
       </div> <!-- page-header -->
     </div><!-- container -->
+{% endblock %}
+
+{% block pagebody %}
 
       {% block layout %}
       {% block content %}
@@ -67,5 +66,4 @@
      $(document).ready(ds_highlight_link())
     </script>
 
-  </body>
-</html>
+{% endblock %}
