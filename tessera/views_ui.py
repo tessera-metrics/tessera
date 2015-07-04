@@ -120,8 +120,12 @@ def dashboard_list_tagged(tag):
 def dashboard_with_slug(id, slug, path):
     return dashboard(id, slug, path)
 
+@ui.route('/dashboards/<id>/<slug>/embed')
+def dashboard_with_slug_embed(id, slug):
+    return dashboard(id, slug, template='dashboard-embed.html')
+
 @ui.route('/dashboards/<id>/')
-def dashboard(id, slug=None, path=None):
+def dashboard(id, slug=None, path=None, template='dashboard.html'):
     transform = None
     if path and path.find('transform') > -1:
         components = path.split('/')
@@ -136,6 +140,6 @@ def dashboard(id, slug=None, path=None):
         }
     try:
         dashboard = database.DashboardRecord.query.get_or_404(id)
-        return _render_client_side_dashboard(dashboard, transform=transform)
+        return _render_client_side_dashboard(dashboard, transform=transform, template=template)
     except HTTPException as e:
         raise helpers.set_exception_response(e)

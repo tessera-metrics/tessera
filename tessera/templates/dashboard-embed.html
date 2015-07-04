@@ -1,0 +1,29 @@
+<!-- -*- mode:jinja2 -*- -->
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="ds-grid" id="dashboard"></div>
+
+<script>
+ {% if transform %}
+ ts.manager.onDashboardLoaded(function(dashboard) {
+   var item = ts.manager.current.dashboard.get_item('{{transform.element}}')
+   var transform = ts.transforms.get('{{transform.name}}')
+   ts.manager.current_transform = {
+     transform: transform,
+     target: item
+   }
+ })
+ {% endif %}
+
+ var url = '{{url_for('api.dashboard_get', id=dashboard.id)|safe}}'
+ ts.manager.load(url, "#dashboard")
+
+ $(document).ready(function() {
+   $('.ds-header-container').hide()
+   $('.ds-footer-container').hide()
+ })
+</script>
+
+{% endblock %}
