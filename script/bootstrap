@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# script/bootstrap: Resolve all dependencies that the application
+#                   requires to run.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+echo "==> Installing Javascript dependencies..."
+cd tessera-frontend/
+npm install
+
+cd ../tessera-server/
+if [ ! -d "env" ]; then
+    echo "==> Creating python virtualenv..."
+    virtualenv ./env
+fi
+
+echo "==> Installing Python dependencies..."
+source env/bin/activate
+pip install -r requirements.txt
+pip install -r dev-requirements.txt

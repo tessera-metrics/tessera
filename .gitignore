@@ -1,8 +1,7 @@
 *.db
-src/ts/extensions/
-tessera/static/
-_build/
-
+tessera-frontend/src/ts/extensions/t
+tessera-frontend/_build/
+tessera-server/tessera/static/
 
 # Miscellany
 .DS_Store
@@ -11,13 +10,13 @@ _build/
 .#*
 
 # TypeScript
-.tscache/
+tessera-frontend/.tscache/
+tessera-frontend/src/ts/.baseDir.ts
 tscommand*
-src/ts/.baseDir.ts
 
 # Node, etc...
-bower_components/
-node_modules/
+tessera-frontend/bower_components/
+tessera-frontend/node_modules/
 
 # Assorted Python
 *.pyc
@@ -25,12 +24,4 @@ node_modules/
 .Python
 
 # Python virtualenv dirs
-bin/
-lib/
-include/
-man/
-dist/
-local/
-build/
-tmp/
-etc/
+tessera-server/env
