@@ -54,9 +54,14 @@ dashoards loaded.
 
 ### From Source
 
-Read the directions to build from source at
-[urbanairship.github.io](http://urbanairship.github.io/tessera/docs/).
+The TL;DR version:
 
+```
+./script/setup
+./script/server &
+cd tessera-server
+inv json.import '../demo/*'
+```
 
 ## Documentation
 
