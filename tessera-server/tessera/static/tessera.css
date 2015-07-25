@@ -1,0 +1,505 @@
+/* =============================================================================
+   3rd Party fixes
+   ============================================================================= */
+
+/* fix for bootstrap/font-awesome background image problem on icons */
+i[class*='icon-'] {
+    background-image: none;
+}
+
+/* Bootstrap tweak */
+.label {
+    text-decoration: none;
+    text-shadow: none;
+}
+.page-header {
+    margin-top: 0px;
+}
+
+
+/** Add the range of semantic colors to badges too, for compact presentations */
+.badge-primary {
+  background-color: #428bca;
+}
+.badge-success {
+  background-color: #5cb85c;
+}
+.badge-info {
+  background-color: #5bc0de;
+}
+.badge-warning {
+  background-color: #f0ad4e;
+}
+.badge-danger {
+  background-color: #d9534f;
+}
+
+/* x-editable's textarea in dashboard info edit panel comes out too
+narrow unless we override */
+.ds-dashboard-info-edit-panel span.editable-container textarea {
+    width: 30em;
+}
+
+.ds-dashboard-info-edit-panel .tab-pane {
+    margin-top: 20px;
+}
+
+/* text boxes get formatted a little oddly by x-editable without resetting this */
+.editable-pre-wrapped {
+    white-space: normal;
+}
+
+/* Tag Manager */
+.tm-tag {
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+}
+.tm-tag-remove {
+    color: lightgray;
+    margin-left: 4px;
+}
+
+/**
+ * Override DataTable's column sorting styles to save space/clutter.
+ */
+table.dataTable thead > tr > th {
+	padding-left: 2em;
+    padding-right: 8px;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_desc:before {
+	position: absolute;
+	display: block;
+	font-family: 'FontAwesome';
+	opacity: 0.5;
+}
+table.dataTable thead .sorting:after {
+    display: none;
+}
+table.dataTable thead .sorting_asc:after {
+    display:none;
+}
+table.dataTable thead .sorting_asc:before {
+	content: "\f0de"; /* sort-by-attributes */
+}
+table.dataTable thead .sorting_desc:after {
+    display:none;
+}
+table.dataTable thead .sorting_desc:before {
+	content: "\f0dd"; /* sort-by-attributes-alt */
+}
+div.dataTables_scrollBody table.dataTable thead .sorting:after,
+div.dataTables_scrollBody table.dataTable thead .sorting_asc:after,
+div.dataTables_scrollBody table.dataTable thead .sorting_desc:after {
+	display: none;
+}
+
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:after {
+	color: #eee;
+}
+
+
+/* =============================================================================
+   Application Styles
+   ============================================================================= */
+
+ul.ds-header-links {
+    list-style: none;
+}
+
+ul.ds-header-links li {
+    display: inline;
+    margin-left: .5em;
+}
+
+ul.ds-header-links a.active {
+    border-bottom: 2px solid;
+    padding-bottom: .125em;
+}
+
+button.ds-favorited i::before,
+.ds-favorite-indicator.ds-favorited i::before {
+    color: red;
+}
+
+.ds-grid .well {
+    padding-bottom: 1em;
+}
+
+.ds-height1 { height: 80px; }
+.ds-height2 { height: 140px; }
+.ds-height3 { height: 200px; }
+.ds-height4 { height: 260px; }
+.ds-height5 { height: 320px; }
+.ds-height6 { height: 480px; }
+.ds-height7 { height: 540px; }
+.ds-height8 { height: 600px; }
+
+h1.page-title {
+    font-size: 3em;
+}
+
+.ds-grid h1 {
+    margin-bottom: 0.125em;
+}
+
+.ds-row .well {
+  margin-bottom: 1em;
+  padding-bottom: 0px;
+}
+
+.ds-section {
+  margin-top: 1em;
+}
+
+.ds-section-heading {
+    margin-top: 0px;
+}
+.bs-callout {
+    margin-bottom: 1em;
+}
+
+.ds-grid hr {
+  margin-top:0;
+}
+
+.ds-timerstat h3,
+.ds-singlestat h3 {
+    margin: 0px;
+}
+
+.ds-timerstat p,
+.ds-singlestat p {
+    margin-bottom: 0px;
+}
+
+.ds-timerstat .unit,
+.ds-singlestat .unit {
+    margin-left: .25em;
+}
+
+.ds-singlestat .diff {
+    display: block;
+}
+
+.ds-jumbotron-singlestat {
+    margin-bottom: 1em;
+}
+
+.ds-jumbotron-singlestat .annotations {
+    float: left;
+    position: absolute;
+    bottom: .5em;
+}
+
+.ds-jumbotron-singlestat .unit {
+    display: block;
+}
+
+.ds-jumbotron-singlestat .annotations-wrapper {
+    position: relative;
+    float: left;
+    margin-left: 1em;
+    height: 8em;
+}
+
+.ds-jumbotron-singlestat .value {
+    line-height: 1em;
+    font-size: 8em;
+    font-weight: bold;
+    float: left;
+}
+
+.ds-jumbotron-singlestat h3 {
+    margin-left: 1em;
+    clear: both;
+}
+
+.ds-simple-chart {
+    position:relative;
+    margin-bottom: 22px;
+}
+.name-overlay {
+    position:absolute;
+    bottom:0px;
+    left:4px;
+}
+.value-overlay {
+    position:absolute;
+    bottom:4px;
+    right:4px;
+}
+.value-overlay h3 {
+    font-size:30px;
+}
+
+.ds-graph {
+    margin-bottom: 2em;
+}
+
+.ds-time-container h2 {
+    padding-top: 2px;
+    margin-bottom: -.45em;
+}
+
+.ds-time-container h6 {
+    text-transform: uppercase;
+}
+
+.ds-fullscreen-titlebar {
+    margin-bottom: 0.5em;
+}
+
+.ds-fullscreen-titlebar h1 {
+    margin-top: 0.25em;
+}
+
+.ds-fullscreen-titlebar .ds-refresh-button-group {
+    margin-top: 1em;
+    margin-left: .5em;
+}
+
+.ds-item h1,
+.ds-item h2,
+.ds-item h3,
+.ds-item h4,
+.ds-item h5,
+.ds-item h6 {
+    line-height:1;
+    margin-top: 0;
+}
+
+.ds-singlegraph svg {
+    height: 90px;
+}
+
+.ds-singlegraph span.ds-label {
+    display: block;
+    position: absolute;
+    z-index: 10000;
+    left: 20px;
+    bottom: 1.5em;
+    width: 75%;
+    text-shadow: 1px 1px #dfdfff;
+}
+
+.ds-singlegraph span.value {
+    display: block;
+    position: absolute;
+    z-index: 10000;
+    right: 20px;
+    bottom: 20px;
+}
+
+.ds-editable {
+  border-bottom: none;
+}
+
+.ds-info-edit-panel .tm-input {
+    margin-top: 8px;
+}
+
+
+.ds-dashboard-listing-category {
+    margin-right: 4px;
+    color: #777;
+    width:120px;
+    display:inline-block;
+}
+.ds-dashboard-listing-last-modified {
+  color: #aaa;
+}
+.ds-featured-dashboard {
+    margin-bottom: 2em;
+}
+
+.ds-footer-container {
+    margin-bottom: 2em;
+}
+
+/* Flot charts */
+
+#ds-tooltip {
+    opacity: 1.0;
+    padding: 6px;
+    margin-left: 40px;
+    font-size: 0.9em;
+}
+
+td.ds-tooltip-label span.badge {
+    height: 1em;
+    border-radius: 0px;
+}
+td.ds-tooltip-value {
+    padding-right: 8px;
+    padding-left: 8px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.ds-tooltip-time {
+    font-weight: bold;
+}
+
+.ds-legend-holder {
+  margin-top: 1em;
+}
+
+.ds-legend-holder .legendLabel {
+    padding-right: 12px;
+}
+
+/* Comparison table dashboard items */
+
+span.ds-diff-plus::before,
+td.ds-diff-plus::before {
+    content: "+";
+    font-weight: bold;
+}
+span.ds-diff-minus::before,
+td.ds-diff-minus::before {
+    content: "-";
+    font-weight: bold;
+}
+span.ds-diff-plus,
+td.ds-diff-plus {
+    color: green;
+}
+span.ds-diff-minus,
+td.ds-diff-minus {
+    color: red;
+}
+.ds-summation-table tbody td,
+.ds-summation-table thead th,
+.ds-timeshift-summation-table tbody td,
+.ds-timeshift-summation-table thead th,
+.ds-percentage-table tbody td,
+.ds-percentage-table thead th {
+    text-align: right;
+}
+
+.ds-custom-range-picker {
+    display: inline-block;
+}
+
+.ds-custom-range-picker .row {
+    margin-bottom: 0px;
+}
+
+/* -----------------------------------------------------------------------------
+ Edit mode headers
+ ----------------------------------------------------------------------------- */
+
+.ds-edit-bar {
+    padding: 4px;
+    margin-bottom: .5em;
+    border-radius: 4px;
+}
+
+.ds-edit-bar .table {
+    margin-bottom: .25em;
+}
+
+table.ds-property-sheet td {
+    padding: 4px;
+}
+
+/*
+ * Row
+ */
+
+.ds-edit-bar-row {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.ds-row.ds-edit {
+    border-radius: 4px;
+}
+
+/*
+ * Cell
+ */
+
+.ds-cell.ds-edit {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/*
+ * Item
+ */
+
+.ds-badge-highlight {
+    border-width: 3px;
+}
+
+.ds-drag-handle {
+    display: none;
+    margin-top: 8px;
+    margin-right: .5em;
+    color: rgba(75,75,75,0.25);
+}
+
+.ds-resize-handle {
+    display: none;
+    margin-bottom: .5em;
+    margin-right: .5em;
+    color: rgba(75,75,75,0.25);
+}
+
+/* Flot legends */
+
+.ds-legend-cell {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.ds-legend-cell .color {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+  border: 1px solid gray;
+}
+
+.ds-legend-cell .label {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.ds-summation-color-cell {
+  height: 1em;
+  width: 1em;
+  display: inline-block;
+  margin-right: 0.5em;
+}
+
+/* flot.valuelabels */
+
+.flotValueLabelLight {
+    display: none;
+}
+
+.flotValueLabel {
+    position: relative;
+    font-stretch: condensed;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding-left: .5em;
+    border-left-style: dotted;
+    border-left-width: 1px;
+}

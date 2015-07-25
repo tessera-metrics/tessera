@@ -11,6 +11,8 @@ module.exports = function(grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
+    DIST: '../tessera-server/tessera/static',
+
     /**
      * 1 - Transpile all TypeScript sources to ES6
      */
@@ -101,7 +103,7 @@ module.exports = function(grunt) {
           'src/3rd-Party/css/jquery.flot.valuelabels.css',
           'src/3rd-Party/css/highlight-styles/github.css'
         ],
-        dest: 'tessera/static/css/bundle.css'
+        dest: '<%= DIST %>/css/bundle.css'
       },
       dep_js: {
         options: {
@@ -125,7 +127,7 @@ module.exports = function(grunt) {
           'src/3rd-Party/js/flot/jquery.flot.barnumbers.enhanced.js',
           'src/3rd-Party/js/equalize.min.js'
         ],
-        dest: 'tessera/static/bundle.js'
+        dest: '<%= DIST %>/bundle.js'
       },
       app: {
         options: {
@@ -136,7 +138,7 @@ module.exports = function(grunt) {
           '_build/templates.js',
           '_build/phase2.js'
         ],
-        dest: 'tessera/static/tessera.js'
+        dest: '<%= DIST %>/tessera.js'
       }
     },
 
@@ -146,20 +148,20 @@ module.exports = function(grunt) {
     copy: {
       dep: {
         files: [
-          { expand: true, cwd: 'node_modules/bootstrap-solarized/', src: '*.css', dest: 'tessera/static/themes/' },
-          { expand: true, cwd: 'src/3rd-Party/fonts/', src: '**', dest: 'tessera/static/fonts/' },
-          { expand: true, cwd: 'src/3rd-Party/img/', src: '**', dest: 'tessera/static/img/' },
+          { expand: true, cwd: 'node_modules/bootstrap-solarized/', src: '*.css', dest: '<%= DIST %>/themes/' },
+          { expand: true, cwd: 'src/3rd-Party/fonts/', src: '**', dest: '<%= DIST %>/fonts/' },
+          { expand: true, cwd: 'src/3rd-Party/img/', src: '**', dest: '<%= DIST %>/img/' },
           {
             expand: true, cwd: 'src/3rd-Party/css/', src: [
               '*.gif', '*.png', '*.map'
             ],
-            dest: 'tessera/static/css'
+            dest: '<%= DIST %>/css'
           }
         ]
       },
       app: {
         files: [
-          { expand: true, cwd: 'src/css/', src: '**', dest: 'tessera/static/' }
+          { expand: true, cwd: 'src/css/', src: '**', dest: '<%= DIST %>/' }
         ]
       }
     },
@@ -168,7 +170,7 @@ module.exports = function(grunt) {
       build: {
         src: [
           '_build/',
-          'tessera/static/*'
+          '<%= DIST %>/*'
         ]
       }
     },

@@ -14,14 +14,14 @@ Dashboards are big lumps of JSON data describing the queries, presentations, and
 
 ### From Docker
 
-If you're familiar with [docker](http://www.docker.com) and already have a Graphite instance running, you can boot up an instance of tessera with the demo dashboards preloaded and easily point it at your existing Graphite installation using the [`aalpern/tessera-simple`](https://registry.hub.docker.com/u/aalpern/tessera-simple/) image. If you don't have a Graphite installation handy, a Docker image like [`nickstenning/graphite`](https://registry.hub.docker.com/u/nickstenning/graphite/) can get that up and running quickly. 
+If you're familiar with [docker](http://www.docker.com) and already have a Graphite instance running, you can boot up an instance of tessera with the demo dashboards preloaded and easily point it at your existing Graphite installation using the [`aalpern/tessera-simple`](https://registry.hub.docker.com/u/aalpern/tessera-simple/) image. If you don't have a Graphite installation handy, a Docker image like [`nickstenning/graphite`](https://registry.hub.docker.com/u/nickstenning/graphite/) can get that up and running quickly.
 
 ```
 docker run -P -e GRAPHITE_URL=http://graphite.host -it aalpern/tessera-simple
 ```
 
 
-### From Source
+### From PyPi
 
 Tessera can be installed easily from
 [PyPi](https://pypi.python.org/pypi) with `pip` or
@@ -51,6 +51,11 @@ TESSERA_CONFIG=/path/to/config.py tessera
 The service will be available on
 [localhost:5000](http://localhost:5000) by default, with the demo
 dashoards loaded.
+
+### From Source
+
+Read the directions to build from source at
+[urbanairship.github.io](http://urbanairship.github.io/tessera/docs/).
 
 
 ## Documentation

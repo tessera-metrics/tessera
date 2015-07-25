@@ -1,0 +1,82 @@
+h1, h2, h3, h4 {
+    font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;
+}
+
+.ds-source {
+    font-family: Consolas, "Andale Mono", "Courier New", monospace
+}
+
+.ds-query-target {
+    font-family: Consolas, "Andale Mono", "Courier New", monospace
+}
+
+/* Badges are just more readable when slightly less bold */
+.badge {
+  font-weight: 400;
+}
+
+.ds-timerstat h3,
+.ds-singlestat h3 {
+    font-stretch: condensed;
+    font-size: 1.2em;
+    font-weight: normal;
+    text-transform:uppercase;
+}
+
+.ds-timerstat p,
+.ds-singlestat p {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.ds-timerstat .unit,
+.ds-singlestat .unit,
+.ds-singlestat .diff {
+    font-size: .5em;
+    text-transform: lowercase;
+}
+
+.ds-jumbotron-singlestat .diff,
+.ds-jumbotron-singlestat .unit {
+    font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;
+    text-transform: lowercase;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.ds-jumbotron-singlestat .value {
+    font-size: 8em;
+    font-weight: bold;
+}
+
+.ds-jumbotron-singlestat h3 {
+    text-transform: lowercase;
+    font-size: 2.5em;
+}
+
+.name-overlay h5 {
+    font-size:12px;
+}
+
+.ds-singlegraph {
+    font-weight: bold;
+}
+
+.ds-singlegraph span.ds-label {
+    font-size: 1.2em;
+}
+.ds-singlegraph h3 {
+    font-size: 1.4em;
+}
+
+.ds-singlegraph span.value {
+    font-size: 4em;
+}
+
+.ds-dashboard-listing-category {
+    font-weight: 600;
+}
+.ds-dashboard-listing-title {
+    font-weight: 600;
+    font-size: 1.25em;
+}
