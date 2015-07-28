@@ -1,0 +1,107 @@
+{
+  "category": "Release Notes", 
+  "definition": {
+    "items": [
+      {
+        "layout": "fixed", 
+        "level": "2", 
+        "items": [
+          {
+            "item_id": "d15", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d16", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d75", 
+                    "item_type": "markdown", 
+                    "text": "### Resizing"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d17", 
+                "item_type": "cell", 
+                "span": 7, 
+                "items": [
+                  {
+                    "item_id": "d23", 
+                    "item_type": "markdown", 
+                    "text": "The flot resize plugin, `jquery.flot.resize.js` is now included, so dynamic charts will automatically redraw if the browser window is resized, or when resizing cells while editing."
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "Dashboard Enhancements", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d14"
+      }
+    ], 
+    "item_type": "dashboard_definition", 
+    "href": "/api/dashboard/14/definition", 
+    "queries": {
+      "a": {
+        "name": "a", 
+        "targets": [
+          "randomWalkFunction(\"query3\")"
+        ]
+      }, 
+      "duration": {
+        "name": "duration", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query0\"))"
+        ]
+      }, 
+      "b": {
+        "name": "b", 
+        "targets": [
+          "randomWalkFunction(\"query4\")"
+        ]
+      }, 
+      "collector": {
+        "name": "collector", 
+        "targets": [
+          "collector_time_ms"
+        ]
+      }, 
+      "group": {
+        "name": "group", 
+        "targets": [
+          "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
+        ]
+      }
+    }, 
+    "item_id": "d3", 
+    "options": {
+      "from": "-3h"
+    }
+  }, 
+  "view_href": "/dashboards/14/what-s-new-in-0-8", 
+  "description": null, 
+  "tags": [
+    {
+      "count": 5, 
+      "bgcolor": "green", 
+      "id": 2, 
+      "name": "featured"
+    }, 
+    {
+      "count": 3, 
+      "id": 4, 
+      "name": "release-notes"
+    }
+  ], 
+  "title": "What's new in 0.8?", 
+  "summary": "", 
+  "definition_href": "/api/dashboard/14/definition", 
+  "href": "/api/dashboard/14", 
+  "id": 14, 
+  "imported_from": null
+}

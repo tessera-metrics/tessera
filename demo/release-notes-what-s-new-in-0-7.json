@@ -530,7 +530,7 @@
       }
     ], 
     "item_type": "dashboard_definition", 
-    "href": "/api/dashboard/15/definition", 
+    "href": "/api/dashboard/7/definition", 
     "queries": {
       "a": {
         "name": "a", 
@@ -568,25 +568,19 @@
       "from": "-3h"
     }
   }, 
-  "view_href": "/dashboards/15/what-s-new-in-0-7", 
+  "view_href": "/dashboards/7/what-s-new-in-0-7", 
   "description": null, 
   "tags": [
     {
-      "count": 12, 
-      "bgcolor": "green", 
-      "id": 6, 
-      "name": "featured"
-    }, 
-    {
       "count": 3, 
-      "id": 14, 
+      "id": 4, 
       "name": "release-notes"
     }
   ], 
   "title": "What's new in 0.7?", 
   "summary": "", 
-  "definition_href": "/api/dashboard/15/definition", 
-  "href": "/api/dashboard/15", 
-  "id": 15, 
+  "definition_href": "/api/dashboard/7/definition", 
+  "href": "/api/dashboard/7", 
+  "id": 7, 
   "imported_from": null
 }

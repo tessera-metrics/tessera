@@ -320,7 +320,7 @@
       }
     ], 
     "item_type": "dashboard_definition", 
-    "href": "/api/dashboard/5/definition", 
+    "href": "/api/dashboard/6/definition", 
     "queries": {
       "HTTP": {
         "name": "HTTP", 
@@ -364,25 +364,19 @@
       "from": "-3h"
     }
   }, 
-  "view_href": "/dashboards/5/what-s-new-in-0-6", 
+  "view_href": "/dashboards/6/what-s-new-in-0-6", 
   "description": "", 
   "tags": [
     {
-      "count": 9, 
-      "bgcolor": "green", 
-      "id": 1, 
-      "name": "featured"
-    }, 
-    {
-      "count": 2, 
-      "id": 3, 
+      "count": 3, 
+      "id": 4, 
       "name": "release-notes"
     }
   ], 
   "title": "What's new in 0.6?", 
   "summary": "", 
-  "definition_href": "/api/dashboard/5/definition", 
-  "href": "/api/dashboard/5", 
-  "id": 5, 
+  "definition_href": "/api/dashboard/6/definition", 
+  "href": "/api/dashboard/6", 
+  "id": 6, 
   "imported_from": null
 }
