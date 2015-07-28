@@ -117,6 +117,7 @@ module.exports = function(grunt) {
           'src/3rd-Party/js/bootstrapValidator.min.js',
           'src/3rd-Party/js/flot/jquery.flot.js',
           'src/3rd-Party/js/flot/jquery.flot.time.js',
+          'src/3rd-Party/js/flot/jquery.flot.resize.js',
           'src/3rd-Party/js/flot/jquery.flot.multihighlight.js',
           'src/3rd-Party/js/flot/jquery.flot.d3.stack.js',
           'src/3rd-Party/js/flot/jquery.flot.crosshair.js',
