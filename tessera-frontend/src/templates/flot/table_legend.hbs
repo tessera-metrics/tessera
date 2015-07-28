@@ -1,0 +1,28 @@
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>current</th>
+      <th>min</th>
+      <th>max</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>sum</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each query.data}}
+      <tr>
+        <td>
+          <span class="ds-summation-color-cell" style="background:{{color}}"></span> {{target}}
+        </td>
+        <td>{{format ',.3s' summation.last}}</td>
+        <td>{{format ',.3s' summation.min}}</td>
+        <td>{{format ',.3s' summation.max}}</td>
+        <td>{{format ',.3s' summation.mean}}</td>
+        <td>{{format ',.3s' summation.median}}</td>
+        <td>{{format ',.3s' summation.sum}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

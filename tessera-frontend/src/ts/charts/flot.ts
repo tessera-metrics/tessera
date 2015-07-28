@@ -196,7 +196,7 @@ function render_legend(item: Chart, query: Query, options?: any) {
   if ( item.legend === ChartLegendType.SIMPLE ) {
     render_simple_legend(legend_id, item, query, options)
   } else if ( item.legend === ChartLegendType.TABLE ) {
-    // TODO - render a summation_table as the legend
+    render_table_legend(legend_id, item, query, options)
   }
 }
 
@@ -220,6 +220,23 @@ function render_simple_legend(legend_id: string, item: Chart, query: Query, opti
   let elt = $(legend_id)
   elt.html(legend)
   elt.equalize({equalize: 'outerWidth', reset: true })
+}
+
+function render_table_legend(legend_id: string, item: Chart, query: Query, options?: any) {
+  let palette = get_palette(item.options.palette || options.palette)
+  query.data.forEach((series, i) => {
+    series['color'] = palette[i % palette.length]
+  })
+  let legend = ts.templates.flot.table_legend({
+    item: item,
+    query: query,
+    opt: options
+  })
+  console.log('render_table_legend')
+  console.log(item)
+  console.log(query)
+  console.log(options)
+  $(legend_id).html(legend)
 }
 
 /* =============================================================================
