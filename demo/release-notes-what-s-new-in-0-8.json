@@ -7,6 +7,46 @@
         "level": "2", 
         "items": [
           {
+            "item_id": "d25", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d26", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d27", 
+                    "item_type": "markdown", 
+                    "text": "### Table Legends\n\nThe placeholder `table` legend type is a placeholder no more. Selecting `table` as the legend type for any chart will render a summation table as the legend. "
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d28", 
+                "item_type": "cell", 
+                "span": 7, 
+                "items": [
+                  {
+                    "title": "Table Legend", 
+                    "stack_mode": "stack", 
+                    "height": 2, 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d30", 
+                    "query": "group", 
+                    "options": {
+                      "palette": "d3category20"
+                    }, 
+                    "legend": "table", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
             "item_id": "d15", 
             "item_type": "row", 
             "items": [
@@ -26,12 +66,43 @@
               {
                 "item_id": "d17", 
                 "item_type": "cell", 
-                "span": 7, 
+                "span": 6, 
                 "items": [
                   {
                     "item_id": "d23", 
                     "item_type": "markdown", 
                     "text": "The flot resize plugin, `jquery.flot.resize.js` is now included, so dynamic charts will automatically redraw if the browser window is resized, or when resizing cells while editing."
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d19", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d20", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d21", 
+                    "item_type": "markdown", 
+                    "text": "### Embedding"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d22", 
+                "item_type": "cell", 
+                "span": 6, 
+                "items": [
+                  {
+                    "item_id": "d24", 
+                    "item_type": "markdown", 
+                    "text": "There's a new UI endpoint which renders dashboards with none of\nthe navigation UI chrome (not even the dashboard title) - it's\nintended for embedding small dashboards in other sites via the\nuse of `iframe`s. \n\nThe new endpoint is `/dashboards/<id>/<slug>/embed`. I.e. just\ntake an existing dashboard URL and add `/embed` to the end of\nit. It accepts all the same query paramaters as the regular\nendpoint, so it can be used with templatized dashboards, you can\nspecify the time range, or the color theme, etc...\n\n* [Try it out]({{path}}/embed)\n"
                   }
                 ]
               }
@@ -42,35 +113,52 @@
         "item_type": "section", 
         "horizontal_rule": true, 
         "item_id": "d14"
+      }, 
+      {
+        "layout": "fixed", 
+        "level": "2", 
+        "items": [
+          {
+            "item_id": "d10", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d11", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d12", 
+                    "item_type": "markdown", 
+                    "text": "### CORS"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d13", 
+                "item_type": "cell", 
+                "span": 7, 
+                "items": [
+                  {
+                    "item_id": "d18", 
+                    "item_type": "markdown", 
+                    "text": "The API now supports [Cross Origin Resource Sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing), which enables the Tessera API to be called from other browser-based tooling, opening up integration possibilities. "
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "API Enhancements", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d9"
       }
     ], 
     "item_type": "dashboard_definition", 
     "href": "/api/dashboard/14/definition", 
     "queries": {
-      "a": {
-        "name": "a", 
-        "targets": [
-          "randomWalkFunction(\"query3\")"
-        ]
-      }, 
-      "duration": {
-        "name": "duration", 
-        "targets": [
-          "absolute(randomWalkFunction(\"query0\"))"
-        ]
-      }, 
-      "b": {
-        "name": "b", 
-        "targets": [
-          "randomWalkFunction(\"query4\")"
-        ]
-      }, 
-      "collector": {
-        "name": "collector", 
-        "targets": [
-          "collector_time_ms"
-        ]
-      }, 
       "group": {
         "name": "group", 
         "targets": [
@@ -87,7 +175,7 @@
   "description": null, 
   "tags": [
     {
-      "count": 5, 
+      "count": 8, 
       "bgcolor": "green", 
       "id": 2, 
       "name": "featured"
