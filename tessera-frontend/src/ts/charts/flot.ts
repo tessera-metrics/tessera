@@ -232,10 +232,6 @@ function render_table_legend(legend_id: string, item: Chart, query: Query, optio
     query: query,
     opt: options
   })
-  console.log('render_table_legend')
-  console.log(item)
-  console.log(query)
-  console.log(options)
   $(legend_id).html(legend)
 }
 
