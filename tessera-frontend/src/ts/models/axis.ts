@@ -1,5 +1,10 @@
 import Model from './model'
 
+export const AxisScale = {
+  LINEAR: 'linear',
+  LOG: 'log'
+}
+
 export default class Axis extends Model {
   visible: boolean
   label: string
@@ -7,6 +12,7 @@ export default class Axis extends Model {
   format: string
   min: number
   max: number
+  scale: string
 
   constructor(data?: any) {
     super(data)
@@ -17,6 +23,7 @@ export default class Axis extends Model {
       this.format = data.format
       this.min = data.min
       this.max = data.max
+      this.scale = data.scale
     }
   }
 
@@ -27,7 +34,8 @@ export default class Axis extends Model {
       label_distance: this.label_distance,
       format: this.format,
       min: this.min,
-      max: this.max
+      max: this.max,
+      scale: this.scale
     }
   }
 }

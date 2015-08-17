@@ -1,6 +1,7 @@
 import * as charts from './core'
 import Chart, { ChartLegendType } from '../models/items/chart'
 import Query from '../models/data/query'
+import { AxisScale } from '../models/axis'
 import { get_colors, get_palette } from './util'
 import { extend } from '../core/util'
 import { logger } from '../core/log'
@@ -135,10 +136,18 @@ function get_flot_options(item, base) {
   if (options.y2 && options.y2.label)
     flot_options.yaxes[1].axisLabel = options.y2.label
 
+  if (options.y1 && options.y1.scale) {
+    switch (options.y1.scale) {
+    case AxisScale.LOG:
+      flot_options.yaxes[0].transform = v => v === 0 ? v : (Math.log1p(Math.abs(v)) / Math.LN10)
+      break;
+    }
+  }
+
   if (item.show_max_value || item.show_min_value || item.show_last_value) {
     flot_options.series.valueLabels = {
       show: true,
-      showMaxValue:item.show_max_value,
+      showMaxValue: item.show_max_value,
       showMinValue: item.show_min_value,
       showLastValue: item.show_last_value,
       showAsHtml: true,
