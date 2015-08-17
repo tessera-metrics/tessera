@@ -26,6 +26,11 @@
  var url = '{{url_for('api.dashboard_get', id=dashboard.id)|safe}}'
  ts.manager.load(url, "#dashboard")
 
+ // Disable keyboard shortcuts for edit, save, and mode change.
+ Mousetrap.unbind('ctrl+shift+e')
+ Mousetrap.unbind('ctrl+shift+s')
+ Mousetrap.unbind('ctrl+shift+d')
+
  $(document).ready(function() {
    $('.ds-header-container').hide()
    $('.ds-footer-container').hide()
