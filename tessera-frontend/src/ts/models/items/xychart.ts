@@ -1,6 +1,6 @@
 import * as core from '../../core'
 import Chart from './chart'
-import Axis from '../axis'
+import Axis, { AxisScale } from '../axis'
 import { PropertyList } from '../../core/property'
 
 core.properties.register([{
@@ -74,6 +74,33 @@ core.properties.register([{
       item.updated()
     }
   }
+}, {
+  name: 'chart.y-axis-scale',
+  property_name: 'y-axis-scale',
+  category: 'chart',
+  type: 'select',
+  edit_options: {
+    source: [
+      AxisScale.LINEAR,
+      AxisScale.LOG
+    ],
+    value: function(item) {
+      let value = item.options && item.options.y1
+        ? item.options.y1.scale
+        : undefined
+      return value ? value : AxisScale.LINEAR
+    },
+    update: function(item, newValue) {
+      if (!item.options) {
+        item.options = {}
+      }
+      if (!item.options.y1) {
+        item.options.y1 = new Axis()
+      }
+      item.options.y1.scale = newValue
+      item.updated()
+    }
+  }
 }])
 
 export default class XYChart extends Chart {
@@ -85,7 +112,8 @@ export default class XYChart extends Chart {
     return super.interactive_properties().concat([
       'chart.y-axis-label',
       'chart.y-axis-min',
-      'chart.y-axis-max'
+      'chart.y-axis-max',
+      'chart.y-axis-scale'
     ])
   }
 }

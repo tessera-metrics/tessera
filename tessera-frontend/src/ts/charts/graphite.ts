@@ -1,4 +1,5 @@
 import * as charts from './core'
+import { AxisScale } from '../models/axis'
 import Chart from '../models/items/chart'
 import Query from '../models/data/query'
 import { get_colors, get_palette } from './util'
@@ -12,6 +13,17 @@ function img(element, url) : void {
                .height(element.height())
                .width(element.width()))
 }
+
+function set_scale(url, options) {
+    if (options.y1 && options.y1.scale) {
+      switch (options.y1.scale) {
+      case AxisScale.LOG:
+        url.setQuery('logBase', 10 )
+        break;
+      }
+    }
+}
+
 
 /**
  * Charts provider for Graphite's built-in static image
@@ -71,6 +83,7 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     if (options.y1 && options.y1.max) {
       png_url.setQuery('yMax', options.y1.max )
     }
+    set_scale(png_url, options)
 
     return png_url
   }
@@ -106,6 +119,7 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     if (options.y1 && options.y1.max) {
       png_url.setQuery('yMax', options.y1.max )
     }
+    set_scale(png_url, options)
 
     return png_url
   }
@@ -144,6 +158,7 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     if (options.y1 && options.y1.max) {
       png_url.setQuery('yMax', options.y1.max )
     }
+    set_scale(png_url, options)
 
     return png_url
   }
@@ -174,7 +189,6 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
       .setQuery('lineMode', 'connected')
 
     if (item.hasOwnProperty('stack_mode')) {
-
       if (!query.is_stacked() && item['stack_mode'] != charts.StackMode.NONE) {
         png_url.setQuery('areaMode', 'stacked')
       }
@@ -186,6 +200,8 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     if (options.y1 && options.y1.max) {
       png_url.setQuery('yMax', options.y1.max )
     }
+    set_scale(png_url, options)
+
     return png_url
   }
 

@@ -1,5 +1,5 @@
 export { default as Model } from './models/model'
-export { default as Axis } from './models/axis'
+export { AxisScale, default as Axis } from './models/axis'
 export { default as Thresholds } from './models/thresholds'
 export { default as Tag } from './models/tag'
 export { default as Dashboard, DashboardTuple } from './models/dashboard'
