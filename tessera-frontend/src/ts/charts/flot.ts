@@ -168,10 +168,13 @@ function setup_plugins(container, context) {
     let data       = context.plot.getData()
     let item       = items[0]
     let point      = data[item.serieIndex].data[item.dataIndex]
+
     let contents   = ts.templates.flot.tooltip({
       time: point[0],
       items: items.map(function(item) {
         let s = data[item.serieIndex]
+        if (context.item.hide_zero_series && s.summation.sum === 0)
+          return null
         let value = is_percent
           ? s.percents[item.dataIndex]
           : s.data[item.dataIndex][1]
@@ -179,7 +182,7 @@ function setup_plugins(container, context) {
           series: s,
           value: is_percent ? FORMAT_PERCENT(value) : FORMAT_STANDARD(value)
         }
-      })
+      }).filter(i => !!i)
     })
 
     $("#ds-tooltip").remove()
@@ -227,9 +230,12 @@ function render_table_legend(legend_id: string, item: Chart, query: Query, optio
   query.data.forEach((series, i) => {
     series['color'] = palette[i % palette.length]
   })
+  let data = query.data
+  if (item.hide_zero_series)
+    data = data.filter(s => s.summation.sum != 0)
   let legend = ts.templates.flot.table_legend({
     item: item,
-    query: query,
+    data: data,
     opt: options
   })
   $(legend_id).html(legend)
