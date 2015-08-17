@@ -115,6 +115,12 @@ function get_default_options() {
   return default_options
 }
 
+function log_transform(v) {
+  return v === 0
+    ? v
+    : (Math.log1p(Math.abs(v)) / Math.LN10)
+}
+
 function get_flot_options(item, base) {
   let options      = item.options || {}
   let flot_options = extend(true, {}, get_default_options(), base)
@@ -136,12 +142,11 @@ function get_flot_options(item, base) {
   if (options.y2 && options.y2.label)
     flot_options.yaxes[1].axisLabel = options.y2.label
 
-  if (options.y1 && options.y1.scale) {
-    switch (options.y1.scale) {
-    case AxisScale.LOG:
-      flot_options.yaxes[0].transform = v => v === 0 ? v : (Math.log1p(Math.abs(v)) / Math.LN10)
-      break;
-    }
+  if (options.y1 && options.y1.scale === AxisScale.LOG) {
+    flot_options.yaxes[0].transform = log_transform
+  }
+  if (options.y2 && options.y2.scale === AxisScale.LOG) {
+    flot_options.yaxes[1].transform = log_transform
   }
 
   if (item.show_max_value || item.show_min_value || item.show_last_value) {
