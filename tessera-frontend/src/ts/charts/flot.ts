@@ -32,6 +32,7 @@ function is_line_chart(item: Chart) : boolean {
 function is_area_chart(item: Chart) : boolean {
   return (item instanceof StackedAreaChart)
     && ((<StackedAreaChart>item).stack_mode !== charts.StackMode.NONE)
+    && ((<StackedAreaChart>item).stack_mode !== charts.StackMode.PERCENT)
 }
 
 function get_default_options() {
