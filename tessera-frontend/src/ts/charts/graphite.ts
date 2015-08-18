@@ -4,6 +4,7 @@ import Chart from '../models/items/chart'
 import Query from '../models/data/query'
 import { get_colors, get_palette } from './util'
 import { extend } from '../core/util'
+import { render_legend } from './legend'
 
 declare var URI, $
 
@@ -94,6 +95,7 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
       width: element.width()
     })
     img(element, url)
+    render_legend(item, query)
   }
 
   standard_line_chart_url(item: Chart, query: Query, opt) : any {
@@ -106,7 +108,7 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
       .setQuery('fgcolor', options.fgcolor || 'black')
       .setQuery('majorGridLineColor', options.majorGridLineColor || '#dddddd')
       .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
-      .setQuery('hideLegend', options.hideLegend || 'false')
+      .setQuery('hideLegend', 'true')
       .setQuery('hideAxes', options.hideAxes || 'false')
       .setQuery('colorList', get_palette(options.palette).join())
       .setQuery('vtitle', options.y1 ? options.y1.label : options.yAxisLabel)
@@ -169,6 +171,7 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
       width: element.width()
     })
     img(element, url)
+    render_legend(item, query)
   }
 
   stacked_area_chart_url(item: Chart, query: Query, opt?: any) {
@@ -181,7 +184,7 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
       .setQuery('fgcolor', options.fgcolor || 'black')
       .setQuery('majorGridLineColor', options.majorGridLineColor || '#dddddd')
       .setQuery('minorGridLineColor', options.minorGridLineColor || '#eeeeee')
-      .setQuery('hideLegend', options.hideLegend || 'false')
+      .setQuery('hideLegend', 'true')
       .setQuery('hideAxes', options.hideAxes || 'false')
       .setQuery('colorList', get_palette(options.palette).join())
       .setQuery('vtitle', options.y1 ? options.y1.label : options.yAxisLabel)
@@ -208,11 +211,7 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
   donut_chart_url(item: Chart, query: Query, opt?: any) : any {
     let png_url = this.standard_line_chart_url(item, query, opt)
       .setQuery('graphType', 'pie')
-    // TODO
-    // if (!item.legend) {
-    // png_url.setQuery('hideLegend', 'true')
-    // }
-
+      .setQuery('hideLegend', 'true')
     return png_url
   }
 
@@ -222,6 +221,7 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
       width: element.width()
     })
     img(element, url)
+    render_legend(item, query)
   }
 
   bar_chart(element: any, item: Chart, query: Query) : void{
