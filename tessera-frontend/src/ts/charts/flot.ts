@@ -282,6 +282,12 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     if (is_line_chart(item)) {
       series.lines.lineWidth = 3
     } else if (is_area_chart(item)) {
+      plot.getData().forEach((s, i) => {
+        if (i != index) {
+          s.lines.fill = 0.2
+          s.lines.lineWidth = 0
+        }
+      })
     }
     plot.draw()
   }
@@ -292,6 +298,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     if (is_line_chart(item)) {
       series.lines.lineWidth = 1
     } else if (is_area_chart(item)) {
+      plot.getData().forEach((s, i) => {
+        s.lines.fill = 1.0
+        s.lines.lineWidth = 1
+      })
     }
     plot.draw()
   }
@@ -352,7 +362,9 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     let options = get_flot_options(item, {
       downsample: true,
       series: {
-        lines: { fill: 1},
+        lines: {
+          fill: 1
+        },
         stackD3: {
           show: true,
           offset: 'zero'
