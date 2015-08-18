@@ -9,7 +9,7 @@ declare var URI, $
 
 function img(element, url) : void {
   element.html($('<img/>')
-               .attr('src', url.href())
+               .attr('src', url.setQuery('cachebuster', new Date().getTime()).href())
                .height(element.height())
                .width(element.width()))
 }
