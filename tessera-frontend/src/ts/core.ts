@@ -3,7 +3,7 @@ export {
 } from './core/util'
 
 export {
-  logger, Level as LogLevel
+  logger, Level as LogLevel, set_level as set_log_level
 } from './core/log'
 
 export {
