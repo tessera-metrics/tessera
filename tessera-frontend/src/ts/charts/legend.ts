@@ -17,6 +17,7 @@ export function render_legend(item: Chart, query: Query, options?: any) {
 function render_simple_legend(legend_id: string, item: Chart, query: Query, options?: any) {
   let legend = ''
   let data = query.chart_data('flot')
+  let theme_colors = get_colors()
   for (let i = 0; i < data.length; i++) {
     let series = data[i]
     if (item.hide_zero_series && series.summation.sum === 0) {
@@ -27,7 +28,7 @@ function render_simple_legend(legend_id: string, item: Chart, query: Query, opti
 
     let cell = '<div class="ds-legend-cell">'
       + '<span class="color" style="background-color:' + color + '"></span>'
-      + '<span class="label" style="color:' + options.xaxis.font.color +  '">' + label + '</span>'
+      + '<span class="label" style="color:' + theme_colors.fgcolor +  '">' + label + '</span>'
       + '</div>'
     legend += cell
   }
@@ -54,11 +55,6 @@ function render_table_legend(legend_id: string, item: Chart, query: Query, optio
 
 function get_default_options() {
   return {
-    colors: get_palette(),
-    xaxis: {
-      font: {
-        color: 'black'
-      }
-    }
+    colors: get_palette()
   }
 }
