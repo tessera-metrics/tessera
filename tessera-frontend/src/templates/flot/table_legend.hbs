@@ -1,4 +1,4 @@
-<table class="table table-condensed">
+<table class="table table-condensed table-hover">
   <thead>
     <tr>
       <th>&nbsp;</th>
@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     {{#each data}}
-      <tr>
+      <tr data-series-index="{{@index}}">
         <td>
           <span class="ds-summation-color-cell" style="background:{{color}}"></span> {{target}}
         </td>

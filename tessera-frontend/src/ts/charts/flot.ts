@@ -1,5 +1,5 @@
 import * as charts from './core'
-import Chart, { ChartLegendType } from '../models/items/chart'
+import { ChartLegendType, Chart, StandardTimeSeries, StackedAreaChart } from '../models/items'
 import Query from '../models/data/query'
 import { AxisScale } from '../models/axis'
 import { get_colors, get_palette } from './util'
@@ -22,6 +22,17 @@ const FORMAT_STANDARD = d3.format(FORMAT_STRING_STANDARD)
 const FORMAT_PERCENT  = d3.format('%')
 const THREE_HOURS_MS  = 1000 * 60 * 60 * 3
 const ONE_HOUR_MS     = 1000 * 60 * 60 * 1
+
+function is_line_chart(item: Chart) : boolean {
+  return (item instanceof StandardTimeSeries)
+    || ((item instanceof StackedAreaChart)
+        && ((<StackedAreaChart>item).stack_mode === charts.StackMode.NONE))
+}
+
+function is_area_chart(item: Chart) : boolean {
+  return (item instanceof StackedAreaChart)
+    && ((<StackedAreaChart>item).stack_mode !== charts.StackMode.NONE)
+}
 
 function get_default_options() {
   let theme_colors = get_colors()
@@ -259,8 +270,30 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
                 + ': ' + ex.message)
       log.error(ex.stack)
     }
+    item.render_context = context
+    options.interactive_legend = true
     render_legend(item, query, options)
     return context
+  }
+
+  highlight_series(item: Chart, index: number) : void {
+    let plot = item.render_context.plot
+    let series = plot.getData()[index]
+    if (is_line_chart(item)) {
+      series.lines.lineWidth = 3
+    } else if (is_area_chart(item)) {
+    }
+    plot.draw()
+  }
+
+  unhighlight_series(item: Chart, index: number) : void {
+    let plot = item.render_context.plot
+    let series = plot.getData()[index]
+    if (is_line_chart(item)) {
+      series.lines.lineWidth = 1
+    } else if (is_area_chart(item)) {
+    }
+    plot.draw()
   }
 
   process_series(series: graphite.DataSeries) : any {
@@ -286,7 +319,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       downsample: true
     })
 
-    this.render(element, item, query, options, [query.chart_data('flot')[0]])
+    return this.render(element, item, query, options, [query.chart_data('flot')[0]])
   }
 
   standard_line_chart(element: any, item: Chart, query: Query) : void {
@@ -312,7 +345,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     })
 
-    this.render(element, item, query, options, [query.chart_data('flot')[0]])
+    return this.render(element, item, query, options, [query.chart_data('flot')[0]])
   }
 
   stacked_area_chart(element: any, item: Chart, query: Query) : void {
@@ -350,7 +383,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     })
 
-    this.render(element, item, query, options)
+    return this.render(element, item, query, options)
   }
 
   donut_chart(element: any, item: Chart, query: Query) {
@@ -399,6 +432,8 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         $("#ds-tooltip").remove()
       }
     })
+
+    return context
   }
 
   bar_chart(element: any, item: Chart, query: Query) : void {
@@ -446,7 +481,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     }
 
-    this.render(element, item, query, options)
+    return this.render(element, item, query, options)
   }
 
   discrete_bar_chart(element: any, item: Chart, query: Query) : void {
@@ -540,5 +575,6 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         $("#ds-tooltip").remove()
       }
     })
+    return context
   }
 }
