@@ -337,6 +337,7 @@ h1.page-title {
 
 tr.ds-tooltip-highlight {
   border-bottom: 1px solid;
+  font-weight: bold;
 }
 
 td.ds-tooltip-label span.badge {
