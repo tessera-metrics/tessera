@@ -3,6 +3,6 @@ flask-sqlalchemy==1.0
 flask-migrate==1.2
 flask-cors==2.0.1
 sqlalchemy==0.9.4
-requests==2.3.0
+requests==2.4.3
 inflection==0.2.0
 tessera-client==0.4.4
