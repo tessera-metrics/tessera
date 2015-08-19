@@ -1,7 +1,6 @@
 import json
 import logging
 import inflection
-from tessera_client.api.model import *
 from tessera_client.api.client import TesseraClient
 
 log = logging.getLogger(__name__)
@@ -20,9 +19,8 @@ class JsonImporter(object):
         f = open(filepath, 'r')
         try:
             data = json.load(f)
-            dashboard = Dashboard.from_json(data)
-            self.client.create_dashboard(dashboard)
-            log.info('Succesfully imported dashboard {0}: {1}'.format(dashboard.id, dashboard.title))
+            self.client.create_dashboard(data)
+            log.info('Succesfully imported dashboard')
         finally:
             f.close()
 
