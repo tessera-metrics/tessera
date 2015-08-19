@@ -212,7 +212,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-browserify');
-  grunt.loadNpmTasks('grunt-ts-1.5');
+  grunt.loadNpmTasks('grunt-ts');
 
   /** Compile the tessera source and templates */
   grunt.registerTask('app', [
