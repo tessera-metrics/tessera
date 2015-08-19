@@ -4,12 +4,51 @@ import { DashboardItemMetadata } from './item'
 import * as charts from '../../charts/core'
 import { extend } from '../../core/util'
 import { PropertyList } from '../../core/property'
+import * as core from '../../core'
 
 declare var $
 
 export default class StackedAreaChart extends XYChart {
   static meta: DashboardItemMetadata = {
-    icon: 'fa fa-area-chart'
+    icon: 'fa fa-area-chart',
+    actions: [
+      new core.Action({
+        name: 'stack_mode_none',
+        display: 'Lines',
+        icon: 'fa fa-line-chart',
+        handler: (action, item) => {
+          item.stack_mode = charts.StackMode.NONE
+          item.updated()
+        }
+      }),
+      new core.Action({
+        name: 'stack_mode_stacked',
+        display: 'Stack',
+        icon: 'fa fa-area-chart',
+        handler: (action, item) => {
+          item.stack_mode = charts.StackMode.NORMAL
+          item.updated()
+        }
+      }),
+      new core.Action({
+        name: 'stack_mode_stream',
+        display: 'Stream',
+        icon: 'fa fa-area-chart',
+        handler: (action, item) => {
+          item.stack_mode = charts.StackMode.STREAM
+          item.updated()
+        }
+      }),
+      new core.Action({
+        name: 'stack_mode_percent',
+        display: 'Percent',
+        icon: 'fa fa-area-chart',
+        handler: (action, item) => {
+          item.stack_mode = charts.StackMode.PERCENT
+          item.updated()
+        }
+      })
+    ]
   }
 
   stack_mode: string = charts.StackMode.NORMAL
