@@ -1,0 +1,40 @@
+<!-- -*- mode:jinja2 -*- -->
+{% extends "base.html" %}
+
+{% block pagebody %}
+<style>
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+</style>
+
+<div class="ds-grid" id="dashboard"></div>
+
+<script>
+ {% if transform %}
+ ts.manager.onDashboardLoaded(function(dashboard) {
+   var item = ts.manager.current.dashboard.get_item('{{transform.element}}')
+   var transform = ts.transforms.get('{{transform.name}}')
+   ts.manager.current_transform = {
+     transform: transform,
+     target: item
+   }
+ })
+ {% endif %}
+
+ var url = '{{url_for('api.dashboard_get', id=dashboard.id)|safe}}'
+ ts.manager.load(url, "#dashboard")
+
+ // Disable keyboard shortcuts for edit, save, and mode change.
+ Mousetrap.unbind('ctrl+shift+e')
+ Mousetrap.unbind('ctrl+shift+s')
+ Mousetrap.unbind('ctrl+shift+d')
+
+ $(document).ready(function() {
+   $('.ds-header-container').hide()
+   $('.ds-footer-container').hide()
+ })
+</script>
+
+{% endblock %}

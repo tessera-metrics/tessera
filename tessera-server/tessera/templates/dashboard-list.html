@@ -1,0 +1,82 @@
+<!-- -*- mode:jinja2 -*- -->
+{% extends "standard.html" %}
+
+{% block pagetitle %}
+  <span class="ds-primary-title">{{config['DASHBOARD_APPNAME']}}</span> <span class="ds-secondary-title">{{title}}</span>
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+
+    {% include "snippets/breadcrumbs.html" %}
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-10">
+            <h3>{% if tag %}Dashboards{% else %}All Dashboards{% endif %}</h3>
+          </div>
+          <div class="col-md-2" align="right">
+
+            <!-- sort menu -->
+            <div class="btn-group" align="left">
+              <button style="margin-top:1.75em;" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                Sort <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu ds-dashboard-sort-menu" role="menu">
+                <li class="active"><a data-ds-sort-col="default" data-ds-sort-order="asc" href="#">Default</a></li>
+                <li class="divider"/>
+                <li><a data-ds-sort-col="title" data-ds-sort-order="asc" href="#">Title (A-Z)</a></li>
+                <li><a data-ds-sort-col="title" data-ds-sort-order="desc" href="#">Title (Z-A)</a></li>
+                <li><a data-ds-sort-col="category" data-ds-sort-order="asc" href="#">Category (A-Z)</a></li>
+                <li><a data-ds-sort-col="category" data-ds-sort-order="desc" href="#">Category (Z-A)</a></li>
+                <li class="divider"/>
+                <li><a data-ds-sort-col="modified" data-ds-sort-order="desc" href="#">Last Modified Time (newest first)</a></li>
+                <li><a data-ds-sort-col="modified" data-ds-sort-order="asc" href="#">Last Modified Time (oldest first)</a></li>
+                <li><a data-ds-sort-col="created" data-ds-sort-order="desc" href="#">Creation Date (newest first)</a></li>
+                <li><a data-ds-sort-col="created" data-ds-sort-order="asc" href="#">Creation Date (oldest first)</a></li>
+              </ul>
+            </div> <!-- sort menu -->
+
+          </div>
+        </div>
+        <div id="ds-dashboard-main-listing"></div>
+      </div>
+      <div class="col-md-4">
+        <h3>Actions</h3>
+        <ul class="list-group">
+          <li class="list-group-item"><a href="{{url_for('ui.dashboard_create')}}"><i class="fa fa-plus"></i> New dashboard&hellip;</a></li>
+        </ul>
+        <ul class="list-group">
+          <li class="list-group-item"><a href="{{url_for('ui.dashboard_import')}}"><i class="fa fa-upload"></i> Import&hellip;</a></li>
+        </ul>
+        <h3>Tags</h3>
+        <div id="ds-dashboard-tag-listing"></div>
+      </div>
+    </div>
+  </div> <!-- container -->
+
+  <script>
+   {% if tag %}
+      var path = '{{url_for('api.dashboard_list_tagged', tag=tag, sort=ctx.get('sort', 'created'), order=ctx.get('order', 'desc'))|safe}}'
+    {% else %}
+      var path = '{{url_for('api.dashboard_list', sort=ctx.get('sort', 'created'), order=ctx.get('order', 'desc'))|safe}}'
+    {% endif %}
+    ts.manager.render_dashboard_list(path, '#ds-dashboard-main-listing')
+
+   ts.manager.client.tag_list()
+                    .then(function(tags) {
+                      var context = { tags: tags }
+                      {% if tag %}
+                      context.tag = '{{ tag }}'
+                      {% endif %}
+                      var rendered = ts.templates.listing.dashboard_tag_list(context)
+                      $("#ds-dashboard-tag-listing").html(rendered)
+                      {% if tag %}
+                      $("[data-ds-tag={{tag}}]").addClass("active")
+                      {% endif %}
+                    })
+  </script>
+
+{% endblock %}

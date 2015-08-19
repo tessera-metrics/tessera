@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block pageheader %}
+    <div class="container ds-header-container">
+      <div class="page-header" data-ds-hide="display">
+        <div class="row">
+          <div class="col-md-9">
+            <br/>
+            <h1 class="page-title">
+              {% block pagetitle %}
+              {% endblock %}
+            </h1>
+          </div>
+          <div class="col-md-3" align="right">
+            <div class="ds-time-container" align="right">
+              <h2><span class="time"></span><small class="ampm"></small></h2>
+              <h6 class="date"></h6>
+            </div>
+            <ul class="ds-header-links">
+              <li><a href="{{url_for('ui.root')}}"><i class="fa fa-fw fa-home"></i></a></li>
+              <li><a href="{{url_for('ui.dashboard_list')}}"><i class="fa fa-fw fa-bar-chart-o"></i></a></li>
+              <li><a href="{{url_for('ui.favorites')}}"><i class="fa fa-fw fa-star-o"></i></a></li>
+              <li><a href="{{url_for('ui.dashboard_import')}}"><i class="fa fa-fw fa-upload"></i></a></li>
+              <li><a href="{{url_for('ui.preferences')}}"><i class="fa fa-fw fa-cog"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div> <!-- page-header -->
+    </div><!-- container -->
+{% endblock %}
+
+{% block pagebody %}
+
+      {% block layout %}
+      {% block content %}
+      {% endblock %}
+      {% endblock %}
+
+      {% block layoutfooter %}
+      {% block footer %}
+      {% endblock %}
+      {% endblock %}
+
+    <div class="container ds-footer-container">
+      {% include "snippets/site-footer.html" %}
+    </div>
+
+    <script>
+     function ds_display_time() {
+       var now = moment()
+       $('.ds-time-container .time').text(now.tz(ts.config.DISPLAY_TIMEZONE).format('hh:mm'))
+       $('.ds-time-container .ampm').text(now.tz(ts.config.DISPLAY_TIMEZONE).format('A z'))
+       $('.ds-time-container .date').text(now.tz(ts.config.DISPLAY_TIMEZONE).format('dddd D MMMM YYYY'))
+     }
+
+     function ds_highlight_link() {
+       $('ul.ds-header-links a[href="' + window.location.pathname + '"]').addClass('active')
+     }
+
+     ds_display_time()
+
+     ts.manager.onDashboardLoaded(function() {
+       ds_display_time()
+     })
+
+     $(document).ready(ds_highlight_link())
+    </script>
+
+{% endblock %}

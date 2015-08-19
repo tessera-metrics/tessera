@@ -1,0 +1,81 @@
+<!-- -*- mode:jinja2 -*- -->
+{% extends "standard.html" %}
+
+{% block pagetitle %}
+  <span class="ds-primary-title">{{config['DASHBOARD_APPNAME']}}</span> <span class="ds-secondary-title">Index</span>
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+
+    <div class="row">
+      <div class="ds-featured-dashboard">
+      </div>
+    </div>
+
+
+    <div class="row">
+
+      <div class="col-md-3">
+        <div class="well" align="center">
+          <a href="{{url_for('ui.dashboard_list')}}"><h3><i class="fa fa-lg fa-bar-chart-o" style="font-size: 4em"></i>
+              <br/><br/>Dashboards</h3></a>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="well" align="center">
+          <a href="{{url_for('ui.favorites')}}"><h3><i class="fa fa-lg fa-star-o" style="font-size: 4em"></i>
+              <br/><br/>Favorites</h3></a>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="well" align="center">
+          <a href="{{url_for('ui.dashboard_import')}}"><h3><i class="fa fa-lg fa-upload" style="font-size: 4em"></i>
+              <br/><br/>Import</h3></a>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="well" align="center">
+          <a href="{{url_for('ui.preferences')}}"><h3><i class="fa fa-lg fa-cog" style="font-size: 4em"></i>
+              <br/><br/>Preferences</h3></a>
+        </div>
+      </div>
+
+    </div> <!-- row -->
+
+
+    <div class="row" id="ds-featured-dashboards" style="display:none;">
+      <div class="col-md-12">
+        <h3>Featured Dashboards</h3>
+        <div id="ds-dashboard-featured-listing"></div>
+      </div>
+    </div> <!-- row -->
+
+  </div> <!-- container -->
+
+  <script>
+   /* Load featured dashboard list */
+   ts.manager.render_dashboard_list('{{url_for('api.dashboard_list_tagged', tag='featured')|safe}}',
+                                    '#ds-dashboard-featured-listing',
+                                    function(data) {
+                                      $("#ds-featured-dashboards").show()
+                                    })
+
+   /* Load the dashboards tagged with 'featured-billboard', and
+    * select one of them at random to display at the top of the
+    * page. */
+   ts.manager.list('{{url_for('api.dashboard_list_tagged', tag='featured-billboard')|safe}}', function(data) {
+     if (data && data.length > 0) {
+       var dashboard = data[Math.floor(Math.random() * data.length)]
+       ts.manager.load(dashboard.href, '.ds-featured-dashboard', {
+         from: '-3h'
+       })
+     }
+   })
+  </script>
+
+{% endblock %}

@@ -1,7 +1,0 @@
-flask==0.10.1
-flask-sqlalchemy==1.0
-flask-migrate==1.2
-sqlalchemy==0.9.4
-requests==2.3.0
-inflection==0.2.0
-tessera-client==0.4.4
