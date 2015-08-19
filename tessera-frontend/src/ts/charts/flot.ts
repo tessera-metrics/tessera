@@ -204,20 +204,26 @@ function setup_plugins(container, context: FlotRenderContext) {
     let item       = items[0]
     let point      = data[item.serieIndex].data[item.dataIndex]
 
-    let contents   = ts.templates.flot.tooltip({
+    let items_to_plot = items.map((i) => {
+      let s = data[i.serieIndex]
+      if (context.item.hide_zero_series && s.summation.sum === 0)
+        return null
+      let value = is_percent
+        ? s.percents[i.dataIndex]
+        : s.data[i.dataIndex][1]
+      return {
+        series: s,
+        value: is_percent ? FORMAT_PERCENT(value) : FORMAT_STANDARD(value)
+      }
+    }).filter(i => !!i)
+
+
+    if (context.item['stack_mode'] && (context.item['stack_mode'] !== charts.StackMode.NONE))
+        items_to_plot.reverse()
+
+    let contents = ts.templates.flot.tooltip({
       time: point[0],
-      items: items.map(function(item) {
-        let s = data[item.serieIndex]
-        if (context.item.hide_zero_series && s.summation.sum === 0)
-          return null
-        let value = is_percent
-          ? s.percents[item.dataIndex]
-          : s.data[item.dataIndex][1]
-        return {
-          series: s,
-          value: is_percent ? FORMAT_PERCENT(value) : FORMAT_STANDARD(value)
-        }
-      }).filter(i => !!i)
+      items: items_to_plot
     })
 
     $("#ds-tooltip").remove()
