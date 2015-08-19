@@ -56,7 +56,7 @@ function render_simple_legend(legend_id: string, item: Chart, query: Query, opti
   }
 }
 
-function render_table_legend(legend_id: string, item: Chart, query: Query, options?: any) {
+function render_table_legend(legend_id: string, item: Chart, query: Query, options: any = {}) {
   let palette = get_palette(item.options.palette || options.palette)
   query.data.forEach((series, i) => {
     series['color'] = palette[i % palette.length]
