@@ -21,7 +21,6 @@ function unhighlightSeries(item) {
 
 export function render_legend(item: Chart, query: Query, options?: any) {
   let legend_id = '#ds-legend-' + item.item_id
-  options = options || get_default_options()
   if ( item.legend === ChartLegendType.SIMPLE ) {
     render_simple_legend(legend_id, item, query, options)
   } else if ( item.legend === ChartLegendType.TABLE ) {
@@ -29,17 +28,18 @@ export function render_legend(item: Chart, query: Query, options?: any) {
   }
 }
 
-function render_simple_legend(legend_id: string, item: Chart, query: Query, options?: any) {
+function render_simple_legend(legend_id: string, item: Chart, query: Query, options: any = {}) {
   let legend = ''
   let data = query.chart_data('flot')
   let theme_colors = get_colors()
+  let colors = get_palette(options.palette || item.options.palette)
   for (let i = 0; i < data.length; i++) {
     let series = data[i]
     if (item.hide_zero_series && series.summation.sum === 0) {
       continue
     }
     let label = series.label
-    let color = options.colors[i % options.colors.length]
+    let color = colors[i % colors.length]
 
     let cell = '<div class="ds-legend-cell" data-series-index="' + i + '">'
       + '<span class="color" style="background-color:' + color + '"></span>'
@@ -74,11 +74,5 @@ function render_table_legend(legend_id: string, item: Chart, query: Query, optio
   if (options.interactive_legend) {
     $(legend_id + ' > table > tbody > tr').on('mouseenter', highlightSeries(item))
     $(legend_id + ' > table > tbody > tr').on('mouseleave', unhighlightSeries(item))
-  }
-}
-
-function get_default_options() {
-  return {
-    colors: get_palette()
   }
 }
