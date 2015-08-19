@@ -7,4 +7,7 @@ set -e
 cd "$(dirname "$0")/.."
 
 script/bootstrap
+
+cd tessera-frontend/
 ./node_modules/.bin/grunt
+cd ..
