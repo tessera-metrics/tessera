@@ -112,7 +112,7 @@ export class Manager {
 
   error(message, options: any = {}) : void {
     options.type = options.type || 'danger'
-    $.growl({
+    $.notify({
       message: message,
       title: 'Error',
       icon: 'fa fa-exclamation-circle'
@@ -121,7 +121,7 @@ export class Manager {
 
   warning(message, options: any = {}) : void {
     options.type = options.type || 'warning'
-    $.growl({
+    $.notify({
       message: message,
       title: options.title || 'Warning',
       icon: options.icon || 'fa fa-exclamation-circle'
@@ -130,7 +130,7 @@ export class Manager {
 
   success(message, options: any = {}) : void {
     options.type = options.type || 'success'
-    $.growl({
+    $.notify({
       message: message,
       title: options.title || 'Success',
       icon: options.icon || 'fa fa-check-circle'
