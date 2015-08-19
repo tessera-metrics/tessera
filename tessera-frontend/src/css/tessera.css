@@ -335,6 +335,10 @@ h1.page-title {
     font-size: 0.9em;
 }
 
+tr.ds-tooltip-highlight {
+  border-bottom: 1px solid;
+}
+
 td.ds-tooltip-label span.badge {
     height: 1em;
     border-radius: 0px;

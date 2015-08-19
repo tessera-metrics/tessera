@@ -8,10 +8,18 @@ import { logger } from '../core/log'
 import * as graphite from '../data/graphite'
 import * as app from '../app/app'
 import { render_legend } from './legend'
+import XYChart from '../models/items/xychart'
 
 declare var URI, $, d3, moment, ts
 
 const log = logger('charts.flot')
+
+interface FlotRenderContext {
+  plot: any
+  item: Chart
+  query: Query
+  renderer: charts.ChartRenderer
+}
 
 /* =============================================================================
    Helpers
@@ -186,12 +194,12 @@ function show_tooltip(x, y, contents, offset?) {
   }).appendTo("body").show()
 }
 
-function setup_plugins(container, context) {
+function setup_plugins(container, context: FlotRenderContext) {
 
   $(container).bind("multihighlighted", function(event, pos, items) {
     if ( !items )
       return
-    let is_percent = context.item.stack_mode && (context.item.stack_mode === charts.StackMode.PERCENT)
+    let is_percent = context.item['stack_mode'] && (context.item['stack_mode'] === charts.StackMode.PERCENT)
     let data       = context.plot.getData()
     let item       = items[0]
     let point      = data[item.serieIndex].data[item.dataIndex]
@@ -215,6 +223,16 @@ function setup_plugins(container, context) {
     $("#ds-tooltip").remove()
     show_tooltip(pos.pageX, pos.pageY, contents)
   })
+
+  if (context.item instanceof XYChart) {
+    $(container).bind('plothover', (e, pos, event_item) => {
+      if (event_item) {
+        context.renderer.highlight_series(context.item, event_item.seriesIndex)
+      } else {
+        context.renderer.unhighlight_series(context.item)
+      }
+    })
+  }
 
   $(container).bind("unmultihighlighted", function(event) {
     $("#ds-tooltip").remove()
@@ -251,10 +269,11 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
   render(e: any, item: Chart, query: Query, options?: any, data?: any) : any {
     if (typeof(data) === 'undefined')
       data = query.chart_data('flot')
-    let context = {
+    let context : FlotRenderContext = {
       plot: null,
       item: item,
-      query: query
+      query: query,
+      renderer: this
     }
     setup_plugins(e, context)
     if (this.downsample && options.downsample) {
@@ -279,25 +298,42 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
 
   highlight_series(item: Chart, index: number) : void {
     let plot = item.render_context.plot
-    let series = plot.getData()[index]
     if (is_line_chart(item)) {
-      series.lines.lineWidth = 3
+      plot.getData().forEach((s, i) => {
+        if (i == index) {
+          s.lines.lineWidth = 3
+          s.highlighted = true
+        } else {
+          s.lines.lineWidth = 1
+          s.highlighted = false
+        }
+      })
     } else if (is_area_chart(item)) {
       plot.getData().forEach((s, i) => {
         if (i != index) {
           s.lines.fill = 0.2
           s.lines.lineWidth = 0
+          s.highlighted = false
+        } else {
+          s.highlighted = true
+          s.lines.fill = 1.0
+          s.lines.lineWidth = 1
         }
       })
     }
     plot.draw()
   }
 
-  unhighlight_series(item: Chart, index: number) : void {
+  unhighlight_series(item: Chart, index?: number) : void {
     let plot = item.render_context.plot
-    let series = plot.getData()[index]
     if (is_line_chart(item)) {
-      series.lines.lineWidth = 1
+      if (index) {
+        plot.getData()[index].lines.lineWidth = 1
+      } else {
+        plot.getData().forEach((s, i) => {
+          s.lines.lineWidth = 1
+        })
+      }
     } else if (is_area_chart(item)) {
       plot.getData().forEach((s, i) => {
         s.lines.fill = 1.0

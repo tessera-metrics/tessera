@@ -6,7 +6,7 @@
       </td>
     </tr>
     {{#each items}}
-      <tr>
+      <tr {{#if series.highlighted}}class="ds-tooltip-highlight"{{/if}}>
         <td class="ds-tooltip-label">
           <span class="badge" style="background-color: {{series.color}}"><i></i></span>
           {{series.label}}
