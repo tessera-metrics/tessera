@@ -62,6 +62,7 @@ export default class Chart extends Presentation {
   legend: string = ChartLegendType.SIMPLE
   hide_zero_series: boolean = false
   renderer: string
+  render_context: any
   options: any = {}
 
   constructor(data?: any) {

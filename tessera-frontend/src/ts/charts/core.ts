@@ -35,6 +35,8 @@ export class ChartRenderer implements NamedObject {
   donut_chart(element: any, item: Chart, query: Query) : void {}
   bar_chart(element: any, item: Chart, query: Query) : void {}
   discrete_bar_chart(element: any, item: Chart, query: Query) : void {}
+  highlight_series(item: Chart, index: number) : void {}
+  unhighlight_series(item: Chart, index: number) : void {}
 
   process_series(series: graphite.DataSeries) : any {
     return series

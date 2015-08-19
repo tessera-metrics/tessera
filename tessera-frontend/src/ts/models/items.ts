@@ -36,7 +36,7 @@ export { default as ComparisonJumbotronSinglestat } from './items/comparison_jum
 export { default as Timerstat } from './items/timerstat'
 
 // Charts
-export { default as Chart } from './items/chart'
+export { default as Chart, ChartLegendType } from './items/chart'
 export { default as DonutChart } from './items/donut_chart'
 export { default as BarChart } from './items/bar_chart'
 export { default as DiscreteBarChart } from './items/discrete_bar_chart'

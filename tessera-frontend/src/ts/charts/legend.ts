@@ -1,8 +1,23 @@
 import Chart, { ChartLegendType } from '../models/items/chart'
 import Query from '../models/data/query'
 import { get_colors, get_palette } from './util'
+import { get_renderer } from './core'
 
 declare var $, ts
+
+function highlightSeries(item) {
+  return function(e) {
+    var index = e.currentTarget.dataset.seriesIndex
+    get_renderer(item).highlight_series(item, index)
+  }
+}
+
+function unhighlightSeries(item) {
+  return function(e) {
+    var index = e.currentTarget.dataset.seriesIndex
+    get_renderer(item).unhighlight_series(item, index)
+  }
+}
 
 export function render_legend(item: Chart, query: Query, options?: any) {
   let legend_id = '#ds-legend-' + item.item_id
@@ -26,7 +41,7 @@ function render_simple_legend(legend_id: string, item: Chart, query: Query, opti
     let label = series.label
     let color = options.colors[i % options.colors.length]
 
-    let cell = '<div class="ds-legend-cell">'
+    let cell = '<div class="ds-legend-cell" data-series-index="' + i + '">'
       + '<span class="color" style="background-color:' + color + '"></span>'
       + '<span class="label" style="color:' + theme_colors.fgcolor +  '">' + label + '</span>'
       + '</div>'
@@ -35,6 +50,10 @@ function render_simple_legend(legend_id: string, item: Chart, query: Query, opti
   let elt = $(legend_id)
   elt.html(legend)
   elt.equalize({equalize: 'outerWidth', reset: true })
+  if (options.interactive_legend) {
+    $(legend_id + ' .ds-legend-cell').on('mouseenter', highlightSeries(item))
+    $(legend_id + ' .ds-legend-cell').on('mouseleave', unhighlightSeries(item))
+  }
 }
 
 function render_table_legend(legend_id: string, item: Chart, query: Query, options?: any) {
@@ -51,6 +70,11 @@ function render_table_legend(legend_id: string, item: Chart, query: Query, optio
     opt: options
   })
   $(legend_id).html(legend)
+
+  if (options.interactive_legend) {
+    $(legend_id + ' > table > tbody > tr').on('mouseenter', highlightSeries(item))
+    $(legend_id + ' > table > tbody > tr').on('mouseleave', unhighlightSeries(item))
+  }
 }
 
 function get_default_options() {
