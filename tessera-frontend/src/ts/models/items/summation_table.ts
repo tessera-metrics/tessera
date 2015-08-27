@@ -63,7 +63,7 @@ export default class SummationTable extends TablePresentation {
     log.debug(`data_handler(): ${query.name}/${this.item_id}`)
     let options = this.options || {}
     let palette = charts.get_palette(options.palette || this.palette)
-    let body = $('#' + this.item_id + ' tbody')
+    let body = $('#' + this.item_id + ' table.ds-summation-table tbody')
     let flot = <charts.FlotChartRenderer>charts.renderers.get('flot')
     body.empty()
     query.data.forEach((series, i) => {
@@ -71,7 +71,11 @@ export default class SummationTable extends TablePresentation {
       body.append(ts.templates.models.summation_table_row({series:series, item:this, color: color, index: i}))
       if (this.show_sparkline) {
         let plot_div = $(`#${this.item_id}-sparkline-${i}`)
-        flot.sparkline(plot_div, query, i)
+        let options : any = {}
+        if (this.show_color) {
+          options.colors = [color]
+        }
+        flot.sparkline(plot_div, query, i, options)
       }
     })
     if (this.sortable) {
