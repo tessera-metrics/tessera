@@ -272,6 +272,30 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     }
   }
 
+  sparkline(e: any, query: Query, index: number, opt?: any) {
+    let data = [query.chart_data('flot')[index]]
+    let options = extend(true, {}, {
+      colors: get_palette(),
+      series: {
+        lines: {
+          show: true,
+          lineWidth: 1,
+          fill: 0.4
+        }
+      },
+      grid: { show: false },
+      legend: { show: false },
+      shadowSize: 0,
+      downsample: true
+    }, opt)
+    return {
+      plot: $.plot(e, data, options),
+      query: query,
+      index: index,
+      renderer: this
+    }
+  }
+
   render(e: any, item: Chart, query: Query, options?: any, data?: any) : any {
     if (typeof(data) === 'undefined')
       data = query.chart_data('flot')
