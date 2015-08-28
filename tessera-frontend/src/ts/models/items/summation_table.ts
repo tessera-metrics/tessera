@@ -71,9 +71,10 @@ export default class SummationTable extends TablePresentation {
       body.append(ts.templates.models.summation_table_row({series:series, item:this, color: color, index: i}))
       if (this.show_sparkline) {
         let plot_div = $(`#${this.item_id}-sparkline-${i}`)
-        let options : any = {}
-        if (this.show_color) {
-          options.colors = [color]
+        let options = {
+          colors: this.show_color
+            ? [color]
+            : palette
         }
         flot.sparkline(plot_div, query, i, options)
       }
