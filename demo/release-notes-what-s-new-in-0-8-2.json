@@ -1,0 +1,204 @@
+{
+  "category": "Release Notes", 
+  "definition": {
+    "style": null, 
+    "items": [
+      {
+        "style": null, 
+        "layout": "fixed", 
+        "title": "Dashboard Enhancements", 
+        "items": [
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "item_type": "markdown", 
+                    "css_class": null, 
+                    "height": null, 
+                    "raw": false, 
+                    "text": "### Sparktables\n\nNot actually a new dashboard item, the Summation Table gets\nseveral new options that expand its utility greatly - the ability\nto choose which columns are visible, and an optional sparkline\ncolumn.\n\nSummation Tables can now also set a title. \n", 
+                    "item_id": "d27"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": "1", 
+                "item_id": "d26", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 7, 
+                "items": [
+                  {
+                    "style": null, 
+                    "format": ",.3s", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "Monochrome", 
+                    "height": null, 
+                    "item_type": "summation_table", 
+                    "item_id": "d10", 
+                    "query": "group_3", 
+                    "striped": false
+                  }, 
+                  {
+                    "style": null, 
+                    "format": ",.3s", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "Monochrome 2", 
+                    "height": null, 
+                    "item_type": "summation_table", 
+                    "item_id": "d17", 
+                    "query": "group_3", 
+                    "striped": false
+                  }, 
+                  {
+                    "style": null, 
+                    "format": ",.3s", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": "With color palette", 
+                    "height": null, 
+                    "item_type": "summation_table", 
+                    "item_id": "d58", 
+                    "query": "group_12", 
+                    "striped": false
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d28", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d25"
+          }
+        ], 
+        "height": null, 
+        "item_type": "section", 
+        "css_class": null, 
+        "item_id": "d14"
+      }, 
+      {
+        "style": null, 
+        "layout": "fixed", 
+        "title": "Bug Fixes", 
+        "items": [
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "item_type": "markdown", 
+                    "css_class": null, 
+                    "height": null, 
+                    "raw": false, 
+                    "text": null, 
+                    "item_id": "d15"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": 1, 
+                "item_id": "d12", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 7, 
+                "items": [
+                  {
+                    "style": null, 
+                    "item_type": "markdown", 
+                    "css_class": null, 
+                    "height": null, 
+                    "raw": false, 
+                    "text": "\n* Sessions are now persistent, so preferences will survive a browser restart. \n* [All closed issues](https://github.com/urbanairship/tessera/issues?q=milestone%3A0.Next+is%3Aclosed)", 
+                    "item_id": "d16"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d13", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d11"
+          }
+        ], 
+        "height": null, 
+        "item_type": "section", 
+        "css_class": null, 
+        "item_id": "d59"
+      }
+    ], 
+    "queries": {
+      "group_3": {
+        "name": "group_3", 
+        "targets": [
+          "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
+        ]
+      }, 
+      "group_12": {
+        "name": "group_12", 
+        "targets": [
+          "group(\n    randomWalkFunction(\"series1\"),\n    randomWalkFunction(\"series2\"),\n    randomWalkFunction(\"series4\"),\n    randomWalkFunction(\"series5\"),\n    randomWalkFunction(\"series6\"),\n    randomWalkFunction(\"series7\"),\n    randomWalkFunction(\"series8\"),\n    randomWalkFunction(\"series9\"),\n    randomWalkFunction(\"series10\"),\n    randomWalkFunction(\"series11\"),\n    randomWalkFunction(\"series12\")\n)"
+        ]
+      }, 
+      "log": {
+        "name": "log", 
+        "targets": [
+          "offset(scale(\n    group(absolute(randomWalkFunction(\"series1\")),\n          absolute(randomWalkFunction(\"series2\")),\n          absolute(randomWalkFunction(\"series3\")))\n    , 10)\n, 1)"
+        ]
+      }
+    }, 
+    "height": null, 
+    "item_type": "dashboard_definition", 
+    "css_class": null, 
+    "item_id": "d3"
+  }, 
+  "view_href": "/dashboards/23/what-s-new-in-0-8-2", 
+  "description": null, 
+  "tags": [
+    {
+      "count": 10, 
+      "bgcolor": "green", 
+      "id": 2, 
+      "name": "featured"
+    }, 
+    {
+      "count": 4, 
+      "id": 4, 
+      "name": "release-notes"
+    }
+  ], 
+  "title": "What's new in 0.8.2?", 
+  "summary": "", 
+  "definition_href": "/api/dashboard/23/definition", 
+  "href": "/api/dashboard/23", 
+  "id": 23, 
+  "imported_from": null
+}
