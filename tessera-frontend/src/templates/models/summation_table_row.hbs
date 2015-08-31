@@ -1,13 +1,19 @@
 <tr>
-    <th>
+  <th>
     {{#if item.show_color}}
       <span class="ds-summation-color-cell" style="background:{{color}}"></span>
     {{/if}}
-      {{series.target}}</th>
-    <td>{{format item.format series.summation.last}}</td>
-    <td>{{format item.format series.summation.min}}</td>
-    <td>{{format item.format series.summation.max}}</td>
-    <td>{{format item.format series.summation.mean}}</td>
-    <td>{{format item.format series.summation.median}}</td>
-    <td>{{format item.format series.summation.sum}}</td>
-  </tr>
+    {{series.target}}
+  </th>
+  {{#if item.show_current}}<td>{{format item.format series.summation.last}}</td>{{/if}}
+  {{#if item.show_min}}<td>{{format item.format series.summation.min}}</td>{{/if}}
+  {{#if item.show_max}}<td>{{format item.format series.summation.max}}</td>{{/if}}
+  {{#if item.show_mean}}<td>{{format item.format series.summation.mean}}</td>{{/if}}
+  {{#if item.show_median}}<td>{{format item.format series.summation.median}}</td>{{/if}}
+  {{#if item.show_sum}}<td>{{format item.format series.summation.sum}}</td>{{/if}}
+  {{#if item.show_sparkline}}
+    <td>
+      <div class="ds-spark-table-graph" id="{{item.item_id}}-sparkline-{{index}}"></div>
+    </td>
+  {{/if}}
+</tr>

@@ -400,6 +400,25 @@ td.ds-diff-minus {
     margin-bottom: 0px;
 }
 
+col.ds-sparkline-col {
+  width:100%;
+}
+
+.ds-spark-table-graph {
+  width: 100%;
+  height: 1.5em;
+}
+
+.ds-summation-table td,
+.ds-summation-table th {
+  vertical-align: middle !important;
+}
+
+.ds-summation-table tbody th {
+  font-weight: normal;
+}
+
+
 /* -----------------------------------------------------------------------------
  Edit mode headers
  ----------------------------------------------------------------------------- */

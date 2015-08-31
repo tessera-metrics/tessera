@@ -2,15 +2,26 @@
   {{> ds-title-bar}}
   <table class="table table-condensed ds-summation-table {{height item}} {{css_class item}}
                 {{#if item.striped}}table-striped{{/if}}">
+    <colgroup>
+      <col>
+      {{#if item.show_current}}<col>{{/if}}
+      {{#if item.show_min}}<col>{{/if}}
+      {{#if item.show_max}}<col>{{/if}}
+      {{#if item.show_mean}}<col>{{/if}}
+      {{#if item.show_median}}<col>{{/if}}
+      {{#if item.show_sum}}<col>{{/if}}
+      {{#if item.show_sparkline}}<col class="ds-sparkline-col">{{/if}}
+    </colgroup>
     <thead>
       <tr>
         <th>&nbsp;</th>
-        <th>current</th>
-        <th>min</th>
-        <th>max</th>
-        <th>mean</th>
-        <th>median</th>
-        <th>sum</th>
+        {{#if item.show_current}}<th>current</th>{{/if}}
+        {{#if item.show_min}}<th>min</th>{{/if}}
+        {{#if item.show_max}}<th>max</th>{{/if}}
+        {{#if item.show_mean}}<th>mean</th>{{/if}}
+        {{#if item.show_median}}<th>median</th>{{/if}}
+        {{#if item.show_sum}}<th>sum</th>{{/if}}
+        {{#if item.show_sparkline}}<th>&nbsp;</th>{{/if}}
       </tr>
     </thead>
     <tbody>
