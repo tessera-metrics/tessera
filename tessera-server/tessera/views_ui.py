@@ -55,6 +55,21 @@ def _render_client_side_dashboard(dashboard, template='dashboard.html', transfor
                                          (title, '')])
 
 # =============================================================================
+# Session Persistence
+# =============================================================================
+
+@ui.before_request
+def configure_session():
+    """
+    Make sessions persistent, with Flask's default session lifetime (31
+    days). When LDAP integration is eventually added in the future,
+    we'll add more config options and means to immediately expire
+    sessions if needed, but for now we just make sure anonymous
+    settings survive a browser restart.
+    """
+    flask.session.permanent = True
+
+# =============================================================================
 # UI Endpoints
 # =============================================================================
 
