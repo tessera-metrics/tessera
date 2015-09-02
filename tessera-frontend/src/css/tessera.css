@@ -112,6 +112,10 @@ table.dataTable thead .sorting_desc_disabled:after {
    Application Styles
    ============================================================================= */
 
+.ds-title-bar {
+  clear: both;
+}
+
 ul.ds-header-links {
     list-style: none;
 }
@@ -284,20 +288,19 @@ h1.page-title {
 
 .ds-singlegraph span.ds-label {
     display: block;
-    position: absolute;
+    position: relative;
     z-index: 10000;
-    left: 20px;
-    bottom: 1.5em;
-    width: 75%;
+    float: left;
     text-shadow: 1px 1px #dfdfff;
 }
 
 .ds-singlegraph span.value {
     display: block;
-    position: absolute;
+    position: relative;
     z-index: 10000;
-    right: 20px;
-    bottom: 20px;
+    right: .125em;
+    bottom: 1.25em;
+    float: right;
 }
 
 .ds-editable {
