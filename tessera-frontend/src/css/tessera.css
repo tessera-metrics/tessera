@@ -112,6 +112,10 @@ table.dataTable thead .sorting_desc_disabled:after {
    Application Styles
    ============================================================================= */
 
+.ds-title-bar {
+  clear: both;
+}
+
 ul.ds-header-links {
     list-style: none;
 }
