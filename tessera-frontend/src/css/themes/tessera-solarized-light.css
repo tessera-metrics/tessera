@@ -11,10 +11,6 @@
   background-color: rgba(0,0,0,0.07)
 }
 
-.ds-singlegraph span.value {
-    text-shadow: 1px 1px white;
-}
-
 .ds-timerstat .unit,
 .ds-singlestat .unit,
 .ds-jumbotron-singlestat .unit {
