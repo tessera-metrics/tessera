@@ -2,8 +2,11 @@ import Action, { actions as action_registry } from '../core/action'
 import Chart from '../models/items/chart'
 import * as app from './app'
 import manager from './manager'
+import { logger } from '../core/log'
 
 declare var marked, hljs, Handlebars, moment, d3, $, ts
+
+const log = logger('helpers')
 
 /**
  * Hook up syntax highlighting to marked' markdown processor, so code
@@ -55,7 +58,7 @@ export function register_helpers() {
     try {
       return d3.format(format)(value)
     } catch ( e ) {
-      console.log('Error formatting ' + format + ' / ' + value + ': ' + e.message)
+      log.error('Error formatting ' + format + ' / ' + value + ': ' + e.message)
       return value
     }
   })
