@@ -32,7 +32,13 @@ export default class Heading extends DashboardItem {
   interactive_properties() : PropertyList {
     return [
       'text',
-      { name: 'level', type: 'number' },
+      {
+        name: 'level',
+        edit_options: {
+          type: 'select',
+          source: [ 1, 2, 3, 4, 5, 6 ]
+        }
+      },
       'description'
     ]
   }
