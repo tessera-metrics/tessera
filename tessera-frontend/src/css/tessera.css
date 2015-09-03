@@ -331,6 +331,7 @@ h1.page-title {
     padding: 6px;
     margin-left: 40px;
     font-size: 0.9em;
+    z-index: 100;
 }
 
 tr.ds-tooltip-highlight {

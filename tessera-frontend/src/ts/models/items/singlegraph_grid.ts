@@ -16,17 +16,17 @@ export default class SinglegraphGrid extends Chart {
 
   format: string = ',.1s'
   transform: string = 'mean'
-  columns: number
+  columns: number = 4
 
   constructor(data?: any) {
     super(data)
     if (data) {
       this.format = data.format || this.format
       this.transform = data.transform || this.transform
-      this.columns = data.columns || 4
-      if (!this.height)
-        this.height = 1
+      this.columns = data.columns || this.columns
     }
+    if (!this.height)
+      this.height = 1
   }
 
   toJSON() : any {
@@ -57,7 +57,7 @@ export default class SinglegraphGrid extends Chart {
         value: format(value),
         label: series.target
       }))
-      flot.sparkline($(`#${this.item_id}-${i} .ds-singlegraph-grid-graph`), query, i, options)
+      flot.sparkline($(`#${this.item_id}-${i} .ds-graph-holder`), this, query, i, options)
     })
   }
 
