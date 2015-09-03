@@ -287,7 +287,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         lines: {
           show: true,
           lineWidth: 1,
-          fill: 0.4
+          fill: 0.2
         }
       },
       grid: { show: false, hoverable: true },
