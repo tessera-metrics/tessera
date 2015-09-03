@@ -90,10 +90,14 @@ $(document).on('change', '#ds-import-filepicker', function(e) {
      var file = file_list[0]
      var reader = new FileReader()
      reader.onload = function(e) {
-       ts.manager.create(e.target.result, function(data) {
-         ts.manager.success('Imported succeeded')
-         window.location = data.view_href
-       })
+       try {
+         ts.manager.create(e.target.result, function(data) {
+           ts.manager.success('Imported succeeded')
+           window.location = data.view_href
+         })
+       } catch (e) {
+         ts.manager.error(e.message)
+       }
      }
      reader.readAsText(file)
    }

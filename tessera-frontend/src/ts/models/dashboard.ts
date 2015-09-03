@@ -58,6 +58,9 @@ export default class Dashboard extends Model {
       this.next_id()
       this.update_index()
     }
+    if (!this.title) {
+      throw new Error("Missing required field 'title'")
+    }
   }
 
   set_tags(tags: string[]) : Dashboard {

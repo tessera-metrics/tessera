@@ -199,6 +199,10 @@ def dashboard_create():
 
     """
     dashboard = database.DashboardRecord.from_json(request.json)
+    if not dashboard.title:
+        return {
+            'error_message': "Missing required field 'title'"
+        }, 400
     if 'definition' in request.json:
         dashboard.definition = database.DefinitionRecord(dumps(request.json['definition']))
     else:
