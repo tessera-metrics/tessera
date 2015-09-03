@@ -1,5 +1,5 @@
 import * as charts from './core'
-import { ChartLegendType, Chart, StandardTimeSeries, StackedAreaChart } from '../models/items'
+import { ChartLegendType, Chart, StandardTimeSeries, StackedAreaChart, DashboardItem } from '../models/items'
 import Query from '../models/data/query'
 import { AxisScale } from '../models/axis'
 import { get_colors, get_palette } from './util'
@@ -16,7 +16,7 @@ const log = logger('charts.flot')
 
 interface FlotRenderContext {
   plot: any
-  item: Chart
+  item: Chart|DashboardItem
   query: Query
   renderer: charts.ChartRenderer
 }
@@ -206,7 +206,7 @@ function setup_plugins(container, context: FlotRenderContext) {
 
     let items_to_plot = items.map((i) => {
       let s = data[i.serieIndex]
-      if (context.item.hide_zero_series && s.summation.sum === 0)
+      if (context.item instanceof Chart && (<Chart>context.item).hide_zero_series && s.summation.sum === 0)
         return null
       let value = is_percent
         ? s.percents[i.dataIndex]
@@ -233,9 +233,9 @@ function setup_plugins(container, context: FlotRenderContext) {
   if (context.item instanceof XYChart) {
     $(container).bind('plothover', (e, pos, event_item) => {
       if (event_item) {
-        context.renderer.highlight_series(context.item, event_item.seriesIndex)
+        context.renderer.highlight_series(<Chart>context.item, event_item.seriesIndex)
       } else {
-        context.renderer.unhighlight_series(context.item)
+        context.renderer.unhighlight_series(<Chart>context.item)
       }
     })
   }
@@ -272,7 +272,14 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     }
   }
 
-  sparkline(e: any, query: Query, index: number, opt?: any) {
+  sparkline(e: any, item: DashboardItem, query: Query, index: number, opt?: any) : FlotRenderContext {
+    let context : FlotRenderContext = {
+      plot: null,
+      item: item,
+      query: query,
+      renderer: this
+    }
+    setup_plugins(e, context)
     let data = [query.chart_data('flot')[index]]
     let options = extend(true, {}, {
       colors: get_palette(),
@@ -283,17 +290,19 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
           fill: 0.4
         }
       },
-      grid: { show: false },
+      grid: { show: false, hoverable: true },
+      multihighlight: { mode: 'x' },
+      crosshair: {
+        mode: "x",
+        color: "#BBB",
+        lineWidth: 1
+      },
       legend: { show: false },
       shadowSize: 0,
       downsample: true
     }, opt)
-    return {
-      plot: $.plot(e, data, options),
-      query: query,
-      index: index,
-      renderer: this
-    }
+    context.plot = $.plot($(e), data, options)
+    return context
   }
 
   render(e: any, item: Chart, query: Query, options?: any, data?: any) : any {

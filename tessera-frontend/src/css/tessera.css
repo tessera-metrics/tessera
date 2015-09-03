@@ -282,24 +282,20 @@ h1.page-title {
     margin-top: 0;
 }
 
-.ds-singlegraph svg {
-    height: 90px;
-}
-
 .ds-singlegraph span.ds-label {
     display: block;
     position: relative;
-    z-index: 10000;
+    z-index: 10;
     float: left;
-    text-shadow: 1px 1px #dfdfff;
 }
 
 .ds-singlegraph span.value {
     display: block;
     position: relative;
-    z-index: 10000;
+    z-index: 10;
     right: .125em;
     bottom: 1.25em;
+    margin-bottom: -1em;
     float: right;
 }
 
@@ -336,6 +332,7 @@ h1.page-title {
     padding: 6px;
     margin-left: 40px;
     font-size: 0.9em;
+    z-index: 100;
 }
 
 tr.ds-tooltip-highlight {

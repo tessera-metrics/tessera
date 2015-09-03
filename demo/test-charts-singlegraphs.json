@@ -1,0 +1,280 @@
+{
+  "category": "Test", 
+  "definition": {
+    "style": null, 
+    "items": [
+      {
+        "style": null, 
+        "layout": "fixed", 
+        "title": "Individual Singlegraphs", 
+        "items": [
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "format": ",.1s", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": null, 
+                    "transform": "mean", 
+                    "height": 1, 
+                    "item_type": "singlegraph", 
+                    "item_id": "d7", 
+                    "query": "query0", 
+                    "options": {
+                      "margin": {
+                        "top": 0, 
+                        "right": 0, 
+                        "bottom": 0, 
+                        "left": 0
+                      }
+                    }, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d6", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "format": ",.1s", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": null, 
+                    "transform": "mean", 
+                    "height": 1, 
+                    "item_type": "singlegraph", 
+                    "item_id": "d9", 
+                    "query": "query1", 
+                    "options": {
+                      "palette": "applebrown", 
+                      "margin": {
+                        "top": 0, 
+                        "right": 0, 
+                        "bottom": 0, 
+                        "left": 0
+                      }
+                    }, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d8", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "format": ",.1s", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": null, 
+                    "transform": "mean", 
+                    "height": 1, 
+                    "item_type": "singlegraph", 
+                    "item_id": "d11", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "applegreen", 
+                      "margin": {
+                        "top": 0, 
+                        "right": 0, 
+                        "bottom": 0, 
+                        "left": 0
+                      }
+                    }, 
+                    "interactive": true
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d10", 
+                "css_class": null
+              }, 
+              {
+                "style": null, 
+                "span": 3, 
+                "items": [
+                  {
+                    "style": null, 
+                    "format": ",.1s", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": null, 
+                    "transform": "mean", 
+                    "height": 1, 
+                    "item_type": "singlegraph", 
+                    "item_id": "d13", 
+                    "query": "query0", 
+                    "options": {
+                      "palette": "brewerdiv2", 
+                      "margin": {
+                        "top": 0, 
+                        "right": 0, 
+                        "bottom": 0, 
+                        "left": 0
+                      }
+                    }, 
+                    "interactive": true
+                  }, 
+                  {
+                    "style": null, 
+                    "format": ",.1s", 
+                    "css_class": null, 
+                    "thresholds": null, 
+                    "title": null, 
+                    "transform": "mean", 
+                    "height": 1, 
+                    "item_type": "singlegraph", 
+                    "item_id": "d14", 
+                    "query": "query0", 
+                    "options": {
+                      "margin": {
+                        "top": 0, 
+                        "right": 0, 
+                        "bottom": 0, 
+                        "left": 0
+                      }
+                    }, 
+                    "interactive": true
+                  }, 
+                  {
+                    "style": null, 
+                    "item_type": "markdown", 
+                    "css_class": null, 
+                    "height": null, 
+                    "raw": false, 
+                    "text": null, 
+                    "item_id": "d18"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d12", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d5"
+          }
+        ], 
+        "height": null, 
+        "item_type": "section", 
+        "css_class": null, 
+        "item_id": "d4"
+      }, 
+      {
+        "style": null, 
+        "layout": "fixed", 
+        "title": "Singlegraph Grid", 
+        "items": [
+          {
+            "style": null, 
+            "items": [
+              {
+                "style": null, 
+                "span": 12, 
+                "items": [
+                  {
+                    "style": null, 
+                    "format": ",.1s", 
+                    "css_class": null, 
+                    "transform": "mean", 
+                    "height": 1, 
+                    "item_type": "singlegraph_grid", 
+                    "legend": "simple", 
+                    "hide_zero_series": false, 
+                    "item_id": "d17", 
+                    "query": "query_17", 
+                    "options": {
+                      "palette": "applegreen"
+                    }, 
+                    "columns": "4"
+                  }
+                ], 
+                "align": null, 
+                "height": null, 
+                "item_type": "cell", 
+                "offset": null, 
+                "item_id": "d36", 
+                "css_class": null
+              }
+            ], 
+            "height": null, 
+            "item_type": "row", 
+            "css_class": null, 
+            "item_id": "d35"
+          }
+        ], 
+        "height": null, 
+        "item_type": "section", 
+        "css_class": null, 
+        "item_id": "d24"
+      }
+    ], 
+    "queries": {
+      "query2": {
+        "name": "query2", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query2\"))"
+        ]
+      }, 
+      "query0": {
+        "name": "query0", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query0\"))"
+        ]
+      }, 
+      "query1": {
+        "name": "query1", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query1\"))"
+        ]
+      }, 
+      "query_17": {
+        "name": "query_17", 
+        "targets": [
+          "group(\n    absolute(randomWalkFunction(\"query1\")),\n    absolute(randomWalkFunction(\"query2\")),\n    absolute(randomWalkFunction(\"query3\")),\n    absolute(randomWalkFunction(\"query4\")),\n    absolute(randomWalkFunction(\"query5\")),\n    absolute(randomWalkFunction(\"query6\")),\n    absolute(randomWalkFunction(\"query7\")),\n    absolute(randomWalkFunction(\"query8\")),\n    absolute(randomWalkFunction(\"query9\")),\n    absolute(randomWalkFunction(\"query10\")),\n    absolute(randomWalkFunction(\"query11\")),\n    absolute(randomWalkFunction(\"query12\")),\n    absolute(randomWalkFunction(\"query13\")),\n    absolute(randomWalkFunction(\"query14\")),\n    absolute(randomWalkFunction(\"query15\")),\n    absolute(randomWalkFunction(\"query16\")),\n    absolute(randomWalkFunction(\"query17\"))\n)"
+        ]
+      }
+    }, 
+    "height": null, 
+    "item_type": "dashboard_definition", 
+    "css_class": null, 
+    "item_id": "d3"
+  }, 
+  "view_href": "/dashboards/26/charts-singlegraphs", 
+  "description": "", 
+  "tags": [], 
+  "title": "Charts - Singlegraphs", 
+  "summary": "", 
+  "definition_href": "/api/dashboard/26/definition", 
+  "href": "/api/dashboard/26", 
+  "id": 26, 
+  "imported_from": null
+}

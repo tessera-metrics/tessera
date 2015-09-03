@@ -143,10 +143,6 @@ h1.page-title .ds-summary {
   color: #222;
 }
 
-.ds-singlegraph span.value {
-    text-shadow: 1px 1px black;
-}
-
 /* Alerts */
 
 .alert-neutral,
