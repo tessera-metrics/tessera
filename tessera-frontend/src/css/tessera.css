@@ -282,6 +282,16 @@ h1.page-title {
     margin-top: 0;
 }
 
+.ds-singlegraph span.transform {
+  float: right;
+  position: relative;
+  display: block;
+  bottom: 1.5em;
+  right: .75em;
+  font-weight: bold;
+  opacity: 0.5;
+}
+
 .ds-singlegraph span.ds-label {
     display: block;
     position: relative;
