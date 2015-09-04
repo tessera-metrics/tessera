@@ -296,7 +296,6 @@ h1.page-title {
     display: block;
     position: relative;
     z-index: 10;
-    float: left;
 }
 
 .ds-singlegraph span.value {
