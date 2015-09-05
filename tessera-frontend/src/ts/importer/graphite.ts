@@ -1,4 +1,4 @@
-import { manager } from '../app'
+import { manager, config } from '../app'
 import * as models from '../models'
 import { logger } from '../core'
 import * as charts from '../charts'
@@ -94,6 +94,11 @@ export function import_dashboard(url: string) : Promise<any> {
       type: 'GET',
       url: api_url.toString(),
       dataType: 'json',
+      beforeSend: (xhr) => {
+        if (config.GRAPHITE_AUTH !== '') {
+          xhr.setRequestHeader('Authorization', 'Basic ' + window.btoa(config.GRAPHITE_AUTH))
+        }
+      },
       success: (data) => {
         resolve(data.state)
       },
