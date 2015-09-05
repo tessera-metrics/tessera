@@ -37,6 +37,7 @@ function translate(gdash: any) : models.Dashboard {
 
     let presentation = new models.StackedAreaChart({
       query: query,
+      title: options.title,
       stack_mode: is_stacked ? charts.StackMode.NORMAL : charts.StackMode.NONE,
       options: {
         y1: {
