@@ -131,11 +131,18 @@ $(document).on('change', '#ds-import-filepicker', function(e) {
    return false
  })
 
- // Graphite dashboard URL importer
+ /*
+  * Handler to validate the graphite dashboard URL.
+  */
  $(document).on('change', '#ds-import-graphite-url', function(e) {
+   var status = $('#ds-import-from-graphite-url-status')
+   status.empty()
+
    var url = $('#ds-import-graphite-url')[0].value
-   $.get(url).done(function() {
-     $('#ds-import-from-graphite-url-status').text(url)
+   var api_url = ts.importer.graphite.get_api_url(url)
+
+   $.get(api_url).done(function() {
+     status.append('<i class="fa fa-lg fa-check-circle text-success"></i>')
      $('#ds-import-from-graphite-url-button').removeAttr('disabled')
    }).fail(function() {
      ts.manager.error('Unable to retrieve ' + url)
