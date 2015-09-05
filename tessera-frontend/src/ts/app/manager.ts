@@ -557,7 +557,7 @@ core.events.on(DashboardItem, 'update', (e: { target: DashboardItem }) => {
   } else {
     let item = e.target
     log.debug(`on:DashboardItem.update: ${item.item_type} / ${item.item_id}`)
-    if (item instanceof Container) {
+    if (item instanceof Container && manager.current) {
       manager.current.dashboard.update_index()
     }
     manager.update_item_view(item)
