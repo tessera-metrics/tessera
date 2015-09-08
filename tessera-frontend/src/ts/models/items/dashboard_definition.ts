@@ -153,8 +153,8 @@ export default class DashboardDefinition extends Container {
     let updated = []
     this.visit((item) => {
       if (item instanceof Presentation) {
-        if (item.query && (item.query.name == old_name)) {
-          item.query = new_name
+        if (item.query && (item.query.name === old_name)) {
+          item.set_query(new_name)
           updated.push(item)
         }
       }
