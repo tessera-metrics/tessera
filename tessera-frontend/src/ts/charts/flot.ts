@@ -186,12 +186,20 @@ function get_flot_options(item, base) {
 }
 
 function show_tooltip(x, y, contents, offset?) {
-  $('<div id="ds-tooltip">' + contents + '</div>').css( {
+  let margin = 60
+  let top  = y + (offset || 5)
+  let left = x + (offset || 5)
+  let el = $('<div id="ds-tooltip">' + contents + '</div>').css( {
     position: 'absolute',
     display: 'none',
-    top: y + (offset || 5),
-    left: x + (offset || 5)
-  }).appendTo("body").show()
+    top: top,
+    left: left
+  })
+  el.appendTo("body").show()
+  let width = el.outerWidth()
+  if (left + width + margin > window.innerWidth) {
+    el.css('left', x - (width + (margin * 2)))
+  }
 }
 
 function setup_plugins(container, context: FlotRenderContext) {
