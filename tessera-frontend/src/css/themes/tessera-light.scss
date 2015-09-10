@@ -34,23 +34,13 @@ h1 .ds-primary-title {
     color: gray;
 }
 
-.ds-danger {
-  h3, .value, .unit {
-    color: #d60000;
-  }
-}
-
-.ds-warning {
-  h3, .value, .unit {
-    color: #d66a00;
-  }
-}
-
 #ds-tooltip {
   color: black;
   background-color: white;
   border: 1px solid #888;
 }
+
+@import "alerts";
 
 /* =============================================================================
    3rd Party Tweaks
