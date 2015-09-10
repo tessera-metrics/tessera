@@ -7,7 +7,7 @@ from datetime import datetime
 import inflection
 from functools import wraps
 
-from flask import render_template, request, url_for
+from flask import request, url_for
 from werkzeug.exceptions import HTTPException
 
 from tessera_client.api.model import *
