@@ -25,47 +25,7 @@ hr {
   border-bottom: 1px solid #121212;
 }
 
-/* nvd3 tweaks for darkstrap */
-
-.nvtooltip {
-  background-color: #586e75;
-  color: #fdf6e3;
-  border: 1px solid #839496;
-}
-
-.nvd3 text {
-    fill: #657b83;
-}
-
-.nv-legend-text {
-    fill: #657b83;
-}
-
-.nvd3 .tick line {
-    stroke: #073642;
-}
-
-.nvd3 .nv-axis path {
-    stroke: #073642;
-}
-
-.nv-label text {
-    stroke: #657b83;
-}
-
 /* Application Styles */
-
-.ds-grid h1,
-.ds-grid h2
-{
-    color: #eee8d5;
-}
-
-.ds-grid h1 small,
-.ds-grid h2 small
-{
-    color: #586e75;
-}
 
 .ds-item h1,
 .ds-item h2,
