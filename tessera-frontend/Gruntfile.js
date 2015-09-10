@@ -172,7 +172,6 @@ module.exports = function(grunt) {
     copy: {
       dep: {
         files: [
-          { expand: true, cwd: 'node_modules/bootstrap-solarized/', src: '*.css', dest: '<%= DIST %>/themes/' },
           { expand: true, cwd: 'src/3rd-Party/fonts/', src: '**', dest: '<%= DIST %>/fonts/' },
           { expand: true, cwd: 'src/3rd-Party/img/', src: '**', dest: '<%= DIST %>/img/' },
           {
@@ -185,7 +184,8 @@ module.exports = function(grunt) {
       },
       app: {
         files: [
-          { expand: true, cwd: 'src/css/', src: '**', dest: '<%= DIST %>/' }
+          { expand: true, cwd: 'node_modules/bootstrap-solarized/', src: '*.css', dest: '<%= DIST %>/themes/' },
+          { expand: true, cwd: '_build/css/', src: '**', dest: '<%= DIST %>/' }
         ]
       }
     },
@@ -221,7 +221,7 @@ module.exports = function(grunt) {
       },
       app_css: {
         files: [
-          'src/css/*.scss'
+          'src/css/**/*.scss'
         ],
         tasks: ['sass', 'copy:app']
       }
