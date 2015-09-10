@@ -1,3 +1,5 @@
+@import "../variables";
+
 $gray: gray;
 $white: white;
 $medium-gray: #a6a6a6;
@@ -7,17 +9,33 @@ $dark-gray0: #333333;
 $dark-gray1: #454545;
 $dark-gray2: #494949;
 
+$neutral:           $gray;
+$neutral-bg:        $dark-gray1;
+$neutral-highlight: $neutral;
+
+$info-bg:           #2a3b49;
+$info-highlight:    #6a9ab3;
+$info:              darken($info-highlight, 10%);
+
+$success:           #436824;
+$success-bg:        #35492c;
+$success-highlight: #86b186;
+
+$warning:           #a25103;
+$warning-bg:        #6f3701;
+$warning-highlight: #ff9e3f;
+
+$danger:            #a80e0b;
+$danger-highlight:  #e22424;
+$danger-bg:         #690d0d;
+
+
 /* =============================================================================
    Application Styles
    ============================================================================= */
 
 .ds-item {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, h2, h3, h4, h5, h6 {
     color: #BBB;
   }
 }
@@ -34,7 +52,7 @@ $dark-gray2: #494949;
 
 .ds-timerstat p,
 .ds-singlestat p {
-    color:white;
+    color: white;
 }
 
 .ds-timerstat .unit,
@@ -63,47 +81,15 @@ h1 .ds-secondary-title {
     color: #ddd;
 }
 
-.ds-warning,
-.ds-warning h3,
-.ds-warning .value,
-.ds-warning .unit {
-    color: #FF9E3F;
-}
-
-.ds-danger,
-.ds-danger h3,
-.ds-danger .value,
-.ds-danger .unit {
-    color: #FF0000;
-}
-
 .badge-neutral {
   color: #222;
 }
 
+@import "alerts";
+
 /* =============================================================================
    3rd Party Tweaks
    ============================================================================= */
-
-.alert-neutral h1, .alert-neutral h2, .alert-neutral h3, .alert-neutral h4, .alert-neutral h5, .alert-neutral h6 {
-  color: $gray;
-}
-
-.alert-info h1, .alert-info h2, .alert-info h3, .alert-info h4, .alert-info h5, .alert-info h6 {
-  color: #6A9AB3;
-}
-
-.alert-success h1, .alert-success h2, .alert-success h3, .alert-success h4, .alert-success h5, .alert-success h6 {
-    color: #86B186;
-}
-
-.alert-warning h1, .alert-warning h2, .alert-warning h3, .alert-warning h4, .alert-warning h5, .alert-warning h6 {
-    color: #FF9E3F;
-}
-
-.alert-danger h1, .alert-danger h2, .alert-danger h3, .alert-danger h4, .alert-danger h5, .alert-danger h6 {
-    color: #E22424;
-}
 
 /* darkstrap tweaks */
 
@@ -177,36 +163,6 @@ input[type="number"]
     color: #DDD;
     background-color: $dark-gray0;
     border-color: #777;
-}
-
-.alert-neutral,
-.bs-callout-neutral {
-    background-color: $dark-gray1;
-    border-color: #666;
-}
-
-.alert-info,
-.bs-callout-info {
-    background-color: #2A3B49;
-    border-color: #36576E;
-}
-
-.alert-success,
-.bs-callout-success {
-    background-color: #35492C;
-    border-color: #436824;
-}
-
-.alert-warning,
-.bs-callout-warning {
-    background-color: #6F3701;
-    border-color: #A25103;
-}
-
-.alert-danger,
-.bs-callout-danger {
-    background-color: #690d0d;
-    border-color: #a80e0B;
 }
 
 #ds-tooltip {
