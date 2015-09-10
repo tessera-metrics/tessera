@@ -85,6 +85,29 @@ module.exports = function(grunt) {
     },
 
     /**
+     * 3b - compile the SCSS source to CSS
+     */
+    sass: {
+      options: {
+        sourceMap: true
+      },
+      dist: {
+        files: {
+          '_build/css/tessera.css':                'src/css/tessera.scss',
+          '_build/css/tessera-typography.css':     'src/css/tessera-typography.scss',
+          '_build/css/themes/bootstrap-dark.css':  'src/css/themes/bootstrap-dark.scss',
+          '_build/css/themes/tessera-dark.css':    'src/css/themes/tessera-dark.scss',
+          '_build/css/themes/bootstrap-light.css': 'src/css/themes/bootstrap-light.scss',
+          '_build/css/themes/tessera-light.css':   'src/css/themes/tessera-light.scss',
+          '_build/css/themes/bootstrap-snow.css':  'src/css/themes/bootstrap-snow.scss',
+          '_build/css/themes/tessera-snow.css':     'src/css/themes/tessera-snow.scss',
+          '_build/css/themes/tessera-solarized-light.css': 'src/css/themes/tessera-solarized-light.scss',
+          '_build/css/themes/tessera-solarized-dark.css':  'src/css/themes/tessera-solarized-dark.scss'
+        }
+      }
+    },
+
+    /**
      * 4 - Concatenate the transpiled sources, the precompiled
      * templates, and the babel polyfill required for all ES6 support.
      */
@@ -198,9 +221,9 @@ module.exports = function(grunt) {
       },
       app_css: {
         files: [
-          'src/css/*.css'
+          'src/css/*.scss'
         ],
-        tasks: ['copy:app']
+        tasks: ['sass', 'copy:app']
       }
     }
   });
@@ -212,11 +235,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-ts');
 
   /** Compile the tessera source and templates */
   grunt.registerTask('app', [
-    'ts', 'browserify:app', 'handlebars', 'concat:app', 'copy:app'
+    'ts', 'browserify:app', 'handlebars', 'sass', 'concat:app', 'copy:app'
+  ])
+
+  grunt.registerTask('css', [
+    'sass', 'copy:app'
   ])
 
   /** Compile all third-party dependencies */
