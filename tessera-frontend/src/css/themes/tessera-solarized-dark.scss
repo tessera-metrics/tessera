@@ -1,3 +1,24 @@
+@import "solarized";
+
+$neutral:           darken($base1, 10%);
+$neutral-bg:        darken($base01, 15%);
+$neutral-highlight: lighten($neutral, 10%);
+
+$info:              $blue;
+$info-bg:           rgba(darken($info, 20%), 0.8);
+$info-highlight:    lighten($info, 20%);
+
+$success:           $green;
+$success-bg:        rgba(darken($success, 15%), 0.8);
+$success-highlight: lighten($success, 10%);
+
+$warning:           $yellow;
+$warning-bg:        rgba(darken($warning, 20%), 0.8);
+$warning-highlight: lighten($warning, 10%);
+
+$danger:            $red;
+$danger-bg:         rgba(darken($danger, 20%), 0.8);
+$danger-highlight:  $danger;
 
 /* Bootstrap tweaks */
 
@@ -27,13 +48,10 @@ hr {
 
 /* Application Styles */
 
-.ds-item h1,
-.ds-item h2,
-.ds-item h3,
-.ds-item h4,
-.ds-item h5,
-.ds-item h6 {
-    color: #93a1a1;
+.ds-item {
+  h1, h2, h3, h4, h5, h6 {
+    color: $base1;
+  }
 }
 
 .ds-timerstat h3,
@@ -43,17 +61,19 @@ hr {
 
 .well .ds-timerstat h3,
 .well .ds-singlestat h3 {
-  color: #b58900;
+  color: $yellow;
 }
 
-.ds-timerstat p,
-.ds-singlestat p {
+.ds-timerstat,
+.ds-singlestat {
+  p {
     color:white;
+  }
 }
 
 .ds-singlestat .unit,
 .ds-jumbotron-singlestat .unit {
-    color: 586e75;
+    color: $base01;
 }
 
 .ds-jumbotron-singlestat .value {
@@ -65,76 +85,48 @@ hr {
 }
 
 h1 .ds-primary-title {
-    color: #586e75;
-
+    color: $base01;
 }
 
 h1 .ds-secondary-title {
-    color: #eee8d5;
+    color: $base2;
 }
 
 .breadcrumb .active {
-    color: #586e75;
+    color: $base01;
 }
 
 h1.page-title .ds-summary {
-    color: #93a1a1;
+    color: $base1;
 }
 
 .ds-time-container h2 {
     color: #ddd;
 }
 
-.ds-warning,
-.ds-warning h3,
-.ds-warning .value,
-.ds-warning .unit {
-    color: #FF9E3F;
+.ds-warning {
+  h3, .value, .unit {
+    color: $warning-highlight;
+  }
 }
 
-.ds-danger,
-.ds-danger h3,
-.ds-danger .value,
-.ds-danger .unit {
-    color: #FF0000;
+.ds-danger {
+  h3, .value, .unit {
+    color: $danger-highlight;
+  }
 }
 
 .badge-neutral {
   color: #222;
 }
 
-/* Alerts */
+@import "alerts";
 
-.alert-neutral,
-.bs-callout-neutral {
-    background-color: #494949;
-    border-color: #686868;
+.alert, .bs-callout {
+  .unit {
+    color: $base1;
+  }
 }
-
-.alert-info,
-.bs-callout-info {
-    background-color: #0F3941;
-    border-color: #145561;
-}
-
-.alert-success,
-.bs-callout-success {
-    background-color: #35492C;
-    border-color: #436824;
-}
-
-.alert-warning,
-.bs-callout-warning {
-    background-color: #6F3701;
-    border-color: #A25103;
-}
-
-.alert-danger,
-.bs-callout-danger {
-    background-color: #661615;
-    border-color: #9C2927;
-}
-
 /* -----------------------------------------------------------------------------
  Edit mode headers
  ----------------------------------------------------------------------------- */
@@ -175,7 +167,7 @@ h1.page-title .ds-summary {
 
 .ds-badge-cell {
     border: 1px solid #555;
-    color: #002b36;
+    color: $base03;
 }
 
 .ds-edit-bar-cell {
@@ -199,8 +191,8 @@ h1.page-title .ds-summary {
 }
 
 #ds-tooltip {
-    color: #93a1a1;
-    background-color: #073642;
+    color: $base1;
+    background-color: $base02;
     border: 1px solid #657b83;
 }
 
@@ -215,18 +207,18 @@ h1.page-title .ds-summary {
 .select2-search input,
 .select2-drop
 {
-    background: #073642;
-    border-color: #586E75;
-    color: #EEE8D5;
+    background: $base02;
+    border-color: $base01;
+    color: $base2;
 }
 
 .select2-arrow {
-    border-left: 1px solid #586E75;
+    border-left: 1px solid $base01;
 }
 
 /* flot.valuelabels */
 
 .flotValueLabel {
-    color: #93a1a1;
-    border-left-color: #b58900;
+    color: $base1;
+    border-left-color: $yellow;
 }

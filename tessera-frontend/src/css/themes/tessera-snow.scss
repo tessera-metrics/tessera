@@ -1,5 +1,7 @@
+$snow: #fafafa;
+
 body {
-    background-color: #fafafa;
+    background-color: $snow;
 }
 
 h1 .ds-primary-title {
@@ -21,6 +23,21 @@ h1 .ds-primary-title {
     color: black;
     background-color: white;
     border: 1px solid #888;
+}
+
+.alert-neutral {
+  background-color: white;
+  border: 1px solid lightgray;
+}
+
+.bs-callout-neutral {
+  background-color: white;
+}
+
+.well {
+  .bs-callout-neutral, .alert-neutral {
+    background-color: $snow;
+  }
 }
 
 /* flot.valuelabels */

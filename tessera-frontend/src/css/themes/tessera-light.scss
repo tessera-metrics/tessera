@@ -4,15 +4,6 @@
    Application Styles
    ============================================================================= */
 
-.ds-markdown h1,
-.ds-markdown h2,
-.ds-markdown h3,
-.ds-markdown h4,
-.ds-markdown h5,
-.ds-markdown h6 {
-    color: black;
-}
-
 .ds-timerstat h3,
 .ds-singlestat h3 {
     color: #737380;
@@ -27,10 +18,12 @@
   background-color: rgba(0,0,0,0.07)
 }
 
-.ds-timerstat .unit,
-.ds-singlestat .unit,
-.ds-jumbotron-singlestat .unit {
+.ds-timerstat,
+.ds-singlestat,
+.ds-jumbotron-singlestat {
+  .unit {
     color: gray;
+  }
 }
 
 .ds-jumbotron-singlestat h3 {
@@ -41,33 +34,27 @@ h1 .ds-primary-title {
     color: gray;
 }
 
-.ds-danger,
-.ds-danger h3,
-.ds-danger .value,
-.ds-danger .unit {
+.ds-danger {
+  h3, .value, .unit {
     color: #d60000;
+  }
 }
 
-.ds-warning,
-.ds-warning h3,
-.ds-warning .value,
-.ds-warning .unit {
+.ds-warning {
+  h3, .value, .unit {
     color: #d66a00;
+  }
 }
 
 #ds-tooltip {
-    color: black;
-    background-color: white;
-    border: 1px solid #888;
+  color: black;
+  background-color: white;
+  border: 1px solid #888;
 }
 
 /* =============================================================================
    3rd Party Tweaks
    ============================================================================= */
-
-.nvd3 .nv-axis path {
-    stroke: lightgray;
-}
 
 .bg-neutral {
     background-color: #f0f0f0;
@@ -109,7 +96,6 @@ h1 .ds-primary-title {
 
 .ds-row.ds-edit {
     border: 1px solid #649EB9;
-    border-radius: 4px;
 }
 
 /*

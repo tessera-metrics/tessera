@@ -1,11 +1,28 @@
+@import "solarized";
+
 .ds-primary-title {
-    color: #839496;
+    color: $base0;
 }
 
-.bs-callout-neutral {
-  background-color: #eee8d5;
-  border-color: #D6D0BC;
-}
+$neutral: $base1;
+$neutral-bg: $base2;
+$neutral-highlight: $base0;
+
+$info: $blue;
+$info-bg: desaturate(lighten($info, 45%), 20%);
+$info-highlight: darken($info, 10%);
+
+$success: $green;
+$success-bg: desaturate(lighten($success, 55%), 35%);
+$success-highlight: darken($success, 10%);
+
+$warning: $yellow;
+$warning-bg: desaturate(lighten($warning, 45%), 10%);
+$warning-highlight: darken($warning, 10%);
+
+$danger: $red;
+$danger-bg: lighten($danger, 35%);
+$danger-highlight: darken($danger, 10%);
 
 .ds-dashboard .well {
   background-color: rgba(0,0,0,0.07)
@@ -14,24 +31,19 @@
 .ds-timerstat .unit,
 .ds-singlestat .unit,
 .ds-jumbotron-singlestat .unit {
-    color: #93a1a1;
+    color: $base1;
 }
 
 .ds-timerstat h3,
 .ds-singlestat h3,
 .ds-jumbotron-singlestat h3 {
-    color: #839496;
+    color: $base0;
 }
 
 #ds-tooltip {
-    color: #586e75;
-    background-color: #FFFFED;
-    border: 1px solid #586e75;
-}
-
-.alert-neutral {
-    background-color: #eee8d5;
-    border-color: #D6D0BC;
+    color: $base01;
+    background-color: #ffffed;
+    border: 1px solid $base01;
 }
 
 /* -----------------------------------------------------------------------------
@@ -43,12 +55,12 @@
  */
 
 .ds-badge-section {
-    background-color: #387AA3;
+    background-color: #387aa3;
 }
 
 .ds-edit-bar-section {
-    background-color: #9DC2D3;
-    border: 1px solid #387AA3;
+    background-color: #9dc2d3;
+    border: 1px solid #387aa3;
 }
 
 /*
@@ -66,7 +78,6 @@
 
 .ds-row.ds-edit {
     border: 1px solid #649EB9;
-    border-radius: 4px;
 }
 
 /*
@@ -95,6 +106,12 @@
 .ds-edit-bar-item {
     background-color: #FAFAFA;
     border: 1px solid #649EB9;
+}
+
+@import "alerts";
+
+.alert p {
+  color: $base01;
 }
 
 /* -----------------------------------------------------------------------------
