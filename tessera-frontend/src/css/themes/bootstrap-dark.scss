@@ -303,7 +303,7 @@ textarea::-webkit-input-placeholder {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#88000000,endColorstr=#88000000);
 }
 
-.darkwell, .breadcrumb, code, pre, select,
+.darkwell, .breadcrumb, select,
 input[type="text"],
 input[type="password"],
 input[type="datetime"],
@@ -371,8 +371,9 @@ code {
 }
 
 pre {
-  border: none;
-  color: #c6c6c6;
+  border: 1px solid #aaa;
+  color: white;
+  background-color: #444;
   padding: 8px;
 }
 
