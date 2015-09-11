@@ -279,9 +279,7 @@ input[type="number"]
     background: #627E96;
 }
 
-/* flot.valuelabels */
+$ds-value-label-fg: #ccc;
+$ds-value-label-border-color: #b58900;
 
-.flotValueLabel {
-    color: #CCC;
-    border-left-color: #b58900;
-}
+@import "charts";

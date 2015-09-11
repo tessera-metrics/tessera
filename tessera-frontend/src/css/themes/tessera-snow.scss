@@ -19,12 +19,6 @@ h1 .ds-primary-title {
     color: #666;
 }
 
-#ds-tooltip {
-    color: black;
-    background-color: white;
-    border: 1px solid #888;
-}
-
 .alert-neutral {
   background-color: white;
   border: 1px solid lightgray;
@@ -40,9 +34,4 @@ h1 .ds-primary-title {
   }
 }
 
-/* flot.valuelabels */
-
-.flotValueLabel {
-    color: black;
-    border-left-color: #A75354;
-}
+@import "charts";
