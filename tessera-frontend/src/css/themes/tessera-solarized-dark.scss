@@ -1,23 +1,25 @@
 @import "solarized";
 
+$body-bg:           $base03;
+
 $neutral:           darken($base1, 10%);
 $neutral-bg:        darken($base01, 15%);
 $neutral-highlight: lighten($neutral, 10%);
 
 $info:              $blue;
-$info-bg:           rgba(darken($info, 20%), 0.8);
+$info-bg:           mix(darken($info, 20%), $body-bg, 80%);
 $info-highlight:    lighten($info, 20%);
 
 $success:           $green;
-$success-bg:        rgba(darken($success, 15%), 0.8);
+$success-bg:        mix(darken($success, 15%), $body-bg, 80%);
 $success-highlight: lighten($success, 10%);
 
 $warning:           $yellow;
-$warning-bg:        rgba(darken($warning, 20%), 0.8);
+$warning-bg:        mix(darken($warning, 20%), $body-bg, 80%);
 $warning-highlight: lighten($warning, 10%);
 
 $danger:            $red;
-$danger-bg:         rgba(darken($danger, 20%), 0.8);
+$danger-bg:         mix(darken($danger, 20%), $body-bg, 80%);
 $danger-highlight:  $danger;
 
 /* Bootstrap tweaks */
