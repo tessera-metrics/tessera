@@ -2,6 +2,7 @@
 
 import logging
 import os
+import inflection
 
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -51,3 +52,7 @@ if app.config.get('ENABLE_CORS', False):
             'origins' : app.config.get('CORS_ORIGINS', '*')
         }
     })
+
+@app.template_filter('titleize')
+def humanize(s):
+    return inflection.titleize(s)

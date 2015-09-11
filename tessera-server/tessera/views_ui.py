@@ -1,10 +1,9 @@
 # -*- mode:python -*-
 
-import flask
 import logging
 from datetime import datetime
 
-from flask import render_template, url_for
+from flask import Blueprint, session, current_app, render_template, url_for
 from werkzeug.exceptions import HTTPException
 
 from tessera_client.api.model import *
@@ -14,7 +13,7 @@ from ._version import __version__
 
 log = logging.getLogger(__name__)
 
-ui = flask.Blueprint('ui', __name__)
+ui = Blueprint('ui', __name__)
 
 # =============================================================================
 # UI Helpers
@@ -67,7 +66,7 @@ def configure_session():
     sessions if needed, but for now we just make sure anonymous
     settings survive a browser restart.
     """
-    flask.session.permanent = True
+    session.permanent = True
 
 # =============================================================================
 # UI Endpoints
@@ -83,6 +82,7 @@ def preferences():
     title = 'User Preferences'
     return _render_template('preferences.html',
                             title=title,
+                            themes=current_app.config.get('DASHBOARD_THEMES', ['light', 'dark']),
                             breadcrumbs=[('Home', url_for('ui.root')),
                                          (title, '')])
 

@@ -145,3 +145,14 @@ ENABLE_CORS = False
 # Set the allowed origins for CORS, when enabled.
 #
 CORS_ORIGINS = '*'
+
+#
+# The list of available color themes for the UI.
+#
+DASHBOARD_THEMES = [
+    'snow',
+    'light',
+    'dark',
+    'solarized-light',
+    'solarized-dark'
+]

@@ -1,0 +1,79 @@
+/* Alerts */
+
+// Bootstrap 3 defaults
+$neutral: gray !default;
+$neutral-bg: #f0f0f0 !default;
+$neutral-highlight: darken(darkgray, 20%) !default;
+
+$info: #5bc0de !default;
+$info-bg: #d9edf7 !default;
+$info-highlight: #31708f !default;
+
+$success: #5cb85c !default;
+$success-bg: #dff0d8 !default;
+$success-highlight: #3c763d !default;
+
+$warning: #f0ad4e !default;
+$warning-bg: #fcf8e3 !default;
+$warning-highlight: #8a6d3b !default;
+
+$danger: #d9534f !default;
+$danger-bg: #f2dede !default;
+$danger-highlight: #a94442 !default;
+
+.alert-neutral,
+.bs-callout-neutral {
+  background-color: $neutral-bg;
+  border-color: $neutral;
+  h1, h2, h3, h4, h5, h6 {
+    color: $neutral-highlight;
+  }
+}
+
+.alert-info,
+.bs-callout-info {
+  background-color: $info-bg;
+  border-color: $info;
+  h1, h2, h3, h4, h5, h6 {
+    color: $info-highlight;
+  }
+}
+
+.alert-success,
+.bs-callout-success {
+  background-color: $success-bg;
+  border-color: $success;
+  h1, h2, h3, h4, h5, h6 {
+    color: $success-highlight;
+  }
+}
+
+.alert-warning,
+.bs-callout-warning {
+  background-color: $warning-bg;
+  border-color: $warning;
+  h1, h2, h3, h4, h5, h6 {
+    color: $warning-highlight;
+  }
+}
+
+.alert-danger,
+.bs-callout-danger {
+  background-color: $danger-bg;
+  border-color: $danger;
+  h1, h2, h3, h4, h5, h6 {
+    color: $danger-highlight;
+  }
+}
+
+.ds-warning {
+  h3, .value, .unit {
+    color: $warning;
+  }
+}
+
+.ds-danger {
+  h3, .value, .unit {
+    color: $danger;
+  }
+}
