@@ -40,12 +40,6 @@ $danger-highlight: darken($danger, 10%);
     color: $base0;
 }
 
-#ds-tooltip {
-    color: $base01;
-    background-color: #ffffed;
-    border: 1px solid $base01;
-}
-
 /* -----------------------------------------------------------------------------
    Edit mode headers
    ----------------------------------------------------------------------------- */
@@ -127,9 +121,10 @@ $danger-highlight: darken($danger, 10%);
     background: #FEFCF6;
 }
 
-/* flot.valuelabels */
+$ds-tooltip-bg: #ffffed;
+$ds-tooltip-fg: $base01;
+$ds-tooltip-border-color: $base01;
+$ds-value-label-fg: #586e74;
+$ds-value-label-border-color: #b4881c;
 
-.flotValueLabel {
-    color: #586E74;
-    border-left-color: #B4881C;
-}
+@import "charts";

@@ -190,13 +190,6 @@ h1.page-title .ds-summary {
     border: 1px solid #777;
 }
 
-#ds-tooltip {
-    color: $base1;
-    background-color: $base02;
-    border: 1px solid #657b83;
-}
-
-
 /* -----------------------------------------------------------------------------
    Select2
    ----------------------------------------------------------------------------- */
@@ -216,9 +209,10 @@ h1.page-title .ds-summary {
     border-left: 1px solid $base01;
 }
 
-/* flot.valuelabels */
+$ds-tooltip-bg: $base02;
+$ds-tooltip-fg: $base1;
+$ds-tooltip-border-color: #657b83;
+$ds-value-label-fg: $base1;
+$ds-value-label-border-color: $yellow;
 
-.flotValueLabel {
-    color: $base1;
-    border-left-color: $yellow;
-}
+@import "charts";
