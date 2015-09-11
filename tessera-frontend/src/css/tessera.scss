@@ -547,3 +547,9 @@ table.ds-property-sheet td {
     border-left-style: dotted;
     border-left-width: 1px;
 }
+
+[data-notify="title"] {
+  font-weight: bold;
+  border-right: 1px solid;
+  padding-right: 0.5em;
+}
