@@ -90,7 +90,14 @@ $(document).ready(function() {
 
   $(document).on('click', '#ds-export-button', function(e) {
     let dashboard = manager.current.dashboard
-    let json = JSON.stringify(core.json(dashboard), null, '  ')
+    let data = core.json(dashboard)
+    /* scrub query data */
+    for (let name of Object.keys(data.definition.queries)) {
+      let query = data.definition.queries[name]
+      delete query.data
+      delete query.summation
+    }
+    let json = JSON.stringify(data, null, '  ')
     let blob = new Blob([json], { type: 'application/json;charset=utf-8' })
     let now  = moment().format()
     window.saveAs(blob, `${dashboard.title} ${now}`)
