@@ -22,7 +22,8 @@ module.exports = function(grunt) {
         outDir: '_build/phase1',
         options: {
           target: 'es6',
-          comments: true
+          comments: true,
+          additionalFlags: '--moduleResolution node'
         }
       }
     },
