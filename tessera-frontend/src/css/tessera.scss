@@ -504,6 +504,11 @@ table.ds-property-sheet td {
     color: rgba(75,75,75,0.25);
 }
 
+/* Query editor */
+td.ds-query-target {
+  word-break: break-all;
+}
+
 /* Flot legends */
 
 .ds-legend-cell {
