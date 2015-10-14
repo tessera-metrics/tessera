@@ -79,13 +79,13 @@ export default class SummationTable extends TablePresentation {
         flot.sparkline(plot_div, this, query, i, options)
       }
     })
-    if (this.sortable) {
-        body.parent().DataTable({
+    if (this.sortable && !$.fn.dataTable.isDataTable(body.parent())) {
+      body.parent().DataTable({
         autoWidth: false,
         paging: false,
         searching: false,
         info: false
-        })
+      })
     }
   }
 
