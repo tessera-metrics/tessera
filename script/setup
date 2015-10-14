@@ -15,7 +15,7 @@ cd tessera-frontend/
 
 echo "==> Initializing database..."
 cd ../tessera-server/
-source env/bin/activate
+. env/bin/activate
 
 # Create a fresh database
 inv db.init
