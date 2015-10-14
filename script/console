@@ -8,6 +8,6 @@
 set -e
 
 cd "$(dirname "$0")/../tessera-server"
-source env/bin/activate
+. env/bin/activate
 
 python
