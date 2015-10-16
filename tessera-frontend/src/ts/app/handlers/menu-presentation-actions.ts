@@ -1,12 +1,29 @@
+declare var ts, bootbox
 import manager from '../manager'
 import Action, { actions } from '../../core/action'
 import * as graphite from '../../charts/graphite'
 
 actions.register('presentation-actions', [
   new Action({
+    name: 'view-query',
+    display: 'View query...',
+    icon: 'fa-question',
+    handler: (action, item) => {
+      let query = item.query_override || item.query
+      let expr  = query.targets[0]
+      let source = `### Query: ${item.query.name}
+
+\`\`\`
+${expr}
+\`\`\`
+`
+      bootbox.alert(ts.templates.edit.view_query({ source: source }))
+    }
+  }),
+  new Action({
     name:    'open-in-graphite',
     display: 'Open in Graphite...',
-    icon:    'fa fa-bar-chart-o',
+    icon:    'fa-bar-chart-o',
     handler: function(action, item) {
       let composer_url = graphite.composer_url(item, item.query_override || item.query, {
         showTitle: true
@@ -17,7 +34,7 @@ actions.register('presentation-actions', [
   new Action({
     name:    'export-png',
     display: 'Export PNG...',
-    icon:    'fa fa-file-image-o',
+    icon:    'fa-file-image-o',
     handler: function(action, item) {
       let image_url = graphite.chart_url(item, item.query_override || item.query, {
         showTitle: true
@@ -28,7 +45,7 @@ actions.register('presentation-actions', [
   new Action({
     name:    'export-svg',
     display: 'Export SVG...',
-    icon:    'fa fa-file-code-o',
+    icon:    'fa-file-code-o',
     handler: function(action, item) {
       let image_url = graphite.chart_url(item, item.query_override || item.query, {
         showTitle: true,
@@ -40,7 +57,7 @@ actions.register('presentation-actions', [
   new Action({
     name:    'export-csv',
     display: 'Export CSV...',
-    icon:    'fa fa-file-excel-o',
+    icon:    'fa-file-excel-o',
     handler: function(action, item) {
       let image_url = graphite.chart_url(item, item.query_override || item.query, {
         showTitle: true,
