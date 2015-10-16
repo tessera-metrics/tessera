@@ -2,6 +2,9 @@ import { NamedObject, Registry } from '../../core/registry'
 import Action, { actions } from '../../core/action'
 import manager from '../../app/manager'
 import * as app from '../../app/app'
+import Query from '../data/query'
+import Markdown from '../items/markdown'
+import { make } from '../items/factory'
 
 export const TransformType = {
   DASHBOARD: 'dashboard',
@@ -61,3 +64,15 @@ export const transforms = new Registry<Transform>({
     return transform
   }
 })
+
+export function render_query(query: Query) : Markdown {
+    let markdown = `
+#### Query: ${query.name}
+
+\`\`\`
+${query.targets[0]}
+\`\`\`
+`
+  return make('markdown')
+    .set_text(markdown)
+}
