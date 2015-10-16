@@ -23,6 +23,11 @@ export default class Markdown extends DashboardItem {
     }
   }
 
+  set_text(value: string) : Markdown {
+    this.text = value
+    return <Markdown> this.updated()
+  }
+
   render_templates(context?: any) : void {
     try {
       this.expanded_text = render_template(this.text, context)

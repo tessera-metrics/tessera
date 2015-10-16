@@ -1,4 +1,4 @@
-import { transforms } from './transform'
+import { transforms, render_query } from './transform'
 import { make } from '../items/factory'
 import Chart from '../items/chart'
 
@@ -11,16 +11,21 @@ transforms.register({
   transform_type: 'presentation',
 
   transform: function(item: any) : any {
-    var options = item.options || {}
+    let options = item.options || {}
     if (item instanceof Chart) {
         item.set_renderer('flot')
     }
+
     return make('section')
       .add(make('row')
            .add(make('cell')
                 .set_span(12)
                 .set_style('well')
                 .add(item.set_height(6))))
+      .add(make('row')
+           .add(make('cell')
+                .set_span(12)
+                .add(render_query(item.query))))
       .add(make('row')
            .add(make('cell')
                 .set_span(12)
