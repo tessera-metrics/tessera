@@ -121,6 +121,12 @@ export default class DashboardItem extends Model {
     }
   }
 
+  /**
+   * Override in sub-classes to clean up any retained resources (such
+   * as DOM references) prior to refreshing a dashboard.
+   */
+  cleanup() : void { }
+
   /* Metadata Accessors ------------------------------ */
 
   get meta() : DashboardItemMetadata {
