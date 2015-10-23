@@ -62,7 +62,11 @@ export default class DashboardDefinition extends Container {
     for (let key in this.queries) {
       this.queries[key].off()
     }
-    this.visit(item => item.cleanup())
+    this.visit(item => {
+      if (!(<any>item instanceof DashboardDefinition)) {
+        item.cleanup()
+      }
+    })
   }
 
   list_queries() {
