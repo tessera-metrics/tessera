@@ -163,15 +163,19 @@ export class Manager {
     return context
   }
 
+  cleanup() : void {
+    if (this.current && this.current.dashboard) {
+      this.current.dashboard.visit(item => item.cleanup())
+    }
+  }
+
   /**
    * Load and render a dashboard.
    */
   load(url: string, element, options: any = {}) : Manager {
     log.debug('load(): ' + url)
 
-    if (this.current && this.current.dashboard) {
-      this.current.dashboard.visit(item => item.cleanup())
-    }
+    this.cleanup()
     let holder = new DashboardHolder(url, element)
     let context = this._prep_url(url, options)
     this.set_current(holder)
