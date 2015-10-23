@@ -31,6 +31,14 @@ export default class TablePresentation extends Presentation {
     })
   }
 
+  cleanup() : void {
+    let table = $('#' + this.item_id + ' table')
+    if ($.fn.dataTable.isDataTable(table)) {
+      console.log('table_presentation(): destroying datatable')
+      table.DataTable().destroy()
+    }
+  }
+
   interactive_properties() : PropertyList {
     return super.interactive_properties().concat([
       { name: 'striped', type: 'boolean' },
