@@ -91,7 +91,7 @@ export default class Chart extends Presentation {
   }
 
   cleanup() : void {
-    this.render_context = null
+    charts.cleanup(this)
   }
 
   set_renderer(renderer: string) : Chart {

@@ -170,7 +170,7 @@ export class Manager {
     log.debug('load(): ' + url)
 
     if (this.current && this.current.dashboard) {
-      this.current.dashboard.cleanup()
+      this.current.dashboard.visit(item => item.cleanup())
     }
     let holder = new DashboardHolder(url, element)
     let context = this._prep_url(url, options)

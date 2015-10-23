@@ -57,7 +57,7 @@ export default class SinglegraphGrid extends Chart {
         value: format(value),
         label: series.target
       }))
-      flot.sparkline($(`#${this.item_id}-${i} .ds-graph-holder`), this, query, i, options)
+      flot.sparkline(`#${this.item_id}-${i} .ds-graph-holder`, this, query, i, options)
     })
   }
 

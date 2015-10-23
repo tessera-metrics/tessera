@@ -52,7 +52,8 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     }
   }
 
-  simple_line_chart(element: any, item: Chart, query: Query) : void {
+  simple_line_chart(selector: string, item: Chart, query: Query) : void {
+    let element = $(selector)
     let url = this.simple_line_chart_url(item, query, {
       height: element.height(),
       width: element.width()
@@ -89,7 +90,8 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     return png_url
   }
 
-  standard_line_chart(element: any, item: Chart, query: Query) : void {
+  standard_line_chart(selector: string, item: Chart, query: Query) : void {
+    let element = $(selector)
     let url = this.standard_line_chart_url(item, query, {
       height: element.height(),
       width: element.width()
@@ -126,7 +128,8 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     return png_url
   }
 
-  simple_area_chart(element: any, item: Chart, query: Query) : void {
+  simple_area_chart(selector: string, item: Chart, query: Query) : void {
+    let element = $(selector)
     let url = this.simple_area_chart_url(item, query, {
       height: element.height(),
       width: element.width()
@@ -165,7 +168,8 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     return png_url
   }
 
-  stacked_area_chart(element: any, item: Chart, query: Query) : void {
+  stacked_area_chart(selector: string, item: Chart, query: Query) : void {
+    let element = $(selector)
     let url = this.stacked_area_chart_url(item, query, {
       height: element.height(),
       width: element.width()
@@ -215,7 +219,8 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     return png_url
   }
 
-  donut_chart(element: any, item: Chart, query: Query) : void {
+  donut_chart(selector: string, item: Chart, query: Query) : void {
+    let element = $(selector)
     let url = this.donut_chart_url(item, query, {
       height: element.height(),
       width: element.width()
@@ -224,12 +229,12 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     render_legend(item, query)
   }
 
-  bar_chart(element: any, item: Chart, query: Query) : void{
-    this.stacked_area_chart(element, item, query)
+  bar_chart(selector: string, item: Chart, query: Query) : void{
+    this.stacked_area_chart(selector, item, query)
   }
 
-  discrete_bar_chart(element: any, item: Chart, query: Query) : void {
-    this.donut_chart(element, item, query)
+  discrete_bar_chart(selector: string, item: Chart, query: Query) : void {
+    this.donut_chart(selector, item, query)
   }
 
   chart_url(item: Chart, query: Query, opt?: any) {

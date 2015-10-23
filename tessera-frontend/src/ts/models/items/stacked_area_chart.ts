@@ -67,7 +67,7 @@ export default class StackedAreaChart extends XYChart {
   }
 
   data_handler(query: Query) : void {
-    charts.stacked_area_chart($(`#${this.item_id} .ds-graph-holder`), this, query)
+    charts.stacked_area_chart(`#${this.item_id} .ds-graph-holder`, this, query)
   }
 
   interactive_properties() : PropertyList {

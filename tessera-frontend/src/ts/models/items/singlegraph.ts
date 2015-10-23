@@ -44,7 +44,7 @@ export default class Singlegraph extends Chart {
     let options = {
       colors: charts.get_palette(this.options.palette)
     }
-    flot.sparkline($(`#${this.item_id} .ds-graph-holder`), this, query, 0, options)
+    flot.sparkline(`#${this.item_id} .ds-graph-holder`, this, query, 0, options)
     this.options.margin = { top: 0, left: 0, bottom: 0, right: 0 }
     var label = query.data[this.index || 0].target
     var value = query.summation[this.transform]
