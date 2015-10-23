@@ -90,6 +90,10 @@ export default class Chart extends Presentation {
     }
   }
 
+  cleanup() : void {
+    this.render_context = null
+  }
+
   set_renderer(renderer: string) : Chart {
     this.renderer = renderer
     return <Chart> this.updated()
