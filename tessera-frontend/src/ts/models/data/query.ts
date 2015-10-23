@@ -175,6 +175,12 @@ export default class Query extends Model {
     core.events.off(this, 'ds-data-ready')
   }
 
+  cleanup() : void {
+    this.off()
+    this.cache.clear()
+    this.data = null
+  }
+
   _group_targets() : string {
     return (this.targets.length > 1)
       ? 'group(' + this.targets.join(',') + ')'
