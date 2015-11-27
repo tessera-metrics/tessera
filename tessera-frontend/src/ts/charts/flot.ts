@@ -1,5 +1,5 @@
 import * as charts from './core'
-import { ChartLegendType, Chart, StandardTimeSeries, StackedAreaChart } from '../models/items'
+import { ChartLegendType, Chart, StandardTimeSeries, StackedAreaChart, DashboardItem } from '../models/items'
 import Query from '../models/data/query'
 import { AxisScale } from '../models/axis'
 import { get_colors, get_palette } from './util'
@@ -16,7 +16,7 @@ const log = logger('charts.flot')
 
 interface FlotRenderContext {
   plot: any
-  item: Chart
+  item: Chart|DashboardItem
   query: Query
   renderer: charts.ChartRenderer
 }
@@ -186,17 +186,25 @@ function get_flot_options(item, base) {
 }
 
 function show_tooltip(x, y, contents, offset?) {
-  $('<div id="ds-tooltip">' + contents + '</div>').css( {
+  let margin = 60
+  let top  = y + (offset || 5)
+  let left = x + (offset || 5)
+  let el = $('<div id="ds-tooltip">' + contents + '</div>').css( {
     position: 'absolute',
     display: 'none',
-    top: y + (offset || 5),
-    left: x + (offset || 5)
-  }).appendTo("body").show()
+    top: top,
+    left: left
+  })
+  el.appendTo("body").show()
+  let width = el.outerWidth()
+  if (left + width + margin > window.innerWidth) {
+    el.css('left', x - (width + (margin * 2)))
+  }
 }
 
-function setup_plugins(container, context: FlotRenderContext) {
+function setup_plugins(selector: string, context: FlotRenderContext) {
 
-  $(container).bind("multihighlighted", function(event, pos, items) {
+  $(selector).bind("multihighlighted", function(event, pos, items) {
     if ( !items )
       return
     let is_percent = context.item['stack_mode'] && (context.item['stack_mode'] === charts.StackMode.PERCENT)
@@ -206,7 +214,7 @@ function setup_plugins(container, context: FlotRenderContext) {
 
     let items_to_plot = items.map((i) => {
       let s = data[i.serieIndex]
-      if (context.item.hide_zero_series && s.summation.sum === 0)
+      if (context.item instanceof Chart && (<Chart>context.item).hide_zero_series && s.summation.sum === 0)
         return null
       let value = is_percent
         ? s.percents[i.dataIndex]
@@ -231,16 +239,16 @@ function setup_plugins(container, context: FlotRenderContext) {
   })
 
   if (context.item instanceof XYChart) {
-    $(container).bind('plothover', (e, pos, event_item) => {
+    $(selector).bind('plothover', (e, pos, event_item) => {
       if (event_item) {
-        context.renderer.highlight_series(context.item, event_item.seriesIndex)
+        context.renderer.highlight_series(<Chart>context.item, event_item.seriesIndex)
       } else {
-        context.renderer.unhighlight_series(context.item)
+        context.renderer.unhighlight_series(<Chart>context.item)
       }
     })
   }
 
-  $(container).bind("unmultihighlighted", function(event) {
+  $(selector).bind("unmultihighlighted", function(event) {
     $("#ds-tooltip").remove()
   })
 }
@@ -272,7 +280,14 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     }
   }
 
-  sparkline(e: any, query: Query, index: number, opt?: any) {
+  sparkline(selector: string, item: DashboardItem, query: Query, index: number, opt?: any) : FlotRenderContext {
+    let context : FlotRenderContext = {
+      plot: null,
+      item: item,
+      query: query,
+      renderer: this
+    }
+    setup_plugins(selector, context)
     let data = [query.chart_data('flot')[index]]
     let options = extend(true, {}, {
       colors: get_palette(),
@@ -280,23 +295,25 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         lines: {
           show: true,
           lineWidth: 1,
-          fill: 0.4
+          fill: 0.2
         }
       },
-      grid: { show: false },
+      grid: { show: false, hoverable: true },
+      multihighlight: { mode: 'x' },
+      crosshair: {
+        mode: "x",
+        color: "#BBB",
+        lineWidth: 1
+      },
       legend: { show: false },
       shadowSize: 0,
       downsample: true
     }, opt)
-    return {
-      plot: $.plot(e, data, options),
-      query: query,
-      index: index,
-      renderer: this
-    }
+    context.plot = $.plot($(selector), data, options)
+    return context
   }
 
-  render(e: any, item: Chart, query: Query, options?: any, data?: any) : any {
+  render(selector: string, item: Chart, query: Query, options?: any, data?: any) : any {
     if (typeof(data) === 'undefined')
       data = query.chart_data('flot')
     let context : FlotRenderContext = {
@@ -305,7 +322,8 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       query: query,
       renderer: this
     }
-    setup_plugins(e, context)
+    setup_plugins(selector, context)
+    let e = $(selector)
     if (this.downsample && options.downsample) {
       options.series.downsample = {
         threshold: Math.floor(e.width() * this.downsampling_factor)
@@ -314,7 +332,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       options.series.downsample = { threshold: 0 }
     }
     try {
-      context.plot = $.plot($(e), data, options)
+      context.plot = $.plot(e, data, options)
     } catch (ex) {
       log.error('Error rendering item ' + item.item_id
                 + ': ' + ex.message)
@@ -326,7 +344,17 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return context
   }
 
+  cleanup(item: Chart) : void {
+    if (item.render_context) {
+      item.render_context.plot.shutdown()
+      item.render_context.plot = null
+      item.render_context = null
+    }
+  }
+
   highlight_series(item: Chart, index: number) : void {
+    if (!item.render_context)
+      return
     let plot = item.render_context.plot
     if (is_line_chart(item)) {
       plot.getData().forEach((s, i) => {
@@ -355,6 +383,8 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
   }
 
   unhighlight_series(item: Chart, index?: number) : void {
+    if (!item.render_context)
+      return
     let plot = item.render_context.plot
     if (is_line_chart(item)) {
       if (index) {

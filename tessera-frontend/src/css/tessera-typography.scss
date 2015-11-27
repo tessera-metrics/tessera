@@ -1,13 +1,15 @@
+@import "variables";
+
 h1, h2, h3, h4 {
-    font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;
+    font-family: $font-stack-condensed;
 }
 
 .ds-source {
-    font-family: Consolas, "Andale Mono", "Courier New", monospace
+    font-family: $font-stack-code;
 }
 
 .ds-query-target {
-    font-family: Consolas, "Andale Mono", "Courier New", monospace
+    font-family: $font-stack-code;
 }
 
 /* Badges are just more readable when slightly less bold */
@@ -38,7 +40,7 @@ h1, h2, h3, h4 {
 
 .ds-jumbotron-singlestat .diff,
 .ds-jumbotron-singlestat .unit {
-    font-family: "HelveticaNeue-CondensedBold","Helvetica Neue","Arial Narrow",Arial,sans-serif;
+    font-family: $font-stack-condensed;
     text-transform: lowercase;
     font-size: 2em;
     font-weight: bold;
@@ -58,19 +60,16 @@ h1, h2, h3, h4 {
     font-size:12px;
 }
 
-.ds-singlegraph {
-    font-weight: bold;
-}
-
 .ds-singlegraph span.ds-label {
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
 .ds-singlegraph h3 {
     font-size: 1.4em;
 }
 
 .ds-singlegraph span.value {
-    font-size: 4em;
+    font-size: 3em;
+    font-weight: bold;
 }
 
 .ds-dashboard-listing-category {

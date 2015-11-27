@@ -76,6 +76,11 @@
        })
      }
    })
+
+   // Disable keyboard shortcuts for edit, save, and mode change.
+   Mousetrap.unbind('ctrl+shift+e')
+   Mousetrap.unbind('ctrl+shift+s')
+   Mousetrap.unbind('ctrl+shift+d')
   </script>
 
 {% endblock %}

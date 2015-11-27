@@ -47,13 +47,15 @@ export default class PercentageTable extends TablePresentation {
     holder.append(ts.templates.models.percentage_table_data({item:this, query:query}))
     if (this.sortable) {
       let table = $('#' + this.item_id + ' .ds-percentage-table-holder table')
-      table.DataTable({
-        order: [[ 2, "desc" ]],
-        paging: false,
-        searching: false,
-        oLanguage: { sSearch: "" },
-        info: true
-      })
+      if (!$.fn.dataTable.isDataTable(table)) {
+        table.DataTable({
+          order: [[ 2, "desc" ]],
+          paging: false,
+          searching: false,
+          oLanguage: { sSearch: "" },
+          info: true
+        })
+      }
     }
   }
 

@@ -43,9 +43,9 @@ export default class SimpleTimeSeries extends XYChart {
   data_handler(query: Query) : void {
     let selector = `#${this.item_id} .ds-graph-holder`
     if (this.filled) {
-      charts.simple_area_chart($(selector), this, query)
+      charts.simple_area_chart(selector, this, query)
     } else {
-      charts.simple_line_chart($(selector), this, query)
+      charts.simple_line_chart(selector, this, query)
     }
   }
 

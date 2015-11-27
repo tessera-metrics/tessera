@@ -126,7 +126,7 @@ export default class TimeshiftSummationTable extends TablePresentation {
       diff: diff,
       item: this
     }))
-    if (this.sortable) {
+    if (this.sortable && !$.fn.dataTable.isDataTable(body.parent())) {
       body.parent().DataTable({
         autoWidth: false,
         paging: false,

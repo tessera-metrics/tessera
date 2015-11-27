@@ -3,6 +3,7 @@ import * as charts    from './charts/core'
 import * as factory   from './models/items/factory'
 import * as app       from './app/app'
 import * as edit      from './edit/edit'
+import * as importer  from './importer'
 import Client         from './client'
 import { actions }    from './core/action'
 import { transforms } from './models/transform/transform'
@@ -33,6 +34,7 @@ window.ts.init = function() {
     actions: actions,
     edit: edit,
     transforms: transforms,
+    importer: importer,
     user: new User()
   })
   app.config = window.ts.config
@@ -68,6 +70,7 @@ window.ts.init = function() {
   register_dashboard_item(items.StandardTimeSeries)
   register_dashboard_item(items.StackedAreaChart)
   register_dashboard_item(items.Singlegraph)
+  register_dashboard_item(items.SinglegraphGrid)
 
   /* Register Handlebars helper functions */
   register_helpers()

@@ -15,6 +15,6 @@ export default class StandardTimeSeries extends XYChart {
   }
 
   data_handler(query: Query) : void {
-    charts.standard_line_chart($(`#${this.item_id} .ds-graph-holder`), this, query)
+    charts.standard_line_chart(`#${this.item_id} .ds-graph-holder`, this, query)
   }
 }

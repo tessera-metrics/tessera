@@ -47,8 +47,8 @@
     "store": "^1.3.17"
   },
   "devDependencies": {
-    "babel-core": "^5.1.11",
-    "babelify": "^6.0.2",
+    "babel-core": "^5.8.23",
+    "babelify": "^6.3.0",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.8.0",
     "grunt-cli": "^0.1.13",
@@ -58,6 +58,8 @@
     "grunt-contrib-handlebars": "^0.10.2",
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-ts": "^4.2.0"
+    "grunt-sass": "1.0.0",
+    "grunt-ts": "^4.2.0",
+    "typescript": "1.6.2"
   }
 }

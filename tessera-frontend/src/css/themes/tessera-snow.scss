@@ -1,0 +1,37 @@
+$snow: #fafafa;
+
+body {
+    background-color: $snow;
+}
+
+h1 .ds-primary-title {
+    color: gray;
+}
+
+.well,
+.ds-grid .well,
+.breadcrumb {
+    background-color: white;
+}
+
+.well .ds-timerstat h3,
+.well .ds-singlestat h3 {
+    color: #666;
+}
+
+.alert-neutral {
+  background-color: white;
+  border: 1px solid lightgray;
+}
+
+.bs-callout-neutral {
+  background-color: white;
+}
+
+.well {
+  .bs-callout-neutral, .alert-neutral {
+    background-color: $snow;
+  }
+}
+
+@import "charts";

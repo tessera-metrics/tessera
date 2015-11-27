@@ -2,7 +2,7 @@ import PALETTES from './palettes'
 
 declare var $, Color
 
-export const DEFAULT_PALETTE = 'spectrum6'
+export const DEFAULT_PALETTE = 'd3category20'
 
 export function get_palette(name_or_palette?: string|string[]) : string[] {
   if (name_or_palette instanceof Array) {

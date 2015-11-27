@@ -9,5 +9,5 @@ cd "$(dirname "$0")/.."
 
 # boot the app and any other necessary processes.
 cd tessera-server/
-source env/bin/activate
+. env/bin/activate
 inv run
