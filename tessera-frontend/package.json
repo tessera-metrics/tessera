@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/urbanairship/tessera",
   "dependencies": {
-    "URIjs": "^1.15.1",
+    "urijs": "^1.17.0",
     "bean": "^1.0.15",
     "bluebird": "^2.9.25",
     "bootbox": "^4.4.0",
@@ -59,7 +59,7 @@
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-sass": "1.0.0",
-    "grunt-ts": "^4.2.0",
-    "typescript": "1.6.2"
+    "grunt-ts": "5.2.0",
+    "typescript": "1.7.3"
   }
 }
