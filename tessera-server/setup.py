@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 name = 'tessera'
 _locals = {}
-execfile('%s/_version.py' % name, _locals)
+exec(compile(open(file).read(), file, 'exec'))
 version = _locals['__version__']
 
 setup(
