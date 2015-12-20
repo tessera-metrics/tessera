@@ -51,8 +51,8 @@ export default class Singlegraph extends Chart {
     if (this.index) {
       value = query.data[this.index].summation[this.transform]
     }
-    $('#' + this.item_id + ' span.value').text(d3.format(this.format)(value))
-    $('#' + this.item_id + ' span.ds-label').text(label)
+    $(`#${this.item_id} span.value`).text(d3.format(this.format)(value))
+    $(`#${this.item_id} span.ds-label`).text(label)
   }
 
   interactive_properties(): PropertyList {
