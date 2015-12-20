@@ -3,7 +3,10 @@ import * as models from '../models'
 import { logger } from '../core'
 import * as charts from '../charts'
 
-declare var URL, inflection
+declare var require
+const axios      = require('axios')
+const URI        = require('urijs')
+const inflection = require('inflection')
 
 const log = logger('importer.graphite')
 
@@ -85,34 +88,34 @@ export function get_api_url(dash_url: string) : string {
  * dashboard definition, and upload it to the Tessera server via the
  * API.
  */
-export function import_dashboard(url: string) : Promise<any> {
+export async function import_dashboard(url: string) : Promise<any> {
   let api_url = get_api_url(url)
   log.info(`Importing dashboard from ${api_url}...`)
 
-  return new Promise((resolve, reject) => {
-    $.ajax({
-      type: 'GET',
-      url: api_url.toString(),
-      dataType: 'json',
-      beforeSend: (xhr) => {
-        if (config.GRAPHITE_AUTH !== '') {
-          xhr.setRequestHeader('Authorization', 'Basic ' + window.btoa(config.GRAPHITE_AUTH))
-        }
-      },
-      success: (data) => {
-        resolve(data.state)
-      },
-      error: (request, status, error) => {
-        reject({request, status, error})
-      }
-    })
-  }).then(translate)
+  // TODO: this is duplicated from query.ts
+  let axios_config : any = {
+    url: api_url.toString(),
+    method: 'get'
+  }
+
+  let auth = config.GRAPHITE_AUTH ? config.GRAPHITE_AUTH.trim() : ''
+  if (auth) {
+    let [username, password] = auth.split(':')
+    axios_config.auth = {
+      username: username,
+      password: password
+    }
+    axios_config.withCredentials = true
+  }
+
+  return axios(axios_config)
+    .then(response => translate(response.data.state))
     .then(dash => {
       return manager.client.dashboard_create(dash)
         .then(response => {
           return response
         })
-        .catch((request, status, error) => {
+        .catch(error => {
           manager.error(`Error creating dashboard. ${error}`)
         })
     })

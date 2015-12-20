@@ -12,9 +12,10 @@ import Container     from '../models/items/container'
 import Query         from '../models/data/query'
 import {transforms}  from '../models/transform/transform'
 
-declare var $, URI, window, bootbox, ts
+declare var $, URI, window, bootbox, ts, require
 
 const log = core.logger('manager')
+const axios = require('axios')
 
 class DashboardHolder {
   url : string
@@ -75,7 +76,7 @@ export class Manager {
   list(path, handler) : void {
     this.client.dashboard_list({path: path})
       .then(handler)
-      .catch((req, status, error) => {
+      .catch(error => {
         this.error(`Error listing dashboards. ${error}`)
       })
   }
@@ -179,55 +180,53 @@ export class Manager {
     let holder = new DashboardHolder(url, element)
     let context = this._prep_url(url, options)
     this.set_current(holder)
-    $.ajax({
-      dataType: "json",
-      url: context.url
-    }).error((xhr, status, error) => {
-      this.error('Error loading dashboard. ' + error)
-    }).done((data) => {
-      let dashboard = new Dashboard(data)
-      holder.dashboard = dashboard
 
-      let r = context.variables.renderer || data.preferences.renderer
-      if (typeof context.variables.interactive != 'undefined') {
-        r = context.variables.interactive === 'false' ? 'graphite' : 'flot'
-      }
-      if (r) {
-        charts.set_renderer(r)
-      }
+    axios.get(context.url)
+      .catch(error => this.error(`Error loading dashboard. ${error}`))
+      .then(response => {
+        let dashboard = new Dashboard(response.data)
+        holder.dashboard = dashboard
 
-      core.events.fire(this, app.Event.DASHBOARD_LOADED, dashboard)
+        let r = context.variables.renderer || response.data.preferences.renderer
+        if (typeof context.variables.interactive != 'undefined') {
+          r = context.variables.interactive === 'false' ? 'graphite' : 'flot'
+        }
+        if (r) {
+          charts.set_renderer(r)
+        }
 
-      // Expand any templatized queries or dashboard items
-      dashboard.render_templates(context.variables)
+        core.events.fire(this, app.Event.DASHBOARD_LOADED, dashboard)
 
-      // Render the dashboard
-      $(element).html(dashboard.definition.render())
+        // Expand any templatized queries or dashboard items
+        dashboard.render_templates(context.variables)
 
-      let currentURL = new URI(holder.url)
-      core.events.fire(this, app.Event.RANGE_CHANGED, {
-        from: currentURL.query('from'),
-        until: currentURL.query('until')
-      })
+        // Render the dashboard
+        $(element).html(dashboard.definition.render())
 
-      if (this.current_transform) {
-        this.apply_transform(this.current_transform.transform, this.current_transform.target, false, context)
-      } else {
-        // Load the queries
-        dashboard.definition.load_all({
-          from: context.from,
-          until: context.until
+        let currentURL = new URI(holder.url)
+        core.events.fire(this, app.Event.RANGE_CHANGED, {
+          from: currentURL.query('from'),
+          until: currentURL.query('until')
         })
-      }
 
-      core.events.fire(this, app.Event.DASHBOARD_RENDERED, dashboard)
+        if (this.current_transform) {
+          this.apply_transform(this.current_transform.transform, this.current_transform.target, false, context)
+        } else {
+          // Load the queries
+          dashboard.definition.load_all({
+            from: context.from,
+            until: context.until
+          })
+        }
 
-      if (context.params.mode) {
-        app.switch_to_mode(context.params.mode)
-      } else {
-        app.refresh_mode()
-      }
-    })
+        core.events.fire(this, app.Event.DASHBOARD_RENDERED, dashboard)
+
+        if (context.params.mode) {
+          app.switch_to_mode(context.params.mode)
+        } else {
+          app.refresh_mode()
+        }
+      })
     return this
   }
 
@@ -246,7 +245,7 @@ export class Manager {
     item.visit((i) => {
       let query = i.query_override || i.query
       if (query && query instanceof Query) {
-        log.debug('update_item_view(): reloading query ' + query.name)
+        log.debug(`update_item_view(): reloading query ${query.name}`)
         query.load()
       }
     })
@@ -372,8 +371,8 @@ export class Manager {
   // here
   toggle_interactive_charts() : void {
     this.client.preferences_get()
-      .then((data) => {
-        let setting = !data.interactive
+      .then(prefs => {
+        let setting = prefs.renderer !== 'flot'
         let dashboard_url = new URI(this.current.url)
         let window_url = new URI(window.location)
 
@@ -489,7 +488,7 @@ export class Manager {
     })
     this.client.dashboard_delete(href)
       .then(done)
-      .catch((request, status, error) => {
+      .catch(error => {
         this.error(`Error deleting dashboard ${href}. ${error}`)
       })
   }
@@ -511,7 +510,7 @@ export class Manager {
 
     this.client.dashboard_create(dashboard)
       .then(handler)
-      .catch((request, status, error) => {
+      .catch(error => {
         this.error(`Error creating dashboard. ${error}`)
       })
   }
@@ -519,7 +518,7 @@ export class Manager {
   update(dashboard, handler?) : void {
     this.client.dashboard_update(dashboard)
       .then(handler)
-      .catch((request, status, error) => {
+      .catch(error => {
         this.error(`Error updating dashboard ${dashboard.title}. ${error}`)
       })
   }
@@ -532,13 +531,13 @@ Revert to standard mode in order to save changes.`)
     }
     this.client.dashboard_update_definition(dashboard)
       .then(handler)
-      .catch((request, status, error) => {
+      .catch(error => {
         this.error(`Error updating dashboard definition ${dashboard.title}. ${error}`)
       })
   }
 
   duplicate(href: string, handler?) : void {
-    let err = (request, status, error) => {
+    let error_handler = (error) => {
       this.error(`Error duplicating dashboard ${href}. ${error}`)
     }
     this.client.dashboard_get(href, { definition: true })
@@ -547,9 +546,9 @@ Revert to standard mode in order to save changes.`)
         db.id = null
         this.client.dashboard_create(db)
           .then(handler)
-          .catch(err)
+          .catch(error_handler)
       })
-      .catch(err)
+      .catch(error_handler)
   }
 }
 

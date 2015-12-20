@@ -93,17 +93,16 @@ export default class DashboardDefinition extends Container {
       }
     })
 
-    let promises = Object.keys(queries_to_load).map((key) => {
+    let promises = Object.keys(queries_to_load).map(key => {
       let query = queries_to_load[key]
       if (query) {
-        let future = queries_to_load[key].load(this.options, false)
-        return future ? future.promise() : undefined
+        return queries_to_load[key].load(this.options, false)
       } else {
-        return undefined
+        return Promise.resolve()
       }
     })
 
-    Object.keys(queries_to_fire).forEach((key) => {
+    Object.keys(queries_to_fire).forEach(key => {
       let query = queries_to_fire[key]
       if (query) {
         queries_to_fire[key].load(this.options, true /* fire_only */)

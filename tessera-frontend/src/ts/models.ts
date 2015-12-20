@@ -9,3 +9,8 @@ export { default as Summation } from './models/data/summation'
 export { default as Preferences } from './models/preferences'
 
 export * from './models/items'
+
+export interface DashboardCategory {
+  name: string
+  count: number
+}
