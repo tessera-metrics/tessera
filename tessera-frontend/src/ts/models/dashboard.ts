@@ -107,7 +107,7 @@ export default class Dashboard extends Model {
           item.item_id = this.next_id()
         }
         if (index[item.item_id]) {
-          log.error('ERROR: item_id + ' + item.item_id + ' is already indexed.')
+          log.error(`ERROR: item_id ${item.item_id} is already indexed.`)
         }
         index[item.item_id] = item
         item.set_dashboard(this)

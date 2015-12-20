@@ -46,7 +46,7 @@ export default class DiscreteBarChart extends Chart {
   }
 
   data_handler(query: Query) : void {
-    charts.discrete_bar_chart('#' + this.item_id + ' .ds-graph-holder', this, query)
+    charts.discrete_bar_chart(`#${this.item_id} .ds-graph-holder`, this, query)
   }
 
   interactive_properties() : PropertyList {

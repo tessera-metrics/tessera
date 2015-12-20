@@ -29,7 +29,7 @@ export default class ComparisonSummationTable extends TablePresentation {
     if (this._query && this.query_other && this.dashboard) {
       let query = this.dashboard.definition.queries[this._query]
       this.query_override =
-        query.join(this.query_other).set_name(this.item_id + '_joined')
+        query.join(this.query_other).set_name(`${this.item_id}_joined`)
       this.query_override.render_templates(app.context().variables)
     }
   }
@@ -78,16 +78,16 @@ export default class ComparisonSummationTable extends TablePresentation {
       let value = diff[prop]
 
       if (value > float_margin)
-        diff[prop + '_class'] = 'ds-diff-plus'
+        diff[`${prop}_class`] = 'ds-diff-plus'
       else if (value < -float_margin)
-        diff[prop + '_class'] = 'ds-diff-minus'
+        diff[`${prop}_class`] = 'ds-diff-minus'
 
       if ((float_margin > value) && (value > -float_margin))
         value = 0.0
 
       let pct = (now[prop] / then[prop]) - 1
       pct = isNaN(pct) ? 0.0 : pct
-      diff[prop + '_pct'] = d3.format(',.2%')(Math.abs(pct))
+      diff[`${prop}_pct`] = d3.format(',.2%')(Math.abs(pct))
       diff[prop] = Math.abs(value)
     })
     body.empty()
