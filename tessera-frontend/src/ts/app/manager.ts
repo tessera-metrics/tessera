@@ -91,9 +91,9 @@ export class Manager {
         }
         $(element).html(ts.templates.listing.dashboard_list({dashboards: data}))
         ts.user.list_favorites().forEach(function(d) {
-          $('[data-ds-href="' + d.href + '"].ds-favorite-indicator').html('<i class="fa fa-lg fa-star"></i>')
-          $('[data-ds-href="' + d.href + '"]').addClass('ds-favorited')
-          $('tr[data-ds-href="' + d.href + '"]').addClass('active')
+          $(`[data-ds-href="${d.href}"].ds-favorite-indicator`).html('<i class="fa fa-lg fa-star"></i>')
+          $(`[data-ds-href="${d.href}"]`).addClass('ds-favorited')
+          $(`tr[data-ds-href="${d.href}"]`).addClass('active')
         })
       }
     }
@@ -235,7 +235,7 @@ export class Manager {
    * Re-render a dashboard item and update its DOM representation.
    */
   update_item_view(item) : void {
-    let element = $('#' + item.item_id)
+    let element = $(`#${item.item_id}`)
     // REFACTOR - unchecked global reference
     let visible = ts.edit.details_visibility(item)
     element.replaceWith(item.render())
@@ -337,7 +337,7 @@ export class Manager {
     dashboard.definition.queries = result.get_queries() // this could go in an observer
     dashboard.set_items([result])
 
-    $('#' + dashboard.definition.item_id).replaceWith(dashboard.render())
+    $(`#${dashboard.definition.item_id}`).replaceWith(dashboard.render())
     dashboard.render_templates(app.context().variables)
     if (context) {
       dashboard.load_all({
@@ -364,7 +364,7 @@ export class Manager {
     if (this.current && (app.instance.current_mode != app.Mode.EDIT)) {
       this.load(this.current.url, this.current.element)
     } else {
-      log.debug('skipping reload; current mode: ' + app.instance.current_mode)
+      log.debug(`skipping reload; current mode: ${app.instance.current_mode}`)
     }
   }
 
@@ -454,7 +454,7 @@ export class Manager {
     if (intervalSeconds > 0) {
       this.intervalSeconds = intervalSeconds
       this.intervalId = window.setInterval(() => { this.refresh() }, intervalSeconds * 1000)
-      log.debug('set auto-refresh interval; intervalId: ' + this.intervalId + '; seconds: ' + intervalSeconds)
+      log.debug(`set auto-refresh interval; intervalId: ${this.intervalId}; seconds: ${intervalSeconds}`)
     }
   }
 
@@ -485,7 +485,7 @@ export class Manager {
   delete_dashboard(href, handler?) : void {
     let done : any = handler || (() => {
       window.location.href = '/dashboards'
-      this.success('Successfully deleted dashboard ' + href)
+      this.success(`Successfully deleted dashboard ${href}`)
     })
     this.client.dashboard_delete(href)
       .then(done)
@@ -520,7 +520,7 @@ export class Manager {
     this.client.dashboard_update(dashboard)
       .then(handler)
       .catch((request, status, error) => {
-        this.error('Error updating dashboard ' + dashboard.title + '. ' + error)
+        this.error(`Error updating dashboard ${dashboard.title}. ${error}`)
       })
   }
 

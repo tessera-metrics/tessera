@@ -115,12 +115,12 @@ export function register_dashboard_item(item_class: DashboardItemConstructor) {
   // item type in the editor UI
   //
 
-  let category = meta.category ? 'new-item-' + meta.category : 'new-item'
+  let category = meta.category ? `new-item-${meta.category}` : 'new-item'
 
   core.actions.register({
     name:      meta.item_type,
     category:  category,
-    display:   'Add new ' + (meta.display_name || meta.item_type),
+    display:   `Add new ${(meta.display_name || meta.item_type)}`,
     icon:      meta.icon || '',
     css:       'new-item',
     handler:  (action, container) => {
@@ -152,7 +152,7 @@ export function make(data: any, init?: any) {
     return new (constructors.get(data.item_type))(data)
   }
 
-  log.error('Unknown item type ' + JSON.stringify(data))
+  log.error(`Unknown item type ${JSON.stringify(data)}`)
 
   return null
 }

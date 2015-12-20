@@ -32,7 +32,7 @@ export default class ComparisonSinglestat extends Singlestat {
     if (this._query && this.query_other && this.dashboard) {
       let query = this.dashboard.definition.queries[this._query]
       this.query_override =
-        query.join(this.query_other).set_name(this.item_id + '_joined')
+        query.join(this.query_other).set_name(`${this.item_id}_joined`)
       this.query_override.render_templates(app.context().variables)
     }
   }
