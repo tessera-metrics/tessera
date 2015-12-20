@@ -4,8 +4,9 @@ import DashboardItem, {
 } from './item'
 import * as core from '../../core'
 
-declare var inflection, Handlebars, ts
+declare var require, Handlebars, ts
 
+const inflection = require('inflection')
 const log = core.logger('models.factory')
 
 var constructors = new Map<string, DashboardItemConstructor>()
