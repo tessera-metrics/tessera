@@ -46,22 +46,20 @@ export default class Client {
   async _put(path, data) : Promise<any> {
     let uri = this._uri(path)
     log.debug(`PUT ${uri}`)
-    return axios.put(uri, {
+    return axios.put(uri, core.json(data), {
       headers: {
         'Content-Type': 'application/json'
-      },
-      data: core.json(data)
+      }
     })
   }
 
   async _post(path, data) : Promise<any> {
     let uri = this._uri(path)
     log.debug(`POST ${uri}`)
-    return axios.post(uri, {
+    return axios.post(uri, core.json(data), {
       headers: {
         'Content-Type': 'application/json'
-      },
-      data: core.json(data)
+      }
     })
   }
 
