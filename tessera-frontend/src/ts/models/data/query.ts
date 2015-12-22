@@ -115,7 +115,7 @@ export default class Query extends Model {
    * @param {boolean} fire_only Just raise the event, without fetching
    *                            data.
    */
-  async load(opt?: any, fire_only?: boolean) : Promise<graphite.DataSeriesList> {
+  async load(opt?: any, fire_only: boolean = false) : Promise<graphite.DataSeriesList> {
     this.local_options = core.extend({}, this.local_options, opt)
     let options = core.extend({}, this.local_options, opt, this.options)
 
@@ -127,7 +127,6 @@ export default class Query extends Model {
     this.cache.clear()
     options.format = 'json'
     let url = this.url(options)
-    core.events.fire(this, 'ds-data-loading')
     this.load_count += 1
 
     let axios_config : any = {
@@ -146,6 +145,7 @@ export default class Query extends Model {
     }
 
     try {
+      core.events.fire(this, 'ds-data-loading')
       let response = await axios(axios_config)
       this._summarize(response.data)
       core.events.fire(this, 'ds-data-ready', this)

@@ -145,9 +145,8 @@ export default class Dashboard extends Model {
     return this.definition.render()
   }
 
-  load_all(options?: any) {
-    this.definition.load_all(options)
-    return self
+  async load_all(options?: any) : Promise<any> {
+    return this.definition.load_all(options)
   }
 
   cleanup() {
