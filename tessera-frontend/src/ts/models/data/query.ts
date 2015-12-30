@@ -160,7 +160,7 @@ export default class Query extends Model {
    * loaded.
    */
   on_load(handler: any) : void {
-    log.debug('on(): ' + this.name)
+    log.debug(`on(): ${this.name}`)
     core.events.on(this, 'ds-data-ready', handler)
   }
 
@@ -168,7 +168,7 @@ export default class Query extends Model {
    * Remove all registered event handlers.
    */
   off() : void {
-    log.debug('off(): ' + this.name)
+    log.debug(`off(): ${this.name}`)
     core.events.off(this, 'ds-data-ready')
   }
 
@@ -180,7 +180,7 @@ export default class Query extends Model {
 
   _group_targets() : string {
     return (this.targets.length > 1)
-      ? 'group(' + this.targets.join(',') + ')'
+      ? `group(${this.targets.join(',')})`
       : this.targets[0]
   }
 
@@ -190,9 +190,9 @@ export default class Query extends Model {
   shift(interval: string) {
     let group = this._group_targets()
     return new Query({
-      name: this.name + '_shift_' + interval,
+      name: `${this.name}_shift_${interval}`,
       targets: [
-        'timeShift(' + group + ', \"' + interval + '\")'
+        `timeShift(${group}, "${interval}")`
       ]
     })
   }
@@ -205,7 +205,7 @@ export default class Query extends Model {
     let target_this  = this._group_targets()
     let target_other = other._group_targets()
     return new Query({
-      name: this.name + '_join_' + other.name,
+      name: `${this.name}_join_${other.name}`,
       targets: [
         target_this,
         target_other
