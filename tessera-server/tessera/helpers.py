@@ -1,7 +1,7 @@
 import json
 from flask import request, session, Response
 from .application import app
-from tessera_client.api.model import EntityEncoder
+from .client.api.model import EntityEncoder
 
 def get_param(name, default=None, store_in_session=False):
     """Retrieve a named parameter from the request, falling back to the
