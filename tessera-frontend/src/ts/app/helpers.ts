@@ -47,7 +47,6 @@ export function register_helpers() {
     } else {
       return moment(value).tz(app.config.DISPLAY_TIMEZONE).format(format)
     }
-    return ''
   })
 
   Handlebars.registerHelper('format', function(format, value) {

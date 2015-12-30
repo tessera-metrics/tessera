@@ -70,9 +70,13 @@ export default class DashboardDefinition extends Container {
     })
   }
 
-  load_all(options?: any) {
+  async load_all(options?: any) : Promise<any> {
     log.debug('load_all()')
     this.options = options || this.options
+
+    // First walk through the dashboard to collect the queries into
+    // two collections - those which need to have raw data loaded and
+    // those which don't.
 
     let queries_to_load : any = {}
     let queries_to_fire : any = {}
@@ -93,33 +97,22 @@ export default class DashboardDefinition extends Container {
       }
     })
 
-    let promises = Object.keys(queries_to_load).map((key) => {
-      let query = queries_to_load[key]
-      if (query) {
-        let future = queries_to_load[key].load(this.options, false)
-        return future ? future.promise() : undefined
-      } else {
-        return undefined
-      }
-    })
+    const load_queries = (query_map, fire_only: boolean = false) : Promise<any> => {
+      return Promise.all(Object.keys(query_map).map(key => {
+        let query = query_map[key]
+        return query
+          ? query.load(this.options, fire_only)
+          : Promise.resolve()
+      }))
+    }
 
-    Object.keys(queries_to_fire).forEach((key) => {
-      let query = queries_to_fire[key]
-      if (query) {
-        queries_to_fire[key].load(this.options, true /* fire_only */)
-      }
+    return Promise.all([
+      load_queries(queries_to_load),
+      load_queries(queries_to_fire, true)
+    ]).then(() => {
+      core.events.fire(ts.app.instance, ts.app.Event.QUERIES_COMPLETE)
+      return Promise.resolve(true)
     })
-
-    $.when(promises).done(() => {
-      // TODO: This isn't *quite* what I want - this fires after all
-      // the HTTP requests for the queries are complete, but the
-      // done() handlers are not (i.e. we're not actually done
-      // munging the data yet).
-
-      // TODO - use new event interface
-      // ts.event.fire(ts.app.instance, ts.app.Event.QUERIES_COMPLETE)
-    })
-    return this
   }
 
   add_query(query) : DashboardDefinition {

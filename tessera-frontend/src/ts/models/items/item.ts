@@ -221,7 +221,7 @@ export default class DashboardItem extends Model {
 
   render() : string {
     if (!this.meta.template) {
-      return "<p>Item type <code>" + this.item_type + "</code> is missing a template.</p>"
+      return `<p>Item type <code>${this.item_type}</code> is missing a template.</p>`
     }
     return core.compile_template(this.template)({item: this})
   }
