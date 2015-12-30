@@ -11,7 +11,7 @@ from invoke import ctask as task, Collection
 from invocations.testing import test
 
 from tessera import app, db, config
-from tessera_client.api.model import Section
+from tessera.client.api.model import Section
 from tessera.importer.graphite import GraphiteDashboardImporter
 from tessera.importer.json_importer import JsonImporter, JsonExporter
 from werkzeug.serving import run_simple
