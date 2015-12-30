@@ -6,7 +6,7 @@ from datetime import datetime
 from flask import Blueprint, session, current_app, render_template, url_for
 from werkzeug.exceptions import HTTPException
 
-from tessera_client.api.model import *
+from .client.api.model import *
 from . import database
 from . import helpers
 from ._version import __version__
