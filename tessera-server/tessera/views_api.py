@@ -10,7 +10,7 @@ from functools import wraps
 from flask import request, url_for
 from werkzeug.exceptions import HTTPException
 
-from tessera_client.api.model import *
+from .client.api.model import *
 from . import database
 from . import helpers
 from .application import db
