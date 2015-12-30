@@ -1,9 +1,13 @@
-import * as core from './core'
-import * as model from './models'
+import { logger } from './core/log'
+import { json } from './core/util'
+import {
+  Dashboard, DashboardTuple, DashboardCategory, Tag, Preferences
+} from './models'
 
-declare var $, Promise, require
-const log   = core.logger('client')
+declare var require
 const axios = require('axios')
+
+const log = logger('client')
 
 export interface DashboardGetOptions {
   definition?: boolean
@@ -17,10 +21,6 @@ export interface DashboardListOptions {
 
 /**
  * Client for the Tessera REST API.
- *
- * TODO - find an isomorphic HTTP lib to remove the jQuery dependence,
- * so this client can eventually be isomorphic too (ditto for the
- * models and their rendering).
  */
 export default class Client {
 
@@ -46,7 +46,7 @@ export default class Client {
   async _put(path, data) : Promise<any> {
     let uri = this._uri(path)
     log.debug(`PUT ${uri}`)
-    return axios.put(uri, core.json(data), {
+    return axios.put(uri, json(data), {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -56,7 +56,7 @@ export default class Client {
   async _post(path, data) : Promise<any> {
     let uri = this._uri(path)
     log.debug(`POST ${uri}`)
-    return axios.post(uri, core.json(data), {
+    return axios.post(uri, json(data), {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -73,29 +73,29 @@ export default class Client {
      Dashboard API
      ---------------------------------------- */
 
-  async dashboard_get(href: string, options: DashboardGetOptions = {}) : Promise<model.Dashboard> {
+  async dashboard_get(href: string, options: DashboardGetOptions = {}) : Promise<Dashboard> {
     return this._get(href, { params: options })
-      .then(response => new model.Dashboard(response.data))
+      .then(response => new Dashboard(response.data))
   }
 
-  async dashboard_get_for_rendering(id: number) : Promise<model.DashboardTuple> {
+  async dashboard_get_for_rendering(id: number) : Promise<DashboardTuple> {
     return this._get(`/api/dashboard/${id}/for-rendering`)
-      .then(response => new model.DashboardTuple(response.data))
+      .then(response => new DashboardTuple(response.data))
   }
 
-  async dashboard_get_by_id(id: string|number, options: DashboardGetOptions = {}) : Promise<model.Dashboard> {
+  async dashboard_get_by_id(id: string|number, options: DashboardGetOptions = {}) : Promise<Dashboard> {
     return this.dashboard_get(`/api/dashboard/${id}`, options)
   }
 
-  async dashboard_create(db: model.Dashboard) : Promise<any> {
+  async dashboard_create(db: Dashboard) : Promise<any> {
     return this._post('/api/dashboard/', db)
   }
 
-  async dashboard_update(db: model.Dashboard) : Promise<any> {
+  async dashboard_update(db: Dashboard) : Promise<any> {
     return this._put(db.href, db)
   }
 
-  async dashboard_update_definition(db: model.Dashboard) : Promise<any> {
+  async dashboard_update_definition(db: Dashboard) : Promise<any> {
     return this._put(db.definition_href, db.definition)
   }
 
@@ -104,30 +104,36 @@ export default class Client {
    *
    * @param db A dashboard instance, href, or ID.
    */
-  async dashboard_delete(db: model.Dashboard|string|number) : Promise<any> {
+  async dashboard_delete(db: Dashboard|string|number) : Promise<any> {
     if (typeof db === 'string') {
       return this._delete(db)
     } else if ( typeof db === 'number' ) {
       return this._delete(`/api/dashboard/${db}`)
-    } else if (db instanceof model.Dashboard) {
+    } else if (db instanceof Dashboard) {
       return this._delete(db.href)
     }
   }
 
-  async dashboard_list(options: DashboardListOptions = {}) : Promise<model.Dashboard[]> {
+  /**
+   * List all dashboards, or dashboards filtered by tag or category.
+   */
+  async dashboard_list(options: DashboardListOptions = {}) : Promise<Dashboard[]> {
     if (options.tag) {
       return this._get(`/api/dashboard/tagged/${options.tag}`)
-        .then(response => response.data.map(d => new model.Dashboard(d)))
+        .then(response => response.data.map(d => new Dashboard(d)))
     } else if (options.category) {
       return this._get(`/api/dashboard/category/${options.category}`)
-        .then(response => response.data.map(d => new model.Dashboard(d)))
+        .then(response => response.data.map(d => new Dashboard(d)))
     } else {
       return this._get(options.path || '/api/dashboard/')
-        .then(response => response.data.map(d => new model.Dashboard(d)))
+        .then(response => response.data.map(d => new Dashboard(d)))
     }
   }
 
-  async dashboard_categories() : Promise<model.DashboardCategory[]> {
+  /**
+   * List all dashboard categories.
+   */
+  async dashboard_categories() : Promise<DashboardCategory[]> {
     return this._get('/api/dashboard/category/')
       .then(response => response.data)
   }
@@ -136,27 +142,39 @@ export default class Client {
      Tag API
      ---------------------------------------- */
 
-  async tag_list() : Promise<model.Tag[]> {
+  /**
+   * List all tags.
+   */
+  async tag_list() : Promise<Tag[]> {
     return this._get('/api/tag/')
-      .then(response => response.data.map(d => new model.Tag(d)))
+      .then(response => response.data.map(d => new Tag(d)))
   }
 
-  async tag_get(href: string) : Promise<model.Tag> {
+  /**
+   * Get a tag by href.
+   */
+  async tag_get(href: string) : Promise<Tag> {
     return this._get(href)
-      .then(response => new model.Tag(response.data[0]))
+      .then(response => new Tag(response.data[0]))
   }
 
-  async tag_get_by_id(id: number|string) : Promise<model.Tag> {
+  /**
+   * Get a tag by ID.
+   */
+  async tag_get_by_id(id: number|string) : Promise<Tag> {
     return this._get(`/api/tag/${id}`)
-      .then(response => new model.Tag(response.data[0]))
+      .then(response => new Tag(response.data[0]))
   }
 
   /* ----------------------------------------
      Preferences
      ---------------------------------------- */
 
-  async preferences_get() : Promise<model.Preferences> {
+  /**
+   * Get the preferences for the current user.
+   */
+  async preferences_get() : Promise<Preferences> {
     return this._get('/api/preferences')
-      .then(response => new model.Preferences(response.data))
+      .then(response => new Preferences(response.data))
   }
 }
