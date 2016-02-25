@@ -42,7 +42,7 @@ app.register_blueprint(ui)
 
 app_root = app.config.get('APPLICATION_ROOT', None)
 if app_root:
-    app = DispatcherMiddleware(Flask('root'), {
+    app.wsgi_app = DispatcherMiddleware(Flask('root'), {
         app_root : app
     })
 
