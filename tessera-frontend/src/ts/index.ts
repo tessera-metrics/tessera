@@ -1,3 +1,5 @@
+import 'babel-polyfill'
+
 import * as core      from './core'
 import * as charts    from './charts/core'
 import * as factory   from './models/items/factory'
