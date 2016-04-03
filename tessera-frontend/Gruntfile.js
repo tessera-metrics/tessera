@@ -55,7 +55,11 @@ module.exports = function(grunt) {
         },
         options: {
           transform: [
-            'babelify'
+            ['babelify', {
+              presets: [
+                'es2015', 'stage-0'
+              ]
+            }]
           ],
           browserifyOptions: {
             // debug: true
