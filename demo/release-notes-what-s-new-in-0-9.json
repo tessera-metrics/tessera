@@ -1,0 +1,96 @@
+{
+  "id": 8,
+  "title": "What's new in 0.9?",
+  "category": "Release Notes",
+  "summary": "",
+  "description": null,
+  "creation_date": "2016-04-03T23:18:48.958822Z",
+  "last_modified_date": "2016-04-04T07:15:37.404196Z",
+  "imported_from": null,
+  "tags": [
+    {
+      "id": 2,
+      "name": "featured",
+      "count": 6
+    },
+    {
+      "id": 4,
+      "name": "release-notes",
+      "count": 4
+    }
+  ],
+  "definition": {
+    "options": {
+      "from": "-3h"
+    },
+    "item_type": "dashboard_definition",
+    "item_id": "d3",
+    "items": [
+      {
+        "title": "Bug Fixes",
+        "item_type": "section",
+        "item_id": "d59",
+        "items": [
+          {
+            "item_type": "row",
+            "item_id": "d11",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d12",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d15",
+                    "raw": false
+                  }
+                ],
+                "span": 3,
+                "offset": 1
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d13",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d16",
+                    "text": "* Fixed a major DOM leak\n* Fixed an occasional spurious alert dialog\n* Fixed occasional clipping of tooltips\n* Fixed singlegraph rendering issues\n* Fixed renaming of queries\n* Added validation to the import page, to avoid attempting to import invalid dashboards.\n* Added a graphite importer\n* Added ways to quickly view the query associated with a\n  dashboard item. There's a \"View Query\" menu item in the action\n  menu, and the query text is displayed in the \"Isolate\"\n  transform.\n",
+                    "raw": false
+                  }
+                ],
+                "span": 7
+              }
+            ]
+          }
+        ],
+        "level": 1,
+        "horizontal_rule": false,
+        "layout": "fixed"
+      }
+    ],
+    "queries": {
+      "group_12": {
+        "name": "group_12",
+        "targets": [
+          "group(\n    randomWalkFunction(\"series1\"),\n    randomWalkFunction(\"series2\"),\n    randomWalkFunction(\"series4\"),\n    randomWalkFunction(\"series5\"),\n    randomWalkFunction(\"series6\"),\n    randomWalkFunction(\"series7\"),\n    randomWalkFunction(\"series8\"),\n    randomWalkFunction(\"series9\"),\n    randomWalkFunction(\"series10\"),\n    randomWalkFunction(\"series11\"),\n    randomWalkFunction(\"series12\")\n)"
+        ]
+      },
+      "group_3": {
+        "name": "group_3",
+        "targets": [
+          "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
+        ]
+      },
+      "log": {
+        "name": "log",
+        "targets": [
+          "offset(scale(\n    group(absolute(randomWalkFunction(\"series1\")),\n          absolute(randomWalkFunction(\"series2\")),\n          absolute(randomWalkFunction(\"series3\")))\n    , 10)\n, 1)"
+        ]
+      }
+    }
+  },
+  "href": "/api/dashboard/8",
+  "view_href": "/dashboards/8/what-s-new-in-0-9",
+  "definition_href": "/api/dashboard/8/definition"
+}
