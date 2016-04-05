@@ -1,26 +1,26 @@
 export {
   json, extend
-} from './core/util'
+} from './util'
 
 export {
   logger, Level as LogLevel, set_level as set_log_level
-} from './core/log'
+} from './log'
 
 export {
   ActionList, actions, default as Action
-} from './core/action'
+} from './action'
 
 export {
   TemplateFunction, compile_template, render_template
-} from './core/template'
+} from './template'
 
 export {
   PropertyList, properties, property, default as Property
-} from './core/property'
+} from './property'
 
 export {
   NamedObject, Registry
-} from './core/registry'
+} from './registry'
 
-export { default as events } from './core/event'
-export { default as EventSource } from './core/event-source'
+export { default as events } from './event'
+export { default as EventSource } from './event-source'
