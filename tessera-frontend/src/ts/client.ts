@@ -1,5 +1,6 @@
-import { logger } from './core/log'
-import { json } from './core/util'
+import {
+  logger, json
+} from './util'
 import {
   Dashboard, DashboardTuple, DashboardCategory, Tag, Preferences
 } from './models'

@@ -3,7 +3,7 @@ import { AxisScale } from '../models/axis'
 import Chart from '../models/items/chart'
 import Query from '../models/data/query'
 import { get_colors, get_palette } from './util'
-import { extend } from '../core/util'
+import { extend } from '../util'
 import { render_legend } from './legend'
 
 declare var URI, $

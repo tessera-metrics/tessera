@@ -1,7 +1,7 @@
 import TablePresentation from './table_presentation'
 import { DashboardItemMetadata } from './item'
 import Query from '../data/query'
-import { extend } from '../../core/util'
+import { extend } from '../../util'
 import { PropertyList } from '../../core/property'
 
 declare var $, ts

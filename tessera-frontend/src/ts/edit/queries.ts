@@ -1,3 +1,4 @@
+import { logger } from '../util'
 import * as core from '../core'
 import Query from '../models/data/query'
 import Dashboard from '../models/dashboard'
@@ -5,7 +6,7 @@ import manager from '../app/manager'
 import * as app from '../app/app'
 
 declare var $, bootbox, ts
-const log = core.logger('edit')
+const log = logger('edit')
 
 /* -----------------------------------------------------------------------------
    Query Functions

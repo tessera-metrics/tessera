@@ -2,7 +2,7 @@ import Chart from './chart'
 import Query from '../data/query'
 import { DashboardItemMetadata } from './item'
 import * as charts from '../../charts'
-import { extend } from '../../core/util'
+import { extend } from '../../util'
 import { PropertyList } from '../../core/property'
 
 declare var $, d3, ts

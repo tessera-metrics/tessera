@@ -1,11 +1,12 @@
-import * as core from '../../core'
+import { logger, extend } from '../../util'
+import { PropertyList } from '../../core'
 import * as app from '../../app'
 import Singlestat from './singlestat'
 import Query from '../data/query'
 
 declare var $, d3, ts
 
-const log = core.logger('models.timeshift_singlestat')
+const log = logger('models.timeshift_singlestat')
 const FORMAT_PERCENT = d3.format(',.1%')
 
 export default class TimeshiftSinglestat extends Singlestat {
@@ -49,7 +50,7 @@ export default class TimeshiftSinglestat extends Singlestat {
   }
 
   toJSON() : any {
-    return core.extend(super.toJSON(), {
+    return extend(super.toJSON(), {
       shift: this.shift,
       percent: this.percent
     })
@@ -82,7 +83,7 @@ export default class TimeshiftSinglestat extends Singlestat {
 
   }
 
-  interactive_properties(): core.PropertyList {
+  interactive_properties(): PropertyList {
     return super.interactive_properties().concat([
       'shift',
       { name: 'percent', type: 'boolean' }

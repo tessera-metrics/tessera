@@ -1,5 +1,5 @@
 import Presentation from './presentation'
-import { extend } from '../../core/util'
+import { extend } from '../../util'
 import { PropertyList } from '../../core/property'
 import { DashboardItemMetadata } from './item'
 

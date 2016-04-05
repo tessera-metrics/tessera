@@ -1,9 +1,9 @@
-import * as core from '../core'
+import { logger } from '../util'
 import manager from '../app/manager'
 import * as app from '../app/app'
 
 declare var $, ts
-const log = core.logger('edit')
+const log = logger('edit')
 
 /* -----------------------------------------------------------------------------
    Property Sheets

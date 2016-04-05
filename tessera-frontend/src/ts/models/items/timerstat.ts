@@ -1,6 +1,6 @@
 import Presentation from './presentation'
 import { DashboardItemMetadata } from './item'
-import { extend } from '../../core/util'
+import { extend } from '../../util'
 import { PropertyList } from '../../core/property'
 import Query from '../data/query'
 

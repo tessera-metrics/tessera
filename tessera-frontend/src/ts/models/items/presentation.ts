@@ -1,9 +1,10 @@
+import { logger, extend } from '../../util'
 import * as core from '../../core'
 import manager from '../../app/manager'
 import DashboardItem from './item'
 import Query from '../data/query'
 
-const log = core.logger('models.presentation')
+const log = logger('models.presentation')
 
 core.properties.register([{
   name:     'query',
@@ -146,7 +147,7 @@ export default class Presentation extends DashboardItem {
   }
 
   toJSON() : any {
-    return core.extend(super.toJSON(), {
+    return extend(super.toJSON(), {
       query: this._query
     })
   }

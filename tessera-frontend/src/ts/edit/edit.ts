@@ -5,14 +5,14 @@ import Axis from '../models/axis'
 import Query from '../models/data/query'
 import Container from '../models/items/container'
 import { make } from '../models/items/factory'
-
+import { logger } from '../util'
 import * as queries from './queries'
 
 import * as props   from './property-sheets'
 export * from './property-sheets'
 
 declare var $, bootbox, ts
-const log = core.logger('edit')
+const log = logger('edit')
 
 
 /**

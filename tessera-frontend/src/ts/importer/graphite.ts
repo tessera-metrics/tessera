@@ -1,6 +1,6 @@
 import { manager, config } from '../app'
 import * as models from '../models'
-import { logger } from '../core'
+import { logger } from '../util'
 import * as charts from '../charts'
 
 declare var require

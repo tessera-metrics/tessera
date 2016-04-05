@@ -1,11 +1,12 @@
+import { logger, extend } from '../../util'
+import { PropertyList } from '../../core'
 import TablePresentation from './table_presentation'
-import * as core from '../../core'
 import Query from '../data/query'
 import * as charts from '../../charts'
 
 declare var $, ts
 
-const log = core.logger('models.summation_table')
+const log = logger('models.summation_table')
 
 export default class SummationTable extends TablePresentation {
 
@@ -45,7 +46,7 @@ export default class SummationTable extends TablePresentation {
   }
 
   toJSON() : any {
-    return core.extend(super.toJSON(), {
+    return extend(super.toJSON(), {
       show_color: this.show_color,
       show_min: this.show_min,
       show_max: this.show_max,
@@ -89,7 +90,7 @@ export default class SummationTable extends TablePresentation {
     }
   }
 
-  interactive_properties() : core.PropertyList {
+  interactive_properties() : PropertyList {
     return super.interactive_properties().concat([
       { name: 'show_color', type: 'boolean', category: 'summation' },
       { name: 'show_min', type: 'boolean', category: 'summation' },

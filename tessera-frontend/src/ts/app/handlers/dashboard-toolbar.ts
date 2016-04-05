@@ -1,5 +1,5 @@
+import * as util from '../../util'
 import * as app from '../app'
-import * as core from '../../core'
 import manager from '../manager'
 import { make } from '../../models/items/factory'
 
@@ -90,7 +90,7 @@ $(document).ready(function() {
 
   $(document).on('click', '#ds-export-button', function(e) {
     let dashboard = manager.current.dashboard
-    let data = core.json(dashboard)
+    let data = util.json(dashboard)
     /* scrub query data */
     for (let name of Object.keys(data.definition.queries)) {
       let query = data.definition.queries[name]

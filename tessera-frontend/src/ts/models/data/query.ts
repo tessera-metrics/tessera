@@ -1,3 +1,4 @@
+import { extend, logger, render_template, events } from '../../util'
 import * as core from '../../core'
 import Summation from './summation'
 import Model from '../model'
@@ -6,7 +7,7 @@ import * as charts from '../../charts/core'
 import * as graphite from '../../data/graphite'
 
 declare var $, ts, require
-const log = core.logger('query')
+const log = logger('query')
 
 const axios   = require('axios')
 const URI     = require('urijs')
@@ -62,12 +63,12 @@ export default class Query extends Model {
 
   render_templates(context: any) : void {
     this.expanded_targets = this.targets.map(t => {
-      return core.render_template(t, context)
+      return render_template(t, context)
     })
   }
 
   url(opt?: any) : string {
-    let options = core.extend({}, this.local_options, opt, this.options)
+    let options = extend({}, this.local_options, opt, this.options)
     let url     = new URI(options.base_url || app.config.GRAPHITE_URL)
       .segment('render')
       .setQuery('format', options.format || 'png')
@@ -116,11 +117,11 @@ export default class Query extends Model {
    *                            data.
    */
   async load(opt?: any, fire_only: boolean = false) : Promise<graphite.DataSeriesList> {
-    this.local_options = core.extend({}, this.local_options, opt)
-    let options = core.extend({}, this.local_options, opt, this.options)
+    this.local_options = extend({}, this.local_options, opt)
+    let options = extend({}, this.local_options, opt, this.options)
 
     if (fire_only) {
-      core.events.fire(this, 'ds-data-ready', this)
+      events.fire(this, 'ds-data-ready', this)
       return Promise.resolve(this.data)
     }
 
@@ -145,10 +146,10 @@ export default class Query extends Model {
     }
 
     try {
-      core.events.fire(this, 'ds-data-loading')
+      events.fire(this, 'ds-data-loading')
       let response = await axios(axios_config)
       this._summarize(response.data)
-      core.events.fire(this, 'ds-data-ready', this)
+      events.fire(this, 'ds-data-ready', this)
       return this.data
     } catch (e) {
       ts.manager.error(`Error loading query ${this.name}: ${e.message}`)
@@ -162,7 +163,7 @@ export default class Query extends Model {
    */
   on_load(handler: any) : void {
     log.debug(`on(): ${this.name}`)
-    core.events.on(this, 'ds-data-ready', handler)
+    events.on(this, 'ds-data-ready', handler)
   }
 
   /**
@@ -170,7 +171,7 @@ export default class Query extends Model {
    */
   off() : void {
     log.debug(`off(): ${this.name}`)
-    core.events.off(this, 'ds-data-ready')
+    events.off(this, 'ds-data-ready')
   }
 
   cleanup() : void {
@@ -242,7 +243,7 @@ export default class Query extends Model {
   }
 
   toJSON() : any {
-    return core.extend(super.toJSON(), {
+    return extend(super.toJSON(), {
       name: this.name,
       targets: this.targets,
       data: this.data,

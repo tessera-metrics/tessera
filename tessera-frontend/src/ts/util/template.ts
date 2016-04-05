@@ -43,7 +43,7 @@ export function render_template(tmpl: string|TemplateFunction, context?: any) : 
   }
 }
 
-export default class Template {
+export class Template {
   tmpl: TemplateFunction
 
   constructor(tmpl: string|TemplateFunction) {

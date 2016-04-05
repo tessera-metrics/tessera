@@ -1,5 +1,5 @@
-import { NamedObject, Registry } from '../../core/registry'
-import Action, { actions } from '../../core/action'
+import { NamedObject, Registry } from '../../util'
+import { Action, actions } from '../../core'
 import manager from '../../app/manager'
 import * as app from '../../app/app'
 import Query from '../data/query'

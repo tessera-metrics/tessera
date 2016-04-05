@@ -1,3 +1,4 @@
+import * as util from '../../util'
 import Action, { actions } from '../../core/action'
 import manager from '../manager'
 import * as app from '../app'
@@ -45,7 +46,7 @@ actions.register('dashboard-list-actions', [
     handler: function(action, context) {
       manager.client.dashboard_get(context.href, { definition: true })
         .then((data) => {
-          let json = JSON.stringify(core.json(data), null, '  ')
+          let json = JSON.stringify(util.json(data), null, '  ')
           let blob = new Blob([json], { type: 'application/json;charset=utf-8' })
           let now  = moment().format()
           window.saveAs(blob, `${data.title} ${now}`)

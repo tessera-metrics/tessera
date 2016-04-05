@@ -1,7 +1,6 @@
-import { logger } from './log'
-import { extend } from './util'
-import { NamedObject, Registry } from './registry'
-import Template from './template'
+import {
+  logger, extend, NamedObject, Registry, Template
+} from '../util'
 
 declare var $
 

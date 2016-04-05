@@ -2,7 +2,7 @@ import Action, { actions as action_registry } from '../core/action'
 import Chart from '../models/items/chart'
 import * as app from './app'
 import manager from './manager'
-import { logger } from '../core/log'
+import { logger } from '../util'
 
 declare var marked, hljs, Handlebars, moment, d3, $, ts
 

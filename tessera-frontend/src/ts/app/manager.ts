@@ -2,7 +2,7 @@
 // TODO - all of this needs refactoring
 //
 
-import * as core     from '../core'
+import { logger, events } from '../util'
 import * as app      from './app'
 import * as charts   from '../charts/core'
 import Client        from '../client'
@@ -14,7 +14,7 @@ import {transforms}  from '../models/transform/transform'
 
 declare var $, URI, window, bootbox, ts, require
 
-const log = core.logger('manager')
+const log = logger('manager')
 const axios = require('axios')
 
 class DashboardHolder {
@@ -66,7 +66,7 @@ export class Manager {
    * loaded and ready.
    */
   onDashboardLoaded(handler) : Manager {
-    core.events.on(this, app.Event.DASHBOARD_LOADED, handler)
+    events.on(this, app.Event.DASHBOARD_LOADED, handler)
     return this
   }
 
@@ -195,7 +195,7 @@ export class Manager {
           charts.set_renderer(r)
         }
 
-        core.events.fire(this, app.Event.DASHBOARD_LOADED, dashboard)
+        events.fire(this, app.Event.DASHBOARD_LOADED, dashboard)
 
         // Expand any templatized queries or dashboard items
         dashboard.render_templates(context.variables)
@@ -204,7 +204,7 @@ export class Manager {
         $(element).html(dashboard.definition.render())
 
         let currentURL = new URI(holder.url)
-        core.events.fire(this, app.Event.RANGE_CHANGED, {
+        events.fire(this, app.Event.RANGE_CHANGED, {
           from: currentURL.query('from'),
           until: currentURL.query('until')
         })
@@ -219,7 +219,7 @@ export class Manager {
           })
         }
 
-        core.events.fire(this, app.Event.DASHBOARD_RENDERED, dashboard)
+        events.fire(this, app.Event.DASHBOARD_RENDERED, dashboard)
 
         if (context.params.mode) {
           app.switch_to_mode(context.params.mode)
@@ -407,7 +407,7 @@ export class Manager {
     window.history.pushState({url: this.current.url, element:this.current.element}, '', uri.href())
 
     this.current.setRange(from, until)
-    core.events.fire(this, app.Event.RANGE_CHANGED, {
+    events.fire(this, app.Event.RANGE_CHANGED, {
       from: from, until: until
     })
     this.refresh()
@@ -435,7 +435,7 @@ export class Manager {
   }
 
   onRangeChanged(handler) : void {
-    core.events.on(this, app.Event.RANGE_CHANGED, handler)
+    events.on(this, app.Event.RANGE_CHANGED, handler)
   }
 
   autoRefreshInterval: number
@@ -560,7 +560,7 @@ Revert to standard mode in order to save changes.`)
 
 const manager = new Manager()
 
-core.events.on(DashboardItem, 'update', (e: { target: DashboardItem }) => {
+events.on(DashboardItem, 'update', (e: { target: DashboardItem }) => {
   if (!e || !e.target) {
     log.warn('on:DashboardItem.update: item not bound')
   } else {

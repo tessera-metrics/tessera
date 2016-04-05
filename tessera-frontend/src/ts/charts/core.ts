@@ -1,12 +1,12 @@
-import * as core from '../core'
+import { logger } from '../util'
 import Chart from '../models/items/chart'
 import DashboardItem from '../models/items/item'
 import Query from '../models/data/query'
-import { NamedObject, Registry } from '../core/registry'
+import { NamedObject, Registry } from '../util'
 import * as graphite from '../data/graphite'
 
 export const DEFAULT_PALETTE = 'spectrum6'
-const log = core.logger('charts')
+const log = logger('charts')
 
 export const StackMode = {
   NONE:    'none',

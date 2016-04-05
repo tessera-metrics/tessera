@@ -25,7 +25,7 @@ module.exports = function(grunt) {
           comments: true,
           declaration: true,
           sourceMap: true,
-          additionalFlags: '--moduleResolution node --noImplicitReturns --noFallthroughCasesInSwitch'
+          moduleResolution: 'node'
         }
       }
     },
