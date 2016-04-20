@@ -117,8 +117,8 @@ $(document).ready(function() {
     if (params.from && params.until) {
       // Initialise the range date pickers with the values from the URL query parameters
       // TODO - don't do this for relative specifiers
-      $('#ds-range-picker-from').data("DateTimePicker").date(moment(params.from, GRAPHITE_FORMAT).tz(app.config.DISPLAY_TIMEZONE));
-      $('#ds-range-picker-until').data("DateTimePicker").date(moment(params.until, GRAPHITE_FORMAT).tz(app.config.DISPLAY_TIMEZONE));
+      $('#ds-range-picker-from').data("DateTimePicker").date(moment.utc(params.from, GRAPHITE_FORMAT));
+      $('#ds-range-picker-until').data("DateTimePicker").date(moment.utc(params.until, GRAPHITE_FORMAT));
       $('.ds-recent-range-picker').hide()
       $('.ds-custom-range-picker').show()
       self.enable_handler()
