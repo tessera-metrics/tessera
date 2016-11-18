@@ -6,7 +6,7 @@ declare var $, URI, window
 const log             = core.logger('app')
 const ANIMATION_DELAY = 300
 
-export var config = new Config()
+export var config : Config = new Config()
 
 /**
  * Some pre-defined events that we can register handlers for.
@@ -50,7 +50,7 @@ export interface IModeHandlerOptions {
  * the UI.
  */
 export class Application {
-  mode_stack : ModeStackEntry[]
+  private mode_stack : ModeStackEntry[]
   current_mode: string
 
   constructor() {
@@ -217,4 +217,8 @@ export function context(context?: any) : any {
   context.params = params
 
   return context
+}
+
+export function set_config(cfg: Config) : void {
+  config = cfg
 }

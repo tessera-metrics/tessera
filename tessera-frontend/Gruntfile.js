@@ -23,7 +23,9 @@ module.exports = function(grunt) {
         options: {
           target: 'es6',
           comments: true,
-          additionalFlags: '--moduleResolution node'
+          declaration: true,
+          sourceMap: true,
+          additionalFlags: '--moduleResolution node --noImplicitReturns --noFallthroughCasesInSwitch'
         }
       }
     },

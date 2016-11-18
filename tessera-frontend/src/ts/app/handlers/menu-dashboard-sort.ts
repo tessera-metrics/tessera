@@ -14,7 +14,7 @@ $(document).on('click', 'ul.ds-dashboard-sort-menu li', function(e) {
   if (order) {
     url.setQuery('order', order)
   }
-  window.location = url.href()
+  window.location.href = url.href()
 })
 
 

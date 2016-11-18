@@ -14,7 +14,7 @@ declare var URI, $, d3, moment, ts
 
 const log = logger('charts.flot')
 
-interface FlotRenderContext {
+export interface FlotRenderContext {
   plot: any
   item: Chart|DashboardItem
   query: Query

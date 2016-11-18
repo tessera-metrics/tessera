@@ -153,6 +153,7 @@ export default class Query extends Model {
     } catch (e) {
       ts.manager.error(`Error loading query ${this.name}: ${e.message}`)
     }
+    return Promise.resolve(this.data)
   }
 
   /**

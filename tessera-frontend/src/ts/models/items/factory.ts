@@ -139,7 +139,7 @@ export function register_dashboard_item(item_class: DashboardItemConstructor) {
   log.debug(`registered ${meta.item_type}`)
 }
 
-export function make(data: any, init?: any) {
+export function make(data: any, init?: any) : any {
 
   if (data instanceof DashboardItem) {
     return data
