@@ -39,7 +39,7 @@ window.ts.init = function() {
     importer: importer,
     user: new User()
   })
-  app.config = window.ts.config
+  app.set_config(window.ts.config)
 
   /* Set up the API client */
   window.ts.client
