@@ -1,386 +1,381 @@
 {
-  "category": "Demo", 
+  "category": "Demo",
   "definition": {
-    "item_id": "d1", 
-    "item_type": "dashboard_definition", 
+    "item_id": "d1",
+    "item_type": "dashboard_definition",
     "queries": {
       "comparison": {
-        "name": "comparison", 
+        "name": "comparison",
         "targets": [
           "aliasByNode(group(randomWalkFunction(\"today\"), randomWalkFunction(\"yesterday\")), 0)"
         ]
-      }, 
+      },
       "multiple": {
-        "name": "multiple", 
+        "name": "multiple",
         "targets": [
           "absolute(group(randomWalkFunction(\"a\"),randomWalkFunction(\"b\"),randomWalkFunction(\"c\")))"
         ]
-      }, 
+      },
       "percentages": {
-        "name": "percentages", 
+        "name": "percentages",
         "targets": [
           "group(alias(absolute(randomWalkFunction(\"query0\")), \"A\"),\n      alias(absolute(randomWalkFunction(\"query1\")), \"B\"),\n      alias(absolute(randomWalkFunction(\"query2\")), \"C\"),\n      alias(absolute(randomWalkFunction(\"query2\")), \"D\"))"
         ]
-      }, 
+      },
       "positive": {
-        "name": "positive", 
+        "name": "positive",
         "targets": [
           "aliasByNode(absolute(group(randomWalkFunction(\"system\"),randomWalkFunction(\"user\"),randomWalkFunction(\"wait\"), randomWalkFunction(\"io\"))), 0)"
         ]
-      }, 
+      },
       "single1": {
-        "name": "single1", 
+        "name": "single1",
         "targets": [
           "absolute(randomWalkFunction(\"thing1\"))"
         ]
-      }, 
+      },
       "comp2": {
-        "name": "comp2", 
+        "name": "comp2",
         "targets": [
           "scale(absolute(randomWalkFunction(\"comp2\")), 1000)"
         ]
-      }, 
+      },
       "comp1": {
-        "name": "comp1", 
+        "name": "comp1",
         "targets": [
           "scale(absolute(randomWalkFunction(\"comp1\")), 1000)"
         ]
-      }, 
+      },
       "collector_shifted": {
-        "name": "collector_shifted", 
+        "name": "collector_shifted",
         "targets": [
           "timeShift(collector_time_ms, \"1d\")"
         ]
-      }, 
+      },
       "single2": {
-        "name": "single2", 
+        "name": "single2",
         "targets": [
           "randomWalkFunction(\"thing2\")"
         ]
-      }, 
+      },
       "positive2": {
-        "name": "positive2", 
+        "name": "positive2",
         "targets": [
           "aliasByNode(absolute(group(randomWalkFunction(\"cpu1\"),randomWalkFunction(\"cpu2\"),randomWalkFunction(\"cpu3\"), randomWalkFunction(\"cpu4\"), randomWalkFunction(\"cpu5\"), randomWalkFunction(\"cpu6\"), randomWalkFunction(\"cpu7\"), randomWalkFunction(\"cpu8\"))), 0)"
         ]
-      }, 
+      },
       "collector": {
-        "name": "collector", 
+        "name": "collector",
         "targets": [
           "collector_time_ms"
         ]
       }
-    }, 
-    "href": "/api/dashboard/2/definition", 
+    },
+    "href": "/api/dashboard/2/definition",
     "items": [
       {
-        "item_id": "d2", 
-        "item_type": "section", 
-        "layout": "fixed", 
+        "item_id": "d2",
+        "item_type": "section",
+        "layout": "fixed",
         "items": [
           {
-            "item_id": "d3", 
-            "item_type": "heading", 
-            "level": 1, 
-            "description": "A variety of time series charts rendered by nvd3", 
+            "item_id": "d3",
+            "item_type": "heading",
+            "level": 1,
+            "description": "A variety of time series charts rendered by flot",
             "text": "Time Series Charts"
-          }, 
+          },
           {
-            "item_id": "d4", 
-            "item_type": "markdown", 
-            "text": "The [nvd3](http://nvd3.org/) javascript library provides an good set of standard, reusable charts built on top of [d3](http://d3js.org/)."
-          }, 
-          {
-            "item_id": "d5", 
+            "item_id": "d5",
             "item_type": "separator"
-          }, 
+          },
           {
-            "item_id": "d6", 
-            "item_type": "row", 
+            "item_id": "d6",
+            "item_type": "row",
             "items": [
               {
-                "item_id": "d7", 
-                "item_type": "cell", 
-                "span": 3, 
+                "item_id": "d7",
+                "item_type": "cell",
+                "span": 3,
                 "items": [
                   {
-                    "item_id": "d8", 
-                    "item_type": "markdown", 
+                    "item_id": "d8",
+                    "item_type": "markdown",
                     "text": "### Simple Time Series\nUse like a [sparkline](http://en.wikipedia.org/wiki/Sparkline), for displaying overall trends in a high level view."
                   }
                 ]
-              }, 
+              },
               {
-                "item_id": "d9", 
-                "item_type": "cell", 
-                "align": "left", 
-                "span": 9, 
+                "item_id": "d9",
+                "item_type": "cell",
+                "align": "left",
+                "span": 9,
                 "items": [
                   {
-                    "height": "1", 
-                    "item_type": "simple_time_series", 
-                    "show_max_value": false, 
-                    "show_min_value": false, 
-                    "show_last_value": false, 
-                    "item_id": "d10", 
-                    "query": "single1", 
-                    "filled": false, 
+                    "height": "1",
+                    "item_type": "simple_time_series",
+                    "show_max_value": false,
+                    "show_min_value": false,
+                    "show_last_value": false,
+                    "item_id": "d10",
+                    "query": "single1",
+                    "filled": false,
                     "interactive": true
-                  }, 
+                  },
                   {
-                    "title": "Filled", 
-                    "height": 1, 
-                    "item_type": "simple_time_series", 
-                    "show_max_value": false, 
-                    "show_min_value": false, 
-                    "show_last_value": false, 
-                    "item_id": "d11", 
-                    "query": "single1", 
-                    "filled": true, 
+                    "title": "Filled",
+                    "height": 1,
+                    "item_type": "simple_time_series",
+                    "show_max_value": false,
+                    "show_min_value": false,
+                    "show_last_value": false,
+                    "item_id": "d11",
+                    "query": "single1",
+                    "filled": true,
                     "interactive": true
                   }
                 ]
               }
             ]
-          }, 
+          },
           {
-            "item_id": "d12", 
-            "item_type": "row", 
+            "item_id": "d12",
+            "item_type": "row",
             "items": [
               {
-                "item_id": "d13", 
-                "item_type": "cell", 
-                "span": 3, 
+                "item_id": "d13",
+                "item_type": "cell",
+                "span": 3,
                 "items": [
                   {
-                    "item_id": "d14", 
-                    "item_type": "markdown", 
+                    "item_id": "d14",
+                    "item_type": "markdown",
                     "text": "### Standard Time Series\nYour basic multi-series line chart, with some nice interactive features."
                   }
                 ]
-              }, 
+              },
               {
-                "item_id": "d15", 
-                "item_type": "cell", 
-                "span": 9, 
+                "item_id": "d15",
+                "item_type": "cell",
+                "span": 9,
                 "items": [
                   {
-                    "item_id": "d16", 
-                    "item_type": "standard_time_series", 
-                    "interactive": true, 
+                    "item_id": "d16",
+                    "item_type": "standard_time_series",
+                    "interactive": true,
                     "options": {
-                      "yAxisFormat": ",.1s", 
+                      "yAxisFormat": ",.1s",
                       "margin": {
-                        "top": 12, 
-                        "left": 40, 
-                        "right": 20, 
+                        "top": 12,
+                        "left": 40,
+                        "right": 20,
                         "bottom": 20
                       }
-                    }, 
+                    },
                     "query": "positive"
                   }
                 ]
               }
             ]
-          }, 
+          },
           {
-            "item_id": "d17", 
-            "item_type": "row", 
+            "item_id": "d17",
+            "item_type": "row",
             "items": [
               {
-                "item_id": "d18", 
-                "item_type": "cell", 
-                "span": 3, 
+                "item_id": "d18",
+                "item_type": "cell",
+                "span": 3,
                 "items": [
                   {
-                    "item_id": "d19", 
-                    "item_type": "markdown", 
-                    "text": "### Stacked Area\nStacked graphs can be displayed in one of three modes, which can be switched interactively. Standard stacked series, [stream graphs](http://www.leebyron.com/else/streamgraph/), and a percentage view.\n\nStream graphs are currently only available when using the `nvd3` renderer in interactive mode. "
+                    "item_id": "d19",
+                    "item_type": "markdown",
+                    "text": "### Stacked Area\nStacked graphs can be displayed in one of three modes, which can be switched interactively. Standard stacked series, [stream graphs](http://www.leebyron.com/else/streamgraph/), and a percentage view.\n\nStream graphs are currently only available when using the `flot` renderer in interactive mode. "
                   }
                 ]
-              }, 
+              },
               {
-                "item_id": "d20", 
-                "item_type": "cell", 
-                "span": 9, 
+                "item_id": "d20",
+                "item_type": "cell",
+                "span": 9,
                 "items": [
                   {
-                    "stack_mode": "stack", 
-                    "item_type": "stacked_area_chart", 
-                    "item_id": "d21", 
-                    "query": "positive", 
+                    "stack_mode": "stack",
+                    "item_type": "stacked_area_chart",
+                    "item_id": "d21",
+                    "query": "positive",
                     "options": {
-                      "yAxisFormat": ",.1s", 
+                      "yAxisFormat": ",.1s",
                       "margin": {
-                        "top": 12, 
-                        "left": 40, 
-                        "right": 20, 
+                        "top": 12,
+                        "left": 40,
+                        "right": 20,
                         "bottom": 20
                       }
-                    }, 
+                    },
                     "interactive": true
-                  }, 
+                  },
                   {
-                    "item_id": "d22", 
+                    "item_id": "d22",
                     "item_type": "separator"
-                  }, 
+                  },
                   {
-                    "title": "Percentage View", 
-                    "stack_mode": "percent", 
-                    "height": 3, 
-                    "item_type": "stacked_area_chart", 
-                    "item_id": "d23", 
-                    "query": "multiple", 
+                    "title": "Percentage View",
+                    "stack_mode": "percent",
+                    "height": 3,
+                    "item_type": "stacked_area_chart",
+                    "item_id": "d23",
+                    "query": "multiple",
                     "options": {
-                      "yAxisFormat": ",.1s", 
-                      "style": "stream", 
+                      "yAxisFormat": ",.1s",
+                      "style": "stream",
                       "margin": {
-                        "top": 12, 
-                        "left": 40, 
-                        "right": 20, 
+                        "top": 12,
+                        "left": 40,
+                        "right": 20,
                         "bottom": 20
                       }
-                    }, 
+                    },
                     "interactive": true
                   }
                 ]
               }
             ]
-          }, 
+          },
           {
-            "item_id": "d24", 
-            "item_type": "row", 
+            "item_id": "d24",
+            "item_type": "row",
             "items": [
               {
-                "item_id": "d25", 
-                "item_type": "cell", 
-                "span": 3, 
+                "item_id": "d25",
+                "item_type": "cell",
+                "span": 3,
                 "items": [
                   {
-                    "item_id": "d26", 
-                    "item_type": "markdown", 
+                    "item_id": "d26",
+                    "item_type": "markdown",
                     "text": "### Single Graph\nShamelessly stolen from [Tasseo](https://github.com/obfuscurity/tasseo)."
                   }
                 ]
-              }, 
+              },
               {
-                "item_id": "d27", 
-                "item_type": "cell", 
-                "span": 3, 
+                "item_id": "d27",
+                "item_type": "cell",
+                "span": 3,
                 "items": [
                   {
-                    "title": "some.metric.for.stuff", 
-                    "format": ",.1s", 
-                    "transform": "sum", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d28", 
-                    "query": "single1", 
+                    "title": "some.metric.for.stuff",
+                    "format": ",.1s",
+                    "transform": "sum",
+                    "height": 1,
+                    "item_type": "singlegraph",
+                    "item_id": "d28",
+                    "query": "single1",
                     "options": {
                       "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
+                        "top": 0,
+                        "left": 0,
+                        "right": 0,
                         "bottom": 0
                       }
-                    }, 
+                    },
                     "interactive": true
                   }
                 ]
-              }, 
+              },
               {
-                "item_id": "d29", 
-                "item_type": "cell", 
-                "span": 3, 
+                "item_id": "d29",
+                "item_type": "cell",
+                "span": 3,
                 "items": [
                   {
-                    "title": "some.other.metric", 
-                    "format": ",.1s", 
-                    "transform": "max", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d30", 
-                    "query": "positive2", 
+                    "title": "some.other.metric",
+                    "format": ",.1s",
+                    "transform": "max",
+                    "height": 1,
+                    "item_type": "singlegraph",
+                    "item_id": "d30",
+                    "query": "positive2",
                     "options": {
                       "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
+                        "top": 0,
+                        "left": 0,
+                        "right": 0,
                         "bottom": 0
                       }
-                    }, 
+                    },
                     "interactive": true
                   }
                 ]
-              }, 
+              },
               {
-                "item_id": "d31", 
-                "item_type": "cell", 
-                "span": 3, 
+                "item_id": "d31",
+                "item_type": "cell",
+                "span": 3,
                 "items": [
                   {
-                    "title": "what.is.this.i.don't.even", 
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d32", 
-                    "query": "multiple", 
+                    "title": "what.is.this.i.don't.even",
+                    "format": ",.1s",
+                    "transform": "mean",
+                    "height": 1,
+                    "item_type": "singlegraph",
+                    "item_id": "d32",
+                    "query": "multiple",
                     "options": {
                       "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
+                        "top": 0,
+                        "left": 0,
+                        "right": 0,
                         "bottom": 0
                       }
-                    }, 
+                    },
                     "interactive": true
                   }
                 ]
               }
             ]
-          }, 
+          },
           {
-            "item_id": "d127", 
+            "item_id": "d127",
             "item_type": "separator"
-          }, 
+          },
           {
-            "item_id": "d50", 
-            "item_type": "row", 
+            "item_id": "d50",
+            "item_type": "row",
             "items": [
               {
-                "item_id": "d51", 
-                "item_type": "cell", 
-                "span": 3, 
+                "item_id": "d51",
+                "item_type": "cell",
+                "span": 3,
                 "items": [
                   {
-                    "item_id": "d52", 
-                    "item_type": "markdown", 
+                    "item_id": "d52",
+                    "item_type": "markdown",
                     "text": "### Bar Charts"
                   }
                 ]
-              }, 
+              },
               {
-                "item_id": "d53", 
-                "item_type": "cell", 
-                "span": 9, 
+                "item_id": "d53",
+                "item_type": "cell",
+                "span": 9,
                 "items": [
                   {
-                    "title": "Standard Stacking", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "bar_chart", 
-                    "item_id": "d57", 
-                    "query": "multiple", 
+                    "title": "Standard Stacking",
+                    "stack_mode": "stack",
+                    "height": "3",
+                    "item_type": "bar_chart",
+                    "item_id": "d57",
+                    "query": "multiple",
                     "options": {}
-                  }, 
+                  },
                   {
-                    "title": "Percentage", 
-                    "stack_mode": "percent", 
-                    "height": "3", 
-                    "item_type": "bar_chart", 
-                    "item_id": "d58", 
-                    "query": "percentages", 
+                    "title": "Percentage",
+                    "stack_mode": "percent",
+                    "height": "3",
+                    "item_type": "bar_chart",
+                    "item_id": "d58",
+                    "query": "percentages",
                     "options": {}
                   }
                 ]
@@ -388,157 +383,157 @@
             ]
           }
         ]
-      }, 
+      },
       {
-        "item_id": "d130", 
-        "item_type": "section", 
-        "layout": "fixed", 
+        "item_id": "d130",
+        "item_type": "section",
+        "layout": "fixed",
         "items": [
           {
-            "item_id": "d213", 
-            "item_type": "heading", 
-            "level": 1, 
-            "description": "Non-time series charts, also rendered by nvd3", 
+            "item_id": "d213",
+            "item_type": "heading",
+            "level": 1,
+            "description": "Non-time series charts, also rendered by flot",
             "text": "Other Charts"
-          }, 
+          },
           {
-            "item_id": "d214", 
+            "item_id": "d214",
             "item_type": "separator"
-          }, 
+          },
           {
-            "item_id": "d215", 
-            "item_type": "row", 
+            "item_id": "d215",
+            "item_type": "row",
             "items": [
               {
-                "item_id": "d216", 
-                "item_type": "cell", 
-                "span": 3, 
+                "item_id": "d216",
+                "item_type": "cell",
+                "span": 3,
                 "items": [
                   {
-                    "item_id": "d217", 
-                    "item_type": "markdown", 
+                    "item_id": "d217",
+                    "item_type": "markdown",
                     "text": "### Donuts & Pies\nOften abused, occasionally useful, always tasty!"
                   }
                 ]
-              }, 
+              },
               {
-                "item_id": "d218", 
-                "item_type": "cell", 
-                "span": 4, 
+                "item_id": "d218",
+                "item_type": "cell",
+                "span": 4,
                 "items": [
                   {
-                    "is_pie": false, 
-                    "title": "Donut Chart", 
-                    "labels": false, 
-                    "height": 3, 
-                    "item_type": "donut_chart", 
+                    "is_pie": false,
+                    "title": "Donut Chart",
+                    "labels": false,
+                    "height": 3,
+                    "item_type": "donut_chart",
                     "options": {
                       "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
+                        "top": 0,
+                        "left": 0,
+                        "right": 0,
                         "bottom": 12
                       }
-                    }, 
-                    "item_id": "d219", 
-                    "query": "positive", 
-                    "legend": true, 
+                    },
+                    "item_id": "d219",
+                    "query": "positive",
+                    "legend": true,
                     "interactive": true
                   }
                 ]
-              }, 
+              },
               {
-                "item_id": "d220", 
-                "item_type": "cell", 
-                "span": 5, 
+                "item_id": "d220",
+                "item_type": "cell",
+                "span": 5,
                 "items": [
                   {
-                    "is_pie": true, 
-                    "title": "Pie Chart", 
-                    "labels": false, 
-                    "height": 3, 
-                    "item_type": "donut_chart", 
+                    "is_pie": true,
+                    "title": "Pie Chart",
+                    "labels": false,
+                    "height": 3,
+                    "item_type": "donut_chart",
                     "options": {
-                      "donut": false, 
-                      "palette": "applegreen", 
+                      "donut": false,
+                      "palette": "applegreen",
                       "labelType": "key"
-                    }, 
-                    "item_id": "d221", 
-                    "query": "positive", 
-                    "legend": true, 
+                    },
+                    "item_id": "d221",
+                    "query": "positive",
+                    "legend": true,
                     "interactive": true
                   }
                 ]
               }
             ]
-          }, 
+          },
           {
-            "item_id": "d222", 
-            "item_type": "heading", 
+            "item_id": "d222",
+            "item_type": "heading",
             "level": 1
           }
         ]
-      }, 
+      },
       {
-        "item_id": "d33", 
-        "item_type": "section", 
-        "style": "callout_neutral", 
-        "layout": "none", 
+        "item_id": "d33",
+        "item_type": "section",
+        "style": "callout_neutral",
+        "layout": "none",
         "items": [
           {
-            "item_id": "d34", 
-            "item_type": "heading", 
-            "level": 1, 
-            "description": "Items don't have to be confined to the fixed width grid", 
+            "item_id": "d34",
+            "item_type": "heading",
+            "level": 1,
+            "description": "Items don't have to be confined to the fixed width grid",
             "text": "Breakout!"
-          }, 
+          },
           {
-            "item_id": "d35", 
+            "item_id": "d35",
             "item_type": "separator"
-          }, 
+          },
           {
-            "stack_mode": "stack", 
-            "height": 5, 
-            "item_type": "stacked_area_chart", 
-            "item_id": "d36", 
-            "query": "positive2", 
+            "stack_mode": "stack",
+            "height": 5,
+            "item_type": "stacked_area_chart",
+            "item_id": "d36",
+            "query": "positive2",
             "options": {
-              "yAxisFormat": ",.1s", 
-              "style": "stream", 
+              "yAxisFormat": ",.1s",
+              "style": "stream",
               "margin": {
-                "top": 12, 
-                "left": 40, 
-                "right": 20, 
+                "top": 12,
+                "left": 40,
+                "right": 20,
                 "bottom": 20
               }
-            }, 
+            },
             "interactive": true
           }
         ]
       }
     ]
-  }, 
-  "view_href": "/dashboards/2/gallery-charts", 
-  "description": "", 
+  },
+  "view_href": "/dashboards/2/gallery-charts",
+  "description": "",
   "tags": [
     {
-      "count": 4, 
-      "bgcolor": "green", 
-      "id": 3, 
+      "count": 4,
+      "bgcolor": "green",
+      "id": 3,
       "name": "featured"
-    }, 
+    },
     {
-      "count": 4, 
-      "bgcolor": "#ddd", 
-      "id": 4, 
-      "fgcolor": "#333", 
+      "count": 4,
+      "bgcolor": "#ddd",
+      "id": 4,
+      "fgcolor": "#333",
       "name": "demo"
     }
-  ], 
-  "title": "Gallery - Charts", 
-  "summary": "A gallery of graphical presentations", 
-  "definition_href": "/api/dashboard/2/definition", 
-  "href": "/api/dashboard/2", 
-  "id": 2, 
+  ],
+  "title": "Gallery - Charts",
+  "summary": "A gallery of graphical presentations",
+  "definition_href": "/api/dashboard/2/definition",
+  "href": "/api/dashboard/2",
+  "id": 2,
   "imported_from": null
 }

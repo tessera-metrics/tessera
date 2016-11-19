@@ -377,7 +377,7 @@
                   {
                     "item_type": "markdown",
                     "item_id": "d24",
-                    "text": "There's a new UI endpoint which renders dashboards with none of\nthe navigation UI chrome (not even the dashboard title) - it's\nintended for embedding small dashboards in other sites via the\nuse of `iframe`s. \n\nThe new endpoint is `/dashboards/<id>/<slug>/embed`. I.e. just\ntake an existing dashboard URL and add `/embed` to the end of\nit. It accepts all the same query parameters as the regular\nendpoint, so it can be used with templatized dashboards, you can\nspecify the time range, or the color theme, etc...\n\n* [Try it out]({{path}}/embed)\n",
+                    "text": "There's a new UI endpoint which renders dashboards with none of\nthe navigation UI chrome (not even the dashboard title) - it's\nintended for embedding small dashboards in other sites via the\nuse of an `iframe`. \n\nThe new endpoint is `/dashboards/<id>/<slug>/embed`. I.e. just\ntake an existing dashboard URL and add `/embed` to the end of\nit. It accepts all the same query parameters as the regular\nendpoint, so it can be used with templatized dashboards, you can\nspecify the time range, or the color theme, etc...\n\n* [Try it out]({{path}}/embed)\n",
                     "raw": false
                   }
                 ],
