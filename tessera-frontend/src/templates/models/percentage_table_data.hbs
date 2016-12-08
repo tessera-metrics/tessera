@@ -60,7 +60,7 @@
           <th>{{item.transform}}</th>
           <td>{{format item.format query.summation.percent_value}}</td>
           {{#each query.data}}
-            <td>{{format ../../item.format summation.percent_value}}</td>
+            <td>{{format ../item.format summation.percent_value}}</td>
           {{/each}}
         </tr>
       {{/if}}
