@@ -42,6 +42,12 @@ GRAPHITE_URL="http://graphite.example.com"
 SECRET_KEY="adf71812-9d57-88d3-dfe8-1e9860d2b7ab"
 ```
 
+Initialize the sqlite db (possibly requires sudo):
+
+```
+tessera-init
+```
+
 Then launch the service:
 
 ```
