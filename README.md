@@ -42,10 +42,10 @@ GRAPHITE_URL="http://graphite.example.com"
 SECRET_KEY="adf71812-9d57-88d3-dfe8-1e9860d2b7ab"
 ```
 
-Initialize the sqlite db (possibly requires sudo):
+Initialize the database:
 
 ```
-tessera-init
+TESSERA_CONFIG=/path/to/config.py tessera-init
 ```
 
 Then launch the service:
