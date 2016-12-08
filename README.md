@@ -72,16 +72,16 @@ inv json.import '../demo/*'
 ## Documentation
 
 Documentation is hosted on GitHub Pages at
-[urbanairship.github.io/tessera/docs](http://urbanairship.github.io/tessera/docs/).
+[tessera-metrics.github.io/tessera/docs](http://tessera-metrics.github.io/tessera/docs/).
 
-* [Getting Started](http://urbanairship.github.io/tessera/docs/) for getting started and running from source and importing the demo dashboards.
-* [Tutorial](http://urbanairship.github.io/tessera/docs/guides/tutorial/) for creating the most basic possible
+* [Getting Started](http://tessera-metrics.github.io/tessera/docs/) for getting started and running from source and importing the demo dashboards.
+* [Tutorial](http://tessera-metrics.github.io/tessera/docs/guides/tutorial/) for creating the most basic possible
   dashboard.
-* API [endpoints](http://urbanairship.github.io/tessera/docs/api/endpoints/) and [data format](http://urbanairship.github.io/tessera/docs/api/data-format/) for accessing Tessera via the HTTP REST API
-* [Extending Tessera](http://urbanairship.github.io/tessera/docs/development/extension/), for adding new dashboard
+* API [endpoints](http://tessera-metrics.github.io/tessera/docs/api/endpoints/) and [data format](http://tessera-metrics.github.io/tessera/docs/api/data-format/) for accessing Tessera via the HTTP REST API
+* [Extending Tessera](http://tessera-metrics.github.io/tessera/docs/development/extension/), for adding new dashboard
   items, transformations, and actions.
 
-Some additional writeup of why Tessera exists can found on the UA blog - [Introducing Tessera, a Graphite Frontend](http://urbanairship.com/blog/2014/06/30/introducing-tessera-a-graphite-frontend).
+Some additional writeup of why Tessera exists can found on the UA blog - [Introducing Tessera, a Graphite Frontend](http://tessera-metrics.com/blog/2014/06/30/introducing-tessera-a-graphite-frontend).
 
 ![screenshot](docs/screenshots/color-themes-small.png)
 
