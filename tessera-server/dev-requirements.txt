@@ -1,4 +1,4 @@
-invoke==0.8.2
-invocations==0.6.1
+invoke==0.14.0
+invocations==0.13.0
 spec==0.11.1
 nose==1.3.0

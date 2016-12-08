@@ -2,12 +2,12 @@ import glob
 import logging
 import os
 import sys
-from urlparse import urljoin
+from six.moves.urllib.parse import urljoin
 
 import requests
 from requests.exceptions import ConnectionError
 
-from invoke import ctask as task, Collection
+from invoke import task, Collection
 from invocations.testing import test
 
 from tessera import app, db, config

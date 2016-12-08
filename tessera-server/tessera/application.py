@@ -34,8 +34,8 @@ db      = SQLAlchemy(app)
 migrate = Migrate(app, db)
 config  = app.config
 
-from views_api import api
-from views_ui import ui
+from .views_api import api
+from .views_ui import ui
 
 app.register_blueprint(api, url_prefix='/api')
 app.register_blueprint(ui)
