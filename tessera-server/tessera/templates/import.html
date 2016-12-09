@@ -118,9 +118,9 @@ $(document).on('change', '#ds-import-filepicker', function(e) {
      var reader = new FileReader()
      reader.onload = function(e) {
        try {
-         ts.manager.create(e.target.result, function(data) {
+         ts.manager.create(e.target.result, function(rsp) {
            ts.manager.success('Imported succeeded')
-           window.location = data.view_href
+           window.location = rsp.data.view_href
          })
        } catch (e) {
          ts.manager.error(e.message)
