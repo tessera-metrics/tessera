@@ -44,8 +44,8 @@ $(document).on('click', '#ds-new-dashboard-create', function(e) {
     tags: tags,
     definition: make('dashboard_definition')
   })
-  manager.create(dashboard, function(data) {
-    window.location = data.view_href
+  manager.create(dashboard, function(rsp) {
+    window.location = rsp.data.view_href
   })
 })
 
