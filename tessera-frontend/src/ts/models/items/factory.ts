@@ -135,6 +135,10 @@ export function register_dashboard_item(item_class: DashboardItemConstructor) {
 
   metadata.set(meta.item_type, meta)
   constructors.set(meta.item_type, item_class)
+  if (meta.alias) {
+    metadata.set(meta.alias, meta)
+    constructors.set(meta.alias, item_class)
+  }
 
   log.debug(`registered ${meta.item_type}`)
 }

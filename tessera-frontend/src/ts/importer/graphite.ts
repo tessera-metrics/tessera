@@ -38,7 +38,7 @@ function translate(gdash: any, opt : any = {}) : models.Dashboard {
       })
       definition.add_query(query)
 
-      let presentation = new models.StackedAreaChart({
+      let presentation = new models.StandardTimeSeries({
         query: query,
         title: options.title,
         stack_mode: is_stacked ? charts.StackMode.NORMAL : charts.StackMode.NONE,

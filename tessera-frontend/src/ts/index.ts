@@ -70,7 +70,6 @@ window.ts.init = function() {
   register_dashboard_item(items.DiscreteBarChart)
   register_dashboard_item(items.SimpleTimeSeries)
   register_dashboard_item(items.StandardTimeSeries)
-  register_dashboard_item(items.StackedAreaChart)
   register_dashboard_item(items.Singlegraph)
   register_dashboard_item(items.SinglegraphGrid)
 

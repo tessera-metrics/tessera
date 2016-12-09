@@ -81,6 +81,7 @@ export interface DashboardItemConstructor {
 
 export interface DashboardItemMetadata {
   item_type?: string
+  alias?: string
   requires_data?: boolean
   category?: string
   display_name?: string

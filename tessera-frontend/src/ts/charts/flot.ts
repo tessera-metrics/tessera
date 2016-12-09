@@ -1,5 +1,5 @@
 import * as charts from './core'
-import { ChartLegendType, Chart, StandardTimeSeries, StackedAreaChart, DashboardItem } from '../models/items'
+import { ChartLegendType, Chart, StandardTimeSeries, DashboardItem } from '../models/items'
 import Query from '../models/data/query'
 import { AxisScale } from '../models/axis'
 import { get_colors, get_palette } from './util'
@@ -32,15 +32,14 @@ const THREE_HOURS_MS  = 1000 * 60 * 60 * 3
 const ONE_HOUR_MS     = 1000 * 60 * 60 * 1
 
 function is_line_chart(item: Chart) : boolean {
-  return (item instanceof StandardTimeSeries)
-    || ((item instanceof StackedAreaChart)
-        && ((<StackedAreaChart>item).stack_mode === charts.StackMode.NONE))
+  return ((item instanceof StandardTimeSeries)
+        && ((<StandardTimeSeries>item).stack_mode === charts.StackMode.NONE))
 }
 
 function is_area_chart(item: Chart) : boolean {
-  return (item instanceof StackedAreaChart)
-    && ((<StackedAreaChart>item).stack_mode !== charts.StackMode.NONE)
-    && ((<StackedAreaChart>item).stack_mode !== charts.StackMode.PERCENT)
+  return (item instanceof StandardTimeSeries)
+    && ((<StandardTimeSeries>item).stack_mode !== charts.StackMode.NONE)
+    && ((<StandardTimeSeries>item).stack_mode !== charts.StackMode.PERCENT)
 }
 
 function get_default_options() {
