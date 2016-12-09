@@ -1,8 +1,10 @@
 from setuptools import setup, find_packages
 
 name = 'tessera'
+filename = '{0}/_version.py'.format(name)
 _locals = {}
-exec(compile(open(file).read(), file, 'exec'))
+with open('tessera/_version.py') as src:
+    exec(src.read(), None, _locals)
 version = _locals['__version__']
 
 setup(
