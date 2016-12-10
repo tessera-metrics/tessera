@@ -2,6 +2,7 @@
 tessera-frontend/src/ts/extensions/t
 tessera-frontend/_build/
 tessera-server/tessera/static/
+tessera-server/dist
 
 # Miscellany
 .DS_Store
