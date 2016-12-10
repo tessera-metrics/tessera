@@ -40,7 +40,7 @@
       }
     ], 
     "item_type": "dashboard_definition", 
-    "href": "/api/dashboard/13/definition", 
+    "href": "/api/dashboard/1/definition", 
     "queries": {
       "query1": {
         "name": "query1", 
@@ -54,19 +54,19 @@
       "from": "-3h"
     }
   }, 
-  "view_href": "/dashboards/13/billboard", 
+  "view_href": "/dashboards/1/billboard", 
   "description": "", 
   "tags": [
     {
       "count": 1, 
-      "id": 6, 
+      "id": 1, 
       "name": "featured-billboard"
     }
   ], 
   "title": "Billboard", 
   "summary": "", 
-  "definition_href": "/api/dashboard/13/definition", 
-  "href": "/api/dashboard/13", 
-  "id": 13, 
+  "definition_href": "/api/dashboard/1/definition", 
+  "href": "/api/dashboard/1", 
+  "id": 1, 
   "imported_from": null
 }

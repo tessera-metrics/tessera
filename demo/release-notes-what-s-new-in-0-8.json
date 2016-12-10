@@ -1,500 +1,494 @@
 {
-  "id": 9,
-  "title": "What's new in 0.8?",
-  "category": "Release Notes",
-  "summary": "",
-  "description": null,
-  "creation_date": "2016-04-03T23:18:48.993513Z",
-  "last_modified_date": "2016-04-04T06:50:03.048342Z",
-  "imported_from": null,
-  "tags": [
-    {
-      "id": 2,
-      "name": "featured",
-      "count": 6
-    },
-    {
-      "id": 4,
-      "name": "release-notes",
-      "count": 4
-    }
-  ],
+  "category": "Release Notes", 
   "definition": {
-    "options": {
-      "from": "-3h"
-    },
-    "item_type": "dashboard_definition",
-    "item_id": "d3",
     "items": [
       {
-        "title": "Dashboard Enhancements",
-        "item_type": "section",
-        "item_id": "d14",
+        "layout": "fixed", 
+        "level": "2", 
         "items": [
           {
-            "item_type": "row",
-            "item_id": "d25",
+            "item_id": "d25", 
+            "item_type": "row", 
             "items": [
               {
-                "item_type": "cell",
-                "item_id": "d26",
+                "item_id": "d26", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": [
                   {
-                    "item_type": "markdown",
-                    "item_id": "d27",
-                    "text": "### Table Legends\n\nThe placeholder `table` legend type is a placeholder no more. Selecting `table` as the legend type for any chart will render a summation table as the legend. ",
-                    "raw": false
+                    "item_id": "d27", 
+                    "item_type": "markdown", 
+                    "text": "### Table Legends\n\nThe placeholder `table` legend type is a placeholder no more. Selecting `table` as the legend type for any chart will render a summation table as the legend. "
                   }
-                ],
-                "span": 3,
-                "offset": "1"
-              },
+                ]
+              }, 
               {
-                "item_type": "cell",
-                "item_id": "d28",
+                "item_id": "d28", 
+                "item_type": "cell", 
+                "span": 7, 
                 "items": [
                   {
-                    "title": "Table Legend",
+                    "title": "Table Legend", 
+                    "stack_mode": "stack", 
+                    "height": 2, 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d30", 
+                    "query": "group", 
                     "options": {
-                      "palette": "d3category20",
                       "y1": {
                         "scale": "linear"
-                      }
-                    },
-                    "item_type": "stacked_area_chart",
-                    "item_id": "d30",
-                    "height": 2,
-                    "query": "group",
-                    "legend": "table",
-                    "hide_zero_series": false,
-                    "stack_mode": "stack"
+                      }, 
+                      "palette": "d3category20"
+                    }, 
+                    "legend": "table", 
+                    "interactive": true
                   }
-                ],
-                "span": 7
+                ]
               }
             ]
-          },
+          }, 
           {
-            "item_type": "row",
-            "item_id": "d53",
+            "item_id": "d53", 
+            "item_type": "row", 
             "items": [
               {
-                "item_type": "cell",
-                "item_id": "d54",
+                "item_id": "d54", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": [
                   {
-                    "item_type": "markdown",
-                    "item_id": "d55",
-                    "text": "\n### More Interactivity\n\nThe interactive renderer now has additional interactive\nfeatures. For line and area charts with legends, mousing over the\nlegend will now highlight the corresponding series on the chart.\n\nFor the stacked area chart type, there are also new actions to\ndynamically switch the stack mode to none, stacked, stream, or\npercent mode.",
-                    "raw": false
+                    "item_id": "d55", 
+                    "item_type": "markdown", 
+                    "text": "\n### More Interactivity\n\nThe interactive renderer now has additional interactive\nfeatures. For line and area charts with legends, mousing over the\nlegend will now highlight the corresponding series on the chart.\n\nFor the stacked area chart type, there are also new actions to\ndynamically switch the stack mode to none, stacked, stream, or\npercent mode."
                   }
-                ],
-                "span": 3,
-                "offset": "1"
-              },
+                ]
+              }, 
               {
-                "item_type": "cell",
-                "item_id": "d56",
+                "item_id": "d56", 
+                "item_type": "cell", 
+                "span": 7, 
                 "items": [
                   {
+                    "stack_mode": "none", 
+                    "height": 2, 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "renderer": "flot", 
+                    "item_id": "d57", 
+                    "query": "group2", 
                     "options": {
-                      "palette": "d3category20",
                       "y1": {
                         "scale": "linear"
-                      }
-                    },
-                    "item_type": "stacked_area_chart",
-                    "item_id": "d57",
-                    "height": 2,
-                    "query": "group2",
-                    "legend": "simple",
-                    "hide_zero_series": false,
-                    "renderer": "flot",
-                    "stack_mode": "none"
+                      }, 
+                      "palette": "d3category20"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
                   }
-                ],
-                "span": 7
+                ]
               }
             ]
-          },
+          }, 
           {
-            "item_type": "row",
-            "item_id": "d29",
+            "item_id": "d29", 
+            "item_type": "row", 
             "items": [
               {
-                "item_type": "cell",
-                "item_id": "d31",
+                "item_id": "d31", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": [
                   {
-                    "item_type": "markdown",
-                    "item_id": "d32",
-                    "text": "### Logarithmic Y-Axis\n\nThe Y-axis of time series charts can now be set to a logarithmic scale. ",
-                    "raw": false
+                    "item_id": "d32", 
+                    "item_type": "markdown", 
+                    "text": "### Logarithmic Y-Axis\n\nThe Y-axis of time series charts can now be set to a logarithmic scale. "
                   }
-                ],
-                "span": 3,
-                "offset": "1"
-              },
+                ]
+              }, 
               {
-                "item_type": "cell",
-                "item_id": "d33",
+                "item_id": "d33", 
+                "item_type": "cell", 
+                "span": 7, 
                 "items": [
                   {
-                    "item_type": "heading",
-                    "item_id": "d41",
-                    "text": "Flot",
-                    "level": "3"
-                  },
+                    "item_id": "d41", 
+                    "item_type": "heading", 
+                    "level": "3", 
+                    "text": "Flot"
+                  }, 
                   {
-                    "item_type": "row",
-                    "item_id": "d34",
+                    "item_id": "d34", 
+                    "item_type": "row", 
                     "items": [
                       {
-                        "item_type": "cell",
-                        "item_id": "d37",
+                        "item_id": "d37", 
+                        "item_type": "cell", 
+                        "span": 6, 
                         "items": [
                           {
-                            "title": "Log",
+                            "title": "Log", 
+                            "stack_mode": "stack", 
+                            "height": 3, 
+                            "item_type": "stacked_area_chart", 
+                            "hide_zero_series": false, 
+                            "renderer": "flot", 
+                            "item_id": "d38", 
+                            "query": "log", 
                             "options": {
-                              "palette": "d3category20",
                               "y1": {
                                 "scale": "log"
-                              }
-                            },
-                            "item_type": "stacked_area_chart",
-                            "item_id": "d38",
-                            "height": 3,
-                            "query": "log",
-                            "legend": "none",
-                            "hide_zero_series": false,
-                            "renderer": "flot",
-                            "stack_mode": "stack"
+                              }, 
+                              "palette": "d3category20"
+                            }, 
+                            "legend": "none", 
+                            "interactive": true
                           }
-                        ],
-                        "span": 6
-                      },
+                        ]
+                      }, 
                       {
-                        "item_type": "cell",
-                        "item_id": "d39",
+                        "item_id": "d39", 
+                        "item_type": "cell", 
+                        "span": 6, 
                         "items": [
                           {
-                            "title": "Linear",
+                            "title": "Linear", 
+                            "stack_mode": "stack", 
+                            "height": 3, 
+                            "item_type": "stacked_area_chart", 
+                            "hide_zero_series": false, 
+                            "renderer": "flot", 
+                            "item_id": "d40", 
+                            "query": "log", 
                             "options": {
                               "palette": "d3category20"
-                            },
-                            "item_type": "stacked_area_chart",
-                            "item_id": "d40",
-                            "height": 3,
-                            "query": "log",
-                            "legend": "none",
-                            "hide_zero_series": false,
-                            "renderer": "flot",
-                            "stack_mode": "stack"
+                            }, 
+                            "legend": "none", 
+                            "interactive": true
                           }
-                        ],
-                        "span": 6
+                        ]
                       }
                     ]
-                  },
+                  }, 
                   {
-                    "item_type": "heading",
-                    "item_id": "d49",
-                    "text": "Graphite",
-                    "level": "3"
-                  },
+                    "item_id": "d49", 
+                    "item_type": "heading", 
+                    "level": "3", 
+                    "text": "Graphite"
+                  }, 
                   {
-                    "item_type": "row",
-                    "item_id": "d42",
+                    "item_id": "d42", 
+                    "item_type": "row", 
                     "items": [
                       {
-                        "item_type": "cell",
-                        "item_id": "d45",
+                        "item_id": "d45", 
+                        "item_type": "cell", 
+                        "span": 6, 
                         "items": [
                           {
-                            "title": "Log",
+                            "title": "Log", 
+                            "stack_mode": "stack", 
+                            "height": 3, 
+                            "item_type": "stacked_area_chart", 
+                            "hide_zero_series": false, 
+                            "renderer": "graphite", 
+                            "item_id": "d46", 
+                            "query": "log", 
                             "options": {
-                              "palette": "d3category20",
                               "y1": {
                                 "scale": "log"
-                              }
-                            },
-                            "item_type": "stacked_area_chart",
-                            "item_id": "d46",
-                            "height": 3,
-                            "query": "log",
-                            "legend": "none",
-                            "hide_zero_series": false,
-                            "renderer": "graphite",
-                            "stack_mode": "stack"
+                              }, 
+                              "palette": "d3category20"
+                            }, 
+                            "legend": "none", 
+                            "interactive": true
                           }
-                        ],
-                        "span": 6
-                      },
+                        ]
+                      }, 
                       {
-                        "item_type": "cell",
-                        "item_id": "d47",
+                        "item_id": "d47", 
+                        "item_type": "cell", 
+                        "span": 6, 
                         "items": [
                           {
-                            "title": "Linear",
+                            "title": "Linear", 
+                            "stack_mode": "stack", 
+                            "height": 3, 
+                            "item_type": "stacked_area_chart", 
+                            "hide_zero_series": false, 
+                            "renderer": "graphite", 
+                            "item_id": "d48", 
+                            "query": "log", 
                             "options": {
                               "palette": "d3category20"
-                            },
-                            "item_type": "stacked_area_chart",
-                            "item_id": "d48",
-                            "height": 3,
-                            "query": "log",
-                            "legend": "none",
-                            "hide_zero_series": false,
-                            "renderer": "graphite",
-                            "stack_mode": "stack"
+                            }, 
+                            "legend": "none", 
+                            "interactive": true
                           }
-                        ],
-                        "span": 6
+                        ]
                       }
                     ]
                   }
-                ],
-                "span": 7
+                ]
               }
             ]
-          },
+          }, 
           {
-            "item_type": "row",
-            "item_id": "d15",
+            "item_id": "d15", 
+            "item_type": "row", 
             "items": [
               {
-                "item_type": "cell",
-                "item_id": "d16",
+                "item_id": "d16", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": [
                   {
-                    "item_type": "markdown",
-                    "item_id": "d75",
-                    "text": "### Sparktables\n\nNot actually a new dashboard item, the Summation Table gets\nseveral new options that expand its utility greatly - the ability\nto choose which columns are visible, and an optional sparkline\ncolumn.\n\nSummation Tables can now also set a title. \n",
-                    "raw": false
+                    "item_id": "d75", 
+                    "item_type": "markdown", 
+                    "text": "### Sparktables\n\nNot actually a new dashboard item, the Summation Table gets\nseveral new options that expand its utility greatly - the ability\nto choose which columns are visible, and an optional sparkline\ncolumn.\n\nSummation Tables can now also set a title. \n"
                   }
-                ],
-                "span": 3,
-                "offset": "1"
-              },
+                ]
+              }, 
               {
-                "item_type": "cell",
-                "item_id": "d17",
+                "item_id": "d17", 
+                "item_type": "cell", 
+                "span": 7, 
                 "items": [
                   {
-                    "title": "Monochrome",
-                    "item_type": "summation_table",
-                    "item_id": "d63",
-                    "query": "group",
-                    "striped": false,
-                    "sortable": false,
-                    "format": ",.3s",
-                    "show_color": false,
-                    "show_min": true,
-                    "show_max": true,
-                    "show_mean": true,
-                    "show_median": true,
-                    "show_sum": true,
-                    "show_current": true,
-                    "show_sparkline": true
-                  },
+                    "sortable": false, 
+                    "show_median": true, 
+                    "show_min": true, 
+                    "title": "Monochrome", 
+                    "show_mean": true, 
+                    "show_current": true, 
+                    "item_type": "summation_table", 
+                    "show_sparkline": true, 
+                    "show_max": true, 
+                    "show_sum": true, 
+                    "item_id": "d63", 
+                    "query": "group", 
+                    "striped": false, 
+                    "show_color": false, 
+                    "format": ",.3s"
+                  }, 
                   {
-                    "title": "With color palette",
-                    "item_type": "summation_table",
-                    "item_id": "d64",
-                    "query": "group_12",
-                    "striped": false,
-                    "sortable": false,
-                    "format": ",.3s",
-                    "show_color": true,
-                    "show_min": false,
-                    "show_max": true,
-                    "show_mean": true,
-                    "show_median": true,
-                    "show_sum": false,
-                    "show_current": false,
-                    "show_sparkline": true
+                    "sortable": false, 
+                    "show_median": true, 
+                    "show_min": false, 
+                    "title": "With color palette", 
+                    "show_mean": true, 
+                    "show_current": false, 
+                    "item_type": "summation_table", 
+                    "show_sparkline": true, 
+                    "show_max": true, 
+                    "show_sum": false, 
+                    "item_id": "d64", 
+                    "query": "group_12", 
+                    "striped": false, 
+                    "show_color": true, 
+                    "format": ",.3s"
                   }
-                ],
-                "span": 7
+                ]
               }
             ]
-          },
+          }, 
           {
-            "item_type": "row",
-            "item_id": "d58",
+            "item_id": "d58", 
+            "item_type": "row", 
             "items": [
               {
-                "item_type": "cell",
-                "item_id": "d59",
+                "item_id": "d59", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": [
                   {
-                    "item_type": "markdown",
-                    "item_id": "d60",
-                    "text": "### Resizing",
-                    "raw": false
+                    "item_id": "d60", 
+                    "item_type": "markdown", 
+                    "text": "### Resizing"
                   }
-                ],
-                "span": 3,
-                "offset": "1"
-              },
+                ]
+              }, 
               {
-                "item_type": "cell",
-                "item_id": "d61",
+                "item_id": "d61", 
+                "item_type": "cell", 
+                "span": 6, 
                 "items": [
                   {
-                    "item_type": "markdown",
-                    "item_id": "d62",
-                    "text": "The flot resize plugin, `jquery.flot.resize.js` is now included, so dynamic charts will automatically redraw if the browser window is resized, or when resizing cells while editing.",
-                    "raw": false
+                    "item_id": "d62", 
+                    "item_type": "markdown", 
+                    "text": "The flot resize plugin, `jquery.flot.resize.js` is now included, so dynamic charts will automatically redraw if the browser window is resized, or when resizing cells while editing."
                   }
-                ],
-                "span": 6
+                ]
               }
             ]
-          },
+          }, 
           {
-            "item_type": "row",
-            "item_id": "d19",
+            "item_id": "d19", 
+            "item_type": "row", 
             "items": [
               {
-                "item_type": "cell",
-                "item_id": "d20",
+                "item_id": "d20", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": [
                   {
-                    "item_type": "markdown",
-                    "item_id": "d21",
-                    "text": "### Embedding",
-                    "raw": false
+                    "item_id": "d21", 
+                    "item_type": "markdown", 
+                    "text": "### Embedding"
                   }
-                ],
-                "span": 3,
-                "offset": "1"
-              },
+                ]
+              }, 
               {
-                "item_type": "cell",
-                "item_id": "d22",
+                "item_id": "d22", 
+                "item_type": "cell", 
+                "span": 6, 
                 "items": [
                   {
-                    "item_type": "markdown",
-                    "item_id": "d24",
-                    "text": "There's a new UI endpoint which renders dashboards with none of\nthe navigation UI chrome (not even the dashboard title) - it's\nintended for embedding small dashboards in other sites via the\nuse of an `iframe`. \n\nThe new endpoint is `/dashboards/<id>/<slug>/embed`. I.e. just\ntake an existing dashboard URL and add `/embed` to the end of\nit. It accepts all the same query parameters as the regular\nendpoint, so it can be used with templatized dashboards, you can\nspecify the time range, or the color theme, etc...\n\n* [Try it out]({{path}}/embed)\n",
-                    "raw": false
+                    "item_id": "d24", 
+                    "item_type": "markdown", 
+                    "text": "There's a new UI endpoint which renders dashboards with none of\nthe navigation UI chrome (not even the dashboard title) - it's\nintended for embedding small dashboards in other sites via the\nuse of an `iframe`. \n\nThe new endpoint is `/dashboards/<id>/<slug>/embed`. I.e. just\ntake an existing dashboard URL and add `/embed` to the end of\nit. It accepts all the same query parameters as the regular\nendpoint, so it can be used with templatized dashboards, you can\nspecify the time range, or the color theme, etc...\n\n* [Try it out]({{path}}/embed)\n"
                   }
-                ],
-                "span": 6
+                ]
               }
             ]
-          },
+          }, 
           {
-            "item_type": "row",
-            "item_id": "d43",
+            "item_id": "d43", 
+            "item_type": "row", 
             "items": [
               {
-                "item_type": "cell",
-                "item_id": "d44",
+                "item_id": "d44", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": [
                   {
-                    "item_type": "markdown",
-                    "item_id": "d50",
-                    "text": "### Bug Fixes",
-                    "raw": false
+                    "item_id": "d50", 
+                    "item_type": "markdown", 
+                    "text": "### Bug Fixes"
                   }
-                ],
-                "span": 3,
-                "offset": "1"
-              },
+                ]
+              }, 
               {
-                "item_type": "cell",
-                "item_id": "d51",
+                "item_id": "d51", 
+                "item_type": "cell", 
+                "span": 6, 
                 "items": [
                   {
-                    "item_type": "markdown",
-                    "item_id": "d52",
-                    "text": "\n* Sessions are now persistent, so preferences will survive a browser restart. \n* Auto-refresh now reloads static PNG images\n* Legends are now rendered consistently between both renderers, which makes the graph sizes consistent between flot and graphite. \n* See the [full list of closed issues](https://github.com/urbanairship/tessera/issues?q=milestone%3A%22Release+0.8%22+is%3Aclosed)",
-                    "raw": false
+                    "item_id": "d52", 
+                    "item_type": "markdown", 
+                    "text": "\n* Sessions are now persistent, so preferences will survive a browser restart. \n* Auto-refresh now reloads static PNG images\n* Legends are now rendered consistently between both renderers, which makes the graph sizes consistent between flot and graphite. \n* See the [full list of closed issues](https://github.com/urbanairship/tessera/issues?q=milestone%3A%22Release+0.8%22+is%3Aclosed)"
                   }
-                ],
-                "span": 6
+                ]
               }
             ]
           }
-        ],
-        "level": "2",
-        "horizontal_rule": true,
-        "layout": "fixed"
-      },
+        ], 
+        "title": "Dashboard Enhancements", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d14"
+      }, 
       {
-        "title": "API Enhancements",
-        "item_type": "section",
-        "item_id": "d9",
+        "layout": "fixed", 
+        "level": "2", 
         "items": [
           {
-            "item_type": "row",
-            "item_id": "d10",
+            "item_id": "d10", 
+            "item_type": "row", 
             "items": [
               {
-                "item_type": "cell",
-                "item_id": "d11",
+                "item_id": "d11", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
                 "items": [
                   {
-                    "item_type": "markdown",
-                    "item_id": "d12",
-                    "text": "### CORS",
-                    "raw": false
+                    "item_id": "d12", 
+                    "item_type": "markdown", 
+                    "text": "### CORS"
                   }
-                ],
-                "span": 3,
-                "offset": "1"
-              },
+                ]
+              }, 
               {
-                "item_type": "cell",
-                "item_id": "d13",
+                "item_id": "d13", 
+                "item_type": "cell", 
+                "span": 7, 
                 "items": [
                   {
-                    "item_type": "markdown",
-                    "item_id": "d18",
-                    "text": "The API now supports [Cross Origin Resource Sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing), which enables the Tessera API to be called from other browser-based tooling, opening up integration possibilities. ",
-                    "raw": false
+                    "item_id": "d18", 
+                    "item_type": "markdown", 
+                    "text": "The API now supports [Cross Origin Resource Sharing](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing), which enables the Tessera API to be called from other browser-based tooling, opening up integration possibilities. "
                   }
-                ],
-                "span": 7
+                ]
               }
             ]
           }
-        ],
-        "level": "2",
-        "horizontal_rule": true,
-        "layout": "fixed"
+        ], 
+        "title": "API Enhancements", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d9"
       }
-    ],
+    ], 
+    "item_type": "dashboard_definition", 
+    "href": "/api/dashboard/8/definition", 
     "queries": {
-      "group": {
-        "name": "group",
-        "targets": [
-          "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
-        ]
-      },
-      "group2": {
-        "name": "group2",
-        "targets": [
-          "group(\nabsolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")), absolute(randomWalkFunction(\"series3\")), absolute(randomWalkFunction(\"series3\")), absolute(randomWalkFunction(\"series3\")), absolute(randomWalkFunction(\"series3\")), absolute(randomWalkFunction(\"series3\"))\n)"
-        ]
-      },
-      "group_12": {
-        "name": "group_12",
-        "targets": [
-          "group(\n                  randomWalkFunction(\"series1\"),\n                  randomWalkFunction(\"series2\"),\n                  randomWalkFunction(\"series4\"),\n                  randomWalkFunction(\"series5\"),\n                  randomWalkFunction(\"series6\"),\n                  randomWalkFunction(\"series7\"),\n                  randomWalkFunction(\"series8\"),\n                  randomWalkFunction(\"series9\"),\n                  randomWalkFunction(\"series10\"),\n                  randomWalkFunction(\"series11\"),\n                  randomWalkFunction(\"series12\")\n              )"
-        ]
-      },
       "log": {
-        "name": "log",
+        "name": "log", 
         "targets": [
           "offset(scale(\n    group(absolute(randomWalkFunction(\"series1\")),\n          absolute(randomWalkFunction(\"series2\")),\n          absolute(randomWalkFunction(\"series3\")))\n    , 10)\n, 1)"
         ]
+      }, 
+      "group": {
+        "name": "group", 
+        "targets": [
+          "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
+        ]
+      }, 
+      "group_12": {
+        "name": "group_12", 
+        "targets": [
+          "group(\n                  randomWalkFunction(\"series1\"),\n                  randomWalkFunction(\"series2\"),\n                  randomWalkFunction(\"series4\"),\n                  randomWalkFunction(\"series5\"),\n                  randomWalkFunction(\"series6\"),\n                  randomWalkFunction(\"series7\"),\n                  randomWalkFunction(\"series8\"),\n                  randomWalkFunction(\"series9\"),\n                  randomWalkFunction(\"series10\"),\n                  randomWalkFunction(\"series11\"),\n                  randomWalkFunction(\"series12\")\n              )"
+        ]
+      }, 
+      "group2": {
+        "name": "group2", 
+        "targets": [
+          "group(\nabsolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")), absolute(randomWalkFunction(\"series3\")), absolute(randomWalkFunction(\"series3\")), absolute(randomWalkFunction(\"series3\")), absolute(randomWalkFunction(\"series3\")), absolute(randomWalkFunction(\"series3\"))\n)"
+        ]
       }
+    }, 
+    "item_id": "d3", 
+    "options": {
+      "from": "-3h"
     }
-  },
-  "href": "/api/dashboard/9",
-  "view_href": "/dashboards/9/what-s-new-in-0-8",
-  "definition_href": "/api/dashboard/9/definition"
+  }, 
+  "view_href": "/dashboards/8/what-s-new-in-0-8", 
+  "description": null, 
+  "tags": [
+    {
+      "count": 7, 
+      "bgcolor": "green", 
+      "id": 2, 
+      "name": "featured"
+    }, 
+    {
+      "count": 4, 
+      "id": 4, 
+      "name": "release-notes"
+    }
+  ], 
+  "title": "What's new in 0.8?", 
+  "summary": "", 
+  "definition_href": "/api/dashboard/8/definition", 
+  "href": "/api/dashboard/8", 
+  "id": 8, 
+  "imported_from": null
 }

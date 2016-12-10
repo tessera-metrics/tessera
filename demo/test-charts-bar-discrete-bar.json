@@ -29,7 +29,7 @@
         ]
       }
     }, 
-    "href": "/api/dashboard/6/definition", 
+    "href": "/api/dashboard/11/definition", 
     "items": [
       {
         "layout": "fixed", 
@@ -306,24 +306,24 @@
       }
     ]
   }, 
-  "view_href": "/dashboards/6/charts-bar-discrete-bar", 
+  "view_href": "/dashboards/11/charts-bar-discrete-bar", 
   "description": "", 
   "tags": [
     {
-      "count": 6, 
-      "id": 3, 
+      "count": 8, 
+      "id": 5, 
       "name": "test"
     }, 
     {
-      "count": 4, 
-      "id": 4, 
+      "count": 5, 
+      "id": 6, 
       "name": "charts"
     }
   ], 
   "title": "Charts - Bar & Discrete Bar", 
   "summary": "", 
-  "definition_href": "/api/dashboard/6/definition", 
-  "href": "/api/dashboard/6", 
-  "id": 6, 
+  "definition_href": "/api/dashboard/11/definition", 
+  "href": "/api/dashboard/11", 
+  "id": 11, 
   "imported_from": null
 }
