@@ -3,8 +3,8 @@ title: Tessera
 email:
 description: "Tessera - a flexible dashboard front-end for Graphite."
 baseurl: /tessera
-github_username: "urbanairship/tessera"
-url: "http://urbanairship.github.io/tessera/"
+github_username: "tessera-metrics/tessera"
+url: "http://tessera-metrics.github.io/tessera/"
 
 # Build settings
 markdown: kramdown
