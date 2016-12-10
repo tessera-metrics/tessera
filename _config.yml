@@ -9,4 +9,4 @@ url: "http://tessera-metrics.github.io/tessera/"
 # Build settings
 markdown: kramdown
 permalink: pretty
-highlighter: true
+highlighter: rouge
