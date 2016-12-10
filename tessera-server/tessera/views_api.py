@@ -221,7 +221,7 @@ def dashboard_update(id):
     """Update the metadata for an existing dashboard.
 
     """
-    body = json.loads(request.data)
+    body = request.json
     dashboard = database.DashboardRecord.query.get_or_404(id)
     dashboard.merge_from_json(body)
     mgr.store_dashboard(dashboard)

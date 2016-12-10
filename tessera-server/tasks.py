@@ -17,7 +17,7 @@ from tessera.importer.json_importer import JsonImporter, JsonExporter
 from werkzeug.serving import run_simple
 
 import flask
-from flask.ext import migrate
+import flask_migrate as migrate
 
 warn = logging.WARN
 log = logging.getLogger(__name__)

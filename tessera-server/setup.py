@@ -10,11 +10,11 @@ version = _locals['__version__']
 setup(
     name=name,
     version=version,
-    description='Powerful multipurpose dashboard server',
+    description='A dashboard front end for Graphite',
     license='Apache',
 
-    author='Urban Airship',
-    url='https://github.com/urbanairship/tessera',
+    author='Adam Alpern',
+    url='https://github.com/tessera-metrics/tessera',
 
     packages=find_packages(),
     include_package_data=True, # Ensure templates, etc get pulled into sdists
@@ -42,8 +42,8 @@ setup(
         'Operating System :: MacOS :: MacOS X',
         'Operating System :: POSIX',
         'Operating System :: Unix',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python',
         'Topic :: System :: Monitoring',
         'Topic :: System :: Systems Administration',

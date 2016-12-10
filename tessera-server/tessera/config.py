@@ -35,6 +35,7 @@ DASHBOARD_APPNAME          = 'Tessera'
 # http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html
 #
 SQLALCHEMY_DATABASE_URI    = 'sqlite:///tessera.db'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 #
 # Directory for database migration scripts.
