@@ -69,7 +69,6 @@ core.properties.register([{
   category: 'base'
 }])
 
-
 export interface DashboardItemVisitor {
   (item: DashboardItem) : void
 }
@@ -168,6 +167,9 @@ export default class DashboardItem extends Model {
    */
   updated() : DashboardItem {
     core.events.fire(DashboardItem, 'update', { target: this })
+    if (this.dashboard) {
+      this.dashboard.dirty = true
+    }
     return this
   }
 

@@ -118,7 +118,7 @@ export default class DashboardDefinition extends Container {
   add_query(query) : DashboardDefinition {
     this.queries[query.name] = query
     query.options = this.options
-    return this
+    return <DashboardDefinition> this.updated()
   }
 
   /**
@@ -133,7 +133,7 @@ export default class DashboardDefinition extends Container {
       }
     })
     delete this.queries[query_name]
-    return this
+    return <DashboardDefinition> this.updated()
   }
 
   /**
@@ -155,6 +155,7 @@ export default class DashboardDefinition extends Container {
     query.name = new_name
     this.add_query(query)
     delete this.queries[old_name]
+    this.updated()
     return updated
   }
 

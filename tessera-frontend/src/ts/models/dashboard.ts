@@ -28,6 +28,7 @@ export default class Dashboard extends Model {
   expanded_description: string
   definition: DashboardDefinition
   tags: Tag[] = []
+  dirty: boolean = false
 
   _next_id: number = 0
 

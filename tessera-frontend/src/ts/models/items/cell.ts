@@ -53,10 +53,7 @@ export default class Cell extends Container {
           type: 'select',
           source: [
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
-          ],
-          update: function(item, value) {
-            item.set_span(Number(value))
-          }
+          ]
         }
       },
       {
@@ -65,10 +62,7 @@ export default class Cell extends Container {
           type: 'select',
           source: [
             { value: undefined, text: 'none' }, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
-          ],
-          update: function(item, value) {
-            item.set_offset(Number(value))
-          }
+          ]
         }
       },
       {

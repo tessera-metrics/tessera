@@ -518,6 +518,9 @@ export class Manager {
   update(dashboard, handler?) : void {
     this.client.dashboard_update(dashboard)
       .then(handler)
+      .then(() => {
+        dashboard.dirty = false
+      })
       .catch(error => {
         this.error(`Error updating dashboard ${dashboard.title}. ${error}`)
       })
@@ -531,6 +534,9 @@ Revert to standard mode in order to save changes.`)
     }
     this.client.dashboard_update_definition(dashboard)
       .then(handler)
+      .then(() => {
+        dashboard.dirty = false
+      })
       .catch(error => {
         this.error(`Error updating dashboard definition ${dashboard.title}. ${error}`)
       })
