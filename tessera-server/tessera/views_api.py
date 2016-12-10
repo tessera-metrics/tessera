@@ -7,10 +7,10 @@ from datetime import datetime
 import inflection
 from functools import wraps
 
-from flask import render_template, request, url_for
+from flask import request, url_for
 from werkzeug.exceptions import HTTPException
 
-from tessera_client.api.model import *
+from .client.api.model import *
 from . import database
 from . import helpers
 from .application import db
@@ -199,6 +199,10 @@ def dashboard_create():
 
     """
     dashboard = database.DashboardRecord.from_json(request.json)
+    if not dashboard.title:
+        return {
+            'error_message': "Missing required field 'title'"
+        }, 400
     if 'definition' in request.json:
         dashboard.definition = database.DefinitionRecord(dumps(request.json['definition']))
     else:

@@ -17,6 +17,7 @@ tscommand*
 # Node, etc...
 tessera-frontend/bower_components/
 tessera-frontend/node_modules/
+npm-debug.log
 
 # Assorted Python
 *.pyc
@@ -25,3 +26,5 @@ tessera-frontend/node_modules/
 
 # Python virtualenv dirs
 tessera-server/env
+tessera-server/env27
+tessera-server/env3

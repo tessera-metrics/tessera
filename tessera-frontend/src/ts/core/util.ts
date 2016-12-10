@@ -1,4 +1,4 @@
-declare var extend_impl
+declare var require
 
 export function json(thing: any) : any {
   if (thing.toJSON && typeof(thing.toJSON) === 'function') {
@@ -8,6 +8,4 @@ export function json(thing: any) : any {
   }
 }
 
-export function extend(...args: any[]) : any {
-  return extend_impl(...args)
-}
+export const extend = require('extend')

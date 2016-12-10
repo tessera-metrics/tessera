@@ -69,7 +69,6 @@ core.properties.register([{
   category: 'base'
 }])
 
-
 export interface DashboardItemVisitor {
   (item: DashboardItem) : void
 }
@@ -81,6 +80,7 @@ export interface DashboardItemConstructor {
 
 export interface DashboardItemMetadata {
   item_type?: string
+  alias?: string
   requires_data?: boolean
   category?: string
   display_name?: string
@@ -120,6 +120,12 @@ export default class DashboardItem extends Model {
       this.dashboard = data.dashboard
     }
   }
+
+  /**
+   * Override in sub-classes to clean up any retained resources (such
+   * as DOM references) prior to refreshing a dashboard.
+   */
+  cleanup() : void { }
 
   /* Metadata Accessors ------------------------------ */
 
@@ -161,6 +167,9 @@ export default class DashboardItem extends Model {
    */
   updated() : DashboardItem {
     core.events.fire(DashboardItem, 'update', { target: this })
+    if (this.dashboard) {
+      this.dashboard.dirty = true
+    }
     return this
   }
 
@@ -215,7 +224,7 @@ export default class DashboardItem extends Model {
 
   render() : string {
     if (!this.meta.template) {
-      return "<p>Item type <code>" + this.item_type + "</code> is missing a template.</p>"
+      return `<p>Item type <code>${this.item_type}</code> is missing a template.</p>`
     }
     return core.compile_template(this.template)({item: this})
   }

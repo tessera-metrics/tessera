@@ -1,4 +1,5 @@
 import json
+import six
 from datetime import datetime
 from .application import db
 from sqlalchemy.orm import Session
@@ -130,7 +131,7 @@ class TagRecord(db.Model):
             return tag
         elif isinstance(tag, dict):
             tag = TagRecord.from_json(tag)
-        elif isinstance(tag, basestring):
+        elif isinstance(tag, six.string_types):
             tag = TagRecord(name=tag)
         return cls.query.filter_by(name=tag.name).first() or tag
 

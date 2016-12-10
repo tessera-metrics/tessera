@@ -5,8 +5,11 @@ import * as app from '../../app/app'
 import * as charts from '../../charts/core'
 import * as graphite from '../../data/graphite'
 
-declare var URI, $, ts
+declare var $, ts, require
 const log = core.logger('query')
+
+const axios   = require('axios')
+const URI     = require('urijs')
 
 export interface QueryDictionary {
   [index: string] : Query
@@ -103,59 +106,54 @@ export default class Query extends Model {
    * server, notifying any listening consumers when the data is
    * available.
    *
-   * @param {Object} options Parameters for generating the URL to
+   * @param {Object} opt Parameters for generating the URL to
    * load. Valid properties are:
    *   * base_url (required)
    *   * from
    *   * until
-   *   * ready
+   *   * ready callback
    * @param {boolean} fire_only Just raise the event, without fetching
    *                            data.
    */
-  load(opt?: any, fire_only?: boolean) : void {
-    log.debug('load(): ' + this.name)
+  async load(opt?: any, fire_only: boolean = false) : Promise<graphite.DataSeriesList> {
     this.local_options = core.extend({}, this.local_options, opt)
     let options = core.extend({}, this.local_options, opt, this.options)
 
-    if (typeof(fire_only) === 'boolean' && fire_only) {
-      // This is a bit of a hack for optimization, to fire the query
-      // events when if we don't need the raw data because we're
-      // rendering non-interactive graphs only. Would like a more
-      // elegant way to handle the case.
-      let ready = options.ready
-      if (ready && (ready instanceof Function)) {
-        ready(this)
-      }
-
+    if (fire_only) {
       core.events.fire(this, 'ds-data-ready', this)
-    } else {
-      this.cache.clear()
-      options.format = 'json'
-      let url = this.url(options)
-      core.events.fire(this, 'ds-data-loading')
-      this.load_count += 1
-      return $.ajax({
-        dataType: 'jsonp',
-        url: url,
-        jsonp: 'jsonp',
-        cache: true,
-        beforeSend: function(xhr) {
-          if (app.config.GRAPHITE_AUTH !== '') {
-            xhr.setRequestHeader('Authorization', 'Basic ' + window.btoa(app.config.GRAPHITE_AUTH))
-          }
-        }
-      })
-        .fail((xhr, status, error) => {
-          ts.manager.error('Failed to load query ' + this.name + '. ' + error)
-        })
-        .then((response_data, textStatus) => {
-          this._summarize(response_data)
-          if (options.ready && (options.ready instanceof Function)) {
-            options.ready(this)
-          }
-          core.events.fire(this, 'ds-data-ready', this)
-        })
+      return Promise.resolve(this.data)
     }
+
+    this.cache.clear()
+    options.format = 'json'
+    let url = this.url(options)
+    this.load_count += 1
+
+    let axios_config : any = {
+      url: url,
+      method: 'get'
+    }
+
+    let auth = app.config.GRAPHITE_AUTH ? app.config.GRAPHITE_AUTH.trim() : ''
+    if (auth) {
+      let [username, password] = auth.split(':')
+      axios_config.auth = {
+        username: username,
+        password: password
+      }
+      axios_config.withCredentials = true
+    }
+
+    try {
+      core.events.fire(this, 'ds-data-loading')
+      let response = await axios(axios_config)
+      this._summarize(response.data)
+      core.events.fire(this, 'ds-data-ready', this)
+      return this.data
+    } catch (e) {
+      ts.manager.error(`Error loading query ${this.name}: ${e.message}`)
+    }
+    return Promise.resolve(this.data)
   }
 
   /**
@@ -163,7 +161,7 @@ export default class Query extends Model {
    * loaded.
    */
   on_load(handler: any) : void {
-    log.debug('on(): ' + this.name)
+    log.debug(`on(): ${this.name}`)
     core.events.on(this, 'ds-data-ready', handler)
   }
 
@@ -171,13 +169,19 @@ export default class Query extends Model {
    * Remove all registered event handlers.
    */
   off() : void {
-    log.debug('off(): ' + this.name)
+    log.debug(`off(): ${this.name}`)
     core.events.off(this, 'ds-data-ready')
+  }
+
+  cleanup() : void {
+    this.off()
+    this.cache.clear()
+    this.data = null
   }
 
   _group_targets() : string {
     return (this.targets.length > 1)
-      ? 'group(' + this.targets.join(',') + ')'
+      ? `group(${this.targets.join(',')})`
       : this.targets[0]
   }
 
@@ -187,9 +191,9 @@ export default class Query extends Model {
   shift(interval: string) {
     let group = this._group_targets()
     return new Query({
-      name: this.name + '_shift_' + interval,
+      name: `${this.name}_shift_${interval}`,
       targets: [
-        'timeShift(' + group + ', \"' + interval + '\")'
+        `timeShift(${group}, "${interval}")`
       ]
     })
   }
@@ -202,7 +206,7 @@ export default class Query extends Model {
     let target_this  = this._group_targets()
     let target_other = other._group_targets()
     return new Query({
-      name: this.name + '_join_' + other.name,
+      name: `${this.name}_join_${other.name}`,
       targets: [
         target_this,
         target_other

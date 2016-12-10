@@ -73,7 +73,7 @@ export class Registry<T extends NamedObject> {
     this.log = logger(`registry.${this.name}`)
   }
 
-  _get_data(category: string) : RegistryStorage<T> {
+  private _get_data(category: string) : RegistryStorage<T> {
     if (!this.data[category]) {
       this.data[category] = {
         list: [],

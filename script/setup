@@ -9,13 +9,15 @@ cd "$(dirname "$0")/.."
 
 script/bootstrap
 
+cd "$(dirname "$0")/.."
+
 echo "==> Compiling frontend..."
 cd tessera-frontend/
 ./node_modules/.bin/grunt
 
 echo "==> Initializing database..."
 cd ../tessera-server/
-source env/bin/activate
+. env/bin/activate
 
 # Create a fresh database
 inv db.init

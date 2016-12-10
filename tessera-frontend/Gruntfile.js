@@ -22,7 +22,10 @@ module.exports = function(grunt) {
         outDir: '_build/phase1',
         options: {
           target: 'es6',
-          comments: true
+          comments: true,
+          declaration: true,
+          sourceMap: true,
+          additionalFlags: '--moduleResolution node --noImplicitReturns --noFallthroughCasesInSwitch'
         }
       }
     },
@@ -54,7 +57,11 @@ module.exports = function(grunt) {
         },
         options: {
           transform: [
-            'babelify'
+            ['babelify', {
+              presets: [
+                'es2015', 'stage-0'
+              ]
+            }]
           ],
           browserifyOptions: {
             // debug: true
@@ -80,6 +87,29 @@ module.exports = function(grunt) {
         },
         files: {
           '_build/templates.js' : [ 'src/templates/**/*.hbs']
+        }
+      }
+    },
+
+    /**
+     * 3b - compile the SCSS source to CSS
+     */
+    sass: {
+      options: {
+        sourceMap: true
+      },
+      dist: {
+        files: {
+          '_build/css/tessera.css':                'src/css/tessera.scss',
+          '_build/css/tessera-typography.css':     'src/css/tessera-typography.scss',
+          '_build/css/themes/bootstrap-dark.css':  'src/css/themes/bootstrap-dark.scss',
+          '_build/css/themes/tessera-dark.css':    'src/css/themes/tessera-dark.scss',
+          '_build/css/themes/bootstrap-light.css': 'src/css/themes/bootstrap-light.scss',
+          '_build/css/themes/tessera-light.css':   'src/css/themes/tessera-light.scss',
+          '_build/css/themes/bootstrap-snow.css':  'src/css/themes/bootstrap-snow.scss',
+          '_build/css/themes/tessera-snow.css':     'src/css/themes/tessera-snow.scss',
+          '_build/css/themes/tessera-solarized-light.css': 'src/css/themes/tessera-solarized-light.scss',
+          '_build/css/themes/tessera-solarized-dark.css':  'src/css/themes/tessera-solarized-dark.scss'
         }
       }
     },
@@ -149,7 +179,6 @@ module.exports = function(grunt) {
     copy: {
       dep: {
         files: [
-          { expand: true, cwd: 'node_modules/bootstrap-solarized/', src: '*.css', dest: '<%= DIST %>/themes/' },
           { expand: true, cwd: 'src/3rd-Party/fonts/', src: '**', dest: '<%= DIST %>/fonts/' },
           { expand: true, cwd: 'src/3rd-Party/img/', src: '**', dest: '<%= DIST %>/img/' },
           {
@@ -162,7 +191,8 @@ module.exports = function(grunt) {
       },
       app: {
         files: [
-          { expand: true, cwd: 'src/css/', src: '**', dest: '<%= DIST %>/' }
+          { expand: true, cwd: 'node_modules/bootstrap-solarized/', src: '*.css', dest: '<%= DIST %>/themes/' },
+          { expand: true, cwd: '_build/css/', src: '**', dest: '<%= DIST %>/' }
         ]
       }
     },
@@ -198,9 +228,9 @@ module.exports = function(grunt) {
       },
       app_css: {
         files: [
-          'src/css/*.css'
+          'src/css/**/*.scss'
         ],
-        tasks: ['copy:app']
+        tasks: ['sass', 'copy:app']
       }
     }
   });
@@ -212,11 +242,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-ts');
 
   /** Compile the tessera source and templates */
   grunt.registerTask('app', [
-    'ts', 'browserify:app', 'handlebars', 'concat:app', 'copy:app'
+    'ts', 'browserify:app', 'handlebars', 'sass', 'concat:app', 'copy:app'
+  ])
+
+  grunt.registerTask('css', [
+    'sass', 'copy:app'
   ])
 
   /** Compile all third-party dependencies */

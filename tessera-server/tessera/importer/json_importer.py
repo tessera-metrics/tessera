@@ -1,8 +1,8 @@
 import json
 import logging
 import inflection
-from tessera_client.api.model import EntityEncoder
-from tessera_client.api.client import TesseraClient
+from ..client.api.model import EntityEncoder
+from ..client.api.client import TesseraClient
 
 log = logging.getLogger(__name__)
 

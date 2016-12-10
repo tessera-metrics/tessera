@@ -157,9 +157,6 @@ export default class Property implements NamedObject {
     if (options.update && (options.update instanceof Function)) {
       options.success = (ignore, newValue) => {
         options.update(item, newValue)
-        if (item.fire_update) {
-          item.fire_update()
-        }
       }
     }
 

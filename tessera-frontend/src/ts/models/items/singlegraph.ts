@@ -1,7 +1,7 @@
 import Chart from './chart'
 import Query from '../data/query'
 import { DashboardItemMetadata } from './item'
-import * as charts from '../../charts/core'
+import * as charts from '../../charts'
 import { extend } from '../../core/util'
 import { PropertyList } from '../../core/property'
 
@@ -40,15 +40,19 @@ export default class Singlegraph extends Chart {
   data_handler(query: Query) : void {
     if (!query.data)
       return
-    charts.simple_area_chart($("#" + this.item_id + ' .ds-graph-holder'), this, query)
+    let flot = <charts.FlotChartRenderer>charts.renderers.get('flot')
+    let options = {
+      colors: charts.get_palette(this.options.palette)
+    }
+    flot.sparkline(`#${this.item_id} .ds-graph-holder`, this, query, 0, options)
     this.options.margin = { top: 0, left: 0, bottom: 0, right: 0 }
     var label = query.data[this.index || 0].target
     var value = query.summation[this.transform]
     if (this.index) {
       value = query.data[this.index].summation[this.transform]
     }
-    $('#' + this.item_id + ' span.value').text(d3.format(this.format)(value))
-    $('#' + this.item_id + ' span.ds-label').text(label)
+    $(`#${this.item_id} span.value`).text(d3.format(this.format)(value))
+    $(`#${this.item_id} span.ds-label`).text(label)
   }
 
   interactive_properties(): PropertyList {

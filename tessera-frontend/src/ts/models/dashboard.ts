@@ -28,6 +28,7 @@ export default class Dashboard extends Model {
   expanded_description: string
   definition: DashboardDefinition
   tags: Tag[] = []
+  dirty: boolean = false
 
   _next_id: number = 0
 
@@ -57,6 +58,9 @@ export default class Dashboard extends Model {
       })
       this.next_id()
       this.update_index()
+    }
+    if (!this.title) {
+      throw new Error("Missing required field 'title'")
     }
   }
 
@@ -104,7 +108,7 @@ export default class Dashboard extends Model {
           item.item_id = this.next_id()
         }
         if (index[item.item_id]) {
-          log.error('ERROR: item_id + ' + item.item_id + ' is already indexed.')
+          log.error(`ERROR: item_id ${item.item_id} is already indexed.`)
         }
         index[item.item_id] = item
         item.set_dashboard(this)
@@ -142,9 +146,8 @@ export default class Dashboard extends Model {
     return this.definition.render()
   }
 
-  load_all(options?: any) {
-    this.definition.load_all(options)
-    return self
+  async load_all(options?: any) : Promise<any> {
+    return this.definition.load_all(options)
   }
 
   cleanup() {

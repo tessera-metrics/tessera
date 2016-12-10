@@ -4,8 +4,9 @@ import DashboardItem, {
 } from './item'
 import * as core from '../../core'
 
-declare var inflection, Handlebars, ts
+declare var require, Handlebars, ts
 
+const inflection = require('inflection')
 const log = core.logger('models.factory')
 
 var constructors = new Map<string, DashboardItemConstructor>()
@@ -115,12 +116,12 @@ export function register_dashboard_item(item_class: DashboardItemConstructor) {
   // item type in the editor UI
   //
 
-  let category = meta.category ? 'new-item-' + meta.category : 'new-item'
+  let category = meta.category ? `new-item-${meta.category}` : 'new-item'
 
   core.actions.register({
     name:      meta.item_type,
     category:  category,
-    display:   'Add new ' + (meta.display_name || meta.item_type),
+    display:   `Add new ${(meta.display_name || meta.item_type)}`,
     icon:      meta.icon || '',
     css:       'new-item',
     handler:  (action, container) => {
@@ -134,11 +135,15 @@ export function register_dashboard_item(item_class: DashboardItemConstructor) {
 
   metadata.set(meta.item_type, meta)
   constructors.set(meta.item_type, item_class)
+  if (meta.alias) {
+    metadata.set(meta.alias, meta)
+    constructors.set(meta.alias, item_class)
+  }
 
   log.debug(`registered ${meta.item_type}`)
 }
 
-export function make(data: any, init?: any) {
+export function make(data: any, init?: any) : any {
 
   if (data instanceof DashboardItem) {
     return data
@@ -152,7 +157,7 @@ export function make(data: any, init?: any) {
     return new (constructors.get(data.item_type))(data)
   }
 
-  log.error('Unknown item type ' + JSON.stringify(data))
+  log.error(`Unknown item type ${JSON.stringify(data)}`)
 
   return null
 }

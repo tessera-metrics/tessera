@@ -326,14 +326,8 @@
   "tags": [
     {
       "count": 4, 
-      "bgcolor": "green", 
-      "id": 3, 
-      "name": "featured"
-    }, 
-    {
-      "count": 4, 
       "bgcolor": "#ddd", 
-      "id": 4, 
+      "id": 3, 
       "fgcolor": "#333", 
       "name": "demo"
     }

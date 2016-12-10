@@ -15,23 +15,24 @@
 
 
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-12">
 
-      <div class="">
-        <br/>
-        <br/>
+      <br/>
+      <br/>
 
       <form class="form-horizontal">
         <fieldset>
-
           <div class="form-group">
-            <label class="col-md-4 control-label" for="selectTimeZone">Import from local .json file</label>
-            <div class="col-md-6">
+            <label class="col-md-3 control-label" for="selectTimeZone">Import from local .json file</label>
+            <div class="col-md-4">
               <input type="file" id="ds-import-filepicker">
               <button class="btn btn-default"
                       id="ds-import-filepicker-button">
                 <i class="fa fa-file-text-o"> </i> Choose File...
-              </button>
+              </button><br/>
+              <div id="ds-import-filename"></div>
+            </div>
+            <div class="col-md-2">
               <button class="btn btn-default"
                       id="ds-import-from-file-button"
                       data-toggle="tooltip"
@@ -39,17 +40,40 @@
                       title="Import from Selected File">
                 <i class="fa fa-upload"></i> Import
               </button>
-              <div id="ds-import-filename"></div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
+              <p class="help-block">Import a Tessera dashboard definition from a .JSON file. Only dashboards previously exported by Tessera can be imported here. </p>
             </div>
-            <p class="help-block">Import a Tessera dashboard definition from a .JSON file.</p>
           </div>
-
         </fieldset>
       </form>
 
-      </div>
+      <form class="form-horizontal">
+        <fieldset>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="selectTimeZone">Import from a Graphite dashboard</label>
+            <div class="col-md-4">
+              <input class="form-control" type="url" id="ds-import-graphite-url">
+              <br/>
+              <div id="ds-import-from-graphite-url-status"></div>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-default"
+                      id="ds-import-from-graphite-url-button"
+                      data-toggle="tooltip"
+                      disabled="disabled"
+                      title="Import from URL">
+                <i class="fa fa-upload"></i> Import
+              </button>
+            </div>
+            <div class="col-md-3">
+              <p class="help-block">Import a Graphite dashboard definition from a URL.</p>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
+
     </div>
   </div>
 
@@ -69,6 +93,9 @@
 </style>
 
 <script>
+ "use strict";
+
+ // JSON file importer
  $(document).on('click', '#ds-import-filepicker-button', function(e) {
    $('#ds-import-filepicker').click()
    e.preventDefault()
@@ -90,15 +117,48 @@ $(document).on('change', '#ds-import-filepicker', function(e) {
      var file = file_list[0]
      var reader = new FileReader()
      reader.onload = function(e) {
-       ts.manager.create(e.target.result, function(data) {
-         ts.manager.success('Imported succeeded')
-         window.location = data.view_href
-       })
+       try {
+         ts.manager.create(e.target.result, function(rsp) {
+           ts.manager.success('Imported succeeded')
+           window.location = rsp.data.view_href
+         })
+       } catch (e) {
+         ts.manager.error(e.message)
+       }
      }
      reader.readAsText(file)
    }
    return false
  })
+
+ /*
+  * Handler to validate the graphite dashboard URL.
+  */
+ $(document).on('change', '#ds-import-graphite-url', function(e) {
+   var status = $('#ds-import-from-graphite-url-status')
+   status.empty()
+
+   var url = $('#ds-import-graphite-url')[0].value
+   var api_url = ts.importer.graphite.get_api_url(url)
+
+   $.get(api_url).done(function() {
+     status.append('<i class="fa fa-lg fa-check-circle text-success"></i>')
+     $('#ds-import-from-graphite-url-button').removeAttr('disabled')
+   }).fail(function() {
+     ts.manager.error('Unable to retrieve ' + url)
+   })
+ })
+
+ $(document).on('click', '#ds-import-from-graphite-url-button', function(e) {
+   var url = $('#ds-import-graphite-url')[0].value
+   ts.importer.graphite.import_dashboard(url)
+                       .then(function(response) {
+                         ts.manager.success('Imported succeeded')
+                         window.location = response.view_href
+                       })
+   return false
+ })
+
 </script>
 
 {% endblock %}

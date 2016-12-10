@@ -1,30 +1,31 @@
 export {
   default as Chart
-} from './models/items/chart'
+} from '../models/items/chart'
 
 export {
   ChartRenderer, get_renderer, set_renderer, renderers,
   StackMode,
   simple_line_chart, standard_line_chart, simple_area_chart, stacked_area_chart,
-  donut_chart, bar_chart, discrete_bar_chart, process_series, process_data
-} from './charts/core'
+  donut_chart, bar_chart, discrete_bar_chart, process_series, process_data,
+  cleanup
+} from './core'
 
 export {
   default as FlotChartRenderer
-} from './charts/flot'
+} from './flot'
 
 export {
   composer_url, chart_url, default as GraphiteChartRenderer
-} from './charts/graphite'
+} from './graphite'
 
 export {
   default as PlaceholderChartRenderer
-} from './charts/placeholder'
+} from './placeholder'
 
 export {
   default as palettes
-} from './charts/palettes'
+} from './palettes'
 
 export {
   get_palette, get_low_contrast_palette
-} from './charts/util'
+} from './util'

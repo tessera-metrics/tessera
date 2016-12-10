@@ -98,6 +98,7 @@ export function edit_queries() : void {
       success: function(ignore, newValue) {
         let target = newValue.trim()
         let query = manager.current.dashboard.definition.queries[query_name]
+        manager.current.dashboard.definition.updated()
         query.targets = [target]
         query.render_templates(app.context().variables)
         query.load()

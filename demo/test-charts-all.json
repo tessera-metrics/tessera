@@ -1,8 +1,907 @@
 {
   "category": "Test", 
   "definition": {
-    "item_id": "d1", 
+    "items": [
+      {
+        "layout": "fixed", 
+        "level": "2", 
+        "items": [
+          {
+            "item_id": "d3", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d4", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "title": "simple_time_series", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "hide_zero_series": false, 
+                    "show_max_value": false, 
+                    "show_min_value": false, 
+                    "show_last_value": false, 
+                    "item_id": "d6", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d7", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "title": "simple_time_series (filled)", 
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "hide_zero_series": false, 
+                    "show_max_value": false, 
+                    "show_min_value": false, 
+                    "show_last_value": false, 
+                    "item_id": "d8", 
+                    "query": "query0", 
+                    "filled": true, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d90", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d91", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "hide_zero_series": false, 
+                    "show_max_value": true, 
+                    "show_min_value": false, 
+                    "show_last_value": false, 
+                    "item_id": "d92", 
+                    "query": "query0", 
+                    "filled": false, 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d93", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "height": 1, 
+                    "item_type": "simple_time_series", 
+                    "hide_zero_series": false, 
+                    "show_max_value": true, 
+                    "show_min_value": false, 
+                    "show_last_value": false, 
+                    "item_id": "d94", 
+                    "query": "query0", 
+                    "filled": true, 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d17", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d18", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "title": "standard_time_series", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d19", 
+                    "query": "query0", 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d20", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "title": "stacked_area_chart", 
+                    "stack_mode": "stack", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d21", 
+                    "query": "query0", 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d22", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d23", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "title": "standard_time_series (multiple series)", 
+                    "height": "3", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d24", 
+                    "query": "query2", 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d25", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "title": "stacked_area_chart (multiple series)", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d26", 
+                    "query": "query2", 
+                    "legend": "simple", 
+                    "interactive": true
+                  }, 
+                  {
+                    "title": "stacked_area_chart (percentage)", 
+                    "stack_mode": "percent", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d69", 
+                    "query": "query2", 
+                    "legend": "simple", 
+                    "interactive": true
+                  }, 
+                  {
+                    "title": "stacked_area_chart (stream graph)", 
+                    "stack_mode": "stream", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d70", 
+                    "query": "query2", 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "Basic Time Series", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d2"
+      }, 
+      {
+        "layout": "fixed", 
+        "level": "2", 
+        "items": [
+          {
+            "item_id": "d30", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d31", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "Height 2", 
+                    "stack_mode": "stack", 
+                    "height": "2", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d32", 
+                    "query": "query1", 
+                    "options": {
+                      "palette": "None"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d33", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "Height 3", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d34", 
+                    "query": "query1", 
+                    "options": {
+                      "palette": "None"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d35", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "Height 4", 
+                    "stack_mode": "stack", 
+                    "height": "4", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d36", 
+                    "query": "query1", 
+                    "options": {
+                      "palette": "None"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d37", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "Height 5", 
+                    "stack_mode": "stack", 
+                    "height": "5", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d42", 
+                    "query": "query1", 
+                    "options": {
+                      "palette": "None"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d43", 
+            "item_type": "heading", 
+            "level": "3", 
+            "text": "Color Palettes"
+          }, 
+          {
+            "item_id": "d44", 
+            "item_type": "separator"
+          }, 
+          {
+            "item_id": "d45", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d46", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "default (spectrum6)", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d47", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "None"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d48", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "brewerdiv3", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d50", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "brewerdiv3"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d51", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "d3category20", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d52", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "d3category20"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d53", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "d3category20c", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d54", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "d3category20c"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d55", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d56", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "title": "munin", 
+                    "height": "5", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d57", 
+                    "query": "query3", 
+                    "options": {
+                      "palette": "munin"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d58", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "title": "spectrum14", 
+                    "stack_mode": "stack", 
+                    "height": "5", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d59", 
+                    "query": "query3", 
+                    "options": {
+                      "palette": "spectrum14"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d60", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d81", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "numbers6", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d82", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "numbers6"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d121", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "brewerq10", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d122", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "brewerq10"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d123", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "colorwheel", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d124", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "colorwheel"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d125", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "classic9", 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "stacked_area_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d126", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "classic9"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "Chart Options", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d27"
+      }, 
+      {
+        "layout": "fixed", 
+        "level": "2", 
+        "items": [
+          {
+            "item_id": "d128", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d129", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": false, 
+                    "title": "Legend", 
+                    "labels": false, 
+                    "height": "4", 
+                    "item_type": "donut_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d130", 
+                    "query": "query3", 
+                    "options": {
+                      "palette": "None"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d133", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": false, 
+                    "title": "Labels", 
+                    "labels": true, 
+                    "height": "4", 
+                    "item_type": "donut_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d134", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "numbers6"
+                    }, 
+                    "legend": "none", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d131", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": false, 
+                    "title": "Neither", 
+                    "labels": false, 
+                    "height": "4", 
+                    "item_type": "donut_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d132", 
+                    "query": "query3", 
+                    "options": {
+                      "palette": "d3category20c"
+                    }, 
+                    "legend": "none", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d76", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": false, 
+                    "title": "Both", 
+                    "labels": true, 
+                    "height": "4", 
+                    "item_type": "donut_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d77", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "numbers6"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d78", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d79", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": true, 
+                    "title": "Legend", 
+                    "labels": false, 
+                    "height": "4", 
+                    "item_type": "donut_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d80", 
+                    "query": "query3", 
+                    "options": {
+                      "palette": "None"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d83", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": true, 
+                    "title": "Labels", 
+                    "labels": true, 
+                    "height": "4", 
+                    "item_type": "donut_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d84", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "numbers6"
+                    }, 
+                    "legend": "none", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d85", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": true, 
+                    "title": "Neither", 
+                    "labels": false, 
+                    "height": "4", 
+                    "item_type": "donut_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d86", 
+                    "query": "query3", 
+                    "options": {
+                      "palette": "d3category20c"
+                    }, 
+                    "legend": "none", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d87", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "is_pie": true, 
+                    "title": "Both", 
+                    "labels": true, 
+                    "height": "4", 
+                    "item_type": "donut_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d88", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "numbers6"
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "Donut/Pie Charts", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d127"
+      }, 
+      {
+        "layout": "fixed", 
+        "level": "2", 
+        "items": [
+          {
+            "item_id": "d96", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d97", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "bar_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d98", 
+                    "query": "query1", 
+                    "options": {}, 
+                    "legend": "simple"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d99", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "stack_mode": "percent", 
+                    "height": "3", 
+                    "item_type": "bar_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d100", 
+                    "query": "query2", 
+                    "options": {
+                      "palette": "numbers6"
+                    }, 
+                    "legend": "simple"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d101", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "stack_mode": "none", 
+                    "height": "3", 
+                    "item_type": "bar_chart", 
+                    "hide_zero_series": false, 
+                    "item_id": "d102", 
+                    "query": "query1", 
+                    "options": {}, 
+                    "legend": "simple"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d103", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d104", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "show_numbers": true, 
+                    "orientation": "vertical", 
+                    "title": "Discrete, Vertical", 
+                    "format": ",.3s", 
+                    "transform": "sum", 
+                    "height": "3", 
+                    "item_type": "discrete_bar_chart", 
+                    "hide_zero_series": false, 
+                    "show_grid": true, 
+                    "item_id": "d110", 
+                    "query": "discrete_bar", 
+                    "options": {}
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d106", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "show_numbers": true, 
+                    "orientation": "horizontal", 
+                    "title": "Discrete, Horizontal", 
+                    "format": ",.3s", 
+                    "transform": "max", 
+                    "height": "3", 
+                    "item_type": "discrete_bar_chart", 
+                    "hide_zero_series": false, 
+                    "show_grid": true, 
+                    "item_id": "d111", 
+                    "query": "discrete_bar", 
+                    "options": {
+                      "palette": "tableau20"
+                    }
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d108", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": []
+              }
+            ]
+          }
+        ], 
+        "title": "Bar Charts", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d95"
+      }, 
+      {
+        "layout": "fixed", 
+        "level": "2", 
+        "items": [
+          {
+            "item_id": "d107", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d109", 
+                "item_type": "cell", 
+                "span": 12, 
+                "items": [
+                  {
+                    "format": ",.1s", 
+                    "transform": "mean", 
+                    "height": 1, 
+                    "item_type": "singlegraph_grid", 
+                    "legend": "simple", 
+                    "hide_zero_series": false, 
+                    "item_id": "d112", 
+                    "query": "query3", 
+                    "options": {}, 
+                    "columns": 4
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "Singlegraphs", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d105"
+      }
+    ], 
     "item_type": "dashboard_definition", 
+    "href": "/api/dashboard/10/definition", 
     "queries": {
       "query2": {
         "name": "query2", 
@@ -35,835 +934,29 @@
         ]
       }
     }, 
-    "href": "/api/dashboard/6/definition", 
-    "items": [
-      {
-        "item_id": "d2", 
-        "item_type": "section", 
-        "title": "Basic Time Series", 
-        "layout": "fixed", 
-        "items": [
-          {
-            "item_id": "d3", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d4", 
-                "item_type": "cell", 
-                "span": "6", 
-                "items": [
-                  {
-                    "title": "simple_time_series", 
-                    "height": 1, 
-                    "item_type": "simple_time_series", 
-                    "show_max_value": false, 
-                    "show_min_value": false, 
-                    "show_last_value": false, 
-                    "item_id": "d6", 
-                    "query": "query0", 
-                    "filled": false, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d7", 
-                "item_type": "cell", 
-                "span": "6", 
-                "items": [
-                  {
-                    "title": "simple_time_series (filled)", 
-                    "height": 1, 
-                    "item_type": "simple_time_series", 
-                    "show_max_value": false, 
-                    "show_min_value": false, 
-                    "show_last_value": false, 
-                    "item_id": "d8", 
-                    "query": "query0", 
-                    "filled": true, 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }, 
-          {
-            "item_id": "d90", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d91", 
-                "item_type": "cell", 
-                "span": "6", 
-                "items": [
-                  {
-                    "height": 1, 
-                    "item_type": "simple_time_series", 
-                    "show_max_value": true, 
-                    "show_min_value": false, 
-                    "show_last_value": false, 
-                    "item_id": "d92", 
-                    "query": "query0", 
-                    "filled": false, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d93", 
-                "item_type": "cell", 
-                "span": "6", 
-                "items": [
-                  {
-                    "height": 1, 
-                    "item_type": "simple_time_series", 
-                    "show_max_value": true, 
-                    "show_min_value": false, 
-                    "show_last_value": false, 
-                    "item_id": "d94", 
-                    "query": "query0", 
-                    "filled": true, 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }, 
-          {
-            "item_id": "d17", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d18", 
-                "item_type": "cell", 
-                "span": "6", 
-                "items": [
-                  {
-                    "title": "standard_time_series", 
-                    "item_type": "standard_time_series", 
-                    "item_id": "d19", 
-                    "query": "query0", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d20", 
-                "item_type": "cell", 
-                "span": "6", 
-                "items": [
-                  {
-                    "title": "stacked_area_chart", 
-                    "stack_mode": "stack", 
-                    "item_type": "stacked_area_chart", 
-                    "item_id": "d21", 
-                    "query": "query0", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }, 
-          {
-            "item_id": "d22", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d23", 
-                "item_type": "cell", 
-                "span": "6", 
-                "items": [
-                  {
-                    "title": "standard_time_series (multiple series)", 
-                    "height": "3", 
-                    "item_type": "standard_time_series", 
-                    "item_id": "d24", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d25", 
-                "item_type": "cell", 
-                "span": "6", 
-                "items": [
-                  {
-                    "title": "stacked_area_chart (multiple series)", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "item_id": "d26", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }, 
-                  {
-                    "title": "stacked_area_chart (percentage)", 
-                    "stack_mode": "percent", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "item_id": "d69", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }, 
-                  {
-                    "title": "stacked_area_chart (stream graph)", 
-                    "stack_mode": "stream", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "item_id": "d70", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }, 
-      {
-        "item_id": "d27", 
-        "item_type": "section", 
-        "title": "Chart Options", 
-        "layout": "fixed", 
-        "items": [
-          {
-            "item_id": "d30", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d31", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "Height 2", 
-                    "stack_mode": "stack", 
-                    "height": "2", 
-                    "item_type": "stacked_area_chart", 
-                    "options": {
-                      "palette": "None"
-                    }, 
-                    "item_id": "d32", 
-                    "query": "query1", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d33", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "Height 3", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "options": {
-                      "palette": "None"
-                    }, 
-                    "item_id": "d34", 
-                    "query": "query1", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d35", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "Height 4", 
-                    "stack_mode": "stack", 
-                    "height": "4", 
-                    "item_type": "stacked_area_chart", 
-                    "options": {
-                      "palette": "None"
-                    }, 
-                    "item_id": "d36", 
-                    "query": "query1", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d37", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "Height 5", 
-                    "stack_mode": "stack", 
-                    "height": "5", 
-                    "item_type": "stacked_area_chart", 
-                    "options": {
-                      "palette": "None"
-                    }, 
-                    "item_id": "d42", 
-                    "query": "query1", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }, 
-          {
-            "item_id": "d43", 
-            "item_type": "heading", 
-            "level": "3", 
-            "text": "Color Palettes"
-          }, 
-          {
-            "item_id": "d44", 
-            "item_type": "separator"
-          }, 
-          {
-            "item_id": "d45", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d46", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "default (spectrum6)", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "options": {
-                      "palette": "None"
-                    }, 
-                    "item_id": "d47", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d48", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "brewerdiv3", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "options": {
-                      "palette": "brewerdiv3"
-                    }, 
-                    "item_id": "d50", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d51", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "d3category20", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "options": {
-                      "palette": "d3category20"
-                    }, 
-                    "item_id": "d52", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d53", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "d3category20c", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "options": {
-                      "palette": "d3category20c"
-                    }, 
-                    "item_id": "d54", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }, 
-          {
-            "item_id": "d55", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d56", 
-                "item_type": "cell", 
-                "span": "6", 
-                "items": [
-                  {
-                    "title": "munin", 
-                    "height": "5", 
-                    "item_type": "standard_time_series", 
-                    "options": {
-                      "palette": "munin"
-                    }, 
-                    "item_id": "d57", 
-                    "query": "query3", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d58", 
-                "item_type": "cell", 
-                "span": "6", 
-                "items": [
-                  {
-                    "title": "spectrum14", 
-                    "stack_mode": "stack", 
-                    "height": "5", 
-                    "item_type": "stacked_area_chart", 
-                    "options": {
-                      "palette": "spectrum14"
-                    }, 
-                    "item_id": "d59", 
-                    "query": "query3", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }, 
-          {
-            "item_id": "d60", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d81", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "numbers6", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "options": {
-                      "palette": "numbers6"
-                    }, 
-                    "item_id": "d82", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d121", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "brewerq10", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "options": {
-                      "palette": "brewerq10"
-                    }, 
-                    "item_id": "d122", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d123", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "colorwheel", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "options": {
-                      "palette": "colorwheel"
-                    }, 
-                    "item_id": "d124", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d125", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "classic9", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "options": {
-                      "palette": "classic9"
-                    }, 
-                    "item_id": "d126", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }, 
-      {
-        "item_id": "d127", 
-        "item_type": "section", 
-        "title": "Donut/Pie Charts", 
-        "layout": "fixed", 
-        "items": [
-          {
-            "item_id": "d128", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d129", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "is_pie": false, 
-                    "title": "Legend", 
-                    "labels": false, 
-                    "height": "4", 
-                    "item_type": "donut_chart", 
-                    "options": {
-                      "palette": "None"
-                    }, 
-                    "item_id": "d130", 
-                    "query": "query3", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d133", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "is_pie": false, 
-                    "title": "Labels", 
-                    "labels": true, 
-                    "height": "4", 
-                    "item_type": "donut_chart", 
-                    "item_id": "d134", 
-                    "query": "query2", 
-                    "options": {
-                      "palette": "numbers6"
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d131", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "is_pie": false, 
-                    "title": "Neither", 
-                    "labels": false, 
-                    "height": "4", 
-                    "item_type": "donut_chart", 
-                    "item_id": "d132", 
-                    "query": "query3", 
-                    "options": {
-                      "palette": "d3category20c"
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d76", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "is_pie": false, 
-                    "title": "Both", 
-                    "labels": true, 
-                    "height": "4", 
-                    "item_type": "donut_chart", 
-                    "options": {
-                      "palette": "numbers6"
-                    }, 
-                    "item_id": "d77", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }, 
-          {
-            "item_id": "d78", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d79", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "is_pie": true, 
-                    "title": "Legend", 
-                    "labels": false, 
-                    "height": "4", 
-                    "item_type": "donut_chart", 
-                    "options": {
-                      "palette": "None"
-                    }, 
-                    "item_id": "d80", 
-                    "query": "query3", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d83", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "is_pie": true, 
-                    "title": "Labels", 
-                    "labels": true, 
-                    "height": "4", 
-                    "item_type": "donut_chart", 
-                    "item_id": "d84", 
-                    "query": "query2", 
-                    "options": {
-                      "palette": "numbers6"
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d85", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "is_pie": true, 
-                    "title": "Neither", 
-                    "labels": false, 
-                    "height": "4", 
-                    "item_type": "donut_chart", 
-                    "item_id": "d86", 
-                    "query": "query3", 
-                    "options": {
-                      "palette": "d3category20c"
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d87", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "is_pie": true, 
-                    "title": "Both", 
-                    "labels": true, 
-                    "height": "4", 
-                    "item_type": "donut_chart", 
-                    "options": {
-                      "palette": "numbers6"
-                    }, 
-                    "item_id": "d88", 
-                    "query": "query2", 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }, 
-      {
-        "item_id": "d95", 
-        "item_type": "section", 
-        "title": "Bar Charts", 
-        "layout": "fixed", 
-        "items": [
-          {
-            "item_id": "d96", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d97", 
-                "item_type": "cell", 
-                "span": 4, 
-                "items": [
-                  {
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "bar_chart", 
-                    "options": {}, 
-                    "item_id": "d98", 
-                    "query": "query1", 
-                    "legend": "simple"
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d99", 
-                "item_type": "cell", 
-                "span": 4, 
-                "items": [
-                  {
-                    "stack_mode": "percent", 
-                    "height": "3", 
-                    "item_type": "bar_chart", 
-                    "options": {
-                      "palette": "numbers6"
-                    }, 
-                    "item_id": "d100", 
-                    "query": "query2", 
-                    "legend": "simple"
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d101", 
-                "item_type": "cell", 
-                "span": 4, 
-                "items": [
-                  {
-                    "stack_mode": "none", 
-                    "height": "3", 
-                    "item_type": "bar_chart", 
-                    "options": {}, 
-                    "item_id": "d102", 
-                    "query": "query1", 
-                    "legend": "simple"
-                  }
-                ]
-              }
-            ]
-          }, 
-          {
-            "item_id": "d103", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d104", 
-                "item_type": "cell", 
-                "span": 4, 
-                "items": [
-                  {
-                    "orientation": "vertical", 
-                    "title": "Discrete, Vertical", 
-                    "transform": "sum", 
-                    "height": "3", 
-                    "item_type": "discrete_bar_chart", 
-                    "item_id": "d110", 
-                    "query": "discrete_bar", 
-                    "options": {}
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d106", 
-                "item_type": "cell", 
-                "span": 4, 
-                "items": [
-                  {
-                    "orientation": "horizontal", 
-                    "title": "Discrete, Horizontal", 
-                    "transform": "max", 
-                    "height": "3", 
-                    "item_type": "discrete_bar_chart", 
-                    "item_id": "d111", 
-                    "query": "discrete_bar", 
-                    "options": {
-                      "palette": "tableau20"
-                    }
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d108", 
-                "item_type": "cell", 
-                "span": 4, 
-                "items": []
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    "item_id": "d1", 
+    "options": {
+      "from": "-3h"
+    }
   }, 
-  "view_href": "/dashboards/6/charts-all", 
+  "view_href": "/dashboards/10/charts-all", 
   "description": "", 
   "tags": [
     {
-      "count": 6, 
-      "id": 1, 
+      "count": 8, 
+      "id": 5, 
       "name": "test"
     }, 
     {
-      "count": 4, 
-      "id": 2, 
+      "count": 5, 
+      "id": 6, 
       "name": "charts"
     }
   ], 
   "title": "Charts - All", 
   "summary": "A bit of everything", 
-  "definition_href": "/api/dashboard/6/definition", 
-  "href": "/api/dashboard/6", 
-  "id": 6, 
+  "definition_href": "/api/dashboard/10/definition", 
+  "href": "/api/dashboard/10", 
+  "id": 10, 
   "imported_from": null
 }

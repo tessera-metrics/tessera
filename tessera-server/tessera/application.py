@@ -2,6 +2,7 @@
 
 import logging
 import os
+import inflection
 
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -33,15 +34,15 @@ db      = SQLAlchemy(app)
 migrate = Migrate(app, db)
 config  = app.config
 
-from views_api import api
-from views_ui import ui
+from .views_api import api
+from .views_ui import ui
 
 app.register_blueprint(api, url_prefix='/api')
 app.register_blueprint(ui)
 
 app_root = app.config.get('APPLICATION_ROOT', None)
 if app_root:
-    app = DispatcherMiddleware(Flask('root'), {
+    app.wsgi_app = DispatcherMiddleware(Flask('root'), {
         app_root : app
     })
 
@@ -51,3 +52,7 @@ if app.config.get('ENABLE_CORS', False):
             'origins' : app.config.get('CORS_ORIGINS', '*')
         }
     })
+
+@app.template_filter('titleize')
+def humanize(s):
+    return inflection.titleize(s)

@@ -1,8 +1,9 @@
-<div class="ds-item ds-graph ds-singlegraph {{css_class item}}" id="{{item.item_id}}">
+<div class="ds-item ds-singlegraph {{css_class item}}" id="{{item.item_id}}">
   {{> ds-title-bar}}
   <span class="ds-label"></span>
-  <span class="value"></span>
   <div class="ds-graph-holder {{height item}}">
     <svg class="{{height item}}"></svg>
   </div>
+  <span class="value"></span>
+  <span class="transform">{{item.transform}}</span>
 </div>

@@ -28,7 +28,7 @@ export default class BarChart extends XYChart {
   }
 
   data_handler(query: Query) : void {
-    charts.bar_chart($('#' + this.item_id + ' .ds-graph-holder'), this, query)
+    charts.bar_chart(`#${this.item_id} .ds-graph-holder`, this, query)
   }
 
   interactive_properties() : PropertyList {
