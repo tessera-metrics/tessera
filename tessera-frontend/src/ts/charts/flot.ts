@@ -54,7 +54,12 @@ function get_default_options() {
         fill: false
       },
       valueLabels: { show: false },
-      points: { show: false },
+      points: {
+        show: false,
+        fill: true,
+        radius: 2,
+        symbol: "circle"
+      },
       bars: { lineWidth: 1, show: false },
       stackD3: { show: false }
     },
@@ -101,11 +106,6 @@ function get_default_options() {
         }
       }
     ],
-    points: {
-      show: false,
-      radius: 2,
-      symbol: "circle"
-    },
     shadowSize: 0,
     legend: { show: false },
     grid: {
@@ -467,6 +467,13 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     })
 
+    if (item instanceof StandardTimeSeries) {
+      let sts = <StandardTimeSeries> item
+      if (!sts.show_lines)
+        options.series.lines.lineWidth = 0
+      options.series.points.show = sts.show_points
+    }
+
     if (item['stack_mode']) {
       let mode = item['stack_mode']
       if (mode === charts.StackMode.PERCENT) {
@@ -482,12 +489,14 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     }
 
-    query.chart_data('flot').forEach(function(series) {
+    query.chart_data('flot').forEach(function(series, i) {
       if (series.summation.sum === 0) {
         series.lines = {
           lineWidth: 0
         }
       }
+      series.points = series.points || {}
+      series.points.fillColor = options.colors[i % options.colors.length]
     })
 
     return this.render(element, item, query, options)
