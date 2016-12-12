@@ -69,6 +69,8 @@ export default class StandardTimeSeries extends XYChart {
         this.show_points = !!data.show_points
       if (typeof data.show_lines !== 'undefined')
         this.show_lines = !!data.show_lines
+      else
+        this.show_lines = this.stack_mode == charts.StackMode.NONE
     }
   }
 

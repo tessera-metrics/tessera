@@ -29,6 +29,8 @@ const FORMAT_STANDARD = d3.format(FORMAT_STRING_STANDARD)
 const FORMAT_PERCENT  = d3.format('%')
 const THREE_HOURS_MS  = 1000 * 60 * 60 * 3
 const ONE_HOUR_MS     = 1000 * 60 * 60 * 1
+const DEFAULT_LINE_WIDTH = 1
+const DEFAULT_FILL = 0.8
 
 function is_line_chart(item: Chart) : boolean {
   return ((item instanceof StandardTimeSeries)
@@ -49,7 +51,7 @@ function get_default_options() {
     series: {
       lines: {
         show: true,
-        lineWidth: 1,
+        lineWidth: DEFAULT_LINE_WIDTH,
         steps: false,
         fill: false
       },
@@ -60,7 +62,7 @@ function get_default_options() {
         radius: 2,
         symbol: "circle"
       },
-      bars: { lineWidth: 1, show: false },
+      bars: { lineWidth: DEFAULT_LINE_WIDTH, show: false },
       stackD3: { show: false }
     },
     xaxis: {
@@ -292,7 +294,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       series: {
         lines: {
           show: true,
-          lineWidth: 1,
+          lineWidth: DEFAULT_LINE_WIDTH,
           fill: 0.2
         }
       },
@@ -353,50 +355,59 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
   highlight_series(item: Chart, index: number) : void {
     if (!item.render_context)
       return
+    // Highlighting completely screws up in percent mode, so ignore it
+    // for now.
+    if (item['stack_mode'] == charts.StackMode.PERCENT  )
+      return
     let plot = item.render_context.plot
-    if (is_line_chart(item)) {
+    if (item instanceof StandardTimeSeries) {
+      let sts     = <StandardTimeSeries> item
+      let stacked = sts.stack_mode != charts.StackMode.NONE
       plot.getData().forEach((s, i) => {
         if (i == index) {
-          s.lines.lineWidth = 3
+          s.lines.lineWidth = (sts.show_lines && !stacked) ? 3 : 0
+          s.points.radius = 3
           s.highlighted = true
+          if (stacked) {
+            s.lines.fill = DEFAULT_FILL
+          }
         } else {
-          s.lines.lineWidth = 1
-          s.highlighted = false
-        }
-      })
-    } else if (is_area_chart(item)) {
-      plot.getData().forEach((s, i) => {
-        if (i != index) {
-          s.lines.fill = 0.2
-          s.lines.lineWidth = 0
-          s.highlighted = false
-        } else {
-          s.highlighted = true
-          s.lines.fill = 1.0
-          s.lines.lineWidth = 1
+          this.unhighlight_series(item, i)
+          if (stacked) {
+            s.lines.fill = 0.2
+          }
         }
       })
     }
     plot.draw()
   }
 
+  // TODO: simplify this too
   unhighlight_series(item: Chart, index?: number) : void {
     if (!item.render_context)
       return
+    if (item['stack_mode'] == charts.StackMode.PERCENT  )
+      return
     let plot = item.render_context.plot
-    if (is_line_chart(item)) {
+    if (item instanceof StandardTimeSeries) {
+      let sts     = <StandardTimeSeries> item
+      let stacked = sts.stack_mode != charts.StackMode.NONE
       if (index) {
-        plot.getData()[index].lines.lineWidth = 1
+        let s = plot.getData()[index]
+        s.lines.lineWidth = sts.show_lines ? DEFAULT_LINE_WIDTH : 0
+        s.points.radius = 2
+        if (stacked) {
+          s.lines.fill = DEFAULT_FILL
+        }
       } else {
         plot.getData().forEach((s, i) => {
-          s.lines.lineWidth = 1
+          s.lines.lineWidth = sts.show_lines ? DEFAULT_LINE_WIDTH : 0
+          s.points.radius = 2
+          if (stacked) {
+            s.lines.fill = DEFAULT_FILL
+          }
         })
       }
-    } else if (is_area_chart(item)) {
-      plot.getData().forEach((s, i) => {
-        s.lines.fill = 1.0
-        s.lines.lineWidth = 1
-      })
     }
     plot.draw()
   }
@@ -445,7 +456,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       downsample: true,
       grid: { show: false },
       series: {
-        lines: { fill: 1.0 },
+        lines: { fill: DEFAULT_FILL },
         grid: { show: false }
       }
     })

@@ -14,8 +14,7 @@ function highlightSeries(item) {
 
 function unhighlightSeries(item) {
   return function(e) {
-    var index = e.currentTarget.dataset.seriesIndex
-    get_renderer(item).unhighlight_series(item, index)
+    get_renderer(item).unhighlight_series(item)
   }
 }
 
