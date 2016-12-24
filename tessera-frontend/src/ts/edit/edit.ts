@@ -4,6 +4,9 @@ import manager from '../app/manager'
 import Axis from '../models/axis'
 import Query from '../models/data/query'
 import Container from '../models/items/container'
+import Separator from '../models/items/separator'
+import Cell from '../models/items/cell'
+import Row from '../models/items/row'
 import { make } from '../models/items/factory'
 import { logger } from '../util'
 import * as queries from './queries'
@@ -233,6 +236,59 @@ let new_item_action_for_section = new core.Action({
   }
 })
 
+let combinations = [
+  [12],
+  [],
+  [6,6],
+  [4,4,4],
+  [3,3,3,3],
+  [2,2,2,2,2,2],
+  [],
+  [9,3],
+  [6,3,3],
+  [3,9],
+  [3,3,6],
+  [],
+  [8,4],
+  [8,2,2],
+  [4,8],
+  [2,2,8]
+]
+
+core.actions.register('new-combination',
+                      combinations.map((combo) => {
+                        if (!combo || !combo.length ) {
+                          return core.Action.DIVIDER
+                        }
+                        return new core.Action({
+                          category: 'new-combination',
+                          name: 'new-combination-' + combo.join('-'),
+                          display: '[' + combo.join(', ') + ']',
+                          icon: 'fa fa-columns',
+                          css: 'new-item',
+                          handler: (action, container) => {
+                            let row = new Row()
+                            for (let span of combo) {
+                              row.add(new Cell({span: span}))
+                            }
+                            container.add(row)
+                          }
+                        })
+                      })
+                     )
+
+let new_combinations_action_for_section = new core.Action({
+  name:     'new-item-combination',
+  category: 'new-item',
+  css:      'ds-new-item',
+  display:  'Add new row combination...',
+  icon:     'fa fa-th',
+  actions: () : core.ActionList => {
+    return core.actions.list('new-combination')
+  }
+})
+
+
 $(document).on('click', 'li.new-item', function(event) {
   log.debug('li.new-item.click')
   let elt      = $(this)
@@ -254,6 +310,7 @@ $(document).on('click', 'li.new-item', function(event) {
 
 core.actions.register('edit-bar-section', [
   new_item_action_for_section,
+  new_combinations_action_for_section,
   duplicate_item_action,
   core.Action.DIVIDER,
   move_back_action,
