@@ -120,6 +120,10 @@ export default class Query extends Model {
     this.local_options = extend({}, this.local_options, opt)
     let options = extend({}, this.local_options, opt, this.options)
 
+    if (!this.targets || !this.targets.length) {
+      fire_only = true
+    }
+
     if (fire_only) {
       events.fire(this, 'ds-data-ready', this)
       return Promise.resolve(this.data)
