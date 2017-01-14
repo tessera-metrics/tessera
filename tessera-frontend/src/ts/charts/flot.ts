@@ -374,7 +374,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         } else {
           this.unhighlight_series(item, i)
           if (stacked) {
-            s.lines.fill = 0.2
+            s.lines.fill = item.fill
           }
         }
       })
@@ -397,14 +397,14 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         s.lines.lineWidth = sts.show_lines ? DEFAULT_LINE_WIDTH : 0
         s.points.radius = 2
         if (stacked) {
-          s.lines.fill = DEFAULT_FILL
+          s.lines.fill = item.fill || DEFAULT_FILL
         }
       } else {
         plot.getData().forEach((s, i) => {
           s.lines.lineWidth = sts.show_lines ? DEFAULT_LINE_WIDTH : 0
           s.points.radius = 2
           if (stacked) {
-            s.lines.fill = DEFAULT_FILL
+            s.lines.fill = item.fill || DEFAULT_FILL
           }
         })
       }
@@ -432,6 +432,11 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
   simple_line_chart(element: any, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       grid: { show: false },
+      series: {
+        lines: {
+          fill: item.fill
+        }
+      },
       downsample: true
     })
 
@@ -442,7 +447,8 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     query.chart_data('flot').forEach(function(series) {
       if (series.summation.sum === 0) {
         series.lines = {
-          lineWidth: 0
+          lineWidth: 0,
+          fill: item.fill
         }
       }
     })
@@ -456,7 +462,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       downsample: true,
       grid: { show: false },
       series: {
-        lines: { fill: DEFAULT_FILL },
+        lines: { fill: item.fill || DEFAULT_FILL },
         grid: { show: false }
       }
     })
@@ -469,7 +475,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       downsample: true,
       series: {
         lines: {
-          fill: 1
+          fill: item.fill || 1.0
         },
         stackD3: {
           show: true,
@@ -496,7 +502,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         options.series.stackD3.offset = 'wiggle'
       } else if (mode == charts.StackMode.NONE) {
         options.series.stackD3.show = false
-        options.series.lines.fill = false
+        options.series.lines.fill = item.fill
       }
     }
 
@@ -631,7 +637,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
           show: true,
           barWidth: 0.8,
           align: 'center',
-          fill: 0.75,
+          fill: item.fill || 0.75,
           numbers: {
             show: item['show_numbers'],
             font: '10pt Helvetica',

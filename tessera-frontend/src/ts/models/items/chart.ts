@@ -36,6 +36,31 @@ properties.register([{
     }
   }
 }, {
+  name: 'chart.fill',
+  property_name: 'fill',
+  category: 'chart',
+  type: 'select',
+  edit_options: {
+    source: [
+      { value: undefined, text: 'default' },
+      { value: 0.1, text:  '10%' },
+      { value: 0.2, text:  '20%' },
+      { value: 0.3, text:  '30%' },
+      { value: 0.4, text:  '40%' },
+      { value: 0.5, text:  '50%' },
+      { value: 0.6, text:  '60%' },
+      { value: 0.7, text:  '70%' },
+      { value: 0.8, text:  '80%' },
+      { value: 0.9, text:  '90%' },
+      { value: 1.0, text: '100%' }
+    ],
+    update: function(item, value) {
+      if (value) {
+        item.set_fill(Number(value))
+      }
+    }
+  }
+}, {
   name: 'chart.renderer',
   property_name: 'renderer',
   category: 'chart',
@@ -65,6 +90,7 @@ export default class Chart extends Presentation {
   renderer: string
   render_context: any
   options: any = {}
+  fill: number
 
   constructor(data?: any) {
     super(data)
@@ -87,6 +113,9 @@ export default class Chart extends Presentation {
       if (typeof(data.hide_zero_series !== 'undefined')) {
         this.hide_zero_series = Boolean(data.hide_zero_series)
       }
+      if (typeof data.fill === 'number') {
+        this.fill = data.fill
+      }
       this.renderer = data.renderer
     }
   }
@@ -98,6 +127,13 @@ export default class Chart extends Presentation {
   set_renderer(renderer: string) : Chart {
     this.renderer = renderer
     return <Chart> this.updated()
+  }
+
+  set_fill(fill: number) : Chart {
+    if (typeof fill === 'number') {
+      this.fill = fill
+      return <Chart> this.updated()
+    }
   }
 
   toJSON() : any {
@@ -118,6 +154,9 @@ export default class Chart extends Presentation {
             data.options.x = json(this.options.x)
       }
     }
+    if (typeof this.fill === 'number') {
+      data.fill = this.fill
+    }
     return data
   }
 
@@ -136,6 +175,7 @@ export default class Chart extends Presentation {
       },
       'chart.renderer',
       'chart.palette',
+      'chart.fill',
       {
         name: 'chart.legend',
         property_name: 'legend',
