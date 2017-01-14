@@ -2,9 +2,9 @@ import { extend, logger, render_template, events } from '../../util'
 import * as core from '../../core'
 import Summation from './summation'
 import Model from '../model'
+import { DataSeries, DataSeriesList } from './data'
 import * as app from '../../app/app'
 import * as charts from '../../charts/core'
-import * as graphite from '../../data/graphite'
 
 declare var $, ts, require
 const log = logger('query')
@@ -16,12 +16,18 @@ export interface QueryDictionary {
   [index: string] : Query
 }
 
+export interface QueryInterface {
+  name: string
+  data: DataSeriesList
+  summation: Summation
+}
+
 export default class Query extends Model {
   static DEFAULT_FROM_TIME = '-3h'
 
   targets: string[]
   name: string
-  data: graphite.DataSeriesList
+  data: DataSeriesList
   summation: Summation
   options: any
   expanded_targets: string[]
@@ -116,7 +122,7 @@ export default class Query extends Model {
    * @param {boolean} fire_only Just raise the event, without fetching
    *                            data.
    */
-  async load(opt?: any, fire_only: boolean = false) : Promise<graphite.DataSeriesList> {
+  async load(opt?: any, fire_only: boolean = false) : Promise<DataSeriesList> {
     this.local_options = extend({}, this.local_options, opt)
     let options = extend({}, this.local_options, opt, this.options)
 
