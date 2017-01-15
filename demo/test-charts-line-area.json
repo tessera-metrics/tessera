@@ -120,12 +120,14 @@
                 "span": "6", 
                 "items": [
                   {
+                    "show_lines": true, 
                     "stack_mode": "none", 
                     "height": 2, 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d32", 
                     "query": "query0", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -137,12 +139,14 @@
                 "span": "6", 
                 "items": [
                   {
+                    "show_lines": true, 
                     "stack_mode": "none", 
                     "height": 2, 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d34", 
                     "query": "query1", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -166,12 +170,14 @@
                 "span": "6", 
                 "items": [
                   {
+                    "show_lines": true, 
                     "stack_mode": "none", 
                     "height": 2, 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d44", 
                     "query": "query0", 
+                    "show_points": false, 
                     "legend": "table", 
                     "interactive": true
                   }
@@ -183,12 +189,14 @@
                 "span": "6", 
                 "items": [
                   {
+                    "show_lines": true, 
                     "stack_mode": "none", 
                     "height": 2, 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d46", 
                     "query": "query1", 
+                    "show_points": false, 
                     "legend": "table", 
                     "interactive": true
                   }
@@ -212,12 +220,14 @@
                 "span": "6", 
                 "items": [
                   {
+                    "show_lines": true, 
                     "stack_mode": "none", 
                     "height": 2, 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d37", 
                     "query": "query0", 
+                    "show_points": false, 
                     "legend": "none", 
                     "interactive": true
                   }
@@ -229,12 +239,14 @@
                 "span": "6", 
                 "items": [
                   {
+                    "show_lines": true, 
                     "stack_mode": "none", 
                     "height": 2, 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d39", 
                     "query": "query1", 
+                    "show_points": false, 
                     "legend": "none", 
                     "interactive": true
                   }
@@ -263,12 +275,14 @@
                 "items": [
                   {
                     "title": "Stack - Normal", 
+                    "show_lines": true, 
                     "stack_mode": "stack", 
                     "height": 2, 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d24", 
                     "query": "query1", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -281,12 +295,14 @@
                 "items": [
                   {
                     "title": "Stack - Percent", 
+                    "show_lines": true, 
                     "stack_mode": "percent", 
                     "height": 2, 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d26", 
                     "query": "query1", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -305,12 +321,14 @@
                 "items": [
                   {
                     "title": "Stack - Stream", 
+                    "show_lines": true, 
                     "stack_mode": "stream", 
                     "height": 2, 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d29", 
                     "query": "query1", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -323,12 +341,14 @@
                 "items": [
                   {
                     "title": "Stack - None", 
+                    "show_lines": true, 
                     "stack_mode": "none", 
                     "height": 2, 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d31", 
                     "query": "query1", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -340,10 +360,106 @@
         "item_type": "section", 
         "horizontal_rule": false, 
         "item_id": "d21"
+      }, 
+      {
+        "layout": "fixed", 
+        "level": "3", 
+        "items": [
+          {
+            "item_id": "d60", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d61", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "20% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d62", 
+                    "query": "query1", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 0.2
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d63", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "40% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d64", 
+                    "query": "query1", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 0.4
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d65", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "60% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d66", 
+                    "query": "query1", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 0.6
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d67", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "title": "100% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d68", 
+                    "query": "query1", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "Opacity Control", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d48"
       }
     ], 
     "item_type": "dashboard_definition", 
-    "href": "/api/dashboard/14/definition", 
+    "href": "/api/dashboard/15/definition", 
     "queries": {
       "query2": {
         "name": "query2", 
@@ -372,10 +488,10 @@
     }, 
     "item_id": "d0", 
     "options": {
-      "from": "-3h"
+      "from": "-1h"
     }
   }, 
-  "view_href": "/dashboards/14/charts-line-area", 
+  "view_href": "/dashboards/15/charts-line-area", 
   "description": "", 
   "tags": [
     {
@@ -391,8 +507,8 @@
   ], 
   "title": "Charts - Line & Area", 
   "summary": "", 
-  "definition_href": "/api/dashboard/14/definition", 
-  "href": "/api/dashboard/14", 
-  "id": 14, 
+  "definition_href": "/api/dashboard/15/definition", 
+  "href": "/api/dashboard/15", 
+  "id": 15, 
   "imported_from": null
 }
