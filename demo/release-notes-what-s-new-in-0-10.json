@@ -19,36 +19,17 @@
                   {
                     "item_id": "d27", 
                     "item_type": "markdown", 
-                    "text": "### More Rendering Options"
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d30", 
-                "item_type": "cell", 
-                "span": 4, 
-                "items": [
-                  {
-                    "title": "lines", 
-                    "show_lines": true, 
-                    "stack_mode": "none", 
-                    "item_type": "standard_time_series", 
-                    "hide_zero_series": false, 
-                    "item_id": "d31", 
-                    "query": "group_3", 
-                    "show_points": false, 
-                    "legend": "simple", 
-                    "interactive": true
+                    "text": "#### Render as Points\n\nTime series can now be rendered as points, lines, or both."
                   }
                 ]
               }, 
               {
                 "item_id": "d32", 
                 "item_type": "cell", 
-                "span": 4, 
+                "span": 8, 
                 "items": [
                   {
-                    "title": "points", 
+                    "title": "Points Only", 
                     "show_lines": false, 
                     "stack_mode": "none", 
                     "item_type": "standard_time_series", 
@@ -58,6 +39,177 @@
                     "show_points": true, 
                     "legend": "simple", 
                     "interactive": true
+                  }, 
+                  {
+                    "title": "Points and Lines", 
+                    "show_lines": true, 
+                    "stack_mode": "none", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d29", 
+                    "query": "group_3", 
+                    "show_points": true, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }, 
+                  {
+                    "title": "Lines Only", 
+                    "show_lines": true, 
+                    "stack_mode": "none", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d28", 
+                    "query": "group_3", 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d44", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d45", 
+                "item_type": "cell", 
+                "offset": 1, 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d46", 
+                    "item_type": "markdown", 
+                    "text": "#### Opacity Control\n\nThe opacity of filled data series can now be set on individual\ndashboard items, or globally via the default setting in\n`config.py`."
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d47", 
+                "item_type": "cell", 
+                "span": "4", 
+                "items": [
+                  {
+                    "title": "20% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d48", 
+                    "query": "group_3", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 0.2
+                  }, 
+                  {
+                    "title": "60% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d49", 
+                    "query": "group_3", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 0.6
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d50", 
+                "item_type": "cell", 
+                "span": "4", 
+                "items": [
+                  {
+                    "title": "40% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d51", 
+                    "query": "group_3", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 0.4
+                  }, 
+                  {
+                    "title": "100% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d52", 
+                    "query": "group_3", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 1
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d30", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d31", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d36", 
+                    "item_type": "markdown", 
+                    "text": "#### Query Reuse"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d34", 
+                "item_type": "cell", 
+                "span": 8, 
+                "items": [
+                  {
+                    "item_id": "d37", 
+                    "item_type": "markdown", 
+                    "text": "A new `query` template tag allows queries to be re-used in other queries. To embed one query in another, use `{{query \"queryname\"}}`. Note that if you re-name a query, any references to it in other queries will need to be manually updated. "
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d38", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d39", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d40", 
+                    "item_type": "markdown", 
+                    "text": "#### Cell Combination Actions\n"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d41", 
+                "item_type": "cell", 
+                "span": 8, 
+                "items": [
+                  {
+                    "item_id": "d42", 
+                    "item_type": "markdown", 
+                    "text": "Convenience actions have been added to the actions bar for `section` allowing the creation of a row containing cells in a variety of commonly used configurations. For example, you can now create a row with 4 cells of 3 column width each with a single action. "
                   }
                 ]
               }
@@ -96,60 +248,22 @@
                 "items": [
                   {
                     "item_id": "d18", 
-                    "item_type": "markdown"
+                    "item_type": "markdown", 
+                    "text": "* See the [full list of closed issues](https://github.com/tessera-metrics/tessera/milestone/10?closed=1)"
                   }
                 ]
               }
             ]
           }
         ], 
-        "title": "Other Enhancements", 
+        "title": "Other Enhancements & Bug Fixes", 
         "item_type": "section", 
         "horizontal_rule": true, 
         "item_id": "d59"
-      }, 
-      {
-        "layout": "fixed", 
-        "level": "2", 
-        "items": [
-          {
-            "item_id": "d20", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d21", 
-                "item_type": "cell", 
-                "offset": 1, 
-                "span": 3, 
-                "items": [
-                  {
-                    "item_id": "d22", 
-                    "item_type": "markdown"
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d23", 
-                "item_type": "cell", 
-                "span": 7, 
-                "items": [
-                  {
-                    "item_id": "d24", 
-                    "item_type": "markdown"
-                  }
-                ]
-              }
-            ]
-          }
-        ], 
-        "title": "Bug Fixes", 
-        "item_type": "section", 
-        "horizontal_rule": true, 
-        "item_id": "d19"
       }
     ], 
     "item_type": "dashboard_definition", 
-    "href": "/api/dashboard/19/definition", 
+    "href": "/api/dashboard/6/definition", 
     "queries": {
       "group_3": {
         "name": "group_3", 
@@ -175,7 +289,7 @@
       "from": "-1h"
     }
   }, 
-  "view_href": "/dashboards/19/what-s-new-in-0-10", 
+  "view_href": "/dashboards/6/what-s-new-in-0-10", 
   "description": null, 
   "tags": [
     {
@@ -192,8 +306,8 @@
   ], 
   "title": "What's new in 0.10?", 
   "summary": "", 
-  "definition_href": "/api/dashboard/19/definition", 
-  "href": "/api/dashboard/19", 
-  "id": 19, 
+  "definition_href": "/api/dashboard/6/definition", 
+  "href": "/api/dashboard/6", 
+  "id": 6, 
   "imported_from": null
 }

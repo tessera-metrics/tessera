@@ -111,6 +111,192 @@
         "level": 1, 
         "items": [
           {
+            "item_id": "d83", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d84", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "options": {
+                      "palette": "d3category20"
+                    }, 
+                    "title": "Lines", 
+                    "show_lines": true, 
+                    "stack_mode": "none", 
+                    "height": 2, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d86", 
+                    "query": "query_6", 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d87", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "options": {
+                      "palette": "d3category20"
+                    }, 
+                    "title": "Stacked", 
+                    "show_lines": false, 
+                    "stack_mode": "stack", 
+                    "height": 2, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d88", 
+                    "query": "query_6", 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d89", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "options": {
+                      "palette": "d3category20"
+                    }, 
+                    "title": "Stream + 50% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stream", 
+                    "height": 2, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d90", 
+                    "query": "query_6", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 0.5
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d91", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "options": {
+                      "palette": "d3category20"
+                    }, 
+                    "title": "Percent", 
+                    "show_lines": false, 
+                    "stack_mode": "percent", 
+                    "height": 2, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d92", 
+                    "query": "query_6", 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d147", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d148", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "options": {
+                      "palette": "d3category20"
+                    }, 
+                    "title": "20% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": 1, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d149", 
+                    "query": "query_6", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 0.2
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d150", 
+                "item_type": "cell", 
+                "span": 3, 
+                "items": [
+                  {
+                    "options": {
+                      "palette": "d3category20"
+                    }, 
+                    "title": "100% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": 1, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d151", 
+                    "query": "query_6", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 1
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d152", 
+                "item_type": "cell", 
+                "span": 6, 
+                "items": [
+                  {
+                    "options": {
+                      "palette": "d3category20"
+                    }, 
+                    "title": "Points", 
+                    "show_lines": false, 
+                    "stack_mode": "none", 
+                    "height": 1, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d153", 
+                    "query": "query_6", 
+                    "interactive": true, 
+                    "show_points": true, 
+                    "legend": "simple", 
+                    "fill": 0.8
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "item_type": "section", 
+        "horizontal_rule": false, 
+        "item_id": "d82"
+      }, 
+      {
+        "layout": "fixed", 
+        "level": 1, 
+        "items": [
+          {
             "item_id": "d39", 
             "item_type": "row", 
             "items": [
@@ -472,105 +658,6 @@
         "level": 1, 
         "items": [
           {
-            "item_id": "d83", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d84", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "Lines", 
-                    "stack_mode": "none", 
-                    "height": 1, 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d86", 
-                    "query": "query_6", 
-                    "options": {
-                      "palette": "d3category20"
-                    }, 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d87", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "Stacked", 
-                    "stack_mode": "stack", 
-                    "height": 1, 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d88", 
-                    "query": "query_6", 
-                    "options": {
-                      "palette": "d3category20"
-                    }, 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d89", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "Stream", 
-                    "stack_mode": "stream", 
-                    "height": 1, 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d90", 
-                    "query": "query_6", 
-                    "options": {
-                      "palette": "d3category20"
-                    }, 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d91", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "title": "Percent", 
-                    "stack_mode": "percent", 
-                    "height": 1, 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d92", 
-                    "query": "query_6", 
-                    "options": {
-                      "palette": "d3category20"
-                    }, 
-                    "legend": "simple", 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }
-        ], 
-        "item_type": "section", 
-        "horizontal_rule": false, 
-        "item_id": "d82"
-      }, 
-      {
-        "layout": "fixed", 
-        "level": 1, 
-        "items": [
-          {
             "item_id": "d59", 
             "item_type": "row", 
             "items": [
@@ -851,7 +938,7 @@
       }
     ], 
     "item_type": "dashboard_definition", 
-    "href": "/api/dashboard/16/definition", 
+    "href": "/api/dashboard/17/definition", 
     "queries": {
       "query_4": {
         "name": "query_4", 
@@ -886,14 +973,14 @@
     }, 
     "item_id": "d3", 
     "options": {
-      "from": "-3h"
+      "from": "-1h"
     }
   }, 
-  "view_href": "/dashboards/16/comprehensive", 
+  "view_href": "/dashboards/17/comprehensive", 
   "description": "", 
   "tags": [
     {
-      "count": 7, 
+      "count": 8, 
       "bgcolor": "green", 
       "id": 2, 
       "name": "featured"
@@ -906,8 +993,8 @@
   ], 
   "title": "Comprehensive", 
   "summary": "", 
-  "definition_href": "/api/dashboard/16/definition", 
-  "href": "/api/dashboard/16", 
-  "id": 16, 
+  "definition_href": "/api/dashboard/17/definition", 
+  "href": "/api/dashboard/17", 
+  "id": 17, 
   "imported_from": null
 }
