@@ -61,8 +61,11 @@ export default class Query extends Model {
     return this
   }
 
-  render_templates(context: any) : void {
-    this.expanded_targets = this.targets.map(t => {
+  render_templates(context: any, override?) : void {
+    let targets = override && this.expanded_targets.length
+      ? this.expanded_targets
+      : this.targets
+    this.expanded_targets = targets.map(t => {
       return render_template(t, context)
     })
   }

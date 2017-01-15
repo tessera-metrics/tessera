@@ -91,6 +91,16 @@ export function register_helpers() {
     return new Handlebars.SafeString(markdown)
   })
 
+  /**
+   * Insert a referenced named query, for query re-use.
+   */
+  Handlebars.registerHelper('query', function(name) {
+    let queries = ts.manager.current.dashboard.definition.queries
+    let query   = queries[name] || {}
+    let targets = query['targets'] || []
+    return new Handlebars.SafeString(targets[0])
+  })
+
   /* -----------------------------------------------------------------------------
      Internal helpers
      ----------------------------------------------------------------------------- */

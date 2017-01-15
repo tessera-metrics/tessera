@@ -52,6 +52,11 @@ export default class DashboardDefinition extends Container {
     for (let key in this.queries) {
       this.queries[key].render_templates(context)
     }
+    // Render each query a second time to render any tags in
+    // referenced queries.
+    for (let key in this.queries) {
+      this.queries[key].render_templates(context, true)
+    }
     this.visit((item) => {
       if ((item !== this) && item.render_templates) {
         item.render_templates(context)
