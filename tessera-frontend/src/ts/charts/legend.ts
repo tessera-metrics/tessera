@@ -50,8 +50,15 @@ function render_simple_legend(legend_id: string, item: Chart, query: Query, opti
   elt.html(legend)
   elt.equalize({equalize: 'outerWidth', reset: true })
   if (options.interactive_legend) {
-    $(legend_id + ' .ds-legend-cell').on('mouseenter', highlightSeries(item))
-    $(legend_id + ' .ds-legend-cell').on('mouseleave', unhighlightSeries(item))
+    let elt = $(legend_id + ' .ds-legend-cell')
+    elt.on('mouseenter', highlightSeries(item))
+    elt.on('mouseenter', (e) => {
+      $(e.currentTarget).addClass('highlighted')
+    })
+    elt.on('mouseleave', unhighlightSeries(item))
+    elt.on('mouseleave', (e) => {
+      $(e.currentTarget).removeClass('highlighted')
+    })
   }
 }
 
