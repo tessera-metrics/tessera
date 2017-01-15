@@ -24,6 +24,18 @@ DEFAULT_FROM_TIME          = '-3h'
 DEFAULT_THEME              = 'light'
 
 #
+# The default opacity to use for filled data series. Expressed as a
+# number between 0.0 (totally transparent, i.e. no fill) and 1.0
+# (totally opaque).
+#
+DEFAULT_OPACITY            = 1.0
+
+#
+# The default line width to render lines in data series at.
+#
+DEFAULT_LINE_WIDTH         = 1.0
+
+#
 # Displayed on the front page and in the footer of every page. If you
 # have multiple installations of tessera, using a unique value for
 # each one may be a good idea. Purely cosmetic.
