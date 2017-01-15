@@ -23,6 +23,8 @@
   ts.prefs = ts.prefs || {}
   ts.prefs.renderer = "{{ ctx.prefs.renderer }}"
   ts.prefs.downsample = {{ctx.prefs.downsample}}
+  ts.prefs.opacity = {{ctx.prefs.opacity}}
+  ts.prefs.line_width = {{ctx.prefs.line_width}}
 </script>
 
 <script src="{{ url_for('static', filename='bundle.js') }}"></script>
