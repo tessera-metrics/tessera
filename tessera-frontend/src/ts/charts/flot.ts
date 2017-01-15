@@ -399,10 +399,12 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         if (stacked) {
           s.lines.fill = item.fill || ts.prefs.opacity || DEFAULT_FILL
         }
+        s.highlighted = false
       } else {
         plot.getData().forEach((s, i) => {
           s.lines.lineWidth = sts.show_lines ? ts.prefs.line_width || DEFAULT_LINE_WIDTH : 0
           s.points.radius = 2
+          s.highlighted = false
           if (stacked) {
             s.lines.fill = item.fill || ts.prefs.opacity || DEFAULT_FILL
           }
