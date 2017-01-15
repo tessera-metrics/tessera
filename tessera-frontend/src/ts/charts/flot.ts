@@ -369,12 +369,12 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
           s.points.radius = 3
           s.highlighted = true
           if (stacked) {
-            s.lines.fill = ts.prefs.opacity || DEFAULT_FILL
+            s.lines.fill = 0.8
           }
         } else {
           this.unhighlight_series(item, i)
           if (stacked) {
-            s.lines.fill = item.fill || ts.prefs.opacity || DEFAULT_FILL
+            s.lines.fill = 0.2
           }
         }
       })
