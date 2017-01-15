@@ -445,10 +445,11 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
 
   standard_line_chart(element: any, item: Chart, query: Query) : void {
     query.chart_data('flot').forEach(function(series) {
+      // Hide series with no data from display
       if (series.summation.sum === 0) {
         series.lines = {
           lineWidth: 0,
-          fill: item.fill
+          fill: 0.0
         }
       }
     })
@@ -502,7 +503,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         options.series.stackD3.offset = 'wiggle'
       } else if (mode == charts.StackMode.NONE) {
         options.series.stackD3.show = false
-        options.series.lines.fill = item.fill
+        options.series.lines.fill = 0.0
       }
     }
 
