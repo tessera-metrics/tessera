@@ -19,12 +19,100 @@
                   {
                     "item_id": "d27", 
                     "item_type": "markdown", 
-                    "text": "#### Render as Points\n\nTime series can now be rendered as points, lines, or both."
+                    "text": "#### Scatter Plots\n\nA scatter plot dashboard item has been added to plot arbitrary\ncorrelations between data series on the X and Y axis. "
                   }
                 ]
               }, 
               {
                 "item_id": "d32", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "title": "Correlation", 
+                    "item_type": "scatter_plot", 
+                    "hide_zero_series": false, 
+                    "item_id": "d60", 
+                    "options": {
+                      "y1": {
+                        "scale": "linear", 
+                        "label": "Y axis dimension"
+                      }, 
+                      "x": {
+                        "label": "X axis dimension"
+                      }, 
+                      "palette": "None"
+                    }, 
+                    "query_x": "corr_x", 
+                    "query_y": "corr_y"
+                  }, 
+                  {
+                    "title": "Correlation with Log Axis", 
+                    "height": 3, 
+                    "item_type": "scatter_plot", 
+                    "hide_zero_series": false, 
+                    "item_id": "d61", 
+                    "options": {
+                      "y1": {
+                        "scale": "log", 
+                        "label": "Y axis dimension"
+                      }, 
+                      "x": {
+                        "label": "X axis dimension"
+                      }, 
+                      "palette": "None"
+                    }, 
+                    "query_x": "corr_x", 
+                    "query_y": "corr_y"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d62", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "title": "Correlation", 
+                    "item_type": "scatter_plot", 
+                    "hide_zero_series": false, 
+                    "item_id": "d63", 
+                    "options": {
+                      "y1": {
+                        "scale": "linear", 
+                        "label": "Y axis dimension"
+                      }, 
+                      "x": {
+                        "label": "X axis dimension"
+                      }, 
+                      "palette": "None"
+                    }, 
+                    "query_x": "corr_y2", 
+                    "query_y": "corr_y"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d43", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d53", 
+                "item_type": "cell", 
+                "offset": 1, 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d54", 
+                    "item_type": "markdown", 
+                    "text": "#### Render as Points\n\nTime series can now be rendered as points, lines, or both."
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d55", 
                 "item_type": "cell", 
                 "span": 8, 
                 "items": [
@@ -34,7 +122,7 @@
                     "stack_mode": "none", 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
-                    "item_id": "d33", 
+                    "item_id": "d56", 
                     "query": "group_3", 
                     "show_points": true, 
                     "legend": "simple", 
@@ -46,7 +134,7 @@
                     "stack_mode": "none", 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
-                    "item_id": "d29", 
+                    "item_id": "d57", 
                     "query": "group_3", 
                     "show_points": true, 
                     "legend": "simple", 
@@ -58,7 +146,7 @@
                     "stack_mode": "none", 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
-                    "item_id": "d28", 
+                    "item_id": "d58", 
                     "query": "group_3", 
                     "show_points": false, 
                     "legend": "simple", 
@@ -271,16 +359,34 @@
           "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
         ]
       }, 
-      "group_12": {
-        "name": "group_12", 
+      "corr_y": {
+        "name": "corr_y", 
         "targets": [
-          "group(\n                  absolute(randomWalkFunction(\"series1\")),\n                  absolute(randomWalkFunction(\"series2\")),\n                  absolute(randomWalkFunction(\"series4\")),\n                  absolute(randomWalkFunction(\"series5\")),\n                  absolute(randomWalkFunction(\"series6\")),\n                  absolute(randomWalkFunction(\"series7\")),\n                  absolute(randomWalkFunction(\"series8\")),\n                  absolute(randomWalkFunction(\"series9\")),\n                  absolute(randomWalkFunction(\"series10\")),\n                  absolute(randomWalkFunction(\"series11\")),\n                  absolute(randomWalkFunction(\"series12\"))\n              )"
+          "scale(absolute(sin(\"query4\")), 100)"
         ]
       }, 
       "log": {
         "name": "log", 
         "targets": [
           "offset(scale(\n    group(absolute(randomWalkFunction(\"series1\")),\n          absolute(randomWalkFunction(\"series2\")),\n          absolute(randomWalkFunction(\"series3\")))\n    , 10)\n, 1)"
+        ]
+      }, 
+      "corr_y2": {
+        "name": "corr_y2", 
+        "targets": [
+          "scale(absolute(sin(\"query5\")), 100)"
+        ]
+      }, 
+      "group_12": {
+        "name": "group_12", 
+        "targets": [
+          "group(\n                  absolute(randomWalkFunction(\"series1\")),\n                  absolute(randomWalkFunction(\"series2\")),\n                  absolute(randomWalkFunction(\"series4\")),\n                  absolute(randomWalkFunction(\"series5\")),\n                  absolute(randomWalkFunction(\"series6\")),\n                  absolute(randomWalkFunction(\"series7\")),\n                  absolute(randomWalkFunction(\"series8\")),\n                  absolute(randomWalkFunction(\"series9\")),\n                  absolute(randomWalkFunction(\"series10\")),\n                  absolute(randomWalkFunction(\"series11\")),\n                  absolute(randomWalkFunction(\"series12\"))\n              )"
+        ]
+      }, 
+      "corr_x": {
+        "name": "corr_x", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query3\"))"
         ]
       }
     }, 
