@@ -170,6 +170,10 @@ function get_flot_options(item, base) {
     flot_options.yaxes[1].transform = log_transform
   }
 
+  if (options.x && options.x.label) {
+    flot_options.xaxis.axisLabel = options.x.label
+  }
+
   if (item.show_max_value || item.show_min_value || item.show_last_value) {
     flot_options.series.valueLabels = {
       show: true,
@@ -431,7 +435,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return result
   }
 
-  simple_line_chart(element: any, item: Chart, query: Query) : void {
+  simple_line_chart(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       grid: { show: false },
       series: {
@@ -442,10 +446,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       downsample: true
     })
 
-    return this.render(element, item, query, options, [query.chart_data('flot')[0]])
+    return this.render(selector, item, query, options, [query.chart_data('flot')[0]])
   }
 
-  standard_line_chart(element: any, item: Chart, query: Query) : void {
+  standard_line_chart(selector: string, item: Chart, query: Query) : void {
     query.chart_data('flot').forEach(function(series) {
       // Hide series with no data from display
       if (series.summation.sum === 0) {
@@ -455,12 +459,12 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         }
       }
     })
-    this.render(element, item, query, get_flot_options(item, {
+    this.render(selector, item, query, get_flot_options(item, {
       downsample: true
     }))
   }
 
-  simple_area_chart(element: any, item: Chart, query: Query) : void {
+  simple_area_chart(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       downsample: true,
       grid: { show: false },
@@ -470,10 +474,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     })
 
-    return this.render(element, item, query, options, [query.chart_data('flot')[0]])
+    return this.render(selector, item, query, options, [query.chart_data('flot')[0]])
   }
 
-  stacked_area_chart(element: any, item: Chart, query: Query) : void {
+  stacked_area_chart(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       downsample: true,
       series: {
@@ -519,10 +523,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       series.points.fillColor = options.colors[i % options.colors.length]
     })
 
-    return this.render(element, item, query, options)
+    return this.render(selector, item, query, options)
   }
 
-  donut_chart(element: any, item: Chart, query: Query) {
+  donut_chart(selector: string, item: Chart, query: Query) {
     let options = get_flot_options(item, {
       crosshair: { mode: null },
       multihighlight: { mode: null },
@@ -553,9 +557,9 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     }).filter(function(item) { return item })
 
-    let context = this.render(element, item, query, options, data)
+    let context = this.render(selector, item, query, options, data)
 
-    $(element).bind('plothover', function(event, pos, event_item) {
+    $(selector).bind('plothover', function(event, pos, event_item) {
       if (event_item) {
         let contents = ts.templates.flot.donut_tooltip({
           series: event_item.series,
@@ -572,7 +576,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return context
   }
 
-  bar_chart(element: any, item: Chart, query: Query) : void {
+  bar_chart(selector: string, item: Chart, query: Query) : void {
     let series      = query.chart_data('flot')[0]
     let ts_start    = series.data[0][0]
     let ts_end      = series.data[series.data.length - 1][0]
@@ -617,10 +621,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     }
 
-    return this.render(element, item, query, options)
+    return this.render(selector, item, query, options)
   }
 
-  discrete_bar_chart(element: any, item: Chart, query: Query) : void {
+  discrete_bar_chart(selector: any, item: Chart, query: Query) : void {
     let is_horizontal = item['orientation'] === 'horizontal'
     let format = d3.format(item['format'] || FORMAT_STRING_STANDARD)
     let options = get_flot_options(item, {
@@ -698,8 +702,8 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     }
 
-    let context = this.render(element, item, query, options, data)
-    $(element).bind('plothover', function(event, pos, event_item) {
+    let context = this.render(selector, item, query, options, data)
+    $(selector).bind('plothover', function(event, pos, event_item) {
       if (event_item) {
         let contents = ts.templates.flot.discrete_bar_tooltip({
           series: event_item.series,
@@ -712,5 +716,39 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     })
     return context
+  }
+
+  scatter_plot(selector: string, item: Chart, query: Query) : void {
+    let options = get_flot_options(item, {
+      series: {
+        lines: { show: true, lineWidth: 0 },
+        bars: { show: false },
+        points: {
+          show: true,
+          fill: true,
+          radius: 2,
+          symbol: "circle"
+        }
+      }
+    })
+    options.series.points.fillColor = options.colors[0]
+    options.xaxis.mode = null
+    options.xaxis.tickFormatter = null
+
+    let data = query.chart_data('flot')
+    let series_x = data[0].data.map(d => {
+      return d[1]
+    })
+    let series_y = data[1].data.map(d => {
+      return d[1]
+    })
+    let series = series_x.map((e, i) => {
+      return [e, series_y[i]]
+    })
+
+    let scatter_data = [data[0]]
+    scatter_data[0].data = series
+
+    return this.render(selector, item, query, options, scatter_data)
   }
 }

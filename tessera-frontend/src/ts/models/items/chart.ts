@@ -70,6 +70,18 @@ properties.register([{
       return [undefined].concat([...charts.renderers.list().map(r => r.name)])
     }
   }
+}, {
+  name: 'chart.legend',
+  property_name: 'legend',
+  category: 'chart',
+  edit_options: {
+    type: 'select',
+    source: [
+      { value: undefined, text: 'none' },
+      'simple',
+      'table'
+    ]
+  }
 }])
 
 export const ChartLegendType = {
@@ -176,19 +188,7 @@ export default class Chart extends Presentation {
       'chart.renderer',
       'chart.palette',
       'chart.fill',
-      {
-        name: 'chart.legend',
-        property_name: 'legend',
-        category: 'chart',
-        edit_options: {
-          type: 'select',
-          source: [
-            { value: undefined, text: 'none' },
-            'simple',
-            'table'
-          ]
-        }
-      }
+      'chart.legend'
     ]
     return super.interactive_properties().concat(props)
   }

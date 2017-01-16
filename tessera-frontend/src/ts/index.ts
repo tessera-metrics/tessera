@@ -72,6 +72,7 @@ window.ts.init = function() {
   register_dashboard_item(items.StandardTimeSeries)
   register_dashboard_item(items.Singlegraph)
   register_dashboard_item(items.SinglegraphGrid)
+  register_dashboard_item(items.ScatterPlot)
 
   /* Register Handlebars helper functions */
   register_helpers()
