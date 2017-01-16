@@ -237,6 +237,8 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
     this.donut_chart(selector, item, query)
   }
 
+  scatter_plot(selector: string, item: Chart, query: Query) : void {}
+
   chart_url(item: Chart, query: Query, opt?: any) {
     switch (item.item_type) {
     case 'simple_time_series':

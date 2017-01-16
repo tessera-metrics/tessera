@@ -155,7 +155,10 @@ export default class Query extends Model {
       events.fire(this, 'ds-data-ready', this)
       return this.data
     } catch (e) {
-      ts.manager.error(`Error loading query ${this.name}: ${e.message}`)
+      let msg = `Error loading query ${this.name}: ${e.message}`
+      log.error(msg)
+      console.log(e)
+      ts.manager.error(msg)
     }
     return Promise.resolve(this.data)
   }

@@ -35,6 +35,7 @@ export class ChartRenderer implements NamedObject {
   donut_chart(selector: string, item: Chart, query: Query) : void {}
   bar_chart(selector: string, item: Chart, query: Query) : void {}
   discrete_bar_chart(selector: string, item: Chart, query: Query) : void {}
+  scatter_plot(selector: string, item: Chart, query: Query) : void {}
   highlight_series(item: Chart, index: number) : void {}
   unhighlight_series(item: Chart, index?: number) : void {}
   cleanup(item: Chart) : void {}
@@ -143,6 +144,13 @@ export function discrete_bar_chart(selector: string, item: Chart, query: Query) 
   let r = get_renderer(item)
   if (r) {
     r.discrete_bar_chart(selector, item, query)
+  }
+}
+
+export function scatter_plot(selector: string, item: Chart, query: Query) : void {
+  let r = get_renderer(item)
+  if (r) {
+    r.scatter_plot(selector, item, query)
   }
 }
 
