@@ -355,6 +355,7 @@ export class Manager {
         }
     }
 
+    dashboard.dirty = false
     return this
   }
 
