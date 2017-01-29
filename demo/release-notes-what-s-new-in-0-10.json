@@ -337,7 +337,7 @@
                   {
                     "item_id": "d18", 
                     "item_type": "markdown", 
-                    "text": "* See the [full list of closed issues](https://github.com/tessera-metrics/tessera/milestone/10?closed=1)"
+                    "text": "* Performance improvements when editing queries. They no longer cause unnecessary chains of completely re-rendering the dashboard\n* Fixed an ugly rendering error in percent-stacked charts\n* See the [full list of closed issues](https://github.com/tessera-metrics/tessera/milestone/10?closed=1)"
                   }
                 ]
               }

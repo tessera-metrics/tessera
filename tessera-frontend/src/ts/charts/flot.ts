@@ -359,10 +359,6 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
   highlight_series(item: Chart, index: number) : void {
     if (!item.render_context)
       return
-    // Highlighting completely screws up in percent mode, so ignore it
-    // for now.
-    if (item['stack_mode'] == charts.StackMode.PERCENT  )
-      return
     let plot = item.render_context.plot
     if (item instanceof StandardTimeSeries) {
       let sts     = <StandardTimeSeries> item
@@ -389,8 +385,6 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
   // TODO: simplify this too
   unhighlight_series(item: Chart, index?: number) : void {
     if (!item.render_context)
-      return
-    if (item['stack_mode'] == charts.StackMode.PERCENT  )
       return
     let plot = item.render_context.plot
     if (item instanceof StandardTimeSeries) {

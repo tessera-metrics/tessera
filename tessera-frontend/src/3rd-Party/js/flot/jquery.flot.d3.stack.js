@@ -30,7 +30,7 @@
       var percents = []
       series.data.forEach(function(point) {
         newpoints.push(point[0])
-        newpoints.push(point.y0 + point[1])
+        newpoints.push(point.y0 + point.y)
         newpoints.push(point.y0)
         percents.push(point.y)
       })
