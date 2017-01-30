@@ -2,10 +2,11 @@
 layout: docs
 title: Heading
 category: Documentation
-doc_section: Item Types
+doc_section: Text
 ---
 
-The `heading` dashboard item renders a simple HTML heading directive, for labeling dashboard sections.
+The `heading` dashboard item renders a simple HTML heading directive,
+for labeling dashboard sections.
 
 ### Attributes
 

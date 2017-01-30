@@ -1,8 +1,8 @@
 ---
 layout: docs
-title: Discrete Bar Chart
+title: Bar Chart (Discrete)
 category: Documentation
-doc_section: Item Types
+doc_section: Charts
 ---
 
 ### Attributes
@@ -13,3 +13,7 @@ doc_section: Item Types
 | `title` | | |
 | `query` | | |
 {: .table .attributes }
+
+![](vert.png)
+
+![](horiz.png)

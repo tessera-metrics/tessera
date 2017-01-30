@@ -2,7 +2,7 @@
 layout: docs
 title: Cell
 category: Documentation
-doc_section: Item Types
+doc_section: Layout
 ---
 
 The `cell` dashboard item renders a grid cell, the basic container for

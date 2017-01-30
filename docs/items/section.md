@@ -2,7 +2,7 @@
 layout: docs
 title: Section
 category: Documentation
-doc_section: Item Types
+doc_section: Layout
 ---
 
 The `section` dashboard item renders a top-level container for grid

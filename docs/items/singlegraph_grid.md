@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: Bar Chart
+title: Singlegraph Grid
 category: Documentation
 doc_section: Charts
 ---
@@ -13,3 +13,5 @@ doc_section: Charts
 | `title` | | |
 | `query` | | |
 {: .table .attributes }
+
+![](singlegraph-grid.png)

@@ -2,7 +2,7 @@
 layout: docs
 title: Simple Time Series
 category: Documentation
-doc_section: Item Types
+doc_section: Charts
 ---
 
 ### Attributes

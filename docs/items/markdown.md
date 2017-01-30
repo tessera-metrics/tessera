@@ -2,7 +2,7 @@
 layout: docs
 title: Markdown
 category: Documentation
-doc_section: Item Types
+doc_section: Text
 ---
 
 The `markdown` dashboard item renders a block of HTML from

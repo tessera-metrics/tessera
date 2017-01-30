@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: Bar Chart
+title: Singlegraph
 category: Documentation
 doc_section: Charts
 ---
@@ -13,3 +13,7 @@ doc_section: Charts
 | `title` | | |
 | `query` | | |
 {: .table .attributes }
+
+![](singlegraph1.png)
+
+![](singlegraph2.png)

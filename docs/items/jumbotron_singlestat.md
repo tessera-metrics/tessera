@@ -2,7 +2,7 @@
 layout: docs
 title: Jumbotron Singlestat
 category: Documentation
-doc_section: Item Types
+doc_section: Text
 ---
 
 The `jumbotron_singlestat` dashboard item presents a single numeric value from

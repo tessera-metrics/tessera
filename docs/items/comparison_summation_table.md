@@ -2,7 +2,7 @@
 layout: docs
 title: Comparison Summation Table
 category: Documentation
-doc_section: Item Types
+doc_section: Text
 ---
 
 

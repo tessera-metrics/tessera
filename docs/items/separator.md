@@ -2,7 +2,7 @@
 layout: docs
 title: Separator
 category: Documentation
-doc_section: Item Types
+doc_section: Layout
 ---
 
 The `separator` dashboard item renders an HTML horizontal line.

@@ -2,7 +2,7 @@
 layout: docs
 title: Row
 category: Documentation
-doc_section: Item Types
+doc_section: Layout
 ---
 
 The `row` dashboard item renders a row of grid cells.
