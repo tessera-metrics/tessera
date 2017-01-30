@@ -2,7 +2,7 @@
 layout: docs
 title: Time-Shifted Summation Table
 category: Documentation
-doc_section: Charts
+doc_section: Text
 ---
 
 The `timeshift_summation_table` dashboard item displays a query's
