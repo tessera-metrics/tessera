@@ -17,7 +17,7 @@ to dashboards. I like adding a "Related Dashboards" item to high-level
 dashboards, with links to more detailed dashboards.
 
 The
-[Overview Demo](https://github.com/urbanairship/tessera/blob/master/demo/demo-overview-demo.json)
+[Overview Demo](https://github.com/tessera-metrics/tessera/blob/master/demo/demo-overview-demo.json)
 dashboard that's included with Tessera has an example, which links to
 the other dashboards which are tagged with the `demo` or `test` tags.
 
