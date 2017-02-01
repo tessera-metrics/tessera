@@ -29,18 +29,31 @@ These item types have a visual component, but do not consume data from queries.
 
 ### Data Presentation Types
 
-These item type have a visual component linked to one or more data queries.
+These item type have a graphical or textual component linked to one or
+more data queries.
 
-* `simple_time_series`
-* `standard_time_series`
-* `stacked_area_chart`
-* `donut_chart`
-* `bar_chart`
-* `discrete_bar_chart`
-* `singlegraph`
-* `singlestat`
-* `jumbotron_singlestat`
-* `summation_table`
-* `timeshift_summation_table`
-* `comparison_summation_table`
-* `percentage_table`
+
+#### Charts
+
+* [`simple_time_series`](../../items/simple_time_series)
+* [`standard_time_series`](../../items/standard_time_series)
+* [`donut_chart`](../../items/donut_chart)
+* [`bar_chart`](../../items/bar_chart)
+* [`discrete_bar_chart`](../../items/discrete_bar_chart)
+* [`singlegraph`](../../items/singlegraph)
+* [`singlegraph_grid`](../../items/singlegraph_grid)
+* [`scatter_plot`](../../items/scatter_plot)
+
+#### Text Presentations
+
+* [`singlestat`](../../items/singlestat)
+* [`timeshift_singlestat`](../../items/timeshift_singlestat)
+* [`comparison_singlestat`](../../items/comparison_singlestat)
+* [`jumbotron_singlestat`](../../items/jumbotron_singlestat)
+* [`timeshift_jumbotron_singlestat`](../../items/timeshift_jumbotron_singlestat)
+* [`comparison_jumbotron_singlestat`](../../items/comparison_jumbotron_singlestat)
+* [`timerstat`](../../items/timerstat)
+* [`summation_table`](../../items/summation_table)
+* [`timeshift_summation_table`](../../items/timeshift_summation_table)
+* [`comparison_summation_table`](../../items/comparison_summation_table)
+* [`percentage_table`](../../items/percentage_table)
