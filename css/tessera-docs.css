@@ -186,11 +186,15 @@ footer.ds-index {
 
 .doc-index ul li {
     list-style-type: none;
-    font-size: 1.1em;
+    font-size: 1.0em;
 }
 
 .doc-index li.active {
     font-weight: bold;
+}
+
+.doc-index hr {
+    border-top: 1px solid #ddd;
 }
 
 .doc h1 {
