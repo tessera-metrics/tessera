@@ -26,6 +26,4 @@ npm-debug.log
 .Python
 
 # Python virtualenv dirs
-tessera-server/env
-tessera-server/env2
-tessera-server/env3
+tessera-server/env*

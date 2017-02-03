@@ -1,4 +1,4 @@
-import EventSource from '../core/event-source'
+import EventSource from '../util/event-source'
 
 /**
  * Base class for all API model classes

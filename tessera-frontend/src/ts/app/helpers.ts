@@ -2,7 +2,7 @@ import Action, { actions as action_registry } from '../core/action'
 import Chart from '../models/items/chart'
 import * as app from './app'
 import manager from './manager'
-import { logger } from '../core/log'
+import { logger } from '../util'
 
 declare var marked, hljs, Handlebars, moment, d3, $, ts
 
@@ -89,6 +89,16 @@ export function register_helpers() {
       }
     })
     return new Handlebars.SafeString(markdown)
+  })
+
+  /**
+   * Insert a referenced named query, for query re-use.
+   */
+  Handlebars.registerHelper('query', function(name) {
+    let queries = ts.manager.current.dashboard.definition.queries
+    let query   = queries[name] || {}
+    let targets = query['targets'] || []
+    return new Handlebars.SafeString(targets[0])
   })
 
   /* -----------------------------------------------------------------------------

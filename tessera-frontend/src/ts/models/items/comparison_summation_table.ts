@@ -1,5 +1,5 @@
 import TablePresentation from './table_presentation'
-import { extend } from '../../core/util'
+import { extend } from '../../util'
 import Query from '../data/query'
 import Summation from '../data/summation'
 import { PropertyList, property } from '../../core/property'

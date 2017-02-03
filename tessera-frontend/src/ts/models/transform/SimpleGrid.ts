@@ -1,6 +1,6 @@
 import Transform, { transforms, TransformType } from './transform'
 import { make } from '../items/factory'
-import { extend } from '../../core/util'
+import { extend } from '../../util'
 import Chart from '../items/chart'
 
 /**

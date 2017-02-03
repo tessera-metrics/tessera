@@ -1,9 +1,9 @@
-import * as core from '../core'
+import { logger, extend } from '../util'
 import Model     from './model'
 import Dashboard from './dashboard'
 
 declare var store
-const log = core.logger('user')
+const log = logger('user')
 const STORAGE_KEY = 'tessera.user'
 
 /**
@@ -28,7 +28,7 @@ export default class User extends Model {
   }
 
   toJSON() : any {
-    return core.extend(super.toJSON(), {
+    return extend(super.toJSON(), {
       favorites: this.favorites
     })
   }

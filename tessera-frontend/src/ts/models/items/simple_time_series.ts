@@ -2,7 +2,7 @@ import XYChart from './xychart'
 import Query from '../data/query'
 import { DashboardItemMetadata } from './item'
 import { PropertyList } from '../../core/property'
-import { extend } from '../../core/util'
+import { extend } from '../../util'
 import * as charts from '../../charts/core'
 
 declare var $

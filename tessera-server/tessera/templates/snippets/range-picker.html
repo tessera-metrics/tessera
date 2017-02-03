@@ -38,7 +38,7 @@
 <script>
  $(document).ready(function() {
    ts.manager.onDashboardLoaded(function() {
-     var from = URI(window.location).search(true).from || '-3h'
+     var from = URI(window.location).search(true).from || '{{config['DEFAULT_FROM_TIME']}}'
      $('[data-ds-range]').removeClass('active')
      if (from[0] === '-') {
        $('[data-ds-range=' + from + ']').addClass('active')

@@ -14,7 +14,7 @@ SECRET_KEY                 = 'REPLACE ME'
 # loaded with no from or until parameters in the URL, this will be
 # used to select the time range to display.
 #
-DEFAULT_FROM_TIME          = '-3h'
+DEFAULT_FROM_TIME          = '-1h'
 
 #
 # The default UI color theme. Valid values are 'light', 'dark',
@@ -22,6 +22,18 @@ DEFAULT_FROM_TIME          = '-3h'
 # by user sessions.
 #
 DEFAULT_THEME              = 'light'
+
+#
+# The default opacity to use for filled data series. Expressed as a
+# number between 0.0 (totally transparent, i.e. no fill) and 1.0
+# (totally opaque).
+#
+DEFAULT_OPACITY            = 0.8
+
+#
+# The default line width to render lines in data series at.
+#
+DEFAULT_LINE_WIDTH         = 1.0
 
 #
 # Displayed on the front page and in the footer of every page. If you

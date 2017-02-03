@@ -1,4 +1,4 @@
-import { NamedObject, Registry } from './registry'
+import { NamedObject, Registry } from '../util'
 
 export type ActionList = Action[]
 

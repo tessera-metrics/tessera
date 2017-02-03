@@ -1,11 +1,12 @@
-import * as core from '../../core'
+import { logger, extend } from '../../util'
+import { PropertyList } from '../../core'
 import * as app from '../../app'
 import Singlestat from './singlestat'
 import Query from '../data/query'
 
 declare var $, d3, ts
 
-const log = core.logger('models.comparison_singlestat')
+const log = logger('models.comparison_singlestat')
 const FORMAT_PERCENT = d3.format(',.1%')
 
 export default class ComparisonSinglestat extends Singlestat {
@@ -59,7 +60,7 @@ export default class ComparisonSinglestat extends Singlestat {
   }
 
   toJSON() : any {
-    return core.extend(super.toJSON(), {
+    return extend(super.toJSON(), {
       query_other: this._query_other,
       percent: this.percent
     })
@@ -94,7 +95,7 @@ export default class ComparisonSinglestat extends Singlestat {
 
   }
 
-  interactive_properties(): core.PropertyList {
+  interactive_properties(): PropertyList {
     return super.interactive_properties().concat([
       'query_other',
       { name: 'percent', type: 'boolean' }

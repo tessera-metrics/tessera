@@ -1,9 +1,9 @@
-import * as core from '../core'
+import { logger, events } from '../util'
 import Config from './config'
 
 declare var $, URI, window
 
-const log             = core.logger('app')
+const log             = logger('app')
 const ANIMATION_DELAY = 300
 
 export var config : Config = new Config()
@@ -62,7 +62,7 @@ export class Application {
 
   _do_exit_mode(mode: string) : void {
     log.debug('mode <- ' + mode)
-    core.events.fire(this, Event.MODE_EXIT + mode)
+    events.fire(this, Event.MODE_EXIT + mode)
     let state = this.mode_stack.pop()
     if (state) {
       state.hidden.show(ANIMATION_DELAY)
@@ -81,7 +81,7 @@ export class Application {
       hidden: hidden,
       shown: shown
     })
-    core.events.fire(this, Event.MODE_ENTER + mode)
+    events.fire(this, Event.MODE_ENTER + mode)
   }
 
   /**
@@ -89,7 +89,7 @@ export class Application {
    */
   refresh_mode() : Application {
     this.switch_to_mode(this.current_mode, 0)
-    core.events.fire(this, Event.MODE_REFRESH + this.current_mode)
+    events.fire(this, Event.MODE_REFRESH + this.current_mode)
     return this
   }
 
@@ -149,13 +149,13 @@ export class Application {
    */
   add_mode_handler(mode: string, options: IModeHandlerOptions) : Application {
     if (options.enter && (options.enter instanceof Function)) {
-      core.events.on(this, Event.MODE_ENTER + mode, options.enter)
+      events.on(this, Event.MODE_ENTER + mode, options.enter)
     }
     if (options.exit && (options.exit instanceof Function)) {
-      core.events.on(this, Event.MODE_EXIT + mode, options.exit)
+      events.on(this, Event.MODE_EXIT + mode, options.exit)
     }
     if (options.refresh && (options.refresh instanceof Function)) {
-      core.events.on(this, Event.MODE_REFRESH + mode, options.refresh)
+      events.on(this, Event.MODE_REFRESH + mode, options.refresh)
     }
     return this
   }

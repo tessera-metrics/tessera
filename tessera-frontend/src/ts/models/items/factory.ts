@@ -1,3 +1,4 @@
+import { logger, extend } from '../../util'
 import DashboardItem, {
   DashboardItemConstructor,
   DashboardItemMetadata
@@ -7,7 +8,7 @@ import * as core from '../../core'
 declare var require, Handlebars, ts
 
 const inflection = require('inflection')
-const log = core.logger('models.factory')
+const log = logger('models.factory')
 
 var constructors = new Map<string, DashboardItemConstructor>()
 export var metadata = new Map<string, DashboardItemMetadata>()
@@ -34,7 +35,7 @@ export function get_metadata_list(item_class: DashboardItemConstructor) : Dashbo
  */
 export function get_merged_metadata(item_class: DashboardItemConstructor) : DashboardItemMetadata {
   let metas = get_metadata_list(item_class)
-  return core.extend({}, ...metas)
+  return extend({}, ...metas)
 }
 
 /**

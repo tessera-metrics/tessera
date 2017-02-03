@@ -1,7 +1,7 @@
 import DashboardItem, { DashboardItemMetadata } from './item'
-import { render_template } from '../../core/template'
+import { render_template } from '../../util'
 import { PropertyList } from '../../core/property'
-import { extend } from '../../core/util'
+import { extend } from '../../util'
 
 export default class Markdown extends DashboardItem {
   static meta: DashboardItemMetadata = {

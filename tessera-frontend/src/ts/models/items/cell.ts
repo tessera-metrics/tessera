@@ -1,6 +1,6 @@
 import Container from './container'
 import { DashboardItemMetadata } from './item'
-import { extend } from '../../core/util'
+import { extend } from '../../util'
 import { PropertyList } from '../../core/property'
 
 export default class Cell extends Container {

@@ -1,3 +1,4 @@
+import { logger } from '../util'
 import * as core from '../core'
 import Query from '../models/data/query'
 import Dashboard from '../models/dashboard'
@@ -5,7 +6,7 @@ import manager from '../app/manager'
 import * as app from '../app/app'
 
 declare var $, bootbox, ts
-const log = core.logger('edit')
+const log = logger('edit')
 
 /* -----------------------------------------------------------------------------
    Query Functions
@@ -16,16 +17,13 @@ const log = core.logger('edit')
  */
 export function rename_query(dashboard: Dashboard, old_name: string, new_name: string) : void {
   log.debug('rename_query()')
-  let query         = dashboard.definition.queries[old_name]
-  let updated_items = dashboard.definition.rename_query(old_name, new_name)
-  $('[data-ds-query-name="' + old_name + '"]').replaceWith(
-    ts.templates.edit['dashboard-query-row'](query)
-  )
-  if (updated_items && updated_items.length) {
-    for (let item of updated_items) {
-      manager.update_item_view(item)
-    }
-  }
+  manager.without_updates(() => {
+    let query         = dashboard.definition.queries[old_name]
+    let updated_items = dashboard.definition.rename_query(old_name, new_name)
+    $('[data-ds-query-name="' + old_name + '"]').replaceWith(
+      ts.templates.edit['dashboard-query-row'](query)
+    )
+  })
   edit_queries()
   app.refresh_mode()
 }
@@ -47,9 +45,11 @@ export function delete_query(dashboard: Dashboard, query_name: string) : void {
 export function add_query(dashboard: Dashboard, name: string, target?) : Query {
   log.debug('add_query()')
   let query = new Query({name: name, targets: target})
-  dashboard.definition.add_query(query)
-  $("#ds-query-panel table").append(ts.templates.edit['dashboard-query-row'](query))
-  query.load()
+  manager.without_updates(() => {
+    dashboard.definition.add_query(query)
+    $("#ds-query-panel table").append(ts.templates.edit['dashboard-query-row'](query))
+    query.load()
+  })
   edit_queries()
   return query
 }

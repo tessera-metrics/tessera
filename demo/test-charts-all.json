@@ -107,10 +107,13 @@
                 "items": [
                   {
                     "title": "standard_time_series", 
+                    "show_lines": true, 
+                    "stack_mode": "none", 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d19", 
                     "query": "query0", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -122,12 +125,14 @@
                 "span": "6", 
                 "items": [
                   {
-                    "title": "stacked_area_chart", 
+                    "title": "stacked", 
+                    "show_lines": true, 
                     "stack_mode": "stack", 
-                    "item_type": "stacked_area_chart", 
+                    "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d21", 
                     "query": "query0", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -146,11 +151,27 @@
                 "items": [
                   {
                     "title": "standard_time_series (multiple series)", 
+                    "show_lines": true, 
+                    "stack_mode": "none", 
                     "height": "3", 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d24", 
                     "query": "query2", 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }, 
+                  {
+                    "title": "standard_time_series (points)", 
+                    "show_lines": false, 
+                    "stack_mode": "none", 
+                    "height": "3", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d113", 
+                    "query": "query2", 
+                    "show_points": true, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -162,35 +183,41 @@
                 "span": "6", 
                 "items": [
                   {
-                    "title": "stacked_area_chart (multiple series)", 
+                    "title": "stacked (multiple series)", 
+                    "show_lines": true, 
                     "stack_mode": "stack", 
                     "height": "3", 
-                    "item_type": "stacked_area_chart", 
+                    "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d26", 
                     "query": "query2", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }, 
                   {
-                    "title": "stacked_area_chart (percentage)", 
+                    "title": "stacked (percentage)", 
+                    "show_lines": true, 
                     "stack_mode": "percent", 
                     "height": "3", 
-                    "item_type": "stacked_area_chart", 
+                    "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d69", 
                     "query": "query2", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }, 
                   {
-                    "title": "stacked_area_chart (stream graph)", 
+                    "title": "stacked (stream graph)", 
+                    "show_lines": true, 
                     "stack_mode": "stream", 
                     "height": "3", 
-                    "item_type": "stacked_area_chart", 
+                    "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d70", 
                     "query": "query2", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -218,16 +245,18 @@
                 "span": 3, 
                 "items": [
                   {
-                    "title": "Height 2", 
-                    "stack_mode": "stack", 
-                    "height": "2", 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d32", 
-                    "query": "query1", 
                     "options": {
                       "palette": "None"
                     }, 
+                    "title": "Height 2", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": "2", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d32", 
+                    "query": "query1", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -239,16 +268,18 @@
                 "span": 3, 
                 "items": [
                   {
-                    "title": "Height 3", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d34", 
-                    "query": "query1", 
                     "options": {
                       "palette": "None"
                     }, 
+                    "title": "Height 3", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": "3", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d34", 
+                    "query": "query1", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -260,16 +291,18 @@
                 "span": 3, 
                 "items": [
                   {
-                    "title": "Height 4", 
-                    "stack_mode": "stack", 
-                    "height": "4", 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d36", 
-                    "query": "query1", 
                     "options": {
                       "palette": "None"
                     }, 
+                    "title": "Height 4", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": "4", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d36", 
+                    "query": "query1", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -281,16 +314,18 @@
                 "span": 3, 
                 "items": [
                   {
-                    "title": "Height 5", 
-                    "stack_mode": "stack", 
-                    "height": "5", 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d42", 
-                    "query": "query1", 
                     "options": {
                       "palette": "None"
                     }, 
+                    "title": "Height 5", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": "5", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d42", 
+                    "query": "query1", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -318,16 +353,18 @@
                 "span": 3, 
                 "items": [
                   {
-                    "title": "default (spectrum6)", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d47", 
-                    "query": "query2", 
                     "options": {
                       "palette": "None"
                     }, 
+                    "title": "default (spectrum6)", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": 2, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d47", 
+                    "query": "query2", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -339,16 +376,18 @@
                 "span": 3, 
                 "items": [
                   {
-                    "title": "brewerdiv3", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d50", 
-                    "query": "query2", 
                     "options": {
                       "palette": "brewerdiv3"
                     }, 
+                    "title": "brewerdiv3", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": 2, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d50", 
+                    "query": "query2", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -360,16 +399,18 @@
                 "span": 3, 
                 "items": [
                   {
-                    "title": "d3category20", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d52", 
-                    "query": "query2", 
                     "options": {
                       "palette": "d3category20"
                     }, 
+                    "title": "d3category20", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": 2, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d52", 
+                    "query": "query2", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -381,16 +422,18 @@
                 "span": 3, 
                 "items": [
                   {
-                    "title": "d3category20c", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d54", 
-                    "query": "query2", 
                     "options": {
                       "palette": "d3category20c"
                     }, 
+                    "title": "d3category20c", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": 2, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d54", 
+                    "query": "query2", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -408,15 +451,18 @@
                 "span": "6", 
                 "items": [
                   {
+                    "options": {
+                      "palette": "munin"
+                    }, 
                     "title": "munin", 
-                    "height": "5", 
+                    "show_lines": true, 
+                    "stack_mode": "none", 
+                    "height": 3, 
                     "item_type": "standard_time_series", 
                     "hide_zero_series": false, 
                     "item_id": "d57", 
                     "query": "query3", 
-                    "options": {
-                      "palette": "munin"
-                    }, 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -428,16 +474,18 @@
                 "span": "6", 
                 "items": [
                   {
-                    "title": "spectrum14", 
-                    "stack_mode": "stack", 
-                    "height": "5", 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d59", 
-                    "query": "query3", 
                     "options": {
                       "palette": "spectrum14"
                     }, 
+                    "title": "spectrum14", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": 3, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d59", 
+                    "query": "query3", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -455,16 +503,18 @@
                 "span": 3, 
                 "items": [
                   {
-                    "title": "numbers6", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d82", 
-                    "query": "query2", 
                     "options": {
                       "palette": "numbers6"
                     }, 
+                    "title": "numbers6", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": 2, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d82", 
+                    "query": "query2", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -476,16 +526,18 @@
                 "span": 3, 
                 "items": [
                   {
-                    "title": "brewerq10", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d122", 
-                    "query": "query2", 
                     "options": {
                       "palette": "brewerq10"
                     }, 
+                    "title": "brewerq10", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": 2, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d122", 
+                    "query": "query2", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -497,16 +549,18 @@
                 "span": 3, 
                 "items": [
                   {
-                    "title": "colorwheel", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d124", 
-                    "query": "query2", 
                     "options": {
                       "palette": "colorwheel"
                     }, 
+                    "title": "colorwheel", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": 2, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d124", 
+                    "query": "query2", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -518,16 +572,18 @@
                 "span": 3, 
                 "items": [
                   {
-                    "title": "classic9", 
-                    "stack_mode": "stack", 
-                    "height": "3", 
-                    "item_type": "stacked_area_chart", 
-                    "hide_zero_series": false, 
-                    "item_id": "d126", 
-                    "query": "query2", 
                     "options": {
                       "palette": "classic9"
                     }, 
+                    "title": "classic9", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "height": 2, 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d126", 
+                    "query": "query2", 
+                    "show_points": false, 
                     "legend": "simple", 
                     "interactive": true
                   }
@@ -562,7 +618,7 @@
                     "item_type": "donut_chart", 
                     "hide_zero_series": false, 
                     "item_id": "d130", 
-                    "query": "query3", 
+                    "query": "query2", 
                     "options": {
                       "palette": "None"
                     }, 
@@ -656,7 +712,7 @@
                     "item_type": "donut_chart", 
                     "hide_zero_series": false, 
                     "item_id": "d80", 
-                    "query": "query3", 
+                    "query": "query2", 
                     "options": {
                       "palette": "None"
                     }, 
@@ -869,6 +925,93 @@
         "level": "2", 
         "items": [
           {
+            "item_id": "d114", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d115", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "format": ",.1s", 
+                    "transform": "mean", 
+                    "height": 1, 
+                    "item_type": "singlegraph", 
+                    "hide_zero_series": false, 
+                    "item_id": "d116", 
+                    "query": "query0", 
+                    "options": {
+                      "palette": "applegrey", 
+                      "margin": {
+                        "top": 0, 
+                        "left": 0, 
+                        "right": 0, 
+                        "bottom": 0
+                      }
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d117", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "format": ",.1s", 
+                    "transform": "mean", 
+                    "height": 1, 
+                    "item_type": "singlegraph", 
+                    "hide_zero_series": false, 
+                    "item_id": "d118", 
+                    "query": "query0", 
+                    "options": {
+                      "palette": "applegreen", 
+                      "margin": {
+                        "top": 0, 
+                        "left": 0, 
+                        "right": 0, 
+                        "bottom": 0
+                      }
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d119", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "format": ",.1s", 
+                    "transform": "mean", 
+                    "height": 1, 
+                    "item_type": "singlegraph", 
+                    "hide_zero_series": false, 
+                    "item_id": "d120", 
+                    "query": "query0", 
+                    "options": {
+                      "palette": "brewerdiv2", 
+                      "margin": {
+                        "top": 0, 
+                        "left": 0, 
+                        "right": 0, 
+                        "bottom": 0
+                      }
+                    }, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
             "item_id": "d107", 
             "item_type": "row", 
             "items": [
@@ -879,14 +1022,15 @@
                 "items": [
                   {
                     "format": ",.1s", 
-                    "transform": "mean", 
+                    "title": "Singlegraph Grid", 
+                    "transform": "sum", 
                     "height": 1, 
                     "item_type": "singlegraph_grid", 
-                    "legend": "simple", 
                     "hide_zero_series": false, 
                     "item_id": "d112", 
                     "query": "query3", 
                     "options": {}, 
+                    "legend": "simple", 
                     "columns": 4
                   }
                 ]
@@ -936,7 +1080,7 @@
     }, 
     "item_id": "d1", 
     "options": {
-      "from": "-3h"
+      "from": "-1h"
     }
   }, 
   "view_href": "/dashboards/10/charts-all", 

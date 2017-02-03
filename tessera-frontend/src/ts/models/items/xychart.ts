@@ -31,6 +31,30 @@ core.properties.register([{
     }
   }
 }, {
+  name: 'chart.x-axis-label',
+  property_name: 'x-axis-label',
+  category: 'chart',
+  edit_options: {
+    type: 'text',
+    value: function(item) {
+      if (item.options && item.options.x) {
+        return item.options.x.label
+      } else {
+        return undefined
+      }
+    },
+    update: function(item, newValue) {
+      if (!item.options) {
+        item.options = {}
+      }
+      if (!item.options.x) {
+        item.options.x = new Axis()
+      }
+      item.options.x.label = newValue
+      item.updated()
+    }
+  }
+}, {
   name: 'chart.y-axis-min',
   property_name: 'y-axis-min',
   category: 'chart',
@@ -110,6 +134,7 @@ export default class XYChart extends Chart {
 
   interactive_properties() : PropertyList {
     return super.interactive_properties().concat([
+      'chart.x-axis-label',
       'chart.y-axis-label',
       'chart.y-axis-min',
       'chart.y-axis-max',

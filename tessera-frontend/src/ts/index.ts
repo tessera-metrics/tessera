@@ -1,5 +1,6 @@
 import 'babel-polyfill'
 
+import { logger, extend } from './util'
 import * as core      from './core'
 import * as charts    from './charts/core'
 import * as factory   from './models/items/factory'
@@ -10,7 +11,6 @@ import Client         from './client'
 import { actions }    from './core/action'
 import { transforms } from './models/transform/transform'
 import User           from './models/user'
-import { extend }     from './core/util'
 import manager        from './app/manager'
 import Config         from './app/config'
 import GraphiteChartRenderer    from './charts/graphite'
@@ -22,12 +22,12 @@ import * as items from './models/items'
 
 declare var window, $
 
-var log = core.logger('main')
+var log = logger('main')
 
 window.ts.init = function() {
   let config = window.ts.config
 
-  core.extend(window.ts, {
+  extend(window.ts, {
     core: core,
     app: app,
     manager: manager,
@@ -72,6 +72,7 @@ window.ts.init = function() {
   register_dashboard_item(items.StandardTimeSeries)
   register_dashboard_item(items.Singlegraph)
   register_dashboard_item(items.SinglegraphGrid)
+  register_dashboard_item(items.ScatterPlot)
 
   /* Register Handlebars helper functions */
   register_helpers()

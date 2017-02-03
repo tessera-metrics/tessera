@@ -3,7 +3,7 @@ import { AxisScale } from '../models/axis'
 import Chart from '../models/items/chart'
 import Query from '../models/data/query'
 import { get_colors, get_palette } from './util'
-import { extend } from '../core/util'
+import { extend } from '../util'
 import { render_legend } from './legend'
 
 declare var URI, $
@@ -236,6 +236,8 @@ export default class GraphiteChartRenderer extends charts.ChartRenderer {
   discrete_bar_chart(selector: string, item: Chart, query: Query) : void {
     this.donut_chart(selector, item, query)
   }
+
+  scatter_plot(selector: string, item: Chart, query: Query) : void {}
 
   chart_url(item: Chart, query: Query, opt?: any) {
     switch (item.item_type) {

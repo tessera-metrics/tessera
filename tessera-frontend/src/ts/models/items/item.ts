@@ -1,9 +1,10 @@
+import { logger, TemplateFunction, compile_template, events } from '../../util'
 import * as core from '../../core'
 import Model  from '../model'
 import Query, { QueryDictionary } from '../data/query'
 import { make } from './factory'
 
-const log = core.logger('item')
+const log = logger('item')
 
 export const DashboardItemStyle = {
   WELL:            'well',
@@ -84,7 +85,7 @@ export interface DashboardItemMetadata {
   requires_data?: boolean
   category?: string
   display_name?: string
-  template?: string|core.TemplateFunction
+  template?: string|TemplateFunction
   icon?: string
   actions?: core.ActionList
   interactive_properties?: core.PropertyList
@@ -145,7 +146,7 @@ export default class DashboardItem extends Model {
     return this.meta.display_name
   }
 
-  get template() : string|core.TemplateFunction {
+  get template() : string|TemplateFunction {
     return this.meta.template
   }
 
@@ -166,7 +167,7 @@ export default class DashboardItem extends Model {
    * updated will be passed as the event data.
    */
   updated() : DashboardItem {
-    core.events.fire(DashboardItem, 'update', { target: this })
+    events.fire(DashboardItem, 'update', { target: this })
     if (this.dashboard) {
       this.dashboard.dirty = true
     }
@@ -226,7 +227,7 @@ export default class DashboardItem extends Model {
     if (!this.meta.template) {
       return `<p>Item type <code>${this.item_type}</code> is missing a template.</p>`
     }
-    return core.compile_template(this.template)({item: this})
+    return compile_template(this.template)({item: this})
   }
 
   visit(visitor: DashboardItemVisitor) : DashboardItem {

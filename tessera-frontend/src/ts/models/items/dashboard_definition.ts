@@ -1,12 +1,13 @@
+import { logger, extend, events } from '../../util'
 import Container from './container'
 import Presentation from './presentation'
 import { DashboardItemMetadata } from './item'
 import Query, { QueryDictionary } from '../data/query'
-import * as core from '../../core'
+import { PropertyList } from '../../core'
 import * as charts from '../../charts/core'
 
 declare var $, ts
-const log = core.logger('models.dashboard_definition')
+const log = logger('models.dashboard_definition')
 
 export default class DashboardDefinition extends Container {
   static meta: DashboardItemMetadata = {
@@ -50,6 +51,11 @@ export default class DashboardDefinition extends Container {
   render_templates(context?: any) : void {
     for (let key in this.queries) {
       this.queries[key].render_templates(context)
+    }
+    // Render each query a second time to render any tags in
+    // referenced queries.
+    for (let key in this.queries) {
+      this.queries[key].render_templates(context, true)
     }
     this.visit((item) => {
       if ((item !== this) && item.render_templates) {
@@ -110,7 +116,7 @@ export default class DashboardDefinition extends Container {
       load_queries(queries_to_load),
       load_queries(queries_to_fire, true)
     ]).then(() => {
-      core.events.fire(ts.app.instance, ts.app.Event.QUERIES_COMPLETE)
+      events.fire(ts.app.instance, ts.app.Event.QUERIES_COMPLETE)
       return Promise.resolve(true)
     })
   }
@@ -159,7 +165,7 @@ export default class DashboardDefinition extends Container {
     return updated
   }
 
-  interactive_properties() : core.PropertyList {
+  interactive_properties() : PropertyList {
     return super.interactive_properties().concat([
       'chart.renderer'
     ])
@@ -170,7 +176,7 @@ export default class DashboardDefinition extends Container {
     for (let key in this.queries) {
       q[key] = this.queries[key].toJSON()
     }
-    return core.extend(super.toJSON(), {
+    return extend(super.toJSON(), {
       queries: q,
       renderer: this.renderer
     })

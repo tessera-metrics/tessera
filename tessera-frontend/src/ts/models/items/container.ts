@@ -1,5 +1,5 @@
 import DashboardItem, { DashboardItemVisitor } from './item'
-import { extend } from '../../core/util'
+import { extend } from '../../util'
 import { make } from './factory'
 
 /**

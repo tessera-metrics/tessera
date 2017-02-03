@@ -530,6 +530,12 @@ td.ds-query-target {
   }
 }
 
+.ds-legend-cell.highlighted {
+    .label {
+        font-weight: 800;
+    }
+}
+
 .ds-summation-color-cell {
   height: 1em;
   width: 1em;

@@ -1,0 +1,419 @@
+{
+  "category": "Release Notes", 
+  "definition": {
+    "items": [
+      {
+        "layout": "fixed", 
+        "level": "2", 
+        "items": [
+          {
+            "item_id": "d25", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d26", 
+                "item_type": "cell", 
+                "offset": 1, 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d27", 
+                    "item_type": "markdown", 
+                    "text": "#### Scatter Plots\n\nA scatter plot dashboard item has been added to plot arbitrary\ncorrelations between data series on the X and Y axis. "
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d32", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "title": "Correlation", 
+                    "item_type": "scatter_plot", 
+                    "hide_zero_series": false, 
+                    "item_id": "d60", 
+                    "options": {
+                      "y1": {
+                        "scale": "linear", 
+                        "label": "Y axis dimension"
+                      }, 
+                      "x": {
+                        "label": "X axis dimension"
+                      }, 
+                      "palette": "None"
+                    }, 
+                    "query_x": "corr_x", 
+                    "query_y": "corr_y"
+                  }, 
+                  {
+                    "title": "Correlation with Log Axis", 
+                    "height": 3, 
+                    "item_type": "scatter_plot", 
+                    "hide_zero_series": false, 
+                    "item_id": "d61", 
+                    "options": {
+                      "y1": {
+                        "scale": "log", 
+                        "label": "Y axis dimension"
+                      }, 
+                      "x": {
+                        "label": "X axis dimension"
+                      }, 
+                      "palette": "None"
+                    }, 
+                    "query_x": "corr_x", 
+                    "query_y": "corr_y"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d62", 
+                "item_type": "cell", 
+                "span": 4, 
+                "items": [
+                  {
+                    "title": "Correlation", 
+                    "item_type": "scatter_plot", 
+                    "hide_zero_series": false, 
+                    "item_id": "d63", 
+                    "options": {
+                      "y1": {
+                        "scale": "linear", 
+                        "label": "Y axis dimension"
+                      }, 
+                      "x": {
+                        "label": "X axis dimension"
+                      }, 
+                      "palette": "None"
+                    }, 
+                    "query_x": "corr_y2", 
+                    "query_y": "corr_y"
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d43", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d53", 
+                "item_type": "cell", 
+                "offset": 1, 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d54", 
+                    "item_type": "markdown", 
+                    "text": "#### Render as Points\n\nTime series can now be rendered as points, lines, or both."
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d55", 
+                "item_type": "cell", 
+                "span": 8, 
+                "items": [
+                  {
+                    "title": "Points Only", 
+                    "show_lines": false, 
+                    "stack_mode": "none", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d56", 
+                    "query": "group_3", 
+                    "show_points": true, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }, 
+                  {
+                    "title": "Points and Lines", 
+                    "show_lines": true, 
+                    "stack_mode": "none", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d57", 
+                    "query": "group_3", 
+                    "show_points": true, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }, 
+                  {
+                    "title": "Lines Only", 
+                    "show_lines": true, 
+                    "stack_mode": "none", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d58", 
+                    "query": "group_3", 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "interactive": true
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d44", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d45", 
+                "item_type": "cell", 
+                "offset": 1, 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d46", 
+                    "item_type": "markdown", 
+                    "text": "#### Opacity Control\n\nThe opacity of filled data series can now be set on individual\ndashboard items, or globally via the default setting in\n`config.py`."
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d47", 
+                "item_type": "cell", 
+                "span": "4", 
+                "items": [
+                  {
+                    "title": "20% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d48", 
+                    "query": "group_3", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 0.2
+                  }, 
+                  {
+                    "title": "60% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d49", 
+                    "query": "group_3", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 0.6
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d50", 
+                "item_type": "cell", 
+                "span": "4", 
+                "items": [
+                  {
+                    "title": "40% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d51", 
+                    "query": "group_3", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 0.4
+                  }, 
+                  {
+                    "title": "100% Fill", 
+                    "show_lines": true, 
+                    "stack_mode": "stack", 
+                    "item_type": "standard_time_series", 
+                    "hide_zero_series": false, 
+                    "item_id": "d52", 
+                    "query": "group_3", 
+                    "interactive": true, 
+                    "show_points": false, 
+                    "legend": "simple", 
+                    "fill": 1
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d30", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d31", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d36", 
+                    "item_type": "markdown", 
+                    "text": "#### Query Reuse"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d34", 
+                "item_type": "cell", 
+                "span": 8, 
+                "items": [
+                  {
+                    "item_id": "d37", 
+                    "item_type": "markdown", 
+                    "text": "A new `query` template tag allows queries to be re-used in other queries. To embed one query in another, use `{{query \"queryname\"}}`. Note that if you re-name a query, any references to it in other queries will need to be manually updated. "
+                  }
+                ]
+              }
+            ]
+          }, 
+          {
+            "item_id": "d38", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d39", 
+                "item_type": "cell", 
+                "offset": "1", 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d40", 
+                    "item_type": "markdown", 
+                    "text": "#### Cell Combination Actions\n"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d41", 
+                "item_type": "cell", 
+                "span": 8, 
+                "items": [
+                  {
+                    "item_id": "d42", 
+                    "item_type": "markdown", 
+                    "text": "Convenience actions have been added to the actions bar for `section` allowing the creation of a row containing cells in a variety of commonly used configurations. For example, you can now create a row with 4 cells of 3 column width each with a single action. "
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "Dashboard Enhancements", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d35"
+      }, 
+      {
+        "layout": "fixed", 
+        "level": "2", 
+        "items": [
+          {
+            "item_id": "d9", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d10", 
+                "item_type": "cell", 
+                "offset": 1, 
+                "span": 3, 
+                "items": [
+                  {
+                    "item_id": "d14", 
+                    "item_type": "markdown"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d17", 
+                "item_type": "cell", 
+                "span": 7, 
+                "items": [
+                  {
+                    "item_id": "d18", 
+                    "item_type": "markdown", 
+                    "text": "* Performance improvements when editing queries. They no longer cause unnecessary chains of completely re-rendering the dashboard\n* Fixed an ugly rendering error in percent-stacked charts\n* See the [full list of closed issues](https://github.com/tessera-metrics/tessera/milestone/10?closed=1)"
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "Other Enhancements & Bug Fixes", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d59"
+      }
+    ], 
+    "item_type": "dashboard_definition", 
+    "href": "/api/dashboard/6/definition", 
+    "queries": {
+      "group_3": {
+        "name": "group_3", 
+        "targets": [
+          "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
+        ]
+      }, 
+      "corr_y": {
+        "name": "corr_y", 
+        "targets": [
+          "scale(absolute(sin(\"query4\")), 100)"
+        ]
+      }, 
+      "log": {
+        "name": "log", 
+        "targets": [
+          "offset(scale(\n    group(absolute(randomWalkFunction(\"series1\")),\n          absolute(randomWalkFunction(\"series2\")),\n          absolute(randomWalkFunction(\"series3\")))\n    , 10)\n, 1)"
+        ]
+      }, 
+      "corr_y2": {
+        "name": "corr_y2", 
+        "targets": [
+          "scale(absolute(sin(\"query5\")), 100)"
+        ]
+      }, 
+      "group_12": {
+        "name": "group_12", 
+        "targets": [
+          "group(\n                  absolute(randomWalkFunction(\"series1\")),\n                  absolute(randomWalkFunction(\"series2\")),\n                  absolute(randomWalkFunction(\"series4\")),\n                  absolute(randomWalkFunction(\"series5\")),\n                  absolute(randomWalkFunction(\"series6\")),\n                  absolute(randomWalkFunction(\"series7\")),\n                  absolute(randomWalkFunction(\"series8\")),\n                  absolute(randomWalkFunction(\"series9\")),\n                  absolute(randomWalkFunction(\"series10\")),\n                  absolute(randomWalkFunction(\"series11\")),\n                  absolute(randomWalkFunction(\"series12\"))\n              )"
+        ]
+      }, 
+      "corr_x": {
+        "name": "corr_x", 
+        "targets": [
+          "absolute(randomWalkFunction(\"query3\"))"
+        ]
+      }
+    }, 
+    "item_id": "d3", 
+    "options": {
+      "from": "-1h"
+    }
+  }, 
+  "view_href": "/dashboards/6/what-s-new-in-0-10", 
+  "description": null, 
+  "tags": [
+    {
+      "count": 8, 
+      "bgcolor": "green", 
+      "id": 2, 
+      "name": "featured"
+    }, 
+    {
+      "count": 5, 
+      "id": 4, 
+      "name": "release-notes"
+    }
+  ], 
+  "title": "What's new in 0.10?", 
+  "summary": "", 
+  "definition_href": "/api/dashboard/6/definition", 
+  "href": "/api/dashboard/6", 
+  "id": 6, 
+  "imported_from": null
+}

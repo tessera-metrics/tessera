@@ -3,8 +3,7 @@ import { ChartLegendType, Chart, StandardTimeSeries, DashboardItem } from '../mo
 import Query from '../models/data/query'
 import { AxisScale } from '../models/axis'
 import { get_colors, get_palette } from './util'
-import { extend } from '../core/util'
-import { logger } from '../core/log'
+import { logger, extend } from '../util'
 import * as graphite from '../data/graphite'
 import * as app from '../app/app'
 import { render_legend } from './legend'
@@ -30,6 +29,8 @@ const FORMAT_STANDARD = d3.format(FORMAT_STRING_STANDARD)
 const FORMAT_PERCENT  = d3.format('%')
 const THREE_HOURS_MS  = 1000 * 60 * 60 * 3
 const ONE_HOUR_MS     = 1000 * 60 * 60 * 1
+const DEFAULT_LINE_WIDTH = 1.0
+const DEFAULT_FILL       = 0.8
 
 function is_line_chart(item: Chart) : boolean {
   return ((item instanceof StandardTimeSeries)
@@ -50,13 +51,18 @@ function get_default_options() {
     series: {
       lines: {
         show: true,
-        lineWidth: 1,
+        lineWidth: ts.prefs.line_width || DEFAULT_LINE_WIDTH,
         steps: false,
         fill: false
       },
       valueLabels: { show: false },
-      points: { show: false },
-      bars: { lineWidth: 1, show: false },
+      points: {
+        show: false,
+        fill: true,
+        radius: 2,
+        symbol: "circle"
+      },
+      bars: { lineWidth: ts.prefs.line_width || DEFAULT_LINE_WIDTH, show: false },
       stackD3: { show: false }
     },
     xaxis: {
@@ -102,11 +108,6 @@ function get_default_options() {
         }
       }
     ],
-    points: {
-      show: false,
-      radius: 2,
-      symbol: "circle"
-    },
     shadowSize: 0,
     legend: { show: false },
     grid: {
@@ -167,6 +168,10 @@ function get_flot_options(item, base) {
   }
   if (options.y2 && options.y2.scale === AxisScale.LOG) {
     flot_options.yaxes[1].transform = log_transform
+  }
+
+  if (options.x && options.x.label) {
+    flot_options.xaxis.axisLabel = options.x.label
   }
 
   if (item.show_max_value || item.show_min_value || item.show_last_value) {
@@ -293,7 +298,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       series: {
         lines: {
           show: true,
-          lineWidth: 1,
+          lineWidth: ts.prefs.line_width || DEFAULT_LINE_WIDTH,
           fill: 0.2
         }
       },
@@ -355,49 +360,54 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     if (!item.render_context)
       return
     let plot = item.render_context.plot
-    if (is_line_chart(item)) {
+    if (item instanceof StandardTimeSeries) {
+      let sts     = <StandardTimeSeries> item
+      let stacked = sts.stack_mode != charts.StackMode.NONE
       plot.getData().forEach((s, i) => {
         if (i == index) {
-          s.lines.lineWidth = 3
+          s.lines.lineWidth = (sts.show_lines && !stacked) ? 3 : 0
+          s.points.radius = 3
           s.highlighted = true
+          if (stacked) {
+            s.lines.fill = 0.8
+          }
         } else {
-          s.lines.lineWidth = 1
-          s.highlighted = false
-        }
-      })
-    } else if (is_area_chart(item)) {
-      plot.getData().forEach((s, i) => {
-        if (i != index) {
-          s.lines.fill = 0.2
-          s.lines.lineWidth = 0
-          s.highlighted = false
-        } else {
-          s.highlighted = true
-          s.lines.fill = 1.0
-          s.lines.lineWidth = 1
+          this.unhighlight_series(item, i)
+          if (stacked) {
+            s.lines.fill = 0.2
+          }
         }
       })
     }
     plot.draw()
   }
 
+  // TODO: simplify this too
   unhighlight_series(item: Chart, index?: number) : void {
     if (!item.render_context)
       return
     let plot = item.render_context.plot
-    if (is_line_chart(item)) {
+    if (item instanceof StandardTimeSeries) {
+      let sts     = <StandardTimeSeries> item
+      let stacked = sts.stack_mode != charts.StackMode.NONE
       if (index) {
-        plot.getData()[index].lines.lineWidth = 1
+        let s = plot.getData()[index]
+        s.lines.lineWidth = sts.show_lines ? ts.prefs.line_width || DEFAULT_LINE_WIDTH : 0
+        s.points.radius = 2
+        if (stacked) {
+          s.lines.fill = item.fill || ts.prefs.opacity || DEFAULT_FILL
+        }
+        s.highlighted = false
       } else {
         plot.getData().forEach((s, i) => {
-          s.lines.lineWidth = 1
+          s.lines.lineWidth = sts.show_lines ? ts.prefs.line_width || DEFAULT_LINE_WIDTH : 0
+          s.points.radius = 2
+          s.highlighted = false
+          if (stacked) {
+            s.lines.fill = item.fill || ts.prefs.opacity || DEFAULT_FILL
+          }
         })
       }
-    } else if (is_area_chart(item)) {
-      plot.getData().forEach((s, i) => {
-        s.lines.fill = 1.0
-        s.lines.lineWidth = 1
-      })
     }
     plot.draw()
   }
@@ -419,47 +429,54 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return result
   }
 
-  simple_line_chart(element: any, item: Chart, query: Query) : void {
+  simple_line_chart(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       grid: { show: false },
+      series: {
+        lines: {
+          fill: item.fill
+        }
+      },
       downsample: true
     })
 
-    return this.render(element, item, query, options, [query.chart_data('flot')[0]])
+    return this.render(selector, item, query, options, [query.chart_data('flot')[0]])
   }
 
-  standard_line_chart(element: any, item: Chart, query: Query) : void {
+  standard_line_chart(selector: string, item: Chart, query: Query) : void {
     query.chart_data('flot').forEach(function(series) {
+      // Hide series with no data from display
       if (series.summation.sum === 0) {
         series.lines = {
-          lineWidth: 0
+          lineWidth: 0,
+          fill: 0.0
         }
       }
     })
-    this.render(element, item, query, get_flot_options(item, {
+    this.render(selector, item, query, get_flot_options(item, {
       downsample: true
     }))
   }
 
-  simple_area_chart(element: any, item: Chart, query: Query) : void {
+  simple_area_chart(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       downsample: true,
       grid: { show: false },
       series: {
-        lines: { fill: 1.0 },
+        lines: { fill: item.fill || ts.prefs.opacity || DEFAULT_FILL },
         grid: { show: false }
       }
     })
 
-    return this.render(element, item, query, options, [query.chart_data('flot')[0]])
+    return this.render(selector, item, query, options, [query.chart_data('flot')[0]])
   }
 
-  stacked_area_chart(element: any, item: Chart, query: Query) : void {
+  stacked_area_chart(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       downsample: true,
       series: {
         lines: {
-          fill: 1
+          fill: item.fill || ts.prefs.opacity || DEFAULT_FILL || 1.0
         },
         stackD3: {
           show: true,
@@ -467,6 +484,13 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         }
       }
     })
+
+    if (item instanceof StandardTimeSeries) {
+      let sts = <StandardTimeSeries> item
+      if (!sts.show_lines)
+        options.series.lines.lineWidth = 0
+      options.series.points.show = sts.show_points
+    }
 
     if (item['stack_mode']) {
       let mode = item['stack_mode']
@@ -479,22 +503,24 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         options.series.stackD3.offset = 'wiggle'
       } else if (mode == charts.StackMode.NONE) {
         options.series.stackD3.show = false
-        options.series.lines.fill = false
+        options.series.lines.fill = 0.0
       }
     }
 
-    query.chart_data('flot').forEach(function(series) {
+    query.chart_data('flot').forEach(function(series, i) {
       if (series.summation.sum === 0) {
         series.lines = {
           lineWidth: 0
         }
       }
+      series.points = series.points || {}
+      series.points.fillColor = options.colors[i % options.colors.length]
     })
 
-    return this.render(element, item, query, options)
+    return this.render(selector, item, query, options)
   }
 
-  donut_chart(element: any, item: Chart, query: Query) {
+  donut_chart(selector: string, item: Chart, query: Query) {
     let options = get_flot_options(item, {
       crosshair: { mode: null },
       multihighlight: { mode: null },
@@ -525,9 +551,9 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     }).filter(function(item) { return item })
 
-    let context = this.render(element, item, query, options, data)
+    let context = this.render(selector, item, query, options, data)
 
-    $(element).bind('plothover', function(event, pos, event_item) {
+    $(selector).bind('plothover', function(event, pos, event_item) {
       if (event_item) {
         let contents = ts.templates.flot.donut_tooltip({
           series: event_item.series,
@@ -544,7 +570,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return context
   }
 
-  bar_chart(element: any, item: Chart, query: Query) : void {
+  bar_chart(selector: string, item: Chart, query: Query) : void {
     let series      = query.chart_data('flot')[0]
     let ts_start    = series.data[0][0]
     let ts_end      = series.data[series.data.length - 1][0]
@@ -589,10 +615,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     }
 
-    return this.render(element, item, query, options)
+    return this.render(selector, item, query, options)
   }
 
-  discrete_bar_chart(element: any, item: Chart, query: Query) : void {
+  discrete_bar_chart(selector: any, item: Chart, query: Query) : void {
     let is_horizontal = item['orientation'] === 'horizontal'
     let format = d3.format(item['format'] || FORMAT_STRING_STANDARD)
     let options = get_flot_options(item, {
@@ -612,7 +638,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
           show: true,
           barWidth: 0.8,
           align: 'center',
-          fill: 0.75,
+          fill: item.fill || ts.prefs.opacity || DEFAULT_FILL,
           numbers: {
             show: item['show_numbers'],
             font: '10pt Helvetica',
@@ -670,8 +696,8 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     }
 
-    let context = this.render(element, item, query, options, data)
-    $(element).bind('plothover', function(event, pos, event_item) {
+    let context = this.render(selector, item, query, options, data)
+    $(selector).bind('plothover', function(event, pos, event_item) {
       if (event_item) {
         let contents = ts.templates.flot.discrete_bar_tooltip({
           series: event_item.series,
@@ -684,5 +710,39 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       }
     })
     return context
+  }
+
+  scatter_plot(selector: string, item: Chart, query: Query) : void {
+    let options = get_flot_options(item, {
+      series: {
+        lines: { show: true, lineWidth: 0 },
+        bars: { show: false },
+        points: {
+          show: true,
+          fill: true,
+          radius: 2,
+          symbol: "circle"
+        }
+      }
+    })
+    options.series.points.fillColor = options.colors[0]
+    options.xaxis.mode = null
+    options.xaxis.tickFormatter = null
+
+    let data = query.chart_data('flot')
+    let series_x = data[0].data.map(d => {
+      return d[1]
+    })
+    let series_y = data[1].data.map(d => {
+      return d[1]
+    })
+    let series = series_x.map((e, i) => {
+      return [e, series_y[i]]
+    })
+
+    let scatter_data = [data[0]]
+    scatter_data[0].data = series
+
+    return this.render(selector, item, query, options, scatter_data)
   }
 }

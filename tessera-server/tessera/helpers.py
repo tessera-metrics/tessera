@@ -31,6 +31,8 @@ defaults.
     return {
         'downsample'                  : get_param('downsample',       cfg('DOWNSAMPLE_TIMESERIES', 1), store_in_session=store_in_session),
         'theme'                       : get_param('theme',            cfg('DEFAULT_THEME', 'light'), store_in_session=store_in_session),
+        'opacity'                     : get_param('opacity',          cfg('DEFAULT_OPACITY', 0.8), store_in_session=store_in_session),
+        'line_width'                  : get_param('line_width',       cfg('DEFAULT_LINE_WIDTH', 1.0), store_in_session=store_in_session),
         'renderer'                    : get_param('renderer',         cfg('CHART_RENDERER', 'flot'), store_in_session=store_in_session),
         'refresh'                     : get_param('refresh',          cfg('DEFAULT_REFRESH_INTERVAL', 60), store_in_session=store_in_session),
         'timezone'                    : get_param('timezone',         cfg('DISPLAY_TIMEZONE', 'Etc/UTC'), store_in_session=store_in_session),
