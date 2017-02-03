@@ -1042,10 +1042,61 @@
         "item_type": "section", 
         "horizontal_rule": true, 
         "item_id": "d105"
+      }, 
+      {
+        "layout": "fixed", 
+        "level": "2", 
+        "items": [
+          {
+            "item_id": "d136", 
+            "item_type": "row", 
+            "items": [
+              {
+                "item_id": "d137", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "item_type": "scatter_plot", 
+                    "hide_zero_series": false, 
+                    "item_id": "d141", 
+                    "options": {}, 
+                    "query_x": "query0", 
+                    "query_y": "query1"
+                  }
+                ]
+              }, 
+              {
+                "item_id": "d138", 
+                "item_type": "cell", 
+                "span": "6", 
+                "items": [
+                  {
+                    "item_type": "scatter_plot", 
+                    "hide_zero_series": false, 
+                    "item_id": "d142", 
+                    "options": {
+                      "y1": {
+                        "scale": "log"
+                      }, 
+                      "palette": "brewerq12"
+                    }, 
+                    "query_x": "query0", 
+                    "query_y": "query2"
+                  }
+                ]
+              }
+            ]
+          }
+        ], 
+        "title": "Scatter Plots", 
+        "item_type": "section", 
+        "horizontal_rule": true, 
+        "item_id": "d135"
       }
     ], 
     "item_type": "dashboard_definition", 
-    "href": "/api/dashboard/10/definition", 
+    "href": "/api/dashboard/11/definition", 
     "queries": {
       "query2": {
         "name": "query2", 
@@ -1083,7 +1134,7 @@
       "from": "-1h"
     }
   }, 
-  "view_href": "/dashboards/10/charts-all", 
+  "view_href": "/dashboards/11/charts-all", 
   "description": "", 
   "tags": [
     {
@@ -1099,8 +1150,8 @@
   ], 
   "title": "Charts - All", 
   "summary": "A bit of everything", 
-  "definition_href": "/api/dashboard/10/definition", 
-  "href": "/api/dashboard/10", 
-  "id": 10, 
+  "definition_href": "/api/dashboard/11/definition", 
+  "href": "/api/dashboard/11", 
+  "id": 11, 
   "imported_from": null
 }
