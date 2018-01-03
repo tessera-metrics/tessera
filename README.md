@@ -81,7 +81,10 @@ Documentation is hosted on GitHub Pages at
 * [Extending Tessera](http://tessera-metrics.github.io/tessera/docs/development/extension/), for adding new dashboard
   items, transformations, and actions.
 
-Some additional writeup of why Tessera exists can found on the UA blog - [Introducing Tessera, a Graphite Frontend](http://tessera-metrics.com/blog/2014/06/30/introducing-tessera-a-graphite-frontend).
+Some additional writeup of why Tessera exists can found on the
+introductory blog post that was originally posted on Urban Airship's
+company blog -
+[Introducing Tessera, a Graphite Frontend](http://monster.partyhat.co/article/introducing-tessera/).
 
 ![screenshot](docs/screenshots/color-themes-small.png)
 
