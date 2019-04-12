@@ -30,7 +30,7 @@
     "color": "0.11.4",
     "d3": "3.5.17",
     "datatables": "1.10.12",
-    "extend": "3.0.0",
+    "extend": "3.0.2",
     "filesaver.js": "0.2.0",
     "handlebars": "^4.1.1",
     "highlight.js": "9.2.0",
