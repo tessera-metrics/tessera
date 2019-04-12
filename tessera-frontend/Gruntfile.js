@@ -1,3 +1,4 @@
+const sass = require('node-sass');
 
 module.exports = function(grunt) {
   var path = require('path');
@@ -20,7 +21,7 @@ module.exports = function(grunt) {
       default: {
         src: SOURCE_FILES,
         outDir: '_build/phase1',
-        options: {
+        options: { 
           target: 'es6',
           comments: true,
           declaration: true,
@@ -96,6 +97,7 @@ module.exports = function(grunt) {
      */
     sass: {
       options: {
+        implementation: sass,
         sourceMap: true
       },
       dist: {
