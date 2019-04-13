@@ -37,10 +37,12 @@
     "use strict";
 
     var options = {
+      series: {
         bars: {
-            numbers: {
-            }
+          numbers: {
+          }
         }
+}
     };
 
     function processOptions(plot, options)
