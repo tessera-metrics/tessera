@@ -8,6 +8,7 @@
     {{series.target}}
   </th>
   {{#if item.show_current}}<td>{{format item.format series.summation.last}}</td>{{/if}}
+  {{#if item.show_last_non_zero}}<td>{{format item.format series.summation.last_non_zero}}</td>{{/if}}    
   {{#if item.show_min}}<td>{{format item.format series.summation.min}}</td>{{/if}}
   {{#if item.show_max}}<td>{{format item.format series.summation.max}}</td>{{/if}}
   {{#if item.show_mean}}<td>{{format item.format series.summation.mean}}</td>{{/if}}

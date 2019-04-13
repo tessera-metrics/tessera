@@ -20,6 +20,7 @@ export default class SummationTable extends TablePresentation {
   show_median : boolean = true
   show_sum : boolean = true
   show_current : boolean = true
+  show_last_non_zero : boolean = true
   show_sparkline : boolean = false
 
   constructor(data?: any) {
@@ -40,6 +41,8 @@ export default class SummationTable extends TablePresentation {
         this.show_sum = !!data.show_sum
       if (typeof data.show_current != 'undefined')
         this.show_current = !!data.show_current
+      if (typeof data.show_last_non_zero != 'undefined')
+        this.show_last_non_zero = !!data.show_last_non_zero
       if (typeof data.show_sparkline != 'undefined')
         this.show_sparkline = !!data.show_sparkline
     }
@@ -54,6 +57,7 @@ export default class SummationTable extends TablePresentation {
       show_median: this.show_median,
       show_sum: this.show_sum,
       show_current: this.show_current,
+      show_last_non_zero: this.show_last_non_zero,      
       show_sparkline: this.show_sparkline,
       options: this.options,
       palette: this.palette
@@ -99,6 +103,7 @@ export default class SummationTable extends TablePresentation {
       { name: 'show_median', type: 'boolean', category: 'summation' },
       { name: 'show_sum', type: 'boolean', category: 'summation' },
       { name: 'show_current', type: 'boolean', category: 'summation' },
+      { name: 'show_last_non_zero', type: 'boolean', category: 'summation' },      
       { name: 'show_sparkline', type: 'boolean', category: 'summation' },
       'chart.palette',
       'title'
