@@ -189,7 +189,8 @@ h1.page-title {
 }
 
 .ds-timerstat .unit,
-.ds-singlestat .unit {
+.ds-singlestat .unit,
+.ds-singlegraph .unit {
     margin-left: .25em;
 }
 
@@ -313,6 +314,18 @@ h1.page-title {
     bottom: 1.25em;
     margin-bottom: -1em;
     float: right;
+  }
+
+  span.unit {
+      display: block;
+      position: relative;
+      font-weight: bolder;
+      bottom: 1.5em;
+      left: -.5em;
+      margin-bottom: -1em;      
+      float: right;
+      opacity: 0.75;
+      
   }
 }
 

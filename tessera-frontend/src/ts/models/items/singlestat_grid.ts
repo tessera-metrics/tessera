@@ -1,24 +1,23 @@
-import Chart from './chart'
-import Query from '../data/query'
+import Presentation from './presentation'
 import { DashboardItemMetadata } from './item'
-import * as charts from '../../charts'
 import { extend } from '../../util'
 import { PropertyList } from '../../core/property'
+import Query from '../data/query'
 
-declare var $, d3, ts
+declare var $, d3
 
-export default class SinglegraphGrid extends Chart {
+export default class SinglestatGrid extends Presentation {
   static meta: DashboardItemMetadata = {
-    icon: 'fa fa-image',
-    category: 'chart',
+    category: 'data-table',
+    icon: 'fa fa-subscript',
     requires_data: true
   }
 
-  units: string    
-  format: string = ',.1s'
+  units: string
+  format: string = ',.3s'
   transform: string = 'mean'
-  display_transform: boolean = true
   columns: number = 4
+  hide_zero_series: boolean = false  
 
   constructor(data?: any) {
     super(data)
@@ -26,13 +25,11 @@ export default class SinglegraphGrid extends Chart {
       this.units = data.units
       this.format = data.format || this.format
       this.transform = data.transform || this.transform
-      if (typeof(data.display_transform) !== 'undefined') {
-        this.display_transform = Boolean(data.display_transform)
-      } 
       this.columns = data.columns || this.columns
+      if (typeof(data.hide_zero_series !== 'undefined')) {
+        this.hide_zero_series = Boolean(data.hide_zero_series)
+      }
     }
-    if (!this.height)
-      this.height = 1
   }
 
   toJSON() : any {
@@ -40,8 +37,8 @@ export default class SinglegraphGrid extends Chart {
       units: this.units,
       format: this.format,
       transform: this.transform,
-      display_transform: this.display_transform,
-      columns: this.columns
+      columns: this.columns,
+      hide_zero_series: this.hide_zero_series
     })
   }
 
@@ -50,34 +47,32 @@ export default class SinglegraphGrid extends Chart {
       return
     let span   = 12 / this.columns
     let format = d3.format(this.format)
-    let flot   = <charts.FlotChartRenderer>charts.renderers.get('flot')
-    let holder = $(`#${this.item_id} .ds-singlegraph-grid-holder`)
-    let options = {
-      colors: charts.get_palette(this.options.palette)
-    }
+    let holder = $(`#${this.item_id} .ds-singlestat-grid-holder`)
     holder.empty()
     query.data.forEach((series, i) => {
       let value = series.summation[this.transform]
       if (!(series.summation.sum === 0 && this.hide_zero_series)) {
-        holder.append(ts.templates.models.singlegraph_grid_item({
+        holder.append(ts.templates.models.singlestat_grid_item({
           item: this,
           index: i,
           colspan: span,
           value: format(value),
           label: series.target
         }))
-        flot.sparkline(`#${this.item_id}-${i} .ds-graph-holder`, this, query, i, options)
       }
     })
   }
 
   interactive_properties(): PropertyList {
     return super.interactive_properties().concat([
-      'units', 'format', 'transform',
+      'units',
+      'format',
+      'title',
+      { name: 'index', type: 'number' },
       {
-        name: 'display_transform',
-        type: 'boolean',
-      },      
+        name: 'hide_zero_series',
+        type: 'boolean'
+      },
       {
         name: 'columns',
         edit_options: {
@@ -85,7 +80,8 @@ export default class SinglegraphGrid extends Chart {
           source: [ 1, 2, 3, 4, 6, 12 ]
         }
       },
-
+      'transform'
     ])
   }
+
 }

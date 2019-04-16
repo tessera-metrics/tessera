@@ -15,9 +15,9 @@ export default class Singlestat extends Presentation {
 
   units: string
   format: string = ',.3s'
-  index: number
   transform: string = 'mean'
-
+  index: number
+  
   constructor(data?: any) {
     super(data)
     if (data) {
@@ -28,24 +28,13 @@ export default class Singlestat extends Presentation {
     }
   }
 
-  set_transform(transform: string) : Singlestat {
-    this.transform = transform
-    return <Singlestat> this.updated()
-  }
-
-  set_format(format: string) : Singlestat {
-    this.format = format
-    return <Singlestat> this.updated()
-  }
-
-  set_index(index: number) : Singlestat {
-    this.index = index
-    return <Singlestat> this.updated()
-  }
-
-  set_units(units: string) : Singlestat {
-    this.units = units
-    return <Singlestat> this.updated()
+  toJSON() : any {
+    return extend(super.toJSON(), {
+      units: this.units,
+      format: this.format,
+      transform: this.transform,
+      index: this.index
+    })
   }
 
   data_handler(query: Query) : void {
@@ -57,15 +46,6 @@ export default class Singlestat extends Presentation {
       value = query.data[this.index].summation[this.transform]
     }
     element.text(d3.format(this.format)(value))
-  }
-
-  toJSON() : any {
-    return extend(super.toJSON(), {
-      format: this.format,
-      transform: this.transform,
-      units: this.units,
-      index: this.index
-    })
   }
 
   interactive_properties(): PropertyList {

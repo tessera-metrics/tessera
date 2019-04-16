@@ -109,12 +109,10 @@ export default class ScatterPlot extends XYChart {
 
   render() : string {
     this._update_query()
-    console.log(this.query_override)
     return super.render()
   }
 
   data_handler(query: Query) : void {
-    console.log(query)
     charts.scatter_plot(`#${this.item_id} .ds-graph-holder`, this, query)
   }
 

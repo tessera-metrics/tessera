@@ -59,6 +59,7 @@ window.ts.init = function() {
   register_dashboard_item(items.TimeshiftSummationTable)
   register_dashboard_item(items.ComparisonSummationTable)
   register_dashboard_item(items.Singlestat)
+  register_dashboard_item(items.SinglestatGrid)  
   register_dashboard_item(items.TimeshiftSinglestat)
   register_dashboard_item(items.ComparisonSinglestat)
   register_dashboard_item(items.JumbotronSinglestat)

@@ -14,15 +14,21 @@ export default class Singlegraph extends Chart {
     requires_data: true
   }
 
+  units: string  
   format: string = ',.1s'
   transform: string = 'mean'
+  display_transform: boolean = true
   index: number
 
   constructor(data?: any) {
     super(data)
     if (data) {
+      this.units = data.units
       this.format = data.format || this.format
       this.transform = data.transform || this.transform
+      if (typeof(data.display_transform) !== 'undefined') {
+        this.display_transform = Boolean(data.display_transform)
+      } 
       this.index = data.index
       if (!this.height)
         this.height = 1
@@ -31,8 +37,10 @@ export default class Singlegraph extends Chart {
 
   toJSON() : any {
     return extend(super.toJSON(), {
+      units: this.units,
       format: this.format,
       transform: this.transform,
+      display_transform: this.display_transform,
       index: this.index
     })
   }
@@ -57,7 +65,12 @@ export default class Singlegraph extends Chart {
 
   interactive_properties(): PropertyList {
     return super.interactive_properties().concat([
-      'format', 'transform'
+      'units', 'format', 'transform',
+      {
+        name: 'display_transform',
+        type: 'boolean',
+      },
+      { name: 'index', type: 'number' }
     ])
   }
 }

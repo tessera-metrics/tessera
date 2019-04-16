@@ -4,6 +4,9 @@
   <div class="ds-graph-holder {{height item}}">
     <svg class="{{height item}}"></svg>
   </div>
-  <span class="value"></span>
-  <span class="transform">{{item.transform}}</span>
+  <span class="unit">{{item.units}}</span>
+  <span class="value"></span>  
+  {{#if item.display_transform}}
+    <span class="transform">{{item.transform}}</span>
+  {{/if}}
 </div>
