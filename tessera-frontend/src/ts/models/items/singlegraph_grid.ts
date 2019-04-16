@@ -50,14 +50,16 @@ export default class SinglegraphGrid extends Chart {
     holder.empty()
     query.data.forEach((series, i) => {
       let value = series.summation[this.transform]
-      holder.append(ts.templates.models.singlegraph_grid_item({
-        item: this,
-        index: i,
-        colspan: span,
-        value: format(value),
-        label: series.target
-      }))
-      flot.sparkline(`#${this.item_id}-${i} .ds-graph-holder`, this, query, i, options)
+      if (!(series.summation.sum === 0 && this.hide_zero_series)) {
+        holder.append(ts.templates.models.singlegraph_grid_item({
+          item: this,
+          index: i,
+          colspan: span,
+          value: format(value),
+          label: series.target
+        }))
+        flot.sparkline(`#${this.item_id}-${i} .ds-graph-holder`, this, query, i, options)
+      }
     })
   }
 
