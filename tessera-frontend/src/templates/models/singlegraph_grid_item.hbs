@@ -1,9 +1,11 @@
 <div class="col-md-{{colspan}}">
   <div class="ds-singlegraph {{css_class item}}" id="{{item.item_id}}-{{index}}">
-    <span class="ds-label">{{label}}</span>
+    {{#if item.style}}<div class="{{style_class item}}">{{/if}}
+      <span class="ds-label">{{label}}</span>
     <div class="ds-graph-holder {{height item}}"></div>
     <span class="unit">{{item.units}}</span>
     <span class="value">{{value}}</span>
     {{#if item.display_transform}}<span class="transform">{{item.transform}}</span>{{/if}}
+      {{#if item.style}}</div>{{/if}}
   </div>
 </div>

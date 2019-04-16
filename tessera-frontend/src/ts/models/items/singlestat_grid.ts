@@ -80,7 +80,8 @@ export default class SinglestatGrid extends Presentation {
           source: [ 1, 2, 3, 4, 6, 12 ]
         }
       },
-      'transform'
+      'transform',
+      'style'
     ])
   }
 

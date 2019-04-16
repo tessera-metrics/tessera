@@ -1,6 +1,9 @@
 <div class="col-md-{{colspan}}">
   <div class="ds-singlestat {{item.css_class}} {{height item}}"  id="{{item.item_id}}-{{index}}">
-    <h3>{{label}}</h3>
+    {{#if item.style}}<div class="{{style_class item}}">{{/if}}
+      <h3>{{label}}</h3>
     <p><span class="value">{{value}}</span><span class="unit">{{item.units}}</span><span class="diff"></span></p>
+    {{#if item.style}}</div>{{/if}}
   </div>
+
 </div>

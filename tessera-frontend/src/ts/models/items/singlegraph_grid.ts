@@ -85,7 +85,7 @@ export default class SinglegraphGrid extends Chart {
           source: [ 1, 2, 3, 4, 6, 12 ]
         }
       },
-
+      'style'
     ])
   }
 }
