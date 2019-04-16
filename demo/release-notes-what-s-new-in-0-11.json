@@ -1,0 +1,165 @@
+{
+  "id": 27,
+  "title": "What's new in 0.11?",
+  "category": "Release Notes",
+  "summary": "",
+  "description": null,
+  "creation_date": "2019-04-16T14:39:52.697747Z",
+  "last_modified_date": "2019-04-16T15:12:39.597718Z",
+  "imported_from": null,
+  "tags": [
+    {
+      "id": 4,
+      "name": "release-notes",
+      "count": 6
+    }
+  ],
+  "definition": {
+    "options": {
+      "from": "-1h"
+    },
+    "item_type": "dashboard_definition",
+    "item_id": "d3",
+    "items": [
+      {
+        "title": "Dashboard Enhancements",
+        "item_type": "section",
+        "item_id": "d35",
+        "items": [
+          {
+            "item_type": "row",
+            "item_id": "d25",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d26",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d27",
+                    "text": "#### Singlestat Grids\n\nSinglestat grids render one Singlestat for each series in the query, in a configurable number of columns, just like Singlegraph grids. \n",
+                    "raw": false
+                  }
+                ],
+                "span": 3,
+                "offset": 1
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d32",
+                "items": [
+                  {
+                    "item_type": "singlestat_grid",
+                    "item_id": "d15",
+                    "style": "none",
+                    "query": "grid",
+                    "units": "%",
+                    "format": ",.3s",
+                    "transform": "mean",
+                    "columns": 4,
+                    "hide_zero_series": false
+                  }
+                ],
+                "span": "8"
+              }
+            ]
+          },
+          {
+            "item_type": "row",
+            "item_id": "d19",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d20",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d21",
+                    "text": "If a style is set on the grid, it will be applied to each generated cell individually.",
+                    "raw": false
+                  }
+                ],
+                "span": 3,
+                "offset": 1
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d22",
+                "items": [
+                  {
+                    "item_type": "singlestat_grid",
+                    "item_id": "d23",
+                    "style": "alert_info",
+                    "query": "grid",
+                    "units": "%",
+                    "format": ",.3s",
+                    "transform": "mean",
+                    "columns": 4,
+                    "hide_zero_series": false
+                  }
+                ],
+                "span": "8"
+              }
+            ]
+          }
+        ],
+        "level": "2",
+        "horizontal_rule": true,
+        "layout": "fixed"
+      },
+      {
+        "title": "Other Enhancements & Bug Fixes",
+        "item_type": "section",
+        "item_id": "d59",
+        "items": [
+          {
+            "item_type": "row",
+            "item_id": "d9",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d10",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d14",
+                    "raw": false
+                  }
+                ],
+                "span": 3,
+                "offset": 1
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d17",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d18",
+                    "text": "* See the [full list of closed issues](https://github.com/tessera-metrics/tessera/milestone/11?closed=1)",
+                    "raw": false
+                  }
+                ],
+                "span": 7
+              }
+            ]
+          }
+        ],
+        "level": "2",
+        "horizontal_rule": true,
+        "layout": "fixed"
+      }
+    ],
+    "queries": {
+      "grid": {
+        "name": "grid",
+        "targets": [
+          "aliasByNode(\n                  scale(\n                      absolute(\n                          group(randomWalkFunction(\"cpu1\"),\n                                randomWalkFunction(\"cpu2\"),\n                                randomWalkFunction(\"cpu3\"),\n                                randomWalkFunction(\"cpu4\"),\n                                randomWalkFunction(\"cpu5\"),\n                                randomWalkFunction(\"cpu6\"),\n                                randomWalkFunction(\"cpu7\"),\n                                randomWalkFunction(\"cpu8\"),\n                                randomWalkFunction(\"cpu9\"),\n                                randomWalkFunction(\"cpu10\"),\n                                randomWalkFunction(\"cpu11\"),\n                                randomWalkFunction(\"cpu12\")                  \n                          )),\n                      10),\n               0)"
+        ]
+      }
+    }
+  },
+  "href": "/api/dashboard/27",
+  "view_href": "/dashboards/27/what-s-new-in-0-11",
+  "definition_href": "/api/dashboard/27/definition"
+}

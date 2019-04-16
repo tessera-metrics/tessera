@@ -1,468 +1,449 @@
 {
-  "category": "Test", 
+  "id": 16,
+  "title": "Charts - Singlegraphs",
+  "category": "Test",
+  "summary": "",
+  "description": "",
+  "creation_date": "2019-04-12T07:03:30.502011Z",
+  "last_modified_date": "2019-04-16T14:49:45.608855Z",
+  "imported_from": null,
+  "tags": [],
   "definition": {
-    "item_id": "d3", 
-    "item_type": "dashboard_definition", 
+    "options": {
+      "from": "-1h"
+    },
+    "item_type": "dashboard_definition",
+    "item_id": "d3",
+    "items": [
+      {
+        "title": "Individual Singlegraphs",
+        "item_type": "section",
+        "item_id": "d4",
+        "items": [
+          {
+            "item_type": "row",
+            "item_id": "d19",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d20",
+                "items": [
+                  {
+                    "options": {
+                      "margin": {
+                        "top": 0,
+                        "left": 0,
+                        "bottom": 0,
+                        "right": 0
+                      }
+                    },
+                    "item_type": "singlegraph",
+                    "item_id": "d21",
+                    "height": 1,
+                    "query": "query0",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "format": ",.1s",
+                    "transform": "mean",
+                    "display_transform": true
+                  }
+                ],
+                "span": 3
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d22",
+                "items": [
+                  {
+                    "options": {
+                      "margin": {
+                        "top": 0,
+                        "left": 0,
+                        "bottom": 0,
+                        "right": 0
+                      },
+                      "palette": "applebrown"
+                    },
+                    "item_type": "singlegraph",
+                    "item_id": "d23",
+                    "height": 1,
+                    "query": "query1",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "units": "/sec",
+                    "format": ",.1s",
+                    "transform": "mean",
+                    "display_transform": true
+                  }
+                ],
+                "span": 3
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d25",
+                "items": [
+                  {
+                    "options": {
+                      "margin": {
+                        "top": 0,
+                        "left": 0,
+                        "bottom": 0,
+                        "right": 0
+                      },
+                      "palette": "applegreen"
+                    },
+                    "item_type": "singlegraph",
+                    "item_id": "d26",
+                    "height": 1,
+                    "query": "query2",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "units": "stuff",
+                    "format": ",.1s",
+                    "transform": "mean",
+                    "display_transform": true
+                  }
+                ],
+                "span": 3
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d27",
+                "items": [
+                  {
+                    "options": {
+                      "margin": {
+                        "top": 0,
+                        "left": 0,
+                        "bottom": 0,
+                        "right": 0
+                      },
+                      "palette": "brewerdiv2"
+                    },
+                    "item_type": "singlegraph",
+                    "item_id": "d28",
+                    "height": 1,
+                    "query": "query0",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "format": ",.1s",
+                    "transform": "mean",
+                    "display_transform": false
+                  }
+                ],
+                "span": 3
+              }
+            ]
+          },
+          {
+            "item_type": "row",
+            "item_id": "d5",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d6",
+                "style": "alert_neutral",
+                "items": [
+                  {
+                    "options": {
+                      "margin": {
+                        "top": 0,
+                        "left": 0,
+                        "bottom": 0,
+                        "right": 0
+                      },
+                      "palette": "applegrey"
+                    },
+                    "item_type": "singlegraph",
+                    "item_id": "d7",
+                    "height": 1,
+                    "query": "query0",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "format": ",.1s",
+                    "transform": "mean",
+                    "display_transform": true
+                  }
+                ],
+                "span": 3
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d8",
+                "style": "alert_info",
+                "items": [
+                  {
+                    "options": {
+                      "margin": {
+                        "top": 0,
+                        "left": 0,
+                        "bottom": 0,
+                        "right": 0
+                      },
+                      "palette": "appleblue"
+                    },
+                    "item_type": "singlegraph",
+                    "item_id": "d9",
+                    "height": 2,
+                    "query": "query1",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "format": ",.1s",
+                    "transform": "mean",
+                    "display_transform": true
+                  }
+                ],
+                "span": 3
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d10",
+                "style": "alert_success",
+                "items": [
+                  {
+                    "options": {
+                      "margin": {
+                        "top": 0,
+                        "left": 0,
+                        "bottom": 0,
+                        "right": 0
+                      },
+                      "palette": "applegreen"
+                    },
+                    "item_type": "singlegraph",
+                    "item_id": "d11",
+                    "height": 3,
+                    "query": "query2",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "format": ",.1s",
+                    "transform": "mean",
+                    "display_transform": true
+                  }
+                ],
+                "span": 3
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d12",
+                "style": "alert_danger",
+                "items": [
+                  {
+                    "options": {
+                      "margin": {
+                        "top": 0,
+                        "left": 0,
+                        "bottom": 0,
+                        "right": 0
+                      },
+                      "palette": "brewerdiv4"
+                    },
+                    "item_type": "singlegraph",
+                    "item_id": "d13",
+                    "height": 4,
+                    "query": "query0",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "format": ",.1s",
+                    "transform": "mean",
+                    "display_transform": true
+                  }
+                ],
+                "span": 3
+              }
+            ]
+          },
+          {
+            "item_type": "row",
+            "item_id": "d32",
+            "style": "well",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d33",
+                "style": "well",
+                "items": [
+                  {
+                    "options": {
+                      "margin": {
+                        "top": 0,
+                        "left": 0,
+                        "bottom": 0,
+                        "right": 0
+                      }
+                    },
+                    "item_type": "singlegraph",
+                    "item_id": "d34",
+                    "height": 1,
+                    "query": "query0",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "format": ",.1s",
+                    "transform": "median",
+                    "display_transform": true
+                  }
+                ],
+                "span": 3
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d37",
+                "style": "alert_info",
+                "items": [
+                  {
+                    "options": {
+                      "margin": {
+                        "top": 0,
+                        "left": 0,
+                        "bottom": 0,
+                        "right": 0
+                      },
+                      "palette": "applebrown"
+                    },
+                    "item_type": "singlegraph",
+                    "item_id": "d38",
+                    "height": 1,
+                    "query": "query1",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "format": ",.1s",
+                    "transform": "max",
+                    "display_transform": true
+                  }
+                ],
+                "span": 3
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d39",
+                "style": "alert_success",
+                "items": [
+                  {
+                    "options": {
+                      "margin": {
+                        "top": 0,
+                        "left": 0,
+                        "bottom": 0,
+                        "right": 0
+                      },
+                      "palette": "applegreen"
+                    },
+                    "item_type": "singlegraph",
+                    "item_id": "d40",
+                    "height": 1,
+                    "query": "query2",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "format": ",.1s",
+                    "transform": "mean",
+                    "display_transform": true
+                  }
+                ],
+                "span": 3
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d41",
+                "style": "alert_danger",
+                "items": [
+                  {
+                    "options": {
+                      "margin": {
+                        "top": 0,
+                        "left": 0,
+                        "bottom": 0,
+                        "right": 0
+                      },
+                      "palette": "brewerdiv2"
+                    },
+                    "item_type": "singlegraph",
+                    "item_id": "d42",
+                    "height": 1,
+                    "query": "query0",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "format": ",.1s",
+                    "transform": "mean",
+                    "display_transform": true
+                  }
+                ],
+                "span": 3
+              }
+            ]
+          }
+        ],
+        "level": 1,
+        "horizontal_rule": false,
+        "layout": "fixed"
+      },
+      {
+        "title": "Singlegraph Grid",
+        "item_type": "section",
+        "item_id": "d24",
+        "items": [
+          {
+            "item_type": "row",
+            "item_id": "d35",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d36",
+                "style": "alert_neutral",
+                "items": [
+                  {
+                    "options": {
+                      "palette": "applegreen"
+                    },
+                    "item_type": "singlegraph_grid",
+                    "item_id": "d17",
+                    "height": 1,
+                    "query": "query_12",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "format": ",.1s",
+                    "transform": "mean",
+                    "display_transform": true,
+                    "columns": "4"
+                  }
+                ],
+                "span": 12
+              }
+            ]
+          }
+        ],
+        "level": 1,
+        "horizontal_rule": false,
+        "layout": "fixed"
+      }
+    ],
     "queries": {
-      "query2": {
-        "name": "query2", 
-        "targets": [
-          "absolute(randomWalkFunction(\"query2\"))"
-        ]
-      }, 
       "query0": {
-        "name": "query0", 
+        "name": "query0",
         "targets": [
           "absolute(randomWalkFunction(\"query0\"))"
         ]
-      }, 
+      },
       "query1": {
-        "name": "query1", 
+        "name": "query1",
         "targets": [
           "absolute(randomWalkFunction(\"query1\"))"
         ]
-      }, 
-      "query_17": {
-        "name": "query_17", 
+      },
+      "query2": {
+        "name": "query2",
         "targets": [
-          "group(\n    absolute(randomWalkFunction(\"query1\")),\n    absolute(randomWalkFunction(\"query2\")),\n    absolute(randomWalkFunction(\"query3\")),\n    absolute(randomWalkFunction(\"query4\")),\n    absolute(randomWalkFunction(\"query5\")),\n    absolute(randomWalkFunction(\"query6\")),\n    absolute(randomWalkFunction(\"query7\")),\n    absolute(randomWalkFunction(\"query8\")),\n    absolute(randomWalkFunction(\"query9\")),\n    absolute(randomWalkFunction(\"query10\")),\n    absolute(randomWalkFunction(\"query11\")),\n    absolute(randomWalkFunction(\"query12\")),\n    absolute(randomWalkFunction(\"query13\")),\n    absolute(randomWalkFunction(\"query14\")),\n    absolute(randomWalkFunction(\"query15\")),\n    absolute(randomWalkFunction(\"query16\")),\n    absolute(randomWalkFunction(\"query17\"))\n)"
+          "absolute(randomWalkFunction(\"query2\"))"
+        ]
+      },
+      "query_12": {
+        "name": "query_12",
+        "targets": [
+          "group(\n                  absolute(randomWalkFunction(\"query1\")),\n                  absolute(randomWalkFunction(\"query2\")),\n                  absolute(randomWalkFunction(\"query3\")),\n                  absolute(randomWalkFunction(\"query4\")),\n                  absolute(randomWalkFunction(\"query5\")),\n                  absolute(randomWalkFunction(\"query6\")),\n                  absolute(randomWalkFunction(\"query7\")),\n                  absolute(randomWalkFunction(\"query8\")),\n                  absolute(randomWalkFunction(\"query9\")),\n                  absolute(randomWalkFunction(\"query10\")),\n                  absolute(randomWalkFunction(\"query11\")),\n                  absolute(randomWalkFunction(\"query12\"))\n              )"
         ]
       }
-    }, 
-    "href": "/api/dashboard/15/definition", 
-    "items": [
-      {
-        "item_id": "d4", 
-        "item_type": "section", 
-        "title": "Individual Singlegraphs", 
-        "layout": "fixed", 
-        "items": [
-          {
-            "item_id": "d19", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d20", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d21", 
-                    "query": "query0", 
-                    "options": {
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d22", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d23", 
-                    "query": "query1", 
-                    "options": {
-                      "palette": "applebrown", 
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d25", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d26", 
-                    "query": "query2", 
-                    "options": {
-                      "palette": "applegreen", 
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d27", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d28", 
-                    "query": "query0", 
-                    "options": {
-                      "palette": "brewerdiv2", 
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }, 
-          {
-            "item_id": "d5", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d6", 
-                "item_type": "cell", 
-                "style": "alert_neutral", 
-                "span": 3, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d7", 
-                    "query": "query0", 
-                    "options": {
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d8", 
-                "item_type": "cell", 
-                "style": "alert_info", 
-                "span": 3, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d9", 
-                    "query": "query1", 
-                    "options": {
-                      "palette": "applebrown", 
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d10", 
-                "item_type": "cell", 
-                "style": "alert_success", 
-                "span": 3, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d11", 
-                    "query": "query2", 
-                    "options": {
-                      "palette": "applegreen", 
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d12", 
-                "item_type": "cell", 
-                "style": "alert_danger", 
-                "span": 3, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d13", 
-                    "query": "query0", 
-                    "options": {
-                      "palette": "brewerdiv2", 
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }, 
-          {
-            "item_id": "d32", 
-            "item_type": "row", 
-            "style": "well", 
-            "items": [
-              {
-                "item_id": "d33", 
-                "item_type": "cell", 
-                "style": "well", 
-                "span": 3, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "median", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d34", 
-                    "query": "query0", 
-                    "options": {
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d37", 
-                "item_type": "cell", 
-                "style": "alert_info", 
-                "span": 3, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "max", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d38", 
-                    "query": "query1", 
-                    "options": {
-                      "palette": "applebrown", 
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d39", 
-                "item_type": "cell", 
-                "style": "alert_success", 
-                "span": 3, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d40", 
-                    "query": "query2", 
-                    "options": {
-                      "palette": "applegreen", 
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }, 
-              {
-                "item_id": "d41", 
-                "item_type": "cell", 
-                "style": "alert_danger", 
-                "span": 3, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d42", 
-                    "query": "query0", 
-                    "options": {
-                      "palette": "brewerdiv2", 
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }, 
-      {
-        "item_id": "d31", 
-        "item_type": "section", 
-        "title": "Issue 505 Regression", 
-        "layout": "fixed", 
-        "items": [
-          {
-            "item_id": "d43", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d50", 
-                "item_type": "cell", 
-                "span": 3, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d51", 
-                    "query": "query0", 
-                    "options": {
-                      "palette": "brewerdiv2", 
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }, 
-                  {
-                    "format": ",.1s", 
-                    "transform": "sum", 
-                    "height": 1, 
-                    "item_type": "singlegraph", 
-                    "item_id": "d52", 
-                    "query": "query1", 
-                    "options": {
-                      "margin": {
-                        "top": 0, 
-                        "left": 0, 
-                        "right": 0, 
-                        "bottom": 0
-                      }
-                    }, 
-                    "interactive": true
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }, 
-      {
-        "item_id": "d24", 
-        "item_type": "section", 
-        "title": "Singlegraph Grid", 
-        "layout": "fixed", 
-        "items": [
-          {
-            "item_id": "d35", 
-            "item_type": "row", 
-            "items": [
-              {
-                "item_id": "d36", 
-                "item_type": "cell", 
-                "span": 12, 
-                "items": [
-                  {
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph_grid", 
-                    "legend": "simple", 
-                    "hide_zero_series": false, 
-                    "item_id": "d17", 
-                    "query": "query_17", 
-                    "options": {
-                      "palette": "applegreen"
-                    }, 
-                    "columns": "4"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }, 
-  "view_href": "/dashboards/15/charts-singlegraphs", 
-  "description": "", 
-  "tags": [], 
-  "title": "Charts - Singlegraphs", 
-  "summary": "", 
-  "definition_href": "/api/dashboard/15/definition", 
-  "href": "/api/dashboard/15", 
-  "id": 15, 
-  "imported_from": null
+    }
+  },
+  "href": "/api/dashboard/16",
+  "view_href": "/dashboards/16/charts-singlegraphs",
+  "definition_href": "/api/dashboard/16/definition"
 }
