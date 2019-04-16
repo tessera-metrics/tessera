@@ -5,7 +5,7 @@
   "summary": "",
   "description": null,
   "creation_date": "2019-04-16T14:39:52.697747Z",
-  "last_modified_date": "2019-04-16T15:12:39.597718Z",
+  "last_modified_date": "2019-04-16T15:22:28.251063Z",
   "imported_from": null,
   "tags": [
     {
@@ -99,6 +99,48 @@
                   }
                 ],
                 "span": "8"
+              }
+            ]
+          },
+          {
+            "item_type": "row",
+            "item_id": "d24",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d28",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d29",
+                    "text": "#### Singlegraph Grids\n\nA style may now be set on singlegraph grids as well, whichi will be applied to each generated cell individually. To apply a style around the entire grid, set the style on the enclosing cell.\n",
+                    "raw": false
+                  }
+                ],
+                "span": 3,
+                "offset": 1
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d30",
+                "items": [
+                  {
+                    "options": {},
+                    "item_type": "singlegraph_grid",
+                    "item_id": "d33",
+                    "height": 1,
+                    "style": "alert_info",
+                    "query": "grid",
+                    "legend": "simple",
+                    "hide_zero_series": false,
+                    "format": ",.1s",
+                    "transform": "mean",
+                    "display_transform": true,
+                    "columns": 4
+                  }
+                ],
+                "span": "8",
+                "align": "none"
               }
             ]
           }
