@@ -5,7 +5,7 @@
   "summary": "",
   "description": null,
   "creation_date": "2019-04-16T14:39:52.697747Z",
-  "last_modified_date": "2019-04-16T15:22:28.251063Z",
+  "last_modified_date": "2019-04-17T06:54:35.036288Z",
   "imported_from": null,
   "tags": [
     {
@@ -113,7 +113,7 @@
                   {
                     "item_type": "markdown",
                     "item_id": "d29",
-                    "text": "#### Singlegraph Grids\n\nA style may now be set on singlegraph grids as well, whichi will be applied to each generated cell individually. To apply a style around the entire grid, set the style on the enclosing cell.\n",
+                    "text": "#### Singlegraph Grids\n\nA style may now be set on singlegraph grids as well, which will be applied to each generated cell individually. To apply a style around the entire grid, set the style on the enclosing cell.\n",
                     "raw": false
                   }
                 ],
@@ -125,11 +125,13 @@
                 "item_id": "d30",
                 "items": [
                   {
-                    "options": {},
+                    "options": {
+                      "palette": "brewerq12"
+                    },
                     "item_type": "singlegraph_grid",
                     "item_id": "d33",
                     "height": 1,
-                    "style": "alert_info",
+                    "style": "alert_neutral",
                     "query": "grid",
                     "legend": "simple",
                     "hide_zero_series": false,
@@ -178,7 +180,7 @@
                   {
                     "item_type": "markdown",
                     "item_id": "d18",
-                    "text": "* See the [full list of closed issues](https://github.com/tessera-metrics/tessera/milestone/11?closed=1)",
+                    "text": "* Singlegraph grids (and the new Singlestat grids) can now omit cells if the data series sums to zero. They've always had the `hide_zero_series` property, just never paid attention to it before\n* Singlegraphs can now specify a units field, just like Singlestats\n* Both Singlegraphs and Singlestats can hide the transform field (which identifies the transform applied to the summation) if desired\n* Use system fonts where available (e.g. the San Francisco font on OS X, etc...)\n* See the [full list of closed issues](https://github.com/tessera-metrics/tessera/milestone/11?closed=)",
                     "raw": false
                   }
                 ],
