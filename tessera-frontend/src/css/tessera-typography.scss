@@ -1,15 +1,21 @@
 @import "variables";
 
+html,
+body,
+body p {
+    font-family: $font-stack-sans-serif !important;
+}
+
 h1, h2, h3, h4 {
-    font-family: $font-stack-condensed;
+    font-family: $font-stack-condensed !important;
 }
 
 .ds-source {
-    font-family: $font-stack-code;
+    font-family: $font-stack-code !important;
 }
 
 .ds-query-target {
-    font-family: $font-stack-code;
+    font-family: $font-stack-code !important;
 }
 
 /* Badges are just more readable when slightly less bold */
