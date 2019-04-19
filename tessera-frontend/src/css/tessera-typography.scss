@@ -10,6 +10,12 @@ h1, h2, h3, h4 {
     font-family: $font-stack-condensed !important;
 }
 
+.ds-graph {
+    h1, h2, h3, h4 {
+        font-family: $font-stack-sans-serif !important;
+    }
+}
+
 .ds-source {
     font-family: $font-stack-code !important;
 }
