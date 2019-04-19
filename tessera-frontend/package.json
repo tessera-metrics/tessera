@@ -1,6 +1,6 @@
 {
   "name": "tessera",
-  "version": "0.9.1",
+  "version": "0.11.0-beta",
   "description": "A dashboard front-end for Graphite.",
   "main": "index.js",
   "directories": {
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/urbanairship/tessera"
+    "url": "git://github.com/tessera-metrics/tessera"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/urbanairship/tessera/issues"
+    "url": "https://github.com/tessera-metrics/tessera/issues"
   },
-  "homepage": "https://github.com/urbanairship/tessera",
+  "homepage": "https://github.com/tessera-metrics/tessera",
   "dependencies": {
     "axios": "0.15.2",
     "bean": "1.0.15",
