@@ -370,8 +370,8 @@ export class Manager {
 
   // Definitely getting to the point we need some kind of reactive MVC
   // here
-  toggle_interactive_charts() : void {
-    this.client.preferences_get()
+  toggle_interactive_charts() : Promise<boolean> {
+    return this.client.preferences_get()
       .then(prefs => {
         let setting = prefs.renderer !== 'flot'
         let dashboard_url = new URI(this.current.url)
