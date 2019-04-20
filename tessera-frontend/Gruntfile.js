@@ -153,7 +153,7 @@ module.exports = function(grunt) {
           'src/3rd-Party/js/flot/jquery.flot.multihighlight.js',
           'src/3rd-Party/js/flot/jquery.flot.d3.stack.js',
           'src/3rd-Party/js/flot/jquery.flot.crosshair.js',
-          'src/3rd-Party/js/flot/jquery.flot.axislabels.js',
+          'node_modules/flot-axislabels/jquery.flot.axislabels.js',
           'src/3rd-Party/js/flot/jquery.flot.downsample.js',
           'src/3rd-Party/js/flot/jquery.flot.valuelabels.js',
           'node_modules/flot/jquery.flot.pie.js',

@@ -33,6 +33,7 @@
     "extend": "3.0.2",
     "filesaver.js": "0.2.0",
     "flot": "^0.8.3",
+    "flot-axislabels": "^1.0.0",
     "handlebars": "^4.1.1",
     "highlight.js": "9.2.0",
     "holderjs": "2.9.3",
