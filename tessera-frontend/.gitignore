@@ -1,0 +1,6 @@
+_build/
+package-lock.json
+.tsCache
+src/ts/.baseDir.ts
+bower_components/
+node_modules/

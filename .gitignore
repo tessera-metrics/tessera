@@ -1,6 +1,4 @@
 *.db
-tessera-frontend/src/ts/extensions/t
-tessera-frontend/_build/
 tessera-server/tessera/static/
 tessera-server/dist
 
@@ -11,13 +9,9 @@ tessera-server/dist
 .#*
 
 # TypeScript
-tessera-frontend/.tscache/
-tessera-frontend/src/ts/.baseDir.ts
 tscommand*
 
 # Node, etc...
-tessera-frontend/bower_components/
-tessera-frontend/node_modules/
 npm-debug.log
 
 # Assorted Python
