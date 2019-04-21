@@ -151,14 +151,16 @@ module.exports = function(grunt) {
           'node_modules/flot/jquery.flot.time.js',
           'node_modules/flot/jquery.flot.resize.js',
           'src/3rd-Party/js/flot/jquery.flot.multihighlight.js',
-          'src/3rd-Party/js/flot/jquery.flot.d3.stack.js',
+          'node_modules/flot-d3-stack/jquery.flot.d3.stack.js',
           'src/3rd-Party/js/flot/jquery.flot.crosshair.js',
           'node_modules/flot-axislabels/jquery.flot.axislabels.js',
           'src/3rd-Party/js/flot/jquery.flot.downsample.js',
           'src/3rd-Party/js/flot/jquery.flot.valuelabels.js',
           'node_modules/flot/jquery.flot.pie.js',
           'src/3rd-Party/js/flot/jquery.flot.barnumbers.enhanced.js',
-          'src/3rd-Party/js/equalize.min.js'
+          'src/3rd-Party/js/equalize.min.js',
+          'node_modules/d3-format/dist/d3-format.js',
+          'node_modules/d3-shape/dist/d3-shape.js'
         ],
         dest: '<%= DIST %>/bundle.js'
       },
