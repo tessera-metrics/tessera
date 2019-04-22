@@ -26,7 +26,7 @@ export interface FlotRenderContext {
 
 const FORMAT_STRING_STANDARD = ',.3s'
 const FORMAT_STANDARD = d3.format(FORMAT_STRING_STANDARD)
-const FORMAT_PERCENT  = d3.format('%')
+const FORMAT_PERCENT  = d3.format('.0%')
 const THREE_HOURS_MS  = 1000 * 60 * 60 * 3
 const ONE_HOUR_MS     = 1000 * 60 * 60 * 1
 const DEFAULT_LINE_WIDTH = 1.0
