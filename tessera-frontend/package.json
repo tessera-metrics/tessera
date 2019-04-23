@@ -41,7 +41,7 @@
     "holderjs": "2.9.3",
     "humanize-duration": "3.7.0",
     "inflection": "1.8.0",
-    "jquery": "^2.2.4",
+    "jquery": "^3.4.0",
     "marked": "0.3.9",
     "moment": "^2.24.0",
     "moment-timezone": "0.5.3",
