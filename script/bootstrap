@@ -14,7 +14,7 @@ npm install
 cd ../tessera-server/
 if [ ! -d "env" ]; then
     echo "==> Creating python virtualenv..."
-    virtualenv ./env
+    python3 -m venv ./env
 fi
 
 echo "==> Installing Python dependencies..."
