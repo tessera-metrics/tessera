@@ -214,7 +214,8 @@ module.exports = function(grunt) {
       dep: {
         files: [
           'src/js/dependencies.js',
-          'src/3rd-Party/**/*.*'
+          'src/3rd-Party/**/*.*',
+          'node_modules/**/*.js'
         ],
         tasks: ['dep']
       },
