@@ -76,7 +76,7 @@ class Tag(object):
     def from_json(cls, d):
         if isinstance(d, cls):
             return d
-        elif isinstance(d, basestring):
+        elif isinstance(d, str):
             return cls(name=d)
         else:
             return cls(**d)
