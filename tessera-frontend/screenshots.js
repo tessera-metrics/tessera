@@ -2,7 +2,8 @@ const { URL }   = require ('url')
 const path      = require('path')
 const axios     = require('axios')
 const puppeteer = require('puppeteer')
-const mkdirp    = require('mkdirp');
+const mkdirp    = require('mkdirp')
+const sleep     = require('sleep')
 
 const outputdir = 'screenshots'
 const rooturl   = 'http://localhost:5000'
@@ -30,6 +31,7 @@ async function screenshot(browser, tab, url) {
   var name = path.basename(u.pathname)
   u.searchParams.set('mode', 'display')
   await tab.goto(u)
+  await sleep.sleep(1)
 
   var outpath = outputdir + '/' + name + '.png'
   console.log('Saving ' + outpath)
