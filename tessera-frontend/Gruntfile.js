@@ -237,7 +237,19 @@ module.exports = function(grunt) {
         ],
         tasks: ['sass', 'copy:app']
       }
+    },
+
+    run: {
+      screenshots: {
+        options: {
+          wait: true
+        },
+        args: [
+          'screenshots.js'
+        ]
+      }
     }
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -249,6 +261,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-ts');
+  grunt.loadNpmTasks('grunt-run');
 
   /** Compile the tessera source and templates */
   grunt.registerTask('app', [
