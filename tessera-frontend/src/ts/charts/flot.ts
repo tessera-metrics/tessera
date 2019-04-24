@@ -86,6 +86,7 @@ function get_default_options() {
       timeBase: "milliseconds",
       tickFormatter: tick_formatter,
       tickColor: theme_colors.minorGridLineColor,
+      tickLength: 0,
       font: {
         color: theme_colors.fgcolor,
         size: 12
@@ -95,6 +96,7 @@ function get_default_options() {
       {
         position: 'left',
         tickFormatter: FORMAT_STANDARD,
+        tickLength: 0,
         reserveSpace: 30,
         labelWidth: 30,
         tickColor: theme_colors.minorGridLineColor,
@@ -122,6 +124,7 @@ function get_default_options() {
       /* grid.color actually sets the color of the legend
        * text. WTH? */
       color: theme_colors.fgcolor,
+      tickColor: theme_colors.minorGridLineColor,
       borderColor: theme_colors.minorGridLineColor
     },
     selection: {
@@ -592,15 +595,20 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
 
     let options = get_flot_options(item, {
       series: {
+        xaxis: {
+          min: ts_start,
+          max: ts_end,
+          autoScale: "none"
+        },
         lines: { show: false },
         stackD3: {
           show: true,
           offset: 'zero'
         },
-        bars: {
+        bars: {          
           show: true,
-          fill: 0.8,
-          barWidth: sample_size * bar_scaling
+          // barWidth: sample_size * bar_scaling,          
+          fill: 0.8
         }
       }
     })
@@ -640,7 +648,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         bars: {
           horizontal: is_horizontal,
           show: true,
-          barWidth: 0.8,
+          // barWidth: 0.8,
           align: 'center',
           fill: item.fill || ts.prefs.opacity || DEFAULT_FILL,
           numbers: {
@@ -679,6 +687,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     if (is_horizontal) {
       options.yaxes[0].tickLength = 0
       options.yaxes[0].ticks = ticks
+      options.xaxis.mode = null
       options.xaxis.tickFormatter = null
       options.series.bars.numbers.xOffset = -18
       if (item['show_grid']) {

@@ -91,6 +91,16 @@ h1 .ds-secondary-title {
    3rd Party Tweaks
    ============================================================================= */
 
+/* Flot 3 */
+
+g.flot-y-axis, g.flot-x-axis,
+g.y1LabelLayer, g.x1LabelLayer {
+    text {
+        font-weight: 100 !important;
+        stroke: $medium-gray;
+    }
+}
+
 /* darkstrap tweaks */
 
 .table th, .table td {
