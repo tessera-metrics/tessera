@@ -1,0 +1,149 @@
+{
+  "id": 20,
+  "title": "Legends",
+  "category": "render",
+  "description": "",
+  "summary": "",
+  "imported_from": null,
+  "definition_href": "/api/dashboard/20/definition",
+  "view_href": "/dashboards/20/legends",
+  "href": "/api/dashboard/20",
+  "tags": [
+    {
+      "id": 7,
+      "name": "render-test",
+      "count": 3
+    }
+  ],
+  "definition": {
+    "item_type": "dashboard_definition",
+    "item_id": "d3",
+    "href": "/api/dashboard/20/definition",
+    "options": {
+      "from": "-1h"
+    },
+    "items": [
+      {
+        "item_type": "section",
+        "item_id": "d4",
+        "horizontal_rule": false,
+        "level": 1,
+        "items": [
+          {
+            "item_type": "row",
+            "item_id": "d7",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d9",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d13",
+                    "text": "### Legend Types\n\nNone, simple, and table"
+                  }
+                ],
+                "span": 2
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d10",
+                "items": [
+                  {
+                    "item_type": "row",
+                    "item_id": "d14",
+                    "items": [
+                      {
+                        "item_type": "cell",
+                        "item_id": "d15",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d16",
+                            "hide_zero_series": false,
+                            "legend": "none",
+                            "show_lines": true,
+                            "show_points": false,
+                            "stack_mode": "none",
+                            "query": "sin3",
+                            "title": "No Legend",
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d17",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d18",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "show_lines": true,
+                            "show_points": false,
+                            "stack_mode": "none",
+                            "query": "sin3",
+                            "title": "Standard Legend",
+                            "options": {
+                              "x": {
+                                "label": ""
+                              },
+                              "y1": {
+                                "label": ""
+                              }
+                            },
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d19",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d20",
+                            "hide_zero_series": false,
+                            "legend": "table",
+                            "show_lines": true,
+                            "show_points": false,
+                            "stack_mode": "none",
+                            "query": "sin3",
+                            "title": "Table Legend",
+                            "options": {
+                              "x": {
+                                "label": ""
+                              },
+                              "y1": {
+                                "label": ""
+                              }
+                            },
+                            "interactive": true
+                          }
+                        ],
+                        "span": 6
+                      }
+                    ]
+                  }
+                ],
+                "span": "10"
+              }
+            ]
+          }
+        ],
+        "layout": "fluid"
+      }
+    ],
+    "queries": {
+      "sin3": {
+        "name": "sin3",
+        "targets": [
+          "group(sinFunction(\"s1\",1, 120),\n      sinFunction(\"s2\",2, 120),\n      sinFunction(\"s3\",3, 120))"
+        ]
+      }
+    }
+  }
+}

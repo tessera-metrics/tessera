@@ -1,0 +1,342 @@
+{
+  "id": 23,
+  "title": "Bar Charts",
+  "category": "render",
+  "description": "",
+  "summary": "",
+  "imported_from": null,
+  "definition_href": "/api/dashboard/23/definition",
+  "view_href": "/dashboards/23/bar-charts",
+  "href": "/api/dashboard/23",
+  "tags": [
+    {
+      "id": 7,
+      "name": "render-test",
+      "count": 3
+    }
+  ],
+  "definition": {
+    "item_type": "dashboard_definition",
+    "item_id": "d3",
+    "href": "/api/dashboard/23/definition",
+    "options": {
+      "from": "-1h"
+    },
+    "items": [
+      {
+        "item_type": "section",
+        "item_id": "d4",
+        "horizontal_rule": false,
+        "level": 1,
+        "items": [
+          {
+            "item_type": "row",
+            "item_id": "d7",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d9",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d13",
+                    "text": "### Discrete Bars"
+                  }
+                ],
+                "span": 2
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d10",
+                "items": [
+                  {
+                    "item_type": "row",
+                    "item_id": "d14",
+                    "items": [
+                      {
+                        "item_type": "cell",
+                        "item_id": "d15",
+                        "items": [
+                          {
+                            "item_type": "discrete_bar_chart",
+                            "item_id": "d12",
+                            "format": ",.3s",
+                            "hide_zero_series": false,
+                            "options": {
+                              "y1": {
+                                "label": ""
+                              }
+                            },
+                            "orientation": "vertical",
+                            "query": "sin3",
+                            "show_grid": true,
+                            "show_numbers": true,
+                            "title": "Default",
+                            "transform": "sum"
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d20",
+                        "items": [
+                          {
+                            "item_type": "discrete_bar_chart",
+                            "item_id": "d21",
+                            "format": ",.3s",
+                            "hide_zero_series": false,
+                            "options": {},
+                            "orientation": "horizontal",
+                            "query": "sin3",
+                            "show_grid": true,
+                            "show_numbers": true,
+                            "title": "Default, Horiz",
+                            "transform": "sum"
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d16",
+                        "items": [
+                          {
+                            "item_type": "discrete_bar_chart",
+                            "item_id": "d17",
+                            "format": ",.3s",
+                            "hide_zero_series": false,
+                            "options": {},
+                            "orientation": "vertical",
+                            "query": "sin3",
+                            "show_grid": false,
+                            "show_numbers": false,
+                            "title": "No Grid, No Numbers",
+                            "transform": "sum"
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d22",
+                        "items": [
+                          {
+                            "item_type": "discrete_bar_chart",
+                            "item_id": "d23",
+                            "format": ",.3s",
+                            "hide_zero_series": false,
+                            "options": {},
+                            "orientation": "horizontal",
+                            "query": "sin3",
+                            "show_grid": false,
+                            "show_numbers": false,
+                            "title": "No Grid, No Numbers, Horiz",
+                            "transform": "sum"
+                          }
+                        ],
+                        "span": 3
+                      }
+                    ]
+                  }
+                ],
+                "span": "10"
+              }
+            ]
+          },
+          {
+            "item_type": "row",
+            "item_id": "d24",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d25",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d26",
+                    "text": "### Discrete Bars\n\nWith Y-axis label"
+                  }
+                ],
+                "span": 2
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d27",
+                "items": [
+                  {
+                    "item_type": "row",
+                    "item_id": "d28",
+                    "items": [
+                      {
+                        "item_type": "cell",
+                        "item_id": "d29",
+                        "items": [
+                          {
+                            "item_type": "discrete_bar_chart",
+                            "item_id": "d30",
+                            "format": ",.3s",
+                            "hide_zero_series": false,
+                            "options": {
+                              "y1": {
+                                "label": "Units"
+                              }
+                            },
+                            "orientation": "vertical",
+                            "query": "sin3",
+                            "show_grid": true,
+                            "show_numbers": true,
+                            "title": "Default",
+                            "transform": "sum"
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d31",
+                        "items": [
+                          {
+                            "item_type": "discrete_bar_chart",
+                            "item_id": "d32",
+                            "format": ",.3s",
+                            "hide_zero_series": false,
+                            "options": {
+                              "y1": {
+                                "label": "Units"
+                              }
+                            },
+                            "orientation": "horizontal",
+                            "query": "sin3",
+                            "show_grid": true,
+                            "show_numbers": true,
+                            "title": "Default, Horiz",
+                            "transform": "sum"
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d33",
+                        "items": [],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d35",
+                        "items": [],
+                        "span": 3
+                      }
+                    ]
+                  }
+                ],
+                "span": "10"
+              }
+            ]
+          }
+        ],
+        "layout": "fluid"
+      },
+      {
+        "item_type": "section",
+        "item_id": "d46",
+        "horizontal_rule": false,
+        "level": 1,
+        "items": [
+          {
+            "item_type": "row",
+            "item_id": "d47",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d48",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d49",
+                    "text": "### Time Series Bars"
+                  }
+                ],
+                "span": 2
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d50",
+                "items": [
+                  {
+                    "item_type": "row",
+                    "item_id": "d51",
+                    "items": [
+                      {
+                        "item_type": "cell",
+                        "item_id": "d52",
+                        "items": [
+                          {
+                            "item_type": "bar_chart",
+                            "item_id": "d42",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "options": {},
+                            "query": "sin3",
+                            "stack_mode": "stack",
+                            "title": "Stacked"
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d43",
+                        "items": [
+                          {
+                            "item_type": "bar_chart",
+                            "item_id": "d44",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "options": {},
+                            "query": "sin3",
+                            "stack_mode": "stream",
+                            "title": "Stream"
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d45",
+                        "items": [
+                          {
+                            "item_type": "bar_chart",
+                            "item_id": "d53",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "options": {},
+                            "query": "sin3",
+                            "stack_mode": "percent",
+                            "title": "Percent"
+                          }
+                        ],
+                        "span": 3
+                      }
+                    ]
+                  }
+                ],
+                "span": "10"
+              }
+            ]
+          }
+        ],
+        "layout": "fluid"
+      }
+    ],
+    "queries": {
+      "sin3": {
+        "name": "sin3",
+        "targets": [
+          "aliasByNode(group(absolute(sin(\"s1\",1, 120)),\n                    absolute(sin(\"s2\",2, 120)),\n                    absolute(sin(\"s3\",3, 120))), 0)"
+        ]
+      }
+    }
+  }
+}

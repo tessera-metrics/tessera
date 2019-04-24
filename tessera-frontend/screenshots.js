@@ -4,17 +4,23 @@ const axios     = require('axios')
 const puppeteer = require('puppeteer')
 const mkdirp    = require('mkdirp')
 const sleep     = require('sleep')
+const moment    = require('moment')
 
 const outputdir = 'screenshots'
 const rooturl   = 'http://localhost:5000'
-const viewport  = { width: 1080, height: 1440, isLandscape: false }
+const defaultViewport  = { width: 1920, height: 1080, isLandscape: true }
+const GRAPHITE_TIME_FORMAT = 'hh:mm_YYYYMMDD'
 
 // Fetch the list of dashboards from the API, so we can get all the
 // URLs for the dashboard pages
-async function list_dashboards() {
-  return axios.get(rooturl + '/api/dashboard/')
+async function list_dashboards(tag) {
+  var url = rooturl + '/api/dashboard/'
+  if (tag) {
+    url += 'tagged/' + tag
+  }
+  return axios.get(url)
     .then(resp => {
-      return resp.data.map(d => rooturl + d.view_href)
+      return resp.data
     })
     .catch(err => {
       console.log(err)
@@ -23,22 +29,38 @@ async function list_dashboards() {
 
 // Navigate to a dashboard and take a screenshot to the output
 // directory
-async function screenshot(browser, tab, url) {
-  console.log('Fetching ' + url)
-  await tab.setViewport(viewport)
+async function screenshot(browser, dashboard, viewport) {
+  var tab   = await browser.newPage()
+  var url   = rooturl + dashboard.view_href  + '/embed'
+  var u     = new URL(url)  
+  var name  = path.basename(dashboard.view_href)
+  var day = moment().utc().startOf('day').subtract(1, 'day')
+  var from  = day.clone().hour(13).minute(0)
+  var until = day.clone().hour(13).minute(30)
 
-  var u = new URL(url)
-  var name = path.basename(u.pathname)
-  u.searchParams.set('mode', 'display')
+  console.log(from.format())
+  console.log(until.format())
+
+  await tab.setViewport(viewport || defaultViewport)
+
+  // u.searchParams.set('mode', 'display')
+  // u.searchParams.set('from', from.format(GRAPHITE_TIME_FORMAT))
+  // u.searchParams.set('until', until.format(GRAPHITE_TIME_FORMAT))
+  console.log('Fetching ' + u)
   await tab.goto(u)
-  await sleep.sleep(1)
+  await sleep.sleep(5)
 
-  var outpath = outputdir + '/' + name + '.png'
+  var rootElement = await tab.$('html')
+  var boundingBox = await rootElement.boundingBox()
+  boundingBox.height += 12
+  
+  var outpath = outputdir + '/' + dashboard.category + '-' + name + '.png'
   console.log('Saving ' + outpath)
   await tab.screenshot({
-    fullPage: true,
+    clip: boundingBox,
     path: outpath
   })
+  await tab.close()
 }
 
 (async () => {
@@ -49,10 +71,10 @@ async function screenshot(browser, tab, url) {
     args: [ '--allow-running-insecure-content' ]
   })
   
-  var urls = await list_dashboards()
-  var tab = await browser.newPage()    
-  for (var u of urls) {
-    await screenshot(browser, tab, u)
+  var dashboards = await list_dashboards('render-test')
+  for (var d of dashboards) {
+    await screenshot(browser, d)
   }
   await browser.close()  
 })()
+

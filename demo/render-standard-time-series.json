@@ -1,0 +1,434 @@
+{
+  "id": 18,
+  "title": "Standard Time Series",
+  "category": "render",
+  "description": "",
+  "summary": "",
+  "imported_from": null,
+  "definition_href": "/api/dashboard/18/definition",
+  "view_href": "/dashboards/18/standard-time-series",
+  "href": "/api/dashboard/18",
+  "tags": [
+    {
+      "id": 7,
+      "name": "render-test",
+      "count": 3
+    }
+  ],
+  "definition": {
+    "item_type": "dashboard_definition",
+    "item_id": "d3",
+    "href": "/api/dashboard/18/definition",
+    "options": {
+      "from": "-1h"
+    },
+    "items": [
+      {
+        "item_type": "section",
+        "item_id": "d4",
+        "horizontal_rule": false,
+        "level": 1,
+        "items": [
+          {
+            "item_type": "row",
+            "item_id": "d7",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d9",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d13",
+                    "text": "### Lines\n\nNon-stacked, with various options"
+                  }
+                ],
+                "span": 2
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d10",
+                "items": [
+                  {
+                    "item_type": "row",
+                    "item_id": "d14",
+                    "items": [
+                      {
+                        "item_type": "cell",
+                        "item_id": "d15",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d16",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "show_lines": true,
+                            "show_points": false,
+                            "stack_mode": "none",
+                            "query": "sin1",
+                            "title": "Default",
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d17",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d18",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "show_lines": true,
+                            "show_points": false,
+                            "stack_mode": "none",
+                            "query": "sin1",
+                            "title": "Axis Labels",
+                            "options": {
+                              "x": {
+                                "label": "Time"
+                              },
+                              "y1": {
+                                "label": "Y Axis Label"
+                              }
+                            },
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d19",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d20",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "show_lines": true,
+                            "show_points": false,
+                            "stack_mode": "none",
+                            "query": "sin3",
+                            "title": "Multiple Series",
+                            "options": {
+                              "x": {
+                                "label": ""
+                              },
+                              "y1": {
+                                "label": ""
+                              }
+                            },
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d22",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d23",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "show_lines": true,
+                            "show_points": false,
+                            "stack_mode": "none",
+                            "query": "sin3",
+                            "title": "Alt Palette",
+                            "options": {
+                              "palette": "brewerq9",
+                              "x": {
+                                "label": ""
+                              },
+                              "y1": {
+                                "label": "",
+                                "scale": "linear"
+                              }
+                            },
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      }
+                    ]
+                  }
+                ],
+                "span": "10"
+              }
+            ]
+          },
+          {
+            "item_type": "row",
+            "item_id": "d36",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d37",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d38",
+                    "text": "### Line Styles\n\nRendering options for data series with the chart."
+                  }
+                ],
+                "span": 2,
+                "offset": "none"
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d39",
+                "items": [
+                  {
+                    "item_type": "row",
+                    "item_id": "d40",
+                    "items": [
+                      {
+                        "item_type": "cell",
+                        "item_id": "d41",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d42",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "show_lines": false,
+                            "show_points": true,
+                            "stack_mode": "none",
+                            "query": "sin1",
+                            "title": "Points",
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d49",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d50",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "show_lines": true,
+                            "show_points": true,
+                            "stack_mode": "none",
+                            "query": "sin1",
+                            "title": "Points+Lines",
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d45",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d46",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "show_lines": false,
+                            "show_points": true,
+                            "stack_mode": "none",
+                            "query": "sin3",
+                            "title": "Multiple Series",
+                            "options": {
+                              "x": {
+                                "label": ""
+                              },
+                              "y1": {
+                                "label": ""
+                              }
+                            },
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d47",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d48",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "show_lines": true,
+                            "show_points": true,
+                            "stack_mode": "none",
+                            "query": "sin3",
+                            "title": "Alt Palette",
+                            "options": {
+                              "palette": "brewerq9",
+                              "x": {
+                                "label": ""
+                              },
+                              "y1": {
+                                "label": "",
+                                "scale": "linear"
+                              }
+                            },
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      }
+                    ]
+                  }
+                ],
+                "span": "10"
+              }
+            ]
+          },
+          {
+            "item_type": "row",
+            "item_id": "d30",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d31",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d32",
+                    "text": "### Stacking"
+                  }
+                ],
+                "span": 2
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d33",
+                "items": [
+                  {
+                    "item_type": "row",
+                    "item_id": "d34",
+                    "items": [
+                      {
+                        "item_type": "cell",
+                        "item_id": "d52",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d53",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "show_lines": true,
+                            "show_points": false,
+                            "stack_mode": "stack",
+                            "query": "sin3",
+                            "title": "Stacked",
+                            "options": {
+                              "x": {
+                                "label": ""
+                              },
+                              "y1": {
+                                "label": ""
+                              }
+                            },
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d56",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d57",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "show_lines": true,
+                            "show_points": false,
+                            "stack_mode": "stream",
+                            "query": "sin3",
+                            "title": "Stream",
+                            "options": {
+                              "x": {
+                                "label": ""
+                              },
+                              "y1": {
+                                "label": ""
+                              }
+                            },
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d58",
+                        "items": [
+                          {
+                            "item_type": "standard_time_series",
+                            "item_id": "d59",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "show_lines": true,
+                            "show_points": false,
+                            "stack_mode": "percent",
+                            "query": "sin3",
+                            "title": "Percent",
+                            "options": {
+                              "x": {
+                                "label": ""
+                              },
+                              "y1": {
+                                "label": ""
+                              }
+                            },
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      }
+                    ]
+                  }
+                ],
+                "span": "10"
+              }
+            ]
+          }
+        ],
+        "layout": "fluid"
+      }
+    ],
+    "queries": {
+      "sin1": {
+        "name": "sin1",
+        "targets": [
+          "sinFunction(\"s1\",2, 120)"
+        ]
+      },
+      "sin2": {
+        "name": "sin2",
+        "targets": [
+          "group(sinFunction(\"s1\",1, 120),\n                            sinFunction(\"s2\",2, 120))"
+        ]
+      },
+      "sin3": {
+        "name": "sin3",
+        "targets": [
+          "group(sinFunction(\"s1\",1, 120),\n      sinFunction(\"s2\",2, 120),\n      sinFunction(\"s3\",3, 120))"
+        ]
+      },
+      "sinmixed": {
+        "name": "sinmixed",
+        "targets": [
+          "group(sinFunction(\"s1\",1, 120),\n                    sinFunction(\"s2\",2, 160),\n                    sinFunction(\"s3\",3, 240))"
+        ]
+      }
+    }
+  }
+}
