@@ -8,7 +8,7 @@ const moment    = require('moment')
 
 const outputdir = 'screenshots'
 const rooturl   = 'http://localhost:5000'
-const defaultViewport  = { width: 1920, height: 1080, isLandscape: true }
+const defaultViewport  = { width: 3840, height: 2160, isLandscape: true }
 const GRAPHITE_TIME_FORMAT = 'hh:mm_YYYYMMDD'
 
 // Fetch the list of dashboards from the API, so we can get all the
@@ -37,24 +37,22 @@ async function screenshot(browser, dashboard, viewport) {
   var day = moment().utc().startOf('day').subtract(1, 'day')
   var from  = day.clone().hour(13).minute(0)
   var until = day.clone().hour(13).minute(30)
-
-  console.log(from.format())
-  console.log(until.format())
-
+  var theme = 'light'
+  
   await tab.setViewport(viewport || defaultViewport)
 
-  // u.searchParams.set('mode', 'display')
-  // u.searchParams.set('from', from.format(GRAPHITE_TIME_FORMAT))
-  // u.searchParams.set('until', until.format(GRAPHITE_TIME_FORMAT))
+  u.searchParams.set('theme', 'light')
+  u.searchParams.set('from', from.format(GRAPHITE_TIME_FORMAT))
+  u.searchParams.set('until', until.format(GRAPHITE_TIME_FORMAT))
   console.log('Fetching ' + u)
   await tab.goto(u)
-  await sleep.sleep(5)
+  await sleep.sleep(1)
 
   var rootElement = await tab.$('html')
   var boundingBox = await rootElement.boundingBox()
   boundingBox.height += 12
   
-  var outpath = outputdir + '/' + dashboard.category + '-' + name + '.png'
+  var outpath = outputdir + '/' + dashboard.category + '-' + name + '-' + theme + '.png'
   console.log('Saving ' + outpath)
   await tab.screenshot({
     clip: boundingBox,
