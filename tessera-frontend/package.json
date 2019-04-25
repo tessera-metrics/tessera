@@ -35,7 +35,7 @@
     "filesaver.js": "0.2.0",
     "flot": "^3.0.2",
     "flot-axislabels": "^1.0.0",
-    "flot-d3-stack": "^2.1.0",
+    "flot-d3-stack": "^2.1.1",
     "handlebars": "^4.1.1",
     "highlight.js": "9.2.0",
     "holderjs": "2.9.3",
