@@ -4,3 +4,4 @@ package-lock.json
 src/ts/.baseDir.ts
 bower_components/
 node_modules/
+screenshots/
