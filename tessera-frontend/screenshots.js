@@ -1,3 +1,5 @@
+// -*- mode:javascript -*-
+
 const { URL }   = require ('url')
 const path      = require('path')
 const axios     = require('axios')
@@ -34,7 +36,7 @@ async function screenshot(browser, dashboard, viewport) {
   var url   = rooturl + dashboard.view_href  + '/embed'
   var u     = new URL(url)  
   var name  = path.basename(dashboard.view_href)
-  var day = moment().utc().startOf('day').subtract(1, 'day')
+  var day   = moment().utc().startOf('day').subtract(1, 'day')
   var from  = day.clone().hour(13).minute(0)
   var until = day.clone().hour(13).minute(30)
   var theme = 'light'
