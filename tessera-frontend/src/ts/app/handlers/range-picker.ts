@@ -115,13 +115,17 @@ $(document).ready(function() {
   manager.onDashboardLoaded(function() {
     let params = new URI(window.location).search(true)
     if (params.from && params.until) {
-      // Initialise the range date pickers with the values from the URL query parameters
-      // TODO - don't do this for relative specifiers
-      $('#ds-range-picker-from').data("DateTimePicker").date(moment.utc(params.from, GRAPHITE_FORMAT));
-      $('#ds-range-picker-until').data("DateTimePicker").date(moment.utc(params.until, GRAPHITE_FORMAT));
-      $('.ds-recent-range-picker').hide()
-      $('.ds-custom-range-picker').show()
-      self.enable_handler()
+      // Initialise the range date pickers with the values from the
+      // URL query parameters TODO - don't do this for relative
+      // specifiers
+      try {
+        $('#ds-range-picker-from').data("DateTimePicker").date(moment.utc(params.from, GRAPHITE_FORMAT));
+        $('#ds-range-picker-until').data("DateTimePicker").date(moment.utc(params.until, GRAPHITE_FORMAT));
+        $('.ds-recent-range-picker').hide()
+        $('.ds-custom-range-picker').show()
+        self.enable_handler()
+      } catch (ex) {
+      }
     }
   })
 })
