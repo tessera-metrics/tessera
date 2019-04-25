@@ -10,7 +10,7 @@ const moment    = require('moment')
 
 const outputdir = 'screenshots'
 const rooturl   = 'http://localhost:5000'
-const defaultViewport  = { width: 3840, height: 2160, isLandscape: true }
+const defaultViewport  = { width: 3840, height: 2160, isLandscape: true, deviceScaleFactor: 2 }
 const GRAPHITE_TIME_FORMAT = 'hh:mm_YYYYMMDD'
 
 // Fetch the list of dashboards from the API, so we can get all the
