@@ -21,7 +21,8 @@ module.exports = function(grunt) {
       default: {
         src: SOURCE_FILES,
         outDir: '_build/phase1',
-        options: { 
+        options: {
+          rootDir: 'src',
           target: 'es6',
           comments: true,
           declaration: true,
