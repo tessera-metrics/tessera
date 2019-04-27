@@ -580,9 +580,6 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     let context = this.render(selector, item, query, options, data)
     var null_count = 0    // HACK: workaround for flot 3's plothover bug
     $(selector).bind('plothover', function(event, pos, event_item) {
-      console.log("TESSERA plothover")
-      console.log("pos", pos)
-      console.log("item", event_item)      
       if (event_item) {
         null_count = 0
         let contents = ts.templates.flot.donut_tooltip({
