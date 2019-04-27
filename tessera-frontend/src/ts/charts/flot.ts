@@ -43,22 +43,6 @@ function is_area_chart(item: Chart) : boolean {
     && ((<StandardTimeSeries>item).stack_mode !== charts.StackMode.PERCENT)
 }
 
-
-function tick_formatter(value, axis) {
-  // Take care of time series axis
-  if (axis.tickSize && axis.tickSize.length === 2) {
-    if (axis.tickSize[1] === 'year' && axis.tickSize[0] >= 1)
-      return moment(value).tz(app.config.DISPLAY_TIMEZONE).format('YYYY')
-    if (axis.tickSize[1] === 'month' && axis.tickSize[0] >= 1 || axis.tickSize[1] === 'year')
-      return moment(value).tz(app.config.DISPLAY_TIMEZONE).format('MM-\'YY')
-    if (axis.tickSize[1] === 'day' && axis.tickSize[0] >= 1 || axis.tickSize[1] === 'month')
-      return moment(value).tz(app.config.DISPLAY_TIMEZONE).format('MM/DD')
-    if (axis.tickSize[1] === 'hour' && axis.tickSize[0] >= 12)
-      return moment(value).tz(app.config.DISPLAY_TIMEZONE).format('MM/DD hA')
-  }
-  return moment(value).tz(app.config.DISPLAY_TIMEZONE).format('h:mm A')
-}
-
 function get_default_options() {
   let theme_colors = get_colors()
   let default_options = {
@@ -84,7 +68,6 @@ function get_default_options() {
     xaxis: {
       mode: "time",
       timeBase: "milliseconds",
-      tickFormatter: tick_formatter,
       tickColor: theme_colors.minorGridLineColor,
       tickLength: 0,
       font: {
@@ -238,8 +221,8 @@ function setup_plugins(selector: string, context: FlotRenderContext) {
 
 
     if (context.item['stack_mode'] && (context.item['stack_mode'] !== charts.StackMode.NONE))
-        items_to_plot.reverse()
-
+      items_to_plot.reverse()
+    
     let contents = ts.templates.flot.tooltip({
       time: point[0],
       items: items_to_plot
@@ -291,6 +274,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     }
   }
 
+  //
+  // Sparkline
+  //
+  
   sparkline(selector: string, item: DashboardItem, query: Query, index: number, opt?: any) : FlotRenderContext {
     let context : FlotRenderContext = {
       plot: null,
@@ -363,6 +350,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     }
   }
 
+  //
+  // Highlight
+  //
+  
   highlight_series(item: Chart, index: number) : void {
     if (!item.render_context)
       return
@@ -389,7 +380,11 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     plot.draw()
   }
 
+  //
+  // Un-highlight
   // TODO: simplify this too
+  //
+  
   unhighlight_series(item: Chart, index?: number) : void {
     if (!item.render_context)
       return
@@ -436,6 +431,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return result
   }
 
+  //
+  // Simple Line Chart
+  //
+  
   simple_line_chart(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       grid: { show: false },
@@ -450,6 +449,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return this.render(selector, item, query, options, [query.chart_data('flot')[0]])
   }
 
+  //
+  // Standard Line Chart
+  //
+  
   standard_line_chart(selector: string, item: Chart, query: Query) : void {
     query.chart_data('flot').forEach(function(series) {
       // Hide series with no data from display
@@ -465,6 +468,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     }))
   }
 
+  //
+  // Simple Area Chart
+  //
+  
   simple_area_chart(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       downsample: true,
@@ -478,6 +485,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return this.render(selector, item, query, options, [query.chart_data('flot')[0]])
   }
 
+  //
+  // Stacked Area Chart
+  //
+  
   stacked_area_chart(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       downsample: true,
@@ -527,6 +538,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return this.render(selector, item, query, options)
   }
 
+  //
+  // Donut (Pie) Chart
+  //
+  
   donut_chart(selector: string, item: Chart, query: Query) {
     let options = get_flot_options(item, {
       crosshair: { mode: null },
@@ -539,11 +554,15 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
           innerRadius: item['is_pie'] ? 0 : 0.35,
           label: { show: item['labels'] },
           highlight: {
-            opacity: 0
+            opacity: 0.4
           }
         }
       },
-      grid: { show: false, hoverable: true }
+      grid: {
+        show: false,
+        hoverable: true,
+        autoHighlight: true
+      }
     })
 
     let transform = item['transform'] || 'sum'
@@ -559,10 +578,11 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     }).filter(function(item) { return item })
 
     let context = this.render(selector, item, query, options, data)
-
-    
     var null_count = 0    // HACK: workaround for flot 3's plothover bug
     $(selector).bind('plothover', function(event, pos, event_item) {
+      console.log("TESSERA plothover")
+      console.log("pos", pos)
+      console.log("item", event_item)      
       if (event_item) {
         null_count = 0
         let contents = ts.templates.flot.donut_tooltip({
@@ -582,6 +602,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return context
   }
 
+  //
+  // Timeseries Bar Chart
+  //
+  
   bar_chart(selector: string, item: Chart, query: Query) : void {
     let series      = query.chart_data('flot')[0]
     let ts_start    = series.data[0][0]
@@ -635,6 +659,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return this.render(selector, item, query, options)
   }
 
+  //
+  // Discrete Bar Chart
+  //
+  
   discrete_bar_chart(selector: any, item: Chart, query: Query) : void {
     let is_horizontal = item['orientation'] === 'horizontal'
     let format = d3.format(item['format'] || FORMAT_STRING_STANDARD)
@@ -730,6 +758,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return context
   }
 
+  //
+  // Scatter Plot
+  //
+  
   scatter_plot(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       series: {
@@ -764,21 +796,3 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return this.render(selector, item, query, options, scatter_data)
   }
 }
-
-function time_format_init(plot) {
-  plot.hooks.processOptions.push(function(plot, options) {
-    $.each(plot.getAxes(), function(axisName, axis) {
-      let opts = axis.options
-      if (opts.mode == "time") {
-        axis.tickFormatter = tick_formatter
-      }
-    })
-  })
-}
-
-$.plot.plugins.push({
-  init: time_format_init,
-  options: {},
-  name: 'tessera-time-format',
-  version: '1.0',
-})
