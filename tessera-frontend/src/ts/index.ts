@@ -1,4 +1,4 @@
-import 'babel-polyfill'
+import '@babel/polyfill'
 
 import { logger, extend } from './util'
 import * as core      from './core'

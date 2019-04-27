@@ -61,7 +61,7 @@ module.exports = function(grunt) {
           transform: [
             ['babelify', {
               presets: [
-                'es2015', 'stage-0'
+                '@babel/preset-env'
               ]
             }]
           ],
@@ -118,8 +118,8 @@ module.exports = function(grunt) {
     },
 
     /**
-     * 4 - Concatenate the transpiled sources, the precompiled
-     * templates, and the babel polyfill required for all ES6 support.
+     * 4 - Concatenate the transpiled sources and the precompiled
+     * templates
      */
     concat: {
       dep_css: {
@@ -168,7 +168,7 @@ module.exports = function(grunt) {
           separator: ';'
         },
         src: [
-          'node_modules/babel-core/browser-polyfill.js',
+          // 'node_modules/@babel/polyfill/dist/polyfill.js',
           '_build/templates.js',
           '_build/phase2.js'
         ],
