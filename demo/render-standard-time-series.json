@@ -1,24 +1,24 @@
 {
-  "id": 18,
+  "id": 24,
   "title": "Standard Time Series",
   "category": "render",
   "description": "",
   "summary": "",
   "imported_from": null,
-  "definition_href": "/api/dashboard/18/definition",
-  "view_href": "/dashboards/18/standard-time-series",
-  "href": "/api/dashboard/18",
+  "definition_href": "/api/dashboard/24/definition",
+  "view_href": "/dashboards/24/standard-time-series",
+  "href": "/api/dashboard/24",
   "tags": [
     {
       "id": 7,
       "name": "render-test",
-      "count": 3
+      "count": 5
     }
   ],
   "definition": {
     "item_type": "dashboard_definition",
     "item_id": "d3",
-    "href": "/api/dashboard/18/definition",
+    "href": "/api/dashboard/24/definition",
     "options": {
       "from": "-1h"
     },

@@ -1,24 +1,24 @@
 {
-  "id": 20,
+  "id": 23,
   "title": "Legends",
   "category": "render",
   "description": "",
   "summary": "",
   "imported_from": null,
-  "definition_href": "/api/dashboard/20/definition",
-  "view_href": "/dashboards/20/legends",
-  "href": "/api/dashboard/20",
+  "definition_href": "/api/dashboard/23/definition",
+  "view_href": "/dashboards/23/legends",
+  "href": "/api/dashboard/23",
   "tags": [
     {
       "id": 7,
       "name": "render-test",
-      "count": 3
+      "count": 5
     }
   ],
   "definition": {
     "item_type": "dashboard_definition",
     "item_id": "d3",
-    "href": "/api/dashboard/20/definition",
+    "href": "/api/dashboard/23/definition",
     "options": {
       "from": "-1h"
     },

@@ -1,419 +1,413 @@
 {
-  "category": "Release Notes", 
+  "id": 6,
+  "title": "What's new in 0.10?",
+  "category": "Release Notes",
+  "description": null,
+  "summary": "",
+  "imported_from": null,
+  "definition_href": "/api/dashboard/6/definition",
+  "view_href": "/dashboards/6/what-s-new-in-0-10",
+  "href": "/api/dashboard/6",
+  "tags": [
+    {
+      "id": 4,
+      "name": "release-notes",
+      "count": 6
+    }
+  ],
   "definition": {
+    "item_type": "dashboard_definition",
+    "item_id": "d3",
+    "href": "/api/dashboard/6/definition",
+    "options": {
+      "from": "-1h"
+    },
     "items": [
       {
-        "layout": "fixed", 
-        "level": "2", 
+        "item_type": "section",
+        "item_id": "d35",
+        "horizontal_rule": true,
+        "level": "2",
         "items": [
           {
-            "item_id": "d25", 
-            "item_type": "row", 
+            "item_type": "row",
+            "item_id": "d25",
             "items": [
               {
-                "item_id": "d26", 
-                "item_type": "cell", 
-                "offset": 1, 
-                "span": 3, 
+                "item_type": "cell",
+                "item_id": "d26",
                 "items": [
                   {
-                    "item_id": "d27", 
-                    "item_type": "markdown", 
+                    "item_type": "markdown",
+                    "item_id": "d27",
                     "text": "#### Scatter Plots\n\nA scatter plot dashboard item has been added to plot arbitrary\ncorrelations between data series on the X and Y axis. "
                   }
-                ]
-              }, 
+                ],
+                "span": 3,
+                "offset": 1
+              },
               {
-                "item_id": "d32", 
-                "item_type": "cell", 
-                "span": 4, 
+                "item_type": "cell",
+                "item_id": "d32",
                 "items": [
                   {
-                    "title": "Correlation", 
-                    "item_type": "scatter_plot", 
-                    "hide_zero_series": false, 
-                    "item_id": "d60", 
+                    "item_type": "scatter_plot",
+                    "item_id": "d60",
+                    "hide_zero_series": false,
                     "options": {
-                      "y1": {
-                        "scale": "linear", 
-                        "label": "Y axis dimension"
-                      }, 
+                      "palette": "None",
                       "x": {
                         "label": "X axis dimension"
-                      }, 
-                      "palette": "None"
-                    }, 
-                    "query_x": "corr_x", 
-                    "query_y": "corr_y"
-                  }, 
+                      },
+                      "y1": {
+                        "label": "Y axis dimension",
+                        "scale": "linear"
+                      }
+                    },
+                    "query_x": "corr_x",
+                    "query_y": "corr_y",
+                    "title": "Correlation"
+                  },
                   {
-                    "title": "Correlation with Log Axis", 
-                    "height": 3, 
-                    "item_type": "scatter_plot", 
-                    "hide_zero_series": false, 
-                    "item_id": "d61", 
+                    "item_type": "scatter_plot",
+                    "item_id": "d61",
+                    "height": 3,
+                    "hide_zero_series": false,
                     "options": {
-                      "y1": {
-                        "scale": "log", 
-                        "label": "Y axis dimension"
-                      }, 
+                      "palette": "None",
                       "x": {
                         "label": "X axis dimension"
-                      }, 
-                      "palette": "None"
-                    }, 
-                    "query_x": "corr_x", 
-                    "query_y": "corr_y"
+                      },
+                      "y1": {
+                        "label": "Y axis dimension",
+                        "scale": "log"
+                      }
+                    },
+                    "query_x": "corr_x",
+                    "query_y": "corr_y",
+                    "title": "Correlation with Log Axis"
                   }
-                ]
-              }, 
+                ],
+                "span": 4
+              },
               {
-                "item_id": "d62", 
-                "item_type": "cell", 
-                "span": 4, 
+                "item_type": "cell",
+                "item_id": "d62",
                 "items": [
                   {
-                    "title": "Correlation", 
-                    "item_type": "scatter_plot", 
-                    "hide_zero_series": false, 
-                    "item_id": "d63", 
+                    "item_type": "scatter_plot",
+                    "item_id": "d63",
+                    "hide_zero_series": false,
                     "options": {
-                      "y1": {
-                        "scale": "linear", 
-                        "label": "Y axis dimension"
-                      }, 
+                      "palette": "None",
                       "x": {
                         "label": "X axis dimension"
-                      }, 
-                      "palette": "None"
-                    }, 
-                    "query_x": "corr_y2", 
-                    "query_y": "corr_y"
+                      },
+                      "y1": {
+                        "label": "Y axis dimension",
+                        "scale": "linear"
+                      }
+                    },
+                    "query_x": "corr_y2",
+                    "query_y": "corr_y",
+                    "title": "Correlation"
                   }
-                ]
+                ],
+                "span": 4
               }
             ]
-          }, 
+          },
           {
-            "item_id": "d43", 
-            "item_type": "row", 
+            "item_type": "row",
+            "item_id": "d43",
             "items": [
               {
-                "item_id": "d53", 
-                "item_type": "cell", 
-                "offset": 1, 
-                "span": 3, 
+                "item_type": "cell",
+                "item_id": "d53",
                 "items": [
                   {
-                    "item_id": "d54", 
-                    "item_type": "markdown", 
+                    "item_type": "markdown",
+                    "item_id": "d54",
                     "text": "#### Render as Points\n\nTime series can now be rendered as points, lines, or both."
                   }
-                ]
-              }, 
+                ],
+                "span": 3,
+                "offset": 1
+              },
               {
-                "item_id": "d55", 
-                "item_type": "cell", 
-                "span": 8, 
+                "item_type": "cell",
+                "item_id": "d55",
                 "items": [
                   {
-                    "title": "Points Only", 
-                    "show_lines": false, 
-                    "stack_mode": "none", 
-                    "item_type": "standard_time_series", 
-                    "hide_zero_series": false, 
-                    "item_id": "d56", 
-                    "query": "group_3", 
-                    "show_points": true, 
-                    "legend": "simple", 
+                    "item_type": "standard_time_series",
+                    "item_id": "d56",
+                    "hide_zero_series": false,
+                    "legend": "simple",
+                    "show_lines": false,
+                    "show_points": true,
+                    "stack_mode": "none",
+                    "query": "group_3",
+                    "title": "Points Only",
                     "interactive": true
-                  }, 
+                  },
                   {
-                    "title": "Points and Lines", 
-                    "show_lines": true, 
-                    "stack_mode": "none", 
-                    "item_type": "standard_time_series", 
-                    "hide_zero_series": false, 
-                    "item_id": "d57", 
-                    "query": "group_3", 
-                    "show_points": true, 
-                    "legend": "simple", 
+                    "item_type": "standard_time_series",
+                    "item_id": "d57",
+                    "hide_zero_series": false,
+                    "legend": "simple",
+                    "show_lines": true,
+                    "show_points": true,
+                    "stack_mode": "none",
+                    "query": "group_3",
+                    "title": "Points and Lines",
                     "interactive": true
-                  }, 
+                  },
                   {
-                    "title": "Lines Only", 
-                    "show_lines": true, 
-                    "stack_mode": "none", 
-                    "item_type": "standard_time_series", 
-                    "hide_zero_series": false, 
-                    "item_id": "d58", 
-                    "query": "group_3", 
-                    "show_points": false, 
-                    "legend": "simple", 
+                    "item_type": "standard_time_series",
+                    "item_id": "d58",
+                    "hide_zero_series": false,
+                    "legend": "simple",
+                    "show_lines": true,
+                    "show_points": false,
+                    "stack_mode": "none",
+                    "query": "group_3",
+                    "title": "Lines Only",
                     "interactive": true
                   }
-                ]
+                ],
+                "span": 8
               }
             ]
-          }, 
+          },
           {
-            "item_id": "d44", 
-            "item_type": "row", 
+            "item_type": "row",
+            "item_id": "d44",
             "items": [
               {
-                "item_id": "d45", 
-                "item_type": "cell", 
-                "offset": 1, 
-                "span": 3, 
+                "item_type": "cell",
+                "item_id": "d45",
                 "items": [
                   {
-                    "item_id": "d46", 
-                    "item_type": "markdown", 
+                    "item_type": "markdown",
+                    "item_id": "d46",
                     "text": "#### Opacity Control\n\nThe opacity of filled data series can now be set on individual\ndashboard items, or globally via the default setting in\n`config.py`."
                   }
-                ]
-              }, 
+                ],
+                "span": 3,
+                "offset": 1
+              },
               {
-                "item_id": "d47", 
-                "item_type": "cell", 
-                "span": "4", 
+                "item_type": "cell",
+                "item_id": "d47",
                 "items": [
                   {
-                    "title": "20% Fill", 
-                    "show_lines": true, 
-                    "stack_mode": "stack", 
-                    "item_type": "standard_time_series", 
-                    "hide_zero_series": false, 
-                    "item_id": "d48", 
-                    "query": "group_3", 
-                    "interactive": true, 
-                    "show_points": false, 
-                    "legend": "simple", 
-                    "fill": 0.2
-                  }, 
+                    "item_type": "standard_time_series",
+                    "item_id": "d48",
+                    "fill": 0.2,
+                    "hide_zero_series": false,
+                    "legend": "simple",
+                    "show_lines": true,
+                    "show_points": false,
+                    "stack_mode": "stack",
+                    "query": "group_3",
+                    "title": "20% Fill",
+                    "interactive": true
+                  },
                   {
-                    "title": "60% Fill", 
-                    "show_lines": true, 
-                    "stack_mode": "stack", 
-                    "item_type": "standard_time_series", 
-                    "hide_zero_series": false, 
-                    "item_id": "d49", 
-                    "query": "group_3", 
-                    "interactive": true, 
-                    "show_points": false, 
-                    "legend": "simple", 
-                    "fill": 0.6
+                    "item_type": "standard_time_series",
+                    "item_id": "d49",
+                    "fill": 0.6,
+                    "hide_zero_series": false,
+                    "legend": "simple",
+                    "show_lines": true,
+                    "show_points": false,
+                    "stack_mode": "stack",
+                    "query": "group_3",
+                    "title": "60% Fill",
+                    "interactive": true
                   }
-                ]
-              }, 
+                ],
+                "span": "4"
+              },
               {
-                "item_id": "d50", 
-                "item_type": "cell", 
-                "span": "4", 
+                "item_type": "cell",
+                "item_id": "d50",
                 "items": [
                   {
-                    "title": "40% Fill", 
-                    "show_lines": true, 
-                    "stack_mode": "stack", 
-                    "item_type": "standard_time_series", 
-                    "hide_zero_series": false, 
-                    "item_id": "d51", 
-                    "query": "group_3", 
-                    "interactive": true, 
-                    "show_points": false, 
-                    "legend": "simple", 
-                    "fill": 0.4
-                  }, 
+                    "item_type": "standard_time_series",
+                    "item_id": "d51",
+                    "fill": 0.4,
+                    "hide_zero_series": false,
+                    "legend": "simple",
+                    "show_lines": true,
+                    "show_points": false,
+                    "stack_mode": "stack",
+                    "query": "group_3",
+                    "title": "40% Fill",
+                    "interactive": true
+                  },
                   {
-                    "title": "100% Fill", 
-                    "show_lines": true, 
-                    "stack_mode": "stack", 
-                    "item_type": "standard_time_series", 
-                    "hide_zero_series": false, 
-                    "item_id": "d52", 
-                    "query": "group_3", 
-                    "interactive": true, 
-                    "show_points": false, 
-                    "legend": "simple", 
-                    "fill": 1
+                    "item_type": "standard_time_series",
+                    "item_id": "d52",
+                    "fill": 1,
+                    "hide_zero_series": false,
+                    "legend": "simple",
+                    "show_lines": true,
+                    "show_points": false,
+                    "stack_mode": "stack",
+                    "query": "group_3",
+                    "title": "100% Fill",
+                    "interactive": true
                   }
-                ]
+                ],
+                "span": "4"
               }
             ]
-          }, 
+          },
           {
-            "item_id": "d30", 
-            "item_type": "row", 
+            "item_type": "row",
+            "item_id": "d30",
             "items": [
               {
-                "item_id": "d31", 
-                "item_type": "cell", 
-                "offset": "1", 
-                "span": 3, 
+                "item_type": "cell",
+                "item_id": "d31",
                 "items": [
                   {
-                    "item_id": "d36", 
-                    "item_type": "markdown", 
+                    "item_type": "markdown",
+                    "item_id": "d36",
                     "text": "#### Query Reuse"
                   }
-                ]
-              }, 
+                ],
+                "span": 3,
+                "offset": "1"
+              },
               {
-                "item_id": "d34", 
-                "item_type": "cell", 
-                "span": 8, 
+                "item_type": "cell",
+                "item_id": "d34",
                 "items": [
                   {
-                    "item_id": "d37", 
-                    "item_type": "markdown", 
+                    "item_type": "markdown",
+                    "item_id": "d37",
                     "text": "A new `query` template tag allows queries to be re-used in other queries. To embed one query in another, use `{{query \"queryname\"}}`. Note that if you re-name a query, any references to it in other queries will need to be manually updated. "
                   }
-                ]
+                ],
+                "span": 8
               }
             ]
-          }, 
+          },
           {
-            "item_id": "d38", 
-            "item_type": "row", 
+            "item_type": "row",
+            "item_id": "d38",
             "items": [
               {
-                "item_id": "d39", 
-                "item_type": "cell", 
-                "offset": "1", 
-                "span": 3, 
+                "item_type": "cell",
+                "item_id": "d39",
                 "items": [
                   {
-                    "item_id": "d40", 
-                    "item_type": "markdown", 
+                    "item_type": "markdown",
+                    "item_id": "d40",
                     "text": "#### Cell Combination Actions\n"
                   }
-                ]
-              }, 
+                ],
+                "span": 3,
+                "offset": "1"
+              },
               {
-                "item_id": "d41", 
-                "item_type": "cell", 
-                "span": 8, 
+                "item_type": "cell",
+                "item_id": "d41",
                 "items": [
                   {
-                    "item_id": "d42", 
-                    "item_type": "markdown", 
+                    "item_type": "markdown",
+                    "item_id": "d42",
                     "text": "Convenience actions have been added to the actions bar for `section` allowing the creation of a row containing cells in a variety of commonly used configurations. For example, you can now create a row with 4 cells of 3 column width each with a single action. "
                   }
-                ]
+                ],
+                "span": 8
               }
             ]
           }
-        ], 
-        "title": "Dashboard Enhancements", 
-        "item_type": "section", 
-        "horizontal_rule": true, 
-        "item_id": "d35"
-      }, 
+        ],
+        "layout": "fixed",
+        "title": "Dashboard Enhancements"
+      },
       {
-        "layout": "fixed", 
-        "level": "2", 
+        "item_type": "section",
+        "item_id": "d59",
+        "horizontal_rule": true,
+        "level": "2",
         "items": [
           {
-            "item_id": "d9", 
-            "item_type": "row", 
+            "item_type": "row",
+            "item_id": "d9",
             "items": [
               {
-                "item_id": "d10", 
-                "item_type": "cell", 
-                "offset": 1, 
-                "span": 3, 
+                "item_type": "cell",
+                "item_id": "d10",
                 "items": [
                   {
-                    "item_id": "d14", 
-                    "item_type": "markdown"
+                    "item_type": "markdown",
+                    "item_id": "d14"
                   }
-                ]
-              }, 
+                ],
+                "span": 3,
+                "offset": 1
+              },
               {
-                "item_id": "d17", 
-                "item_type": "cell", 
-                "span": 7, 
+                "item_type": "cell",
+                "item_id": "d17",
                 "items": [
                   {
-                    "item_id": "d18", 
-                    "item_type": "markdown", 
+                    "item_type": "markdown",
+                    "item_id": "d18",
                     "text": "* Performance improvements when editing queries. They no longer cause unnecessary chains of completely re-rendering the dashboard\n* Fixed an ugly rendering error in percent-stacked charts\n* See the [full list of closed issues](https://github.com/tessera-metrics/tessera/milestone/10?closed=1)"
                   }
-                ]
+                ],
+                "span": 7
               }
             ]
           }
-        ], 
-        "title": "Other Enhancements & Bug Fixes", 
-        "item_type": "section", 
-        "horizontal_rule": true, 
-        "item_id": "d59"
+        ],
+        "layout": "fixed",
+        "title": "Other Enhancements & Bug Fixes"
       }
-    ], 
-    "item_type": "dashboard_definition", 
-    "href": "/api/dashboard/6/definition", 
+    ],
     "queries": {
-      "group_3": {
-        "name": "group_3", 
-        "targets": [
-          "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
-        ]
-      }, 
-      "corr_y": {
-        "name": "corr_y", 
-        "targets": [
-          "scale(absolute(sin(\"query4\")), 100)"
-        ]
-      }, 
-      "log": {
-        "name": "log", 
-        "targets": [
-          "offset(scale(\n    group(absolute(randomWalkFunction(\"series1\")),\n          absolute(randomWalkFunction(\"series2\")),\n          absolute(randomWalkFunction(\"series3\")))\n    , 10)\n, 1)"
-        ]
-      }, 
-      "corr_y2": {
-        "name": "corr_y2", 
-        "targets": [
-          "scale(absolute(sin(\"query5\")), 100)"
-        ]
-      }, 
-      "group_12": {
-        "name": "group_12", 
-        "targets": [
-          "group(\n                  absolute(randomWalkFunction(\"series1\")),\n                  absolute(randomWalkFunction(\"series2\")),\n                  absolute(randomWalkFunction(\"series4\")),\n                  absolute(randomWalkFunction(\"series5\")),\n                  absolute(randomWalkFunction(\"series6\")),\n                  absolute(randomWalkFunction(\"series7\")),\n                  absolute(randomWalkFunction(\"series8\")),\n                  absolute(randomWalkFunction(\"series9\")),\n                  absolute(randomWalkFunction(\"series10\")),\n                  absolute(randomWalkFunction(\"series11\")),\n                  absolute(randomWalkFunction(\"series12\"))\n              )"
-        ]
-      }, 
       "corr_x": {
-        "name": "corr_x", 
+        "name": "corr_x",
         "targets": [
           "absolute(randomWalkFunction(\"query3\"))"
         ]
+      },
+      "corr_y": {
+        "name": "corr_y",
+        "targets": [
+          "scale(absolute(sin(\"query4\")), 100)"
+        ]
+      },
+      "corr_y2": {
+        "name": "corr_y2",
+        "targets": [
+          "scale(absolute(sin(\"query5\")), 100)"
+        ]
+      },
+      "group_12": {
+        "name": "group_12",
+        "targets": [
+          "group(\n                  absolute(randomWalkFunction(\"series1\")),\n                  absolute(randomWalkFunction(\"series2\")),\n                  absolute(randomWalkFunction(\"series4\")),\n                  absolute(randomWalkFunction(\"series5\")),\n                  absolute(randomWalkFunction(\"series6\")),\n                  absolute(randomWalkFunction(\"series7\")),\n                  absolute(randomWalkFunction(\"series8\")),\n                  absolute(randomWalkFunction(\"series9\")),\n                  absolute(randomWalkFunction(\"series10\")),\n                  absolute(randomWalkFunction(\"series11\")),\n                  absolute(randomWalkFunction(\"series12\"))\n              )"
+        ]
+      },
+      "group_3": {
+        "name": "group_3",
+        "targets": [
+          "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
+        ]
+      },
+      "log": {
+        "name": "log",
+        "targets": [
+          "offset(scale(\n    group(absolute(randomWalkFunction(\"series1\")),\n          absolute(randomWalkFunction(\"series2\")),\n          absolute(randomWalkFunction(\"series3\")))\n    , 10)\n, 1)"
+        ]
       }
-    }, 
-    "item_id": "d3", 
-    "options": {
-      "from": "-1h"
     }
-  }, 
-  "view_href": "/dashboards/6/what-s-new-in-0-10", 
-  "description": null, 
-  "tags": [
-    {
-      "count": 8, 
-      "bgcolor": "green", 
-      "id": 2, 
-      "name": "featured"
-    }, 
-    {
-      "count": 5, 
-      "id": 4, 
-      "name": "release-notes"
-    }
-  ], 
-  "title": "What's new in 0.10?", 
-  "summary": "", 
-  "definition_href": "/api/dashboard/6/definition", 
-  "href": "/api/dashboard/6", 
-  "id": 6, 
-  "imported_from": null
+  }
 }

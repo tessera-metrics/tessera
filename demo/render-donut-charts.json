@@ -1,0 +1,259 @@
+{
+  "id": 33,
+  "title": "Donut Charts",
+  "category": "render",
+  "description": "",
+  "summary": "",
+  "imported_from": null,
+  "definition_href": "/api/dashboard/33/definition",
+  "view_href": "/dashboards/33/donut-charts",
+  "href": "/api/dashboard/33",
+  "tags": [
+    {
+      "id": 7,
+      "name": "render-test",
+      "count": 5
+    }
+  ],
+  "definition": {
+    "item_type": "dashboard_definition",
+    "item_id": "d3",
+    "href": "/api/dashboard/33/definition",
+    "options": {
+      "from": "-1h"
+    },
+    "items": [
+      {
+        "item_type": "section",
+        "item_id": "d4",
+        "horizontal_rule": false,
+        "level": 1,
+        "items": [
+          {
+            "item_type": "row",
+            "item_id": "d7",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d9",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d13",
+                    "text": "### Donuts"
+                  }
+                ],
+                "span": 2
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d10",
+                "items": [
+                  {
+                    "item_type": "row",
+                    "item_id": "d14",
+                    "items": [
+                      {
+                        "item_type": "cell",
+                        "item_id": "d15",
+                        "items": [
+                          {
+                            "item_type": "donut_chart",
+                            "item_id": "d40",
+                            "hide_zero_series": false,
+                            "is_pie": false,
+                            "labels": false,
+                            "legend": "simple",
+                            "query": "sin6",
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d41",
+                        "items": [
+                          {
+                            "item_type": "donut_chart",
+                            "item_id": "d42",
+                            "hide_zero_series": false,
+                            "is_pie": false,
+                            "labels": true,
+                            "legend": "simple",
+                            "query": "sin6",
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d43",
+                        "items": [
+                          {
+                            "item_type": "donut_chart",
+                            "item_id": "d44",
+                            "height": 3,
+                            "hide_zero_series": false,
+                            "is_pie": false,
+                            "labels": true,
+                            "legend": "none",
+                            "query": "sin6",
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d46",
+                        "items": [
+                          {
+                            "item_type": "donut_chart",
+                            "item_id": "d47",
+                            "height": 2,
+                            "hide_zero_series": false,
+                            "is_pie": false,
+                            "labels": false,
+                            "legend": "table",
+                            "query": "sin6",
+                            "options": {
+                              "palette": "brewerq10"
+                            },
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      }
+                    ]
+                  }
+                ],
+                "span": "10"
+              }
+            ]
+          },
+          {
+            "item_type": "row",
+            "item_id": "d48",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d49",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d50",
+                    "text": "### Pies\n\n\nDamn, now I'm hungry.\n"
+                  }
+                ],
+                "span": 2
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d51",
+                "items": [
+                  {
+                    "item_type": "row",
+                    "item_id": "d52",
+                    "items": [
+                      {
+                        "item_type": "cell",
+                        "item_id": "d53",
+                        "items": [
+                          {
+                            "item_type": "donut_chart",
+                            "item_id": "d54",
+                            "hide_zero_series": false,
+                            "is_pie": true,
+                            "labels": false,
+                            "legend": "simple",
+                            "query": "sin6",
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d55",
+                        "items": [
+                          {
+                            "item_type": "donut_chart",
+                            "item_id": "d56",
+                            "hide_zero_series": false,
+                            "is_pie": true,
+                            "labels": true,
+                            "legend": "simple",
+                            "query": "sin6",
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d57",
+                        "items": [
+                          {
+                            "item_type": "donut_chart",
+                            "item_id": "d58",
+                            "height": 3,
+                            "hide_zero_series": false,
+                            "is_pie": true,
+                            "labels": true,
+                            "legend": "none",
+                            "query": "sin6",
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d59",
+                        "items": [
+                          {
+                            "item_type": "donut_chart",
+                            "item_id": "d60",
+                            "height": 2,
+                            "hide_zero_series": false,
+                            "is_pie": true,
+                            "labels": false,
+                            "legend": "table",
+                            "query": "sin6",
+                            "options": {
+                              "palette": "brewerq10"
+                            },
+                            "interactive": true
+                          }
+                        ],
+                        "span": 3
+                      }
+                    ]
+                  }
+                ],
+                "span": "10"
+              }
+            ]
+          }
+        ],
+        "layout": "fluid"
+      }
+    ],
+    "queries": {
+      "sin3": {
+        "name": "sin3",
+        "targets": [
+          "aliasByNode(group(absolute(sin(\"s1\",1, 120)),\n                    absolute(sin(\"s2\",2, 120)),\n                    absolute(sin(\"s3\",3, 120))), 0)"
+        ]
+      },
+      "sin6": {
+        "name": "sin6",
+        "targets": [
+          "aliasByNode(group(absolute(sin(\"s1\",1, 120)),\n                          absolute(sin(\"s2\",2, 60)),\n                          absolute(sin(\"s3\",2, 120)),\n                          absolute(sin(\"s4\",2, 240)),\n                    absolute(sin(\"s5\",2, 120)),                          \n                    absolute(sin(\"s6\",3, 120))), 0)"
+        ]
+      }
+    }
+  }
+}
