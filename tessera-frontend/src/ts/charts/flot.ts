@@ -229,7 +229,7 @@ function setup_plugins(selector: string, context: FlotRenderContext) {
     })
 
     $("#ds-tooltip").remove()
-    show_tooltip(pos.pageX, pos.pageY, contents)
+    show_tooltip(pos.pageX, $(event.target).offset().top, contents)
   })
 
   if (context.item instanceof XYChart) {
