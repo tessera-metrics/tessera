@@ -560,8 +560,11 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
 
     let context = this.render(selector, item, query, options, data)
 
+    
+    var null_count = 0    // HACK: workaround for flot 3's plothover bug
     $(selector).bind('plothover', function(event, pos, event_item) {
       if (event_item) {
+        null_count = 0
         let contents = ts.templates.flot.donut_tooltip({
           series: event_item.series,
           value: FORMAT_STANDARD(event_item.datapoint[1][0][1]),
@@ -570,7 +573,9 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         $("#ds-tooltip").remove()
         show_tooltip(pos.pageX, pos.pageY, contents)
       } else {
-        $("#ds-tooltip").remove()
+        if (++null_count >= 2) {
+          $("#ds-tooltip").remove()
+        }
       }
     })
 
