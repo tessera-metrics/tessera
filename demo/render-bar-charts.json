@@ -1,24 +1,24 @@
 {
-  "id": 23,
+  "id": 22,
   "title": "Bar Charts",
   "category": "render",
   "description": "",
   "summary": "",
   "imported_from": null,
-  "definition_href": "/api/dashboard/23/definition",
-  "view_href": "/dashboards/23/bar-charts",
-  "href": "/api/dashboard/23",
+  "definition_href": "/api/dashboard/22/definition",
+  "view_href": "/dashboards/22/bar-charts",
+  "href": "/api/dashboard/22",
   "tags": [
     {
       "id": 7,
       "name": "render-test",
-      "count": 3
+      "count": 5
     }
   ],
   "definition": {
     "item_type": "dashboard_definition",
     "item_id": "d3",
-    "href": "/api/dashboard/23/definition",
+    "href": "/api/dashboard/22/definition",
     "options": {
       "from": "-1h"
     },

@@ -22,6 +22,16 @@ $danger:            $red;
 $danger-bg:         mix(darken($danger, 20%), $body-bg, 80%);
 $danger-highlight:  $danger;
 
+/* Flot 3 */
+
+g.flot-y-axis, g.flot-x-axis,
+g.y1LabelLayer, g.x1LabelLayer {
+    text {
+        font-weight: 100 !important;
+        stroke: lighten($body-bg, 40%);
+    }
+}
+
 /* Bootstrap tweaks */
 
 .well,

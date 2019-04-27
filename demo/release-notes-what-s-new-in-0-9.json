@@ -1,237 +1,236 @@
 {
-  "category": "Release Notes", 
+  "id": 11,
+  "title": "What's new in 0.9?",
+  "category": "Release Notes",
+  "description": null,
+  "summary": "",
+  "imported_from": null,
+  "definition_href": "/api/dashboard/11/definition",
+  "view_href": "/dashboards/11/what-s-new-in-0-9",
+  "href": "/api/dashboard/11",
+  "tags": [
+    {
+      "id": 4,
+      "name": "release-notes",
+      "count": 6
+    }
+  ],
   "definition": {
+    "item_type": "dashboard_definition",
+    "item_id": "d3",
+    "href": "/api/dashboard/11/definition",
+    "options": {
+      "from": "-1h"
+    },
     "items": [
       {
-        "layout": "fixed", 
-        "level": "2", 
+        "item_type": "section",
+        "item_id": "d35",
+        "horizontal_rule": true,
+        "level": "2",
         "items": [
           {
-            "item_id": "d36", 
-            "item_type": "row", 
+            "item_type": "row",
+            "item_id": "d36",
             "items": [
               {
-                "item_id": "d37", 
-                "item_type": "cell", 
-                "offset": 1, 
-                "span": 3, 
+                "item_type": "cell",
+                "item_id": "d37",
                 "items": [
                   {
-                    "item_id": "d39", 
-                    "item_type": "markdown", 
+                    "item_type": "markdown",
+                    "item_id": "d39",
                     "text": "### Singlegraph Grid\n\nA new dashboard item type that renders each series in the query as an\nindividual `singlegraph`.\n"
                   }
-                ]
-              }, 
+                ],
+                "span": 3,
+                "offset": 1
+              },
               {
-                "item_id": "d38", 
-                "item_type": "cell", 
-                "span": 8, 
+                "item_type": "cell",
+                "item_id": "d38",
                 "items": [
                   {
-                    "format": ",.1s", 
-                    "transform": "mean", 
-                    "height": 1, 
-                    "item_type": "singlegraph_grid", 
-                    "legend": "simple", 
-                    "hide_zero_series": false, 
-                    "item_id": "d40", 
-                    "query": "group_12", 
-                    "options": {}, 
-                    "columns": 4
-                  }, 
+                    "item_type": "singlegraph_grid",
+                    "item_id": "d40",
+                    "height": 1,
+                    "columns": 4,
+                    "display_transform": true,
+                    "format": ",.1s",
+                    "hide_zero_series": false,
+                    "legend": "simple",
+                    "options": {},
+                    "query": "group_12",
+                    "transform": "mean"
+                  },
                   {
-                    "item_id": "d28", 
-                    "item_type": "separator"
+                    "item_type": "separator",
+                    "item_id": "d28"
                   }
-                ]
+                ],
+                "span": 8
               }
             ]
-          }, 
+          },
           {
-            "item_id": "d25", 
-            "item_type": "row", 
+            "item_type": "row",
+            "item_id": "d25",
             "items": [
               {
-                "item_id": "d26", 
-                "item_type": "cell", 
-                "offset": 1, 
-                "span": 3, 
+                "item_type": "cell",
+                "item_id": "d26",
                 "items": [
                   {
-                    "item_id": "d27", 
-                    "item_type": "markdown", 
+                    "item_type": "markdown",
+                    "item_id": "d27",
                     "text": "### Standard Time Series Unification\n\nThe `standard_time_series` and `stacked_area_chart` dashboard\nitem types have been unified. All instances of Standard Time\nSeries can now be switched to one of the stacking modes, and all\ninstances of Stacked Area Chart are now instances of Standard\nTime Series with their stacking mode set."
                   }
-                ]
-              }, 
+                ],
+                "span": 3,
+                "offset": 1
+              },
               {
-                "item_id": "d30", 
-                "item_type": "cell", 
-                "span": 4, 
+                "item_type": "cell",
+                "item_id": "d30",
                 "items": [
                   {
-                    "stack_mode": "none", 
-                    "item_type": "standard_time_series", 
-                    "hide_zero_series": false, 
-                    "item_id": "d31", 
-                    "query": "group_3", 
-                    "legend": "simple", 
+                    "item_type": "standard_time_series",
+                    "item_id": "d31",
+                    "hide_zero_series": false,
+                    "legend": "simple",
+                    "show_lines": true,
+                    "show_points": false,
+                    "stack_mode": "none",
+                    "query": "group_3",
                     "interactive": true
                   }
-                ]
-              }, 
+                ],
+                "span": 4
+              },
               {
-                "item_id": "d32", 
-                "item_type": "cell", 
-                "span": 4, 
+                "item_type": "cell",
+                "item_id": "d32",
                 "items": [
                   {
-                    "stack_mode": "stack", 
-                    "item_type": "standard_time_series", 
-                    "hide_zero_series": false, 
-                    "item_id": "d33", 
-                    "query": "group_3", 
-                    "legend": "simple", 
+                    "item_type": "standard_time_series",
+                    "item_id": "d33",
+                    "hide_zero_series": false,
+                    "legend": "simple",
+                    "show_lines": true,
+                    "show_points": false,
+                    "stack_mode": "stack",
+                    "query": "group_3",
                     "interactive": true
                   }
-                ]
+                ],
+                "span": 4
               }
             ]
           }
-        ], 
-        "title": "Dashboard Enhancements", 
-        "item_type": "section", 
-        "horizontal_rule": true, 
-        "item_id": "d35"
-      }, 
+        ],
+        "layout": "fixed",
+        "title": "Dashboard Enhancements"
+      },
       {
-        "layout": "fixed", 
-        "level": "2", 
+        "item_type": "section",
+        "item_id": "d59",
+        "horizontal_rule": true,
+        "level": "2",
         "items": [
           {
-            "item_id": "d9", 
-            "item_type": "row", 
+            "item_type": "row",
+            "item_id": "d9",
             "items": [
               {
-                "item_id": "d10", 
-                "item_type": "cell", 
-                "offset": 1, 
-                "span": 3, 
+                "item_type": "cell",
+                "item_id": "d10",
                 "items": [
                   {
-                    "item_id": "d14", 
-                    "item_type": "markdown"
+                    "item_type": "markdown",
+                    "item_id": "d14"
                   }
-                ]
-              }, 
+                ],
+                "span": 3,
+                "offset": 1
+              },
               {
-                "item_id": "d17", 
-                "item_type": "cell", 
-                "span": 7, 
+                "item_type": "cell",
+                "item_id": "d17",
                 "items": [
                   {
-                    "item_id": "d18", 
-                    "item_type": "markdown", 
+                    "item_type": "markdown",
+                    "item_id": "d18",
                     "text": "* Python 3 compatibility\n* Added a graphite importer to the Import page, to import from a\n  Graphite dashboard URL\n* Added ways to quickly view the query associated with a\n  dashboard item. There's a \"View Query\" menu item in the action\n  menu, and the query text is displayed in the \"Isolate\"\n  transform.\n* Added confirmation before navigating away with unsaved changes.\n"
                   }
-                ]
+                ],
+                "span": 7
               }
             ]
           }
-        ], 
-        "title": "Other Enhancements", 
-        "item_type": "section", 
-        "horizontal_rule": true, 
-        "item_id": "d59"
-      }, 
+        ],
+        "layout": "fixed",
+        "title": "Other Enhancements"
+      },
       {
-        "layout": "fixed", 
-        "level": "2", 
+        "item_type": "section",
+        "item_id": "d19",
+        "horizontal_rule": true,
+        "level": "2",
         "items": [
           {
-            "item_id": "d20", 
-            "item_type": "row", 
+            "item_type": "row",
+            "item_id": "d20",
             "items": [
               {
-                "item_id": "d21", 
-                "item_type": "cell", 
-                "offset": 1, 
-                "span": 3, 
+                "item_type": "cell",
+                "item_id": "d21",
                 "items": [
                   {
-                    "item_id": "d22", 
-                    "item_type": "markdown"
+                    "item_type": "markdown",
+                    "item_id": "d22"
                   }
-                ]
-              }, 
+                ],
+                "span": 3,
+                "offset": 1
+              },
               {
-                "item_id": "d23", 
-                "item_type": "cell", 
-                "span": 7, 
+                "item_type": "cell",
+                "item_id": "d23",
                 "items": [
                   {
-                    "item_id": "d24", 
-                    "item_type": "markdown", 
+                    "item_type": "markdown",
+                    "item_id": "d24",
                     "text": "* Fixed a major DOM leak\n* Fixed an occasional spurious alert dialog\n* Fixed occasional clipping of tooltips\n* Fixed singlegraph rendering issues\n* Fixed renaming of queries\n* Fixed a bug in data range selection\n* Added validation to the import page, to avoid attempting to import\n  invalid dashboards\n* HTTP requests to Graphite won't break caching\n\n"
                   }
-                ]
+                ],
+                "span": 7
               }
             ]
           }
-        ], 
-        "title": "Bug Fixes", 
-        "item_type": "section", 
-        "horizontal_rule": true, 
-        "item_id": "d19"
+        ],
+        "layout": "fixed",
+        "title": "Bug Fixes"
       }
-    ], 
-    "item_type": "dashboard_definition", 
-    "href": "/api/dashboard/9/definition", 
+    ],
     "queries": {
-      "group_3": {
-        "name": "group_3", 
-        "targets": [
-          "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
-        ]
-      }, 
       "group_12": {
-        "name": "group_12", 
+        "name": "group_12",
         "targets": [
           "group(\n                  absolute(randomWalkFunction(\"series1\")),\n                  absolute(randomWalkFunction(\"series2\")),\n                  absolute(randomWalkFunction(\"series4\")),\n                  absolute(randomWalkFunction(\"series5\")),\n                  absolute(randomWalkFunction(\"series6\")),\n                  absolute(randomWalkFunction(\"series7\")),\n                  absolute(randomWalkFunction(\"series8\")),\n                  absolute(randomWalkFunction(\"series9\")),\n                  absolute(randomWalkFunction(\"series10\")),\n                  absolute(randomWalkFunction(\"series11\")),\n                  absolute(randomWalkFunction(\"series12\"))\n              )"
         ]
-      }, 
+      },
+      "group_3": {
+        "name": "group_3",
+        "targets": [
+          "group(absolute(randomWalkFunction(\"series1\")), absolute(randomWalkFunction(\"series2\")), absolute(randomWalkFunction(\"series3\")))"
+        ]
+      },
       "log": {
-        "name": "log", 
+        "name": "log",
         "targets": [
           "offset(scale(\n    group(absolute(randomWalkFunction(\"series1\")),\n          absolute(randomWalkFunction(\"series2\")),\n          absolute(randomWalkFunction(\"series3\")))\n    , 10)\n, 1)"
         ]
       }
-    }, 
-    "item_id": "d3", 
-    "options": {
-      "from": "-3h"
     }
-  }, 
-  "view_href": "/dashboards/9/what-s-new-in-0-9", 
-  "description": null, 
-  "tags": [
-    {
-      "count": 7, 
-      "bgcolor": "green", 
-      "id": 2, 
-      "name": "featured"
-    }, 
-    {
-      "count": 4, 
-      "id": 4, 
-      "name": "release-notes"
-    }
-  ], 
-  "title": "What's new in 0.9?", 
-  "summary": "", 
-  "definition_href": "/api/dashboard/9/definition", 
-  "href": "/api/dashboard/9", 
-  "id": 9, 
-  "imported_from": null
+  }
 }

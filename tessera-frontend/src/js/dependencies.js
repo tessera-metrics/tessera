@@ -1,4 +1,5 @@
 $ = jQuery  = require('jquery')
+flot        = require('flot')
 moment      = require('moment')
 momenttz    = require('moment-timezone')
 Handlebars  = require('handlebars')
@@ -19,3 +20,4 @@ datatables  = require('datatables')(window, $)
 saveAs      = require('filesaver.js').saveAs
 Promise     = require('bluebird')
 humanize_duration = require('humanize-duration')
+

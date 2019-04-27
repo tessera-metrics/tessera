@@ -67,21 +67,9 @@ function get_default_options() {
     },
     xaxis: {
       mode: "time",
-      tickFormatter: function(value, axis) {
-        // Take care of time series axis
-        if (axis.tickSize && axis.tickSize.length === 2) {
-          if (axis.tickSize[1] === 'year' && axis.tickSize[0] >= 1)
-            return moment(value).tz(app.config.DISPLAY_TIMEZONE).format('YYYY')
-          if (axis.tickSize[1] === 'month' && axis.tickSize[0] >= 1 || axis.tickSize[1] === 'year')
-            return moment(value).tz(app.config.DISPLAY_TIMEZONE).format('MM-\'YY')
-          if (axis.tickSize[1] === 'day' && axis.tickSize[0] >= 1 || axis.tickSize[1] === 'month')
-            return moment(value).tz(app.config.DISPLAY_TIMEZONE).format('MM/DD')
-          if (axis.tickSize[1] === 'hour' && axis.tickSize[0] >= 12)
-            return moment(value).tz(app.config.DISPLAY_TIMEZONE).format('MM/DD hA')
-        }
-        return moment(value).tz(app.config.DISPLAY_TIMEZONE).format('h:mm A')
-      },
+      timeBase: "milliseconds",
       tickColor: theme_colors.minorGridLineColor,
+      tickLength: 0,
       font: {
         color: theme_colors.fgcolor,
         size: 12
@@ -91,6 +79,7 @@ function get_default_options() {
       {
         position: 'left',
         tickFormatter: FORMAT_STANDARD,
+        tickLength: 0,
         reserveSpace: 30,
         labelWidth: 30,
         tickColor: theme_colors.minorGridLineColor,
@@ -118,6 +107,7 @@ function get_default_options() {
       /* grid.color actually sets the color of the legend
        * text. WTH? */
       color: theme_colors.fgcolor,
+      tickColor: theme_colors.minorGridLineColor,
       borderColor: theme_colors.minorGridLineColor
     },
     selection: {
@@ -231,8 +221,8 @@ function setup_plugins(selector: string, context: FlotRenderContext) {
 
 
     if (context.item['stack_mode'] && (context.item['stack_mode'] !== charts.StackMode.NONE))
-        items_to_plot.reverse()
-
+      items_to_plot.reverse()
+    
     let contents = ts.templates.flot.tooltip({
       time: point[0],
       items: items_to_plot
@@ -284,6 +274,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     }
   }
 
+  //
+  // Sparkline
+  //
+  
   sparkline(selector: string, item: DashboardItem, query: Query, index: number, opt?: any) : FlotRenderContext {
     let context : FlotRenderContext = {
       plot: null,
@@ -356,6 +350,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     }
   }
 
+  //
+  // Highlight
+  //
+  
   highlight_series(item: Chart, index: number) : void {
     if (!item.render_context)
       return
@@ -382,7 +380,11 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     plot.draw()
   }
 
+  //
+  // Un-highlight
   // TODO: simplify this too
+  //
+  
   unhighlight_series(item: Chart, index?: number) : void {
     if (!item.render_context)
       return
@@ -429,6 +431,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return result
   }
 
+  //
+  // Simple Line Chart
+  //
+  
   simple_line_chart(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       grid: { show: false },
@@ -443,6 +449,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return this.render(selector, item, query, options, [query.chart_data('flot')[0]])
   }
 
+  //
+  // Standard Line Chart
+  //
+  
   standard_line_chart(selector: string, item: Chart, query: Query) : void {
     query.chart_data('flot').forEach(function(series) {
       // Hide series with no data from display
@@ -458,6 +468,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     }))
   }
 
+  //
+  // Simple Area Chart
+  //
+  
   simple_area_chart(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       downsample: true,
@@ -471,6 +485,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return this.render(selector, item, query, options, [query.chart_data('flot')[0]])
   }
 
+  //
+  // Stacked Area Chart
+  //
+  
   stacked_area_chart(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       downsample: true,
@@ -520,6 +538,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return this.render(selector, item, query, options)
   }
 
+  //
+  // Donut (Pie) Chart
+  //
+  
   donut_chart(selector: string, item: Chart, query: Query) {
     let options = get_flot_options(item, {
       crosshair: { mode: null },
@@ -532,11 +554,15 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
           innerRadius: item['is_pie'] ? 0 : 0.35,
           label: { show: item['labels'] },
           highlight: {
-            opacity: 0
+            opacity: 0.4
           }
         }
       },
-      grid: { show: false, hoverable: true }
+      grid: {
+        show: false,
+        hoverable: true,
+        autoHighlight: true
+      }
     })
 
     let transform = item['transform'] || 'sum'
@@ -552,9 +578,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     }).filter(function(item) { return item })
 
     let context = this.render(selector, item, query, options, data)
-
+    var null_count = 0    // HACK: workaround for flot 3's plothover bug
     $(selector).bind('plothover', function(event, pos, event_item) {
       if (event_item) {
+        null_count = 0
         let contents = ts.templates.flot.donut_tooltip({
           series: event_item.series,
           value: FORMAT_STANDARD(event_item.datapoint[1][0][1]),
@@ -563,13 +590,19 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         $("#ds-tooltip").remove()
         show_tooltip(pos.pageX, pos.pageY, contents)
       } else {
-        $("#ds-tooltip").remove()
+        if (++null_count >= 2) {
+          $("#ds-tooltip").remove()
+        }
       }
     })
 
     return context
   }
 
+  //
+  // Timeseries Bar Chart
+  //
+  
   bar_chart(selector: string, item: Chart, query: Query) : void {
     let series      = query.chart_data('flot')[0]
     let ts_start    = series.data[0][0]
@@ -588,15 +621,20 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
 
     let options = get_flot_options(item, {
       series: {
+        xaxis: {
+          min: ts_start,
+          max: ts_end,
+          autoScale: "none"
+        },
         lines: { show: false },
         stackD3: {
           show: true,
           offset: 'zero'
         },
-        bars: {
+        bars: {          
           show: true,
-          fill: 0.8,
-          barWidth: sample_size * bar_scaling
+          // barWidth: sample_size * bar_scaling,          
+          fill: 0.8
         }
       }
     })
@@ -618,6 +656,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return this.render(selector, item, query, options)
   }
 
+  //
+  // Discrete Bar Chart
+  //
+  
   discrete_bar_chart(selector: any, item: Chart, query: Query) : void {
     let is_horizontal = item['orientation'] === 'horizontal'
     let format = d3.format(item['format'] || FORMAT_STRING_STANDARD)
@@ -636,7 +678,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
         bars: {
           horizontal: is_horizontal,
           show: true,
-          barWidth: 0.8,
+          // barWidth: 0.8,
           align: 'center',
           fill: item.fill || ts.prefs.opacity || DEFAULT_FILL,
           numbers: {
@@ -675,6 +717,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     if (is_horizontal) {
       options.yaxes[0].tickLength = 0
       options.yaxes[0].ticks = ticks
+      options.xaxis.mode = null
       options.xaxis.tickFormatter = null
       options.series.bars.numbers.xOffset = -18
       if (item['show_grid']) {
@@ -712,6 +755,10 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     return context
   }
 
+  //
+  // Scatter Plot
+  //
+  
   scatter_plot(selector: string, item: Chart, query: Query) : void {
     let options = get_flot_options(item, {
       series: {

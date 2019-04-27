@@ -1,13 +1,20 @@
 {
-  "id": 27,
+  "id": 7,
   "title": "What's new in 0.11?",
   "category": "Release Notes",
-  "summary": "",
   "description": null,
-  "creation_date": "2019-04-16T14:39:52.697747Z",
-  "last_modified_date": "2019-04-17T06:54:35.036288Z",
+  "summary": "",
   "imported_from": null,
+  "definition_href": "/api/dashboard/7/definition",
+  "view_href": "/dashboards/7/what-s-new-in-0-11",
+  "href": "/api/dashboard/7",
   "tags": [
+    {
+      "id": 2,
+      "name": "featured",
+      "bgcolor": "green",
+      "count": 6
+    },
     {
       "id": 4,
       "name": "release-notes",
@@ -15,16 +22,18 @@
     }
   ],
   "definition": {
+    "item_type": "dashboard_definition",
+    "item_id": "d3",
+    "href": "/api/dashboard/7/definition",
     "options": {
       "from": "-1h"
     },
-    "item_type": "dashboard_definition",
-    "item_id": "d3",
     "items": [
       {
-        "title": "Dashboard Enhancements",
         "item_type": "section",
         "item_id": "d35",
+        "horizontal_rule": true,
+        "level": "2",
         "items": [
           {
             "item_type": "row",
@@ -37,8 +46,7 @@
                   {
                     "item_type": "markdown",
                     "item_id": "d27",
-                    "text": "#### Singlestat Grids\n\nSinglestat grids render one Singlestat for each series in the query, in a configurable number of columns, just like Singlegraph grids. \n",
-                    "raw": false
+                    "text": "#### Singlestat Grids\n\nSinglestat grids render one Singlestat for each series in the query, in a configurable number of columns, just like Singlegraph grids. \n"
                   }
                 ],
                 "span": 3,
@@ -52,12 +60,12 @@
                     "item_type": "singlestat_grid",
                     "item_id": "d15",
                     "style": "none",
-                    "query": "grid",
-                    "units": "%",
-                    "format": ",.3s",
-                    "transform": "mean",
                     "columns": 4,
-                    "hide_zero_series": false
+                    "format": ",.3s",
+                    "hide_zero_series": false,
+                    "query": "grid",
+                    "transform": "mean",
+                    "units": "%"
                   }
                 ],
                 "span": "8"
@@ -75,8 +83,7 @@
                   {
                     "item_type": "markdown",
                     "item_id": "d21",
-                    "text": "If a style is set on the grid, it will be applied to each generated cell individually.",
-                    "raw": false
+                    "text": "If a style is set on the grid, it will be applied to each generated cell individually."
                   }
                 ],
                 "span": 3,
@@ -90,12 +97,12 @@
                     "item_type": "singlestat_grid",
                     "item_id": "d23",
                     "style": "alert_info",
-                    "query": "grid",
-                    "units": "%",
-                    "format": ",.3s",
-                    "transform": "mean",
                     "columns": 4,
-                    "hide_zero_series": false
+                    "format": ",.3s",
+                    "hide_zero_series": false,
+                    "query": "grid",
+                    "transform": "mean",
+                    "units": "%"
                   }
                 ],
                 "span": "8"
@@ -113,8 +120,7 @@
                   {
                     "item_type": "markdown",
                     "item_id": "d29",
-                    "text": "#### Singlegraph Grids\n\nA style may now be set on singlegraph grids as well, which will be applied to each generated cell individually. To apply a style around the entire grid, set the style on the enclosing cell.\n",
-                    "raw": false
+                    "text": "#### Singlegraph Grids\n\nA style may now be set on singlegraph grids as well, which will be applied to each generated cell individually. To apply a style around the entire grid, set the style on the enclosing cell.\n"
                   }
                 ],
                 "span": 3,
@@ -125,20 +131,20 @@
                 "item_id": "d30",
                 "items": [
                   {
+                    "item_type": "singlegraph_grid",
+                    "item_id": "d33",
+                    "style": "alert_neutral",
+                    "height": 1,
+                    "columns": 4,
+                    "display_transform": true,
+                    "format": ",.1s",
+                    "hide_zero_series": false,
+                    "legend": "simple",
                     "options": {
                       "palette": "brewerq12"
                     },
-                    "item_type": "singlegraph_grid",
-                    "item_id": "d33",
-                    "height": 1,
-                    "style": "alert_neutral",
                     "query": "grid",
-                    "legend": "simple",
-                    "hide_zero_series": false,
-                    "format": ",.1s",
-                    "transform": "mean",
-                    "display_transform": true,
-                    "columns": 4
+                    "transform": "mean"
                   }
                 ],
                 "span": "8",
@@ -147,14 +153,14 @@
             ]
           }
         ],
-        "level": "2",
-        "horizontal_rule": true,
-        "layout": "fixed"
+        "layout": "fixed",
+        "title": "Dashboard Enhancements"
       },
       {
-        "title": "Other Enhancements & Bug Fixes",
         "item_type": "section",
         "item_id": "d59",
+        "horizontal_rule": true,
+        "level": "2",
         "items": [
           {
             "item_type": "row",
@@ -166,8 +172,7 @@
                 "items": [
                   {
                     "item_type": "markdown",
-                    "item_id": "d14",
-                    "raw": false
+                    "item_id": "d14"
                   }
                 ],
                 "span": 3,
@@ -180,8 +185,7 @@
                   {
                     "item_type": "markdown",
                     "item_id": "d18",
-                    "text": "* Singlegraph grids (and the new Singlestat grids) can now omit cells if the data series sums to zero. They've always had the `hide_zero_series` property, just never paid attention to it before\n* Singlegraphs can now specify a units field, just like Singlestats\n* Both Singlegraphs and Singlestats can hide the transform field (which identifies the transform applied to the summation) if desired\n* Use system fonts where available (e.g. the San Francisco font on OS X, etc...)\n* See the [full list of closed issues](https://github.com/tessera-metrics/tessera/milestone/11?closed=)",
-                    "raw": false
+                    "text": "It's been a minute since the last release, so there was a lot of\ndependency updating to do, for security patches, feature updates,\nand generally avoiding bit-rot.\n\nSome highlights:\n\n* Flot, the Javascript charting library used by Tessera, is\n  finally [under active development\n  again](http://www.flotcharts.org/blog/2018/02/04/flot-216-new-maintainers/)!\n  There have been some all around cleanups and improvements, and\n  it's distributed on [NPM](https://www.npmjs.com/package/flot)\n  now.\n* [flot-d3-stack](https://www.npmjs.com/package/flot-d3-stack),\n  the Flot plugin that provides streamgraph stacking, has been\n  updated as well, both for the new Flot releaase and for the\n  latest modularized D3 code, so the entirety of D3 is no longer\n  needed.\n* Updates to TypeScript, Grunt, Babel, and the rest of the build tools\n"
                   }
                 ],
                 "span": 7
@@ -189,9 +193,48 @@
             ]
           }
         ],
-        "level": "2",
+        "layout": "fixed",
+        "title": "Dependency Updates"
+      },
+      {
+        "item_type": "section",
+        "item_id": "d31",
         "horizontal_rule": true,
-        "layout": "fixed"
+        "level": "2",
+        "items": [
+          {
+            "item_type": "row",
+            "item_id": "d34",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d36",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d37"
+                  }
+                ],
+                "span": 3,
+                "offset": 1
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d38",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d39",
+                    "text": "* Singlegraph grids (and the new Singlestat grids) can now omit cells if the data series sums to zero. They've always had the `hide_zero_series` property, just never paid attention to it before\n* Singlegraphs can now specify a units field, just like Singlestats\n* Both Singlegraphs and Singlestats can hide the transform field (which identifies the transform applied to the summation) if desired\n* Use system fonts where available (e.g. the San Francisco font on OS X, etc...)\n* Added a script to generate screenshots of test dashboards using\n  [Puppeteer](https://pptr.dev/), so visual changes and\n  regressions can be tracked from release to release.\n* There's a new set of [render test](/dashboards/tagged/render-test)\n  dashboards to aid in that goal. \n* See the [full list of closed issues](https://github.com/tessera-metrics/tessera/milestone/11?closed=)"
+                  }
+                ],
+                "span": 7
+              }
+            ]
+          }
+        ],
+        "layout": "fixed",
+        "title": "Other Enhancements & Bug Fixes"
       }
     ],
     "queries": {
@@ -202,8 +245,5 @@
         ]
       }
     }
-  },
-  "href": "/api/dashboard/27",
-  "view_href": "/dashboards/27/what-s-new-in-0-11",
-  "definition_href": "/api/dashboard/27/definition"
+  }
 }

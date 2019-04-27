@@ -21,7 +21,8 @@ module.exports = function(grunt) {
       default: {
         src: SOURCE_FILES,
         outDir: '_build/phase1',
-        options: { 
+        options: {
+          rootDir: 'src',
           target: 'es6',
           comments: true,
           declaration: true,
@@ -145,12 +146,9 @@ module.exports = function(grunt) {
           '_build/dependencies.js',
           'node_modules/d3-format/dist/d3-format.js',
           'node_modules/d3-shape/dist/d3-shape.js',
-          'node_modules/flot/jquery.flot.js',
-          'node_modules/flot/jquery.flot.time.js',
-          'node_modules/flot/jquery.flot.resize.js',
-          'node_modules/flot/jquery.flot.pie.js',
+          'node_modules/flot/dist/es5/jquery.flot.js',
+          'node_modules/flot/source/jquery.flot.pie.js',
           'node_modules/flot-d3-stack/jquery.flot.d3.stack.js',
-          'node_modules/flot-axislabels/jquery.flot.axislabels.js',
           'src/3rd-Party/js/tagmanager.js',
           'src/3rd-Party/js/bootstrap-editable.min.js',
           'src/3rd-Party/js/bootstrap-datetimepicker.min.js',
@@ -215,7 +213,8 @@ module.exports = function(grunt) {
         files: [
           'src/js/dependencies.js',
           'src/3rd-Party/**/*.*',
-          'node_modules/**/*.js'
+          'node_modules/**/*.js',
+          'Gruntfiles.js'
         ],
         tasks: ['dep']
       },

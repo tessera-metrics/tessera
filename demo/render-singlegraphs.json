@@ -1,0 +1,317 @@
+{
+  "id": 32,
+  "title": "Singlegraphs",
+  "category": "render",
+  "description": "",
+  "summary": "",
+  "imported_from": null,
+  "definition_href": "/api/dashboard/32/definition",
+  "view_href": "/dashboards/32/singlegraphs",
+  "href": "/api/dashboard/32",
+  "tags": [
+    {
+      "id": 7,
+      "name": "render-test",
+      "count": 5
+    }
+  ],
+  "definition": {
+    "item_type": "dashboard_definition",
+    "item_id": "d3",
+    "href": "/api/dashboard/32/definition",
+    "options": {
+      "from": "-1h"
+    },
+    "items": [
+      {
+        "item_type": "section",
+        "item_id": "d4",
+        "horizontal_rule": false,
+        "level": 1,
+        "items": [
+          {
+            "item_type": "row",
+            "item_id": "d7",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d9",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d13",
+                    "text": "### Singlegraphs"
+                  }
+                ],
+                "span": 2
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d10",
+                "items": [
+                  {
+                    "item_type": "row",
+                    "item_id": "d14",
+                    "items": [
+                      {
+                        "item_type": "cell",
+                        "item_id": "d15",
+                        "items": [
+                          {
+                            "item_type": "singlegraph",
+                            "item_id": "d24",
+                            "height": 1,
+                            "display_transform": true,
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "query": "sin3",
+                            "options": {
+                              "margin": {
+                                "bottom": 0,
+                                "left": 0,
+                                "right": 0,
+                                "top": 0
+                              }
+                            },
+                            "interactive": true,
+                            "format": ",.1s",
+                            "transform": "mean"
+                          }
+                        ],
+                        "span": 2
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d25",
+                        "items": [
+                          {
+                            "item_type": "singlegraph",
+                            "item_id": "d29",
+                            "height": 1,
+                            "display_transform": true,
+                            "hide_zero_series": false,
+                            "legend": "table",
+                            "query": "sin3",
+                            "options": {
+                              "margin": {
+                                "bottom": 0,
+                                "left": 0,
+                                "right": 0,
+                                "top": 0
+                              }
+                            },
+                            "interactive": true,
+                            "format": ",.3s",
+                            "transform": "last_non_zero"
+                          }
+                        ],
+                        "span": 2
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d30",
+                        "items": [
+                          {
+                            "item_type": "singlegraph",
+                            "item_id": "d33",
+                            "height": 1,
+                            "display_transform": false,
+                            "hide_zero_series": false,
+                            "legend": "table",
+                            "query": "sin3",
+                            "options": {
+                              "margin": {
+                                "bottom": 0,
+                                "left": 0,
+                                "right": 0,
+                                "top": 0
+                              },
+                              "palette": "applegreen"
+                            },
+                            "interactive": true,
+                            "format": ",.3s",
+                            "transform": "last_non_zero"
+                          }
+                        ],
+                        "span": 2
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d34",
+                        "items": [
+                          {
+                            "item_type": "singlegraph",
+                            "item_id": "d35",
+                            "height": 1,
+                            "display_transform": false,
+                            "hide_zero_series": false,
+                            "index": "2",
+                            "legend": "table",
+                            "units": "things",
+                            "query": "sin3",
+                            "options": {
+                              "margin": {
+                                "bottom": 0,
+                                "left": 0,
+                                "right": 0,
+                                "top": 0
+                              },
+                              "palette": "applegreen"
+                            },
+                            "interactive": true,
+                            "format": ",.3s",
+                            "transform": "last_non_zero"
+                          }
+                        ],
+                        "span": 2
+                      }
+                    ]
+                  }
+                ],
+                "span": "10"
+              }
+            ]
+          },
+          {
+            "item_type": "row",
+            "item_id": "d40",
+            "items": [
+              {
+                "item_type": "cell",
+                "item_id": "d41",
+                "items": [
+                  {
+                    "item_type": "markdown",
+                    "item_id": "d42",
+                    "text": "### Singlegraph Grids"
+                  }
+                ],
+                "span": 2
+              },
+              {
+                "item_type": "cell",
+                "item_id": "d43",
+                "items": [
+                  {
+                    "item_type": "row",
+                    "item_id": "d44",
+                    "items": [
+                      {
+                        "item_type": "cell",
+                        "item_id": "d45",
+                        "items": [
+                          {
+                            "item_type": "singlegraph_grid",
+                            "item_id": "d53",
+                            "height": 1,
+                            "columns": "3",
+                            "display_transform": true,
+                            "format": ",.1s",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "options": {},
+                            "query": "sin3",
+                            "title": "Default",
+                            "transform": "mean"
+                          }
+                        ],
+                        "span": 6
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d54",
+                        "items": [
+                          {
+                            "item_type": "singlegraph_grid",
+                            "item_id": "d55",
+                            "style": "alert_neutral",
+                            "height": 1,
+                            "columns": "3",
+                            "display_transform": true,
+                            "format": ",.1s",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "options": {},
+                            "query": "sin3",
+                            "title": "Styled",
+                            "transform": "mean"
+                          }
+                        ],
+                        "span": 6
+                      }
+                    ]
+                  },
+                  {
+                    "item_type": "row",
+                    "item_id": "d26",
+                    "items": [
+                      {
+                        "item_type": "cell",
+                        "item_id": "d27",
+                        "items": [
+                          {
+                            "item_type": "singlegraph_grid",
+                            "item_id": "d28",
+                            "height": 1,
+                            "columns": "3",
+                            "display_transform": false,
+                            "format": ",.1s",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "options": {
+                              "palette": "munin"
+                            },
+                            "query": "sin3",
+                            "title": "",
+                            "transform": "max",
+                            "units": "stuff"
+                          }
+                        ],
+                        "span": 6
+                      },
+                      {
+                        "item_type": "cell",
+                        "item_id": "d31",
+                        "style": "well",
+                        "items": [
+                          {
+                            "item_type": "singlegraph_grid",
+                            "item_id": "d32",
+                            "height": 1,
+                            "columns": "3",
+                            "display_transform": false,
+                            "format": ",.1s",
+                            "hide_zero_series": false,
+                            "legend": "simple",
+                            "options": {
+                              "palette": "brewerdiv1"
+                            },
+                            "query": "sin3",
+                            "title": "",
+                            "transform": "max",
+                            "units": "stuff"
+                          }
+                        ],
+                        "span": 6
+                      }
+                    ]
+                  }
+                ],
+                "span": "10"
+              }
+            ]
+          }
+        ],
+        "layout": "fluid"
+      }
+    ],
+    "queries": {
+      "sin3": {
+        "name": "sin3",
+        "targets": [
+          "aliasByNode(group(absolute(sin(\"s1\",1, 120)),\n                    absolute(sin(\"s2\",2, 120)),\n                    absolute(sin(\"s3\",3, 120))), 0)"
+        ]
+      }
+    }
+  }
+}
