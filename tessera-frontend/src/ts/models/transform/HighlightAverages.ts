@@ -32,9 +32,9 @@ transforms.register({
       name: query.name + '_averages',
       targets: [
         group,
-        'alias(lineWidth(color(averageSeries(' + group + '), "' + (bg.dark()
-                                                                  ? bg.clone().lighten(4.0)
-                                                                  : bg.clone().darken(1.0)).hexString()  + '"), 2), "Avg")',
+        'alias(lineWidth(color(averageSeries(' + group + '), "' + (bg.isDark()
+                                                                  ? bg.lighten(4.0)
+                                                                  : bg.darken(1.0)).hex()  + '"), 2), "Avg")',
         'alias(lineWidth(color(highestAverage(' + group + ', 1), "red"), 2), "Max Avg")'
       ]
     })

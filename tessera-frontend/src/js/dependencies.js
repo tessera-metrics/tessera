@@ -17,7 +17,7 @@ select2     = require('select2')
 store       = require('store')
 growl       = require('bootstrap-notify')
 datatables  = require('datatables')(window, $)
-saveAs      = require('filesaver.js').saveAs
+saveAs      = require('file-saver').saveAs
 Promise     = require('bluebird')
 humanize_duration = require('humanize-duration')
 

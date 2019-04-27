@@ -31,17 +31,17 @@ export function get_palette(name_or_palette?: string|string[]) : string[] {
  */
 export function get_colors() {
   let color = Color(window.getComputedStyle($('body')[0]).backgroundColor)
-  if (color.dark()) {
+  if (color.isDark()) {
     return {
-      majorGridLineColor: color.clone().lighten(0.75).hexString(),
-      minorGridLineColor: color.clone().lighten(0.5).hexString(),
-      fgcolor: color.clone().lighten(3.0).hexString()
+      majorGridLineColor: color.lighten(0.75).hex(),
+      minorGridLineColor: color.lighten(0.5).hex(),
+      fgcolor: color.lighten(3.0).hex()
     }
   } else {
     return {
-      majorGridLineColor: color.clone().darken(0.15).hexString(),
-      minorGridLineColor: color.clone().darken(0.05).hexString(),
-      fgcolor: color.clone().darken(0.75).hexString()
+      majorGridLineColor: color.darken(0.15).hex(),
+      minorGridLineColor: color.darken(0.05).hex(),
+      fgcolor: color.darken(0.75).hex()
     }
   }
 }
@@ -57,12 +57,12 @@ export function get_low_contrast_palette() {
   , dark_step  = 0.05
   , count      = 6
   , bg    = Color(window.getComputedStyle($('body')[0]).backgroundColor)
-  , color = bg.dark() ? bg.clone().lighten(0.25) : bg.clone().darken(0.1)
+  , color = bg.isDark() ? bg.lighten(0.25) : bg.darken(0.1)
 
   let palette = []
   for (var i = 0; i < count; i++) {
-    palette.push(color.hexString())
-    bg.dark() ? color.lighten(light_step) : color.darken(dark_step)
+    palette.push(color.hex())
+    bg.isDark() ? color.lighten(light_step) : color.darken(dark_step)
   }
 
   return palette

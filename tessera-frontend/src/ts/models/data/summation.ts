@@ -47,8 +47,8 @@ export default class Summation extends Model {
 
     if (datapoints && datapoints.length) {
       /* add simple-statistics methods */
-      let values = ss.mixin(datapoints.map(point => point[0]))
-      this.median = values.median()
+      let values = datapoints.map(point => point[0])
+      this.median = ss.median(values)
       this.first = datapoints[0][0]
       this.count = datapoints.length
       if (this.first == null) {
