@@ -148,6 +148,7 @@ module.exports = function(grunt) {
           'node_modules/d3-shape/dist/d3-shape.js',
           'node_modules/flot/dist/es5/jquery.flot.js',
           'node_modules/flot/source/jquery.flot.pie.js',
+          'node_modules/flot/source/jquery.flot.resize.js',
           'node_modules/flot-d3-stack/jquery.flot.d3.stack.js',
           'src/3rd-Party/js/tagmanager.js',
           'src/3rd-Party/js/bootstrap-editable.min.js',
