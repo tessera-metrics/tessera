@@ -5,13 +5,20 @@ const path      = require('path')
 const axios     = require('axios')
 const puppeteer = require('puppeteer')
 const mkdirp    = require('mkdirp')
-const sleep     = require('sleep')
 const moment    = require('moment')
 
 const outputdir = 'screenshots'
 const rooturl   = 'http://localhost:5000'
 const defaultViewport  = { width: 1920, height: 1080, isLandscape: true, deviceScaleFactor: 2 }
 const GRAPHITE_TIME_FORMAT = 'hh:mm_YYYYMMDD'
+
+function msleep(n) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, n);
+}
+
+function sleep(n) {
+  msleep(n*1000);
+}
 
 // Fetch the list of dashboards from the API, so we can get all the
 // URLs for the dashboard pages
