@@ -103,6 +103,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
+          '_build/css/bootstrap.css':              'src/css/bootstrap.scss',
           '_build/css/tessera.css':                'src/css/tessera.scss',
           '_build/css/tessera-typography.css':     'src/css/tessera-typography.scss',
           '_build/css/themes/bootstrap-dark.css':  'src/css/themes/bootstrap-dark.scss',
@@ -118,13 +119,33 @@ module.exports = function(grunt) {
     },
 
     /**
-     * 4 - Concatenate the transpiled sources and the precompiled
-     * templates
+     * 3c - run autoprefixer on the Bootstrap CSS
+     */
+    autoprefixer: {
+      bootstrap: {
+        files: {
+          '_build/css/bootstrap.css':'_build/css/bootstrap.css'
+        }
+      }
+    },
+
+    /**
+     * 4 - Concatenate files into bundles for easy downloading. This
+     * has three output targets:
+     * 
+     *   dep_css produces bundle.css, which includes all the CSS for
+     *   third-party components.
+     *
+     *   dep_js produces bundle.js, which includes all the JavaScript
+     *   for third-party components.
+     *
+     *   app produces tessera.js, which includes the precompiled
+     *   Handlebars templates and all the application code.
      */
     concat: {
       dep_css: {
         src: [
-          'src/3rd-Party/css/bootstrap.css',
+          '_build/css/bootstrap.css',
           'src/3rd-Party/css/bootstrap-callouts.css',
           'src/3rd-Party/css/bootstrap-editable.css',
           'src/3rd-Party/css/bootstrap-datetimepicker.css',
@@ -168,13 +189,13 @@ module.exports = function(grunt) {
           separator: ';'
         },
         src: [
-          // 'node_modules/@babel/polyfill/dist/polyfill.js',
           '_build/templates.js',
           '_build/phase2.js'
         ],
         dest: '<%= DIST %>/tessera.js'
       }
     },
+
 
     /**
      * 5 - Copy sources to the static resources dir.
@@ -235,7 +256,7 @@ module.exports = function(grunt) {
         files: [
           'src/css/**/*.scss'
         ],
-        tasks: ['sass', 'copy:app']
+        tasks: ['sass', 'autoprefixer', 'copy:app']
       }
     },
 
@@ -260,6 +281,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-ts');
   grunt.loadNpmTasks('grunt-run');
 
