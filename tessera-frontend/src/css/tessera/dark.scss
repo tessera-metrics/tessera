@@ -1,4 +1,8 @@
 @import "../themes/dark.scss";
+
+$ds-value-label-fg: #ccc;
+$ds-value-label-border-color: #b58900;
+
 @import "../fonts.scss";
 @import "3rd-party.scss";
 @import "typography.scss";
@@ -6,3 +10,190 @@
 @import "charts.scss";
 @import "edit.scss";
 @import "app.scss";
+
+/* =============================================================================
+   Application Styles
+   ============================================================================= */
+
+.ds-item {
+  h1, h2, h3, h4, h5, h6 {
+    color: #BBB;
+  }
+}
+
+.ds-timerstat h3,
+.ds-singlestat h3 {
+    color: #959588;
+}
+
+.well .ds-timerstat h3,
+.well .ds-singlestat h3 {
+  color: #aa8866;
+}
+
+.ds-timerstat p,
+.ds-singlestat p {
+    color: white;
+}
+
+.ds-timerstat .unit,
+.ds-singlestat .unit,
+.ds-jumbotron-singlestat .unit {
+    color: $gray;
+}
+
+.ds-jumbotron-singlestat .value {
+    color: $white;
+}
+
+.ds-jumbotron-singlestat h3 {
+    color: $medium-gray-warm;
+}
+
+h1 .ds-primary-title {
+  color: $gray;
+}
+
+h1 .ds-secondary-title {
+  color: white;
+}
+
+.ds-time-container h2 {
+    color: #ddd;
+}
+
+.badge-neutral {
+  color: #222;
+}
+
+#ds-tooltip {
+    color: white;
+    background-color: $dark-gray0;
+    border: 1px solid #666;
+}
+
+/* =============================================================================
+   3rd Party Tweaks
+   ============================================================================= */
+
+/* Flot 3 */
+
+g.flot-y-axis, g.flot-x-axis,
+g.y1LabelLayer, g.x1LabelLayer {
+    text {
+        font-weight: 100 !important;
+        stroke: $medium-gray;
+    }
+}
+
+/* darkstrap tweaks */
+
+
+/* -----------------------------------------------------------------------------
+ Edit mode headers
+ ----------------------------------------------------------------------------- */
+
+/*
+ * Section
+ */
+
+.ds-badge-section {
+    background-color: $dark-gray0;
+}
+
+.ds-edit-bar-section {
+    background-color: #111;
+    border: 1px solid $dark-gray0;
+}
+
+/*
+ * Row
+ */
+
+.ds-badge-row {
+    background-color: #555;
+}
+
+.ds-edit-bar-row {
+    border: 1px solid #555;
+    background-color: #222;
+}
+
+.ds-row.ds-edit {
+    border: 1px solid #555;
+}
+
+/*
+ * Cell
+ */
+
+.ds-badge-cell {
+    border: 1px solid #555;
+}
+
+.ds-edit-bar-cell {
+    background-color: $dark-gray0;
+    border: 1px solid #777;
+}
+
+/*
+ * Item
+ */
+
+.ds-badge-item {
+    background-color: #777;
+    color: white;
+    border: 1px solid #AAA;
+}
+
+.ds-edit-bar-item {
+    background-color: #555;
+    border: 1px solid #777;
+}
+
+
+/* -----------------------------------------------------------------------------
+   Select2
+   ----------------------------------------------------------------------------- */
+
+.select2-container .select2-choices .select2-search-field input,
+.select2-container .select2-choice,
+.select2-container .select2-choices,
+.select2-search input,
+.select2-drop
+{
+    background: $dark-gray0;
+    border-color: #777;
+    color: white;
+}
+
+.select2-arrow {
+    border-left: 1px solid #777;
+    color: white;
+}
+
+/* -----------------------------------------------------------------------------
+   bootstrap-datetime
+   ----------------------------------------------------------------------------- */
+
+.bootstrap-datetimepicker-widget {
+    background: #555;
+    border-color: #777;
+    color: white;
+}
+
+
+.datepicker table tr td.day.active {
+    background: #428BCA;
+}
+
+.bootstrap-datetimepicker-widget td span:hover,
+.datepicker table tr th.switch:hover,
+.datepicker table tr th.next:hover,
+.datepicker table tr th.prev:hover,
+.datepicker table tr td.day:hover,
+.datepicker table tr td.second:hover
+{
+    background: #627E96;
+}
+

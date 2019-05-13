@@ -1,3 +1,737 @@
 $icon-font-path: '../fonts/';
 @import "../themes/dark.scss";
+
+// ----------------------------------------------------------------------
+// Darkstrap
+// ----------------------------------------------------------------------
+
+$bg: $body-bg;
+$warning: $brand-warning;
+$success: $brand-success;
+$info: $brand-info;
+$error: $brand-danger;
+
+$warningAccent:         #c17305;
+$successAccent:         #347834;
+$errorAccent:           #ed0409;
+$infoAccent:            #1a3c4e;
+$warningBorder:         #a86404;
+$successBorder:         #2d662d;
+$errorBorder:           #d40408;
+$infoBorder:            #204b61;
+
+
+$ds_inputBackground:    #666; // ds default: #444
+$ds_inputBorder:        #111; // default: white
+$ds_inputPlaceholder:   #666;
+$ds_inputColor:         #fff;
+$ds_textColor:          #555;
+$ds_textBackground:     #373737;
+
+$text-color:            #c6c6c6;
+$link-color:            #08c;
+$link-hover-color:      lighten($link-color, 15%);
+
+$tableBorder:           #666;
+$tableBackgroundAccent: #444;
+$tableBackgroundHover:  #666;
+
+$warningBackground:     $brand-warning;
+$successBackground:     $brand-success;
+$errorBackground:       $brand-danger;
+$infoBackground:        $brand-info;
+
+$navbarBackground:          #222;
+$navbarBackgroundHighlight: #444;
+$navbarText:                $text-color;
+$navbarBrandColor:          $text-color;
+$navbarLinkColor:           $text-color;
+$navbarLinkColorHover:      #fff;
+$navbarLinkColorActive:     #fff;
+
+// Forms
+$placeholderText:       #666;
+$inputBackground:       #ccc;
+$formActionsBackground: #444;
+
+// ----------------------------------------------------------------------
+// Tessera Darkstrap tweaks
+// ----------------------------------------------------------------------
+
+.table th, .table td {
+    border-top: 1px solid $dark-gray1;
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    background-color: $dark-gray1;
+}
+
+.table > thead > tr > td.active,
+.table > tbody > tr > td.active,
+.table > tfoot > tr > td.active,
+.table > thead > tr > th.active,
+.table > tbody > tr > th.active,
+.table > tfoot > tr > th.active,
+.table > thead > tr.active > td,
+.table > tbody > tr.active > td,
+.table > tfoot > tr.active > td,
+.table > thead > tr.active > th,
+.table > tbody > tr.active > th,
+.table > tfoot > tr.active > th {
+    background-color: $dark-gray1 !important;
+}
+
+.table-hover > tbody > tr > td.active:hover,
+.table-hover > tbody > tr > th.active:hover,
+.table-hover > tbody > tr.active:hover > td,
+.table-hover > tbody > tr.active:hover > th {
+    background-color: $dark-gray1  !important;
+}
+
+.table thead tr th,
+.table thead tr td {
+    border-bottom: 1px solid $dark-gray1  !important;
+}
+
+.table tbody tr td,
+.table tbody tr th {
+    border-top: 1px solid $dark-gray1  !important;
+}
+
+.label, .badge {
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.input-group-addon {
+    color: #DDD;
+    background: $dark-gray0;
+    border-color: #777;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="search"],
+input[type="number"]
+{
+    background: $dark-gray0;
+    border: 1px solid #777;
+    color: white;
+    box-shadow: none;
+}
+
+
+.btn-default {
+    color: #DDD;
+    background-color: $dark-gray0;
+    border-color: #777;
+}
+
+// ----------------------------------------------------------------------
+// Darkstrap
+// ----------------------------------------------------------------------
+
+
+@mixin placeholder($color: $ds_inputPlaceholder) {
+  :-moz-placeholder {
+    color: $color;
+  }
+  ::-webkit-input-placeholder {
+    color: $color;
+  }
+}
+
+@mixin controls($color) {
+  input, select, textarea {
+    color: $color;
+    border-color: $color;
+    @include inset-panel-dark;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+      border-color: $color;
+      box-shadow: 0 0 6px $color; 
+  }
+  .control-label, 
+  .help-block, 
+  .help-inline {
+    color: $color;
+  }
+}
+
+@mixin inset-panel-dark {
+  box-shadow: rgba(#fff, .1) 0 1px 0, rgba(#000, .8) 0 1px 7px 0px inset;
+  background: darken(#2f2f2f, 6);
+  background-color: rgba(#000, .3); 
+}
+
+@mixin horizontal-rule-dark {
+  box-shadow: rgba(#fff, .07) 0 1px 0;
+  border-bottom: 1px solid #121212;
+}
+
+@mixin horizontal-rule-top-dark {
+  box-shadow: rgba(#fff, .07) 0 1px 0 inset;
+  border-top: 1px solid #121212;
+}
+
+@mixin vertical-rule-dark {
+  box-shadow: rgba(#fff, .07) 1px 0 0;
+  border-right: 1px solid #121212;
+}
+
+@mixin vertical-rule-left-dark {
+    box-shadow: rgba(#fff, .07) 1px 0 0 inset;
+    border-left: 1px solid #121212;
+}
+
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
+.well { 
+  @include inset-panel-dark; 
+  border: 0;
+}
+.darkwell { 
+  @include inset-panel-dark; 
+  border: 0;
+}
+.breadcrumb {
+  @extend .darkwell;
+  border: 0; //over bs
+}
+//=Headings ======================================
+.page-header { @include horizontal-rule-dark; }
+h1,h2,h3,h4,h5,h6 { color: $ds_inputColor; }
+h6 { color: #999; }
+
+//=Misc ========================================
+blockquote {
+  border-left-color: #111;
+  &.pull-right { border-right-color: #111; }
+}
+
+hr {
+  @include horizontal-rule-dark;
+  border-top: none;
+}
+
+code {
+  @extend .darkwell;
+  border: none; //over bs
+  padding: 2px 4px; //added, is my well mixin stomping on sass well mixin?
+}
+pre {
+  @extend .darkwell;
+  border: none; //over bs
+  color: $text-color;
+  padding: 8px; //added. i think my .well is stomping on bootstrap-sass mixin.
+}
+
+//=Forms ========================================
+legend {
+  @include horizontal-rule-dark;
+  color: #fff;
+}
+
+select,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input,
+.form-control {
+  color: $ds_inputColor;
+  @extend .darkwell;
+  @include placeholder;
+  height: 34px 
+}
+
+.form-control.input-lg {
+  height: 45px;
+}
+
+textarea {
+  color: $ds_inputColor;
+  @extend .darkwell;
+  @include placeholder;
+}
+
+// Need to compensate for inset + 4px padding.
+select { height: 29px; }
+
+.form-actions {
+  border-top-color: $navbarBackground;
+}
+.well .form-actions {
+  border-top-color: #000;
+  background-color: rgba(#000, .3);
+  margin-left: -17px;
+  margin-right: -17px;
+  margin-bottom: -17px;
+}
+
+.help-inline,
+.help-block { 
+  color: #999;
+}
+
+tr.warning,
+tr.success,
+tr.error,
+tr.info {
+  color: #fff;
+}
+
+.control-group {
+  &.warning { @include controls($brand-warning); }
+  &.success { @include controls($brand-success); }
+  &.error { @include controls($brand-danger); } 
+  &.info { @include controls($brand-info); } 
+}
+
+// TODO: DRY me. Remove redundancy.
+input:focus:invalid,
+textarea:focus:invalid,
+select:focus:invalid {
+  border-color: $error; 
+}
+
+input:focus:invalid:focus,
+textarea:focus:invalid:focus,
+select:focus:invalid:focus {
+  border-color: $error;
+}
+
+.btn-link {
+  text-shadow: none;
+}
+
+.img-polaroid {
+  background-color: #111; //fallback
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+
+
+//=Navigation
+.nav-tabs .open .dropdown-toggle,
+.nav-pills .open .dropdown-toggle,
+.nav > .open.active > a:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+  //border-color: $bg $bg transparent $bg;
+  border-color: transparent transparent $tableBorder transparent;
+}
+.nav > .dropdown.active > a:hover {
+  color: #fff;
+}
+.nav-tabs .active .dropdown-toggle .caret,
+.nav-pills .active .dropdown-toggle .caret {
+  border-top-color: #fff;
+}
+.nav-tabs {
+  border-bottom: 1px solid $tableBorder;
+  &> li.active > a,
+  &> li.active > a:hover,
+  &> li.active > a:focus {
+    background-color: $body-bg;
+    color: #fff;
+    border-color: $tableBorder $tableBorder transparent $tableBorder;
+  }
+  &> li > a:hover {
+    border-color: $bg $bg $tableBorder $bg;
+    background-color: rgba(0, 0, 0, 0.25);
+    color: lighten($link-color, 10%);
+  }
+  &.nav-stacked {
+    &> li > a,
+    &> li > a:hover {
+      border-color: $tableBorder;
+    }
+  }
+}
+.well > .nav-tabs {
+  &> .active > a,
+  &> .active > a:hover {
+    background-color: #202020;
+  }
+}
+
+.nav-pills {
+  &> li > a:hover {
+    //background-color: darken($bg, 5%);
+    background-color: rgba(0, 0, 0, 0.25);
+    color: lighten($link-color, 10%);
+  }
+}
+.nav-list > li > a:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+  color: lighten($link-color, 10%);
+}
+.nav-list .active {
+  &> a:hover {
+    background-color: #0088cc;
+    color: $ds_inputColor;
+  }
+}
+
+.tabs-below .nav-tabs { border-top: 1px solid $tableBorder; }
+.tabs-left .nav-tabs { border-right: 1px solid $tableBorder; }
+.tabs-right .nav-tabs { border-left: 1px solid $tableBorder; }
+
+.tabs-below .nav-tabs > li > a:hover {
+  border-top: 1px solid $tableBorder;
+}
+.tabs-left .nav-tabs > li > a:hover {
+  border-color: transparent $tableBorder transparent transparent;
+}
+.tabs-right .nav-tabs > li > a:hover {
+  border-color: transparent transparent transparent $tableBorder;
+}
+
+.tabs-below .nav-tabs .active > a,
+.tabs-below .nav-tabs .active > a:hover {
+  border-color: transparent $tableBorder $tableBorder $tableBorder;
+}
+.tabs-left .nav-tabs .active > a,
+.tabs-left .nav-tabs .active > a:hover {
+  border-color: $tableBorder transparent $tableBorder $tableBorder;
+}
+.tabs-right .nav-tabs .active > a,
+.tabs-right .nav-tabs .active > a:hover {
+  border-color: $tableBorder $tableBorder $tableBorder transparent;
+}
+
+
+
+
+
+
+.nav-tabs > li > a:hover {
+  border-color: transparent transparent $tableBorder transparent;
+}
+.nav > .disabled > a:hover {
+  color: #999;
+}
+.nav-list .divider {
+  background-color: transparent;
+  @include horizontal-rule-dark;
+}
+
+
+//= Navbar
+.navbar .nav-divider {
+  border: transparent;
+  @include vertical-rule-dark;
+}
+
+
+.navbar-inverse {
+  .brand {
+    color: $ds_textColor;
+    &:hover { 
+      color: $ds_textColor;
+    }
+  }
+  .navbar-default {
+    background: #333;
+  }
+
+  .nav > li > a {
+    color: $navbarText;
+    &:hover {
+      color: $navbarLinkColorHover;
+    }
+  }
+
+  .nav > .active > a, 
+  .nav > .active > a:hover {
+    background-color: #e5e5e5;
+    color: $ds_textColor;
+  }
+
+  .nav li.dropdown > a:hover .caret {
+    border-bottom-color: $navbarLinkColorHover;
+    border-top-color: $navbarLinkColorHover;
+    color: $navbarLinkColorHover;
+  }
+  
+  .nav > li > a:focus, 
+  .nav > li > a:hover {
+    background-color: transparent;
+    color: $navbarLinkColorHover;
+  }
+
+  .nav li.dropdown.open > .dropdown-toggle,
+  .nav li.dropdown.active > .dropdown-toggle,
+  .nav li.dropdown.open.active > .dropdown-toggle {
+    background-color: #e5e5e5;
+    color: $ds_textColor; 
+  }
+
+
+  .nav li.dropdown.open > .dropdown-toggle, 
+  .nav li.dropdown.active > .dropdown-toggle,
+  .nav li.dropdown.open.active > .dropdown-toggle {
+    background-color: #e5e5e5;
+    color: $ds_textColor;
+  }
+
+  .nav li.dropdown.open > .dropdown-toggle .caret,
+  .nav li.dropdown.active > .dropdown-toggle .caret,
+  .nav li.dropdown.open.active > .dropdown-toggle .caret {
+    border-bottom-color: $text-color;
+    border-top-color: $text-color;
+    color: $text-color;
+  }
+
+  .navbar-search { 
+    .search-query {
+      background-color: $ds_inputColor;
+      color: $ds_textColor;
+    }
+  }
+
+  .navbar-search {
+    input.search-query:focus {
+      padding: 4px 14px;
+      outline: 0 none;
+    }
+  }
+  .nav li.dropdown > .dropdown-toggle .caret {
+    border-bottom-color: $text-color;
+    border-top-color: $text-color;
+  }
+  .nav li.dropdown > a:hover .caret {
+    border-bottom-color: $navbarLinkColorHover;
+    border-top-color: $navbarLinkColorHover;
+  }
+  .navbar-search .search-query:-moz-placeholder {
+    color: #999;
+  }
+}
+
+.pagination > li > a, 
+.pagination > li > span {
+  background: transparent;
+  border-color: $tableBorder;
+}
+.pagination > li > a:hover,
+.pagination > .active > a,
+.pagination > .active > span {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+
+// PAGERRRRRRR
+
+.pager li > a, .pager li > span {
+  background-color: transparent;
+  border-color: $tableBorder;
+}
+.pager li > a:hover {
+  background-color: rgba(0, 0, 0, 0.25); 
+}
+.pager .disabled > a,
+.pager .disabled > a:hover,
+.pager .disabled > span {
+    background-color: transparent;
+}
+
+.label-inverse,
+.badge-inverse{
+  background-color: #111;
+}
+
+.btn-inverse {
+  background-color: $ds_textBackground;
+}
+
+.btn-inverse,
+.btn-inverse:hover {
+  color: #C6C6C6;
+}
+
+a.list-group-item.active > .badge,
+.nav-pills > .active > a > .badge {
+  color: #fff;
+  background-color: #2f2f2f;
+}
+
+.jumbotron {
+  background: #111;
+  color: #ccc;
+  @extend .darkwell;
+}
+
+.thumbnail {
+  display: inline-block;
+  display: block;
+  height: auto;
+  max-width: 100%;
+  padding: 4px;
+  line-height: 1.428571429;
+  background-color: #333333;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  -webkit-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+  .caption {
+    color: #999;
+  }
+}
+
+.alert {
+  color: $ds_inputColor;
+  border-color: $warningBorder;
+  h1,h2,h3,h4,h5,h6 {
+    color: $warningAccent;
+  }
+}
+.alert-error {
+  border-color: $errorBorder;
+  h1,h2,h3,h4,h5,h6 {
+    color: $errorAccent;
+  }
+}
+.alert-success {
+  border-color: $successBorder;
+  h1,h2,h3,h4,h5,h6 {
+    color: $successAccent;
+  }
+}
+.alert-info {
+  border-color: $infoAccent;
+  h1,h2,h3,h4,h5,h6 {
+    color: $infoBorder;
+  }
+}
+
+.progress {
+  @extend .darkwell;
+}
+
+// http://stackoverflow.com/questions/7855590/how-can-i-prevent-scroll-bars-from-being-hidden-for-trackpad-users-in-webkit
+// Make scrollbar stand out in Webkit by manually overriding it.
+select {
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 11px;
+    //height: 11px;
+  }
+  &::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      border: 2px solid #202020; /* should match background, can't be transparent */
+      background-color: rgba(0, 0, 0, .5);
+  }
+}
+
+.modal,
+.modal-content {
+  background-color: $navbarBackgroundHighlight;
+}
+
+.modal-header {
+  border-bottom: 1px solid #222;
+}
+
+.modal-body p {
+  color: #c6c6c6;
+}
+
+.modal-footer {
+  background-color: $ds_textBackground;
+  border-top: 1px solid #222;
+}
+.popover {
+  background: $navbarBackgroundHighlight;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 1.0);
+}
+.popover-title {
+  background: $ds_textBackground;
+  border-bottom-color: #222;
+}
+.popover.top .arrow:after {
+  border-top-color: $navbarBackgroundHighlight;
+}
+.popover.right .arrow:after {
+  border-right-color: $navbarBackgroundHighlight;
+}
+.popover.bottom .arrow:after {
+  border-bottom-color: $navbarBackgroundHighlight;
+}
+.popover.left .arrow:after {
+  border-left-color: $navbarBackgroundHighlight;
+}
+
+// supporting bootstrap theme
+
+.dropdown-menu,
+.dropdown-menu > li > a {
+  color: $text-color;
+  background: $ds_textBackground;
+}
+
+.dropdown-menu > li > a:focus,
+.dropdown-menu > li > a:hover {
+  color: $ds_inputColor;
+  background-image:-webkit-linear-gradient(top,#080808 0,#0f0f0f 100%);
+  background-image:-o-linear-gradient(top,#080808 0,#0f0f0f 100%);
+  background-image:-webkit-gradient(linear,left top,left bottom,from(#080808),to(#0f0f0f));
+  background-image:linear-gradient(to bottom,#080808 0,#0f0f0f 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff080808', endColorstr='#ff0f0f0f', GradientType=0);filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  background-repeat:repeat-x;
+}
+
+.alert {
+  background-image:-webkit-linear-gradient(top, $warning 0, $warningAccent 100%);
+  background-image:-o-linear-gradient(top, $warning 0, $warningAccent 100%);
+  background-image:-webkit-gradient(linear, left top,left bottom,from($warning),to($warningAccent));
+  background-image:linear-gradient(to bottom, $warning 0, $warningAccent 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3a87ad', endColorstr='#ff1a3c4e', GradientType=0);filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  background-repeat:repeat-x;
+}
+
+.alert-error {
+  background-image:-webkit-linear-gradient(top, $error 0, $errorBorder 100%);
+  background-image:-o-linear-gradient(top, $error 0, $errorBorder 100%);
+  background-image:-webkit-gradient(linear, left top,left bottom,from($error),to($errorBorder));
+  background-image:linear-gradient(to bottom, $error 0, $errorBorder 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3a87ad', endColorstr='#ff1a3c4e', GradientType=0);filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  background-repeat:repeat-x;
+}
+
+.alert-success {
+  background-image:-webkit-linear-gradient(top, $success 0, $successBorder 100%);
+  background-image:-o-linear-gradient(top, $success 0, $successBorder 100%);
+  background-image:-webkit-gradient(linear, left top,left bottom,from($success),to($successBorder));
+  background-image:linear-gradient(to bottom, $success 0, $successBorder 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3a87ad', endColorstr='#ff1a3c4e', GradientType=0);filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  background-repeat:repeat-x;
+}
+
+.alert-info {
+  background-image:-webkit-linear-gradient(top, $info 0, $infoAccent 100%);
+  background-image:-o-linear-gradient(top, $info 0, $infoAccent 100%);
+  background-image:-webkit-gradient(linear, left top,left bottom,from($info),to($infoAccent));
+  background-image:linear-gradient(to bottom, $info 0, $infoAccent 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3a87ad', endColorstr='#ff1a3c4e', GradientType=0);filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  background-repeat:repeat-x;
+}

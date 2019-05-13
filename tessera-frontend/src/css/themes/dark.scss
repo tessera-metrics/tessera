@@ -16,10 +16,10 @@ $gray-light:             lighten($gray-base, 46.7%) !default; // #777
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
 $brand-primary:         darken(#428bca, 6.5%) !default; // #337ab7
-$brand-success:         #5cb85c !default;
-$brand-info:            #5bc0de !default;
-$brand-warning:         #f0ad4e !default;
-$brand-danger:          #d9534f !default;
+$brand-success:         #5bb75b !default;
+$brand-info:            #3a87ad !default;
+$brand-warning:         #faa732 !default;
+$brand-danger:          #fc5b5e !default;
 
 
 //== Scaffolding
@@ -27,7 +27,7 @@ $brand-danger:          #d9534f !default;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               #fff !default;
+$body-bg:               #2f2f2f !default;
 //** Global text color on `<body>`.
 $text-color:            $gray-dark !default;
 
@@ -872,3 +872,37 @@ $dl-horizontal-offset:        $component-offset-horizontal !default;
 $dl-horizontal-breakpoint:    $grid-float-breakpoint !default;
 //** Horizontal line color.
 $hr-border:                   $gray-lighter !default;
+
+// ----------------------------------------------------------------------
+// Tessera Darkstrap tweaks
+// ----------------------------------------------------------------------
+
+$gray: gray;
+$white: white;
+$medium-gray: #a6a6a6;
+$medium-gray-warm: #a6a699;
+$medium-gray1: #686868;
+$dark-gray0: #333333;
+$dark-gray1: #454545;
+$dark-gray2: #494949;
+
+$neutral:           $gray;
+$neutral-bg:        $dark-gray1;
+$neutral-highlight: $neutral;
+
+$info-bg:           #2a3b49;
+$info-highlight:    #6a9ab3;
+$info:              darken($info-highlight, 10%);
+
+$success:           #436824;
+$success-bg:        #35492c;
+$success-highlight: #86b186;
+
+$warning:           #a25103;
+$warning-bg:        #6f3701;
+$warning-highlight: #ff9e3f;
+
+$danger:            #a80e0b;
+$danger-highlight:  #e22424;
+$danger-bg:         #690d0d;
+
