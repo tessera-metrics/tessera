@@ -1,112 +1,3 @@
-/* =============================================================================
-   3rd Party fixes
-   ============================================================================= */
-
-/* fix for bootstrap/font-awesome background image problem on icons */
-i[class*='icon-'] {
-    background-image: none;
-}
-
-/* Bootstrap tweak */
-.label {
-    text-decoration: none;
-    text-shadow: none;
-}
-.page-header {
-    margin-top: 0px;
-}
-
-
-/** Add the range of semantic colors to badges too, for compact presentations */
-.badge-primary {
-  background-color: #428bca;
-}
-.badge-success {
-  background-color: #5cb85c;
-}
-.badge-info {
-  background-color: #5bc0de;
-}
-.badge-warning {
-  background-color: #f0ad4e;
-}
-.badge-danger {
-  background-color: #d9534f;
-}
-
-/* x-editable's textarea in dashboard info edit panel comes out too
-narrow unless we override */
-.ds-dashboard-info-edit-panel span.editable-container textarea {
-    width: 30em;
-}
-
-.ds-dashboard-info-edit-panel .tab-pane {
-    margin-top: 20px;
-}
-
-/* text boxes get formatted a little oddly by x-editable without resetting this */
-.editable-pre-wrapped {
-    white-space: normal;
-}
-
-/* Tag Manager */
-.tm-tag {
-    margin-left: 2px;
-    margin-right: 2px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 8px;
-}
-.tm-tag-remove {
-    color: lightgray;
-    margin-left: 4px;
-}
-
-/**
- * Override DataTable's column sorting styles to save space/clutter.
- */
-table.dataTable thead > tr > th {
-	padding-left: 2em;
-    padding-right: 8px;
-}
-
-table.dataTable thead .sorting:after,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting:before,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_desc:before {
-	position: absolute;
-	display: block;
-	font-family: 'FontAwesome';
-	opacity: 0.5;
-}
-table.dataTable thead .sorting:after {
-    display: none;
-}
-table.dataTable thead .sorting_asc:after {
-    display:none;
-}
-table.dataTable thead .sorting_asc:before {
-	content: "\f0de"; /* sort-by-attributes */
-}
-table.dataTable thead .sorting_desc:after {
-    display:none;
-}
-table.dataTable thead .sorting_desc:before {
-	content: "\f0dd"; /* sort-by-attributes-alt */
-}
-div.dataTables_scrollBody table.dataTable thead .sorting:after,
-div.dataTables_scrollBody table.dataTable thead .sorting_asc:after,
-div.dataTables_scrollBody table.dataTable thead .sorting_desc:after {
-	display: none;
-}
-
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:after {
-	color: #eee;
-}
-
 
 /* =============================================================================
    Application Styles
@@ -345,13 +236,13 @@ h1.page-title {
 
 .ds-dashboard-listing-category {
     margin-right: 4px;
-    color: #777;
+    color: $gray-light;
     width:120px;
     display:inline-block;
 }
 
 .ds-dashboard-listing-last-modified {
-  color: #aaa;
+  color: lighten($gray-light, 15%);
 }
 
 .ds-featured-dashboard {

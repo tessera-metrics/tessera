@@ -1,0 +1,79 @@
+/* Alerts */
+
+// Bootstrap 3 defaults
+$alert-neutral-border: gray !default;
+$alert-neutral-bg: #f0f0f0 !default;
+$alert-neutral-text: darken(darkgray, 20%) !default;
+
+/* $alert-info: #5bc0de !default; */
+/* $alert-info-bg: #d9edf7 !default; */
+/* $alert-info-highlight: #31708f !default; */
+
+/* $alert-success: #5cb85c !default; */
+/* $alert-success-bg: #dff0d8 !default; */
+/* $alert-success-highlight: #3c763d !default; */
+
+/* $alert-warning: #f0ad4e !default; */
+/* $alert-warning-bg: #fcf8e3 !default; */
+/* $alert-warning-highlight: #8a6d3b !default; */
+
+/* $alert-danger: #d9534f !default; */
+/* $alert-danger-bg: #f2dede !default; */
+/* $alert-danger-highlight: #a94442 !default; */
+
+.alert-neutral,
+.bs-callout-neutral {
+  background-color: $alert-neutral-bg;
+  border-color: $alert-neutral-border;
+  h1, h2, h3, h4, h5, h6 {
+    color: $alert-neutral-text;
+  }
+}
+
+.alert-info,
+.bs-callout-info {
+  background-color: $alert-info-bg;
+  border-color: $alert-info-border;
+  h1, h2, h3, h4, h5, h6 {
+    color: $alert-info-text;
+  }
+}
+
+.alert-success,
+.bs-callout-success {
+  background-color: $alert-success-bg;
+  border-color: $alert-success-border;
+  h1, h2, h3, h4, h5, h6 {
+    color: $alert-success-text;
+  }
+}
+
+.alert-warning,
+.bs-callout-warning {
+  background-color: $alert-warning-bg;
+  border-color: $alert-warning-border;
+  h1, h2, h3, h4, h5, h6 {
+    color: $alert-warning-text;
+  }
+}
+
+.alert-danger,
+.bs-callout-danger {
+  background-color: $alert-danger-bg;
+  border-color: $alert-danger-border;
+  h1, h2, h3, h4, h5, h6 {
+    color: $alert-danger-text;
+  }
+}
+
+.ds-warning {
+  h3, .value, .unit {
+    color: $alert-warning-text;
+  }
+}
+
+.ds-danger {
+  h3, .value, .unit {
+    color: $alert-danger-text;
+  }
+}

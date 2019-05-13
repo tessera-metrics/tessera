@@ -103,17 +103,20 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          '_build/css/bootstrap.css':              'src/css/bootstrap.scss',
-          '_build/css/tessera.css':                'src/css/tessera.scss',
-          '_build/css/tessera-typography.css':     'src/css/tessera-typography.scss',
-          '_build/css/themes/bootstrap-dark.css':  'src/css/themes/bootstrap-dark.scss',
-          '_build/css/themes/tessera-dark.css':    'src/css/themes/tessera-dark.scss',
-          '_build/css/themes/bootstrap-light.css': 'src/css/themes/bootstrap-light.scss',
-          '_build/css/themes/tessera-light.css':   'src/css/themes/tessera-light.scss',
-          '_build/css/themes/bootstrap-snow.css':  'src/css/themes/bootstrap-snow.scss',
-          '_build/css/themes/tessera-snow.css':     'src/css/themes/tessera-snow.scss',
-          '_build/css/themes/tessera-solarized-light.css': 'src/css/themes/tessera-solarized-light.scss',
-          '_build/css/themes/tessera-solarized-dark.css':  'src/css/themes/tessera-solarized-dark.scss'
+          '_build/css/bootstrap-light.css':           'src/css/bootstrap/light.scss',
+          '_build/css/tessera-light.css':             'src/css/tessera/light.scss',
+
+          '_build/css/bootstrap-snow.css':            'src/css/bootstrap/snow.scss',
+          '_build/css/tessera-snow.css':              'src/css/tessera/snow.scss',
+
+          '_build/css/bootstrap-dark.css':            'src/css/bootstrap/dark.scss',
+          '_build/css/tessera-dark.css':              'src/css/tessera/dark.scss',
+
+          '_build/css/bootstrap-solarized-light.css': 'src/css/bootstrap/solarized-light.scss',
+          '_build/css/tessera-solarized-light.css':   'src/css/tessera/solarized-light.scss',
+
+          '_build/css/bootstrap-solarized-dark.css':  'src/css/bootstrap/solarized-dark.scss',
+          '_build/css/tessera-solarized-dark.css':    'src/css/tessera/solarized-dark.scss'
         }
       }
     },
@@ -124,7 +127,11 @@ module.exports = function(grunt) {
     autoprefixer: {
       bootstrap: {
         files: {
-          '_build/css/bootstrap.css':'_build/css/bootstrap.css'
+          '_build/css/bootstrap-light.css':          '_build/css/bootstrap-light.css',
+          '_build/css/bootstrap-snow.css':           '_build/css/bootstrap-snow.css',
+          '_build/css/bootstrap-dark.css':           '_build/css/bootstrap-dark.css',
+          '_build/css/bootstrap-solarized-light.css':'_build/css/bootstrap-solarized-light.css',
+          '_build/css/bootstrap-solarized-dark.css': '_build/css/bootstrap-solarized-dark.css'
         }
       }
     },
@@ -145,7 +152,6 @@ module.exports = function(grunt) {
     concat: {
       dep_css: {
         src: [
-          '_build/css/bootstrap.css',
           'src/3rd-Party/css/bootstrap-callouts.css',
           'src/3rd-Party/css/bootstrap-editable.css',
           'src/3rd-Party/css/bootstrap-datetimepicker.css',
@@ -215,8 +221,7 @@ module.exports = function(grunt) {
       },
       app: {
         files: [
-          { expand: true, cwd: 'node_modules/bootstrap-solarized/', src: '*.css', dest: '<%= DIST %>/themes/' },
-          { expand: true, cwd: '_build/css/', src: '**', dest: '<%= DIST %>/' }
+          { expand: true, cwd: '_build/css/', src: '**', dest: '<%= DIST %>/css' }
         ]
       }
     },

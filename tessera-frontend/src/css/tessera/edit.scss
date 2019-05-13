@@ -1,0 +1,79 @@
+/* -----------------------------------------------------------------------------
+   Edit mode headers
+   ----------------------------------------------------------------------------- */
+
+$ds-badge-section: #387AA3;
+$ds-badge-row: #649EB9;
+$ds-badge-cell: #649EB9;
+$ds-badge-item: #D9EDF7;
+
+$ds-edit-bar-section-background: #9DC2D3;
+$ds-edit-bar-section-border: $ds-badge-section;
+$ds-edit-bar-row-border: $ds-badge-row;
+$ds-edit-bar-row-background: #D9EDF7;
+$ds-badge-cell-border: #9DC2D3;
+$ds-edit-bar-cell-background: #E3F7FF;
+$ds-edit-bar-cell-border: $ds-badge-cell-border;
+$ds-badge-item-text: #387AA3;
+$ds-badge-item-border: #649EB9;
+$ds-edit-bar-item-background: #FAFAFA;
+$ds-edit-bar-item-border: $ds-badge-item-border;
+
+/*
+ * Section
+ */
+
+.ds-badge-section {
+    background-color: $ds-badge-section;
+}
+
+.ds-edit-bar-section {
+    background-color: $ds-edit-bar-section-background;
+    border: 1px solid $ds-edit-bar-section-border;
+}
+
+/*
+ * Row
+ */
+
+.ds-badge-row {
+    background-color: $ds-badge-row;
+}
+
+.ds-edit-bar-row {
+    border: 1px solid $ds-edit-bar-row-border;
+    background-color: $ds-edit-bar-row-background;
+}
+
+.ds-row.ds-edit {
+    border: 1px solid $ds-badge-row;
+}
+
+/*
+ * Cell
+ */
+
+.ds-badge-cell {
+    background-color: $ds-badge-cell;
+    border: 1px solid $ds-badge-cell-border;
+}
+
+.ds-edit-bar-cell {
+    background-color: $ds-edit-bar-cell-background;
+    border: 1px solid $ds-edit-bar-cell-border;
+}
+
+/*
+ * Item
+ */
+
+.ds-badge-item {
+    background-color: $ds-badge-item;
+    color: $ds-badge-item-text;
+    border: 1px solid $ds-badge-item-border;
+}
+
+.ds-edit-bar-item {
+    background-color: $ds-edit-bar-item-background;
+    border: 1px solid $ds-edit-bar-item-border;
+}

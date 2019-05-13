@@ -1,6 +1,6 @@
 $ds-tooltip-bg: white !default;
 $ds-tooltip-fg: black !default;
-$ds-tooltip-border-color: #888 !default;
+$ds-tooltip-border-color: $gray-dark !default;
 $ds-tooltip-border: 1px solid $ds-tooltip-border-color !default;
 
 #ds-tooltip {
@@ -9,7 +9,7 @@ $ds-tooltip-border: 1px solid $ds-tooltip-border-color !default;
   border: $ds-tooltip-border;
 }
 
-$ds-value-label-fg: gray !default;
+$ds-value-label-fg: $gray !default;
 $ds-value-label-border-color: #a95353 !default;
 
 .flotValueLabel {
