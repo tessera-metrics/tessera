@@ -4,12 +4,12 @@ $ds-value-label-fg: #ccc;
 $ds-value-label-border-color: #b58900;
 
 @import "../fonts.scss";
-@import "3rd-party.scss";
-@import "typography.scss";
-@import "alerts.scss";
-@import "charts.scss";
-@import "edit.scss";
-@import "app.scss";
+@import "_3rd-party.scss";
+@import "_typography.scss";
+@import "_alerts.scss";
+@import "_charts.scss";
+@import "_edit.scss";
+@import "_app.scss";
 
 /* =============================================================================
    Application Styles
