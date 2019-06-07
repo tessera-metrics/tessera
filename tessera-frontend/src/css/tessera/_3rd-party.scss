@@ -106,3 +106,14 @@ table.dataTable thead .sorting_desc_disabled:after {
 	color: $gray-lighter;
 }
 
+$flot-axis-label-color: black !default;
+
+/* Flot */
+
+g.flot-y-axis, g.flot-x-axis,
+g.y1LabelLayer, g.x1LabelLayer {
+    text {
+        font-weight: 100 !important;
+        stroke: $flot-axis-label-color;
+    }
+}

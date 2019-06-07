@@ -220,12 +220,14 @@ hr {
 }
 
 code {
-  @extend .darkwell;
+  // @extend .darkwell;
+  background: darken(#2f2f2f, 2);
   border: none; //over bs
   padding: 2px 4px; //added, is my well mixin stomping on sass well mixin?
 }
 pre {
-  @extend .darkwell;
+  // @extend .darkwell;
+  background: darken(#2f2f2f, 2);
   border: none; //over bs
   color: $text-color;
   padding: 8px; //added. i think my .well is stomping on bootstrap-sass mixin.
@@ -597,32 +599,6 @@ a.list-group-item.active > .badge,
   }
 }
 
-.alert {
-  color: $ds_inputColor;
-  border-color: $warningBorder;
-  h1,h2,h3,h4,h5,h6 {
-    color: $warningAccent;
-  }
-}
-.alert-error {
-  border-color: $errorBorder;
-  h1,h2,h3,h4,h5,h6 {
-    color: $errorAccent;
-  }
-}
-.alert-success {
-  border-color: $successBorder;
-  h1,h2,h3,h4,h5,h6 {
-    color: $successAccent;
-  }
-}
-.alert-info {
-  border-color: $infoAccent;
-  h1,h2,h3,h4,h5,h6 {
-    color: $infoBorder;
-  }
-}
-
 .progress {
   @extend .darkwell;
 }
@@ -687,51 +663,4 @@ select {
 .dropdown-menu > li > a {
   color: $text-color;
   background: $ds_textBackground;
-}
-
-.dropdown-menu > li > a:focus,
-.dropdown-menu > li > a:hover {
-  color: $ds_inputColor;
-  background-image:-webkit-linear-gradient(top,#080808 0,#0f0f0f 100%);
-  background-image:-o-linear-gradient(top,#080808 0,#0f0f0f 100%);
-  background-image:-webkit-gradient(linear,left top,left bottom,from(#080808),to(#0f0f0f));
-  background-image:linear-gradient(to bottom,#080808 0,#0f0f0f 100%);
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff080808', endColorstr='#ff0f0f0f', GradientType=0);filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
-  background-repeat:repeat-x;
-}
-
-.alert {
-  background-image:-webkit-linear-gradient(top, $warning 0, $warningAccent 100%);
-  background-image:-o-linear-gradient(top, $warning 0, $warningAccent 100%);
-  background-image:-webkit-gradient(linear, left top,left bottom,from($warning),to($warningAccent));
-  background-image:linear-gradient(to bottom, $warning 0, $warningAccent 100%);
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3a87ad', endColorstr='#ff1a3c4e', GradientType=0);filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
-  background-repeat:repeat-x;
-}
-
-.alert-error {
-  background-image:-webkit-linear-gradient(top, $error 0, $errorBorder 100%);
-  background-image:-o-linear-gradient(top, $error 0, $errorBorder 100%);
-  background-image:-webkit-gradient(linear, left top,left bottom,from($error),to($errorBorder));
-  background-image:linear-gradient(to bottom, $error 0, $errorBorder 100%);
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3a87ad', endColorstr='#ff1a3c4e', GradientType=0);filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
-  background-repeat:repeat-x;
-}
-
-.alert-success {
-  background-image:-webkit-linear-gradient(top, $success 0, $successBorder 100%);
-  background-image:-o-linear-gradient(top, $success 0, $successBorder 100%);
-  background-image:-webkit-gradient(linear, left top,left bottom,from($success),to($successBorder));
-  background-image:linear-gradient(to bottom, $success 0, $successBorder 100%);
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3a87ad', endColorstr='#ff1a3c4e', GradientType=0);filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
-  background-repeat:repeat-x;
-}
-
-.alert-info {
-  background-image:-webkit-linear-gradient(top, $info 0, $infoAccent 100%);
-  background-image:-o-linear-gradient(top, $info 0, $infoAccent 100%);
-  background-image:-webkit-gradient(linear, left top,left bottom,from($info),to($infoAccent));
-  background-image:linear-gradient(to bottom, $info 0, $infoAccent 100%);
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3a87ad', endColorstr='#ff1a3c4e', GradientType=0);filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);
-  background-repeat:repeat-x;
 }

@@ -296,7 +296,7 @@ module.exports = function(grunt) {
   ])
 
   grunt.registerTask('css', [
-    'sass', 'copy:app'
+    'sass', 'autoprefixer', 'copy:app'
   ])
 
   /** Compile all third-party dependencies */

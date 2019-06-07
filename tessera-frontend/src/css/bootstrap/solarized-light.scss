@@ -1,3 +1,7 @@
 $icon-font-path: '../fonts/';
 @import "../themes/solarized-light.scss";
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
+.page-header {
+    border-bottom-color: $base2 !important;
+}

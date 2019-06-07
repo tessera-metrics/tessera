@@ -15,26 +15,16 @@ $ds-value-label-border-color: #b58900;
    Application Styles
    ============================================================================= */
 
-.ds-item {
-  h1, h2, h3, h4, h5, h6 {
-    color: #BBB;
-  }
-}
-
-.ds-timerstat h3,
-.ds-singlestat h3 {
-    color: #959588;
-}
-
-.well .ds-timerstat h3,
-.well .ds-singlestat h3 {
-  color: #aa8866;
+#ds-tooltip {
+    background: $gray-dark;
+    border-color: $gray-light;
+    color: $gray-lighter;
 }
 
 .ds-timerstat p,
 .ds-singlestat p {
     color: white;
-}
+} 
 
 .ds-timerstat .unit,
 .ds-singlestat .unit,
@@ -66,28 +56,32 @@ h1 .ds-secondary-title {
   color: #222;
 }
 
+/*
+.ds-item {
+  h1, h2, h3, h4, h5, h6 {
+    color: #BBB;
+  }
+}
+
+.ds-timerstat h3,
+.ds-singlestat h3 {
+    color: #959588;
+}
+
+.well .ds-timerstat h3,
+.well .ds-singlestat h3 {
+  color: #aa8866;
+}
+
+
+
+
 #ds-tooltip {
     color: white;
     background-color: $dark-gray0;
     border: 1px solid #666;
 }
-
-/* =============================================================================
-   3rd Party Tweaks
-   ============================================================================= */
-
-/* Flot 3 */
-
-g.flot-y-axis, g.flot-x-axis,
-g.y1LabelLayer, g.x1LabelLayer {
-    text {
-        font-weight: 100 !important;
-        stroke: $medium-gray;
-    }
-}
-
-/* darkstrap tweaks */
-
+*/
 
 /* -----------------------------------------------------------------------------
  Edit mode headers

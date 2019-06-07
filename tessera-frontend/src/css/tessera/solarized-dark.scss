@@ -6,3 +6,31 @@
 @import "_charts.scss";
 @import "_edit.scss";
 @import "_app.scss";
+
+.ds-heading small {
+    color: $base2;
+}
+
+h1 .ds-secondary-title {
+    color: $base2;
+}
+
+/* -----------------------------------------------------------------------------
+   Select2
+   ----------------------------------------------------------------------------- */
+
+.select2-container .select2-choices .select2-search-field input,
+.select2-container .select2-choice,
+.select2-container .select2-choices,
+.select2-search input,
+.select2-drop
+{
+    background: $background-dark-2;
+    border-color: $base01;
+    color: white;
+}
+
+.select2-arrow {
+    border-left: 1px solid #777;
+    color: white;
+}

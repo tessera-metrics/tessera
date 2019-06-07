@@ -2,22 +2,28 @@
    Edit mode headers
    ----------------------------------------------------------------------------- */
 
-$ds-badge-section: #387AA3;
-$ds-badge-row: #649EB9;
-$ds-badge-cell: #649EB9;
-$ds-badge-item: #D9EDF7;
+$ds-badge-section: #387AA3 !default;
+$ds-badge-row:     #649EB9 !default;
+$ds-badge-cell:    #649EB9 !default;
+$ds-badge-item:    #D9EDF7 !default;
 
-$ds-edit-bar-section-background: #9DC2D3;
-$ds-edit-bar-section-border: $ds-badge-section;
-$ds-edit-bar-row-border: $ds-badge-row;
-$ds-edit-bar-row-background: #D9EDF7;
-$ds-badge-cell-border: #9DC2D3;
-$ds-edit-bar-cell-background: #E3F7FF;
-$ds-edit-bar-cell-border: $ds-badge-cell-border;
-$ds-badge-item-text: #387AA3;
-$ds-badge-item-border: #649EB9;
-$ds-edit-bar-item-background: #FAFAFA;
-$ds-edit-bar-item-border: $ds-badge-item-border;
+$ds-badge-text: black !default;
+
+$ds-edit-bar-section-background:  #9DC2D3 !default;
+$ds-edit-bar-section-border:      $ds-badge-section !default;
+$ds-edit-bar-row-border:          $ds-badge-row !default;
+$ds-edit-bar-row-background:      #D9EDF7 !default;
+$ds-badge-cell-border:            #9DC2D3 !default;
+$ds-edit-bar-cell-background:     #E3F7FF !default;
+$ds-edit-bar-cell-border:         $ds-badge-cell-border !default;
+$ds-badge-item-text:              #387AA3 !default;
+$ds-badge-item-border:            #649EB9 !default;
+$ds-edit-bar-item-background:     #FAFAFA !default;
+$ds-edit-bar-item-border:         $ds-badge-item-border !default;
+
+.ds-badge-section, .ds-badge-row, .ds-badge-cell {
+    color: $ds-badge-text;
+}
 
 /*
  * Section

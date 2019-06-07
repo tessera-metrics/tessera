@@ -1,3 +1,4 @@
+
 $bootstrap-sass-asset-helper: false !default;
 //
 // Variables
@@ -16,10 +17,10 @@ $gray-light:             lighten($gray-base, 46.7%) !default; // #777
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
 $brand-primary:         darken(#428bca, 6.5%) !default; // #337ab7
-$brand-success:         #5bb75b !default;
-$brand-info:            #3a87ad !default;
-$brand-warning:         #faa732 !default;
-$brand-danger:          #fc5b5e !default;
+$brand-success:         #436824 !default;
+$brand-info:            darken(#6a9ab3, 10%) !default;
+$brand-warning:         #a25103 !default;
+$brand-danger:          #a80e0b !default;
 
 
 //== Scaffolding
@@ -149,9 +150,9 @@ $table-border-color:            #ddd !default;
 
 $btn-font-weight:                normal !default;
 
-$btn-default-color:              #333 !default;
-$btn-default-bg:                 #fff !default;
-$btn-default-border:             #ccc !default;
+$btn-default-color:              $gray-lighter !default;
+$btn-default-bg:                 lighten($gray-dark, 5%) !default;
+$btn-default-border:             $gray !default;
 
 $btn-primary-color:              #fff !default;
 $btn-primary-bg:                 $brand-primary !default;
@@ -237,13 +238,13 @@ $cursor-disabled:                not-allowed !default;
 //## Dropdown menu container and contents.
 
 //** Background for the dropdown menu.
-$dropdown-bg:                    #fff !default;
+$dropdown-bg:                    $gray-darker !default;
 //** Dropdown menu `border-color`.
-$dropdown-border:                rgba(0, 0, 0, .15) !default;
+$dropdown-border:                $gray-light !default;
 //** Dropdown menu `border-color` **for IE8**.
 $dropdown-fallback-border:       #ccc !default;
 //** Divider color for between dropdown items.
-$dropdown-divider-bg:            #e5e5e5 !default;
+$dropdown-divider-bg:            $gray !default;
 
 //** Dropdown link text color.
 $dropdown-link-color:            $gray-dark !default;
@@ -501,22 +502,21 @@ $jumbotron-heading-font-size:    ceil(($font-size-base * 4.5)) !default;
 //
 //## Define colors for form feedback states and, by default, alerts.
 
-$state-success-text:             #3c763d !default;
-$state-success-bg:               #dff0d8 !default;
-$state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
+$state-success-text:             desaturate(lighten($brand-success, 8%), 5%) !default;
+$state-success-bg:               darken($brand-success, 10%) !default;
+$state-success-border:           lighten($brand-success, 10%) !default;
 
-$state-info-text:                #31708f !default;
-$state-info-bg:                  #d9edf7 !default;
-$state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
+$state-info-text:                lighten($brand-info, 6%) !default;
+$state-info-bg:                  darken($brand-info, 25%) !default;
+$state-info-border:              lighten($brand-info, 10%) !default;
 
-$state-warning-text:             #8a6d3b !default;
-$state-warning-bg:               #fcf8e3 !default;
-$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
+$state-warning-text:             lighten($brand-warning, 9%) !default;
+$state-warning-bg:               darken($brand-warning, 12%) !default;
+$state-warning-border:           lighten($brand-warning, 10%) !default;
 
-$state-danger-text:              #a94442 !default;
-$state-danger-bg:                #f2dede !default;
-$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
-
+$state-danger-text:              lighten($brand-danger, 9%) !default;
+$state-danger-bg:                darken($brand-danger, 18%) !default;
+$state-danger-border:            lighten($brand-danger, 10%) !default;
 
 //== Tooltips
 //
@@ -674,9 +674,9 @@ $progress-bar-info-bg:        $brand-info !default;
 //##
 
 //** Background color on `.list-group-item`
-$list-group-bg:                 #fff !default;
+$list-group-bg:                 $btn-default-bg;
 //** `.list-group-item` border color
-$list-group-border:             #ddd !default;
+$list-group-border:             $btn-default-border;
 //** List group border radius
 $list-group-border-radius:      $border-radius-base !default;
 
@@ -835,7 +835,7 @@ $close-text-shadow:           0 1px 0 #fff !default;
 //##
 
 $code-color:                  #c7254e !default;
-$code-bg:                     #f9f2f4 !default;
+$code-bg:                     $gray !default;
 
 $kbd-color:                   #fff !default;
 $kbd-bg:                      #333 !default;
@@ -905,4 +905,10 @@ $warning-highlight: #ff9e3f;
 $danger:            #a80e0b;
 $danger-highlight:  #e22424;
 $danger-bg:         #690d0d;
+
+$flot-axis-label-color: $medium-gray;
+
+$alert-neutral-border: $gray-light !default;
+$alert-neutral-bg: lighten($gray-dark, 5%) !default;
+$alert-neutral-text: $gray !default;
 

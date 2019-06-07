@@ -51,7 +51,7 @@ $font-family-serif:       Georgia, 'Times New Roman', Times, serif !default;
 $font-family-monospace:   Menlo, Monaco, Consolas, 'Courier New', monospace !default;
 $font-family-base:        $font-family-sans-serif !default;
 
-$font-size-base:          15px !default;
+$font-size-base:          14px !default;
 $font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
 $font-size-small:         ceil(($font-size-base * .85)) !default; // ~12px
 
@@ -133,7 +133,7 @@ $table-cell-padding:            8px !default;
 $table-condensed-cell-padding:  5px !default;
 
 //** Default background color used for all tables.
-$table-bg:                      $background-light-2 !default;
+$table-bg:                      none !default;
 //** Background color used for `.table-striped`.
 $table-bg-accent:               $background-light-1 !default;
 //** Background color used for `.table-hover`.
@@ -151,8 +151,8 @@ $table-border-color:            $content-1 !default;
 $btn-font-weight:                normal !default;
 
 $btn-default-color:              $content-1 !default;
-$btn-default-bg:                 $background-light-1 !default;
-$btn-default-border:             $content-4 !default;
+$btn-default-bg:                 lighten($background-light-2, 2%) !default;
+$btn-default-border:             lighten($base1, 5%) !default;
 
 $btn-primary-color:              $content-1 !default;
 $btn-primary-bg:                 $background-light-2 !default;
@@ -187,7 +187,7 @@ $btn-border-radius-small:        $border-radius-small !default;
 //##
 
 //** `<input>` background color
-$input-bg:                       $background-light-2 !default;
+$input-bg:                       lighten($background-light-2, 10%) !default;
 //** `<input disabled>` background color
 $input-bg-disabled:              $background-light-1 !default;
 
@@ -238,13 +238,13 @@ $cursor-disabled:                not-allowed !default;
 //## Dropdown menu container and contents.
 
 //** Background for the dropdown menu.
-$dropdown-bg:                    $background-light-1 !default;
+$dropdown-bg:                    lighten($background-light-2, 2%) !default;
 //** Dropdown menu `border-color`.
 $dropdown-border:                rgba(0, 0, 0, .15) !default;
 //** Dropdown menu `border-color` **for IE8**.
 $dropdown-fallback-border:       #222 !default;
 //** Divider color for between dropdown items.
-$dropdown-divider-bg:            $content-3 !default;
+$dropdown-divider-bg:            $base1 !default;
 
 //** Dropdown link text color.
 $dropdown-link-color:            $content-1 !default;
@@ -502,21 +502,21 @@ $jumbotron-heading-font-size:    ceil(($font-size-base * 4.5)) !default;
 //
 //## Define colors for form feedback states and, by default, alerts.
 
-$state-success-text:             lighten($brand-success, 35%) !default;
-$state-success-bg:               $brand-success !default;
-$state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
+$state-success-text:             darken($brand-success, 10%) !default;
+$state-success-bg:               desaturate(lighten($brand-success, 55%), 30%) !default;
+$state-success-border:           adjust-hue($brand-success, -5) !default;
 
-$state-info-text:                lighten($brand-info, 35%) !default;
-$state-info-bg:                  $brand-info !default;
-$state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
+$state-info-text:                darken($brand-info, 10%) !default;
+$state-info-bg:                  desaturate(lighten($brand-info, 45%), 20%) !default;
+$state-info-border:              darken(adjust-hue($brand-info, -10), 12%) !default;
 
-$state-warning-text:             lighten($brand-warning, 35%) !default;
-$state-warning-bg:               $brand-warning !default;
-$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
+$state-warning-text:             darken($brand-warning, 10%) !default;
+$state-warning-bg:               desaturate(lighten($brand-warning, 45%), 20%) !default;
+$state-warning-border:           adjust-hue($brand-warning, -10) !default;
 
-$state-danger-text:              lighten($brand-danger, 35%) !default;
-$state-danger-bg:                $brand-danger !default;
-$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
+$state-danger-text:              darken($brand-danger, 10%) !default;
+$state-danger-bg:                lighten($brand-danger, 35%) !default;
+$state-danger-border:            adjust-hue($brand-danger, -10) !default;
 
 
 //== Tooltips
@@ -835,13 +835,13 @@ $close-text-shadow:           0 1px 0 #fff !default;
 //
 //##
 
-$code-color:                  $red !default;
-$code-bg:                     $background-light-2 !default;
+$code-color:                  $magenta !default;
+$code-bg:                     $base2 !default;
 
 $kbd-color:                   $background-light-2 !default;
 $kbd-bg:                      $yellow !default;
 
-$pre-bg:                      $background-light-2 !default;
+$pre-bg:                      $gray-lighter !default;
 $pre-color:                   $content-3 !default;
 $pre-border-color:            #ccc !default;
 $pre-scrollable-max-height:   340px !default;
@@ -872,4 +872,22 @@ $dl-horizontal-offset:        $component-offset-horizontal !default;
 //** Point at which .dl-horizontal becomes horizontal
 $dl-horizontal-breakpoint:    $grid-float-breakpoint !default;
 //** Horizontal line color.
-$hr-border:                   $content-4 !default;
+$hr-border:                   $base2 !default;
+
+// ----------------------------------------------------------------------
+
+$flot-axis-label-color: $base01;
+$ds-tooltip-bg: lighten($base3, 10%);
+
+$ds-badge-section: $base1;
+$ds-badge-row:     $base1;
+$ds-badge-cell:    $base1;
+$ds-badge-item:    $base1;
+
+$ds-edit-bar-section-background: darken($base2, 10%);
+$ds-edit-bar-row-background:     lighten($ds-edit-bar-section-background, 5%);
+$ds-edit-bar-cell-background:    lighten($ds-edit-bar-section-background, 8%);
+$ds-edit-bar-item-background:    lighten($ds-edit-bar-section-background, 12%);
+
+$ds-badge-item-text: white;
+$ds-badge-text: $base3;

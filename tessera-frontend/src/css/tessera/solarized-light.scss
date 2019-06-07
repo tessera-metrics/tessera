@@ -6,3 +6,21 @@
 @import "_charts.scss";
 @import "_edit.scss";
 @import "_app.scss";
+
+h1 .ds-primary-title {
+    color: $base1;
+}
+
+/* -----------------------------------------------------------------------------
+   Select2
+   ----------------------------------------------------------------------------- */
+
+.select2-container .select2-choices .select2-search-field input,
+.select2-container .select2-choice,
+.select2-container .select2-choices,
+.select2-search input,
+.select2-drop
+{
+    border-color: $content-4;
+}
+
