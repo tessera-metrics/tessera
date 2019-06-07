@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/tessera-metrics/tessera",
   "dependencies": {
-    "axios": "0.15.2",
+    "axios": "^0.18.1",
     "bean": "1.0.15",
     "bluebird": "3.4.6",
     "bootbox": "4.4.0",
