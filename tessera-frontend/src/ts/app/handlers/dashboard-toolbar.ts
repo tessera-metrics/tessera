@@ -103,14 +103,6 @@ $(document).ready(function() {
     window.saveAs(blob, `${dashboard.title} ${now}`)
   })
 
-  $(document).on('click', '#ds-toggle-interactive-button', function(e) {
-    if (manager.toggle_interactive_charts()) {
-      $('#ds-toggle-interactive-button').removeClass('active')
-    } else {
-      $('#ds-toggle-interactive-button').addClass('active')
-    }
-  })
-
   $(document).on('click', '#ds-enter-fullscreen-button', function(e) {
     app.switch_to_mode(app.Mode.DISPLAY)
   })

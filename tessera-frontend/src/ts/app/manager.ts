@@ -368,30 +368,6 @@ export class Manager {
     }
   }
 
-  // Definitely getting to the point we need some kind of reactive MVC
-  // here
-  toggle_interactive_charts() : Promise<boolean> {
-    return this.client.preferences_get()
-      .then(prefs => {
-        let setting = prefs.renderer !== 'flot'
-        let dashboard_url = new URI(this.current.url)
-        let window_url = new URI(window.location)
-
-        if (window_url.hasQuery('interactive', 'true')) {
-          setting = false
-        } else if (window_url.hasQuery('interactive', 'false')) {
-          setting = true
-        }
-
-        dashboard_url.setQuery('interactive', setting)
-        window_url.setQuery('interactive', setting)
-        this.current.url = dashboard_url.href()
-        window.history.pushState({url: this.current.url, element:this.current.element}, '', window_url.href())
-        this.refresh()
-        return setting
-      })
-  }
-
   /* -----------------------------------------------------------------------------
      Time range and auto-refresh
      ----------------------------------------------------------------------------- */
