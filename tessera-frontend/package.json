@@ -32,7 +32,7 @@
     "datatables": "1.10.18",
     "extend": "3.0.2",
     "file-saver": "2.0.1",
-    "flot": "3.0.2",
+    "flot": "3.2.2",
     "flot-axislabels": "1.0.0",
     "flot-d3-stack": "2.1.1",
     "handlebars": "4.1.2",
