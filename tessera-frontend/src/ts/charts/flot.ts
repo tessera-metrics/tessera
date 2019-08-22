@@ -711,7 +711,9 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
     }).filter(function(item) { return item })
     index = 0
     let ticks = data.map(function(series) {
-      return [index++, series.label]
+      return is_horizontal 
+        ? [series.label, index++]
+        : [index++, series.label]
     })
 
     if (is_horizontal) {
@@ -744,7 +746,7 @@ export default class FlotChartRenderer extends charts.ChartRenderer {
       if (event_item) {
         let contents = ts.templates.flot.discrete_bar_tooltip({
           series: event_item.series,
-          value: format(event_item.datapoint[1])
+          value: format(is_horizontal ? event_item.datapoint[0] : event_item.datapoint[1])
         })
         $("#ds-tooltip").remove()
         show_tooltip(pos.pageX, pos.pageY, contents)
