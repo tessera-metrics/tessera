@@ -109,6 +109,9 @@ module.exports = function(grunt) {
           '_build/css/bootstrap-snow.css':            'src/css/bootstrap/snow.scss',
           '_build/css/tessera-snow.css':              'src/css/tessera/snow.scss',
 
+          '_build/css/bootstrap-spacedust.css':       'src/css/bootstrap/spacedust.scss',
+          '_build/css/tessera-spacedust.css':         'src/css/tessera/spacedust.scss',
+
           '_build/css/bootstrap-dark.css':            'src/css/bootstrap/dark.scss',
           '_build/css/tessera-dark.css':              'src/css/tessera/dark.scss',
 
@@ -129,6 +132,7 @@ module.exports = function(grunt) {
         files: {
           '_build/css/bootstrap-light.css':          '_build/css/bootstrap-light.css',
           '_build/css/bootstrap-snow.css':           '_build/css/bootstrap-snow.css',
+          '_build/css/bootstrap-spacedust.css':      '_build/css/bootstrap-spacedust.css',
           '_build/css/bootstrap-dark.css':           '_build/css/bootstrap-dark.css',
           '_build/css/bootstrap-solarized-light.css':'_build/css/bootstrap-solarized-light.css',
           '_build/css/bootstrap-solarized-dark.css': '_build/css/bootstrap-solarized-dark.css'

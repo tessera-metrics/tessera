@@ -1,0 +1,50 @@
+$sdBlue0:    #0a1e24;
+$sdBlue1:    #0f548b;
+$sdBlue2:    #67a0ce;
+$sdBlue3:    #06afc7;
+$sdBrown0:   #684c31;
+$sdBrown1:   #6e5346;
+$sdOrange0:  #e35b00;
+$sdOrange1:  #ff8a3a;
+$sdOrange2:  #ffc878;
+$sdBeige:    #e3cd7b;
+$sdIvory:    #ecf0c1;
+$sdCream:    #f0f1ce;
+$sdWhite:    #fefff1;
+$sdGreen0:   #98fb98;
+$sdGreen1:   #aecab8;
+$sdGreen2:   #5cab96;
+$sdGreen3:   #83a7b4;
+$sdConcrete: #708284;
+$sdRed:      #b22222;
+
+// ----------------------------------------------------------------------
+
+$base03:  #002b36;
+$base02:  #073642;
+$base01:  #586e75;
+$base00:  #657b83;
+$base0:   #839496;
+$base1:   #93a1a1;
+$base2:   #eee8d5;
+$base3:   #fdf6e3;
+
+$yellow:  #b58900;
+$orange:  #cb4b16;
+$red:     #dc322f;
+$magenta: #d33682;
+$violet:  #6c71c4;
+$blue:    #268bd2;
+$cyan:    #2aa198;
+$green:   #859900;
+
+$background-dark-0: $sdBlue0;
+$background-dark-1: lighten($sdBlue0, 3%);
+$background-dark-2: lighten($sdBlue0, 8%);
+$background-light-1: $base2;
+$background-light-2: $base3;
+
+$content-1: $base01;
+$content-2: $base00;
+$content-3: $base0;
+$content-4: $base1;

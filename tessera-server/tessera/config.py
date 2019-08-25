@@ -166,6 +166,7 @@ DASHBOARD_THEMES = [
     'snow',
     'light',
     'dark',
+    'spacedust',
     'solarized-light',
     'solarized-dark'
 ]
